@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/WcfIntegral33" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/WcfIntegral33" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://facturainteligenteintegraciones.com/WsIntegral33_TEST/WsCFDI33.svc?xsd=xsd3" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+  <xs:complexType name="Peticion">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="cadenaComplemento" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="cadenaTXT" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="contrasena" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="pdf" type="xs:boolean" />
+      <xs:element minOccurs="0" name="productivo" type="xs:boolean" />
+      <xs:element minOccurs="0" name="rfcEmisor" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="tipoCFDI" type="xs:int" />
+      <xs:element minOccurs="0" name="usuario" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Peticion" nillable="true" type="tns:Peticion" />
+  <xs:complexType name="Respuesta">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="codigoConfirmacion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="errorEspecifico" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="errorGeneral" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="exito" type="xs:boolean" />
+      <xs:element minOccurs="0" name="pdf" nillable="true" type="xs:base64Binary" />
+      <xs:element minOccurs="0" name="uuid" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="xmlTimbrado" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Respuesta" nillable="true" type="tns:Respuesta" />
+  <xs:complexType name="RespuestaCancelacion">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="acuseCancelacion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="exito" type="xs:boolean" />
+      <xs:element minOccurs="0" name="mensaje_error" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="RespuestaCancelacion" nillable="true" type="tns:RespuestaCancelacion" />
+  <xs:complexType name="RespuestaCancelacionV2">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="DetallesCancelacion" nillable="true" type="tns:ArrayOfDetalleCancelacion" />
+      <xs:element minOccurs="0" name="MensajeError" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MensajeErrorDetallado" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="OperacionExitosa" type="xs:boolean" />
+      <xs:element minOccurs="0" name="XMLAcuse" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="RespuestaCancelacionV2" nillable="true" type="tns:RespuestaCancelacionV2" />
+  <xs:complexType name="ArrayOfDetalleCancelacion">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="DetalleCancelacion" nillable="true" type="tns:DetalleCancelacion" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfDetalleCancelacion" nillable="true" type="tns:ArrayOfDetalleCancelacion" />
+  <xs:complexType name="DetalleCancelacion">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CodigoResultado" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EsCancelableField" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MensajeResultado" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UUID" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="DetalleCancelacion" nillable="true" type="tns:DetalleCancelacion" />
+  <xs:complexType name="RespuestaPeticionesPendientes">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CodigoRespuesta" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MensajeError" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MensajeErrorDetallado" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="OperacionExitosa" type="xs:boolean" />
+      <xs:element xmlns:q1="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="UUIDs" nillable="true" type="q1:ArrayOfstring" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="RespuestaPeticionesPendientes" nillable="true" type="tns:RespuestaPeticionesPendientes" />
+  <xs:complexType name="ArrayOfUUIDProcesarRespuesta">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="UUIDProcesarRespuesta" nillable="true" type="tns:UUIDProcesarRespuesta" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfUUIDProcesarRespuesta" nillable="true" type="tns:ArrayOfUUIDProcesarRespuesta" />
+  <xs:complexType name="UUIDProcesarRespuesta">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Aceptar" type="xs:boolean" />
+      <xs:element minOccurs="0" name="UUID" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="UUIDProcesarRespuesta" nillable="true" type="tns:UUIDProcesarRespuesta" />
+  <xs:complexType name="RespuestaAceptacionRechazo">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CodigoRespuesta" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Fecha" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="Folios" nillable="true" type="tns:ArrayOfFolioRespuesta" />
+      <xs:element minOccurs="0" name="MensajeError" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MensajeErrorDetallado" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="OperacionExitosa" type="xs:boolean" />
+      <xs:element minOccurs="0" name="RFCReceptor" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="XMLAcuse" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="RespuestaAceptacionRechazo" nillable="true" type="tns:RespuestaAceptacionRechazo" />
+  <xs:complexType name="ArrayOfFolioRespuesta">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="FolioRespuesta" nillable="true" type="tns:FolioRespuesta" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfFolioRespuesta" nillable="true" type="tns:ArrayOfFolioRespuesta" />
+  <xs:complexType name="FolioRespuesta">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="EstatusUUID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Respuesta" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UUID" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="FolioRespuesta" nillable="true" type="tns:FolioRespuesta" />
+  <xs:complexType name="RespuestaRelacionados">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="MensajeError" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="OperacionExitosa" type="xs:boolean" />
+      <xs:element minOccurs="0" name="Relacionados" nillable="true" type="tns:Relacionados" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="RespuestaRelacionados" nillable="true" type="tns:RespuestaRelacionados" />
+  <xs:complexType name="Relacionados">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Resultado" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UuidConsultado" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UuidsRelacionadosHijos" nillable="true" type="tns:ArrayOfUUID" />
+      <xs:element minOccurs="0" name="UuidsRelacionadosPadres" nillable="true" type="tns:ArrayOfUUID" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Relacionados" nillable="true" type="tns:Relacionados" />
+  <xs:complexType name="ArrayOfUUID">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="UUID" nillable="true" type="tns:UUID" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfUUID" nillable="true" type="tns:ArrayOfUUID" />
+  <xs:complexType name="UUID">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="RfcEmisor" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="RfcReceptor" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Uuid" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="UUID" nillable="true" type="tns:UUID" />
+</xs:schema>

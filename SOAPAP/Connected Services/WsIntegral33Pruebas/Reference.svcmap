@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="74cdfe98-e174-4b31-862e-2acc195c869d" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://facturainteligenteintegraciones.com/WsIntegral33_TEST/WsCFDI33.svc" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="WsCFDI33.xsd" MetadataType="Schema" ID="a2090c43-5e55-4b73-a132-c997dd2ce132" SourceId="1" SourceUrl="http://facturainteligenteintegraciones.com/WsIntegral33_TEST/WsCFDI33.svc?xsd=xsd0" />
+    <MetadataFile FileName="WsCFDI331.xsd" MetadataType="Schema" ID="4edf3e1c-5e7b-4c27-882f-afae3147bbd3" SourceId="1" SourceUrl="http://facturainteligenteintegraciones.com/WsIntegral33_TEST/WsCFDI33.svc?xsd=xsd1" />
+    <MetadataFile FileName="WsCFDI33.disco" MetadataType="Disco" ID="d834245a-f29b-4606-ab90-5ab1222943cd" SourceId="1" SourceUrl="http://facturainteligenteintegraciones.com/WsIntegral33_TEST/WsCFDI33.svc?disco" />
+    <MetadataFile FileName="WsCFDI33.wsdl" MetadataType="Wsdl" ID="56bf9715-4db3-4b15-89e3-9e9886165713" SourceId="1" SourceUrl="http://facturainteligenteintegraciones.com/WsIntegral33_TEST/WsCFDI33.svc?wsdl" />
+    <MetadataFile FileName="WsCFDI332.xsd" MetadataType="Schema" ID="8af74eca-9b4e-4809-a594-c86029c80188" SourceId="1" SourceUrl="http://facturainteligenteintegraciones.com/WsIntegral33_TEST/WsCFDI33.svc?xsd=xsd2" />
+    <MetadataFile FileName="WsCFDI333.xsd" MetadataType="Schema" ID="d5a85c48-83e4-4dde-af5f-35e2a3f0dc48" SourceId="1" SourceUrl="http://facturainteligenteintegraciones.com/WsIntegral33_TEST/WsCFDI33.svc?xsd=xsd3" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

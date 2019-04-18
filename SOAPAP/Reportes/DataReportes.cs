@@ -1,0 +1,20 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace SOAPAP.Reportes
+{
+    class DataReportes
+    {
+        public string FechaIni { get; set; }
+        public string FechaFin { get; set; }
+        public string CajeroId { get; set; }
+        public string CajeroNombre { get; set; }
+        public string CajeroAPaterno { get; set; }
+        public string CajeroAMaterno { get; set; }
+        public string statusIFB { get; set; }
+        public Boolean pwaFiltrarPorContrato { get; set; }
+    }
+}

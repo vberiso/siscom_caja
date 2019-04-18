@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://tempuri.org/" elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://facturainteligenteintegraciones.com/WsIntegral33_TEST/WsCFDI33.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/WcfIntegral33" />
+  <xs:import schemaLocation="http://facturainteligenteintegraciones.com/WsIntegral33_TEST/WsCFDI33.svc?xsd=xsd3" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+  <xs:element name="TimbrarTxt">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/WcfIntegral33" minOccurs="0" name="_pet" nillable="true" type="q1:Peticion" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="TimbrarTxtResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/WcfIntegral33" minOccurs="0" name="TimbrarTxtResult" nillable="true" type="q2:Respuesta" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Sellar">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="varuser" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="varpas" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="xmlContenido" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="dAdicionales" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="productivo" type="xs:boolean" />
+        <xs:element minOccurs="0" name="tipoCFDI" type="xs:int" />
+        <xs:element minOccurs="0" name="cadenaComplemento" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="pdf" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SellarResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/WcfIntegral33" minOccurs="0" name="SellarResult" nillable="true" type="q3:Respuesta" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Timbrado_bd">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="usuario" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="contrasena" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="xml_Timbrar" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="_referenciaTimbrado" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="productivo" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Timbrado_bdResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q4="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="Timbrado_bdResult" nillable="true" type="q4:ArrayOfstring" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ConsultaporEmisor">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="usuario" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="contrasena" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="rfcEmisor" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="fecha_Inicio" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="fecha_Fin" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ConsultaporEmisorResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q5="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="ConsultaporEmisorResult" nillable="true" type="q5:ArrayOfstring" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="TimbrarXMLconComplementos">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="user" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="password" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="xmlconAdd" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="rfcEmisor" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="tipoCFDI" type="xs:int" />
+        <xs:element minOccurs="0" name="sellar" type="xs:boolean" />
+        <xs:element minOccurs="0" name="productivo" type="xs:boolean" />
+        <xs:element minOccurs="0" name="pdf" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="TimbrarXMLconComplementosResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/WcfIntegral33" minOccurs="0" name="TimbrarXMLconComplementosResult" nillable="true" type="q6:Respuesta" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ObtenerXMLporUuid">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="user" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="password" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="uuid" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="rfcEmisor" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="pdf" type="xs:boolean" />
+        <xs:element minOccurs="0" name="tipoCFDI" type="xs:int" />
+        <xs:element minOccurs="0" name="adicionales" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ObtenerXMLporUuidResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/WcfIntegral33" minOccurs="0" name="ObtenerXMLporUuidResult" nillable="true" type="q7:Respuesta" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CancelarCFDI">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="usuario" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="contrasena" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="rfcEmisor" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="uuid" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="certificadoPKCS12" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="passwordPKCS12" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CancelarCFDIResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q8="http://schemas.datacontract.org/2004/07/WcfIntegral33" minOccurs="0" name="CancelarCFDIResult" nillable="true" type="q8:RespuestaCancelacion" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CancelarCFDIConValidacion">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="usuario" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="contrasena" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="rfcEmisor" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="uuid" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="certificadoPKCS12" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="passwordPKCS12" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CancelarCFDIConValidacionResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q9="http://schemas.datacontract.org/2004/07/WcfIntegral33" minOccurs="0" name="CancelarCFDIConValidacionResult" nillable="true" type="q9:RespuestaCancelacionV2" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ObtenerPeticionesPendientesCancelacion">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="usuario" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="contrasena" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="rfcReceptor" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ObtenerPeticionesPendientesCancelacionResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q10="http://schemas.datacontract.org/2004/07/WcfIntegral33" minOccurs="0" name="ObtenerPeticionesPendientesCancelacionResult" nillable="true" type="q10:RespuestaPeticionesPendientes" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ProcesarAceptacionRechazo">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="usuario" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="contrasena" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="rfcReceptor" nillable="true" type="xs:string" />
+        <xs:element xmlns:q11="http://schemas.datacontract.org/2004/07/WcfIntegral33" minOccurs="0" name="uuids" nillable="true" type="q11:ArrayOfUUIDProcesarRespuesta" />
+        <xs:element minOccurs="0" name="certificadoPKCS12" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="passwordPKCS12" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ProcesarAceptacionRechazoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q12="http://schemas.datacontract.org/2004/07/WcfIntegral33" minOccurs="0" name="ProcesarAceptacionRechazoResult" nillable="true" type="q12:RespuestaAceptacionRechazo" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ConsultarComprobantesRelacionados">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="usuario" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="password" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="UUID" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="RFCReceptor" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="pfxReceptorBase64" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="passwdPfx" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ConsultarComprobantesRelacionadosResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q13="http://schemas.datacontract.org/2004/07/WcfIntegral33" minOccurs="0" name="ConsultarComprobantesRelacionadosResult" nillable="true" type="q13:RespuestaRelacionados" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ObtenerPDF">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="user" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="password" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="xmlTimbrado" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="adicionales" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="rfcEmisor" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="uuid" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="tipoCFDI" type="xs:int" />
+        <xs:element minOccurs="0" name="error" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ObtenerPDFResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="ObtenerPDFResult" nillable="true" type="xs:base64Binary" />
+        <xs:element minOccurs="0" name="error" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ObtenerPDFPakmail">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="user" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="password" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="xmlTimbrado" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="adicionales" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="rfcEmisor" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="uuid" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="tipoCFDI" type="xs:int" />
+        <xs:element minOccurs="0" name="error" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ObtenerPDFPakmailResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="ObtenerPDFPakmailResult" nillable="true" type="xs:base64Binary" />
+        <xs:element minOccurs="0" name="error" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="TimbrarCFDI">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="usuario" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="password" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="cadenaXML" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="referencia" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="TimbrarCFDIResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q14="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="TimbrarCFDIResult" nillable="true" type="q14:ArrayOfstring" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ObtenerAcuseCancelacion">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="usuario" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="password" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="UUID" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ObtenerAcuseCancelacionResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q15="http://schemas.datacontract.org/2004/07/WcfIntegral33" minOccurs="0" name="ObtenerAcuseCancelacionResult" nillable="true" type="q15:RespuestaCancelacionV2" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

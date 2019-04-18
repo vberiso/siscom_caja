@@ -1,0 +1,1026 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{24076F5E-3EC5-43ED-81BF-17EE8990A4FA}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SOAPAP</RootNamespace>
+    <AssemblyName>SISCOM</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <TargetFrameworkProfile />
+    <PublishUrl>\\installer.sosapac.gob.mx\c%24\inetpub\wwwroot\caja\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Unc</InstallFrom>
+    <UpdateEnabled>true</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>true</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <UpdateUrl>http://installer.sosapac.gob.mx/</UpdateUrl>
+    <MinimumRequiredVersion>1.1.1.1</MinimumRequiredVersion>
+    <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
+    <WebPage>publish.htm</WebPage>
+    <ApplicationRevision>35</ApplicationRevision>
+    <ApplicationVersion>1.1.1.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <PublishWizardCompleted>true</PublishWizardCompleted>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestCertificateThumbprint>D3055EDF3D17D0F93F22255428C09FBFCF4B8F2E</ManifestCertificateThumbprint>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestKeyFile>SOAPAP_ClaveTemporal.pfx</ManifestKeyFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <GenerateManifests>true</GenerateManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignManifests>false</SignManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>cubo-ConvertImage %282%29.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>SOAPAP.Program</StartupObject>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
+  </PropertyGroup>
+  <PropertyGroup>
+    <TargetZone>LocalIntranet</TargetZone>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="DevExpress.BonusSkins.v17.1, Version=17.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Data.v17.1, Version=17.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Printing.v17.1.Core, Version=17.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Utils.v17.1, Version=17.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraEditors.v17.1, Version=17.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraLayout.v17.1, Version=17.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraTreeList.v17.1, Version=17.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="FlashControlV71, Version=1.0.3187.32366, Culture=neutral, PublicKeyToken=692fbea5521e1304" />
+    <Reference Include="Gma.QrCodeNet.Encoding, Version=0.4.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\QrCode.Net.0.4.0.0\lib\net45\Gma.QrCodeNet.Encoding.dll</HintPath>
+    </Reference>
+    <Reference Include="Humanizer, Version=2.5.0.0, Culture=neutral, PublicKeyToken=979442b78dfc278e, processorArchitecture=MSIL">
+      <HintPath>..\packages\Humanizer.Core.2.5.16\lib\netstandard1.0\Humanizer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.Common, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportViewer.2015.12.0.2.2403\lib\net40\Microsoft.ReportViewer.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.DataVisualization, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportViewer.2015.12.0.2.2403\lib\net40\Microsoft.ReportViewer.DataVisualization.DLL</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.Design, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportViewer.2015.12.0.2.2403\lib\net40\Microsoft.ReportViewer.Design.DLL</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.ProcessingObjectModel, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportViewer.2015.12.0.2.2403\lib\net40\Microsoft.ReportViewer.ProcessingObjectModel.DLL</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.WebDesign, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportViewer.2015.12.0.2.2403\lib\net40\Microsoft.ReportViewer.WebDesign.DLL</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.WebForms, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportViewer.2015.12.0.2.2403\lib\net40\Microsoft.ReportViewer.WebForms.DLL</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.WinForms, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportViewer.2015.12.0.2.2403\lib\net40\Microsoft.ReportViewer.WinForms.DLL</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.SqlServer.Types, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportViewer.2015.12.0.2.2403\lib\net40\Microsoft.SqlServer.Types.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Spire.License, Version=1.3.7.40, Culture=neutral, PublicKeyToken=b1144360237c8b3f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Spire.PDF.5.2.15\lib\net40\Spire.License.dll</HintPath>
+    </Reference>
+    <Reference Include="Spire.Pdf, Version=5.2.15.2040, Culture=neutral, PublicKeyToken=663f351905198cb3, processorArchitecture=MSIL">
+      <HintPath>..\packages\Spire.PDF.5.2.15\lib\net40\Spire.Pdf.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.IO.Compression" />
+    <Reference Include="System.Management" />
+    <Reference Include="System.Management.Instrumentation" />
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Runtime.InteropServices.RuntimeInformation, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.InteropServices.RuntimeInformation.4.3.0\lib\net45\System.Runtime.InteropServices.RuntimeInformation.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Adeudos.cs" />
+    <Compile Include="Adress.cs" />
+    <Compile Include="Agreement.cs" />
+    <Compile Include="AgreementDetails.cs" />
+    <Compile Include="AgreementDiscount.cs" />
+    <Compile Include="AgreementService.cs" />
+    <Compile Include="Anticipo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Anticipo.Designer.cs">
+      <DependentUpon>Anticipo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Anticipos.cs" />
+    <Compile Include="Connected Services\WsIntegral33Pruebas\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Debst.cs" />
+    <Compile Include="debtPrepaids.cs" />
+    <Compile Include="Enums\CashBoxAccess.cs" />
+    <Compile Include="Enums\Search.cs" />
+    <Compile Include="Enums\TypeIcon.cs" />
+    <Compile Include="Facturacionagrupada.cs" />
+    <Compile Include="Facturaelectronica.cs" />
+    <Compile Include="Getdata.cs" />
+    <Compile Include="Model\AdressVM.cs" />
+    <Compile Include="Model\AgreementProductVM.cs" />
+    <Compile Include="Model\Breach.cs" />
+    <Compile Include="Model\BreachArticle.cs" />
+    <Compile Include="Model\BreachDetail.cs" />
+    <Compile Include="Model\BreachList.cs" />
+    <Compile Include="Model\BreachWarranty.cs" />
+    <Compile Include="Model\CancelPaymentVM.cs" />
+    <Compile Include="Model\ClientVM.cs" />
+    <Compile Include="Model\Comprobante.cs" />
+    <Compile Include="Model\ContactVM.cs" />
+    <Compile Include="Model\Division.cs" />
+    <Compile Include="Model\OrderSale.cs" />
+    <Compile Include="Model\OrderSaleDetails.cs" />
+    <Compile Include="Model\OrderSaleDiscount.cs" />
+    <Compile Include="Model\PaymentConceptsVM.cs" />
+    <Compile Include="Model\PaymentOrdersVM.cs" />
+    <Compile Include="Model\Product.cs" />
+    <Compile Include="Model\ProductParam.cs" />
+    <Compile Include="Model\ProductVM.cs" />
+    <Compile Include="Model\RequiredAttribute.cs" />
+    <Compile Include="Model\ServiceParam.cs" />
+    <Compile Include="Model\TariffProduct.cs" />
+    <Compile Include="Model\TaxAddress.cs" />
+    <Compile Include="Model\Taxresult.cs" />
+    <Compile Include="Model\TaxUser.cs" />
+    <Compile Include="Model\TransactionPaymentVM.cs" />
+    <Compile Include="Model\TransactionVM.cs" />
+    <Compile Include="Model\Warranty.cs" />
+    <Compile Include="Model\XML.cs" />
+    <Compile Include="notificationDetails.cs" />
+    <Compile Include="Notify.cs" />
+    <Compile Include="PopAnticipo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PopAnticipo.Designer.cs">
+      <DependentUpon>PopAnticipo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PopAnticipo2.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PopAnticipo2.Designer.cs">
+      <DependentUpon>PopAnticipo2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PopNotificacion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PopNotificacion.Designer.cs">
+      <DependentUpon>PopNotificacion.cs</DependentUpon>
+    </Compile>
+    <Compile Include="prepaidDetails.cs" />
+    <Compile Include="Producto.cs" />
+    <Compile Include="PupCobroAgua.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PupCobroAgua.Designer.cs">
+      <DependentUpon>PupCobroAgua.cs</DependentUpon>
+    </Compile>
+    <Compile Include="pyment.cs" />
+    <Compile Include="Reportes\DataComboBox.cs" />
+    <Compile Include="Reportes\DataIncomeFromBox.cs" />
+    <Compile Include="Reportes\DataPadronWater.cs" />
+    <Compile Include="Reportes\DataReportes.cs" />
+    <Compile Include="Reportes\DataIncomeByConcept.cs" />
+    <Compile Include="Reportes\IncomeByConceptVM.cs" />
+    <Compile Include="Reportes\InfoRep.cs" />
+    <Compile Include="results.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="results.Designer.cs">
+      <DependentUpon>results.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tariff.cs" />
+    <Compile Include="TiketProductos.cs" />
+    <Compile Include="Tools\Numalet.cs" />
+    <Compile Include="TrasactionVMA.cs" />
+    <Compile Include="TypeDebts.cs" />
+    <Compile Include="UI\Base.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Base.Designer.cs">
+      <DependentUpon>Base.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Clasification.cs" />
+    <Compile Include="Client.cs" />
+    <Compile Include="cobro.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="cobro.Designer.cs">
+      <DependentUpon>cobro.cs</DependentUpon>
+    </Compile>
+    <Compile Include="cobroagua.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="cobroagua.Designer.cs">
+      <DependentUpon>cobroagua.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Auth.cs" />
+    <Compile Include="UI\Cajas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Cajas.Designer.cs">
+      <DependentUpon>Cajas.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Cobro.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Cobro.Designer.cs">
+      <DependentUpon>Cobro.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\FacturaAgrupada.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\FacturaAgrupada.Designer.cs">
+      <DependentUpon>FacturaAgrupada.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\FacturacionAgrupadaCancelacion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\FacturacionAgrupadaCancelacion.Designer.cs">
+      <DependentUpon>FacturacionAgrupadaCancelacion.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\FindOrders.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\FindOrders.Designer.cs">
+      <DependentUpon>FindOrders.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\MessageBoxFormOption.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\MessageBoxFormOption.Designer.cs">
+      <DependentUpon>MessageBoxFormOption.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Contact.cs" />
+    <Compile Include="Countries.cs" />
+    <Compile Include="DataSet1.cs">
+      <DependentUpon>DataSet1.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DataSet1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DataSet1.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Deb.cs" />
+    <Compile Include="Debtdetails.cs" />
+    <Compile Include="Diameter.cs" />
+    <Compile Include="Error.cs" />
+    <Compile Include="ExternalOriginPayment.cs" />
+    <Compile Include="IForm.cs" />
+    <Compile Include="Impresion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Impresion.Designer.cs">
+      <DependentUpon>Impresion.cs</DependentUpon>
+    </Compile>
+    <Compile Include="INIFile.cs" />
+    <Compile Include="UI\Login.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Login.Designer.cs">
+      <DependentUpon>Login.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Address.cs" />
+    <Compile Include="Model\Agreement.cs" />
+    <Compile Include="Model\AgreementDetail.cs" />
+    <Compile Include="Model\AgreementDiscount.cs" />
+    <Compile Include="Model\AgreementLog.cs" />
+    <Compile Include="Model\AgreementService.cs" />
+    <Compile Include="Model\ApplicationUser.cs" />
+    <Compile Include="Model\BranchOffice.cs" />
+    <Compile Include="Model\Clasification.cs" />
+    <Compile Include="Model\Client.cs" />
+    <Compile Include="Model\Configuration.cs" />
+    <Compile Include="Model\Consumption.cs" />
+    <Compile Include="Model\Contact.cs" />
+    <Compile Include="Model\Country.cs" />
+    <Compile Include="Model\Debt.cs" />
+    <Compile Include="Model\DebtDetail.cs" />
+    <Compile Include="Model\DebtDiscount.cs" />
+    <Compile Include="Model\DebtPrepaid.cs" />
+    <Compile Include="Model\DebtStatus.cs" />
+    <Compile Include="Model\Derivative.cs" />
+    <Compile Include="Model\Diameter.cs" />
+    <Compile Include="Model\Discount.cs" />
+    <Compile Include="Model\ExternalOriginPayment.cs" />
+    <Compile Include="Model\Folio.cs" />
+    <Compile Include="Model\LoginModel.cs" />
+    <Compile Include="Model\MessageData.cs" />
+    <Compile Include="Model\Meter.cs" />
+    <Compile Include="Model\Notification.cs" />
+    <Compile Include="Model\NotificationDetail.cs" />
+    <Compile Include="Model\OriginPayment.cs" />
+    <Compile Include="Model\Payment.cs" />
+    <Compile Include="Model\PaymentDetail.cs" />
+    <Compile Include="Model\PayMethod.cs" />
+    <Compile Include="Model\Prepaid.cs" />
+    <Compile Include="Model\PrepaidDetail.cs" />
+    <Compile Include="Model\Region.cs" />
+    <Compile Include="Model\Service.cs" />
+    <Compile Include="Model\State.cs" />
+    <Compile Include="Model\Suburb.cs" />
+    <Compile Include="Model\Tariff.cs" />
+    <Compile Include="Model\Terminal.cs" />
+    <Compile Include="Model\TerminalUser.cs" />
+    <Compile Include="Model\Town.cs" />
+    <Compile Include="Model\Transaction.cs" />
+    <Compile Include="Model\TransactionDetail.cs" />
+    <Compile Include="Model\TransactionFolio.cs" />
+    <Compile Include="Model\TypeClassification.cs" />
+    <Compile Include="Model\TypeCommercialBusiness.cs" />
+    <Compile Include="Model\TypeConsume.cs" />
+    <Compile Include="Model\TypeIntake.cs" />
+    <Compile Include="Model\TypePeriod.cs" />
+    <Compile Include="Model\TypeRegime.cs" />
+    <Compile Include="Model\TypeService.cs" />
+    <Compile Include="Model\TypeStateService.cs" />
+    <Compile Include="Model\TypeTransaction.cs" />
+    <Compile Include="Model\TypeUse.cs" />
+    <Compile Include="OriginPayment.cs" />
+    <Compile Include="PaymentDetails.cs" />
+    <Compile Include="Payments.cs" />
+    <Compile Include="PayMethod.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="querys.cs" />
+    <Compile Include="RawPrinterHelper.cs" />
+    <Compile Include="Region.cs" />
+    <Compile Include="Services\RequestsAPI.cs" />
+    <Compile Include="States.cs" />
+    <Compile Include="Suburb.cs" />
+    <Compile Include="UI\ModalDetalleCaja.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\ModalDetalleCaja.Designer.cs">
+      <DependentUpon>ModalDetalleCaja.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\ModalDetalleCobro.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\ModalDetalleCobro.Designer.cs">
+      <DependentUpon>ModalDetalleCobro.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\ModalFicha.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\ModalFicha.Designer.cs">
+      <DependentUpon>ModalFicha.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\ModalProduct.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\ModalProduct.Designer.cs">
+      <DependentUpon>ModalProduct.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\ModalTax.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\ModalTax.Designer.cs">
+      <DependentUpon>ModalTax.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Movimientos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Movimientos.Designer.cs">
+      <DependentUpon>Movimientos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Reportes.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Reportes.Designer.cs">
+      <DependentUpon>Reportes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\ReportesForms\ReportePadronWater.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\ReportesForms\ReportePadronWater.Designer.cs">
+      <DependentUpon>ReportePadronWater.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\ReportesMenu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\ReportesMenu.Designer.cs">
+      <DependentUpon>ReportesMenu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\ReportesForms\ReporteIBC.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\ReportesForms\ReporteIBC.Designer.cs">
+      <DependentUpon>ReporteIBC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\ReportesForms\ReporteIFB.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\ReportesForms\ReporteIFB.Designer.cs">
+      <DependentUpon>ReporteIFB.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\SearchUser.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\SearchUser.Designer.cs">
+      <DependentUpon>SearchUser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\TerminalFront.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\TerminalFront.Designer.cs">
+      <DependentUpon>TerminalFront.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Terminal.cs" />
+    <Compile Include="TerminalUser.cs" />
+    <Compile Include="Tiket.cs" />
+    <Compile Include="Tiraauditora.cs" />
+    <Compile Include="Town.cs" />
+    <Compile Include="Transaction.cs" />
+    <Compile Include="TransactionCancel.cs" />
+    <Compile Include="TransactionDetail.cs" />
+    <Compile Include="TransactionFolios.cs" />
+    <Compile Include="TransactionVM.cs" />
+    <Compile Include="TransactionVMS.cs" />
+    <Compile Include="TypeCommercialBusiness.cs" />
+    <Compile Include="TypeConsume.cs" />
+    <Compile Include="TypeIntake.cs" />
+    <Compile Include="TypePeriod.cs" />
+    <Compile Include="TypeRegime.cs" />
+    <Compile Include="TypeService.cs" />
+    <Compile Include="TypeStateService.cs" />
+    <Compile Include="TypeTransaction.cs" />
+    <Compile Include="TypeUse.cs" />
+    <Compile Include="UI\Loading.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Loading.Designer.cs">
+      <DependentUpon>Loading.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\ModalFondoCaja.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\ModalFondoCaja.Designer.cs">
+      <DependentUpon>ModalFondoCaja.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\MessageBoxForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\MessageBoxForm.Designer.cs">
+      <DependentUpon>MessageBoxForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\ModalRetiroCaja.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\ModalRetiroCaja.Designer.cs">
+      <DependentUpon>ModalRetiroCaja.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Productos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Productos.Designer.cs">
+      <DependentUpon>Productos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Splash.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Splash.Designer.cs">
+      <DependentUpon>Splash.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Values.cs" />
+    <Compile Include="Variables.cs" />
+    <Compile Include="Venta.cs" />
+    <Compile Include="viewdetails.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="viewdetails.Designer.cs">
+      <DependentUpon>viewdetails.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Anticipo.resx">
+      <DependentUpon>Anticipo.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PopAnticipo.resx">
+      <DependentUpon>PopAnticipo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PopAnticipo2.resx">
+      <DependentUpon>PopAnticipo2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PopNotificacion.resx">
+      <DependentUpon>PopNotificacion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\licenses.licx" />
+    <EmbeddedResource Include="PupCobroAgua.resx">
+      <DependentUpon>PupCobroAgua.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="querys.resx">
+      <DependentUpon>querys.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Report2.rdlc" />
+    <EmbeddedResource Include="Report4.rdlc" />
+    <EmbeddedResource Include="Reporte3.rdlc" />
+    <EmbeddedResource Include="Reportes\IncomeByConcept2Report.rdlc" />
+    <EmbeddedResource Include="Reportes\IncomeFromBoxReport.rdlc" />
+    <EmbeddedResource Include="Reportes\PadronWaterReport.rdlc" />
+    <EmbeddedResource Include="results.resx">
+      <DependentUpon>results.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Base.resx">
+      <DependentUpon>Base.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="cobro.resx">
+      <DependentUpon>cobro.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="cobroagua.resx">
+      <DependentUpon>cobroagua.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Cajas.resx">
+      <DependentUpon>Cajas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Cobro.resx">
+      <DependentUpon>Cobro.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\FacturaAgrupada.resx">
+      <DependentUpon>FacturaAgrupada.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\FacturacionAgrupadaCancelacion.resx">
+      <DependentUpon>FacturacionAgrupadaCancelacion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\FindOrders.resx">
+      <DependentUpon>FindOrders.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\MessageBoxFormOption.resx">
+      <DependentUpon>MessageBoxFormOption.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Impresion.resx">
+      <DependentUpon>Impresion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Login.resx">
+      <DependentUpon>Login.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Report1.rdlc" />
+    <EmbeddedResource Include="UI\ModalDetalleCaja.resx">
+      <DependentUpon>ModalDetalleCaja.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\ModalDetalleCobro.resx">
+      <DependentUpon>ModalDetalleCobro.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\ModalFicha.resx">
+      <DependentUpon>ModalFicha.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\ModalProduct.resx">
+      <DependentUpon>ModalProduct.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\ModalTax.resx">
+      <DependentUpon>ModalTax.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Movimientos.resx">
+      <DependentUpon>Movimientos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Reportes.resx">
+      <DependentUpon>Reportes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\ReportesForms\ReporteIBC.resx">
+      <DependentUpon>ReporteIBC.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\ReportesForms\ReporteIFB.resx">
+      <DependentUpon>ReporteIFB.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\ReportesForms\ReportePadronWater.resx">
+      <DependentUpon>ReportePadronWater.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\ReportesMenu.resx">
+      <DependentUpon>ReportesMenu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\SearchUser.resx">
+      <DependentUpon>SearchUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\TerminalFront.resx">
+      <DependentUpon>TerminalFront.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Loading.resx">
+      <DependentUpon>Loading.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\ModalFondoCaja.resx">
+      <DependentUpon>ModalFondoCaja.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\MessageBoxForm.resx">
+      <DependentUpon>MessageBoxForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\ModalRetiroCaja.resx">
+      <DependentUpon>ModalRetiroCaja.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Productos.resx">
+      <DependentUpon>Productos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Splash.resx">
+      <DependentUpon>Splash.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="viewdetails.resx">
+      <DependentUpon>viewdetails.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="Connected Services\WsIntegral33Pruebas\SOAPAP.WsIntegral33Pruebas.ObtenerPDFPakmailResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\WsIntegral33Pruebas\SOAPAP.WsIntegral33Pruebas.ObtenerPDFResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\WsIntegral33Pruebas\SOAPAP.WsIntegral33Pruebas.Respuesta.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\WsIntegral33Pruebas\SOAPAP.WsIntegral33Pruebas.RespuestaAceptacionRechazo.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\WsIntegral33Pruebas\SOAPAP.WsIntegral33Pruebas.RespuestaCancelacion.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\WsIntegral33Pruebas\SOAPAP.WsIntegral33Pruebas.RespuestaCancelacionV2.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\WsIntegral33Pruebas\SOAPAP.WsIntegral33Pruebas.RespuestaPeticionesPendientes.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\WsIntegral33Pruebas\SOAPAP.WsIntegral33Pruebas.RespuestaRelacionados.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\WsIntegral33Pruebas\WsCFDI33.wsdl" />
+    <None Include="Connected Services\WsIntegral33Pruebas\WsCFDI33.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\WsIntegral33Pruebas\WsCFDI331.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\WsIntegral33Pruebas\WsCFDI332.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\WsIntegral33Pruebas\WsCFDI333.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="DataSet1.xsc">
+      <DependentUpon>DataSet1.xsd</DependentUpon>
+    </None>
+    <None Include="DataSet1.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DataSet1.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="DataSet1.xss">
+      <DependentUpon>DataSet1.xsd</DependentUpon>
+    </None>
+    <None Include="packages.config" />
+    <None Include="Properties\app.manifest" />
+    <None Include="Properties\DataSources\SOAPAP.Reportes.DataIncomeByConcept.datasource" />
+    <None Include="Properties\DataSources\SOAPAP.Reportes.DataPadronWater.datasource" />
+    <None Include="Properties\DataSources\SOAPAP.Reportes.IncomeByConceptVM.datasource" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{C0C07587-41A7-46C8-8FBD-3F9C8EBE2DDC}" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\WsIntegral33Pruebas\WsCFDI33.disco" />
+    <None Include="Connected Services\WsIntegral33Pruebas\configuration91.svcinfo" />
+    <None Include="Connected Services\WsIntegral33Pruebas\configuration.svcinfo" />
+    <None Include="Connected Services\WsIntegral33Pruebas\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <Content Include="cubo-ConvertImage %282%29.ico" />
+    <None Include="Resources\warnning.png" />
+    <None Include="Resources\cerrar-over.png" />
+    <None Include="Resources\config.png" />
+    <Content Include="Resources\abrir-caja.png" />
+    <None Include="Resources\calcel.png" />
+    <None Include="Resources\cash-register.png" />
+    <None Include="Resources\bg.png" />
+    <None Include="Resources\borrar.png" />
+    <None Include="Resources\bg-retiro.png" />
+    <None Include="Resources\buscar-gris.png" />
+    <None Include="Resources\bg-left.png" />
+    <None Include="Resources\bg-rigth.png" />
+    <None Include="Resources\bg-center.png" />
+    <Content Include="Resources\buscar.png" />
+    <None Include="Resources\cancelado.png" />
+    <None Include="Resources\cerrada.png" />
+    <Content Include="Resources\cerrar-caja.png" />
+    <None Include="Resources\confirm.png" />
+    <None Include="Resources\config-blanco.png" />
+    <None Include="Resources\cobrado.png" />
+    <None Include="Resources\cubo-alfa.png" />
+    <None Include="Resources\cerrar-gris.png" />
+    <Content Include="Resources\detalle.png" />
+    <Content Include="Resources\fondo-logo.png" />
+    <None Include="Resources\info.png" />
+    <None Include="Resources\imprimir.png" />
+    <None Include="Resources\home.png" />
+    <None Include="Resources\id-card.png" />
+    <None Include="Resources\ico-information.png" />
+    <Content Include="Resources\liquidacion.png" />
+    <None Include="Resources\liquidar.png" />
+    <Content Include="Resources\logo - blanco.png" />
+    <Content Include="Resources\logout.png" />
+    <None Include="Resources\pass.jpg" />
+    <None Include="Resources\money.png" />
+    <Content Include="Resources\perfil.jpg" />
+    <Content Include="Resources\productos.png" />
+    <Content Include="Resources\reportes.png" />
+    <None Include="Resources\retirado.png" />
+    <Content Include="Resources\retiros.png" />
+    <None Include="Resources\spinner.gif" />
+    <None Include="Resources\sin-estado.png" />
+    <Content Include="Resources\splash-sd.png" />
+    <None Include="Resources\success.png" />
+    <None Include="Resources\store.png" />
+    <None Include="Resources\Timbre.png" />
+    <Content Include="Resources\usuario.png" />
+    <None Include="Resources\icono1.png" />
+    <None Include="Resources\movimientos.png" />
+    <None Include="Resources\Animation.gif" />
+    <Content Include="Resources\cancelar.png" />
+    <Content Include="Resources\cerrar.png" />
+    <None Include="Resources\cuadro1.png" />
+    <None Include="Resources\cuadro2.png" />
+    <None Include="Resources\cubo.png" />
+    <None Include="Resources\cuadro3.png" />
+    <None Include="Resources\cuadro4.png" />
+    <Content Include="Resources\cobro.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.5.1">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.5.1 %28x86 y x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <PublishFile Include="CrystalDecisions.ReportAppServer.ClientDoc">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="CrystalDecisions.ReportAppServer.CommLayer">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="CrystalDecisions.ReportAppServer.CommonControls">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="CrystalDecisions.ReportAppServer.CommonObjectModel">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="CrystalDecisions.ReportAppServer.Controllers">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="CrystalDecisions.ReportAppServer.CubeDefModel">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="CrystalDecisions.ReportAppServer.DataDefModel">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="CrystalDecisions.ReportAppServer.DataSetConversion">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="CrystalDecisions.ReportAppServer.ObjectFactory">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="CrystalDecisions.ReportAppServer.Prompting">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="CrystalDecisions.ReportAppServer.ReportDefModel">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="CrystalDecisions.ReportAppServer.XmlSerialize">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="cubo-ConvertImage %282%29.ico">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>File</FileType>
+    </PublishFile>
+    <PublishFile Include="es\Humanizer.resources">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Satellite</FileType>
+    </PublishFile>
+    <PublishFile Include="log4net">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="AxRDPCOMAPILib">
+      <Guid>{CC802D05-AE07-4C15-B496-DB9D22AA0A84}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>aximp</WrapperTool>
+      <Isolated>False</Isolated>
+    </COMReference>
+    <COMReference Include="RDPCOMAPILib">
+      <Guid>{CC802D05-AE07-4C15-B496-DB9D22AA0A84}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Connected Services\WsIntegral33Pruebas\" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
