@@ -31,17 +31,19 @@
             this.button2 = new System.Windows.Forms.Button();
             this.btnIPC = new System.Windows.Forms.Button();
             this.btnCF = new System.Windows.Forms.Button();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // button2
             // 
-            this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.button2.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.button2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(3)))), ((int)(((byte)(155)))), ((int)(((byte)(229)))));
             this.button2.FlatAppearance.BorderSize = 0;
             this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button2.Font = new System.Drawing.Font("Segoe UI Black", 12F, System.Drawing.FontStyle.Bold);
             this.button2.ForeColor = System.Drawing.Color.White;
-            this.button2.Location = new System.Drawing.Point(70, 52);
+            this.button2.Location = new System.Drawing.Point(24, 10);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(145, 57);
             this.button2.TabIndex = 19;
@@ -51,13 +53,13 @@
             // 
             // btnIPC
             // 
-            this.btnIPC.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnIPC.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.btnIPC.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(3)))), ((int)(((byte)(155)))), ((int)(((byte)(229)))));
             this.btnIPC.FlatAppearance.BorderSize = 0;
             this.btnIPC.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnIPC.Font = new System.Drawing.Font("Segoe UI Black", 12F, System.Drawing.FontStyle.Bold);
             this.btnIPC.ForeColor = System.Drawing.Color.White;
-            this.btnIPC.Location = new System.Drawing.Point(323, 52);
+            this.btnIPC.Location = new System.Drawing.Point(218, 10);
             this.btnIPC.Name = "btnIPC";
             this.btnIPC.Size = new System.Drawing.Size(145, 57);
             this.btnIPC.TabIndex = 20;
@@ -67,13 +69,13 @@
             // 
             // btnCF
             // 
-            this.btnCF.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnCF.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.btnCF.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(3)))), ((int)(((byte)(155)))), ((int)(((byte)(229)))));
             this.btnCF.FlatAppearance.BorderSize = 0;
             this.btnCF.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCF.Font = new System.Drawing.Font("Segoe UI Black", 12F, System.Drawing.FontStyle.Bold);
             this.btnCF.ForeColor = System.Drawing.Color.White;
-            this.btnCF.Location = new System.Drawing.Point(583, 52);
+            this.btnCF.Location = new System.Drawing.Point(412, 10);
             this.btnCF.Name = "btnCF";
             this.btnCF.Size = new System.Drawing.Size(145, 57);
             this.btnCF.TabIndex = 21;
@@ -81,16 +83,38 @@
             this.btnCF.UseVisualStyleBackColor = false;
             this.btnCF.Click += new System.EventHandler(this.btnCF_Click);
             // 
+            // tableLayoutPanel1
+            // 
+            this.tableLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutPanel1.ColumnCount = 4;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel1.Controls.Add(this.button2, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.btnCF, 2, 0);
+            this.tableLayoutPanel1.Controls.Add(this.btnIPC, 1, 0);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(12, 12);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 4;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(776, 309);
+            this.tableLayoutPanel1.TabIndex = 22;
+            // 
             // ReportesMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 349);
-            this.Controls.Add(this.btnCF);
-            this.Controls.Add(this.btnIPC);
-            this.Controls.Add(this.button2);
+            this.Controls.Add(this.tableLayoutPanel1);
             this.Name = "ReportesMenu";
             this.Text = "ReportesMenu";
+            this.tableLayoutPanel1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -99,5 +123,6 @@
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button btnIPC;
         private System.Windows.Forms.Button btnCF;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
     }
 }
