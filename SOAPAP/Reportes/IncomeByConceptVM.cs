@@ -12,15 +12,15 @@ namespace SOAPAP.Reportes
         public string CUENTA { get; set; }
         public string NOMBRE { get; set; }
         public string RUTA { get; set; }
-        public string AGUA { get; set; }
-        public string DRENAJE { get; set; }
-        public string SAN { get; set; }
-        public string REC { get; set; }
-        public string NOTIF { get; set; }
-        public string IVA { get; set; }
-        public string OTROS { get; set; }
-        public string DCTO { get; set; }
-        public string TOTAL { get; set; }
+        public decimal AGUA { get; set; }
+        public decimal DRENAJE { get; set; }
+        public decimal SAN { get; set; }
+        public decimal REC { get; set; }
+        public decimal NOTIF { get; set; }
+        public decimal IVA { get; set; }
+        public decimal OTROS { get; set; }
+        public decimal DCTO { get; set; }
+        public decimal TOTAL { get; set; }
         public string ESTA { get; set; }
         public string MP { get; set; }
     }

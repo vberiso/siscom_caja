@@ -1,5 +1,4 @@
-﻿using Microsoft.Reporting.WinForms;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using SOAPAP.Enums;
 using SOAPAP.Reportes;
 using SOAPAP.Services;
@@ -16,7 +15,7 @@ using System.Windows.Forms;
 
 namespace SOAPAP.UI.ReportesForms
 {
-    public partial class ReporteIBC : Form
+    public partial class RepIBC : Form
     {
         Form loading;
         private RequestsAPI Requests = null;
@@ -26,18 +25,17 @@ namespace SOAPAP.UI.ReportesForms
         private string UrlBase = Properties.Settings.Default.URL;
         string json = string.Empty;
 
-        public ReporteIBC()
+        public RepIBC()
         {
             Requests = new RequestsAPI(UrlBase);
             InitializeComponent();
         }
 
-        private async void ReporteIBC_Load(object sender, EventArgs e)
+        private async void RepIBC_Load(object sender, EventArgs e)
         {
-            await CargarCombos();
-            this.rvwReportes.RefreshReport();
+            await CargarCombos();            
         }
-        
+
         private async Task CargarCombos()
         {
             //Combo para seleccionar el tipo de reporte
@@ -106,12 +104,31 @@ namespace SOAPAP.UI.ReportesForms
             }
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private async void btnGenerar_Click(object sender, EventArgs e)
         {
             loading = new Loading();
             loading.Show(this);
-            cargar();
+            await cargar();
             loading.Close();
+        }
+
+        private void btnExportar_Click(object sender, EventArgs e)
+        {
+            ////Metodo de exportar
+            //DevExpress.Export.ExportSettings.DefaultExportType = DevExpress.Export.ExportType.DataAware;
+            var pivotExportOptions = new DevExpress.XtraPivotGrid.PivotXlsxExportOptions();
+            pivotExportOptions.ExportType = DevExpress.Export.ExportType.WYSIWYG;
+
+            //Selecciono el directorio destino
+            FolderBrowserDialog fbd = new FolderBrowserDialog();
+            fbd.Description = "Selecciona el directorio destino.";
+
+            if (fbd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                string NombreFile = "ResumenConceptos_" + Variables.LoginModel.FullName.Replace(" ", "") + "_" + DateTime.Now.ToString("yyyy-MM-dd");
+                pgcIBC.ExportToXlsx(fbd.SelectedPath + "\\" + NombreFile + ".xlsx", pivotExportOptions);
+                MessageBox.Show("Archivo " + NombreFile + ".xlsx" + " guardado.");
+            }
         }
 
         #region Procesos
@@ -152,20 +169,18 @@ namespace SOAPAP.UI.ReportesForms
                 {
                     var cuentas = lstData.GroupBy(x => x.id_payment).Select(y => new { id_payment = y.Key, lst = y.ToList() }).ToList();
 
-                    List<IncomeByConceptVM> lstIBC = new List<IncomeByConceptVM>();
-                    //lstIBC.Add(new IncomeByConceptVM() { FOLIO = "ab-3456", CUENTA = "987654", NOMBRE = "Jose Mauricio" });
-                    //lstIBC.Add(new IncomeByConceptVM() { FOLIO = "cd-3456", CUENTA = "987123", NOMBRE = "Julio Cesar" });
+                    List<IncomeByConceptVM> lstIBC = new List<IncomeByConceptVM>();                    
                     foreach (var elem in cuentas)
                     {
                         string FOLIO = elem.lst.First().folio_impresion;
                         string CUENTA = elem.lst.First().CUENTA;
                         string NOMBRE = elem.lst.First().cliente;
                         string RUTA = elem.lst.First().RUTA;
-                        decimal AGUA = elem.lst.Where(x => !x.description.Contains("RECARGO") && x.description.Contains("AGUA")  && x.tipo_movimiento == "TIP01").Sum(y => y.importe);
+                        decimal AGUA = elem.lst.Where(x => !x.description.Contains("RECARGO") && x.description.Contains("AGUA") && x.tipo_movimiento == "TIP01").Sum(y => y.importe);
                         decimal DRENAJE = elem.lst.Where(x => !x.description.Contains("RECARGO") && x.description.Contains("DRENAJE") && x.tipo_movimiento == "TIP01").Sum(y => y.importe);
                         decimal SAN = elem.lst.Where(x => !x.description.Contains("RECARGO") && x.description.Contains("SANEAMIENTO") && x.tipo_movimiento == "TIP01").Sum(y => y.importe);
                         decimal REC = elem.lst.Where(x => x.description.Contains("RECARGO") && x.tipo_movimiento == "TIP01").Sum(y => y.importe);
-                        decimal NOTIF = elem.lst.Where(x => x.description.Contains("Notificacion" ) && x.tipo_movimiento == "TIP03").Sum(y => y.importe);
+                        decimal NOTIF = elem.lst.Where(x => x.description.Contains("Notificacion") && x.tipo_movimiento == "TIP03").Sum(y => y.importe);
                         decimal IVA = elem.lst.Sum(y => y.iva);
                         decimal OTROS = elem.lst.Where(x => x.tipo_movimiento == "S/T" || x.tipo_movimiento == "TIP02").Sum(y => y.importe);
                         decimal DESCUENTO = 0;
@@ -193,46 +208,22 @@ namespace SOAPAP.UI.ReportesForms
                         lstIBC.Add(ibcTemp);
                     }
 
-                    //IncomeByConceptVMBindingSource.DataSource = lstIBC;
-
                     try
                     {
-                        this.rvwReportes.LocalReport.ReportEmbeddedResource = "SOAPAP.Reportes.IncomeByConcept2Report.rdlc";
-                        this.rvwReportes.LocalReport.DataSources.Clear();
+                        pgcIBC.DataSource = lstIBC;
 
-                        ReportDataSource rds1 = new ReportDataSource("IBC", lstIBC);
-                        this.rvwReportes.LocalReport.DataSources.Add(rds1);
+                        //this.rvwReportes.LocalReport.ReportEmbeddedResource = "SOAPAP.Reportes.IncomeByConcept2Report.rdlc";
+                        //this.rvwReportes.LocalReport.DataSources.Clear();
 
-                        //InfoRep INFOREP = new InfoRep() { NombreEmpresa = "", FechaDeImpresion = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss"), Cajero = Variables.LoginModel.FullName, imgLogo = "" };
-                        //ReportDataSource rds2 = new ReportDataSource("INFO", INFOREP);
-                        //this.rvwReportes.LocalReport.DataSources.Add(rds2);
+                        //ReportDataSource rds1 = new ReportDataSource("IBC", lstIBC);
+                        //this.rvwReportes.LocalReport.DataSources.Add(rds1);
 
-                        //var tmp = Variables.ImagenData.Rows;
-
-                        //ReportDataSource rdsImagen = new ReportDataSource("Imagenes", Variables.ImagenData);
-                        //rvwReportes.LocalReport.DataSources.Add(rdsImagen);
-
-                        this.rvwReportes.RefreshReport();
+                        //this.rvwReportes.RefreshReport();
                     }
                     catch (Exception e)
                     {
                         var res = e.Message;
                     }
-
-
-                    //this.reportViewer1.LocalReport.ReportEmbeddedResource = "SOAPAP.Report4.rdlc";
-                    //ReportDataSource rds1 = new ReportDataSource("DatosGenerales", Variables.datosgenerales);
-                    //this.reportViewer1.LocalReport.DataSources.Add(rds1);
-                    //ReportDataSource rds2 = new ReportDataSource("DatosPadron", Variables.datospadron);
-                    //this.reportViewer1.LocalReport.DataSources.Add(rds2);
-                    //ReportDataSource rds4 = new ReportDataSource("Imagen", Variables.ImagenData);
-                    //this.reportViewer1.LocalReport.DataSources.Add(rds4);
-                    //ReportDataSource rds3 = new ReportDataSource("Pago", Variables.pagos);
-                    //this.reportViewer1.LocalReport.DataSources.Add(rds3);
-                    //ReportDataSource rds5 = new ReportDataSource("Folio", Variables.Foliotiket);
-                    //reportViewer1.SetDisplayMode(DisplayMode.PrintLayout);
-                    //this.reportViewer1.LocalReport.DataSources.Add(rds5);
-
                 }
             }
         }
@@ -267,6 +258,6 @@ namespace SOAPAP.UI.ReportesForms
 
         #endregion
 
-        
+       
     }
 }

@@ -459,6 +459,18 @@
     <Compile Include="UI\Reportes.Designer.cs">
       <DependentUpon>Reportes.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\ReportesForms\RepIBC.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\ReportesForms\RepIBC.Designer.cs">
+      <DependentUpon>RepIBC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\ReportesForms\RepIFB.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\ReportesForms\RepIFB.Designer.cs">
+      <DependentUpon>RepIFB.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\ReportesForms\ReportePadronWater.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -655,6 +667,12 @@
     <EmbeddedResource Include="UI\Reportes.resx">
       <DependentUpon>Reportes.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UI\ReportesForms\RepIBC.resx">
+      <DependentUpon>RepIBC.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\ReportesForms\RepIFB.resx">
+      <DependentUpon>RepIFB.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\ReportesForms\ReporteIBC.resx">
       <DependentUpon>ReporteIBC.cs</DependentUpon>
     </EmbeddedResource>
@@ -748,6 +766,7 @@
     <None Include="packages.config" />
     <None Include="Properties\app.manifest" />
     <None Include="Properties\DataSources\SOAPAP.Reportes.DataIncomeByConcept.datasource" />
+    <None Include="Properties\DataSources\SOAPAP.Reportes.DataIncomeFromBox1.datasource" />
     <None Include="Properties\DataSources\SOAPAP.Reportes.DataPadronWater.datasource" />
     <None Include="Properties\DataSources\SOAPAP.Reportes.IncomeByConceptVM.datasource" />
     <None Include="Properties\Settings.settings">

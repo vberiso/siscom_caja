@@ -46,12 +46,12 @@ namespace SOAPAP.UI
          
         private void button2_Click(object sender, EventArgs e)
         {
-            ShowForm("SOAPAP", "UI.ReportesForms.ReporteIFB");
+            ShowForm("SOAPAP", "UI.ReportesForms.RepIFB");
         }
 
         private void btnIPC_Click(object sender, EventArgs e)
         {
-            ShowForm("SOAPAP", "UI.ReportesForms.ReporteIBC");            
+            ShowForm("SOAPAP", "UI.ReportesForms.RepIBC");            
         }
 
         private void btnCF_Click(object sender, EventArgs e)
