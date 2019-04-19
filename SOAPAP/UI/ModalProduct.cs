@@ -17,6 +17,7 @@ namespace SOAPAP.UI
         public static string Measure { get; set; } = "";
         public static int TypeProduct { get; set; }
         public static decimal Quatity { get; set; } = 0;
+        public static bool IsCancel { get; set; } = false;
         DialogResult result = new DialogResult();
         Form mensaje;
 
@@ -51,6 +52,8 @@ namespace SOAPAP.UI
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
+            ModalProduct.Quatity = 1;
+            ModalProduct.IsCancel = true;
             this.Close();
         }
 
@@ -58,6 +61,7 @@ namespace SOAPAP.UI
         {
             if (!string.IsNullOrEmpty(txtFactor.Text))
             {
+                ModalProduct.IsCancel = false;
                 UI.Productos Return = ((UI.Productos)this.Owner.OwnedForms.Where(x => x.Name == "Productos").FirstOrDefault());
                 switch (TypeProduct)
                 {
