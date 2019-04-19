@@ -319,115 +319,136 @@ namespace SOAPAP.UI
             return rowIndex;
         }
 
-        public void AddProductToGrid()
+        public void AddProductToGrid(int vp)
         {
             int rowIndex = RonwIndexIfExist();
 
-            if (vp == 1)
+            switch (vp)
             {
-                //if(rowIndex == -1)
-                //{
-                //    DataRow row = dts1.NewRow();
-                //    row["ID"] = idproducto;
-                //    row["NOMBRE"] = namesconcept;
-                //    row["TOTAL"] = ModalProduct.Quatity;
-                //    row["IVA"] = m.haveTax;
-                //    if (m.haveTax)
-                //        row["AMOUNTIVA"] = Math.Round((((decimal)row["TOTAL"] * Convert.ToDecimal(Variables.Configuration.IVA)) / 100), 2);
-                //    else
-                //        row["AMOUNTIVA"] = 0;
-                //    row["CANTIDAD"] = 1;
-                //    row["UNIDAD"] = m.product.ProductParams.FirstOrDefault().UnitMeasurement;
-                //    dts1.Rows.Add(row);
+                case 1:
+                    {
+                        //if(rowIndex == -1)
+                        //{
+                        //    DataRow row = dts1.NewRow();
+                        //    row["ID"] = idproducto;
+                        //    row["NOMBRE"] = namesconcept;
+                        //    row["TOTAL"] = ModalProduct.Quatity;
+                        //    row["IVA"] = m.haveTax;
+                        //    if (m.haveTax)
+                        //        row["AMOUNTIVA"] = Math.Round((((decimal)row["TOTAL"] * Convert.ToDecimal(Variables.Configuration.IVA)) / 100), 2);
+                        //    else
+                        //        row["AMOUNTIVA"] = 0;
+                        //    row["CANTIDAD"] = 1;
+                        //    row["UNIDAD"] = m.product.ProductParams.FirstOrDefault().UnitMeasurement;
+                        //    dts1.Rows.Add(row);
 
-                //    tarifagrid();
-                //    Total();
-                //}
-                //else
-                //{
-                    DataRow row = dts1.NewRow();
-                    row["ID"] = idproducto;
-                    row["NOMBRE"] = namesconcept;
-                    row["TOTAL"] = ModalProduct.Quatity;
-                    row["IVA"] = m.haveTax;
-                    if (m.haveTax)
-                        row["AMOUNTIVA"] = Math.Round((((decimal)row["TOTAL"] * Convert.ToDecimal(Variables.Configuration.IVA)) / 100), 2);
-                    else
-                        row["AMOUNTIVA"] = 0;
-                    row["CANTIDAD"] = 1;
-                    row["UNIDAD"] = m.product.ProductParams.FirstOrDefault().UnitMeasurement;
-                    dts1.Rows.Add(row);
+                        //    tarifagrid();
+                        //    Total();
+                        //}
+                        //else
+                        //{
+                        DataRow row = dts1.NewRow();
+                        row["ID"] = idproducto;
+                        row["NOMBRE"] = namesconcept;
+                        row["TOTAL"] = ModalProduct.Quatity;
+                        row["IVA"] = m.haveTax;
+                        if (m.haveTax)
+                            row["AMOUNTIVA"] = Math.Round((((decimal)row["TOTAL"] * Convert.ToDecimal(Variables.Configuration.IVA)) / 100), 2);
+                        else
+                            row["AMOUNTIVA"] = 0;
+                        row["CANTIDAD"] = 1;
+                        row["UNIDAD"] = m.product.ProductParams.FirstOrDefault().UnitMeasurement;
+                        dts1.Rows.Add(row);
 
-                    tarifagrid();
-                    Total();
-                //}
-                //else
-                //{
-                //    var RowUpdate = dgvMovimientos.Rows[rowIndex];
-                //    RowUpdate.Cells[3].Value = Convert.ToDecimal(dgvMovimientos.Rows[rowIndex].Cells[3].FormattedValue) + ModalProduct.Quatity;
-                //    if (m.haveTax)
-                //        RowUpdate.Cells[5].Value = Math.Round(((Convert.ToDecimal(RowUpdate.Cells[3].FormattedValue) * Convert.ToDecimal(Variables.Configuration.IVA)) / 100), 2);
-                //    tarifagrid();
-                //    Total();
-                //}
-              
-            }
-            else if (vp == 2)
-            {
-                DataRow row = dts1.NewRow();
-                row["ID"] = idproducto;
-                row["NOMBRE"] = namesconcept;
-                row["TOTAL"] = (ModalProduct.Quatity * m.percentage) / 100;
-                row["IVA"] = m.haveTax;
-                if (m.haveTax)
-                    row["AMOUNTIVA"] = Math.Round((((decimal)row["TOTAL"] * Convert.ToDecimal(Variables.Configuration.IVA)) / 100), 2);
-                else
-                    row["AMOUNTIVA"] = 0;
-                row["CANTIDAD"] = 1;
-                row["UNIDAD"] = m.product.ProductParams.FirstOrDefault().UnitMeasurement;
-                dts1.Rows.Add(row);
-                tarifagrid();
-                Total();
-            }
-            else if (vp == 3)
-            {
-                DataRow row = dts1.NewRow();
-                row["ID"] = idproducto;
-                row["NOMBRE"] = namesconcept;
-                row["TOTAL"] = ModalProduct.Quatity * Convert.ToDecimal(m.amount);
-                row["IVA"] = m.haveTax;
-                if (m.haveTax)
-                    row["AMOUNTIVA"] = Math.Round((((decimal)row["TOTAL"] * Convert.ToDecimal(Variables.Configuration.IVA)) / 100), 2);
-                else
-                    row["AMOUNTIVA"] = 0;
-                row["CANTIDAD"] = ModalProduct.Quatity;
-                row["UNIDAD"] = m.product.ProductParams.FirstOrDefault().UnitMeasurement;
-                dts1.Rows.Add(row);
+                        tarifagrid();
+                        Total();
+                        break;
+                        //}
+                        //else
+                        //{
+                        //    var RowUpdate = dgvMovimientos.Rows[rowIndex];
+                        //    RowUpdate.Cells[3].Value = Convert.ToDecimal(dgvMovimientos.Rows[rowIndex].Cells[3].FormattedValue) + ModalProduct.Quatity;
+                        //    if (m.haveTax)
+                        //        RowUpdate.Cells[5].Value = Math.Round(((Convert.ToDecimal(RowUpdate.Cells[3].FormattedValue) * Convert.ToDecimal(Variables.Configuration.IVA)) / 100), 2);
+                        //    tarifagrid();
+                        //    Total();
+                        //}
 
-                tarifagrid();
-                Total();
-            }
-            else if (vp == 4)
-            {
-                //if(rowIndex == -1)
-                //{
-                    DataRow row = dts1.NewRow();
-                    row["ID"] = m.productId;
-                    row["NOMBRE"] = namesconcept;
-                    row["TOTAL"] = Convert.ToDecimal(Variables.Configuration.minimumsalary) * ModalProduct.Quatity;
-                    row["IVA"] = m.haveTax;
-                    decimal amount = Convert.ToDecimal(Variables.Configuration.minimumsalary) * ModalProduct.Quatity;
-                    if (m.haveTax)
-                        row["AMOUNTIVA"] = Math.Round(((amount * Convert.ToDecimal(Variables.Configuration.IVA)) / 100), 2);
-                    else
-                        row["AMOUNTIVA"] = 0;
-                    row["CANTIDAD"] = 1;
-                    row["UNIDAD"] = m.product.ProductParams.FirstOrDefault().UnitMeasurement;
-                    dts1.Rows.Add(row);
-                    tarifagrid();
-                    Total();
-                //}
-                
+                    }
+
+                case 2:
+                    {
+                        DataRow row = dts1.NewRow();
+                        row["ID"] = idproducto;
+                        row["NOMBRE"] = namesconcept;
+                        row["TOTAL"] = (ModalProduct.Quatity * m.percentage) / 100;
+                        row["IVA"] = m.haveTax;
+                        if (m.haveTax)
+                            row["AMOUNTIVA"] = Math.Round((((decimal)row["TOTAL"] * Convert.ToDecimal(Variables.Configuration.IVA)) / 100), 2);
+                        else
+                            row["AMOUNTIVA"] = 0;
+                        row["CANTIDAD"] = 1;
+                        row["UNIDAD"] = m.product.ProductParams.FirstOrDefault().UnitMeasurement;
+                        dts1.Rows.Add(row);
+                        tarifagrid();
+                        Total();
+                        break;
+                    }
+
+                case 3:
+                    {
+                        DataRow row = dts1.NewRow();
+                        row["ID"] = idproducto;
+                        row["NOMBRE"] = namesconcept;
+                        row["TOTAL"] = ModalProduct.Quatity * Convert.ToDecimal(m.amount);
+                        row["IVA"] = m.haveTax;
+                        if (m.haveTax)
+                            row["AMOUNTIVA"] = Math.Round((((decimal)row["TOTAL"] * Convert.ToDecimal(Variables.Configuration.IVA)) / 100), 2);
+                        else
+                            row["AMOUNTIVA"] = 0;
+                        row["CANTIDAD"] = ModalProduct.Quatity;
+                        row["UNIDAD"] = m.product.ProductParams.FirstOrDefault().UnitMeasurement;
+                        dts1.Rows.Add(row);
+
+                        tarifagrid();
+                        Total();
+                        break;
+                    }
+
+                case 4:
+                    {
+                        //if(rowIndex == -1)
+                        //{
+                        DataRow row = dts1.NewRow();
+                        row["ID"] = m.productId;
+                        row["NOMBRE"] = namesconcept;
+                        row["TOTAL"] = Convert.ToDecimal(Variables.Configuration.minimumsalary) * ModalProduct.Quatity;
+                        row["IVA"] = m.haveTax;
+                        decimal amount = Convert.ToDecimal(Variables.Configuration.minimumsalary) * ModalProduct.Quatity;
+                        if (m.haveTax)
+                            row["AMOUNTIVA"] = Math.Round(((amount * Convert.ToDecimal(Variables.Configuration.IVA)) / 100), 2);
+                        else
+                            row["AMOUNTIVA"] = 0;
+                        row["CANTIDAD"] = 1;
+                        row["UNIDAD"] = m.product.ProductParams.FirstOrDefault().UnitMeasurement;
+                        dts1.Rows.Add(row);
+                        tarifagrid();
+                        Total();
+                        break;
+                        //}
+
+                    }
+                    //}
+                    //else
+                    //{
+                    //    var RowUpdate = dgvMovimientos.Rows[rowIndex];
+                    //    RowUpdate.Cells[3].Value = Convert.ToDecimal(dgvMovimientos.Rows[rowIndex].Cells[3].FormattedValue) + ModalProduct.Quatity;
+                    //    if (m.haveTax)
+                    //        RowUpdate.Cells[5].Value = Math.Round(((Convert.ToDecimal(RowUpdate.Cells[3].FormattedValue) * Convert.ToDecimal(Variables.Configuration.IVA)) / 100), 2);
+                    //    tarifagrid();
+                    //    Total();
+                    //}
+
             }
         }
       

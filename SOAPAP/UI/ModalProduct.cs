@@ -68,27 +68,27 @@ namespace SOAPAP.UI
                     case 1:
                         Productos.vp = 1;
                         Quatity = Convert.ToDecimal(txtFactor.Text);
-                        Return.AddProductToGrid();
+                        Return.AddProductToGrid(1);
                         break;
                     case 2:
                         Productos.vp = 2;
                         Quatity = Convert.ToDecimal(txtFactor.Text);
-                        Return.AddProductToGrid();
+                        Return.AddProductToGrid(2);
                         break;
                     case 3:
                         Productos.vp = 3;
                         Quatity = Convert.ToDecimal(txtFactor.Text);
-                        Return.AddProductToGrid();
+                        Return.AddProductToGrid(3);
                         break;
                     case 4:
                         Productos.vp = 4;
                         Quatity = Convert.ToDecimal(txtFactor.Text);
-                        Return.AddProductToGrid();
+                        Return.AddProductToGrid(4);
                         break;
                     case 5:
                         Productos.vp = 5;
                         Quatity = Convert.ToDecimal(txtFactor.Text);
-                        Return.AddProductToGrid();
+                        Return.AddProductToGrid(5);
                         break;
                 }
 
