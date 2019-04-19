@@ -327,26 +327,6 @@ namespace SOAPAP.UI
             {
                 case 1:
                     {
-                        //if(rowIndex == -1)
-                        //{
-                        //    DataRow row = dts1.NewRow();
-                        //    row["ID"] = idproducto;
-                        //    row["NOMBRE"] = namesconcept;
-                        //    row["TOTAL"] = ModalProduct.Quatity;
-                        //    row["IVA"] = m.haveTax;
-                        //    if (m.haveTax)
-                        //        row["AMOUNTIVA"] = Math.Round((((decimal)row["TOTAL"] * Convert.ToDecimal(Variables.Configuration.IVA)) / 100), 2);
-                        //    else
-                        //        row["AMOUNTIVA"] = 0;
-                        //    row["CANTIDAD"] = 1;
-                        //    row["UNIDAD"] = m.product.ProductParams.FirstOrDefault().UnitMeasurement;
-                        //    dts1.Rows.Add(row);
-
-                        //    tarifagrid();
-                        //    Total();
-                        //}
-                        //else
-                        //{
                         DataRow row = dts1.NewRow();
                         row["ID"] = idproducto;
                         row["NOMBRE"] = namesconcept;
@@ -363,17 +343,6 @@ namespace SOAPAP.UI
                         tarifagrid();
                         Total();
                         break;
-                        //}
-                        //else
-                        //{
-                        //    var RowUpdate = dgvMovimientos.Rows[rowIndex];
-                        //    RowUpdate.Cells[3].Value = Convert.ToDecimal(dgvMovimientos.Rows[rowIndex].Cells[3].FormattedValue) + ModalProduct.Quatity;
-                        //    if (m.haveTax)
-                        //        RowUpdate.Cells[5].Value = Math.Round(((Convert.ToDecimal(RowUpdate.Cells[3].FormattedValue) * Convert.ToDecimal(Variables.Configuration.IVA)) / 100), 2);
-                        //    tarifagrid();
-                        //    Total();
-                        //}
-
                     }
 
                 case 2:
@@ -417,8 +386,6 @@ namespace SOAPAP.UI
 
                 case 4:
                     {
-                        //if(rowIndex == -1)
-                        //{
                         DataRow row = dts1.NewRow();
                         row["ID"] = m.productId;
                         row["NOMBRE"] = namesconcept;
@@ -435,23 +402,10 @@ namespace SOAPAP.UI
                         tarifagrid();
                         Total();
                         break;
-                        //}
-
                     }
-                    //}
-                    //else
-                    //{
-                    //    var RowUpdate = dgvMovimientos.Rows[rowIndex];
-                    //    RowUpdate.Cells[3].Value = Convert.ToDecimal(dgvMovimientos.Rows[rowIndex].Cells[3].FormattedValue) + ModalProduct.Quatity;
-                    //    if (m.haveTax)
-                    //        RowUpdate.Cells[5].Value = Math.Round(((Convert.ToDecimal(RowUpdate.Cells[3].FormattedValue) * Convert.ToDecimal(Variables.Configuration.IVA)) / 100), 2);
-                    //    tarifagrid();
-                    //    Total();
-                    //}
-
             }
         }
-      
+
         private void dgvMovimientos_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0)
