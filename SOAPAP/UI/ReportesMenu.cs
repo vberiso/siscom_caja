@@ -56,7 +56,7 @@ namespace SOAPAP.UI
 
         private void btnCF_Click(object sender, EventArgs e)
         {
-            ShowForm("SOAPAP", "UI.ReportesForms.ReportePadronWater");
+            ShowForm("SOAPAP", "UI.ReportesForms.RepPadronWater");
         }
     }
 }

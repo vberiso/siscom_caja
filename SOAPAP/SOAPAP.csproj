@@ -82,10 +82,12 @@
   <ItemGroup>
     <Reference Include="DevExpress.BonusSkins.v17.1, Version=17.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Data.v17.1, Version=17.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.PivotGrid.v17.1.Core, Version=17.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.Printing.v17.1.Core, Version=17.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.Utils.v17.1, Version=17.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.XtraEditors.v17.1, Version=17.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.XtraLayout.v17.1, Version=17.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraPivotGrid.v17.1, Version=17.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraTreeList.v17.1, Version=17.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="FlashControlV71, Version=1.0.3187.32366, Culture=neutral, PublicKeyToken=692fbea5521e1304" />
     <Reference Include="Gma.QrCodeNet.Encoding, Version=0.4.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -463,6 +465,12 @@
     <Compile Include="UI\ReportesForms\ReportePadronWater.Designer.cs">
       <DependentUpon>ReportePadronWater.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\ReportesForms\RepPadronWater.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\ReportesForms\RepPadronWater.Designer.cs">
+      <DependentUpon>RepPadronWater.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\ReportesMenu.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -655,6 +663,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\ReportesForms\ReportePadronWater.resx">
       <DependentUpon>ReportePadronWater.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\ReportesForms\RepPadronWater.resx">
+      <DependentUpon>RepPadronWater.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\ReportesMenu.resx">
       <DependentUpon>ReportesMenu.cs</DependentUpon>
