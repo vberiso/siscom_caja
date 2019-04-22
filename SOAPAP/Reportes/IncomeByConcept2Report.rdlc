@@ -1188,6 +1188,13 @@
       </ConnectionProperties>
       <rd:DataSourceID>c371bcc2-2eed-4007-9af1-1b59c48b2bab</rd:DataSourceID>
     </DataSource>
+    <DataSource Name="SOAPAPReportes1">
+      <ConnectionProperties>
+        <DataProvider>System.Data.DataSet</DataProvider>
+        <ConnectString>/* Local Connection */</ConnectString>
+      </ConnectionProperties>
+      <rd:DataSourceID>4d2c9771-333e-476f-a942-65bed996a4a5</rd:DataSourceID>
+    </DataSource>
   </DataSources>
   <DataSets>
     <DataSet Name="IBC">

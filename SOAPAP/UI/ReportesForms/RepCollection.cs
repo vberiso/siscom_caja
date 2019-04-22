@@ -16,7 +16,7 @@ using System.Windows.Forms;
 
 namespace SOAPAP.UI.ReportesForms
 {
-    public partial class RepIFB : Form
+    public partial class RepCollection : Form
     {
         Form loading;
         private RequestsAPI Requests = null;
@@ -26,30 +26,22 @@ namespace SOAPAP.UI.ReportesForms
         private string UrlBase = Properties.Settings.Default.URL;
         string json = string.Empty;
 
-        public RepIFB()
+        public RepCollection()
         {
             Requests = new RequestsAPI(UrlBase);
             InitializeComponent();
         }
 
-        private async void RepIFB_Load(object sender, EventArgs e)
+        private async void RepCollection_Load(object sender, EventArgs e)
         {
+            loading = new Loading();
+            loading.Show(this);
             await CargarCombos();
+            loading.Close();
         }
 
         private async Task CargarCombos()
-        {
-            //Combo Areas o Concepto de pago
-            List<DataComboBox> lstAreas = new List<DataComboBox>();
-            lstAreas.Add(new DataComboBox() { keyInt = 1, value = "Agua" });
-            //lstAreas.Add(new DataComboBox() { keyInt = 1, value = "Limpia" });
-            //lstAreas.Add(new DataComboBox() { keyInt = 1, value = "Predial" });
-            //lstAreas.Add(new DataComboBox() { keyInt = 1, value = "Tesorería" });
-            cbxArea.ValueMember = "keyInt";
-            cbxArea.DisplayMember = "value";
-            cbxArea.DataSource = lstAreas;
-            cbxArea.SelectedIndex = 0;
-
+        {            
             //Combo de Cajeros.
             List<DataComboBox> lstCaj = new List<DataComboBox>();
             if (Variables.LoginModel.RolName[0] == "Supervisor")
@@ -88,7 +80,7 @@ namespace SOAPAP.UI.ReportesForms
             await cargar();
             loading.Close();
         }
-        
+
         private void btnExportar_Click(object sender, EventArgs e)
         {
             ////Metodo de exportar
@@ -103,7 +95,7 @@ namespace SOAPAP.UI.ReportesForms
             if (fbd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 string NombreFile = "IngresosDeCaja_" + Variables.LoginModel.FullName.Replace(" ", "") + "_" + DateTime.Now.ToString("yyyy-MM-dd");
-                pgcIFB.ExportToXlsx(fbd.SelectedPath + "\\" + NombreFile + ".xlsx", pivotExportOptions);
+                pgcCollection.ExportToXlsx(fbd.SelectedPath + "\\" + NombreFile + ".xlsx", pivotExportOptions);                
                 Process.Start(fbd.SelectedPath + "\\" + NombreFile + ".xlsx");
                 MessageBox.Show("Archivo " + NombreFile + ".xlsx" + " guardado.");
             }
@@ -113,7 +105,7 @@ namespace SOAPAP.UI.ReportesForms
         public async Task cargar()
         {
             DataReportes dRep = new DataReportes();
-           
+
             //Se Obtiene el rango de fechas.
             dRep.FechaIni = dtpFechaIni.Value.ToString("yyyy-MM-dd");
             dRep.FechaFin = dtpFechaFin.Value.ToString("yyyy-MM-dd");
@@ -131,31 +123,11 @@ namespace SOAPAP.UI.ReportesForms
                 dRep.CajeroAMaterno = itemSeleccionado.Split(' ')[2];
             }
 
-            //Se obtienen los tipos de pago            
-            List<string> lstEstados = new List<string>();
-            if (rdbMosCancelados.Checked)
-            {
-                //dRep.statusIFB = "EP001,EP002";
-                lstEstados.Add("EP001");
-                lstEstados.Add("EP002");
-            }
-            else if (rdbSoloCancelados.Checked)
-            {
-                //dRep.statusIFB = "EP002";
-                lstEstados.Add("EP002");
-            }
-            else
-            {
-                //dRep.statusIFB = "EP001";
-                lstEstados.Add("EP001");
-            }
-
-
             HttpContent content;
             json = JsonConvert.SerializeObject(dRep);
             content = new StringContent(json, Encoding.UTF8, "application/json");
 
-            var _resulTransaction = await Requests.SendURIAsync("/api/Reports/IncomeFromBox", HttpMethod.Post, Variables.LoginModel.Token, content);
+            var _resulTransaction = await Requests.SendURIAsync("/api/Reports/Collection", HttpMethod.Post, Variables.LoginModel.Token, content);
 
             if (_resulTransaction.Contains("error"))
             {
@@ -164,7 +136,7 @@ namespace SOAPAP.UI.ReportesForms
             }
             else
             {
-                var lstData = JsonConvert.DeserializeObject<List<DataIncomeFromBox>>(_resulTransaction);
+                var lstData = JsonConvert.DeserializeObject<List<DataCollection>>(_resulTransaction);
 
                 if (lstData == null)
                 {
@@ -174,17 +146,9 @@ namespace SOAPAP.UI.ReportesForms
 
                 try
                 {
-                    //Filtros finales
-                    var lstFinal = lstData.Where(x => lstEstados.Contains(x.status)).ToList();
-                    pgcIFB.DataSource = lstFinal;
-
-                    //this.rvwReportes.LocalReport.ReportEmbeddedResource = "SOAPAP.Reportes.IncomeFromBoxReport.rdlc";
-                    //this.rvwReportes.LocalReport.DataSources.Clear();
-
-                    //ReportDataSource rds1 = new ReportDataSource("IFB", lstFinal);
-                    //this.rvwReportes.LocalReport.DataSources.Add(rds1);
-                       
-                    //this.rvwReportes.RefreshReport();
+                    //Filtros finales                    
+                    pgcCollection.DataSource = lstData;
+                   
                 }
                 catch (Exception e)
                 {
@@ -197,7 +161,5 @@ namespace SOAPAP.UI.ReportesForms
 
 
         #endregion
-
-        
     }
 }

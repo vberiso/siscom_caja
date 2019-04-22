@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Net.Http;
@@ -127,6 +128,7 @@ namespace SOAPAP.UI.ReportesForms
             {
                 string NombreFile = "ResumenConceptos_" + Variables.LoginModel.FullName.Replace(" ", "") + "_" + DateTime.Now.ToString("yyyy-MM-dd");
                 pgcIBC.ExportToXlsx(fbd.SelectedPath + "\\" + NombreFile + ".xlsx", pivotExportOptions);
+                Process.Start(fbd.SelectedPath + "\\" + NombreFile + ".xlsx");
                 MessageBox.Show("Archivo " + NombreFile + ".xlsx" + " guardado.");
             }
         }
