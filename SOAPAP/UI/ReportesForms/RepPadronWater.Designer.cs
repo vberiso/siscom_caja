@@ -56,7 +56,6 @@
             this.lblTitulo = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.pgcRepPadronWater = new DevExpress.XtraPivotGrid.PivotGridControl();
-            this.dataPadronWaterBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.pgfCuenta = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfNombre = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfDomicilio = new DevExpress.XtraPivotGrid.PivotGridField();
@@ -69,6 +68,7 @@
             this.pgfAdeudo = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfPago = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfTipoToma = new DevExpress.XtraPivotGrid.PivotGridField();
+            this.dataPadronWaterBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.pnlHeader.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
@@ -452,10 +452,6 @@
             this.pgcRepPadronWater.Size = new System.Drawing.Size(800, 161);
             this.pgcRepPadronWater.TabIndex = 50;
             // 
-            // dataPadronWaterBindingSource
-            // 
-            this.dataPadronWaterBindingSource.DataSource = typeof(SOAPAP.Reportes.DataPadronWater);
-            // 
             // pgfCuenta
             // 
             this.pgfCuenta.Area = DevExpress.XtraPivotGrid.PivotArea.RowArea;
@@ -538,7 +534,7 @@
             this.pgfPago.Area = DevExpress.XtraPivotGrid.PivotArea.DataArea;
             this.pgfPago.AreaIndex = 0;
             this.pgfPago.Caption = "ULTIMO PAGO";
-            this.pgfPago.FieldName = "CONTRATO_PAGO";
+            this.pgfPago.FieldName = "ULTIMO_PAGO";
             this.pgfPago.Name = "pgfPago";
             // 
             // pgfTipoToma
@@ -547,6 +543,10 @@
             this.pgfTipoToma.Caption = "TIPO TOMA";
             this.pgfTipoToma.FieldName = "TIPO_TOMA";
             this.pgfTipoToma.Name = "pgfTipoToma";
+            // 
+            // dataPadronWaterBindingSource
+            // 
+            this.dataPadronWaterBindingSource.DataSource = typeof(SOAPAP.Reportes.DataPadronWater);
             // 
             // RepPadronWater
             // 
