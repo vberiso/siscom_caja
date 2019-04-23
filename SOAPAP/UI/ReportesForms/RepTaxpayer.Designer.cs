@@ -1,6 +1,6 @@
 ﻿namespace SOAPAP.UI.ReportesForms
 {
-    partial class RepPadronWater
+    partial class RepTaxpayer
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             this.pnlHeader = new System.Windows.Forms.Panel();
             this.btnExportar = new System.Windows.Forms.Button();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
@@ -39,8 +38,6 @@
             this.dtpFechaFin = new System.Windows.Forms.DateTimePicker();
             this.label2 = new System.Windows.Forms.Label();
             this.dtpFechaIni = new System.Windows.Forms.DateTimePicker();
-            this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
-            this.chxPorFechaContrato = new System.Windows.Forms.CheckBox();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.lbxServicio = new System.Windows.Forms.ListBox();
             this.lbxColonia = new System.Windows.Forms.ListBox();
@@ -55,30 +52,13 @@
             this.btnGenerar = new System.Windows.Forms.Button();
             this.lblTitulo = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.pgcRepPadronWater = new DevExpress.XtraPivotGrid.PivotGridControl();
-            this.dataPadronWaterBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.pgfCuenta = new DevExpress.XtraPivotGrid.PivotGridField();
-            this.pgfNombre = new DevExpress.XtraPivotGrid.PivotGridField();
-            this.pgfDomicilio = new DevExpress.XtraPivotGrid.PivotGridField();
-            this.pgfColonia = new DevExpress.XtraPivotGrid.PivotGridField();
-            this.pgfRuta = new DevExpress.XtraPivotGrid.PivotGridField();
-            this.pgfContrato = new DevExpress.XtraPivotGrid.PivotGridField();
-            this.pgfEstatus = new DevExpress.XtraPivotGrid.PivotGridField();
-            this.pgfAdDesde = new DevExpress.XtraPivotGrid.PivotGridField();
-            this.pgfAdHasta = new DevExpress.XtraPivotGrid.PivotGridField();
-            this.pgfAdeudo = new DevExpress.XtraPivotGrid.PivotGridField();
-            this.pgfPago = new DevExpress.XtraPivotGrid.PivotGridField();
-            this.pgfTipoToma = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pnlHeader.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.tableLayoutPanel2.SuspendLayout();
-            this.tableLayoutPanel3.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pcbIncomeByConcept)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pgcRepPadronWater)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataPadronWaterBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // pnlHeader
@@ -89,7 +69,6 @@
             this.pnlHeader.Controls.Add(this.btnExportar);
             this.pnlHeader.Controls.Add(this.tableLayoutPanel4);
             this.pnlHeader.Controls.Add(this.tableLayoutPanel2);
-            this.pnlHeader.Controls.Add(this.tableLayoutPanel3);
             this.pnlHeader.Controls.Add(this.tableLayoutPanel1);
             this.pnlHeader.Controls.Add(this.pcbIncomeByConcept);
             this.pnlHeader.Controls.Add(this.label5);
@@ -99,7 +78,7 @@
             this.pnlHeader.Location = new System.Drawing.Point(1, 0);
             this.pnlHeader.Name = "pnlHeader";
             this.pnlHeader.Size = new System.Drawing.Size(800, 259);
-            this.pnlHeader.TabIndex = 49;
+            this.pnlHeader.TabIndex = 50;
             // 
             // btnExportar
             // 
@@ -115,7 +94,6 @@
             this.btnExportar.TabIndex = 56;
             this.btnExportar.Text = "EXPORTAR";
             this.btnExportar.UseVisualStyleBackColor = false;
-            this.btnExportar.Click += new System.EventHandler(this.btnExportar_Click);
             // 
             // tableLayoutPanel4
             // 
@@ -172,7 +150,7 @@
             this.tableLayoutPanel2.Controls.Add(this.dtpFechaFin, 1, 1);
             this.tableLayoutPanel2.Controls.Add(this.label2, 0, 0);
             this.tableLayoutPanel2.Controls.Add(this.dtpFechaIni, 0, 1);
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(208, 37);
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(208, 13);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 2;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
@@ -217,35 +195,6 @@
             this.dtpFechaIni.Name = "dtpFechaIni";
             this.dtpFechaIni.Size = new System.Drawing.Size(190, 20);
             this.dtpFechaIni.TabIndex = 48;
-            // 
-            // tableLayoutPanel3
-            // 
-            this.tableLayoutPanel3.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.tableLayoutPanel3.BackColor = System.Drawing.Color.Transparent;
-            this.tableLayoutPanel3.ColumnCount = 2;
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 49.82578F));
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.17422F));
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 175F));
-            this.tableLayoutPanel3.Controls.Add(this.chxPorFechaContrato, 0, 0);
-            this.tableLayoutPanel3.Location = new System.Drawing.Point(212, 9);
-            this.tableLayoutPanel3.Name = "tableLayoutPanel3";
-            this.tableLayoutPanel3.RowCount = 1;
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(393, 25);
-            this.tableLayoutPanel3.TabIndex = 54;
-            // 
-            // chxPorFechaContrato
-            // 
-            this.chxPorFechaContrato.AutoSize = true;
-            this.chxPorFechaContrato.Checked = true;
-            this.chxPorFechaContrato.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chxPorFechaContrato.Location = new System.Drawing.Point(3, 3);
-            this.chxPorFechaContrato.Name = "chxPorFechaContrato";
-            this.chxPorFechaContrato.Size = new System.Drawing.Size(156, 17);
-            this.chxPorFechaContrato.TabIndex = 1;
-            this.chxPorFechaContrato.Text = "Filtrar por fecha de contrato";
-            this.chxPorFechaContrato.UseVisualStyleBackColor = true;
             // 
             // tableLayoutPanel1
             // 
@@ -367,7 +316,7 @@
             this.pcbIncomeByConcept.BackColor = System.Drawing.Color.Transparent;
             this.pcbIncomeByConcept.Image = global::SOAPAP.Properties.Resources.bg;
             this.pcbIncomeByConcept.InitialImage = global::SOAPAP.Properties.Resources.bg;
-            this.pcbIncomeByConcept.Location = new System.Drawing.Point(182, 35);
+            this.pcbIncomeByConcept.Location = new System.Drawing.Point(182, 9);
             this.pcbIncomeByConcept.Name = "pcbIncomeByConcept";
             this.pcbIncomeByConcept.Size = new System.Drawing.Size(451, 54);
             this.pcbIncomeByConcept.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -382,9 +331,9 @@
             this.label5.ForeColor = System.Drawing.Color.White;
             this.label5.Location = new System.Drawing.Point(11, 35);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(130, 21);
+            this.label5.Size = new System.Drawing.Size(150, 21);
             this.label5.TabIndex = 45;
-            this.label5.Text = "Padron de agua";
+            this.label5.Text = "de Contribuyentes";
             this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // btnGenerar
@@ -401,7 +350,6 @@
             this.btnGenerar.TabIndex = 18;
             this.btnGenerar.Text = "GENERAR";
             this.btnGenerar.UseVisualStyleBackColor = false;
-            this.btnGenerar.Click += new System.EventHandler(this.btnGenerar_Click);
             // 
             // lblTitulo
             // 
@@ -411,9 +359,9 @@
             this.lblTitulo.ForeColor = System.Drawing.Color.White;
             this.lblTitulo.Location = new System.Drawing.Point(48, 12);
             this.lblTitulo.Name = "lblTitulo";
-            this.lblTitulo.Size = new System.Drawing.Size(92, 25);
+            this.lblTitulo.Size = new System.Drawing.Size(100, 25);
             this.lblTitulo.TabIndex = 36;
-            this.lblTitulo.Text = "Reportes";
+            this.lblTitulo.Text = "Busqueda";
             this.lblTitulo.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // pictureBox1
@@ -427,137 +375,14 @@
             this.pictureBox1.TabIndex = 37;
             this.pictureBox1.TabStop = false;
             // 
-            // pgcRepPadronWater
-            // 
-            this.pgcRepPadronWater.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.pgcRepPadronWater.DataSource = this.dataPadronWaterBindingSource;
-            this.pgcRepPadronWater.Fields.AddRange(new DevExpress.XtraPivotGrid.PivotGridField[] {
-            this.pgfCuenta,
-            this.pgfNombre,
-            this.pgfDomicilio,
-            this.pgfColonia,
-            this.pgfRuta,
-            this.pgfContrato,
-            this.pgfEstatus,
-            this.pgfAdDesde,
-            this.pgfAdHasta,
-            this.pgfAdeudo,
-            this.pgfPago,
-            this.pgfTipoToma});
-            this.pgcRepPadronWater.Location = new System.Drawing.Point(1, 258);
-            this.pgcRepPadronWater.Name = "pgcRepPadronWater";
-            this.pgcRepPadronWater.OptionsData.DataProcessingEngine = DevExpress.XtraPivotGrid.PivotDataProcessingEngine.LegacyOptimized;
-            this.pgcRepPadronWater.Size = new System.Drawing.Size(800, 161);
-            this.pgcRepPadronWater.TabIndex = 50;
-            // 
-            // dataPadronWaterBindingSource
-            // 
-            this.dataPadronWaterBindingSource.DataSource = typeof(SOAPAP.Reportes.DataPadronWater);
-            // 
-            // pgfCuenta
-            // 
-            this.pgfCuenta.Area = DevExpress.XtraPivotGrid.PivotArea.RowArea;
-            this.pgfCuenta.AreaIndex = 0;
-            this.pgfCuenta.Caption = "CUENTA";
-            this.pgfCuenta.FieldName = "CUENTA";
-            this.pgfCuenta.Name = "pgfCuenta";
-            // 
-            // pgfNombre
-            // 
-            this.pgfNombre.Area = DevExpress.XtraPivotGrid.PivotArea.RowArea;
-            this.pgfNombre.AreaIndex = 1;
-            this.pgfNombre.Caption = "NOMBRE";
-            this.pgfNombre.FieldName = "NOMBRE";
-            this.pgfNombre.Name = "pgfNombre";
-            // 
-            // pgfDomicilio
-            // 
-            this.pgfDomicilio.Area = DevExpress.XtraPivotGrid.PivotArea.RowArea;
-            this.pgfDomicilio.AreaIndex = 2;
-            this.pgfDomicilio.Caption = "DOMICILIO";
-            this.pgfDomicilio.FieldName = "DOMICILIO";
-            this.pgfDomicilio.Name = "pgfDomicilio";
-            // 
-            // pgfColonia
-            // 
-            this.pgfColonia.AreaIndex = 1;
-            this.pgfColonia.Caption = "COLONIA";
-            this.pgfColonia.FieldName = "COLONIA";
-            this.pgfColonia.Name = "pgfColonia";
-            // 
-            // pgfRuta
-            // 
-            this.pgfRuta.AreaIndex = 0;
-            this.pgfRuta.Caption = "RUTA";
-            this.pgfRuta.FieldName = "RUTA";
-            this.pgfRuta.Name = "pgfRuta";
-            // 
-            // pgfContrato
-            // 
-            this.pgfContrato.Area = DevExpress.XtraPivotGrid.PivotArea.RowArea;
-            this.pgfContrato.AreaIndex = 3;
-            this.pgfContrato.Caption = "CONTRATO";
-            this.pgfContrato.FieldName = "CONTRATO";
-            this.pgfContrato.Name = "pgfContrato";
-            // 
-            // pgfEstatus
-            // 
-            this.pgfEstatus.AreaIndex = 2;
-            this.pgfEstatus.Caption = "ESTATUS";
-            this.pgfEstatus.FieldName = "ESTATUS";
-            this.pgfEstatus.Name = "pgfEstatus";
-            // 
-            // pgfAdDesde
-            // 
-            this.pgfAdDesde.Area = DevExpress.XtraPivotGrid.PivotArea.RowArea;
-            this.pgfAdDesde.AreaIndex = 4;
-            this.pgfAdDesde.Caption = "AD DESDE";
-            this.pgfAdDesde.FieldName = "AD_DESDE";
-            this.pgfAdDesde.Name = "pgfAdDesde";
-            // 
-            // pgfAdHasta
-            // 
-            this.pgfAdHasta.Area = DevExpress.XtraPivotGrid.PivotArea.RowArea;
-            this.pgfAdHasta.AreaIndex = 5;
-            this.pgfAdHasta.Caption = "AD HASTA";
-            this.pgfAdHasta.FieldName = "AD_HASTA";
-            this.pgfAdHasta.Name = "pgfAdHasta";
-            // 
-            // pgfAdeudo
-            // 
-            this.pgfAdeudo.Area = DevExpress.XtraPivotGrid.PivotArea.DataArea;
-            this.pgfAdeudo.AreaIndex = 1;
-            this.pgfAdeudo.Caption = "ADEUDO";
-            this.pgfAdeudo.FieldName = "ADEUDO";
-            this.pgfAdeudo.Name = "pgfAdeudo";
-            // 
-            // pgfPago
-            // 
-            this.pgfPago.Area = DevExpress.XtraPivotGrid.PivotArea.DataArea;
-            this.pgfPago.AreaIndex = 0;
-            this.pgfPago.Caption = "ULTIMO PAGO";
-            this.pgfPago.FieldName = "ULTIMO_PAGO";
-            this.pgfPago.Name = "pgfPago";
-            // 
-            // pgfTipoToma
-            // 
-            this.pgfTipoToma.AreaIndex = 3;
-            this.pgfTipoToma.Caption = "TIPO TOMA";
-            this.pgfTipoToma.FieldName = "TIPO_TOMA";
-            this.pgfTipoToma.Name = "pgfTipoToma";
-            // 
-            // RepPadronWater
+            // RepTaxpayer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.pgcRepPadronWater);
             this.Controls.Add(this.pnlHeader);
-            this.Name = "RepPadronWater";
-            this.Text = "RepPadronWater";
-            this.Load += new System.EventHandler(this.RepPadronWater_Load);
+            this.Name = "RepTaxpayer";
+            this.Text = "RepTaxpayer";
             this.pnlHeader.ResumeLayout(false);
             this.pnlHeader.PerformLayout();
             this.tableLayoutPanel4.ResumeLayout(false);
@@ -565,14 +390,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel2.PerformLayout();
-            this.tableLayoutPanel3.ResumeLayout(false);
-            this.tableLayoutPanel3.PerformLayout();
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pcbIncomeByConcept)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pgcRepPadronWater)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataPadronWaterBindingSource)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -580,6 +401,7 @@
         #endregion
 
         private System.Windows.Forms.Panel pnlHeader;
+        private System.Windows.Forms.Button btnExportar;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel4;
         private System.Windows.Forms.NumericUpDown numericUpDown1;
         private System.Windows.Forms.Label label1;
@@ -588,8 +410,6 @@
         private System.Windows.Forms.DateTimePicker dtpFechaFin;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.DateTimePicker dtpFechaIni;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
-        private System.Windows.Forms.CheckBox chxPorFechaContrato;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.ListBox lbxServicio;
         private System.Windows.Forms.ListBox lbxColonia;
@@ -604,20 +424,5 @@
         private System.Windows.Forms.Button btnGenerar;
         private System.Windows.Forms.Label lblTitulo;
         private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.Button btnExportar;
-        private DevExpress.XtraPivotGrid.PivotGridControl pgcRepPadronWater;
-        private System.Windows.Forms.BindingSource dataPadronWaterBindingSource;
-        private DevExpress.XtraPivotGrid.PivotGridField pgfCuenta;
-        private DevExpress.XtraPivotGrid.PivotGridField pgfNombre;
-        private DevExpress.XtraPivotGrid.PivotGridField pgfDomicilio;
-        private DevExpress.XtraPivotGrid.PivotGridField pgfColonia;
-        private DevExpress.XtraPivotGrid.PivotGridField pgfRuta;
-        private DevExpress.XtraPivotGrid.PivotGridField pgfContrato;
-        private DevExpress.XtraPivotGrid.PivotGridField pgfEstatus;
-        private DevExpress.XtraPivotGrid.PivotGridField pgfAdDesde;
-        private DevExpress.XtraPivotGrid.PivotGridField pgfAdHasta;
-        private DevExpress.XtraPivotGrid.PivotGridField pgfAdeudo;
-        private DevExpress.XtraPivotGrid.PivotGridField pgfPago;
-        private DevExpress.XtraPivotGrid.PivotGridField pgfTipoToma;
     }
 }

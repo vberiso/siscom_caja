@@ -15,7 +15,8 @@ namespace SOAPAP.Reportes
         public string tipo_movimiento { get; set; }
         public decimal importe { get; set; }
         public decimal iva { get; set; }
-        public string folioTransaccion { get; set; }
+        public decimal Descuento { get; set; }
+        public string folioTransaction { get; set; }
         public string folio_impresion { get; set; }
         public string branch_office { get; set; }
         public string cliente { get; set; }

@@ -63,5 +63,10 @@ namespace SOAPAP.UI
         {
             ShowForm("SOAPAP", "UI.ReportesForms.RepCollection");
         }
+
+        private void btnBusqudaContribuyente_Click(object sender, EventArgs e)
+        {
+            ShowForm("SOAPAP", "UI.ReportesForms.RepTaxpayer");
+        }
     }
 }

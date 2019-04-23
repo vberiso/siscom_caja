@@ -20,6 +20,7 @@ namespace SOAPAP.Reportes
         public decimal IVA { get; set; }
         public decimal OTROS { get; set; }
         public decimal DCTO { get; set; }
+        public decimal ANTI { get; set; }
         public decimal TOTAL { get; set; }
         public string ESTA { get; set; }
         public string MP { get; set; }

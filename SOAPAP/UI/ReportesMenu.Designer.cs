@@ -33,6 +33,7 @@
             this.btnCF = new System.Windows.Forms.Button();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.btnRecaudacion = new System.Windows.Forms.Button();
+            this.btnBusqudaContribuyente = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -98,6 +99,7 @@
             this.tableLayoutPanel1.Controls.Add(this.btnCF, 2, 0);
             this.tableLayoutPanel1.Controls.Add(this.btnIPC, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.btnRecaudacion, 3, 0);
+            this.tableLayoutPanel1.Controls.Add(this.btnBusqudaContribuyente, 0, 1);
             this.tableLayoutPanel1.Location = new System.Drawing.Point(12, 12);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 4;
@@ -124,6 +126,22 @@
             this.btnRecaudacion.UseVisualStyleBackColor = false;
             this.btnRecaudacion.Click += new System.EventHandler(this.btnRecaudacion_Click);
             // 
+            // btnBusqudaContribuyente
+            // 
+            this.btnBusqudaContribuyente.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.btnBusqudaContribuyente.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(3)))), ((int)(((byte)(155)))), ((int)(((byte)(229)))));
+            this.btnBusqudaContribuyente.FlatAppearance.BorderSize = 0;
+            this.btnBusqudaContribuyente.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnBusqudaContribuyente.Font = new System.Drawing.Font("Segoe UI Black", 12F, System.Drawing.FontStyle.Bold);
+            this.btnBusqudaContribuyente.ForeColor = System.Drawing.Color.White;
+            this.btnBusqudaContribuyente.Location = new System.Drawing.Point(24, 87);
+            this.btnBusqudaContribuyente.Name = "btnBusqudaContribuyente";
+            this.btnBusqudaContribuyente.Size = new System.Drawing.Size(145, 57);
+            this.btnBusqudaContribuyente.TabIndex = 23;
+            this.btnBusqudaContribuyente.Text = "Buscar Contribuyente";
+            this.btnBusqudaContribuyente.UseVisualStyleBackColor = false;
+            this.btnBusqudaContribuyente.Click += new System.EventHandler(this.btnBusqudaContribuyente_Click);
+            // 
             // ReportesMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -143,5 +161,6 @@
         private System.Windows.Forms.Button btnCF;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.Button btnRecaudacion;
+        private System.Windows.Forms.Button btnBusqudaContribuyente;
     }
 }
