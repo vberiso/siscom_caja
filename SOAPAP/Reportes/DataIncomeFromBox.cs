@@ -15,6 +15,7 @@ namespace SOAPAP.Reportes
         public decimal iva { get; set; }
         public decimal SUBTOTAL_PD { get; set; }
         public decimal TOTAL_P { get; set; }
+        public decimal SUBTOTAL { get; set; }
         public decimal DESC { get; set; }
         public string folioTransaction { get; set; }
         public string folio_impresion { get; set; }
