@@ -178,11 +178,11 @@ namespace SOAPAP.UI.ReportesForms
             //cbxOperador.SelectedIndex = 0;
         }
 
-        private void btnGenerar_Click(object sender, EventArgs e)
+        private async void btnGenerar_Click(object sender, EventArgs e)
         {
             loading = new Loading();
             loading.Show(this);
-            cargar();
+            await cargar();
             loading.Close();
         }
 

@@ -10,8 +10,10 @@ namespace SOAPAP.Reportes
     {
         public string DESCRIPCION { get; set; }        
         public string name_concept { get; set; }
-        public decimal SUBTOTAL { get; set; }
+        public decimal MONTO { get; set; }        
         public decimal DESCUENTO { get; set; }
+        public decimal SUBTOTAL { get; set; }
+        public decimal IVA { get; set; }
         public decimal TOTAL { get; set; }        
     }
 }

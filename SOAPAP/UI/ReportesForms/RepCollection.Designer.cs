@@ -38,6 +38,8 @@
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.label6 = new System.Windows.Forms.Label();
             this.cbxOperador = new System.Windows.Forms.ComboBox();
+            this.pcbIncomeByConcept = new System.Windows.Forms.PictureBox();
+            this.pbBG = new System.Windows.Forms.PictureBox();
             this.pnlHRigth = new System.Windows.Forms.Panel();
             this.panel1 = new System.Windows.Forms.Panel();
             this.btnExportar = new System.Windows.Forms.Button();
@@ -46,25 +48,25 @@
             this.label5 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.lblTitulo = new System.Windows.Forms.Label();
-            this.pgcCollection = new DevExpress.XtraPivotGrid.PivotGridControl();
-            this.pcbIncomeByConcept = new System.Windows.Forms.PictureBox();
-            this.pbBG = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.pgcCollection = new DevExpress.XtraPivotGrid.PivotGridControl();
             this.pgfDescripcion = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfSubtotal = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfDescuento = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfTotal = new DevExpress.XtraPivotGrid.PivotGridField();
             this.dataCollectionBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.pgfMonto = new DevExpress.XtraPivotGrid.PivotGridField();
+            this.pgfIva = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pnlHeader.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pcbIncomeByConcept)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbBG)).BeginInit();
             this.pnlHRigth.SuspendLayout();
             this.panel1.SuspendLayout();
             this.pnlHLeft.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pgcCollection)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pcbIncomeByConcept)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbBG)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pgcCollection)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataCollectionBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
@@ -176,6 +178,32 @@
             this.cbxOperador.Size = new System.Drawing.Size(176, 21);
             this.cbxOperador.TabIndex = 54;
             // 
+            // pcbIncomeByConcept
+            // 
+            this.pcbIncomeByConcept.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.pcbIncomeByConcept.BackColor = System.Drawing.Color.Transparent;
+            this.pcbIncomeByConcept.Image = global::SOAPAP.Properties.Resources.bg;
+            this.pcbIncomeByConcept.InitialImage = global::SOAPAP.Properties.Resources.bg;
+            this.pcbIncomeByConcept.Location = new System.Drawing.Point(188, 62);
+            this.pcbIncomeByConcept.Name = "pcbIncomeByConcept";
+            this.pcbIncomeByConcept.Size = new System.Drawing.Size(451, 51);
+            this.pcbIncomeByConcept.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pcbIncomeByConcept.TabIndex = 52;
+            this.pcbIncomeByConcept.TabStop = false;
+            // 
+            // pbBG
+            // 
+            this.pbBG.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.pbBG.BackColor = System.Drawing.Color.Transparent;
+            this.pbBG.Image = global::SOAPAP.Properties.Resources.bg;
+            this.pbBG.InitialImage = global::SOAPAP.Properties.Resources.bg;
+            this.pbBG.Location = new System.Drawing.Point(185, 7);
+            this.pbBG.Name = "pbBG";
+            this.pbBG.Size = new System.Drawing.Size(454, 50);
+            this.pbBG.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbBG.TabIndex = 41;
+            this.pbBG.TabStop = false;
+            // 
             // pnlHRigth
             // 
             this.pnlHRigth.Controls.Add(this.panel1);
@@ -279,49 +307,6 @@
             this.lblTitulo.Text = "Reportes";
             this.lblTitulo.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // pgcCollection
-            // 
-            this.pgcCollection.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.pgcCollection.DataSource = this.dataCollectionBindingSource;
-            this.pgcCollection.Fields.AddRange(new DevExpress.XtraPivotGrid.PivotGridField[] {
-            this.pgfDescripcion,
-            this.pgfSubtotal,
-            this.pgfDescuento,
-            this.pgfTotal});
-            this.pgcCollection.Location = new System.Drawing.Point(0, 121);
-            this.pgcCollection.Name = "pgcCollection";
-            this.pgcCollection.OptionsData.DataProcessingEngine = DevExpress.XtraPivotGrid.PivotDataProcessingEngine.LegacyOptimized;
-            this.pgcCollection.Size = new System.Drawing.Size(800, 295);
-            this.pgcCollection.TabIndex = 50;
-            // 
-            // pcbIncomeByConcept
-            // 
-            this.pcbIncomeByConcept.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.pcbIncomeByConcept.BackColor = System.Drawing.Color.Transparent;
-            this.pcbIncomeByConcept.Image = global::SOAPAP.Properties.Resources.bg;
-            this.pcbIncomeByConcept.InitialImage = global::SOAPAP.Properties.Resources.bg;
-            this.pcbIncomeByConcept.Location = new System.Drawing.Point(188, 62);
-            this.pcbIncomeByConcept.Name = "pcbIncomeByConcept";
-            this.pcbIncomeByConcept.Size = new System.Drawing.Size(451, 51);
-            this.pcbIncomeByConcept.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pcbIncomeByConcept.TabIndex = 52;
-            this.pcbIncomeByConcept.TabStop = false;
-            // 
-            // pbBG
-            // 
-            this.pbBG.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.pbBG.BackColor = System.Drawing.Color.Transparent;
-            this.pbBG.Image = global::SOAPAP.Properties.Resources.bg;
-            this.pbBG.InitialImage = global::SOAPAP.Properties.Resources.bg;
-            this.pbBG.Location = new System.Drawing.Point(185, 7);
-            this.pbBG.Name = "pbBG";
-            this.pbBG.Size = new System.Drawing.Size(454, 50);
-            this.pbBG.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pbBG.TabIndex = 41;
-            this.pbBG.TabStop = false;
-            // 
             // pictureBox1
             // 
             this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
@@ -332,6 +317,25 @@
             this.pictureBox1.Size = new System.Drawing.Size(20, 20);
             this.pictureBox1.TabIndex = 37;
             this.pictureBox1.TabStop = false;
+            // 
+            // pgcCollection
+            // 
+            this.pgcCollection.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.pgcCollection.DataSource = this.dataCollectionBindingSource;
+            this.pgcCollection.Fields.AddRange(new DevExpress.XtraPivotGrid.PivotGridField[] {
+            this.pgfDescripcion,
+            this.pgfSubtotal,
+            this.pgfDescuento,
+            this.pgfTotal,
+            this.pgfMonto,
+            this.pgfIva});
+            this.pgcCollection.Location = new System.Drawing.Point(0, 121);
+            this.pgcCollection.Name = "pgcCollection";
+            this.pgcCollection.OptionsData.DataProcessingEngine = DevExpress.XtraPivotGrid.PivotDataProcessingEngine.LegacyOptimized;
+            this.pgcCollection.Size = new System.Drawing.Size(800, 295);
+            this.pgcCollection.TabIndex = 50;
             // 
             // pgfDescripcion
             // 
@@ -345,7 +349,7 @@
             // pgfSubtotal
             // 
             this.pgfSubtotal.Area = DevExpress.XtraPivotGrid.PivotArea.DataArea;
-            this.pgfSubtotal.AreaIndex = 0;
+            this.pgfSubtotal.AreaIndex = 2;
             this.pgfSubtotal.Caption = "SUBTOTAL";
             this.pgfSubtotal.FieldName = "SUBTOTAL";
             this.pgfSubtotal.Name = "pgfSubtotal";
@@ -361,7 +365,7 @@
             // pgfTotal
             // 
             this.pgfTotal.Area = DevExpress.XtraPivotGrid.PivotArea.DataArea;
-            this.pgfTotal.AreaIndex = 2;
+            this.pgfTotal.AreaIndex = 4;
             this.pgfTotal.Caption = "TOTAL";
             this.pgfTotal.FieldName = "TOTAL";
             this.pgfTotal.Name = "pgfTotal";
@@ -369,6 +373,22 @@
             // dataCollectionBindingSource
             // 
             this.dataCollectionBindingSource.DataSource = typeof(SOAPAP.Reportes.DataCollection);
+            // 
+            // pgfMonto
+            // 
+            this.pgfMonto.Area = DevExpress.XtraPivotGrid.PivotArea.DataArea;
+            this.pgfMonto.AreaIndex = 0;
+            this.pgfMonto.Caption = "MONTO";
+            this.pgfMonto.FieldName = "MONTO";
+            this.pgfMonto.Name = "pgfMonto";
+            // 
+            // pgfIva
+            // 
+            this.pgfIva.Area = DevExpress.XtraPivotGrid.PivotArea.DataArea;
+            this.pgfIva.AreaIndex = 3;
+            this.pgfIva.Caption = "IVA";
+            this.pgfIva.FieldName = "IVA";
+            this.pgfIva.Name = "pgfIva";
             // 
             // RepCollection
             // 
@@ -385,14 +405,14 @@
             this.tableLayoutPanel2.PerformLayout();
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pcbIncomeByConcept)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbBG)).EndInit();
             this.pnlHRigth.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.pnlHLeft.ResumeLayout(false);
             this.pnlHLeft.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pgcCollection)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pcbIncomeByConcept)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbBG)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pgcCollection)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataCollectionBindingSource)).EndInit();
             this.ResumeLayout(false);
 
@@ -426,5 +446,7 @@
         private DevExpress.XtraPivotGrid.PivotGridField pgfSubtotal;
         private DevExpress.XtraPivotGrid.PivotGridField pgfDescuento;
         private DevExpress.XtraPivotGrid.PivotGridField pgfTotal;
+        private DevExpress.XtraPivotGrid.PivotGridField pgfMonto;
+        private DevExpress.XtraPivotGrid.PivotGridField pgfIva;
     }
 }

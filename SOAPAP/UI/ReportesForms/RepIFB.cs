@@ -176,15 +176,7 @@ namespace SOAPAP.UI.ReportesForms
                 {
                     //Filtros finales
                     var lstFinal = lstData.Where(x => lstEstados.Contains(x.status)).ToList();
-                    pgcIFB.DataSource = lstFinal;
-
-                    //this.rvwReportes.LocalReport.ReportEmbeddedResource = "SOAPAP.Reportes.IncomeFromBoxReport.rdlc";
-                    //this.rvwReportes.LocalReport.DataSources.Clear();
-
-                    //ReportDataSource rds1 = new ReportDataSource("IFB", lstFinal);
-                    //this.rvwReportes.LocalReport.DataSources.Add(rds1);
-                       
-                    //this.rvwReportes.RefreshReport();
+                    pgcIFB.DataSource = lstFinal;                    
                 }
                 catch (Exception e)
                 {
