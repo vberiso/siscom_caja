@@ -132,13 +132,13 @@
             this.btnBusqudaContribuyente.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(3)))), ((int)(((byte)(155)))), ((int)(((byte)(229)))));
             this.btnBusqudaContribuyente.FlatAppearance.BorderSize = 0;
             this.btnBusqudaContribuyente.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnBusqudaContribuyente.Font = new System.Drawing.Font("Segoe UI Black", 12F, System.Drawing.FontStyle.Bold);
+            this.btnBusqudaContribuyente.Font = new System.Drawing.Font("Segoe UI Black", 11F, System.Drawing.FontStyle.Bold);
             this.btnBusqudaContribuyente.ForeColor = System.Drawing.Color.White;
             this.btnBusqudaContribuyente.Location = new System.Drawing.Point(24, 87);
             this.btnBusqudaContribuyente.Name = "btnBusqudaContribuyente";
             this.btnBusqudaContribuyente.Size = new System.Drawing.Size(145, 57);
             this.btnBusqudaContribuyente.TabIndex = 23;
-            this.btnBusqudaContribuyente.Text = "Buscar Contribuyente";
+            this.btnBusqudaContribuyente.Text = "BUSCAR CONTRIBUYENTE";
             this.btnBusqudaContribuyente.UseVisualStyleBackColor = false;
             this.btnBusqudaContribuyente.Click += new System.EventHandler(this.btnBusqudaContribuyente_Click);
             // 

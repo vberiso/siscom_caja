@@ -66,8 +66,8 @@
             this.pgfTOTAL = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfESTA = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfMP = new DevExpress.XtraPivotGrid.PivotGridField();
-            this.incomeByConceptVMBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.pgfAnticipos = new DevExpress.XtraPivotGrid.PivotGridField();
+            this.incomeByConceptVMBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.pnlHeader.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -499,10 +499,6 @@
             this.pgfMP.FieldName = "MP";
             this.pgfMP.Name = "pgfMP";
             // 
-            // incomeByConceptVMBindingSource
-            // 
-            this.incomeByConceptVMBindingSource.DataSource = typeof(SOAPAP.Reportes.IncomeByConceptVM);
-            // 
             // pgfAnticipos
             // 
             this.pgfAnticipos.Area = DevExpress.XtraPivotGrid.PivotArea.DataArea;
@@ -510,6 +506,10 @@
             this.pgfAnticipos.Caption = "ANTI";
             this.pgfAnticipos.FieldName = "ANTI";
             this.pgfAnticipos.Name = "pgfAnticipos";
+            // 
+            // incomeByConceptVMBindingSource
+            // 
+            this.incomeByConceptVMBindingSource.DataSource = typeof(SOAPAP.Reportes.IncomeByConceptVM);
             // 
             // RepIBC
             // 
