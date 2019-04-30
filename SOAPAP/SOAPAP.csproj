@@ -207,6 +207,7 @@
     <Compile Include="Model\OrderSaleDiscount.cs" />
     <Compile Include="Model\PaymentConceptsVM.cs" />
     <Compile Include="Model\PaymentOrdersVM.cs" />
+    <Compile Include="Model\PaymentResume.cs" />
     <Compile Include="Model\Product.cs" />
     <Compile Include="Model\ProductParam.cs" />
     <Compile Include="Model\ProductVM.cs" />
@@ -255,6 +256,9 @@
     <Compile Include="Reportes\DataPadronWater.cs" />
     <Compile Include="Reportes\DataReportes.cs" />
     <Compile Include="Reportes\DataIncomeByConcept.cs" />
+    <Compile Include="Reportes\DataTaxpayerDebt.cs" />
+    <Compile Include="Reportes\DataTaxpayerOrderSale.cs" />
+    <Compile Include="Reportes\DataTaxpayerPrepaid.cs" />
     <Compile Include="Reportes\IncomeByConceptVM.cs" />
     <Compile Include="Reportes\InfoRep.cs" />
     <Compile Include="results.cs">
@@ -793,10 +797,15 @@
     </None>
     <None Include="packages.config" />
     <None Include="Properties\app.manifest" />
+    <None Include="Properties\DataSources\SOAPAP.Model.DebtDetail.datasource" />
+    <None Include="Properties\DataSources\SOAPAP.Model.Prepaid.datasource" />
     <None Include="Properties\DataSources\SOAPAP.Reportes.DataCollection.datasource" />
     <None Include="Properties\DataSources\SOAPAP.Reportes.DataIncomeByConcept.datasource" />
     <None Include="Properties\DataSources\SOAPAP.Reportes.DataIncomeFromBox1.datasource" />
     <None Include="Properties\DataSources\SOAPAP.Reportes.DataPadronWater.datasource" />
+    <None Include="Properties\DataSources\SOAPAP.Reportes.DataTaxpayerDebt.datasource" />
+    <None Include="Properties\DataSources\SOAPAP.Reportes.DataTaxpayerOrderSale.datasource" />
+    <None Include="Properties\DataSources\SOAPAP.Reportes.DataTaxpayerPrepaid.datasource" />
     <None Include="Properties\DataSources\SOAPAP.Reportes.IncomeByConceptVM.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

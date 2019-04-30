@@ -47,7 +47,7 @@ namespace SOAPAP.UI.ReportesForms
             lstBusquedaPor.Add(new DataComboBox() { keyInt = 1, value = "Folio" });
             lstBusquedaPor.Add(new DataComboBox() { keyInt = 2, value = "Nombre" });
             lstBusquedaPor.Add(new DataComboBox() { keyInt = 3, value = "Dirección" });
-            
+
             cbxBusqudaPor.ValueMember = "keyString";
             cbxBusqudaPor.DisplayMember = "value";
             cbxBusqudaPor.DataSource = lstBusquedaPor;
@@ -66,7 +66,7 @@ namespace SOAPAP.UI.ReportesForms
 
                 //Text box Cuenta
                 var sourceCuenta = new AutoCompleteStringCollection();
-                sourceCuenta.AddRange(lstClientes.Select(x => x.AgreementId.ToString() ).ToArray());
+                sourceCuenta.AddRange(lstClientes.Select(x => x.AgreementId.ToString()).ToArray());
                 tbxCuenta.AutoCompleteMode = AutoCompleteMode.Suggest;
                 tbxCuenta.AutoCompleteCustomSource = sourceCuenta;
                 tbxCuenta.AutoCompleteSource = AutoCompleteSource.CustomSource;
@@ -169,7 +169,7 @@ namespace SOAPAP.UI.ReportesForms
         private async void BusquedaPorCuenta()
         {
             //Busqueda por numero de cuenta
-            var resultTypeTransaction = await Requests.SendURIAsync("/api/Agreements/GetSummary/" + cbxBusqudaPor.Text, HttpMethod.Get, Variables.LoginModel.Token);
+            var resultTypeTransaction = await Requests.SendURIAsync("/api/Agreements/GetSummary/" + tbxCuenta.Text, HttpMethod.Get, Variables.LoginModel.Token);
             if (resultTypeTransaction.Contains("error"))
             {
                 mensaje = new MessageBoxForm("Error", resultTypeTransaction.Split(':')[1].Replace("}", ""), TypeIcon.Icon.Cancel);
@@ -177,20 +177,25 @@ namespace SOAPAP.UI.ReportesForms
             }
             else
             {
-                var lstClientes = JsonConvert.DeserializeObject<List<SOAPAP.Model.Agreement>>(resultTypeTransaction);
+                var Contrato = JsonConvert.DeserializeObject<SOAPAP.Model.Agreement>(resultTypeTransaction);
 
-                ////Text box Cuenta
-                //var sourceCuenta = new AutoCompleteStringCollection();
-                //sourceCuenta.AddRange(lstClientes.Select(x => x.AgreementId.ToString()).ToArray());
-                //tbxCuenta.AutoCompleteMode = AutoCompleteMode.Suggest;
-                //tbxCuenta.AutoCompleteCustomSource = sourceCuenta;
-                //tbxCuenta.AutoCompleteSource = AutoCompleteSource.CustomSource;
-
+                await LlenaDatos(Contrato);                
             }
         }
-        private void BusquedaPorFolio()
+        private async void BusquedaPorFolio()
         {
-
+            //Busqueda por numero de cuenta
+            var resultTypeTransaction = await Requests.SendURIAsync("/api/Payments/Resume/" + tbxCuenta.Text, HttpMethod.Get, Variables.LoginModel.Token);
+            if (resultTypeTransaction.Contains("error"))
+            {
+                mensaje = new MessageBoxForm("Error", resultTypeTransaction.Split(':')[1].Replace("}", ""), TypeIcon.Icon.Cancel);
+                result = mensaje.ShowDialog();
+            }
+            else
+            {
+                var Contrato = JsonConvert.DeserializeObject<SOAPAP.Model.PaymentResume>(resultTypeTransaction);
+                await LlenaDatosProducto(Contrato);
+            }
         }
         private void BusquedaPorNombre()
         {
@@ -200,6 +205,115 @@ namespace SOAPAP.UI.ReportesForms
         {
 
         }
+
+        //Llena datos de servicios
+        private async Task LlenaDatos(SOAPAP.Model.Agreement agr)
+        {
+            //Contribuyente
+            SOAPAP.Model.Client cli = agr.Clients.First();
+            lblNombre.Text = string.Format("{0} {1} {2}", cli.Name, cli.LastName, cli.SecondLastName);
+            lblRFC.Text = cli.RFC;
+            lblIne.Text = cli.INE;
+            lblCURP.Text = cli.CURP;
+            lblCel.Text = "";
+            lblMail.Text = cli.EMail;
+            //Domicilio
+            SOAPAP.Model.Address add = agr.Addresses.First();
+            lblCalle.Text = add.Street;
+            lblNumero.Text = string.Format("{0} - {1}", add.Outdoor, add.Indoor);
+            lblColonia.Text = add.Suburbs.Name;
+            lblCP.Text = add.Zip;
+            lblLocalidad.Text = add.Suburbs.Towns.Name;
+            lblMunicipio.Text = add.Suburbs.Towns.States.Name;
+            //Padron
+            lblTipoServicio.Text = "";
+            lblToma.Text = agr.TypeIntake.Name;
+            lblConsumo.Text = "";
+            lblPoblacionVul.Text = "";
+            lblRuta.Text = agr.Route;
+            lblFechaContrato.Text = agr.AccountDate.ToString("yyyy-MM-dd");
+            //Prepagos            
+            if(agr.Prepaids.Count > 0)
+            {
+                pnlRepPrepaid.Visible = true;                
+                List<DataTaxpayerPrepaid> lstPrepaid = new List<DataTaxpayerPrepaid>();               
+                foreach(var x in agr.Prepaids)
+                {
+                    lstPrepaid.Add(new DataTaxpayerPrepaid
+                    {
+                        Fecha = x.PrepaidDate.ToString("yyyy-MM-dd"),
+                        Amount = x.Amount,
+                        DescriptionStatus = x.StatusDescription,
+                        DescriptionType = x.TypeDescription
+                    });
+                }
+                pgcPrepaid.DataSource = lstPrepaid;
+            }            
+            //Deuda
+            if(agr.Debts.Count > 0)
+            {
+                pnlRepDebt.Visible = true;                
+                List<DataTaxpayerDebt> lstDebt = new List<DataTaxpayerDebt>();                
+                foreach(var item in agr.Debts)
+                {
+                    lstDebt.AddRange( item.DebtDetails.Select(y => new DataTaxpayerDebt { Description = y.NameConcept, Monto = y.Amount, IVA = y.Tax,  Total = y.Amount + y.Tax})  );
+                }
+                pgcDebt.DataSource = lstDebt;
+            }
+            
+
+        }
+
+        //Llena datos de Productos(folio)
+        private async Task LlenaDatosProducto(SOAPAP.Model.PaymentResume pr)
+        {
+            //Contribuyente
+            SOAPAP.Model.TaxUser cli = pr.orderSale.TaxUser;
+            lblNombre.Text = cli.Name;
+            lblRFC.Text = cli.RFC;
+            lblIne.Text = "s/d";
+            lblCURP.Text = cli.CURP;
+            lblCel.Text = cli.PhoneNumber;
+            lblMail.Text = cli.EMail;
+            //Domicilio     
+            Model.TaxAddress add = cli.TaxAddresses.FirstOrDefault();
+            lblCalle.Text = add.Street ;
+            lblNumero.Text = string.Format("{0} - {1}", add.Outdoor, add.Indoor);
+            lblColonia.Text = add.Suburb;
+            lblCP.Text = add.Zip;
+            lblLocalidad.Text = add.Town;
+            lblMunicipio.Text = add.State;
+            //Padron
+            lblTipoServicio.Text = "";
+            lblToma.Text = "";
+            lblConsumo.Text = "";
+            lblPoblacionVul.Text = "";
+            lblRuta.Text = "";
+            lblFechaContrato.Text =  pr.payment.PaymentDate.ToString("yyyy-MM-dd");
+            //pagos            
+            if (pr.orderSale.OrderSaleDetails.Count > 0)
+            {
+                pnlRepOrderSale.Visible = true;
+                List<DataTaxpayerOrderSale> lstOS = new List<DataTaxpayerOrderSale>();
+                foreach (var x in pr.orderSale.OrderSaleDetails)
+                {
+                    lstOS.Add(new DataTaxpayerOrderSale
+                    {
+                        FechaPago = pr.orderSale.DateOrder.ToString("yyyy-MM-dd"),
+                        FechaExpiracion = pr.orderSale.ExpirationDate.ToString("yyyy-MM-dd"),
+                        NameConcept = x.NameConcept,
+                        Description = x.Description,
+                        UnitPrice = x.UnitPrice,
+                        Quantity = x.Quantity,
+                        Amount = x.Amount,
+                        Tax = x.Tax,
+                        Total = x.Amount + x.Tax
+                    });
+                }
+                pgcOrderSale.DataSource = lstOS;
+            }
+        }
+
 
         private void tswInfoContriyente_Toggled(object sender, EventArgs e)
         {            
@@ -213,6 +327,20 @@ namespace SOAPAP.UI.ReportesForms
             gbxDomicilio.Visible = ((DevExpress.XtraEditors.ToggleSwitch)sender).IsOn;
             lblOffDomicilio.Visible = !((DevExpress.XtraEditors.ToggleSwitch)sender).IsOn;
             sepOffDomicilio.Visible = !((DevExpress.XtraEditors.ToggleSwitch)sender).IsOn;
+        }
+
+        private void tswDatosPadron_Toggled(object sender, EventArgs e)
+        {
+            gbxDatosPadron.Visible = ((DevExpress.XtraEditors.ToggleSwitch)sender).IsOn;
+            lblOffDatosPadron.Visible = !((DevExpress.XtraEditors.ToggleSwitch)sender).IsOn;
+            sepOffDatosPadron.Visible = !((DevExpress.XtraEditors.ToggleSwitch)sender).IsOn;
+        }
+
+        private void tswSaldo_Toggled(object sender, EventArgs e)
+        {
+            gbxSaldo.Visible = ((DevExpress.XtraEditors.ToggleSwitch)sender).IsOn;
+            lblOffSaldo.Visible = !((DevExpress.XtraEditors.ToggleSwitch)sender).IsOn;
+            sepOffSaldo.Visible = !((DevExpress.XtraEditors.ToggleSwitch)sender).IsOn;
         }
     }
 }

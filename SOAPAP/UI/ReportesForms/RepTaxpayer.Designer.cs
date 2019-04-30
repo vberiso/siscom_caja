@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.pnlHeader = new System.Windows.Forms.Panel();
             this.pnlDireccion = new System.Windows.Forms.Panel();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
@@ -85,21 +86,73 @@
             this.tswDomicilio = new DevExpress.XtraEditors.ToggleSwitch();
             this.gbxDomicilio = new System.Windows.Forms.GroupBox();
             this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
-            this.labelControl7 = new DevExpress.XtraEditors.LabelControl();
-            this.labelControl8 = new DevExpress.XtraEditors.LabelControl();
+            this.lblColonia = new DevExpress.XtraEditors.LabelControl();
+            this.lblNumero = new DevExpress.XtraEditors.LabelControl();
             this.labelControl9 = new DevExpress.XtraEditors.LabelControl();
             this.labelControl10 = new DevExpress.XtraEditors.LabelControl();
             this.labelControl11 = new DevExpress.XtraEditors.LabelControl();
             this.labelControl12 = new DevExpress.XtraEditors.LabelControl();
             this.labelControl13 = new DevExpress.XtraEditors.LabelControl();
             this.labelControl14 = new DevExpress.XtraEditors.LabelControl();
-            this.labelControl15 = new DevExpress.XtraEditors.LabelControl();
-            this.labelControl16 = new DevExpress.XtraEditors.LabelControl();
-            this.labelControl17 = new DevExpress.XtraEditors.LabelControl();
-            this.labelControl18 = new DevExpress.XtraEditors.LabelControl();
+            this.lblCalle = new DevExpress.XtraEditors.LabelControl();
+            this.lblCP = new DevExpress.XtraEditors.LabelControl();
+            this.lblLocalidad = new DevExpress.XtraEditors.LabelControl();
+            this.lblMunicipio = new DevExpress.XtraEditors.LabelControl();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
-            this.panel2 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.panel4 = new System.Windows.Forms.Panel();
+            this.lblOffDatosPadron = new DevExpress.XtraEditors.LabelControl();
+            this.sepOffDatosPadron = new DevExpress.XtraEditors.SeparatorControl();
+            this.tswDatosPadron = new DevExpress.XtraEditors.ToggleSwitch();
+            this.gbxDatosPadron = new System.Windows.Forms.GroupBox();
+            this.tableLayoutPanel6 = new System.Windows.Forms.TableLayoutPanel();
+            this.lblConsumo = new DevExpress.XtraEditors.LabelControl();
+            this.lblToma = new DevExpress.XtraEditors.LabelControl();
+            this.labelControl21 = new DevExpress.XtraEditors.LabelControl();
+            this.labelControl22 = new DevExpress.XtraEditors.LabelControl();
+            this.labelControl23 = new DevExpress.XtraEditors.LabelControl();
+            this.labelControl24 = new DevExpress.XtraEditors.LabelControl();
+            this.labelControl25 = new DevExpress.XtraEditors.LabelControl();
+            this.labelControl26 = new DevExpress.XtraEditors.LabelControl();
+            this.lblTipoServicio = new DevExpress.XtraEditors.LabelControl();
+            this.lblPoblacionVul = new DevExpress.XtraEditors.LabelControl();
+            this.lblRuta = new DevExpress.XtraEditors.LabelControl();
+            this.lblFechaContrato = new DevExpress.XtraEditors.LabelControl();
+            this.panel5 = new System.Windows.Forms.Panel();
+            this.lblOffSaldo = new DevExpress.XtraEditors.LabelControl();
+            this.sepOffSaldo = new DevExpress.XtraEditors.SeparatorControl();
+            this.tswSaldo = new DevExpress.XtraEditors.ToggleSwitch();
+            this.gbxSaldo = new System.Windows.Forms.GroupBox();
+            this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
+            this.pnlRepDebt = new System.Windows.Forms.Panel();
+            this.pgcDebt = new DevExpress.XtraPivotGrid.PivotGridControl();
+            this.pgfImporte = new DevExpress.XtraPivotGrid.PivotGridField();
+            this.pgfIva = new DevExpress.XtraPivotGrid.PivotGridField();
+            this.pgfDescriptionDebt = new DevExpress.XtraPivotGrid.PivotGridField();
+            this.pgfTotal = new DevExpress.XtraPivotGrid.PivotGridField();
+            this.labelControl1 = new DevExpress.XtraEditors.LabelControl();
+            this.pnlRepPrepaid = new System.Windows.Forms.Panel();
+            this.pgcPrepaid = new DevExpress.XtraPivotGrid.PivotGridControl();
+            this.pgfDescripcionPrepaid = new DevExpress.XtraPivotGrid.PivotGridField();
+            this.pgfEstatus = new DevExpress.XtraPivotGrid.PivotGridField();
+            this.pgfMontoPrepaid = new DevExpress.XtraPivotGrid.PivotGridField();
+            this.pgfFechaPrepaid = new DevExpress.XtraPivotGrid.PivotGridField();
+            this.lblTituloPrepaid = new DevExpress.XtraEditors.LabelControl();
+            this.pnlRepOrderSale = new System.Windows.Forms.Panel();
+            this.pgcOrderSale = new DevExpress.XtraPivotGrid.PivotGridControl();
+            this.pgfConceptoOS = new DevExpress.XtraPivotGrid.PivotGridField();
+            this.pgfDescripcionOS = new DevExpress.XtraPivotGrid.PivotGridField();
+            this.pgfAmountOS = new DevExpress.XtraPivotGrid.PivotGridField();
+            this.pgfFechaOS = new DevExpress.XtraPivotGrid.PivotGridField();
+            this.pgfUnitPriceOS = new DevExpress.XtraPivotGrid.PivotGridField();
+            this.pgfQuantityOS = new DevExpress.XtraPivotGrid.PivotGridField();
+            this.pgfTaxOS = new DevExpress.XtraPivotGrid.PivotGridField();
+            this.pgfTotalOS = new DevExpress.XtraPivotGrid.PivotGridField();
+            this.labelControl7 = new DevExpress.XtraEditors.LabelControl();
+            this.dataTaxpayerOrderSaleBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.prepaidBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.debtDetailBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.pnlHeader.SuspendLayout();
             this.pnlDireccion.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
@@ -118,8 +171,27 @@
             this.gbxDomicilio.SuspendLayout();
             this.tableLayoutPanel5.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
-            this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
+            this.panel2.SuspendLayout();
+            this.panel4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.sepOffDatosPadron)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tswDatosPadron.Properties)).BeginInit();
+            this.gbxDatosPadron.SuspendLayout();
+            this.tableLayoutPanel6.SuspendLayout();
+            this.panel5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.sepOffSaldo)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tswSaldo.Properties)).BeginInit();
+            this.gbxSaldo.SuspendLayout();
+            this.flowLayoutPanel2.SuspendLayout();
+            this.pnlRepDebt.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pgcDebt)).BeginInit();
+            this.pnlRepPrepaid.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pgcPrepaid)).BeginInit();
+            this.pnlRepOrderSale.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pgcOrderSale)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataTaxpayerOrderSaleBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.prepaidBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.debtDetailBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // pnlHeader
@@ -138,7 +210,7 @@
             this.pnlHeader.Controls.Add(this.pictureBox1);
             this.pnlHeader.Location = new System.Drawing.Point(1, 0);
             this.pnlHeader.Name = "pnlHeader";
-            this.pnlHeader.Size = new System.Drawing.Size(800, 225);
+            this.pnlHeader.Size = new System.Drawing.Size(824, 211);
             this.pnlHeader.TabIndex = 50;
             // 
             // pnlDireccion
@@ -147,7 +219,7 @@
             this.pnlDireccion.BackColor = System.Drawing.Color.White;
             this.pnlDireccion.Controls.Add(this.tableLayoutPanel3);
             this.pnlDireccion.Controls.Add(this.label10);
-            this.pnlDireccion.Location = new System.Drawing.Point(183, 69);
+            this.pnlDireccion.Location = new System.Drawing.Point(195, 65);
             this.pnlDireccion.Name = "pnlDireccion";
             this.pnlDireccion.Size = new System.Drawing.Size(451, 142);
             this.pnlDireccion.TabIndex = 58;
@@ -291,7 +363,7 @@
             this.pnlOpContribuyente.BackColor = System.Drawing.Color.White;
             this.pnlOpContribuyente.Controls.Add(this.tableLayoutPanel1);
             this.pnlOpContribuyente.Controls.Add(this.label1);
-            this.pnlOpContribuyente.Location = new System.Drawing.Point(182, 80);
+            this.pnlOpContribuyente.Location = new System.Drawing.Point(194, 80);
             this.pnlOpContribuyente.Name = "pnlOpContribuyente";
             this.pnlOpContribuyente.Size = new System.Drawing.Size(451, 118);
             this.pnlOpContribuyente.TabIndex = 57;
@@ -392,7 +464,7 @@
             this.btnExportar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnExportar.Font = new System.Drawing.Font("Segoe UI Black", 12F, System.Drawing.FontStyle.Bold);
             this.btnExportar.ForeColor = System.Drawing.Color.Black;
-            this.btnExportar.Location = new System.Drawing.Point(655, 58);
+            this.btnExportar.Location = new System.Drawing.Point(679, 58);
             this.btnExportar.Name = "btnExportar";
             this.btnExportar.Size = new System.Drawing.Size(133, 41);
             this.btnExportar.TabIndex = 56;
@@ -411,7 +483,7 @@
             this.tableLayoutPanel2.Controls.Add(this.label3, 1, 0);
             this.tableLayoutPanel2.Controls.Add(this.cbxBusqudaPor, 1, 1);
             this.tableLayoutPanel2.Controls.Add(this.tbxCuenta, 0, 1);
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(208, 13);
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(220, 13);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 2;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
@@ -461,9 +533,7 @@
             // 
             this.pcbIncomeByConcept.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.pcbIncomeByConcept.BackColor = System.Drawing.Color.Transparent;
-            this.pcbIncomeByConcept.Image = global::SOAPAP.Properties.Resources.bg;
-            this.pcbIncomeByConcept.InitialImage = global::SOAPAP.Properties.Resources.bg;
-            this.pcbIncomeByConcept.Location = new System.Drawing.Point(182, 9);
+            this.pcbIncomeByConcept.Location = new System.Drawing.Point(194, 9);
             this.pcbIncomeByConcept.Name = "pcbIncomeByConcept";
             this.pcbIncomeByConcept.Size = new System.Drawing.Size(451, 54);
             this.pcbIncomeByConcept.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -491,7 +561,7 @@
             this.btnBuscar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnBuscar.Font = new System.Drawing.Font("Segoe UI Black", 12F, System.Drawing.FontStyle.Bold);
             this.btnBuscar.ForeColor = System.Drawing.Color.Black;
-            this.btnBuscar.Location = new System.Drawing.Point(655, 12);
+            this.btnBuscar.Location = new System.Drawing.Point(679, 12);
             this.btnBuscar.Name = "btnBuscar";
             this.btnBuscar.Size = new System.Drawing.Size(133, 41);
             this.btnBuscar.TabIndex = 18;
@@ -515,8 +585,6 @@
             // pictureBox1
             // 
             this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
-            this.pictureBox1.Image = global::SOAPAP.Properties.Resources.reportes;
-            this.pictureBox1.InitialImage = global::SOAPAP.Properties.Resources.reportes;
             this.pictureBox1.Location = new System.Drawing.Point(15, 14);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(20, 20);
@@ -529,7 +597,7 @@
             this.gbxContribuyente.Controls.Add(this.tableLayoutPanel4);
             this.gbxContribuyente.Location = new System.Drawing.Point(3, 39);
             this.gbxContribuyente.Name = "gbxContribuyente";
-            this.gbxContribuyente.Size = new System.Drawing.Size(775, 100);
+            this.gbxContribuyente.Size = new System.Drawing.Size(785, 100);
             this.gbxContribuyente.TabIndex = 0;
             this.gbxContribuyente.TabStop = false;
             this.gbxContribuyente.Text = "Contribuyente";
@@ -562,7 +630,7 @@
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel4.Size = new System.Drawing.Size(763, 75);
+            this.tableLayoutPanel4.Size = new System.Drawing.Size(773, 75);
             this.tableLayoutPanel4.TabIndex = 0;
             // 
             // lblCel
@@ -573,9 +641,9 @@
             this.lblCel.Appearance.Options.UseFont = true;
             this.lblCel.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.Office2003;
             this.lblCel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblCel.Location = new System.Drawing.Point(117, 28);
+            this.lblCel.Location = new System.Drawing.Point(118, 28);
             this.lblCel.Name = "lblCel";
-            this.lblCel.Size = new System.Drawing.Size(261, 19);
+            this.lblCel.Size = new System.Drawing.Size(264, 19);
             this.lblCel.TabIndex = 8;
             this.lblCel.Text = "...";
             // 
@@ -587,16 +655,16 @@
             this.lblRFC.Appearance.Options.UseFont = true;
             this.lblRFC.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.Office2003;
             this.lblRFC.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblRFC.Location = new System.Drawing.Point(498, 3);
+            this.lblRFC.Location = new System.Drawing.Point(503, 3);
             this.lblRFC.Name = "lblRFC";
-            this.lblRFC.Size = new System.Drawing.Size(262, 19);
+            this.lblRFC.Size = new System.Drawing.Size(267, 19);
             this.lblRFC.TabIndex = 7;
             this.lblRFC.Text = "...";
             // 
             // Nombre
             // 
             this.Nombre.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.Nombre.Location = new System.Drawing.Point(70, 6);
+            this.Nombre.Location = new System.Drawing.Point(71, 6);
             this.Nombre.Name = "Nombre";
             this.Nombre.Size = new System.Drawing.Size(41, 13);
             this.Nombre.TabIndex = 0;
@@ -605,7 +673,7 @@
             // labelControl2
             // 
             this.labelControl2.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.labelControl2.Location = new System.Drawing.Point(66, 31);
+            this.labelControl2.Location = new System.Drawing.Point(67, 31);
             this.labelControl2.Name = "labelControl2";
             this.labelControl2.Size = new System.Drawing.Size(45, 13);
             this.labelControl2.TabIndex = 1;
@@ -614,7 +682,7 @@
             // labelControl3
             // 
             this.labelControl3.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.labelControl3.Location = new System.Drawing.Point(79, 56);
+            this.labelControl3.Location = new System.Drawing.Point(80, 56);
             this.labelControl3.Name = "labelControl3";
             this.labelControl3.Size = new System.Drawing.Size(32, 13);
             this.labelControl3.TabIndex = 2;
@@ -623,7 +691,7 @@
             // labelControl4
             // 
             this.labelControl4.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.labelControl4.Location = new System.Drawing.Point(468, 6);
+            this.labelControl4.Location = new System.Drawing.Point(473, 6);
             this.labelControl4.Name = "labelControl4";
             this.labelControl4.Size = new System.Drawing.Size(24, 13);
             this.labelControl4.TabIndex = 3;
@@ -632,7 +700,7 @@
             // labelControl5
             // 
             this.labelControl5.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.labelControl5.Location = new System.Drawing.Point(461, 31);
+            this.labelControl5.Location = new System.Drawing.Point(466, 31);
             this.labelControl5.Name = "labelControl5";
             this.labelControl5.Size = new System.Drawing.Size(31, 13);
             this.labelControl5.TabIndex = 4;
@@ -641,7 +709,7 @@
             // labelControl6
             // 
             this.labelControl6.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.labelControl6.Location = new System.Drawing.Point(443, 56);
+            this.labelControl6.Location = new System.Drawing.Point(448, 56);
             this.labelControl6.Name = "labelControl6";
             this.labelControl6.Size = new System.Drawing.Size(49, 13);
             this.labelControl6.TabIndex = 5;
@@ -655,9 +723,9 @@
             this.lblNombre.Appearance.Options.UseFont = true;
             this.lblNombre.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.Simple;
             this.lblNombre.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblNombre.Location = new System.Drawing.Point(117, 3);
+            this.lblNombre.Location = new System.Drawing.Point(118, 3);
             this.lblNombre.Name = "lblNombre";
-            this.lblNombre.Size = new System.Drawing.Size(261, 19);
+            this.lblNombre.Size = new System.Drawing.Size(264, 19);
             this.lblNombre.TabIndex = 6;
             this.lblNombre.Text = "...";
             // 
@@ -669,9 +737,9 @@
             this.lblCURP.Appearance.Options.UseFont = true;
             this.lblCURP.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.Office2003;
             this.lblCURP.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblCURP.Location = new System.Drawing.Point(498, 28);
+            this.lblCURP.Location = new System.Drawing.Point(503, 28);
             this.lblCURP.Name = "lblCURP";
-            this.lblCURP.Size = new System.Drawing.Size(262, 19);
+            this.lblCURP.Size = new System.Drawing.Size(267, 19);
             this.lblCURP.TabIndex = 9;
             this.lblCURP.Text = "...";
             // 
@@ -683,9 +751,9 @@
             this.lblMail.Appearance.Options.UseFont = true;
             this.lblMail.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.Office2003;
             this.lblMail.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblMail.Location = new System.Drawing.Point(117, 53);
+            this.lblMail.Location = new System.Drawing.Point(118, 53);
             this.lblMail.Name = "lblMail";
-            this.lblMail.Size = new System.Drawing.Size(261, 19);
+            this.lblMail.Size = new System.Drawing.Size(264, 19);
             this.lblMail.TabIndex = 10;
             this.lblMail.Text = "...";
             // 
@@ -697,9 +765,9 @@
             this.lblIne.Appearance.Options.UseFont = true;
             this.lblIne.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.Office2003;
             this.lblIne.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblIne.Location = new System.Drawing.Point(498, 53);
+            this.lblIne.Location = new System.Drawing.Point(503, 53);
             this.lblIne.Name = "lblIne";
-            this.lblIne.Size = new System.Drawing.Size(262, 19);
+            this.lblIne.Size = new System.Drawing.Size(267, 19);
             this.lblIne.TabIndex = 11;
             this.lblIne.Text = "...";
             // 
@@ -713,7 +781,7 @@
             // 
             this.tswInfoContriyente.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.tswInfoContriyente.EditValue = true;
-            this.tswInfoContriyente.Location = new System.Drawing.Point(678, 4);
+            this.tswInfoContriyente.Location = new System.Drawing.Point(679, 3);
             this.tswInfoContriyente.Name = "tswInfoContriyente";
             this.tswInfoContriyente.Properties.OffText = "Off";
             this.tswInfoContriyente.Properties.OnText = "On";
@@ -781,7 +849,7 @@
             this.gbxDomicilio.Controls.Add(this.tableLayoutPanel5);
             this.gbxDomicilio.Location = new System.Drawing.Point(3, 181);
             this.gbxDomicilio.Name = "gbxDomicilio";
-            this.gbxDomicilio.Size = new System.Drawing.Size(775, 100);
+            this.gbxDomicilio.Size = new System.Drawing.Size(785, 100);
             this.gbxDomicilio.TabIndex = 4;
             this.gbxDomicilio.TabStop = false;
             this.gbxDomicilio.Text = "Domicilio";
@@ -796,59 +864,59 @@
             this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 35F));
             this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 15F));
             this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 35F));
-            this.tableLayoutPanel5.Controls.Add(this.labelControl7, 1, 1);
-            this.tableLayoutPanel5.Controls.Add(this.labelControl8, 3, 0);
+            this.tableLayoutPanel5.Controls.Add(this.lblColonia, 1, 1);
+            this.tableLayoutPanel5.Controls.Add(this.lblNumero, 3, 0);
             this.tableLayoutPanel5.Controls.Add(this.labelControl9, 0, 0);
             this.tableLayoutPanel5.Controls.Add(this.labelControl10, 0, 1);
             this.tableLayoutPanel5.Controls.Add(this.labelControl11, 0, 2);
             this.tableLayoutPanel5.Controls.Add(this.labelControl12, 2, 0);
             this.tableLayoutPanel5.Controls.Add(this.labelControl13, 2, 1);
             this.tableLayoutPanel5.Controls.Add(this.labelControl14, 2, 2);
-            this.tableLayoutPanel5.Controls.Add(this.labelControl15, 1, 0);
-            this.tableLayoutPanel5.Controls.Add(this.labelControl16, 3, 1);
-            this.tableLayoutPanel5.Controls.Add(this.labelControl17, 1, 2);
-            this.tableLayoutPanel5.Controls.Add(this.labelControl18, 3, 2);
+            this.tableLayoutPanel5.Controls.Add(this.lblCalle, 1, 0);
+            this.tableLayoutPanel5.Controls.Add(this.lblCP, 3, 1);
+            this.tableLayoutPanel5.Controls.Add(this.lblLocalidad, 1, 2);
+            this.tableLayoutPanel5.Controls.Add(this.lblMunicipio, 3, 2);
             this.tableLayoutPanel5.Location = new System.Drawing.Point(6, 19);
             this.tableLayoutPanel5.Name = "tableLayoutPanel5";
             this.tableLayoutPanel5.RowCount = 3;
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel5.Size = new System.Drawing.Size(763, 75);
+            this.tableLayoutPanel5.Size = new System.Drawing.Size(773, 75);
             this.tableLayoutPanel5.TabIndex = 0;
             // 
-            // labelControl7
+            // lblColonia
             // 
-            this.labelControl7.Appearance.BackColor = System.Drawing.Color.White;
-            this.labelControl7.Appearance.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold);
-            this.labelControl7.Appearance.Options.UseBackColor = true;
-            this.labelControl7.Appearance.Options.UseFont = true;
-            this.labelControl7.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.Office2003;
-            this.labelControl7.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.labelControl7.Location = new System.Drawing.Point(117, 28);
-            this.labelControl7.Name = "labelControl7";
-            this.labelControl7.Size = new System.Drawing.Size(261, 19);
-            this.labelControl7.TabIndex = 8;
-            this.labelControl7.Text = "...";
+            this.lblColonia.Appearance.BackColor = System.Drawing.Color.White;
+            this.lblColonia.Appearance.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold);
+            this.lblColonia.Appearance.Options.UseBackColor = true;
+            this.lblColonia.Appearance.Options.UseFont = true;
+            this.lblColonia.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.Office2003;
+            this.lblColonia.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblColonia.Location = new System.Drawing.Point(118, 28);
+            this.lblColonia.Name = "lblColonia";
+            this.lblColonia.Size = new System.Drawing.Size(264, 19);
+            this.lblColonia.TabIndex = 8;
+            this.lblColonia.Text = "...";
             // 
-            // labelControl8
+            // lblNumero
             // 
-            this.labelControl8.Appearance.BackColor = System.Drawing.Color.White;
-            this.labelControl8.Appearance.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold);
-            this.labelControl8.Appearance.Options.UseBackColor = true;
-            this.labelControl8.Appearance.Options.UseFont = true;
-            this.labelControl8.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.Office2003;
-            this.labelControl8.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.labelControl8.Location = new System.Drawing.Point(498, 3);
-            this.labelControl8.Name = "labelControl8";
-            this.labelControl8.Size = new System.Drawing.Size(262, 19);
-            this.labelControl8.TabIndex = 7;
-            this.labelControl8.Text = "...";
+            this.lblNumero.Appearance.BackColor = System.Drawing.Color.White;
+            this.lblNumero.Appearance.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold);
+            this.lblNumero.Appearance.Options.UseBackColor = true;
+            this.lblNumero.Appearance.Options.UseFont = true;
+            this.lblNumero.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.Office2003;
+            this.lblNumero.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblNumero.Location = new System.Drawing.Point(503, 3);
+            this.lblNumero.Name = "lblNumero";
+            this.lblNumero.Size = new System.Drawing.Size(267, 19);
+            this.lblNumero.TabIndex = 7;
+            this.lblNumero.Text = "...";
             // 
             // labelControl9
             // 
             this.labelControl9.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.labelControl9.Location = new System.Drawing.Point(84, 6);
+            this.labelControl9.Location = new System.Drawing.Point(85, 6);
             this.labelControl9.Name = "labelControl9";
             this.labelControl9.Size = new System.Drawing.Size(27, 13);
             this.labelControl9.TabIndex = 0;
@@ -857,7 +925,7 @@
             // labelControl10
             // 
             this.labelControl10.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.labelControl10.Location = new System.Drawing.Point(72, 31);
+            this.labelControl10.Location = new System.Drawing.Point(73, 31);
             this.labelControl10.Name = "labelControl10";
             this.labelControl10.Size = new System.Drawing.Size(39, 13);
             this.labelControl10.TabIndex = 1;
@@ -866,7 +934,7 @@
             // labelControl11
             // 
             this.labelControl11.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.labelControl11.Location = new System.Drawing.Point(63, 56);
+            this.labelControl11.Location = new System.Drawing.Point(64, 56);
             this.labelControl11.Name = "labelControl11";
             this.labelControl11.Size = new System.Drawing.Size(48, 13);
             this.labelControl11.TabIndex = 2;
@@ -875,7 +943,7 @@
             // labelControl12
             // 
             this.labelControl12.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.labelControl12.Location = new System.Drawing.Point(451, 6);
+            this.labelControl12.Location = new System.Drawing.Point(456, 6);
             this.labelControl12.Name = "labelControl12";
             this.labelControl12.Size = new System.Drawing.Size(41, 13);
             this.labelControl12.TabIndex = 3;
@@ -884,7 +952,7 @@
             // labelControl13
             // 
             this.labelControl13.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.labelControl13.Location = new System.Drawing.Point(467, 31);
+            this.labelControl13.Location = new System.Drawing.Point(472, 31);
             this.labelControl13.Name = "labelControl13";
             this.labelControl13.Size = new System.Drawing.Size(25, 13);
             this.labelControl13.TabIndex = 4;
@@ -893,81 +961,97 @@
             // labelControl14
             // 
             this.labelControl14.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.labelControl14.Location = new System.Drawing.Point(445, 56);
+            this.labelControl14.Location = new System.Drawing.Point(450, 56);
             this.labelControl14.Name = "labelControl14";
             this.labelControl14.Size = new System.Drawing.Size(47, 13);
             this.labelControl14.TabIndex = 5;
             this.labelControl14.Text = "Municipio:";
             // 
-            // labelControl15
+            // lblCalle
             // 
-            this.labelControl15.Appearance.BackColor = System.Drawing.Color.White;
-            this.labelControl15.Appearance.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold);
-            this.labelControl15.Appearance.Options.UseBackColor = true;
-            this.labelControl15.Appearance.Options.UseFont = true;
-            this.labelControl15.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.Office2003;
-            this.labelControl15.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.labelControl15.Location = new System.Drawing.Point(117, 3);
-            this.labelControl15.Name = "labelControl15";
-            this.labelControl15.Size = new System.Drawing.Size(261, 19);
-            this.labelControl15.TabIndex = 6;
-            this.labelControl15.Text = "...";
+            this.lblCalle.Appearance.BackColor = System.Drawing.Color.White;
+            this.lblCalle.Appearance.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold);
+            this.lblCalle.Appearance.Options.UseBackColor = true;
+            this.lblCalle.Appearance.Options.UseFont = true;
+            this.lblCalle.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.Office2003;
+            this.lblCalle.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblCalle.Location = new System.Drawing.Point(118, 3);
+            this.lblCalle.Name = "lblCalle";
+            this.lblCalle.Size = new System.Drawing.Size(264, 19);
+            this.lblCalle.TabIndex = 6;
+            this.lblCalle.Text = "...";
             // 
-            // labelControl16
+            // lblCP
             // 
-            this.labelControl16.Appearance.BackColor = System.Drawing.Color.White;
-            this.labelControl16.Appearance.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold);
-            this.labelControl16.Appearance.Options.UseBackColor = true;
-            this.labelControl16.Appearance.Options.UseFont = true;
-            this.labelControl16.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.Office2003;
-            this.labelControl16.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.labelControl16.Location = new System.Drawing.Point(498, 28);
-            this.labelControl16.Name = "labelControl16";
-            this.labelControl16.Size = new System.Drawing.Size(262, 19);
-            this.labelControl16.TabIndex = 9;
-            this.labelControl16.Text = "...";
+            this.lblCP.Appearance.BackColor = System.Drawing.Color.White;
+            this.lblCP.Appearance.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold);
+            this.lblCP.Appearance.Options.UseBackColor = true;
+            this.lblCP.Appearance.Options.UseFont = true;
+            this.lblCP.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.Office2003;
+            this.lblCP.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblCP.Location = new System.Drawing.Point(503, 28);
+            this.lblCP.Name = "lblCP";
+            this.lblCP.Size = new System.Drawing.Size(267, 19);
+            this.lblCP.TabIndex = 9;
+            this.lblCP.Text = "...";
             // 
-            // labelControl17
+            // lblLocalidad
             // 
-            this.labelControl17.Appearance.BackColor = System.Drawing.Color.White;
-            this.labelControl17.Appearance.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold);
-            this.labelControl17.Appearance.Options.UseBackColor = true;
-            this.labelControl17.Appearance.Options.UseFont = true;
-            this.labelControl17.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.Office2003;
-            this.labelControl17.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.labelControl17.Location = new System.Drawing.Point(117, 53);
-            this.labelControl17.Name = "labelControl17";
-            this.labelControl17.Size = new System.Drawing.Size(261, 19);
-            this.labelControl17.TabIndex = 10;
-            this.labelControl17.Text = "...";
+            this.lblLocalidad.Appearance.BackColor = System.Drawing.Color.White;
+            this.lblLocalidad.Appearance.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold);
+            this.lblLocalidad.Appearance.Options.UseBackColor = true;
+            this.lblLocalidad.Appearance.Options.UseFont = true;
+            this.lblLocalidad.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.Office2003;
+            this.lblLocalidad.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblLocalidad.Location = new System.Drawing.Point(118, 53);
+            this.lblLocalidad.Name = "lblLocalidad";
+            this.lblLocalidad.Size = new System.Drawing.Size(264, 19);
+            this.lblLocalidad.TabIndex = 10;
+            this.lblLocalidad.Text = "...";
             // 
-            // labelControl18
+            // lblMunicipio
             // 
-            this.labelControl18.Appearance.BackColor = System.Drawing.Color.White;
-            this.labelControl18.Appearance.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold);
-            this.labelControl18.Appearance.Options.UseBackColor = true;
-            this.labelControl18.Appearance.Options.UseFont = true;
-            this.labelControl18.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.Office2003;
-            this.labelControl18.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.labelControl18.Location = new System.Drawing.Point(498, 53);
-            this.labelControl18.Name = "labelControl18";
-            this.labelControl18.Size = new System.Drawing.Size(262, 19);
-            this.labelControl18.TabIndex = 11;
-            this.labelControl18.Text = "...";
+            this.lblMunicipio.Appearance.BackColor = System.Drawing.Color.White;
+            this.lblMunicipio.Appearance.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold);
+            this.lblMunicipio.Appearance.Options.UseBackColor = true;
+            this.lblMunicipio.Appearance.Options.UseFont = true;
+            this.lblMunicipio.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.Office2003;
+            this.lblMunicipio.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblMunicipio.Location = new System.Drawing.Point(503, 53);
+            this.lblMunicipio.Name = "lblMunicipio";
+            this.lblMunicipio.Size = new System.Drawing.Size(267, 19);
+            this.lblMunicipio.TabIndex = 11;
+            this.lblMunicipio.Text = "...";
             // 
             // flowLayoutPanel1
             // 
             this.flowLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.flowLayoutPanel1.AutoScroll = true;
             this.flowLayoutPanel1.Controls.Add(this.panel3);
             this.flowLayoutPanel1.Controls.Add(this.gbxContribuyente);
             this.flowLayoutPanel1.Controls.Add(this.panel2);
             this.flowLayoutPanel1.Controls.Add(this.gbxDomicilio);
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(1, 231);
+            this.flowLayoutPanel1.Controls.Add(this.panel4);
+            this.flowLayoutPanel1.Controls.Add(this.gbxDatosPadron);
+            this.flowLayoutPanel1.Controls.Add(this.panel5);
+            this.flowLayoutPanel1.Controls.Add(this.gbxSaldo);
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(1, 212);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(800, 466);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(824, 246);
             this.flowLayoutPanel1.TabIndex = 51;
+            // 
+            // panel3
+            // 
+            this.panel3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel3.Controls.Add(this.tswInfoContriyente);
+            this.panel3.Controls.Add(this.sepOffContribuyente);
+            this.panel3.Controls.Add(this.lblOffContribuyente);
+            this.panel3.Location = new System.Drawing.Point(3, 3);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(785, 30);
+            this.panel3.TabIndex = 5;
             // 
             // panel2
             // 
@@ -980,22 +1064,553 @@
             this.panel2.Size = new System.Drawing.Size(785, 30);
             this.panel2.TabIndex = 4;
             // 
-            // panel3
+            // panel4
             // 
-            this.panel3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel3.Controls.Add(this.tswInfoContriyente);
-            this.panel3.Controls.Add(this.sepOffContribuyente);
-            this.panel3.Controls.Add(this.lblOffContribuyente);
-            this.panel3.Location = new System.Drawing.Point(3, 3);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(797, 30);
-            this.panel3.TabIndex = 5;
+            this.panel4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel4.Controls.Add(this.lblOffDatosPadron);
+            this.panel4.Controls.Add(this.sepOffDatosPadron);
+            this.panel4.Controls.Add(this.tswDatosPadron);
+            this.panel4.Location = new System.Drawing.Point(3, 287);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(785, 30);
+            this.panel4.TabIndex = 6;
+            // 
+            // lblOffDatosPadron
+            // 
+            this.lblOffDatosPadron.Appearance.ForeColor = System.Drawing.SystemColors.MenuHighlight;
+            this.lblOffDatosPadron.Appearance.Options.UseForeColor = true;
+            this.lblOffDatosPadron.Location = new System.Drawing.Point(5, 7);
+            this.lblOffDatosPadron.Name = "lblOffDatosPadron";
+            this.lblOffDatosPadron.Size = new System.Drawing.Size(65, 13);
+            this.lblOffDatosPadron.TabIndex = 6;
+            this.lblOffDatosPadron.Text = "Datos Padron";
+            // 
+            // sepOffDatosPadron
+            // 
+            this.sepOffDatosPadron.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.sepOffDatosPadron.LineColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
+            this.sepOffDatosPadron.Location = new System.Drawing.Point(82, 3);
+            this.sepOffDatosPadron.Name = "sepOffDatosPadron";
+            this.sepOffDatosPadron.Size = new System.Drawing.Size(586, 23);
+            this.sepOffDatosPadron.TabIndex = 7;
+            // 
+            // tswDatosPadron
+            // 
+            this.tswDatosPadron.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.tswDatosPadron.EditValue = true;
+            this.tswDatosPadron.Location = new System.Drawing.Point(680, 3);
+            this.tswDatosPadron.Name = "tswDatosPadron";
+            this.tswDatosPadron.Properties.OffText = "Off";
+            this.tswDatosPadron.Properties.OnText = "On";
+            this.tswDatosPadron.Size = new System.Drawing.Size(95, 24);
+            this.tswDatosPadron.TabIndex = 5;
+            this.tswDatosPadron.ToolTip = "Contribuyente información";
+            this.tswDatosPadron.Toggled += new System.EventHandler(this.tswDatosPadron_Toggled);
+            // 
+            // gbxDatosPadron
+            // 
+            this.gbxDatosPadron.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.gbxDatosPadron.Controls.Add(this.tableLayoutPanel6);
+            this.gbxDatosPadron.Location = new System.Drawing.Point(3, 323);
+            this.gbxDatosPadron.Name = "gbxDatosPadron";
+            this.gbxDatosPadron.Size = new System.Drawing.Size(785, 100);
+            this.gbxDatosPadron.TabIndex = 7;
+            this.gbxDatosPadron.TabStop = false;
+            this.gbxDatosPadron.Text = "Datos Padron.";
+            // 
+            // tableLayoutPanel6
+            // 
+            this.tableLayoutPanel6.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutPanel6.ColumnCount = 4;
+            this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 15F));
+            this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 35F));
+            this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 15F));
+            this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 35F));
+            this.tableLayoutPanel6.Controls.Add(this.lblConsumo, 1, 1);
+            this.tableLayoutPanel6.Controls.Add(this.lblToma, 3, 0);
+            this.tableLayoutPanel6.Controls.Add(this.labelControl21, 0, 0);
+            this.tableLayoutPanel6.Controls.Add(this.labelControl22, 0, 1);
+            this.tableLayoutPanel6.Controls.Add(this.labelControl23, 0, 2);
+            this.tableLayoutPanel6.Controls.Add(this.labelControl24, 2, 0);
+            this.tableLayoutPanel6.Controls.Add(this.labelControl25, 2, 1);
+            this.tableLayoutPanel6.Controls.Add(this.labelControl26, 2, 2);
+            this.tableLayoutPanel6.Controls.Add(this.lblTipoServicio, 1, 0);
+            this.tableLayoutPanel6.Controls.Add(this.lblPoblacionVul, 3, 1);
+            this.tableLayoutPanel6.Controls.Add(this.lblRuta, 1, 2);
+            this.tableLayoutPanel6.Controls.Add(this.lblFechaContrato, 3, 2);
+            this.tableLayoutPanel6.Location = new System.Drawing.Point(6, 19);
+            this.tableLayoutPanel6.Name = "tableLayoutPanel6";
+            this.tableLayoutPanel6.RowCount = 3;
+            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel6.Size = new System.Drawing.Size(773, 75);
+            this.tableLayoutPanel6.TabIndex = 0;
+            // 
+            // lblConsumo
+            // 
+            this.lblConsumo.Appearance.BackColor = System.Drawing.Color.White;
+            this.lblConsumo.Appearance.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold);
+            this.lblConsumo.Appearance.Options.UseBackColor = true;
+            this.lblConsumo.Appearance.Options.UseFont = true;
+            this.lblConsumo.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.Office2003;
+            this.lblConsumo.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblConsumo.Location = new System.Drawing.Point(118, 28);
+            this.lblConsumo.Name = "lblConsumo";
+            this.lblConsumo.Size = new System.Drawing.Size(264, 19);
+            this.lblConsumo.TabIndex = 8;
+            this.lblConsumo.Text = "...";
+            // 
+            // lblToma
+            // 
+            this.lblToma.Appearance.BackColor = System.Drawing.Color.White;
+            this.lblToma.Appearance.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold);
+            this.lblToma.Appearance.Options.UseBackColor = true;
+            this.lblToma.Appearance.Options.UseFont = true;
+            this.lblToma.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.Office2003;
+            this.lblToma.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblToma.Location = new System.Drawing.Point(503, 3);
+            this.lblToma.Name = "lblToma";
+            this.lblToma.Size = new System.Drawing.Size(267, 19);
+            this.lblToma.TabIndex = 7;
+            this.lblToma.Text = "...";
+            // 
+            // labelControl21
+            // 
+            this.labelControl21.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.labelControl21.Location = new System.Drawing.Point(48, 6);
+            this.labelControl21.Name = "labelControl21";
+            this.labelControl21.Size = new System.Drawing.Size(64, 13);
+            this.labelControl21.TabIndex = 0;
+            this.labelControl21.Text = "Tipo Servicio:";
+            // 
+            // labelControl22
+            // 
+            this.labelControl22.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.labelControl22.Location = new System.Drawing.Point(64, 31);
+            this.labelControl22.Name = "labelControl22";
+            this.labelControl22.Size = new System.Drawing.Size(48, 13);
+            this.labelControl22.TabIndex = 1;
+            this.labelControl22.Text = "Consumo:";
+            // 
+            // labelControl23
+            // 
+            this.labelControl23.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.labelControl23.Location = new System.Drawing.Point(85, 56);
+            this.labelControl23.Name = "labelControl23";
+            this.labelControl23.Size = new System.Drawing.Size(27, 13);
+            this.labelControl23.TabIndex = 2;
+            this.labelControl23.Text = "Ruta:";
+            // 
+            // labelControl24
+            // 
+            this.labelControl24.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.labelControl24.Location = new System.Drawing.Point(467, 6);
+            this.labelControl24.Name = "labelControl24";
+            this.labelControl24.Size = new System.Drawing.Size(30, 13);
+            this.labelControl24.TabIndex = 3;
+            this.labelControl24.Text = "Toma:";
+            // 
+            // labelControl25
+            // 
+            this.labelControl25.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.labelControl25.Location = new System.Drawing.Point(395, 31);
+            this.labelControl25.Name = "labelControl25";
+            this.labelControl25.Size = new System.Drawing.Size(102, 13);
+            this.labelControl25.TabIndex = 4;
+            this.labelControl25.Text = "Población vulnerable:";
+            // 
+            // labelControl26
+            // 
+            this.labelControl26.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.labelControl26.Location = new System.Drawing.Point(420, 56);
+            this.labelControl26.Name = "labelControl26";
+            this.labelControl26.Size = new System.Drawing.Size(77, 13);
+            this.labelControl26.TabIndex = 5;
+            this.labelControl26.Text = "Fecha contrato:";
+            // 
+            // lblTipoServicio
+            // 
+            this.lblTipoServicio.Appearance.BackColor = System.Drawing.Color.White;
+            this.lblTipoServicio.Appearance.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold);
+            this.lblTipoServicio.Appearance.Options.UseBackColor = true;
+            this.lblTipoServicio.Appearance.Options.UseFont = true;
+            this.lblTipoServicio.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.Office2003;
+            this.lblTipoServicio.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblTipoServicio.Location = new System.Drawing.Point(118, 3);
+            this.lblTipoServicio.Name = "lblTipoServicio";
+            this.lblTipoServicio.Size = new System.Drawing.Size(264, 19);
+            this.lblTipoServicio.TabIndex = 6;
+            this.lblTipoServicio.Text = "...";
+            // 
+            // lblPoblacionVul
+            // 
+            this.lblPoblacionVul.Appearance.BackColor = System.Drawing.Color.White;
+            this.lblPoblacionVul.Appearance.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold);
+            this.lblPoblacionVul.Appearance.Options.UseBackColor = true;
+            this.lblPoblacionVul.Appearance.Options.UseFont = true;
+            this.lblPoblacionVul.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.Office2003;
+            this.lblPoblacionVul.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblPoblacionVul.Location = new System.Drawing.Point(503, 28);
+            this.lblPoblacionVul.Name = "lblPoblacionVul";
+            this.lblPoblacionVul.Size = new System.Drawing.Size(267, 19);
+            this.lblPoblacionVul.TabIndex = 9;
+            this.lblPoblacionVul.Text = "...";
+            // 
+            // lblRuta
+            // 
+            this.lblRuta.Appearance.BackColor = System.Drawing.Color.White;
+            this.lblRuta.Appearance.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold);
+            this.lblRuta.Appearance.Options.UseBackColor = true;
+            this.lblRuta.Appearance.Options.UseFont = true;
+            this.lblRuta.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.Office2003;
+            this.lblRuta.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblRuta.Location = new System.Drawing.Point(118, 53);
+            this.lblRuta.Name = "lblRuta";
+            this.lblRuta.Size = new System.Drawing.Size(264, 19);
+            this.lblRuta.TabIndex = 10;
+            this.lblRuta.Text = "...";
+            // 
+            // lblFechaContrato
+            // 
+            this.lblFechaContrato.Appearance.BackColor = System.Drawing.Color.White;
+            this.lblFechaContrato.Appearance.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold);
+            this.lblFechaContrato.Appearance.Options.UseBackColor = true;
+            this.lblFechaContrato.Appearance.Options.UseFont = true;
+            this.lblFechaContrato.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.Office2003;
+            this.lblFechaContrato.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblFechaContrato.Location = new System.Drawing.Point(503, 53);
+            this.lblFechaContrato.Name = "lblFechaContrato";
+            this.lblFechaContrato.Size = new System.Drawing.Size(267, 19);
+            this.lblFechaContrato.TabIndex = 11;
+            this.lblFechaContrato.Text = "...";
+            // 
+            // panel5
+            // 
+            this.panel5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel5.Controls.Add(this.lblOffSaldo);
+            this.panel5.Controls.Add(this.sepOffSaldo);
+            this.panel5.Controls.Add(this.tswSaldo);
+            this.panel5.Location = new System.Drawing.Point(3, 429);
+            this.panel5.Name = "panel5";
+            this.panel5.Size = new System.Drawing.Size(785, 30);
+            this.panel5.TabIndex = 8;
+            // 
+            // lblOffSaldo
+            // 
+            this.lblOffSaldo.Appearance.ForeColor = System.Drawing.SystemColors.MenuHighlight;
+            this.lblOffSaldo.Appearance.Options.UseForeColor = true;
+            this.lblOffSaldo.Location = new System.Drawing.Point(5, 7);
+            this.lblOffSaldo.Name = "lblOffSaldo";
+            this.lblOffSaldo.Size = new System.Drawing.Size(58, 13);
+            this.lblOffSaldo.TabIndex = 6;
+            this.lblOffSaldo.Text = "Saldo actual";
+            // 
+            // sepOffSaldo
+            // 
+            this.sepOffSaldo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.sepOffSaldo.LineColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
+            this.sepOffSaldo.Location = new System.Drawing.Point(82, 3);
+            this.sepOffSaldo.Name = "sepOffSaldo";
+            this.sepOffSaldo.Size = new System.Drawing.Size(586, 23);
+            this.sepOffSaldo.TabIndex = 7;
+            // 
+            // tswSaldo
+            // 
+            this.tswSaldo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.tswSaldo.EditValue = true;
+            this.tswSaldo.Location = new System.Drawing.Point(680, 3);
+            this.tswSaldo.Name = "tswSaldo";
+            this.tswSaldo.Properties.OffText = "Off";
+            this.tswSaldo.Properties.OnText = "On";
+            this.tswSaldo.Size = new System.Drawing.Size(95, 24);
+            this.tswSaldo.TabIndex = 5;
+            this.tswSaldo.ToolTip = "Contribuyente información";
+            this.tswSaldo.Toggled += new System.EventHandler(this.tswSaldo_Toggled);
+            // 
+            // gbxSaldo
+            // 
+            this.gbxSaldo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.gbxSaldo.Controls.Add(this.flowLayoutPanel2);
+            this.gbxSaldo.Location = new System.Drawing.Point(3, 465);
+            this.gbxSaldo.Name = "gbxSaldo";
+            this.gbxSaldo.Size = new System.Drawing.Size(785, 693);
+            this.gbxSaldo.TabIndex = 9;
+            this.gbxSaldo.TabStop = false;
+            this.gbxSaldo.Text = "Saldo actual";
+            // 
+            // flowLayoutPanel2
+            // 
+            this.flowLayoutPanel2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.flowLayoutPanel2.Controls.Add(this.pnlRepDebt);
+            this.flowLayoutPanel2.Controls.Add(this.pnlRepPrepaid);
+            this.flowLayoutPanel2.Controls.Add(this.pnlRepOrderSale);
+            this.flowLayoutPanel2.Location = new System.Drawing.Point(5, 19);
+            this.flowLayoutPanel2.Name = "flowLayoutPanel2";
+            this.flowLayoutPanel2.Size = new System.Drawing.Size(774, 668);
+            this.flowLayoutPanel2.TabIndex = 0;
+            // 
+            // pnlRepDebt
+            // 
+            this.pnlRepDebt.Controls.Add(this.pgcDebt);
+            this.pnlRepDebt.Controls.Add(this.labelControl1);
+            this.pnlRepDebt.Location = new System.Drawing.Point(3, 3);
+            this.pnlRepDebt.Name = "pnlRepDebt";
+            this.pnlRepDebt.Size = new System.Drawing.Size(761, 259);
+            this.pnlRepDebt.TabIndex = 0;
+            this.pnlRepDebt.Visible = false;
+            // 
+            // pgcDebt
+            // 
+            this.pgcDebt.Fields.AddRange(new DevExpress.XtraPivotGrid.PivotGridField[] {
+            this.pgfImporte,
+            this.pgfIva,
+            this.pgfDescriptionDebt,
+            this.pgfTotal});
+            this.pgcDebt.Location = new System.Drawing.Point(4, 25);
+            this.pgcDebt.Name = "pgcDebt";
+            this.pgcDebt.OptionsData.DataProcessingEngine = DevExpress.XtraPivotGrid.PivotDataProcessingEngine.LegacyOptimized;
+            this.pgcDebt.Size = new System.Drawing.Size(751, 229);
+            this.pgcDebt.TabIndex = 12;
+            // 
+            // pgfImporte
+            // 
+            this.pgfImporte.Area = DevExpress.XtraPivotGrid.PivotArea.DataArea;
+            this.pgfImporte.AreaIndex = 0;
+            this.pgfImporte.Caption = "Importe";
+            this.pgfImporte.FieldName = "Monto";
+            this.pgfImporte.Name = "pgfImporte";
+            // 
+            // pgfIva
+            // 
+            this.pgfIva.Area = DevExpress.XtraPivotGrid.PivotArea.DataArea;
+            this.pgfIva.AreaIndex = 1;
+            this.pgfIva.Caption = "IVA";
+            this.pgfIva.FieldName = "IVA";
+            this.pgfIva.Name = "pgfIva";
+            // 
+            // pgfDescriptionDebt
+            // 
+            this.pgfDescriptionDebt.Area = DevExpress.XtraPivotGrid.PivotArea.RowArea;
+            this.pgfDescriptionDebt.AreaIndex = 0;
+            this.pgfDescriptionDebt.Caption = "Descripcion";
+            this.pgfDescriptionDebt.FieldName = "Description";
+            this.pgfDescriptionDebt.Name = "pgfDescriptionDebt";
+            this.pgfDescriptionDebt.Width = 400;
+            // 
+            // pgfTotal
+            // 
+            this.pgfTotal.Area = DevExpress.XtraPivotGrid.PivotArea.DataArea;
+            this.pgfTotal.AreaIndex = 2;
+            this.pgfTotal.Caption = "TOTAL";
+            this.pgfTotal.FieldName = "Total";
+            this.pgfTotal.Name = "pgfTotal";
+            this.pgfTotal.Width = 131;
+            // 
+            // labelControl1
+            // 
+            this.labelControl1.Appearance.ForeColor = System.Drawing.SystemColors.MenuHighlight;
+            this.labelControl1.Appearance.Options.UseForeColor = true;
+            this.labelControl1.Location = new System.Drawing.Point(343, 6);
+            this.labelControl1.Name = "labelControl1";
+            this.labelControl1.Size = new System.Drawing.Size(37, 13);
+            this.labelControl1.TabIndex = 11;
+            this.labelControl1.Text = "Adeudo";
+            // 
+            // pnlRepPrepaid
+            // 
+            this.pnlRepPrepaid.Controls.Add(this.pgcPrepaid);
+            this.pnlRepPrepaid.Controls.Add(this.lblTituloPrepaid);
+            this.pnlRepPrepaid.Location = new System.Drawing.Point(3, 268);
+            this.pnlRepPrepaid.Name = "pnlRepPrepaid";
+            this.pnlRepPrepaid.Size = new System.Drawing.Size(758, 185);
+            this.pnlRepPrepaid.TabIndex = 1;
+            this.pnlRepPrepaid.Visible = false;
+            // 
+            // pgcPrepaid
+            // 
+            this.pgcPrepaid.Fields.AddRange(new DevExpress.XtraPivotGrid.PivotGridField[] {
+            this.pgfDescripcionPrepaid,
+            this.pgfEstatus,
+            this.pgfMontoPrepaid,
+            this.pgfFechaPrepaid});
+            this.pgcPrepaid.Location = new System.Drawing.Point(4, 24);
+            this.pgcPrepaid.Name = "pgcPrepaid";
+            this.pgcPrepaid.OptionsData.DataProcessingEngine = DevExpress.XtraPivotGrid.PivotDataProcessingEngine.LegacyOptimized;
+            this.pgcPrepaid.Size = new System.Drawing.Size(751, 156);
+            this.pgcPrepaid.TabIndex = 14;
+            // 
+            // pgfDescripcionPrepaid
+            // 
+            this.pgfDescripcionPrepaid.Area = DevExpress.XtraPivotGrid.PivotArea.RowArea;
+            this.pgfDescripcionPrepaid.AreaIndex = 1;
+            this.pgfDescripcionPrepaid.Caption = "Tipo";
+            this.pgfDescripcionPrepaid.FieldName = "DescriptionType";
+            this.pgfDescripcionPrepaid.Name = "pgfDescripcionPrepaid";
+            // 
+            // pgfEstatus
+            // 
+            this.pgfEstatus.Area = DevExpress.XtraPivotGrid.PivotArea.RowArea;
+            this.pgfEstatus.AreaIndex = 2;
+            this.pgfEstatus.Caption = "Estado";
+            this.pgfEstatus.FieldName = "DescriptionStatus";
+            this.pgfEstatus.Name = "pgfEstatus";
+            // 
+            // pgfMontoPrepaid
+            // 
+            this.pgfMontoPrepaid.Area = DevExpress.XtraPivotGrid.PivotArea.DataArea;
+            this.pgfMontoPrepaid.AreaIndex = 0;
+            this.pgfMontoPrepaid.Caption = "Monto";
+            this.pgfMontoPrepaid.FieldName = "Amount";
+            this.pgfMontoPrepaid.Name = "pgfMontoPrepaid";
+            // 
+            // pgfFechaPrepaid
+            // 
+            this.pgfFechaPrepaid.Area = DevExpress.XtraPivotGrid.PivotArea.RowArea;
+            this.pgfFechaPrepaid.AreaIndex = 0;
+            this.pgfFechaPrepaid.Caption = "Fecha";
+            this.pgfFechaPrepaid.FieldName = "Fecha";
+            this.pgfFechaPrepaid.Name = "pgfFechaPrepaid";
+            this.pgfFechaPrepaid.Width = 168;
+            // 
+            // lblTituloPrepaid
+            // 
+            this.lblTituloPrepaid.Appearance.ForeColor = System.Drawing.SystemColors.MenuHighlight;
+            this.lblTituloPrepaid.Appearance.Options.UseForeColor = true;
+            this.lblTituloPrepaid.Location = new System.Drawing.Point(334, 5);
+            this.lblTituloPrepaid.Name = "lblTituloPrepaid";
+            this.lblTituloPrepaid.Size = new System.Drawing.Size(86, 13);
+            this.lblTituloPrepaid.TabIndex = 13;
+            this.lblTituloPrepaid.Text = "Pagos anticipados";
+            // 
+            // pnlRepOrderSale
+            // 
+            this.pnlRepOrderSale.Controls.Add(this.pgcOrderSale);
+            this.pnlRepOrderSale.Controls.Add(this.labelControl7);
+            this.pnlRepOrderSale.Location = new System.Drawing.Point(3, 459);
+            this.pnlRepOrderSale.Name = "pnlRepOrderSale";
+            this.pnlRepOrderSale.Size = new System.Drawing.Size(758, 189);
+            this.pnlRepOrderSale.TabIndex = 2;
+            this.pnlRepOrderSale.Visible = false;
+            // 
+            // pgcOrderSale
+            // 
+            this.pgcOrderSale.DataSource = this.dataTaxpayerOrderSaleBindingSource;
+            this.pgcOrderSale.Fields.AddRange(new DevExpress.XtraPivotGrid.PivotGridField[] {
+            this.pgfConceptoOS,
+            this.pgfDescripcionOS,
+            this.pgfAmountOS,
+            this.pgfFechaOS,
+            this.pgfUnitPriceOS,
+            this.pgfQuantityOS,
+            this.pgfTaxOS,
+            this.pgfTotalOS});
+            this.pgcOrderSale.Location = new System.Drawing.Point(4, 25);
+            this.pgcOrderSale.Name = "pgcOrderSale";
+            this.pgcOrderSale.OptionsData.DataProcessingEngine = DevExpress.XtraPivotGrid.PivotDataProcessingEngine.LegacyOptimized;
+            this.pgcOrderSale.Size = new System.Drawing.Size(751, 156);
+            this.pgcOrderSale.TabIndex = 16;
+            // 
+            // pgfConceptoOS
+            // 
+            this.pgfConceptoOS.Area = DevExpress.XtraPivotGrid.PivotArea.RowArea;
+            this.pgfConceptoOS.AreaIndex = 0;
+            this.pgfConceptoOS.Caption = "Concepto";
+            this.pgfConceptoOS.FieldName = "NameConcept";
+            this.pgfConceptoOS.Name = "pgfConceptoOS";
+            this.pgfConceptoOS.Width = 209;
+            // 
+            // pgfDescripcionOS
+            // 
+            this.pgfDescripcionOS.Area = DevExpress.XtraPivotGrid.PivotArea.RowArea;
+            this.pgfDescripcionOS.AreaIndex = 1;
+            this.pgfDescripcionOS.Caption = "Descripción";
+            this.pgfDescripcionOS.FieldName = "Description";
+            this.pgfDescripcionOS.Name = "pgfDescripcionOS";
+            // 
+            // pgfAmountOS
+            // 
+            this.pgfAmountOS.Area = DevExpress.XtraPivotGrid.PivotArea.DataArea;
+            this.pgfAmountOS.AreaIndex = 0;
+            this.pgfAmountOS.Caption = "Monto";
+            this.pgfAmountOS.FieldName = "Amount";
+            this.pgfAmountOS.Name = "pgfAmountOS";
+            this.pgfAmountOS.Width = 79;
+            // 
+            // pgfFechaOS
+            // 
+            this.pgfFechaOS.AreaIndex = 0;
+            this.pgfFechaOS.Caption = "Fecha";
+            this.pgfFechaOS.FieldName = "FechaPago";
+            this.pgfFechaOS.Name = "pgfFechaOS";
+            this.pgfFechaOS.Width = 111;
+            // 
+            // pgfUnitPriceOS
+            // 
+            this.pgfUnitPriceOS.Area = DevExpress.XtraPivotGrid.PivotArea.RowArea;
+            this.pgfUnitPriceOS.AreaIndex = 2;
+            this.pgfUnitPriceOS.Caption = "Precio unitario";
+            this.pgfUnitPriceOS.FieldName = "UnitPrice";
+            this.pgfUnitPriceOS.Name = "pgfUnitPriceOS";
+            // 
+            // pgfQuantityOS
+            // 
+            this.pgfQuantityOS.Area = DevExpress.XtraPivotGrid.PivotArea.RowArea;
+            this.pgfQuantityOS.AreaIndex = 3;
+            this.pgfQuantityOS.Caption = "Cantidad";
+            this.pgfQuantityOS.FieldName = "Quantity";
+            this.pgfQuantityOS.Name = "pgfQuantityOS";
+            // 
+            // pgfTaxOS
+            // 
+            this.pgfTaxOS.Area = DevExpress.XtraPivotGrid.PivotArea.DataArea;
+            this.pgfTaxOS.AreaIndex = 1;
+            this.pgfTaxOS.Caption = "IVA";
+            this.pgfTaxOS.FieldName = "Tax";
+            this.pgfTaxOS.Name = "pgfTaxOS";
+            this.pgfTaxOS.Width = 55;
+            // 
+            // pgfTotalOS
+            // 
+            this.pgfTotalOS.Area = DevExpress.XtraPivotGrid.PivotArea.DataArea;
+            this.pgfTotalOS.AreaIndex = 2;
+            this.pgfTotalOS.Caption = "Total";
+            this.pgfTotalOS.FieldName = "Total";
+            this.pgfTotalOS.Name = "pgfTotalOS";
+            // 
+            // labelControl7
+            // 
+            this.labelControl7.Appearance.ForeColor = System.Drawing.SystemColors.MenuHighlight;
+            this.labelControl7.Appearance.Options.UseForeColor = true;
+            this.labelControl7.Location = new System.Drawing.Point(342, 6);
+            this.labelControl7.Name = "labelControl7";
+            this.labelControl7.Size = new System.Drawing.Size(75, 13);
+            this.labelControl7.TabIndex = 15;
+            this.labelControl7.Text = "Pago productos";
+            // 
+            // dataTaxpayerOrderSaleBindingSource
+            // 
+            this.dataTaxpayerOrderSaleBindingSource.DataSource = typeof(SOAPAP.Reportes.DataTaxpayerOrderSale);
+            // 
+            // prepaidBindingSource
+            // 
+            this.prepaidBindingSource.DataSource = typeof(SOAPAP.Model.Prepaid);
+            // 
+            // debtDetailBindingSource
+            // 
+            this.debtDetailBindingSource.DataSource = typeof(SOAPAP.Model.DebtDetail);
             // 
             // RepTaxpayer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 700);
+            this.ClientSize = new System.Drawing.Size(824, 487);
             this.Controls.Add(this.flowLayoutPanel1);
             this.Controls.Add(this.pnlHeader);
             this.Name = "RepTaxpayer";
@@ -1028,10 +1643,35 @@
             this.tableLayoutPanel5.ResumeLayout(false);
             this.tableLayoutPanel5.PerformLayout();
             this.flowLayoutPanel1.ResumeLayout(false);
-            this.panel2.ResumeLayout(false);
-            this.panel2.PerformLayout();
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
+            this.panel4.ResumeLayout(false);
+            this.panel4.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.sepOffDatosPadron)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tswDatosPadron.Properties)).EndInit();
+            this.gbxDatosPadron.ResumeLayout(false);
+            this.tableLayoutPanel6.ResumeLayout(false);
+            this.tableLayoutPanel6.PerformLayout();
+            this.panel5.ResumeLayout(false);
+            this.panel5.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.sepOffSaldo)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tswSaldo.Properties)).EndInit();
+            this.gbxSaldo.ResumeLayout(false);
+            this.flowLayoutPanel2.ResumeLayout(false);
+            this.pnlRepDebt.ResumeLayout(false);
+            this.pnlRepDebt.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pgcDebt)).EndInit();
+            this.pnlRepPrepaid.ResumeLayout(false);
+            this.pnlRepPrepaid.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pgcPrepaid)).EndInit();
+            this.pnlRepOrderSale.ResumeLayout(false);
+            this.pnlRepOrderSale.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pgcOrderSale)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataTaxpayerOrderSaleBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.prepaidBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.debtDetailBindingSource)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1095,20 +1735,72 @@
         private DevExpress.XtraEditors.ToggleSwitch tswDomicilio;
         private System.Windows.Forms.GroupBox gbxDomicilio;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel5;
-        private DevExpress.XtraEditors.LabelControl labelControl7;
-        private DevExpress.XtraEditors.LabelControl labelControl8;
+        private DevExpress.XtraEditors.LabelControl lblColonia;
+        private DevExpress.XtraEditors.LabelControl lblNumero;
         private DevExpress.XtraEditors.LabelControl labelControl9;
         private DevExpress.XtraEditors.LabelControl labelControl10;
         private DevExpress.XtraEditors.LabelControl labelControl11;
         private DevExpress.XtraEditors.LabelControl labelControl12;
         private DevExpress.XtraEditors.LabelControl labelControl13;
         private DevExpress.XtraEditors.LabelControl labelControl14;
-        private DevExpress.XtraEditors.LabelControl labelControl15;
-        private DevExpress.XtraEditors.LabelControl labelControl16;
-        private DevExpress.XtraEditors.LabelControl labelControl17;
-        private DevExpress.XtraEditors.LabelControl labelControl18;
+        private DevExpress.XtraEditors.LabelControl lblCalle;
+        private DevExpress.XtraEditors.LabelControl lblCP;
+        private DevExpress.XtraEditors.LabelControl lblLocalidad;
+        private DevExpress.XtraEditors.LabelControl lblMunicipio;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.Panel panel4;
+        private DevExpress.XtraEditors.LabelControl lblOffDatosPadron;
+        private DevExpress.XtraEditors.SeparatorControl sepOffDatosPadron;
+        private DevExpress.XtraEditors.ToggleSwitch tswDatosPadron;
+        private System.Windows.Forms.GroupBox gbxDatosPadron;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel6;
+        private DevExpress.XtraEditors.LabelControl lblConsumo;
+        private DevExpress.XtraEditors.LabelControl lblToma;
+        private DevExpress.XtraEditors.LabelControl labelControl21;
+        private DevExpress.XtraEditors.LabelControl labelControl22;
+        private DevExpress.XtraEditors.LabelControl labelControl23;
+        private DevExpress.XtraEditors.LabelControl labelControl24;
+        private DevExpress.XtraEditors.LabelControl labelControl25;
+        private DevExpress.XtraEditors.LabelControl labelControl26;
+        private DevExpress.XtraEditors.LabelControl lblTipoServicio;
+        private DevExpress.XtraEditors.LabelControl lblPoblacionVul;
+        private DevExpress.XtraEditors.LabelControl lblRuta;
+        private DevExpress.XtraEditors.LabelControl lblFechaContrato;
+        private System.Windows.Forms.Panel panel5;
+        private DevExpress.XtraEditors.LabelControl lblOffSaldo;
+        private DevExpress.XtraEditors.SeparatorControl sepOffSaldo;
+        private DevExpress.XtraEditors.ToggleSwitch tswSaldo;
+        private System.Windows.Forms.GroupBox gbxSaldo;
+        private System.Windows.Forms.BindingSource prepaidBindingSource;
+        private System.Windows.Forms.BindingSource debtDetailBindingSource;
+        private System.Windows.Forms.BindingSource dataTaxpayerOrderSaleBindingSource;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel2;
+        private System.Windows.Forms.Panel pnlRepDebt;
+        private DevExpress.XtraPivotGrid.PivotGridControl pgcDebt;
+        private DevExpress.XtraPivotGrid.PivotGridField pgfImporte;
+        private DevExpress.XtraPivotGrid.PivotGridField pgfIva;
+        private DevExpress.XtraPivotGrid.PivotGridField pgfDescriptionDebt;
+        private DevExpress.XtraPivotGrid.PivotGridField pgfTotal;
+        private DevExpress.XtraEditors.LabelControl labelControl1;
+        private System.Windows.Forms.Panel pnlRepPrepaid;
+        private DevExpress.XtraPivotGrid.PivotGridControl pgcPrepaid;
+        private DevExpress.XtraPivotGrid.PivotGridField pgfDescripcionPrepaid;
+        private DevExpress.XtraPivotGrid.PivotGridField pgfEstatus;
+        private DevExpress.XtraPivotGrid.PivotGridField pgfMontoPrepaid;
+        private DevExpress.XtraPivotGrid.PivotGridField pgfFechaPrepaid;
+        private DevExpress.XtraEditors.LabelControl lblTituloPrepaid;
+        private System.Windows.Forms.Panel pnlRepOrderSale;
+        private DevExpress.XtraPivotGrid.PivotGridControl pgcOrderSale;
+        private DevExpress.XtraPivotGrid.PivotGridField pgfConceptoOS;
+        private DevExpress.XtraPivotGrid.PivotGridField pgfDescripcionOS;
+        private DevExpress.XtraPivotGrid.PivotGridField pgfAmountOS;
+        private DevExpress.XtraPivotGrid.PivotGridField pgfFechaOS;
+        private DevExpress.XtraPivotGrid.PivotGridField pgfUnitPriceOS;
+        private DevExpress.XtraPivotGrid.PivotGridField pgfQuantityOS;
+        private DevExpress.XtraPivotGrid.PivotGridField pgfTaxOS;
+        private DevExpress.XtraPivotGrid.PivotGridField pgfTotalOS;
+        private DevExpress.XtraEditors.LabelControl labelControl7;
     }
 }
