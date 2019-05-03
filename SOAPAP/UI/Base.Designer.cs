@@ -49,6 +49,7 @@
             this.cajasToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.facturacionAgrupadaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.facturacionAgrupadaCanceladasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.notificacionesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.lblEstadoCaja = new System.Windows.Forms.Label();
             this.pnlLeft = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
@@ -200,7 +201,8 @@
             this.msPrincipal.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.msPrincipal.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.usuarioToolStripMenuItem,
-            this.opcionesToolStripMenuItem});
+            this.opcionesToolStripMenuItem,
+            this.notificacionesToolStripMenuItem});
             this.msPrincipal.Location = new System.Drawing.Point(0, 0);
             this.msPrincipal.Name = "msPrincipal";
             this.msPrincipal.Padding = new System.Windows.Forms.Padding(6, 2, 20, 2);
@@ -285,6 +287,16 @@
             this.facturacionAgrupadaCanceladasToolStripMenuItem.Size = new System.Drawing.Size(321, 26);
             this.facturacionAgrupadaCanceladasToolStripMenuItem.Text = "Facturacion Agrupada Canceladas  ";
             this.facturacionAgrupadaCanceladasToolStripMenuItem.Click += new System.EventHandler(this.facturacionAgrupadaCanceladasToolStripMenuItem_Click);
+            // 
+            // notificacionesToolStripMenuItem
+            // 
+            this.notificacionesToolStripMenuItem.Enabled = false;
+            this.notificacionesToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.notificacionesToolStripMenuItem.ForeColor = System.Drawing.Color.DimGray;
+            this.notificacionesToolStripMenuItem.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.notificacionesToolStripMenuItem.Name = "notificacionesToolStripMenuItem";
+            this.notificacionesToolStripMenuItem.Size = new System.Drawing.Size(120, 45);
+            this.notificacionesToolStripMenuItem.Text = "Notificaciones";
             // 
             // lblEstadoCaja
             // 
@@ -650,5 +662,6 @@
         private System.Windows.Forms.ToolStripMenuItem cajasToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem facturacionAgrupadaToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem facturacionAgrupadaCanceladasToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem notificacionesToolStripMenuItem;
     }
 }

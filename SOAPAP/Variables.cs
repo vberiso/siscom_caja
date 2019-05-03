@@ -20,6 +20,7 @@ namespace SOAPAP
         public static int  metododepago { get; set; } = 0;
         public static bool sitieneiva { get; set; } = false;
         public static List<Deb> debst { get; set; } = new List<Deb>();
+        public static List<string> keys = new List<string>();
         public static string foliotransaccion = string.Empty;
         public static string foliocaja = string.Empty;
         public static decimal subtotalp = 0;

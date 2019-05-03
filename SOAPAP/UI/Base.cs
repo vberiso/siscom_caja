@@ -16,6 +16,9 @@ using SOAPAP.Model;
 using SOAPAP.Enums;
 using System.Threading;
 using System.Net;
+using Firebase.Database;
+using SOAPAP.Properties;
+using SOAPAP.UI.Descuentos;
 
 namespace SOAPAP
 {
@@ -30,6 +33,8 @@ namespace SOAPAP
         int _typeTransaction = 0;
         private RequestsAPI Requests = null;
         private string UrlBase = Properties.Settings.Default.URL;
+        public readonly FirebaseClient firebase = new FirebaseClient("https://siscom-notifications.firebaseio.com/");
+        private List<string> keystemp = new List<string>();
 
         #region IForm Members
         public void ShowForm(string nameSpace, string nameForm)
@@ -45,11 +50,144 @@ namespace SOAPAP
         {
             Requests = new RequestsAPI(UrlBase);
             InitializeComponent();
+
+            var observable = firebase
+                             .Child("DiscountAuthorization")
+                             .AsObservable<PushNotification>()
+                             .Subscribe(d =>
+                             {
+                                 if(d.Object != null)
+                                     if (d.Object.UserRequestId == Variables.LoginModel.User)
+                                     {
+                                         if(d.Object.IsReply == true)
+                                         {
+                                             if (!Variables.keys.Contains(d.Key))
+                                             {
+                                                 notificacionesToolStripMenuItem.ImageAlign = ContentAlignment.MiddleRight;
+                                                 notificacionesToolStripMenuItem.Image = Resources.notificacion;
+
+                                                 ToolStripItem newDropDownItem = new ToolStripMenuItem();
+                                                 //newDropDownItem.
+                                                 newDropDownItem.Text = $"El descuento ha sido autorizado {Environment.NewLine} para la cuenta: {d.Object.Account} ";
+                                                 newDropDownItem.Image = Resources.comprobado;
+                                                 newDropDownItem.ImageAlign = ContentAlignment.MiddleCenter;
+                                                 newDropDownItem.Click += (object sender, EventArgs e) =>
+                                                 {
+                                                     Showdiscount(d.Object.AuthorizationDiscountId);
+                                                 };
+                                                 try
+                                                 {
+                                                     Invoke(new MethodInvoker(() => {
+                                                             notificacionesToolStripMenuItem.Enabled = true;
+                                                             notificacionesToolStripMenuItem.DropDownItems.Add(newDropDownItem);
+                                                     }));
+                                                 }
+                                                 catch (Exception)
+                                                 {
+                                                     if (!this.IsDisposed)
+                                                     {
+                                                         Invoke(new MethodInvoker(() => {
+                                                             if (!this.IsDisposed)
+                                                             {
+                                                                 notificacionesToolStripMenuItem.Enabled = true;
+                                                                 notificacionesToolStripMenuItem.DropDownItems.Add(newDropDownItem);
+                                                             }
+                                                         }));
+                                                     }
+                                                 }
+                                               
+                                                 Variables.keys.Add(d.Key);
+                                                 keystemp.Add(d.Key);
+                                             }
+                                         }
+                                         else
+                                         {
+                                             if (Variables.keys.Contains(d.Key))
+                                             {
+                                                 if (d.Object.IsReply == false)
+                                                 {
+                                                     foreach (ToolStripItem item in notificacionesToolStripMenuItem.DropDown.Items)
+                                                     {
+                                                         if (item.Text.Contains(d.Object.Account))
+                                                         {
+                                                             //notificacionesToolStripMenuItem.DropDown.Items.Remove(item);
+                                                             try
+                                                             {
+                                                                 Invoke(new MethodInvoker(() => {
+                                                                     item.Text = $"Se ha cancelado el descuento para la cuenta: {d.Object.Account},";
+                                                                     item.Image = Resources.cancel;
+                                                                     item.ImageAlign = ContentAlignment.MiddleCenter;
+                                                                 }));
+                                                             }
+                                                             catch (Exception)
+                                                             {
+
+                                                                 if (!this.IsDisposed)
+                                                                 {
+                                                                     Invoke(new MethodInvoker(() => {
+                                                                         if (!this.IsDisposed)
+                                                                         {
+                                                                             item.Text = $"Se ha cancelado el descuento para la cuenta: {d.Object.Account},";
+                                                                             item.Image = Resources.cancel;
+                                                                             item.ImageAlign = ContentAlignment.MiddleCenter;
+                                                                         }
+                                                                     }));
+                                                                 }
+                                                             }
+                                                         }
+                                                     }
+                                                 }
+                                                 else
+                                                 {
+                                                     foreach (ToolStripItem item in notificacionesToolStripMenuItem.DropDown.Items)
+                                                     {
+                                                         if (item.Text.Contains(d.Object.Account))
+                                                         {
+                                                             //notificacionesToolStripMenuItem.DropDown.Items.Remove(item);
+                                                             try
+                                                             {
+                                                                 Invoke(new MethodInvoker(() => {
+                                                                     item.Text = $"El descuento ha sido autorizado {Environment.NewLine} para la cuenta: {d.Object.Account} ";
+                                                                     item.Image = Resources.comprobado;
+                                                                     item.ImageAlign = ContentAlignment.MiddleCenter;
+                                                                 }));
+                                                             }
+                                                             catch (Exception)
+                                                             {
+
+                                                                 if (!this.IsDisposed)
+                                                                 {
+                                                                     Invoke(new MethodInvoker(() => {
+                                                                         if (!this.IsDisposed)
+                                                                         {
+                                                                             item.Text = $"El descuento ha sido autorizado {Environment.NewLine} para la cuenta: {d.Object.Account} ";
+                                                                             item.Image = Resources.comprobado;
+                                                                             item.ImageAlign = ContentAlignment.MiddleCenter;
+                                                                         }
+                                                                     }));
+                                                                 }
+                                                             }
+                                                         }
+                                                     }
+                                                 }
+                                             }
+                                         }
+                                     }
+                             });
         }
+
+        private void Showdiscount(int idDiscount)
+        {
+            DetalleDescuentos detalle = new DetalleDescuentos(idDiscount);
+            detalle.ShowDialog();
+        }
+
         private void Base_Load(object sender, EventArgs e)
         {            
             pictureBox4.Parent = pictureBox1;
-            CargaInformacion();   
+            CargaInformacion();
+            //notificacionesToolStripMenuItem.Enabled = false;
+            notificacionesToolStripMenuItem.DropDownItems.Clear();
         }           
         private void AddFormInPanel(Form fh)
         {
@@ -69,6 +207,7 @@ namespace SOAPAP
         /// </summary>
         private void salirToolStripMenuItem_Click_1(object sender, EventArgs e)
         {
+            Variables.keys.Clear();
             Thread t = new Thread(new ThreadStart(ThreadProc));
             t.SetApartmentState(ApartmentState.STA);
             t.Start();

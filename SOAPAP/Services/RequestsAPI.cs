@@ -3,7 +3,9 @@ using SOAPAP.Model;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Drawing;
 using System.Drawing.Printing;
+using System.IO;
 using System.Linq;
 using System.Management;
 using System.Net.Http;
@@ -180,6 +182,52 @@ namespace SOAPAP.Services
             }
         }
 
+        public async Task<string> UploadImageToServer(string endPoint, string Token, string filePath, StringContent data)
+        {
+            using (var client = new HttpClient())
+            {
+                HttpResponseMessage httpResponse = null;
+                try
+                {
+                    var method = new MultipartFormDataContent();
+                    FileStream fs = File.OpenRead(filePath);
+                    var streamContent = new StreamContent(fs);
+                    var imageContent = new ByteArrayContent(streamContent.ReadAsByteArrayAsync().Result);
+                    imageContent.Headers.ContentType = MediaTypeHeaderValue.Parse("multipart/form-data");
+                    method.Add(data, "\"Data\"");
+                    method.Add(imageContent, "AttachedFile", Path.GetFileName(filePath));
+                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Token);
+                    httpResponse = await client.PostAsync(new Uri(UrlBase + endPoint), method);
+                    var input = await httpResponse.Content.ReadAsStringAsync();
+
+                    switch (httpResponse.StatusCode)
+                    {
+                        case System.Net.HttpStatusCode.OK:
+                            return await httpResponse.Content.ReadAsStringAsync();
+                        case System.Net.HttpStatusCode.InternalServerError:
+                            return "{\"error\": \"Servicio temporalmente no disponible contacte al Administrador, disculpe las molestias\"}";
+                        case System.Net.HttpStatusCode.ServiceUnavailable:
+                            return "{\"error\": \"Servicio temporalmente no disponible contacte al Administrador, disculpe las molestias\"}";
+                        case System.Net.HttpStatusCode.Unauthorized:
+                            return "{\"error\": \"Sesión expírada o no cuenta con la autorización \"}";
+                        default:
+                            return await httpResponse.Content.ReadAsStringAsync();
+                    }
+                }
+                catch (Exception e)
+                {
+                    return "{\"error\": \"Servicio no disponible contacte al Administrador\"}";
+                }
+                finally
+                {
+                    if (httpResponse != null)
+                    {
+                        httpResponse.Dispose();
+                    }
+                }
+            }
+        }
         public string GETMacAddress()
         {
             string macAddresses = string.Empty;

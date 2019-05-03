@@ -1,10 +1,12 @@
-﻿using Gma.QrCodeNet.Encoding;
+﻿using Firebase.Database;
+using Gma.QrCodeNet.Encoding;
 using Gma.QrCodeNet.Encoding.Windows.Render;
 using Humanizer;
 using Newtonsoft.Json;
 using SOAPAP.Enums;
 using SOAPAP.Services;
 using SOAPAP.UI;
+using SOAPAP.UI.Descuentos;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -38,6 +40,7 @@ namespace SOAPAP.UI
         bool prepaid ;
         bool orderSale;
         decimal porcentaje = 0;
+        public readonly FirebaseClient firebase = new FirebaseClient("https://siscom-notifications.firebaseio.com/");
 
         public Cobro()
         {
@@ -52,16 +55,6 @@ namespace SOAPAP.UI
             prepaid = false;
         }
 
-        //public Cobro(string Account)
-        //{
-        //    Requests = new RequestsAPI(UrlBase);
-        //    InitializeComponent();
-        //    if (!String.IsNullOrWhiteSpace(Account))
-        //    {
-        //        txtCuenta.Text = Account;
-        //        ObtenerInformacion();
-        //    }
-        //}
 
         #region Events
         public void cobroagua_Load(object sender, EventArgs e)
@@ -388,15 +381,18 @@ namespace SOAPAP.UI
                                 if (Variables.OrderSale.OrderSaleDetails != null && Variables.OrderSale.OrderSaleDetails.Count > 0)
                                 {
                                     SeleccionarDeuda(Search.Type.Folio);
+                                    descuentosToolStripMenuItem.Enabled = true;
                                 }
                                 else
                                 {
+                                    descuentosToolStripMenuItem.Enabled = false;
                                     mensaje = new MessageBoxForm("Error", "La orden no cuenta con detalle.", TypeIcon.Icon.Cancel);
                                     result = mensaje.ShowDialog();
                                 }
                             }
                             else
                             {
+                                descuentosToolStripMenuItem.Enabled = false;
                                 mensaje = new MessageBoxForm("Problemas", "La orden ya ha expirado. Es necesario solicitar una nueva.", TypeIcon.Icon.Warning);
                                 result = mensaje.ShowDialog();
                             }
@@ -477,9 +473,11 @@ namespace SOAPAP.UI
                                     if (Variables.Agreement.Debts != null && Variables.Agreement.Debts.Count > 0)
                                     {                                        
                                         ObtenerSeleccion();
+                                        descuentosToolStripMenuItem.Enabled = true;
                                     }
                                     else
                                     {
+                                        descuentosToolStripMenuItem.Enabled = false;
                                         mensaje = new MessageBoxForm("Sin Deuda", "Puede ingresar un pago anticipado", TypeIcon.Icon.Success , true);
                                         result = mensaje.ShowDialog();
                                         if(result == DialogResult.OK)
@@ -501,12 +499,14 @@ namespace SOAPAP.UI
                             }
                             else
                             {
+                                descuentosToolStripMenuItem.Enabled = false;
                                 mensaje = new MessageBoxForm("Error", "La cuenta no se encuentra activa", TypeIcon.Icon.Cancel);
                                 result = mensaje.ShowDialog();
                             }
                         }
                         else
                         {
+                            descuentosToolStripMenuItem.Enabled = false;
                             mensaje = new MessageBoxForm("Sin dato", "No se encontraron datos para este número de cuenta", TypeIcon.Icon.Warning);
                             result = mensaje.ShowDialog();
                         }
@@ -937,6 +937,13 @@ namespace SOAPAP.UI
             {
                 txtTotal.Text = "";
             }
+        }
+
+        private void DescuentosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            decimal amount = Convert.ToDecimal((System.Text.RegularExpressions.Regex.Replace(lblSubtotal.Text, @"[^\d.]", "")));
+            RequestDiscount discount = new RequestDiscount(amount);
+            discount.ShowDialog(this);
         }
     }
 

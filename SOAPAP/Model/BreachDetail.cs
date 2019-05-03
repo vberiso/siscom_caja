@@ -9,7 +9,7 @@ namespace SOAPAP.Model
     public class BreachDetail
     {
         public int Id { get; set; }
-        public int AplicationDays { get; set; }
+        public Int16 TimesFactor { get; set; }
         public decimal Amount { get; set; }
         public decimal PercentBonification { get; set; }
         public decimal Bonification { get; set; }
