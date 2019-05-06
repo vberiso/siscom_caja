@@ -30,26 +30,13 @@
         {
             this.components = new System.ComponentModel.Container();
             this.pnlHeader = new System.Windows.Forms.Panel();
-            this.pnlDireccion = new System.Windows.Forms.Panel();
-            this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
-            this.label11 = new System.Windows.Forms.Label();
-            this.tbxNumero = new System.Windows.Forms.TextBox();
-            this.tbxCalle = new System.Windows.Forms.TextBox();
-            this.label7 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
-            this.tbxColonia = new System.Windows.Forms.TextBox();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.radDFiscal = new System.Windows.Forms.RadioButton();
-            this.radDPadron = new System.Windows.Forms.RadioButton();
-            this.label10 = new System.Windows.Forms.Label();
             this.pnlOpContribuyente = new System.Windows.Forms.Panel();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.tbxRuta = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.lbcListadoContratos = new DevExpress.XtraEditors.ListBoxControl();
             this.tbxRFC = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
             this.tbxNombre = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.btnExportar = new System.Windows.Forms.Button();
@@ -63,6 +50,19 @@
             this.btnBuscar = new System.Windows.Forms.Button();
             this.lblTitulo = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.pnlDireccion = new System.Windows.Forms.Panel();
+            this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
+            this.label11 = new System.Windows.Forms.Label();
+            this.tbxNumero = new System.Windows.Forms.TextBox();
+            this.tbxCalle = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.tbxColonia = new System.Windows.Forms.TextBox();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.radDFiscal = new System.Windows.Forms.RadioButton();
+            this.radDPadron = new System.Windows.Forms.RadioButton();
+            this.label10 = new System.Windows.Forms.Label();
             this.gbxContribuyente = new System.Windows.Forms.GroupBox();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
             this.lblCel = new DevExpress.XtraEditors.LabelControl();
@@ -154,14 +154,15 @@
             this.prepaidBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.debtDetailBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.pnlHeader.SuspendLayout();
-            this.pnlDireccion.SuspendLayout();
-            this.tableLayoutPanel3.SuspendLayout();
-            this.panel1.SuspendLayout();
             this.pnlOpContribuyente.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.lbcListadoContratos)).BeginInit();
             this.tableLayoutPanel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pcbIncomeByConcept)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.pnlDireccion.SuspendLayout();
+            this.tableLayoutPanel3.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.gbxContribuyente.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tswInfoContriyente.Properties)).BeginInit();
@@ -199,7 +200,6 @@
             this.pnlHeader.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.pnlHeader.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(3)))), ((int)(((byte)(155)))), ((int)(((byte)(229)))));
-            this.pnlHeader.Controls.Add(this.pnlDireccion);
             this.pnlHeader.Controls.Add(this.pnlOpContribuyente);
             this.pnlHeader.Controls.Add(this.btnExportar);
             this.pnlHeader.Controls.Add(this.tableLayoutPanel2);
@@ -208,154 +208,11 @@
             this.pnlHeader.Controls.Add(this.btnBuscar);
             this.pnlHeader.Controls.Add(this.lblTitulo);
             this.pnlHeader.Controls.Add(this.pictureBox1);
+            this.pnlHeader.Controls.Add(this.pnlDireccion);
             this.pnlHeader.Location = new System.Drawing.Point(1, 0);
             this.pnlHeader.Name = "pnlHeader";
             this.pnlHeader.Size = new System.Drawing.Size(824, 211);
             this.pnlHeader.TabIndex = 50;
-            // 
-            // pnlDireccion
-            // 
-            this.pnlDireccion.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.pnlDireccion.BackColor = System.Drawing.Color.White;
-            this.pnlDireccion.Controls.Add(this.tableLayoutPanel3);
-            this.pnlDireccion.Controls.Add(this.label10);
-            this.pnlDireccion.Location = new System.Drawing.Point(195, 65);
-            this.pnlDireccion.Name = "pnlDireccion";
-            this.pnlDireccion.Size = new System.Drawing.Size(451, 142);
-            this.pnlDireccion.TabIndex = 58;
-            this.pnlDireccion.Visible = false;
-            // 
-            // tableLayoutPanel3
-            // 
-            this.tableLayoutPanel3.ColumnCount = 2;
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30F));
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 70F));
-            this.tableLayoutPanel3.Controls.Add(this.label11, 0, 3);
-            this.tableLayoutPanel3.Controls.Add(this.tbxNumero, 1, 2);
-            this.tableLayoutPanel3.Controls.Add(this.tbxCalle, 1, 1);
-            this.tableLayoutPanel3.Controls.Add(this.label7, 0, 0);
-            this.tableLayoutPanel3.Controls.Add(this.label8, 0, 1);
-            this.tableLayoutPanel3.Controls.Add(this.label9, 0, 2);
-            this.tableLayoutPanel3.Controls.Add(this.tbxColonia, 1, 3);
-            this.tableLayoutPanel3.Controls.Add(this.panel1, 1, 0);
-            this.tableLayoutPanel3.Location = new System.Drawing.Point(11, 25);
-            this.tableLayoutPanel3.Name = "tableLayoutPanel3";
-            this.tableLayoutPanel3.RowCount = 4;
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(437, 111);
-            this.tableLayoutPanel3.TabIndex = 1;
-            // 
-            // label11
-            // 
-            this.label11.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(83, 91);
-            this.label11.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(45, 13);
-            this.label11.TabIndex = 61;
-            this.label11.Text = "Colonia:";
-            // 
-            // tbxNumero
-            // 
-            this.tbxNumero.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbxNumero.Location = new System.Drawing.Point(134, 57);
-            this.tbxNumero.Name = "tbxNumero";
-            this.tbxNumero.Size = new System.Drawing.Size(300, 20);
-            this.tbxNumero.TabIndex = 60;
-            // 
-            // tbxCalle
-            // 
-            this.tbxCalle.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbxCalle.Location = new System.Drawing.Point(134, 30);
-            this.tbxCalle.Name = "tbxCalle";
-            this.tbxCalle.Size = new System.Drawing.Size(300, 20);
-            this.tbxCalle.TabIndex = 59;
-            // 
-            // label7
-            // 
-            this.label7.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(70, 8);
-            this.label7.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(58, 13);
-            this.label7.TabIndex = 55;
-            this.label7.Text = "Buscar en:";
-            // 
-            // label8
-            // 
-            this.label8.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(95, 35);
-            this.label8.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(33, 13);
-            this.label8.TabIndex = 56;
-            this.label8.Text = "Calle:";
-            // 
-            // label9
-            // 
-            this.label9.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(81, 62);
-            this.label9.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(47, 13);
-            this.label9.TabIndex = 57;
-            this.label9.Text = "Numero:";
-            // 
-            // tbxColonia
-            // 
-            this.tbxColonia.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbxColonia.Location = new System.Drawing.Point(134, 86);
-            this.tbxColonia.Name = "tbxColonia";
-            this.tbxColonia.Size = new System.Drawing.Size(300, 20);
-            this.tbxColonia.TabIndex = 62;
-            // 
-            // panel1
-            // 
-            this.panel1.Controls.Add(this.radDFiscal);
-            this.panel1.Controls.Add(this.radDPadron);
-            this.panel1.Location = new System.Drawing.Point(134, 3);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(256, 21);
-            this.panel1.TabIndex = 63;
-            // 
-            // radDFiscal
-            // 
-            this.radDFiscal.AutoSize = true;
-            this.radDFiscal.Location = new System.Drawing.Point(134, 1);
-            this.radDFiscal.Name = "radDFiscal";
-            this.radDFiscal.Size = new System.Drawing.Size(97, 17);
-            this.radDFiscal.TabIndex = 1;
-            this.radDFiscal.Text = "Domicilio Fiscal";
-            this.radDFiscal.UseVisualStyleBackColor = true;
-            // 
-            // radDPadron
-            // 
-            this.radDPadron.AutoSize = true;
-            this.radDPadron.Checked = true;
-            this.radDPadron.Location = new System.Drawing.Point(18, 1);
-            this.radDPadron.Name = "radDPadron";
-            this.radDPadron.Size = new System.Drawing.Size(104, 17);
-            this.radDPadron.TabIndex = 0;
-            this.radDPadron.TabStop = true;
-            this.radDPadron.Text = "Domicilio Padron";
-            this.radDPadron.UseVisualStyleBackColor = true;
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.Location = new System.Drawing.Point(202, 2);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(81, 20);
-            this.label10.TabIndex = 0;
-            this.label10.Text = "Domicilio";
             // 
             // pnlOpContribuyente
             // 
@@ -363,53 +220,68 @@
             this.pnlOpContribuyente.BackColor = System.Drawing.Color.White;
             this.pnlOpContribuyente.Controls.Add(this.tableLayoutPanel1);
             this.pnlOpContribuyente.Controls.Add(this.label1);
-            this.pnlOpContribuyente.Location = new System.Drawing.Point(194, 80);
+            this.pnlOpContribuyente.Location = new System.Drawing.Point(194, 66);
             this.pnlOpContribuyente.Name = "pnlOpContribuyente";
-            this.pnlOpContribuyente.Size = new System.Drawing.Size(451, 118);
+            this.pnlOpContribuyente.Size = new System.Drawing.Size(451, 143);
             this.pnlOpContribuyente.TabIndex = 57;
             this.pnlOpContribuyente.Visible = false;
             // 
             // tableLayoutPanel1
             // 
             this.tableLayoutPanel1.ColumnCount = 2;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 70F));
-            this.tableLayoutPanel1.Controls.Add(this.tbxRuta, 1, 2);
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 80F));
+            this.tableLayoutPanel1.Controls.Add(this.label6, 0, 2);
+            this.tableLayoutPanel1.Controls.Add(this.lbcListadoContratos, 1, 2);
             this.tableLayoutPanel1.Controls.Add(this.tbxRFC, 1, 1);
             this.tableLayoutPanel1.Controls.Add(this.label2, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.label4, 0, 1);
-            this.tableLayoutPanel1.Controls.Add(this.label6, 0, 2);
             this.tableLayoutPanel1.Controls.Add(this.tbxNombre, 1, 0);
             this.tableLayoutPanel1.Location = new System.Drawing.Point(11, 25);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 3;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(437, 88);
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(437, 115);
             this.tableLayoutPanel1.TabIndex = 1;
             // 
-            // tbxRuta
+            // label6
             // 
-            this.tbxRuta.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbxRuta.Location = new System.Drawing.Point(134, 63);
-            this.tbxRuta.Name = "tbxRuta";
-            this.tbxRuta.Size = new System.Drawing.Size(300, 20);
-            this.tbxRuta.TabIndex = 60;
+            this.label6.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(10, 67);
+            this.label6.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(74, 39);
+            this.label6.TabIndex = 60;
+            this.label6.Text = "Selecciona el contrato a consultar.";
+            // 
+            // lbcListadoContratos
+            // 
+            this.lbcListadoContratos.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lbcListadoContratos.Cursor = System.Windows.Forms.Cursors.Default;
+            this.lbcListadoContratos.HorizontalScrollbar = true;
+            this.lbcListadoContratos.Location = new System.Drawing.Point(90, 59);
+            this.lbcListadoContratos.Name = "lbcListadoContratos";
+            this.lbcListadoContratos.Size = new System.Drawing.Size(344, 53);
+            this.lbcListadoContratos.TabIndex = 59;
+            this.lbcListadoContratos.SelectedIndexChanged += new System.EventHandler(this.lbcListadoContratos_SelectedIndexChanged);
             // 
             // tbxRFC
             // 
             this.tbxRFC.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbxRFC.Location = new System.Drawing.Point(134, 33);
+            this.tbxRFC.Location = new System.Drawing.Point(90, 32);
             this.tbxRFC.Name = "tbxRFC";
-            this.tbxRFC.Size = new System.Drawing.Size(300, 20);
+            this.tbxRFC.Size = new System.Drawing.Size(344, 20);
             this.tbxRFC.TabIndex = 59;
             // 
             // label2
             // 
             this.label2.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(81, 9);
+            this.label2.Location = new System.Drawing.Point(37, 9);
             this.label2.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(47, 13);
@@ -420,30 +292,19 @@
             // 
             this.label4.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(97, 38);
+            this.label4.Location = new System.Drawing.Point(53, 37);
             this.label4.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(31, 13);
             this.label4.TabIndex = 56;
             this.label4.Text = "RFC:";
             // 
-            // label6
-            // 
-            this.label6.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(95, 68);
-            this.label6.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(33, 13);
-            this.label6.TabIndex = 57;
-            this.label6.Text = "Ruta:";
-            // 
             // tbxNombre
             // 
             this.tbxNombre.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbxNombre.Location = new System.Drawing.Point(134, 4);
+            this.tbxNombre.Location = new System.Drawing.Point(90, 4);
             this.tbxNombre.Name = "tbxNombre";
-            this.tbxNombre.Size = new System.Drawing.Size(300, 20);
+            this.tbxNombre.Size = new System.Drawing.Size(344, 20);
             this.tbxNombre.TabIndex = 58;
             // 
             // label1
@@ -590,6 +451,150 @@
             this.pictureBox1.Size = new System.Drawing.Size(20, 20);
             this.pictureBox1.TabIndex = 37;
             this.pictureBox1.TabStop = false;
+            // 
+            // pnlDireccion
+            // 
+            this.pnlDireccion.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.pnlDireccion.BackColor = System.Drawing.Color.White;
+            this.pnlDireccion.Controls.Add(this.tableLayoutPanel3);
+            this.pnlDireccion.Controls.Add(this.label10);
+            this.pnlDireccion.Location = new System.Drawing.Point(195, 65);
+            this.pnlDireccion.Name = "pnlDireccion";
+            this.pnlDireccion.Size = new System.Drawing.Size(451, 142);
+            this.pnlDireccion.TabIndex = 58;
+            this.pnlDireccion.Visible = false;
+            // 
+            // tableLayoutPanel3
+            // 
+            this.tableLayoutPanel3.ColumnCount = 2;
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30F));
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 70F));
+            this.tableLayoutPanel3.Controls.Add(this.label11, 0, 3);
+            this.tableLayoutPanel3.Controls.Add(this.tbxNumero, 1, 2);
+            this.tableLayoutPanel3.Controls.Add(this.tbxCalle, 1, 1);
+            this.tableLayoutPanel3.Controls.Add(this.label7, 0, 0);
+            this.tableLayoutPanel3.Controls.Add(this.label8, 0, 1);
+            this.tableLayoutPanel3.Controls.Add(this.label9, 0, 2);
+            this.tableLayoutPanel3.Controls.Add(this.tbxColonia, 1, 3);
+            this.tableLayoutPanel3.Controls.Add(this.panel1, 1, 0);
+            this.tableLayoutPanel3.Location = new System.Drawing.Point(11, 25);
+            this.tableLayoutPanel3.Name = "tableLayoutPanel3";
+            this.tableLayoutPanel3.RowCount = 4;
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(437, 111);
+            this.tableLayoutPanel3.TabIndex = 1;
+            // 
+            // label11
+            // 
+            this.label11.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(83, 91);
+            this.label11.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(45, 13);
+            this.label11.TabIndex = 61;
+            this.label11.Text = "Colonia:";
+            // 
+            // tbxNumero
+            // 
+            this.tbxNumero.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.tbxNumero.Location = new System.Drawing.Point(134, 57);
+            this.tbxNumero.Name = "tbxNumero";
+            this.tbxNumero.Size = new System.Drawing.Size(300, 20);
+            this.tbxNumero.TabIndex = 60;
+            // 
+            // tbxCalle
+            // 
+            this.tbxCalle.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.tbxCalle.Location = new System.Drawing.Point(134, 30);
+            this.tbxCalle.Name = "tbxCalle";
+            this.tbxCalle.Size = new System.Drawing.Size(300, 20);
+            this.tbxCalle.TabIndex = 59;
+            // 
+            // label7
+            // 
+            this.label7.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(70, 8);
+            this.label7.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(58, 13);
+            this.label7.TabIndex = 55;
+            this.label7.Text = "Buscar en:";
+            // 
+            // label8
+            // 
+            this.label8.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(95, 35);
+            this.label8.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(33, 13);
+            this.label8.TabIndex = 56;
+            this.label8.Text = "Calle:";
+            // 
+            // label9
+            // 
+            this.label9.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(81, 62);
+            this.label9.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(47, 13);
+            this.label9.TabIndex = 57;
+            this.label9.Text = "Numero:";
+            // 
+            // tbxColonia
+            // 
+            this.tbxColonia.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.tbxColonia.Location = new System.Drawing.Point(134, 86);
+            this.tbxColonia.Name = "tbxColonia";
+            this.tbxColonia.Size = new System.Drawing.Size(300, 20);
+            this.tbxColonia.TabIndex = 62;
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.radDFiscal);
+            this.panel1.Controls.Add(this.radDPadron);
+            this.panel1.Location = new System.Drawing.Point(134, 3);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(256, 21);
+            this.panel1.TabIndex = 63;
+            // 
+            // radDFiscal
+            // 
+            this.radDFiscal.AutoSize = true;
+            this.radDFiscal.Location = new System.Drawing.Point(134, 1);
+            this.radDFiscal.Name = "radDFiscal";
+            this.radDFiscal.Size = new System.Drawing.Size(97, 17);
+            this.radDFiscal.TabIndex = 1;
+            this.radDFiscal.Text = "Domicilio Fiscal";
+            this.radDFiscal.UseVisualStyleBackColor = true;
+            // 
+            // radDPadron
+            // 
+            this.radDPadron.AutoSize = true;
+            this.radDPadron.Checked = true;
+            this.radDPadron.Location = new System.Drawing.Point(18, 1);
+            this.radDPadron.Name = "radDPadron";
+            this.radDPadron.Size = new System.Drawing.Size(104, 17);
+            this.radDPadron.TabIndex = 0;
+            this.radDPadron.TabStop = true;
+            this.radDPadron.Text = "Domicilio Padron";
+            this.radDPadron.UseVisualStyleBackColor = true;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label10.Location = new System.Drawing.Point(202, 2);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(81, 20);
+            this.label10.TabIndex = 0;
+            this.label10.Text = "Domicilio";
             // 
             // gbxContribuyente
             // 
@@ -1618,20 +1623,21 @@
             this.Load += new System.EventHandler(this.RepTaxpayer_Load);
             this.pnlHeader.ResumeLayout(false);
             this.pnlHeader.PerformLayout();
+            this.pnlOpContribuyente.ResumeLayout(false);
+            this.pnlOpContribuyente.PerformLayout();
+            this.tableLayoutPanel1.ResumeLayout(false);
+            this.tableLayoutPanel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.lbcListadoContratos)).EndInit();
+            this.tableLayoutPanel2.ResumeLayout(false);
+            this.tableLayoutPanel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pcbIncomeByConcept)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.pnlDireccion.ResumeLayout(false);
             this.pnlDireccion.PerformLayout();
             this.tableLayoutPanel3.ResumeLayout(false);
             this.tableLayoutPanel3.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            this.pnlOpContribuyente.ResumeLayout(false);
-            this.pnlOpContribuyente.PerformLayout();
-            this.tableLayoutPanel1.ResumeLayout(false);
-            this.tableLayoutPanel1.PerformLayout();
-            this.tableLayoutPanel2.ResumeLayout(false);
-            this.tableLayoutPanel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pcbIncomeByConcept)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.gbxContribuyente.ResumeLayout(false);
             this.tableLayoutPanel4.ResumeLayout(false);
             this.tableLayoutPanel4.PerformLayout();
@@ -1694,11 +1700,9 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox tbxNombre;
         private System.Windows.Forms.TextBox tbxRFC;
-        private System.Windows.Forms.TextBox tbxRuta;
         private System.Windows.Forms.Panel pnlDireccion;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
         private System.Windows.Forms.Label label11;
@@ -1802,5 +1806,7 @@
         private DevExpress.XtraPivotGrid.PivotGridField pgfTaxOS;
         private DevExpress.XtraPivotGrid.PivotGridField pgfTotalOS;
         private DevExpress.XtraEditors.LabelControl labelControl7;
+        private System.Windows.Forms.Label label6;
+        private DevExpress.XtraEditors.ListBoxControl lbcListadoContratos;
     }
 }

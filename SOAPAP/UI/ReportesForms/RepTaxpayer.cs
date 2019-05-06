@@ -10,6 +10,7 @@ using System.Drawing;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -24,6 +25,8 @@ namespace SOAPAP.UI.ReportesForms
 
         private string UrlBase = Properties.Settings.Default.URL;
         string json = string.Empty;
+
+        List<SOAPAP.Model.ClientFinding> lstClientes;
 
         public RepTaxpayer()
         {
@@ -62,18 +65,18 @@ namespace SOAPAP.UI.ReportesForms
             }
             else
             {
-                var lstClientes = JsonConvert.DeserializeObject<List<SOAPAP.Model.Client>>(resultTypeTransaction);
+                lstClientes = JsonConvert.DeserializeObject<List<SOAPAP.Model.ClientFinding>>(resultTypeTransaction);
 
                 //Text box Cuenta
                 var sourceCuenta = new AutoCompleteStringCollection();
-                sourceCuenta.AddRange(lstClientes.Select(x => x.AgreementId.ToString()).ToArray());
+                sourceCuenta.AddRange(lstClientes.Select(x => x.Cuenta).Distinct().ToArray());
                 tbxCuenta.AutoCompleteMode = AutoCompleteMode.Suggest;
                 tbxCuenta.AutoCompleteCustomSource = sourceCuenta;
                 tbxCuenta.AutoCompleteSource = AutoCompleteSource.CustomSource;
 
                 //Text box Nombre
                 var source = new AutoCompleteStringCollection();
-                source.AddRange(lstClientes.Select(x => string.Format("{0} {1} {2}", x.Name, x.LastName, x.SecondLastName)).ToArray());
+                source.AddRange(lstClientes.Select(x => x.Nombre).ToArray());
                 tbxNombre.AutoCompleteMode = AutoCompleteMode.Suggest;
                 tbxNombre.AutoCompleteCustomSource = source;
                 tbxNombre.AutoCompleteSource = AutoCompleteSource.CustomSource;
@@ -81,7 +84,7 @@ namespace SOAPAP.UI.ReportesForms
                 //Text box RFC
                 var sourceRFC = new AutoCompleteStringCollection();
                 sourceRFC.AddRange(lstClientes.Where(y => y.RFC != null).Select(x => x.RFC).Distinct().ToArray());
-                tbxRFC.AutoCompleteMode = AutoCompleteMode.Suggest;
+                tbxRFC.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
                 tbxRFC.AutoCompleteCustomSource = sourceRFC;
                 tbxRFC.AutoCompleteSource = AutoCompleteSource.CustomSource;
             }
@@ -198,14 +201,24 @@ namespace SOAPAP.UI.ReportesForms
             }
         }
         private void BusquedaPorNombre()
-        {
+        {            
+            List<Model.ClientFinding> lstEncontrados = new List<Model.ClientFinding>();            
+            //desfragmento la cadena y busco los nombres que contienen cada palabra (aunque el orden de las palabras llegara a cambiar).
+            string[] NombrePartes = obtenerCadenaSinAcentos(tbxNombre.Text.ToLower()).Split(' ');
+            NombrePartes = NombrePartes.Where(x => !string.IsNullOrEmpty(x)).ToArray();
+            lstEncontrados.AddRange( lstClientes.Where(c => NombrePartes.Where(np => obtenerCadenaSinAcentos(c.Nombre.ToLower()).Split(' ').Contains(np)).Count() == NombrePartes.Count()).ToList() );
+
+            lbcListadoContratos.ValueMember = "id";
+            lbcListadoContratos.DisplayMember = "DisplayData";
+            lbcListadoContratos.DataSource = lstEncontrados;
+            lbcListadoContratos.SelectedIndex = 0;
 
         }
         private void BusquedaPorDireccion()
         {
 
         }
-
+               
         //Llena datos de servicios
         private async Task LlenaDatos(SOAPAP.Model.Agreement agr)
         {
@@ -341,6 +354,19 @@ namespace SOAPAP.UI.ReportesForms
             gbxSaldo.Visible = ((DevExpress.XtraEditors.ToggleSwitch)sender).IsOn;
             lblOffSaldo.Visible = !((DevExpress.XtraEditors.ToggleSwitch)sender).IsOn;
             sepOffSaldo.Visible = !((DevExpress.XtraEditors.ToggleSwitch)sender).IsOn;
+        }
+
+        private string obtenerCadenaSinAcentos(string pCadena)
+        {
+            string CadenaNormalizada = pCadena.Normalize(NormalizationForm.FormD);
+            Regex reg = new Regex("[^a-zA-Z0-9 ]");
+            string textoSinAcentos = reg.Replace(CadenaNormalizada, "");
+            return textoSinAcentos.TrimEnd().TrimStart();
+        }
+
+        private void lbcListadoContratos_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Model.ClientFinding cf = (Model.ClientFinding)((DevExpress.XtraEditors.ListBoxControl)sender).SelectedItem;
         }
     }
 }

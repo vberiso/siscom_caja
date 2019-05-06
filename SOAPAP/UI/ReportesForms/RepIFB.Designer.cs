@@ -39,10 +39,10 @@
             this.label2 = new System.Windows.Forms.Label();
             this.dtpFechaIni = new System.Windows.Forms.DateTimePicker();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.label6 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.cbxArea = new System.Windows.Forms.ComboBox();
-            this.cbxOperador = new System.Windows.Forms.ComboBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
             this.pcbIncomeByConcept = new System.Windows.Forms.PictureBox();
             this.pbBG = new System.Windows.Forms.PictureBox();
             this.pnlHRigth = new System.Windows.Forms.Panel();
@@ -65,7 +65,11 @@
             this.pgfFecha = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pfgEstatus = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfFolioFiscal = new DevExpress.XtraPivotGrid.PivotGridField();
+            this.chcbxOperador = new DevExpress.XtraEditors.CheckedComboBoxEdit();
+            this.chcbxOficina = new DevExpress.XtraEditors.CheckedComboBoxEdit();
             this.dataIncomeFromBoxBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.pgfOficina = new DevExpress.XtraPivotGrid.PivotGridField();
+            this.pgfOperador = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pnlHeader.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
@@ -77,6 +81,8 @@
             this.pnlHLeft.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pgcIFB)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chcbxOperador.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chcbxOficina.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataIncomeFromBoxBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
@@ -93,7 +99,7 @@
             this.pnlHeader.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlHeader.Location = new System.Drawing.Point(0, 0);
             this.pnlHeader.Name = "pnlHeader";
-            this.pnlHeader.Size = new System.Drawing.Size(800, 144);
+            this.pnlHeader.Size = new System.Drawing.Size(1027, 144);
             this.pnlHeader.TabIndex = 48;
             // 
             // tableLayoutPanel3
@@ -106,7 +112,7 @@
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 175F));
             this.tableLayoutPanel3.Controls.Add(this.rdbSoloCancelados, 1, 0);
             this.tableLayoutPanel3.Controls.Add(this.rdbMosCancelados, 0, 0);
-            this.tableLayoutPanel3.Location = new System.Drawing.Point(217, 116);
+            this.tableLayoutPanel3.Location = new System.Drawing.Point(330, 116);
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
             this.tableLayoutPanel3.RowCount = 1;
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
@@ -148,7 +154,7 @@
             this.tableLayoutPanel2.Controls.Add(this.dtpFechaFin, 1, 1);
             this.tableLayoutPanel2.Controls.Add(this.label2, 0, 0);
             this.tableLayoutPanel2.Controls.Add(this.dtpFechaIni, 0, 1);
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(215, 64);
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(328, 64);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 2;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
@@ -198,30 +204,24 @@
             // 
             this.tableLayoutPanel1.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.tableLayoutPanel1.BackColor = System.Drawing.Color.White;
-            this.tableLayoutPanel1.ColumnCount = 2;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 54.63659F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 45.36341F));
-            this.tableLayoutPanel1.Controls.Add(this.label6, 1, 0);
+            this.tableLayoutPanel1.ColumnCount = 3;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.tableLayoutPanel1.Controls.Add(this.label4, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.cbxArea, 0, 1);
-            this.tableLayoutPanel1.Controls.Add(this.cbxOperador, 1, 1);
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(214, 8);
+            this.tableLayoutPanel1.Controls.Add(this.label6, 2, 0);
+            this.tableLayoutPanel1.Controls.Add(this.label7, 1, 0);
+            this.tableLayoutPanel1.Controls.Add(this.chcbxOperador, 2, 1);
+            this.tableLayoutPanel1.Controls.Add(this.chcbxOficina, 1, 1);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(249, 8);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 2;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 29F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(399, 45);
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(554, 45);
             this.tableLayoutPanel1.TabIndex = 49;
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(220, 3);
-            this.label6.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(119, 13);
-            this.label6.TabIndex = 52;
-            this.label6.Text = "Seleccione el operador:";
             // 
             // label4
             // 
@@ -238,16 +238,28 @@
             this.cbxArea.FormattingEnabled = true;
             this.cbxArea.Location = new System.Drawing.Point(3, 19);
             this.cbxArea.Name = "cbxArea";
-            this.cbxArea.Size = new System.Drawing.Size(208, 21);
+            this.cbxArea.Size = new System.Drawing.Size(178, 21);
             this.cbxArea.TabIndex = 53;
             // 
-            // cbxOperador
+            // label6
             // 
-            this.cbxOperador.FormattingEnabled = true;
-            this.cbxOperador.Location = new System.Drawing.Point(220, 19);
-            this.cbxOperador.Name = "cbxOperador";
-            this.cbxOperador.Size = new System.Drawing.Size(176, 21);
-            this.cbxOperador.TabIndex = 54;
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(371, 3);
+            this.label6.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(119, 13);
+            this.label6.TabIndex = 52;
+            this.label6.Text = "Seleccione el operador:";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(187, 3);
+            this.label7.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(108, 13);
+            this.label7.TabIndex = 55;
+            this.label7.Text = "Seleccione la oficina:";
             // 
             // pcbIncomeByConcept
             // 
@@ -255,7 +267,7 @@
             this.pcbIncomeByConcept.BackColor = System.Drawing.Color.Transparent;
             this.pcbIncomeByConcept.Image = global::SOAPAP.Properties.Resources.bg;
             this.pcbIncomeByConcept.InitialImage = global::SOAPAP.Properties.Resources.bg;
-            this.pcbIncomeByConcept.Location = new System.Drawing.Point(188, 62);
+            this.pcbIncomeByConcept.Location = new System.Drawing.Point(301, 62);
             this.pcbIncomeByConcept.Name = "pcbIncomeByConcept";
             this.pcbIncomeByConcept.Size = new System.Drawing.Size(451, 51);
             this.pcbIncomeByConcept.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -268,9 +280,9 @@
             this.pbBG.BackColor = System.Drawing.Color.Transparent;
             this.pbBG.Image = global::SOAPAP.Properties.Resources.bg;
             this.pbBG.InitialImage = global::SOAPAP.Properties.Resources.bg;
-            this.pbBG.Location = new System.Drawing.Point(185, 7);
+            this.pbBG.Location = new System.Drawing.Point(217, 7);
             this.pbBG.Name = "pbBG";
-            this.pbBG.Size = new System.Drawing.Size(454, 50);
+            this.pbBG.Size = new System.Drawing.Size(623, 50);
             this.pbBG.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pbBG.TabIndex = 41;
             this.pbBG.TabStop = false;
@@ -279,7 +291,7 @@
             // 
             this.pnlHRigth.Controls.Add(this.panel1);
             this.pnlHRigth.Dock = System.Windows.Forms.DockStyle.Right;
-            this.pnlHRigth.Location = new System.Drawing.Point(619, 0);
+            this.pnlHRigth.Location = new System.Drawing.Point(846, 0);
             this.pnlHRigth.Name = "pnlHRigth";
             this.pnlHRigth.Size = new System.Drawing.Size(181, 144);
             this.pnlHRigth.TabIndex = 44;
@@ -403,11 +415,13 @@
             this.pgfTotal,
             this.pgfFecha,
             this.pfgEstatus,
-            this.pgfFolioFiscal});
+            this.pgfFolioFiscal,
+            this.pgfOficina,
+            this.pgfOperador});
             this.pgcIFB.Location = new System.Drawing.Point(0, 142);
             this.pgcIFB.Name = "pgcIFB";
             this.pgcIFB.OptionsData.DataProcessingEngine = DevExpress.XtraPivotGrid.PivotDataProcessingEngine.LegacyOptimized;
-            this.pgcIFB.Size = new System.Drawing.Size(800, 277);
+            this.pgcIFB.Size = new System.Drawing.Size(1027, 277);
             this.pgcIFB.TabIndex = 49;
             // 
             // pgfFolio
@@ -417,6 +431,7 @@
             this.pgfFolio.Caption = "FOLIO";
             this.pgfFolio.FieldName = "folio_impresion";
             this.pgfFolio.Name = "pgfFolio";
+            this.pgfFolio.Width = 189;
             // 
             // pgfCuenta
             // 
@@ -465,6 +480,7 @@
             this.pgfTotal.Caption = "TOTAL";
             this.pgfTotal.FieldName = "TOTAL_P";
             this.pgfTotal.Name = "pgfTotal";
+            this.pgfTotal.Width = 112;
             // 
             // pgfFecha
             // 
@@ -476,8 +492,8 @@
             // 
             // pfgEstatus
             // 
-            this.pfgEstatus.Area = DevExpress.XtraPivotGrid.PivotArea.RowArea;
-            this.pfgEstatus.AreaIndex = 5;
+            this.pfgEstatus.Area = DevExpress.XtraPivotGrid.PivotArea.ColumnArea;
+            this.pfgEstatus.AreaIndex = 0;
             this.pfgEstatus.Caption = "ESTATUS";
             this.pfgEstatus.FieldName = "ESTATUS";
             this.pfgEstatus.Name = "pfgEstatus";
@@ -485,20 +501,58 @@
             // pgfFolioFiscal
             // 
             this.pgfFolioFiscal.Area = DevExpress.XtraPivotGrid.PivotArea.RowArea;
-            this.pgfFolioFiscal.AreaIndex = 6;
+            this.pgfFolioFiscal.AreaIndex = 5;
             this.pgfFolioFiscal.Caption = "FOLIO FISCAL";
             this.pgfFolioFiscal.FieldName = "folioTransaction";
             this.pgfFolioFiscal.Name = "pgfFolioFiscal";
+            // 
+            // chcbxOperador
+            // 
+            this.chcbxOperador.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.chcbxOperador.EditValue = "";
+            this.chcbxOperador.Location = new System.Drawing.Point(371, 19);
+            this.chcbxOperador.Name = "chcbxOperador";
+            this.chcbxOperador.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.chcbxOperador.Size = new System.Drawing.Size(180, 20);
+            this.chcbxOperador.TabIndex = 57;
+            // 
+            // chcbxOficina
+            // 
+            this.chcbxOficina.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.chcbxOficina.EditValue = "";
+            this.chcbxOficina.Location = new System.Drawing.Point(187, 19);
+            this.chcbxOficina.Name = "chcbxOficina";
+            this.chcbxOficina.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.chcbxOficina.Size = new System.Drawing.Size(178, 20);
+            this.chcbxOficina.TabIndex = 58;
             // 
             // dataIncomeFromBoxBindingSource
             // 
             this.dataIncomeFromBoxBindingSource.DataSource = typeof(SOAPAP.Reportes.DataIncomeFromBox);
             // 
+            // pgfOficina
+            // 
+            this.pgfOficina.AreaIndex = 0;
+            this.pgfOficina.Caption = "OFICINA";
+            this.pgfOficina.FieldName = "branch_office";
+            this.pgfOficina.Name = "pgfOficina";
+            // 
+            // pgfOperador
+            // 
+            this.pgfOperador.AreaIndex = 1;
+            this.pgfOperador.Caption = "CAJERO";
+            this.pgfOperador.FieldName = "cajero";
+            this.pgfOperador.Name = "pgfOperador";
+            // 
             // RepIFB
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(1027, 450);
             this.Controls.Add(this.pgcIFB);
             this.Controls.Add(this.pnlHeader);
             this.Name = "RepIFB";
@@ -519,6 +573,8 @@
             this.pnlHLeft.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pgcIFB)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chcbxOperador.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chcbxOficina.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataIncomeFromBoxBindingSource)).EndInit();
             this.ResumeLayout(false);
 
@@ -539,7 +595,6 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.ComboBox cbxArea;
-        private System.Windows.Forms.ComboBox cbxOperador;
         private System.Windows.Forms.PictureBox pcbIncomeByConcept;
         private System.Windows.Forms.PictureBox pbBG;
         private System.Windows.Forms.Panel pnlHRigth;
@@ -563,5 +618,10 @@
         private DevExpress.XtraPivotGrid.PivotGridField pfgEstatus;
         private DevExpress.XtraPivotGrid.PivotGridField pgfFolioFiscal;
         private System.Windows.Forms.Button btnExportar;
+        private System.Windows.Forms.Label label7;
+        private DevExpress.XtraEditors.CheckedComboBoxEdit chcbxOperador;
+        private DevExpress.XtraEditors.CheckedComboBoxEdit chcbxOficina;
+        private DevExpress.XtraPivotGrid.PivotGridField pgfOficina;
+        private DevExpress.XtraPivotGrid.PivotGridField pgfOperador;
     }
 }

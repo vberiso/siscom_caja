@@ -24,5 +24,8 @@ namespace SOAPAP.Reportes
         public decimal TOTAL { get; set; }
         public string ESTA { get; set; }
         public string MP { get; set; }
+        public string OFICINA { get; set; }
+        public string FECHA { get; set; }
+        public string CAJERO { get; set; }
     }
 }
