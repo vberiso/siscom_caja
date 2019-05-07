@@ -17,6 +17,7 @@ namespace SOAPAP.Model
         public int Id { get; set; }
         public DateTime RequestDate { get; set; }
         public DateTime AuthorizationDate { get; set; }
+        public DateTime ExpirationDate { get; set; }
         [Required]
         public decimal Amount { get; set; }
         [Required]

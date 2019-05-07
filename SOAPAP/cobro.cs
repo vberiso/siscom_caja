@@ -263,8 +263,7 @@ namespace SOAPAP
                     IForm formInterface = this.Owner as IForm;
                     if (formInterface != null)
                     {
-
-                        formInterface.ShowForm("SOAPAP", "PupCobroAgua");
+                        formInterface.ShowForm("SOAPAP", "UI.Cobro");
                     }
                 }
                 else

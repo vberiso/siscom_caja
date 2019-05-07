@@ -87,8 +87,8 @@ namespace SOAPAP.UI.Descuentos
 
                 for (int i = 0; i < dgvDiscounts.Columns.Count; i++)
                 {
-                    dgvDiscounts.Columns[i].DataPropertyName = Table.Columns[i].ColumnName;
-                    dgvDiscounts.Columns[i].HeaderText = Table.Columns[i].Caption;
+                    dgvDiscounts.Columns[i].DataPropertyName = Table.Columns[i].ColumnName.Replace("_", " ");
+                    dgvDiscounts.Columns[i].HeaderText = Table.Columns[i].Caption.Replace("_", " ");
                 }
 
                 dgvDiscounts.Refresh();
@@ -101,7 +101,7 @@ namespace SOAPAP.UI.Descuentos
                 dgvDiscounts.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.NotSet;
                 dgvDiscounts.Columns[3].Width = 70;
                 dgvDiscounts.Columns[4].AutoSizeMode = DataGridViewAutoSizeColumnMode.NotSet;
-                dgvDiscounts.Columns[4].Width = 200;
+                dgvDiscounts.Columns[4].Width = 250;
                 dgvDiscounts.Columns[5].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
 
                 foreach (DataGridViewRow item in dgvDiscounts.Rows)

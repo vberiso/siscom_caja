@@ -196,7 +196,7 @@
             this.btnRemove.Location = new System.Drawing.Point(149, 3);
             this.btnRemove.Name = "btnRemove";
             this.btnRemove.Size = new System.Drawing.Size(140, 26);
-            this.btnRemove.TabIndex = 2;
+            this.btnRemove.TabIndex = 9;
             this.btnRemove.Text = "Quitar";
             this.btnRemove.UseVisualStyleBackColor = false;
             this.btnRemove.Click += new System.EventHandler(this.BtnRemove_Click);
@@ -212,7 +212,7 @@
             this.btnOpen.Location = new System.Drawing.Point(3, 3);
             this.btnOpen.Name = "btnOpen";
             this.btnOpen.Size = new System.Drawing.Size(140, 26);
-            this.btnOpen.TabIndex = 1;
+            this.btnOpen.TabIndex = 8;
             this.btnOpen.Text = "Seleccionar";
             this.btnOpen.UseVisualStyleBackColor = false;
             this.btnOpen.Click += new System.EventHandler(this.BtnOpen_Click);
@@ -262,7 +262,7 @@
             this.txtAmountDiscount.Location = new System.Drawing.Point(14, 197);
             this.txtAmountDiscount.Name = "txtAmountDiscount";
             this.txtAmountDiscount.Size = new System.Drawing.Size(280, 23);
-            this.txtAmountDiscount.TabIndex = 7;
+            this.txtAmountDiscount.TabIndex = 6;
             this.txtAmountDiscount.Visible = false;
             this.txtAmountDiscount.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TxtAmountDiscount_KeyPress);
             this.txtAmountDiscount.Validating += new System.ComponentModel.CancelEventHandler(this.TxtAmountDiscount_Validating);

@@ -114,7 +114,7 @@ namespace SOAPAP
                                                              try
                                                              {
                                                                  Invoke(new MethodInvoker(() => {
-                                                                     item.Text = $"Se ha cancelado el descuento para la cuenta: {d.Object.Account},";
+                                                                     item.Text = $"Se ha cancelado el descuento para la cuenta: {d.Object.Account}";
                                                                      item.Image = Resources.cancel;
                                                                      item.ImageAlign = ContentAlignment.MiddleCenter;
                                                                  }));
@@ -127,7 +127,7 @@ namespace SOAPAP
                                                                      Invoke(new MethodInvoker(() => {
                                                                          if (!this.IsDisposed)
                                                                          {
-                                                                             item.Text = $"Se ha cancelado el descuento para la cuenta: {d.Object.Account},";
+                                                                             item.Text = $"Se ha cancelado el descuento para la cuenta: {d.Object.Account}";
                                                                              item.Image = Resources.cancel;
                                                                              item.ImageAlign = ContentAlignment.MiddleCenter;
                                                                          }

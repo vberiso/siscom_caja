@@ -112,7 +112,17 @@ namespace SOAPAP.UI.Descuentos
                 loading.Close();
                 return;
             }
-                
+            if (!ValidationDiscount())
+            {
+                loading.Close();
+                return;
+            }
+            if (!SelectImage)
+            {
+                loading.Close();
+                mensaje = new MessageBoxForm(Variables.titleprincipal, "Debe seleccionar el archivo de justificación del descuento para poder continuar", TypeIcon.Icon.Cancel);
+                result = mensaje.ShowDialog();
+            }
             else
             {
                 discountAuthorization = new DiscountAuthorization()
@@ -120,6 +130,7 @@ namespace SOAPAP.UI.Descuentos
                     Folio = txtFolio.Text,
                     Amount = Convert.ToDecimal(Regex.Replace(txtAmount.Text, @"[^\d.]", "")),
                     RequestDate = DateTime.Now.ToLocalTime(),
+                    ExpirationDate = DateTime.Now.ToLocalTime().AddDays(1),
                     BranchOffice = Variables.Configuration.Terminal.BranchOffice.Name,
                     AmountDiscount = cmbTypeDescount.SelectedIndex == 1 ? Convert.ToDecimal(txtAmountDiscount.Text) :
                                      cmbTypeDescount.SelectedIndex == 2 ? ((Convert.ToDecimal(txtAmountDiscount.Text) * Total) / 100) :
@@ -184,7 +195,10 @@ namespace SOAPAP.UI.Descuentos
                                                                      BranchOffice = Variables.Configuration.Terminal.BranchOffice.Name,
                                                                      IsReply = false,
                                                                      Status = Enum.GetName(typeof(TypeStatus), TypeStatus.Activo),
-                                                                     Account = discountAuthorization.Account
+                                                                     Account = discountAuthorization.Account,
+                                                                     ExpirationDate = DateTime.Now.ToLocalTime().AddDays(1),
+                                                                     UserResponseId = string.Empty,
+                                                                     Observation = discountAuthorization.Observation
                                                                  }, true);
                     string key = @object.Key;
                     discountAuthorization.KeyFirebase = key;
@@ -308,6 +322,31 @@ namespace SOAPAP.UI.Descuentos
             pcbPreview.BackgroundImageLayout = ImageLayout.Center;
             SelectImage = false;
             btnRemove.Enabled = false;
+        }
+
+        private bool ValidationDiscount()
+        {
+            switch (cmbTypeDescount.SelectedIndex)
+            {
+                case 1:
+                    if (Convert.ToDecimal(txtAmountDiscount.Text) > (Total - 1))
+                    {
+                        mensaje = new MessageBoxForm(Variables.titleprincipal, "El monto del descuento no puede ser mayor al monto de deuda, favor de verificar", TypeIcon.Icon.Cancel);
+                        result = mensaje.ShowDialog();
+                        return false;
+                    }
+                    else return true;
+                case 2:
+                    if (Convert.ToDecimal(txtAmountDiscount.Text) > 99)
+                    {
+                        mensaje = new MessageBoxForm(Variables.titleprincipal, "El porcentaje del descuento no puede ser mayor al 99%, favor de verificar", TypeIcon.Icon.Cancel);
+                        result = mensaje.ShowDialog();
+                        return false;
+                    }
+                    else return true;
+                default:
+                    return false;
+            }
         }
     }
 

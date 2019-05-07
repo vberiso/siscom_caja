@@ -18,5 +18,6 @@ namespace SOAPAP.Model
         public string Account { get; set; }
         public DateTime RequestDate { get; set; }
         public DateTime ResponseDate { get; set; }
+        public DateTime ExpirationDate { get; set; }
     }
 }
