@@ -55,8 +55,14 @@ namespace SOAPAP.UI.ReportesForms
             //Combo de Cajeros.
             List<SOAPAP.Model.Users> lstCajeros = new List<Model.Users>();
             List<DataComboBox> lstCaj = new List<DataComboBox>();
+
+            //Combo de Oficinas.
+            List<SOAPAP.Model.BranchOffice> lstOficinas = new List<Model.BranchOffice>();
+            List<DataComboBox> lstOfi = new List<DataComboBox>();
+
             if (Variables.LoginModel.RolName[0] == "Supervisor")
             {
+                //Solicitud de Cajeros.
                 var resultTypeTransaction = await Requests.SendURIAsync("/api/UserRolesManager/Users", HttpMethod.Get, Variables.LoginModel.Token);
                 if (resultTypeTransaction.Contains("error"))
                 {
@@ -65,48 +71,43 @@ namespace SOAPAP.UI.ReportesForms
                 }
                 else
                 {
-                    lstCajeros = JsonConvert.DeserializeObject<List<SOAPAP.Model.Users>>(resultTypeTransaction);
-                    lstCaj.Add(new DataComboBox() { keyString = "Todos", value = "Todos" });
+                    lstCajeros = JsonConvert.DeserializeObject<List<SOAPAP.Model.Users>>(resultTypeTransaction);                    
                     foreach (var item in lstCajeros)
                     {
                         lstCaj.Add(new DataComboBox() { keyString = item.id, value = string.Format("{0} {1} {2}", item.name, item.lastName, item.secondLastName) });
                     }
                 }
-            }
-            else
-            {
-                lstCaj.Add(new DataComboBox() { keyString = Variables.LoginModel.User, value = Variables.LoginModel.FullName });
-            }
-            chcbxOperador.DataBindings.Clear();
-            chcbxOperador.Properties.DataSource = null;
-            chcbxOperador.Properties.ValueMember = "keyString";
-            chcbxOperador.Properties.DisplayMember = "value";
-            chcbxOperador.Properties.DataSource = lstCaj;
 
-            //Combo de Oficinas.
-            List<SOAPAP.Model.BranchOffice> lstOficinas = new List<Model.BranchOffice>();
-            List<DataComboBox> lstOfi = new List<DataComboBox>();
-            if (Variables.LoginModel.RolName[0] == "Supervisor")
-            {
-                var resultTypeTransaction = await Requests.SendURIAsync("/api/BranchOffice/Terminals", HttpMethod.Get, Variables.LoginModel.Token);
-                if (resultTypeTransaction.Contains("error"))
+                //Solicitud de Oficinas
+                var resultTypeTransactionOfi = await Requests.SendURIAsync("/api/BranchOffice/Terminals", HttpMethod.Get, Variables.LoginModel.Token);
+                if (resultTypeTransactionOfi.Contains("error"))
                 {
-                    mensaje = new MessageBoxForm("Error", resultTypeTransaction.Split(':')[1].Replace("}", ""), TypeIcon.Icon.Cancel);
+                    mensaje = new MessageBoxForm("Error", resultTypeTransactionOfi.Split(':')[1].Replace("}", ""), TypeIcon.Icon.Cancel);
                     result = mensaje.ShowDialog();
                 }
                 else
                 {
-                    lstOficinas = JsonConvert.DeserializeObject<List<SOAPAP.Model.BranchOffice>>(resultTypeTransaction);                    
+                    lstOficinas = JsonConvert.DeserializeObject<List<SOAPAP.Model.BranchOffice>>(resultTypeTransactionOfi);
                     foreach (var item in lstOficinas)
                     {
-                        lstOfi.Add(new DataComboBox() { keyString = item.Name , value = item.Name });
+                        lstOfi.Add(new DataComboBox() { keyString = item.Name, value = item.Name });
                     }
                 }
             }
             else
             {
-                lstOfi.Add( new DataComboBox() { keyString = Variables.Configuration.Terminal.BranchOffice.Name, value = Variables.Configuration.Terminal.BranchOffice.Name } );
+                //Operador actual
+                lstCaj.Add(new DataComboBox() { keyString = Variables.LoginModel.User, value = Variables.LoginModel.FullName });
+                //Oficina Acutal
+                lstOfi.Add(new DataComboBox() { keyString = Variables.Configuration.Terminal.BranchOffice.Name, value = Variables.Configuration.Terminal.BranchOffice.Name });
             }
+            //combo de Cajeros
+            chcbxOperador.DataBindings.Clear();
+            chcbxOperador.Properties.DataSource = null;
+            chcbxOperador.Properties.ValueMember = "keyString";
+            chcbxOperador.Properties.DisplayMember = "value";
+            chcbxOperador.Properties.DataSource = lstCaj;
+            //Combo de oficinas
             chcbxOficina.DataBindings.Clear();
             chcbxOficina.Properties.DataSource = null;
             chcbxOficina.Properties.ValueMember = "keyString";
@@ -171,41 +172,36 @@ namespace SOAPAP.UI.ReportesForms
             ////Se obtiene el cajero para filtrar la consulta            
             var temp = chcbxOperador.Properties.Items.ToList();
             string itemSeleccionado = "";
-            if (temp.Where(x => x.CheckState == CheckState.Checked).Count() == 0)
-            {
-                itemSeleccionado = "";
-                mensaje = new MessageBoxForm("Advertencia: ", "Debe seleccionar un cajero.", TypeIcon.Icon.Cancel);
-                result = mensaje.ShowDialog();
-            }
-            else if (temp.Where(x => x.CheckState == CheckState.Unchecked).Count() == 0)
-            {
-                itemSeleccionado = "Todos";                
-            }
-            else
-            {
-                foreach (var item in temp)
-                {
-                    if (item.CheckState == CheckState.Checked)
-                        itemSeleccionado = itemSeleccionado + item.Value + ",";
-                }
-                itemSeleccionado = itemSeleccionado.Substring(0, itemSeleccionado.Length - 1);                
-            }
-
             ////Se la oficina para la consulta.            
-            var tempOfi = chcbxOficina .Properties.Items.ToList();
+            var tempOfi = chcbxOficina.Properties.Items.ToList();
             string OfiSeleccionado = "";
+
             if (Variables.LoginModel.RolName[0] == "Supervisor")
             {
+                //Cajero(s) seleccionado(s)
+                if (temp.Where(x => x.CheckState == CheckState.Checked).Count() == 0)
+                {
+                    itemSeleccionado = "";
+                    mensaje = new MessageBoxForm("Advertencia: ", "Debe seleccionar un cajero.", TypeIcon.Icon.Cancel);
+                    result = mensaje.ShowDialog();
+                }                
+                else
+                {
+                    foreach (var item in temp)
+                    {
+                        if (item.CheckState == CheckState.Checked)
+                            itemSeleccionado = itemSeleccionado + item.Value + ",";
+                    }
+                    itemSeleccionado = itemSeleccionado.Substring(0, itemSeleccionado.Length - 1);
+                }
+
+                //Oficina(s) seleccionada(s)
                 if (tempOfi.Where(x => x.CheckState == CheckState.Checked).Count() == 0)
                 {
                     OfiSeleccionado = "";
                     mensaje = new MessageBoxForm("Advertencia: ", "Debe seleccionar una oficina.", TypeIcon.Icon.Cancel);
                     result = mensaje.ShowDialog();
-                }
-                else if (tempOfi.Where(x => x.CheckState == CheckState.Unchecked).Count() == 0)
-                {
-                    OfiSeleccionado = "Todos";
-                }
+                }                
                 else
                 {
                     foreach (var item in tempOfi)
@@ -217,7 +213,19 @@ namespace SOAPAP.UI.ReportesForms
                 }
             }
             else
-            {
+            {                
+                //Operador actual
+                if (temp.Where(x => x.CheckState == CheckState.Checked).Count() == 0)
+                {
+                    itemSeleccionado = "";
+                    mensaje = new MessageBoxForm("Advertencia: ", "Debe seleccionar un cajero.", TypeIcon.Icon.Cancel);
+                    result = mensaje.ShowDialog();
+                }
+                else
+                {
+                    itemSeleccionado = temp.First().Value.ToString();                    
+                }
+                //Oficina actual
                 if (tempOfi.Where(x => x.CheckState == CheckState.Checked).Count() == 0)
                 {
                     OfiSeleccionado = "";
@@ -230,8 +238,7 @@ namespace SOAPAP.UI.ReportesForms
                 }
             }
             
-
-            DataReportes dRep = new DataReportes() { FechaIni = FechaIni.ToString("yyyy-MM-dd"), FechaFin = FechaFin.ToString("yyyy-MM-dd"), CajeroId = itemSeleccionado };
+            DataReportes dRep = new DataReportes() { FechaIni = FechaIni.ToString("yyyy-MM-dd"), FechaFin = FechaFin.ToString("yyyy-MM-dd"), CajeroId = itemSeleccionado, Oficinas = OfiSeleccionado };
                        
             HttpContent content;
             json = JsonConvert.SerializeObject(dRep);

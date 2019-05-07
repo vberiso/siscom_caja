@@ -8,6 +8,9 @@ namespace SOAPAP.Reportes
 {
     class DataCollection
     {
+        public string OFICINA { get; set; }
+        public string CAJERO { get; set; }
+        public string FECHA_PAGO { get; set; }
         public string DESCRIPCION { get; set; }        
         public string name_concept { get; set; }
         public decimal MONTO { get; set; }        
