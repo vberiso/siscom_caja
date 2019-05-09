@@ -14,8 +14,10 @@ namespace SOAPAP.Reportes
         public string DOMICILIO { get; set; }
         public int idCOLONIA { get; set; }
         public string COLONIA { get; set; }
-        public int RUTA { get; set; }
+        public string RUTA { get; set; }
         public string CONTRATO { get; set; }
+        public string CONTRATO_AÑO { get; set; }
+        public string CONTRATO_MES { get; set; }
         public string FECHA_ULTIMO_PAGO { get; set; }
         public decimal? ULTIMO_PAGO { get; set; }
         public string SUCURSAL_CONTRATO { get; set; }

@@ -17,5 +17,9 @@ namespace SOAPAP.Reportes
         public string Oficinas { get; set; }
         public string statusIFB { get; set; }
         public Boolean pwaFiltrarPorContrato { get; set; }
+        public string pwaColonias { get; set; }
+        public string pwaRutas { get; set; }
+        public string pwaServicios { get; set; }
+        public string pwaTomas { get; set; }
     }
 }

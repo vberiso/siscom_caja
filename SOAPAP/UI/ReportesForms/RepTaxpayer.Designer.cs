@@ -49,7 +49,6 @@
             this.label5 = new System.Windows.Forms.Label();
             this.btnBuscar = new System.Windows.Forms.Button();
             this.lblTitulo = new System.Windows.Forms.Label();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.pnlDireccion = new System.Windows.Forms.Panel();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.label11 = new System.Windows.Forms.Label();
@@ -150,6 +149,7 @@
             this.pgfTaxOS = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfTotalOS = new DevExpress.XtraPivotGrid.PivotGridField();
             this.labelControl7 = new DevExpress.XtraEditors.LabelControl();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.dataTaxpayerOrderSaleBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.prepaidBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.debtDetailBindingSource = new System.Windows.Forms.BindingSource(this.components);
@@ -159,7 +159,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.lbcListadoContratos)).BeginInit();
             this.tableLayoutPanel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pcbIncomeByConcept)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.pnlDireccion.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -190,6 +189,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pgcPrepaid)).BeginInit();
             this.pnlRepOrderSale.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pgcOrderSale)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataTaxpayerOrderSaleBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.prepaidBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.debtDetailBindingSource)).BeginInit();
@@ -200,18 +200,18 @@
             this.pnlHeader.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.pnlHeader.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(3)))), ((int)(((byte)(155)))), ((int)(((byte)(229)))));
-            this.pnlHeader.Controls.Add(this.pnlOpContribuyente);
+            this.pnlHeader.Controls.Add(this.pictureBox1);
             this.pnlHeader.Controls.Add(this.btnExportar);
             this.pnlHeader.Controls.Add(this.tableLayoutPanel2);
             this.pnlHeader.Controls.Add(this.pcbIncomeByConcept);
             this.pnlHeader.Controls.Add(this.label5);
             this.pnlHeader.Controls.Add(this.btnBuscar);
             this.pnlHeader.Controls.Add(this.lblTitulo);
-            this.pnlHeader.Controls.Add(this.pictureBox1);
             this.pnlHeader.Controls.Add(this.pnlDireccion);
+            this.pnlHeader.Controls.Add(this.pnlOpContribuyente);
             this.pnlHeader.Location = new System.Drawing.Point(1, 0);
             this.pnlHeader.Name = "pnlHeader";
-            this.pnlHeader.Size = new System.Drawing.Size(824, 211);
+            this.pnlHeader.Size = new System.Drawing.Size(938, 211);
             this.pnlHeader.TabIndex = 50;
             // 
             // pnlOpContribuyente
@@ -220,7 +220,7 @@
             this.pnlOpContribuyente.BackColor = System.Drawing.Color.White;
             this.pnlOpContribuyente.Controls.Add(this.tableLayoutPanel1);
             this.pnlOpContribuyente.Controls.Add(this.label1);
-            this.pnlOpContribuyente.Location = new System.Drawing.Point(194, 66);
+            this.pnlOpContribuyente.Location = new System.Drawing.Point(251, 66);
             this.pnlOpContribuyente.Name = "pnlOpContribuyente";
             this.pnlOpContribuyente.Size = new System.Drawing.Size(451, 143);
             this.pnlOpContribuyente.TabIndex = 57;
@@ -325,7 +325,7 @@
             this.btnExportar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnExportar.Font = new System.Drawing.Font("Segoe UI Black", 12F, System.Drawing.FontStyle.Bold);
             this.btnExportar.ForeColor = System.Drawing.Color.Black;
-            this.btnExportar.Location = new System.Drawing.Point(679, 58);
+            this.btnExportar.Location = new System.Drawing.Point(793, 58);
             this.btnExportar.Name = "btnExportar";
             this.btnExportar.Size = new System.Drawing.Size(133, 41);
             this.btnExportar.TabIndex = 56;
@@ -344,7 +344,7 @@
             this.tableLayoutPanel2.Controls.Add(this.label3, 1, 0);
             this.tableLayoutPanel2.Controls.Add(this.cbxBusqudaPor, 1, 1);
             this.tableLayoutPanel2.Controls.Add(this.tbxCuenta, 0, 1);
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(220, 13);
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(277, 13);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 2;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
@@ -394,7 +394,7 @@
             // 
             this.pcbIncomeByConcept.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.pcbIncomeByConcept.BackColor = System.Drawing.Color.Transparent;
-            this.pcbIncomeByConcept.Location = new System.Drawing.Point(194, 9);
+            this.pcbIncomeByConcept.Location = new System.Drawing.Point(251, 9);
             this.pcbIncomeByConcept.Name = "pcbIncomeByConcept";
             this.pcbIncomeByConcept.Size = new System.Drawing.Size(451, 54);
             this.pcbIncomeByConcept.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -422,7 +422,7 @@
             this.btnBuscar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnBuscar.Font = new System.Drawing.Font("Segoe UI Black", 12F, System.Drawing.FontStyle.Bold);
             this.btnBuscar.ForeColor = System.Drawing.Color.Black;
-            this.btnBuscar.Location = new System.Drawing.Point(679, 12);
+            this.btnBuscar.Location = new System.Drawing.Point(793, 12);
             this.btnBuscar.Name = "btnBuscar";
             this.btnBuscar.Size = new System.Drawing.Size(133, 41);
             this.btnBuscar.TabIndex = 18;
@@ -443,22 +443,13 @@
             this.lblTitulo.Text = "Busqueda";
             this.lblTitulo.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // pictureBox1
-            // 
-            this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
-            this.pictureBox1.Location = new System.Drawing.Point(15, 14);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(20, 20);
-            this.pictureBox1.TabIndex = 37;
-            this.pictureBox1.TabStop = false;
-            // 
             // pnlDireccion
             // 
             this.pnlDireccion.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.pnlDireccion.BackColor = System.Drawing.Color.White;
             this.pnlDireccion.Controls.Add(this.tableLayoutPanel3);
             this.pnlDireccion.Controls.Add(this.label10);
-            this.pnlDireccion.Location = new System.Drawing.Point(195, 65);
+            this.pnlDireccion.Location = new System.Drawing.Point(252, 65);
             this.pnlDireccion.Name = "pnlDireccion";
             this.pnlDireccion.Size = new System.Drawing.Size(451, 142);
             this.pnlDireccion.TabIndex = 58;
@@ -1044,7 +1035,7 @@
             this.flowLayoutPanel1.Controls.Add(this.gbxSaldo);
             this.flowLayoutPanel1.Location = new System.Drawing.Point(1, 212);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(824, 246);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(938, 246);
             this.flowLayoutPanel1.TabIndex = 51;
             // 
             // panel3
@@ -1599,6 +1590,17 @@
             this.labelControl7.TabIndex = 15;
             this.labelControl7.Text = "Pago productos";
             // 
+            // pictureBox1
+            // 
+            this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
+            this.pictureBox1.Image = global::SOAPAP.Properties.Resources.reportes;
+            this.pictureBox1.InitialImage = global::SOAPAP.Properties.Resources.reportes;
+            this.pictureBox1.Location = new System.Drawing.Point(15, 13);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(20, 20);
+            this.pictureBox1.TabIndex = 59;
+            this.pictureBox1.TabStop = false;
+            // 
             // dataTaxpayerOrderSaleBindingSource
             // 
             this.dataTaxpayerOrderSaleBindingSource.DataSource = typeof(SOAPAP.Reportes.DataTaxpayerOrderSale);
@@ -1615,7 +1617,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(824, 487);
+            this.ClientSize = new System.Drawing.Size(938, 487);
             this.Controls.Add(this.flowLayoutPanel1);
             this.Controls.Add(this.pnlHeader);
             this.Name = "RepTaxpayer";
@@ -1631,7 +1633,6 @@
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pcbIncomeByConcept)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.pnlDireccion.ResumeLayout(false);
             this.pnlDireccion.PerformLayout();
             this.tableLayoutPanel3.ResumeLayout(false);
@@ -1675,6 +1676,7 @@
             this.pnlRepOrderSale.ResumeLayout(false);
             this.pnlRepOrderSale.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pgcOrderSale)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataTaxpayerOrderSaleBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.prepaidBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.debtDetailBindingSource)).EndInit();
@@ -1692,7 +1694,6 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button btnBuscar;
         private System.Windows.Forms.Label lblTitulo;
-        private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.ComboBox cbxBusqudaPor;
         private System.Windows.Forms.Label lblOpcionBusqueda;
         private System.Windows.Forms.TextBox tbxCuenta;
@@ -1808,5 +1809,6 @@
         private DevExpress.XtraEditors.LabelControl labelControl7;
         private System.Windows.Forms.Label label6;
         private DevExpress.XtraEditors.ListBoxControl lbcListadoContratos;
+        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }

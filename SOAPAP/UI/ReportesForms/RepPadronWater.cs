@@ -57,18 +57,16 @@ namespace SOAPAP.UI.ReportesForms
             }
             else
             {
-                var lstTmpRutas = JsonConvert.DeserializeObject<List<int>>(resultTypeTransaction);
-                lstRutas.Add(new DataComboBox() { keyInt = 0, value = "Todos" });
+                var lstTmpRutas = JsonConvert.DeserializeObject<List<int>>(resultTypeTransaction);                
                 foreach (var item in lstTmpRutas)
                 {
                     if (item != 0)
                         lstRutas.Add(new DataComboBox() { keyInt = item, value = item.ToString() });
                 }
             }
-            lbxRuta.ValueMember = "keyInt";
-            lbxRuta.DisplayMember = "value";
-            lbxRuta.DataSource = lstRutas;
-            lbxRuta.SelectedIndex = 0;
+            chlbxRuta.ValueMember = "keyInt";
+            chlbxRuta.DisplayMember = "value";
+            chlbxRuta.DataSource = lstRutas;
 
             //Combo de Colonias.
             List<DataComboBox> lstColonias = new List<DataComboBox>();
@@ -85,13 +83,11 @@ namespace SOAPAP.UI.ReportesForms
                 {
                     lstColonias.Add(new DataComboBox() { keyInt = item.Id, value = item.Name });
                 }
-            }
-            lstColonias.Insert(0, new DataComboBox() { keyInt = 0, value = "Todos" });
-            lbxColonia.ValueMember = "keyString";
-            lbxColonia.DisplayMember = "value";
-            lbxColonia.DataSource = lstColonias;
-            lbxColonia.SelectedIndex = 0;
-
+            }            
+            chlbxColonia.ValueMember = "keyString";
+            chlbxColonia.DisplayMember = "value";
+            chlbxColonia.DataSource = lstColonias;
+            
             //Combo estate de servicio.
             List<DataComboBox> lstStatusServicio = new List<DataComboBox>();
             var resultTypeTransaction3 = await Requests.SendURIAsync("/api/TypeStateServices", HttpMethod.Get, Variables.LoginModel.Token);
@@ -107,12 +103,11 @@ namespace SOAPAP.UI.ReportesForms
                 {
                     lstStatusServicio.Add(new DataComboBox() { keyInt = item.id, value = item.name });
                 }
-            }
-            lstStatusServicio.Insert(0, new DataComboBox() { keyInt = 0, value = "Todos" });
-            lbxServicio.ValueMember = "keyString";
-            lbxServicio.DisplayMember = "value";
-            lbxServicio.DataSource = lstStatusServicio;
-            lbxServicio.SelectedIndex = 0;
+            }            
+            chlbxServicio.ValueMember = "keyString";
+            chlbxServicio.DisplayMember = "value";
+            chlbxServicio.DataSource = lstStatusServicio;
+            chlbxServicio.SelectedIndex = 0;
 
             //Combo tipo toma.
             List<DataComboBox> lstTipoToma = new List<DataComboBox>();
@@ -129,53 +124,12 @@ namespace SOAPAP.UI.ReportesForms
                 {
                     lstTipoToma.Add(new DataComboBox() { keyInt = item.id, value = item.name });
                 }
-            }
-            lstTipoToma.Insert(0, new DataComboBox() { keyInt = 0, value = "Todos" });
-            lbxTipoToma.ValueMember = "keyInt";
-            lbxTipoToma.DisplayMember = "value";
-            lbxTipoToma.DataSource = lstTipoToma;
-            lbxTipoToma.SelectedIndex = 0;
+            }            
+            chlbxToma.ValueMember = "keyInt";
+            chlbxToma.DisplayMember = "value";
+            chlbxToma.DataSource = lstTipoToma;
+            chlbxToma.SelectedIndex = 0;
 
-
-
-
-            //Combo Areas o Concepto de pago
-            //List<DataComboBox> lstRutas = new List<DataComboBox>();
-            //lstAreas.Add(new DataComboBox() { keyInt = 1, value = "Agua" });
-            //cbxArea.ValueMember = "keyInt";
-            //cbxArea.DisplayMember = "value";
-            //cbxArea.DataSource = lstAreas;
-            //cbxArea.SelectedIndex = 0;
-
-            ////Combo de Cajeros.
-            //List<DataComboBox> lstCaj = new List<DataComboBox>();
-            //if (Variables.LoginModel.RolName[0] == "Supervisor")
-            //{
-            //    var resultTypeTransaction = await Requests.SendURIAsync("/api/UserRolesManager/GetUserByRoleName/User", HttpMethod.Get, Variables.LoginModel.Token);
-            //    if (resultTypeTransaction.Contains("error"))
-            //    {
-            //        mensaje = new MessageBoxForm("Error", resultTypeTransaction.Split(':')[1].Replace("}", ""), TypeIcon.Icon.Cancel);
-            //        result = mensaje.ShowDialog();
-            //    }
-            //    else
-            //    {
-            //        var lstCajeros = JsonConvert.DeserializeObject<List<SOAPAP.Model.ApplicationUser>>(resultTypeTransaction);
-            //        lstCaj.Add(new DataComboBox() { keyString = "Todos", value = "Todos" });
-            //        foreach (var item in lstCajeros)
-            //        {
-            //            lstCaj.Add(new DataComboBox() { keyString = string.Format("{0} {1} {2}", item.Name, item.LastName, item.SecondLastName), value = string.Format("{0} {1} {2}", item.Name, item.LastName, item.SecondLastName) });
-            //        }
-            //    }
-            //}
-            //else
-            //{
-            //    lstCaj.Add(new DataComboBox() { keyString = Variables.LoginModel.FullName, value = Variables.LoginModel.FullName });
-            //}
-
-            //cbxOperador.ValueMember = "keyString";
-            //cbxOperador.DisplayMember = "value";
-            //cbxOperador.DataSource = lstCaj;
-            //cbxOperador.SelectedIndex = 0;
         }
 
         private async void btnGenerar_Click(object sender, EventArgs e)
@@ -213,9 +167,82 @@ namespace SOAPAP.UI.ReportesForms
             DateTime FechaFin = dtpFechaFin.Value;
 
             var id = Variables.LoginModel.User;
-            DataReportes dRep = new DataReportes() { FechaIni = FechaIni.ToString("yyyy-MM-dd"), FechaFin = FechaFin.ToString("yyyy-MM-dd"), CajeroId = id };
 
-            dRep.pwaFiltrarPorContrato = chxPorFechaContrato.Checked;
+            ////Se obtiene las rutas            
+            var itemsRuta = chlbxRuta.CheckedItems;
+            List<DataComboBox> lstRuta = new List<DataComboBox>();
+            if (itemsRuta.Count == 0)
+            {                
+                mensaje = new MessageBoxForm("Advertencia: ", "Debe seleccionar una ruta.", TypeIcon.Icon.Cancel);
+                result = mensaje.ShowDialog();
+                return;
+            }
+            else
+            {
+                foreach (SOAPAP.Reportes.DataComboBox item in itemsRuta)
+                {
+                    lstRuta.Add(item);
+                }                
+            }
+
+            ////Se obtiene las Colonias          
+            var itemsCol = chlbxColonia.CheckedItems;
+            List<DataComboBox> lstColonia = new List<DataComboBox>();
+            if (itemsCol.Count == 0)
+            {                
+                mensaje = new MessageBoxForm("Advertencia: ", "Debe seleccionar una colonia.", TypeIcon.Icon.Cancel);
+                result = mensaje.ShowDialog();
+                return;
+            }
+            else
+            {
+                foreach (SOAPAP.Reportes.DataComboBox item in itemsCol)
+                {
+                    lstColonia.Add(item);
+                }                
+            }
+
+            ////Se obtiene los estatus de Servicios            
+            var itemsServ = chlbxServicio.CheckedItems;
+            List<DataComboBox> lstServicio = new List<DataComboBox>();
+            if (itemsServ.Count == 0)
+            {                
+                mensaje = new MessageBoxForm("Advertencia: ", "Debe seleccionar un estatus de Servicio.", TypeIcon.Icon.Cancel);
+                result = mensaje.ShowDialog();
+                return;
+            }
+            else
+            {
+                foreach (SOAPAP.Reportes.DataComboBox item in itemsServ)
+                {
+                    lstServicio.Add(item);
+                }                
+            }
+
+            ////Se obtiene los tipo de Tomas         
+            var itemsToma = chlbxToma.CheckedItems;
+            List<DataComboBox> lstTomas = new List<DataComboBox>();
+            if (itemsToma.Count == 0)
+            {                
+                mensaje = new MessageBoxForm("Advertencia: ", "Debe seleccionar una ruta.", TypeIcon.Icon.Cancel);
+                result = mensaje.ShowDialog();
+                return;
+            }
+            else
+            {
+                foreach (SOAPAP.Reportes.DataComboBox item in itemsToma)
+                {
+                    lstTomas.Add(item);
+                }                
+            }
+
+            DataReportes dRep = new DataReportes()
+                {
+                FechaIni = FechaIni.ToString("yyyy-MM-dd"),
+                FechaFin = FechaFin.ToString("yyyy-MM-dd"),
+                CajeroId = id,                
+                pwaFiltrarPorContrato = chxPorFechaContrato.Checked
+            };
 
             HttpContent content;
             json = JsonConvert.SerializeObject(dRep);
@@ -239,78 +266,18 @@ namespace SOAPAP.UI.ReportesForms
                 }
                 else
                 {
-                    //Filtro por la rutas seleccionadas.                    
-                    List<DataComboBox> lstRutaSelected = new List<DataComboBox>();
-                    foreach (var item in lbxRuta.SelectedItems)
-                        lstRutaSelected.Add((DataComboBox)item);
-                    if (lstRutaSelected.Count == 0)
-                    {
-                        lbxRuta.SetSelected(0, true);
-                        lbxRuta.Refresh();
-                    }
-                    if (lstRutaSelected.Any(x => x.value == "Todos") || lstRutaSelected.Count == 0)
-                    {
-                        lstTMP = lstData;
-                    }
-                    else
-                    {
-                        lstTMP = lstData.Where(x => lstRutaSelected.Select(y => y.keyInt).Contains(x.RUTA)).ToList();
-                    }
+                    //Filtro por la rutas seleccionadas.
+                    lstTMP = lstData.Where(x => lstRuta.Select(y => y.keyInt.ToString()).Contains(x.RUTA)).ToList();
+                    
+                    ////Filtro de Colonias Seleccionadas
+                    lstTMP = lstTMP.Where(x => lstColonia.Select(y => y.keyInt).Contains(x.idCOLONIA)).ToList();
 
-                    //Filtro de Colonias Seleccionadas
-                    List<DataComboBox> lstColoniaSelected = new List<DataComboBox>();
-                    foreach (var item in lbxColonia.SelectedItems)
-                        lstColoniaSelected.Add((DataComboBox)item);
-                    if (lstColoniaSelected.Count == 0)
-                    {
-                        lbxColonia.SetSelected(0, true);
-                        lbxColonia.Refresh();
-                    }
-                    if (lstColoniaSelected.Any(x => x.value == "Todos") || lstColoniaSelected.Count == 0)
-                    {
-                        //En este caso no se hace ningun filtro
-                    }
-                    else
-                    {
-                        lstTMP = lstTMP.Where(x => lstColoniaSelected.Select(y => y.keyInt).Contains(x.idCOLONIA)).ToList();
-                    }
+                    ////Filtro de Estatus de servicio
+                    lstTMP = lstTMP.Where(x => lstServicio.Select(y => y.keyInt).Contains(x.idESTATUS)).ToList();
 
-                    //Filtro de Estatus de servicio
-                    List<DataComboBox> lstEstatusSevicioSelected = new List<DataComboBox>();
-                    foreach (var item in lbxServicio.SelectedItems)
-                        lstEstatusSevicioSelected.Add((DataComboBox)item);
-                    if (lstEstatusSevicioSelected.Count == 0)
-                    {
-                        lbxServicio.SetSelected(0, true);
-                        lbxServicio.Refresh();
-                    }
-                    if (lstEstatusSevicioSelected.Any(x => x.value == "Todos") || lstEstatusSevicioSelected.Count == 0)
-                    {
-                        //En este caso no se hace ningun filtro
-                    }
-                    else
-                    {
-                        lstTMP = lstTMP.Where(x => lstEstatusSevicioSelected.Select(y => y.keyInt).Contains(x.idESTATUS)).ToList();
-                    }
-
-                    //Filtro de Tipo de toma
-                    List<DataComboBox> lstTipoTomaSelected = new List<DataComboBox>();
-                    foreach (var item in lbxTipoToma.SelectedItems)
-                        lstTipoTomaSelected.Add((DataComboBox)item);
-                    if (lstTipoTomaSelected.Count == 0)
-                    {
-                        lbxTipoToma.SetSelected(0, true);
-                        lbxTipoToma.Refresh();
-                    }
-                    if (lstTipoTomaSelected.Any(x => x.value == "Todos"))
-                    {
-                        //En este caso no se hace ningun filtro
-                    }
-                    else
-                    {
-                        lstTMP = lstTMP.Where(x => lstTipoTomaSelected.Select(y => y.keyInt).Contains(x.idTIPO_TOMA)).ToList();
-                    }
-
+                    ////Filtro de Tipo de toma
+                    lstTMP = lstTMP.Where(x => lstTomas.Select(y => y.keyInt).Contains(x.idTIPO_TOMA)).ToList();
+                    
                     //Filtro por cantidad de adeudo mayor a.
                     if (numericUpDown1.Value > 0)
                     {
@@ -319,7 +286,7 @@ namespace SOAPAP.UI.ReportesForms
 
                     try
                     {
-                        pgcRepPadronWater.DataSource = lstTMP;                        
+                        pgcRepPadronWater.DataSource = lstTMP;
                     }
                     catch (Exception e)
                     {
@@ -330,8 +297,59 @@ namespace SOAPAP.UI.ReportesForms
         }
 
 
+
         #endregion
 
-       
+        private void cheRuta_CheckedChanged(object sender, EventArgs e)
+        {
+            var estaChecado = ((DevExpress.XtraEditors.CheckEdit)sender).Checked;
+            if (estaChecado)
+            {
+                chlbxRuta.CheckAll();
+            }
+            else
+            {
+                chlbxRuta.UnCheckAll();
+            }
+        }
+
+        private void cheColonia_CheckedChanged(object sender, EventArgs e)
+        {
+            var estaChecado = ((DevExpress.XtraEditors.CheckEdit)sender).Checked;
+            if (estaChecado)
+            {
+                chlbxColonia.CheckAll();
+            }
+            else
+            {
+                chlbxColonia.UnCheckAll();
+            }
+        }
+
+        private void checkEdit1_CheckedChanged(object sender, EventArgs e)
+        {
+            var estaChecado = ((DevExpress.XtraEditors.CheckEdit)sender).Checked;
+            if (estaChecado)
+            {
+                chlbxServicio.CheckAll();
+            }
+            else
+            {
+                chlbxServicio.UnCheckAll();
+            }
+        }
+
+        private void cheToma_CheckedChanged(object sender, EventArgs e)
+        {
+            var estaChecado = ((DevExpress.XtraEditors.CheckEdit)sender).Checked;
+            if (estaChecado)
+            {
+                chlbxToma.CheckAll();
+            }
+            else
+            {
+                chlbxToma.UnCheckAll();
+            }
+        }
     }
 }

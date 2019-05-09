@@ -32,7 +32,6 @@
             this.pnlHeader = new System.Windows.Forms.Panel();
             this.btnExportar = new System.Windows.Forms.Button();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
-            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
             this.label1 = new System.Windows.Forms.Label();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.label3 = new System.Windows.Forms.Label();
@@ -42,10 +41,6 @@
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.chxPorFechaContrato = new System.Windows.Forms.CheckBox();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.lbxServicio = new System.Windows.Forms.ListBox();
-            this.lbxColonia = new System.Windows.Forms.ListBox();
-            this.lbxRuta = new System.Windows.Forms.ListBox();
-            this.lbxTipoToma = new System.Windows.Forms.ListBox();
             this.label6 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
@@ -56,7 +51,6 @@
             this.lblTitulo = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.pgcRepPadronWater = new DevExpress.XtraPivotGrid.PivotGridControl();
-            this.dataPadronWaterBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.pgfCuenta = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfNombre = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfDomicilio = new DevExpress.XtraPivotGrid.PivotGridField();
@@ -69,15 +63,43 @@
             this.pgfAdeudo = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfPago = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfTipoToma = new DevExpress.XtraPivotGrid.PivotGridField();
+            this.srchRuta = new DevExpress.XtraEditors.SearchControl();
+            this.cheRuta = new DevExpress.XtraEditors.CheckEdit();
+            this.chlbxRuta = new DevExpress.XtraEditors.CheckedListBoxControl();
+            this.srchColonia = new DevExpress.XtraEditors.SearchControl();
+            this.cheColonia = new DevExpress.XtraEditors.CheckEdit();
+            this.chlbxColonia = new DevExpress.XtraEditors.CheckedListBoxControl();
+            this.srchServicio = new DevExpress.XtraEditors.SearchControl();
+            this.checkEdit1 = new DevExpress.XtraEditors.CheckEdit();
+            this.chlbxServicio = new DevExpress.XtraEditors.CheckedListBoxControl();
+            this.srchToma = new DevExpress.XtraEditors.SearchControl();
+            this.cheToma = new DevExpress.XtraEditors.CheckEdit();
+            this.chlbxToma = new DevExpress.XtraEditors.CheckedListBoxControl();
+            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
+            this.pgfMes = new DevExpress.XtraPivotGrid.PivotGridField();
+            this.pgfAño = new DevExpress.XtraPivotGrid.PivotGridField();
+            this.dataPadronWaterBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.pnlHeader.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.tableLayoutPanel2.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pcbIncomeByConcept)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pgcRepPadronWater)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.srchRuta.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cheRuta.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chlbxRuta)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.srchColonia.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cheColonia.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chlbxColonia)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.srchServicio.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.checkEdit1.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chlbxServicio)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.srchToma.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cheToma.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chlbxToma)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataPadronWaterBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
@@ -109,9 +131,9 @@
             this.btnExportar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnExportar.Font = new System.Drawing.Font("Segoe UI Black", 12F, System.Drawing.FontStyle.Bold);
             this.btnExportar.ForeColor = System.Drawing.Color.Black;
-            this.btnExportar.Location = new System.Drawing.Point(655, 58);
+            this.btnExportar.Location = new System.Drawing.Point(655, 50);
             this.btnExportar.Name = "btnExportar";
-            this.btnExportar.Size = new System.Drawing.Size(133, 41);
+            this.btnExportar.Size = new System.Drawing.Size(133, 39);
             this.btnExportar.TabIndex = 56;
             this.btnExportar.Text = "EXPORTAR";
             this.btnExportar.UseVisualStyleBackColor = false;
@@ -119,41 +141,26 @@
             // 
             // tableLayoutPanel4
             // 
-            this.tableLayoutPanel4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutPanel4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.tableLayoutPanel4.BackColor = System.Drawing.Color.White;
-            this.tableLayoutPanel4.ColumnCount = 4;
-            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel4.Controls.Add(this.numericUpDown1, 0, 1);
+            this.tableLayoutPanel4.ColumnCount = 2;
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 41.55844F));
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 58.44156F));
             this.tableLayoutPanel4.Controls.Add(this.label1, 0, 0);
-            this.tableLayoutPanel4.Location = new System.Drawing.Point(15, 211);
+            this.tableLayoutPanel4.Controls.Add(this.numericUpDown1, 1, 0);
+            this.tableLayoutPanel4.Location = new System.Drawing.Point(557, 228);
             this.tableLayoutPanel4.Name = "tableLayoutPanel4";
-            this.tableLayoutPanel4.RowCount = 2;
-            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 40F));
-            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 60F));
-            this.tableLayoutPanel4.Size = new System.Drawing.Size(770, 45);
+            this.tableLayoutPanel4.RowCount = 1;
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
+            this.tableLayoutPanel4.Size = new System.Drawing.Size(231, 25);
             this.tableLayoutPanel4.TabIndex = 55;
-            // 
-            // numericUpDown1
-            // 
-            this.numericUpDown1.Increment = new decimal(new int[] {
-            10,
-            0,
-            0,
-            0});
-            this.numericUpDown1.Location = new System.Drawing.Point(3, 21);
-            this.numericUpDown1.Margin = new System.Windows.Forms.Padding(3, 3, 10, 3);
-            this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(179, 20);
-            this.numericUpDown1.TabIndex = 49;
             // 
             // label1
             // 
+            this.label1.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(3, 3);
+            this.label1.Location = new System.Drawing.Point(4, 7);
             this.label1.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(87, 13);
@@ -257,69 +264,31 @@
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel1.Controls.Add(this.lbxServicio, 2, 1);
-            this.tableLayoutPanel1.Controls.Add(this.lbxColonia, 1, 1);
-            this.tableLayoutPanel1.Controls.Add(this.lbxRuta, 0, 1);
-            this.tableLayoutPanel1.Controls.Add(this.lbxTipoToma, 3, 1);
+            this.tableLayoutPanel1.Controls.Add(this.chlbxToma, 3, 3);
+            this.tableLayoutPanel1.Controls.Add(this.cheToma, 3, 2);
+            this.tableLayoutPanel1.Controls.Add(this.srchToma, 3, 1);
+            this.tableLayoutPanel1.Controls.Add(this.srchServicio, 2, 1);
+            this.tableLayoutPanel1.Controls.Add(this.srchColonia, 1, 1);
             this.tableLayoutPanel1.Controls.Add(this.label6, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.label4, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.label8, 2, 0);
             this.tableLayoutPanel1.Controls.Add(this.label7, 3, 0);
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(15, 105);
+            this.tableLayoutPanel1.Controls.Add(this.srchRuta, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.cheRuta, 0, 2);
+            this.tableLayoutPanel1.Controls.Add(this.chlbxRuta, 0, 3);
+            this.tableLayoutPanel1.Controls.Add(this.cheColonia, 1, 2);
+            this.tableLayoutPanel1.Controls.Add(this.chlbxColonia, 1, 3);
+            this.tableLayoutPanel1.Controls.Add(this.checkEdit1, 2, 2);
+            this.tableLayoutPanel1.Controls.Add(this.chlbxServicio, 2, 3);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(15, 92);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 2;
+            this.tableLayoutPanel1.RowCount = 4;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 15F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 22F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 82F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(773, 100);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(773, 133);
             this.tableLayoutPanel1.TabIndex = 49;
-            // 
-            // lbxServicio
-            // 
-            this.lbxServicio.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.lbxServicio.FormattingEnabled = true;
-            this.lbxServicio.Location = new System.Drawing.Point(389, 21);
-            this.lbxServicio.Name = "lbxServicio";
-            this.lbxServicio.SelectionMode = System.Windows.Forms.SelectionMode.MultiSimple;
-            this.lbxServicio.Size = new System.Drawing.Size(187, 69);
-            this.lbxServicio.TabIndex = 57;
-            // 
-            // lbxColonia
-            // 
-            this.lbxColonia.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.lbxColonia.FormattingEnabled = true;
-            this.lbxColonia.Location = new System.Drawing.Point(196, 21);
-            this.lbxColonia.Name = "lbxColonia";
-            this.lbxColonia.SelectionMode = System.Windows.Forms.SelectionMode.MultiSimple;
-            this.lbxColonia.Size = new System.Drawing.Size(187, 69);
-            this.lbxColonia.TabIndex = 56;
-            // 
-            // lbxRuta
-            // 
-            this.lbxRuta.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.lbxRuta.FormattingEnabled = true;
-            this.lbxRuta.Location = new System.Drawing.Point(3, 21);
-            this.lbxRuta.Name = "lbxRuta";
-            this.lbxRuta.SelectionMode = System.Windows.Forms.SelectionMode.MultiSimple;
-            this.lbxRuta.Size = new System.Drawing.Size(187, 69);
-            this.lbxRuta.TabIndex = 55;
-            // 
-            // lbxTipoToma
-            // 
-            this.lbxTipoToma.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.lbxTipoToma.FormattingEnabled = true;
-            this.lbxTipoToma.Location = new System.Drawing.Point(582, 21);
-            this.lbxTipoToma.Name = "lbxTipoToma";
-            this.lbxTipoToma.SelectionMode = System.Windows.Forms.SelectionMode.MultiSimple;
-            this.lbxTipoToma.Size = new System.Drawing.Size(188, 69);
-            this.lbxTipoToma.TabIndex = 54;
             // 
             // label6
             // 
@@ -327,7 +296,7 @@
             this.label6.Location = new System.Drawing.Point(196, 3);
             this.label6.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(133, 13);
+            this.label6.Size = new System.Drawing.Size(133, 12);
             this.label6.TabIndex = 52;
             this.label6.Text = "Seleccione la(s) colonia(s):";
             // 
@@ -337,7 +306,7 @@
             this.label4.Location = new System.Drawing.Point(3, 3);
             this.label4.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(117, 13);
+            this.label4.Size = new System.Drawing.Size(117, 12);
             this.label4.TabIndex = 51;
             this.label4.Text = "Seleccione la(s) ruta(s):";
             // 
@@ -347,7 +316,7 @@
             this.label8.Location = new System.Drawing.Point(389, 3);
             this.label8.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(101, 13);
+            this.label8.Size = new System.Drawing.Size(101, 12);
             this.label8.TabIndex = 51;
             this.label8.Text = "Estatus del servicio:";
             // 
@@ -357,7 +326,7 @@
             this.label7.Location = new System.Drawing.Point(582, 3);
             this.label7.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(72, 13);
+            this.label7.Size = new System.Drawing.Size(72, 12);
             this.label7.TabIndex = 52;
             this.label7.Text = "Tipo de toma:";
             // 
@@ -395,9 +364,9 @@
             this.btnGenerar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnGenerar.Font = new System.Drawing.Font("Segoe UI Black", 12F, System.Drawing.FontStyle.Bold);
             this.btnGenerar.ForeColor = System.Drawing.Color.Black;
-            this.btnGenerar.Location = new System.Drawing.Point(655, 12);
+            this.btnGenerar.Location = new System.Drawing.Point(655, 7);
             this.btnGenerar.Name = "btnGenerar";
-            this.btnGenerar.Size = new System.Drawing.Size(133, 41);
+            this.btnGenerar.Size = new System.Drawing.Size(133, 39);
             this.btnGenerar.TabIndex = 18;
             this.btnGenerar.Text = "GENERAR";
             this.btnGenerar.UseVisualStyleBackColor = false;
@@ -445,16 +414,14 @@
             this.pgfAdHasta,
             this.pgfAdeudo,
             this.pgfPago,
-            this.pgfTipoToma});
+            this.pgfTipoToma,
+            this.pgfMes,
+            this.pgfAño});
             this.pgcRepPadronWater.Location = new System.Drawing.Point(1, 258);
             this.pgcRepPadronWater.Name = "pgcRepPadronWater";
             this.pgcRepPadronWater.OptionsData.DataProcessingEngine = DevExpress.XtraPivotGrid.PivotDataProcessingEngine.LegacyOptimized;
             this.pgcRepPadronWater.Size = new System.Drawing.Size(800, 161);
             this.pgcRepPadronWater.TabIndex = 50;
-            // 
-            // dataPadronWaterBindingSource
-            // 
-            this.dataPadronWaterBindingSource.DataSource = typeof(SOAPAP.Reportes.DataPadronWater);
             // 
             // pgfCuenta
             // 
@@ -528,15 +495,15 @@
             // pgfAdeudo
             // 
             this.pgfAdeudo.Area = DevExpress.XtraPivotGrid.PivotArea.DataArea;
-            this.pgfAdeudo.AreaIndex = 1;
+            this.pgfAdeudo.AreaIndex = 0;
             this.pgfAdeudo.Caption = "ADEUDO";
             this.pgfAdeudo.FieldName = "ADEUDO";
             this.pgfAdeudo.Name = "pgfAdeudo";
             // 
             // pgfPago
             // 
-            this.pgfPago.Area = DevExpress.XtraPivotGrid.PivotArea.DataArea;
-            this.pgfPago.AreaIndex = 0;
+            this.pgfPago.Area = DevExpress.XtraPivotGrid.PivotArea.RowArea;
+            this.pgfPago.AreaIndex = 6;
             this.pgfPago.Caption = "ULTIMO PAGO";
             this.pgfPago.FieldName = "ULTIMO_PAGO";
             this.pgfPago.Name = "pgfPago";
@@ -547,6 +514,169 @@
             this.pgfTipoToma.Caption = "TIPO TOMA";
             this.pgfTipoToma.FieldName = "TIPO_TOMA";
             this.pgfTipoToma.Name = "pgfTipoToma";
+            // 
+            // srchRuta
+            // 
+            this.srchRuta.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.srchRuta.Client = this.chlbxRuta;
+            this.srchRuta.Location = new System.Drawing.Point(3, 18);
+            this.srchRuta.Name = "srchRuta";
+            this.srchRuta.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Repository.ClearButton(),
+            new DevExpress.XtraEditors.Repository.SearchButton()});
+            this.srchRuta.Properties.Client = this.chlbxRuta;
+            this.srchRuta.Size = new System.Drawing.Size(187, 20);
+            this.srchRuta.TabIndex = 53;
+            // 
+            // cheRuta
+            // 
+            this.cheRuta.Location = new System.Drawing.Point(3, 43);
+            this.cheRuta.Name = "cheRuta";
+            this.cheRuta.Properties.Caption = "Todos";
+            this.cheRuta.Size = new System.Drawing.Size(75, 19);
+            this.cheRuta.TabIndex = 54;
+            this.cheRuta.CheckedChanged += new System.EventHandler(this.cheRuta_CheckedChanged);
+            // 
+            // chlbxRuta
+            // 
+            this.chlbxRuta.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.chlbxRuta.Cursor = System.Windows.Forms.Cursors.Default;
+            this.chlbxRuta.Location = new System.Drawing.Point(3, 65);
+            this.chlbxRuta.Name = "chlbxRuta";
+            this.chlbxRuta.Size = new System.Drawing.Size(187, 65);
+            this.chlbxRuta.TabIndex = 55;
+            // 
+            // srchColonia
+            // 
+            this.srchColonia.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.srchColonia.Client = this.chlbxColonia;
+            this.srchColonia.Location = new System.Drawing.Point(196, 18);
+            this.srchColonia.Name = "srchColonia";
+            this.srchColonia.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Repository.ClearButton(),
+            new DevExpress.XtraEditors.Repository.SearchButton()});
+            this.srchColonia.Properties.Client = this.chlbxColonia;
+            this.srchColonia.Size = new System.Drawing.Size(187, 20);
+            this.srchColonia.TabIndex = 56;
+            // 
+            // cheColonia
+            // 
+            this.cheColonia.Location = new System.Drawing.Point(196, 43);
+            this.cheColonia.Name = "cheColonia";
+            this.cheColonia.Properties.Caption = "Todos";
+            this.cheColonia.Size = new System.Drawing.Size(75, 19);
+            this.cheColonia.TabIndex = 57;
+            this.cheColonia.CheckedChanged += new System.EventHandler(this.cheColonia_CheckedChanged);
+            // 
+            // chlbxColonia
+            // 
+            this.chlbxColonia.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.chlbxColonia.Cursor = System.Windows.Forms.Cursors.Default;
+            this.chlbxColonia.Location = new System.Drawing.Point(196, 65);
+            this.chlbxColonia.Name = "chlbxColonia";
+            this.chlbxColonia.Size = new System.Drawing.Size(187, 65);
+            this.chlbxColonia.TabIndex = 58;
+            // 
+            // srchServicio
+            // 
+            this.srchServicio.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.srchServicio.Client = this.chlbxServicio;
+            this.srchServicio.Location = new System.Drawing.Point(389, 18);
+            this.srchServicio.Name = "srchServicio";
+            this.srchServicio.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Repository.ClearButton(),
+            new DevExpress.XtraEditors.Repository.SearchButton()});
+            this.srchServicio.Properties.Client = this.chlbxServicio;
+            this.srchServicio.Size = new System.Drawing.Size(187, 20);
+            this.srchServicio.TabIndex = 59;
+            // 
+            // checkEdit1
+            // 
+            this.checkEdit1.Location = new System.Drawing.Point(389, 43);
+            this.checkEdit1.Name = "checkEdit1";
+            this.checkEdit1.Properties.Caption = "Todos";
+            this.checkEdit1.Size = new System.Drawing.Size(75, 19);
+            this.checkEdit1.TabIndex = 60;
+            this.checkEdit1.CheckedChanged += new System.EventHandler(this.checkEdit1_CheckedChanged);
+            // 
+            // chlbxServicio
+            // 
+            this.chlbxServicio.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.chlbxServicio.Cursor = System.Windows.Forms.Cursors.Default;
+            this.chlbxServicio.Location = new System.Drawing.Point(389, 65);
+            this.chlbxServicio.Name = "chlbxServicio";
+            this.chlbxServicio.Size = new System.Drawing.Size(187, 65);
+            this.chlbxServicio.TabIndex = 61;
+            // 
+            // srchToma
+            // 
+            this.srchToma.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.srchToma.Client = this.chlbxToma;
+            this.srchToma.Location = new System.Drawing.Point(582, 18);
+            this.srchToma.Name = "srchToma";
+            this.srchToma.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Repository.ClearButton(),
+            new DevExpress.XtraEditors.Repository.SearchButton()});
+            this.srchToma.Properties.Client = this.chlbxToma;
+            this.srchToma.Size = new System.Drawing.Size(188, 20);
+            this.srchToma.TabIndex = 62;
+            // 
+            // cheToma
+            // 
+            this.cheToma.Location = new System.Drawing.Point(582, 43);
+            this.cheToma.Name = "cheToma";
+            this.cheToma.Properties.Caption = "Todos";
+            this.cheToma.Size = new System.Drawing.Size(75, 19);
+            this.cheToma.TabIndex = 63;
+            this.cheToma.CheckedChanged += new System.EventHandler(this.cheToma_CheckedChanged);
+            // 
+            // chlbxToma
+            // 
+            this.chlbxToma.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.chlbxToma.Cursor = System.Windows.Forms.Cursors.Default;
+            this.chlbxToma.Location = new System.Drawing.Point(582, 65);
+            this.chlbxToma.Name = "chlbxToma";
+            this.chlbxToma.Size = new System.Drawing.Size(188, 65);
+            this.chlbxToma.TabIndex = 64;
+            // 
+            // numericUpDown1
+            // 
+            this.numericUpDown1.Increment = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.numericUpDown1.Location = new System.Drawing.Point(98, 3);
+            this.numericUpDown1.Margin = new System.Windows.Forms.Padding(3, 3, 10, 3);
+            this.numericUpDown1.Name = "numericUpDown1";
+            this.numericUpDown1.Size = new System.Drawing.Size(123, 20);
+            this.numericUpDown1.TabIndex = 49;
+            // 
+            // pgfMes
+            // 
+            this.pgfMes.AreaIndex = 5;
+            this.pgfMes.Caption = "MES";
+            this.pgfMes.FieldName = "CONTRATO_MES";
+            this.pgfMes.Name = "pgfMes";
+            // 
+            // pgfAño
+            // 
+            this.pgfAño.AreaIndex = 4;
+            this.pgfAño.Caption = "AÑO";
+            this.pgfAño.FieldName = "CONTRATO_AÑO";
+            this.pgfAño.Name = "pgfAño";
+            // 
+            // dataPadronWaterBindingSource
+            // 
+            this.dataPadronWaterBindingSource.DataSource = typeof(SOAPAP.Reportes.DataPadronWater);
             // 
             // RepPadronWater
             // 
@@ -562,7 +692,6 @@
             this.pnlHeader.PerformLayout();
             this.tableLayoutPanel4.ResumeLayout(false);
             this.tableLayoutPanel4.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel2.PerformLayout();
             this.tableLayoutPanel3.ResumeLayout(false);
@@ -572,6 +701,19 @@
             ((System.ComponentModel.ISupportInitialize)(this.pcbIncomeByConcept)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pgcRepPadronWater)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.srchRuta.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cheRuta.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chlbxRuta)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.srchColonia.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cheColonia.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chlbxColonia)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.srchServicio.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.checkEdit1.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chlbxServicio)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.srchToma.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cheToma.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chlbxToma)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataPadronWaterBindingSource)).EndInit();
             this.ResumeLayout(false);
 
@@ -581,7 +723,6 @@
 
         private System.Windows.Forms.Panel pnlHeader;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel4;
-        private System.Windows.Forms.NumericUpDown numericUpDown1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
         private System.Windows.Forms.Label label3;
@@ -591,10 +732,6 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
         private System.Windows.Forms.CheckBox chxPorFechaContrato;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-        private System.Windows.Forms.ListBox lbxServicio;
-        private System.Windows.Forms.ListBox lbxColonia;
-        private System.Windows.Forms.ListBox lbxRuta;
-        private System.Windows.Forms.ListBox lbxTipoToma;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label8;
@@ -619,5 +756,20 @@
         private DevExpress.XtraPivotGrid.PivotGridField pgfAdeudo;
         private DevExpress.XtraPivotGrid.PivotGridField pgfPago;
         private DevExpress.XtraPivotGrid.PivotGridField pgfTipoToma;
+        private DevExpress.XtraEditors.SearchControl srchRuta;
+        private DevExpress.XtraEditors.CheckedListBoxControl chlbxRuta;
+        private DevExpress.XtraEditors.CheckEdit cheRuta;
+        private DevExpress.XtraEditors.SearchControl srchColonia;
+        private DevExpress.XtraEditors.CheckedListBoxControl chlbxColonia;
+        private DevExpress.XtraEditors.CheckEdit cheColonia;
+        private DevExpress.XtraEditors.SearchControl srchServicio;
+        private DevExpress.XtraEditors.CheckedListBoxControl chlbxServicio;
+        private DevExpress.XtraEditors.CheckEdit checkEdit1;
+        private DevExpress.XtraEditors.CheckedListBoxControl chlbxToma;
+        private DevExpress.XtraEditors.CheckEdit cheToma;
+        private DevExpress.XtraEditors.SearchControl srchToma;
+        private System.Windows.Forms.NumericUpDown numericUpDown1;
+        private DevExpress.XtraPivotGrid.PivotGridField pgfMes;
+        private DevExpress.XtraPivotGrid.PivotGridField pgfAño;
     }
 }

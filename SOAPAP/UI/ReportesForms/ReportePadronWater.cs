@@ -235,7 +235,7 @@ namespace SOAPAP.UI.ReportesForms
                     }
                     else
                     {
-                        lstTMP = lstData.Where(x => lstRutaSelected.Select(y => y.keyInt).Contains(x.RUTA)).ToList();
+                        lstTMP = lstData.Where(x => lstRutaSelected.Select(y => y.keyInt.ToString()).Contains(x.RUTA)).ToList();
                     }
 
                     //Filtro de Colonias Seleccionadas

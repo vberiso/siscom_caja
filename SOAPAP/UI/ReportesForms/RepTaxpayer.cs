@@ -364,9 +364,22 @@ namespace SOAPAP.UI.ReportesForms
             return textoSinAcentos.TrimEnd().TrimStart();
         }
 
-        private void lbcListadoContratos_SelectedIndexChanged(object sender, EventArgs e)
+        private async void lbcListadoContratos_SelectedIndexChanged(object sender, EventArgs e)
         {
             Model.ClientFinding cf = (Model.ClientFinding)((DevExpress.XtraEditors.ListBoxControl)sender).SelectedItem;
+            
+            //Busqueda por numero de cuenta
+            var resultTypeTransaction = await Requests.SendURIAsync("/api/Agreements/GetSummary/" + cf.Cuenta, HttpMethod.Get, Variables.LoginModel.Token);
+            if (resultTypeTransaction.Contains("error"))
+            {
+                mensaje = new MessageBoxForm("Error", resultTypeTransaction.Split(':')[1].Replace("}", ""), TypeIcon.Icon.Cancel);
+                result = mensaje.ShowDialog();
+            }
+            else
+            {
+                var Contrato = JsonConvert.DeserializeObject<SOAPAP.Model.Agreement>(resultTypeTransaction);
+                await LlenaDatos(Contrato);
+            }
         }
     }
 }
