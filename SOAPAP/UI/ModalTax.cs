@@ -300,7 +300,7 @@ namespace SOAPAP.UI
             Tax.Name = txtName.Text;
             Tax.RFC = txtRFC.Text;
             Tax.CURP = txtCURP.Text;
-            Tax.PhoneNumber = txtPhone.Text;
+            Tax.PhoneNumber = txtPhone.Text == "" ? "0" : txtPhone.Text;
             Tax.EMail = txtEmail.Text;
             if(idUser != 0)
             {

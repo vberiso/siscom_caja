@@ -29,6 +29,8 @@ namespace SOAPAP.UI.Descuentos
         private decimal Total { get; set; }
         private bool SelectImage { get; set; } = false;
         private string FilePath { get; set; }
+        private List<Model.Debt> pDebts { get; set; }
+        private List<Model.OrderSale> pOrderSale { get; set; }
         private RequestsAPI Requests = null;
         private string UrlBase = Properties.Settings.Default.URL;
         public Image Image { get; set; }
@@ -37,10 +39,19 @@ namespace SOAPAP.UI.Descuentos
         Form mensaje;
         Form loading;
        
-        public RequestDiscount(decimal Total)
+        public RequestDiscount(decimal Total, List<Model.Debt> Debts)
         {
             InitializeComponent();
             this.Total = Total;
+            this.pDebts = Debts;
+            Requests = new RequestsAPI(UrlBase);
+        }
+
+        public RequestDiscount(decimal Total, List<Model.OrderSale> OrderSale)
+        {
+            InitializeComponent();
+            this.Total = Total;
+            this.pOrderSale = OrderSale;
             Requests = new RequestsAPI(UrlBase);
         }
 
@@ -146,7 +157,15 @@ namespace SOAPAP.UI.Descuentos
                 if (Variables.Agreement != null)
                 {
                     discountAuthorization.Account = Variables.Agreement.Account;
-                    Variables.Agreement.Debts.ToList().ForEach(x =>
+                    //Variables.Agreement.Debts.ToList().ForEach(x =>
+                    //{
+                    //    discountAuthorization.DiscountAuthorizationDetails.Add(new DiscountAuthorizationDetail
+                    //    {
+                    //        DebtId = x.Id,
+                    //        OrderSaleId = 0,
+                    //    });
+                    //});
+                    pDebts.ToList().ForEach(x =>
                     {
                         discountAuthorization.DiscountAuthorizationDetails.Add(new DiscountAuthorizationDetail
                         {
@@ -158,7 +177,7 @@ namespace SOAPAP.UI.Descuentos
                 else
                 {
                     discountAuthorization.Account = Variables.OrderSale.Folio;
-                    Variables.OrderSale.OrderSaleDetails.ToList().ForEach(x =>
+                    pOrderSale.ToList().ForEach(x =>
                     {
                         discountAuthorization.DiscountAuthorizationDetails.Add(new DiscountAuthorizationDetail
                         {

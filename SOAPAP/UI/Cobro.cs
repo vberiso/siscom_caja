@@ -32,8 +32,10 @@ namespace SOAPAP.UI
         private string UrlBase = Properties.Settings.Default.URL;
         List<CollectConcepts> lCollectConcepts = null;
         List<String> Seleccion = new List<string>();
+        //List<Model.Debt> tmpFiltros = null;
         List<TypeService> TypeServices = new List<TypeService>();
         List<Model.Debt> tmpFiltros = null;
+        List<Model.OrderSale> orders = null;
         Search.Type TypeSearchSelect = Search.Type.Ninguno;
         querys q = new querys();
         bool anual;
@@ -112,7 +114,7 @@ namespace SOAPAP.UI
                 txtCuenta.Text = _cuenta;
             if (e.RowIndex >= 0)
             {
-                List<Model.Debt> tmpFiltros = null;
+                
                 decimal subTotal = 0;
                 var source = new BindingSource();
 
@@ -151,7 +153,7 @@ namespace SOAPAP.UI
                     {
                         List<Model.OrderSale> ordersList = new List<Model.OrderSale>();
                         ordersList.Add(Variables.OrderSale);
-                        var orders = (from d in ordersList
+                        orders = (from d in ordersList
                                       where lCollectConcepts.Where(x => x.Select == true).Select(x => x.Id).ToList().Contains(d.Id)
                                       select d).ToList();
 
@@ -579,8 +581,9 @@ namespace SOAPAP.UI
                     if (Variables.OrderSale.OrderSaleDetails != null && Variables.OrderSale.OrderSaleDetails.Count > 0)
                     {
                         lCollectConcepts = new List<CollectConcepts>();
-                        List<Model.OrderSale> ordersList = new List<Model.OrderSale>();
-                        ordersList.Add(Variables.OrderSale);
+                        //List<Model.OrderSale> ordersList = new List<Model.OrderSale>();
+                        orders = new List<Model.OrderSale>();
+                        orders.Add(Variables.OrderSale);
 
                         lCollectConcepts.Add(new CollectConcepts
                                                {
@@ -592,7 +595,7 @@ namespace SOAPAP.UI
                                                });
                         subTotal = lCollectConcepts != null ? lCollectConcepts.Sum(x => x.Amount) : 0;
                         lblSubtotal.Text = string.Format(new CultureInfo("es-MX"), "{0:C2}", subTotal);
-                        CalculateAmounts(ordersList);
+                        CalculateAmounts(orders);
                     }
                     break;
             }
@@ -942,8 +945,17 @@ namespace SOAPAP.UI
         private void DescuentosToolStripMenuItem_Click(object sender, EventArgs e)
         {
             decimal amount = Convert.ToDecimal((System.Text.RegularExpressions.Regex.Replace(lblSubtotal.Text, @"[^\d.]", "")));
-            RequestDiscount discount = new RequestDiscount(amount);
-            discount.ShowDialog(this);
+            if (orderSale)
+            {
+                RequestDiscount discount = new RequestDiscount(amount, orders);
+                discount.ShowDialog(this);
+            }
+            else
+            {
+                RequestDiscount discount = new RequestDiscount(amount, tmpFiltros);
+                discount.ShowDialog(this);
+            }
+
         }
     }
 

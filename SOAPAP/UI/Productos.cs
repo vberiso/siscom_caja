@@ -111,21 +111,24 @@ namespace SOAPAP.UI
                     ModalProduct.Measure = "";
                     modal.ShowDialog(this);
 
-                    DataRow row = dts1.NewRow();
-                    row["ID"] = m.productId;
-                    row["NOMBRE"] = namesconcept == "" ? GetPath(treeList1.FindNodeByID(treeList1.FocusedNode.Id), "") : namesconcept;
-                    row["TOTAL"] = ModalProduct.Quatity;
-                    row["IVA"] = m.haveTax;
-                    if (m.haveTax)
-                        row["AMOUNTIVA"] = Math.Round((((decimal)row["TOTAL"] * Convert.ToDecimal(Variables.Configuration.IVA)) / 100), 2);
-                    else
-                        row["AMOUNTIVA"] = 0;
-                    row["CANTIDAD"] = 1;
-                    row["UNIDAD"] = m.product.ProductParams.FirstOrDefault().UnitMeasurement;
-                    dts1.Rows.Add(row);
+                    if (!ModalProduct.IsCancel)
+                    {
+                        DataRow row = dts1.NewRow();
+                        row["ID"] = m.productId;
+                        row["NOMBRE"] = namesconcept == "" ? GetPath(treeList1.FindNodeByID(treeList1.FocusedNode.Id), "") : namesconcept;
+                        row["TOTAL"] = ModalProduct.Quatity;
+                        row["IVA"] = m.haveTax;
+                        if (m.haveTax)
+                            row["AMOUNTIVA"] = Math.Round((((decimal)row["TOTAL"] * Convert.ToDecimal(Variables.Configuration.IVA)) / 100), 2);
+                        else
+                            row["AMOUNTIVA"] = 0;
+                        row["CANTIDAD"] = 1;
+                        row["UNIDAD"] = m.product.ProductParams.FirstOrDefault().UnitMeasurement;
+                        dts1.Rows.Add(row);
 
-                    tarifagrid();
-                    Total();
+                        tarifagrid();
+                        Total();
+                    }    
                 }
 
                 else if (m.type == "TTP02")
@@ -136,20 +139,23 @@ namespace SOAPAP.UI
                     ModalProduct.Measure = "";
                     modal.ShowDialog(this);
 
-                    DataRow row = dts1.NewRow();
-                    row["ID"] = m.productId;
-                    row["NOMBRE"] = namesconcept == "" ? GetPath(treeList1.FindNodeByID(treeList1.FocusedNode.Id), "") : namesconcept;
-                    row["TOTAL"] = (ModalProduct.Quatity * m.percentage) / 100;
-                    row["IVA"] = m.haveTax;
-                    if (m.haveTax)
-                        row["AMOUNTIVA"] = Math.Round((((decimal)row["TOTAL"] * Convert.ToDecimal(Variables.Configuration.IVA)) / 100), 2);
-                    else
-                        row["AMOUNTIVA"] = 0;
-                    row["CANTIDAD"] = 1;
-                    row["UNIDAD"] = m.product.ProductParams.FirstOrDefault().UnitMeasurement;
-                    dts1.Rows.Add(row);
-                    tarifagrid();
-                    Total();
+                    if (!ModalProduct.IsCancel)
+                    {
+                        DataRow row = dts1.NewRow();
+                        row["ID"] = m.productId;
+                        row["NOMBRE"] = namesconcept == "" ? GetPath(treeList1.FindNodeByID(treeList1.FocusedNode.Id), "") : namesconcept;
+                        row["TOTAL"] = (ModalProduct.Quatity * m.percentage) / 100;
+                        row["IVA"] = m.haveTax;
+                        if (m.haveTax)
+                            row["AMOUNTIVA"] = Math.Round((((decimal)row["TOTAL"] * Convert.ToDecimal(Variables.Configuration.IVA)) / 100), 2);
+                        else
+                            row["AMOUNTIVA"] = 0;
+                        row["CANTIDAD"] = 1;
+                        row["UNIDAD"] = m.product.ProductParams.FirstOrDefault().UnitMeasurement;
+                        dts1.Rows.Add(row);
+                        tarifagrid();
+                        Total();
+                    }    
                 }
 
                 else if (m.type == "TTP05")
@@ -160,20 +166,23 @@ namespace SOAPAP.UI
                     ModalProduct.Measure = "M², M³, Hrs ...";
                     modal.ShowDialog(this);
 
-                    DataRow row = dts1.NewRow();
-                    row["ID"] = m.productId;
-                    row["NOMBRE"] = namesconcept == "" ? GetPath(treeList1.FindNodeByID(treeList1.FocusedNode.Id), "") : namesconcept;
-                    row["TOTAL"] = ModalProduct.Quatity * Convert.ToDecimal(m.amount);
-                    row["IVA"] = m.haveTax;
-                    if (m.haveTax)
-                        row["AMOUNTIVA"] = Math.Round((((decimal)row["TOTAL"] * Convert.ToDecimal(Variables.Configuration.IVA)) / 100), 2);
-                    else
-                        row["AMOUNTIVA"] = 0;
-                    row["CANTIDAD"] = ModalProduct.Quatity;
-                    row["UNIDAD"] = m.product.ProductParams.FirstOrDefault().UnitMeasurement;
-                    dts1.Rows.Add(row);
-                    tarifagrid();
-                    Total();
+                    if (!ModalProduct.IsCancel)
+                    {
+                        DataRow row = dts1.NewRow();
+                        row["ID"] = m.productId;
+                        row["NOMBRE"] = namesconcept == "" ? GetPath(treeList1.FindNodeByID(treeList1.FocusedNode.Id), "") : namesconcept;
+                        row["TOTAL"] = ModalProduct.Quatity * Convert.ToDecimal(m.amount);
+                        row["IVA"] = m.haveTax;
+                        if (m.haveTax)
+                            row["AMOUNTIVA"] = Math.Round((((decimal)row["TOTAL"] * Convert.ToDecimal(Variables.Configuration.IVA)) / 100), 2);
+                        else
+                            row["AMOUNTIVA"] = 0;
+                        row["CANTIDAD"] = ModalProduct.Quatity;
+                        row["UNIDAD"] = m.product.ProductParams.FirstOrDefault().UnitMeasurement;
+                        dts1.Rows.Add(row);
+                        tarifagrid();
+                        Total();
+                    }   
                 }
 
                 else if (m.type == "TTP03")
@@ -184,21 +193,24 @@ namespace SOAPAP.UI
                     ModalProduct.Measure = "";
                     modal.ShowDialog(this);
 
-                    DataRow row = dts1.NewRow();
-                    row["ID"] = m.productId;
-                    row["NOMBRE"] = namesconcept == "" ? GetPath(treeList1.FindNodeByID(treeList1.FocusedNode.Id), "") : namesconcept;
-                    row["TOTAL"] = Convert.ToDecimal(Variables.Configuration.minimumsalary) * ModalProduct.Quatity;
-                    row["IVA"] = m.haveTax;
-                    decimal amount = Convert.ToDecimal(Variables.Configuration.minimumsalary) * ModalProduct.Quatity;
-                    if (m.haveTax)
-                        row["AMOUNTIVA"] = Math.Round(((amount * Convert.ToDecimal(Variables.Configuration.IVA)) / 100), 2);
-                    else
-                        row["AMOUNTIVA"] = 0;
-                    row["CANTIDAD"] = 1;
-                    row["UNIDAD"] = m.product.ProductParams.FirstOrDefault().UnitMeasurement;
-                    dts1.Rows.Add(row);
-                    tarifagrid();
-                    Total();
+                    if (!ModalProduct.IsCancel)
+                    {
+                        DataRow row = dts1.NewRow();
+                        row["ID"] = m.productId;
+                        row["NOMBRE"] = namesconcept == "" ? GetPath(treeList1.FindNodeByID(treeList1.FocusedNode.Id), "") : namesconcept;
+                        row["TOTAL"] = Convert.ToDecimal(Variables.Configuration.minimumsalary) * ModalProduct.Quatity;
+                        row["IVA"] = m.haveTax;
+                        decimal amount = Convert.ToDecimal(Variables.Configuration.minimumsalary) * ModalProduct.Quatity;
+                        if (m.haveTax)
+                            row["AMOUNTIVA"] = Math.Round(((amount * Convert.ToDecimal(Variables.Configuration.IVA)) / 100), 2);
+                        else
+                            row["AMOUNTIVA"] = 0;
+                        row["CANTIDAD"] = 1;
+                        row["UNIDAD"] = m.product.ProductParams.FirstOrDefault().UnitMeasurement;
+                        dts1.Rows.Add(row);
+                        tarifagrid();
+                        Total();
+                    }  
                 }
                 else if (m.type == "TTP01")
                 {
