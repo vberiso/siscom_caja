@@ -51,7 +51,7 @@ namespace SOAPAP.UI.ReportesForms
             lstBusquedaPor.Add(new DataComboBox() { keyInt = 2, value = "Nombre" });
             lstBusquedaPor.Add(new DataComboBox() { keyInt = 3, value = "Dirección" });
 
-            cbxBusqudaPor.ValueMember = "keyString";
+            cbxBusqudaPor.ValueMember = "keyInt";
             cbxBusqudaPor.DisplayMember = "value";
             cbxBusqudaPor.DataSource = lstBusquedaPor;
             cbxBusqudaPor.SelectedIndex = 0;
@@ -145,18 +145,22 @@ namespace SOAPAP.UI.ReportesForms
             }
         }
 
-        private void btnBuscar_Click(object sender, EventArgs e)
+        private async void btnBuscar_Click(object sender, EventArgs e)
         {
             DataComboBox item = (DataComboBox)cbxBusqudaPor.SelectedItem;
+
+            loading = new Loading();
+            loading.Show(this);
+
             switch (item.keyInt)
             {
                 case 0:
                     //Cuenta
-                    BusquedaPorCuenta();
+                    await BusquedaPorCuenta();
                     break;
                 case 1:
                     //Folio
-                    BusquedaPorFolio();
+                    await BusquedaPorFolio();
                     break;
                 case 2:
                     //Taxpayer
@@ -167,9 +171,11 @@ namespace SOAPAP.UI.ReportesForms
                     BusquedaPorDireccion();
                     break;
             }
+
+            loading.Close();
         }
 
-        private async void BusquedaPorCuenta()
+        private async Task BusquedaPorCuenta()
         {
             //Busqueda por numero de cuenta
             var resultTypeTransaction = await Requests.SendURIAsync("/api/Agreements/GetSummary/" + tbxCuenta.Text, HttpMethod.Get, Variables.LoginModel.Token);
@@ -185,7 +191,7 @@ namespace SOAPAP.UI.ReportesForms
                 await LlenaDatos(Contrato);                
             }
         }
-        private async void BusquedaPorFolio()
+        private async Task BusquedaPorFolio()
         {
             //Busqueda por numero de cuenta
             var resultTypeTransaction = await Requests.SendURIAsync("/api/Payments/Resume/" + tbxCuenta.Text, HttpMethod.Get, Variables.LoginModel.Token);
@@ -207,16 +213,44 @@ namespace SOAPAP.UI.ReportesForms
             string[] NombrePartes = obtenerCadenaSinAcentos(tbxNombre.Text.ToLower()).Split(' ');
             NombrePartes = NombrePartes.Where(x => !string.IsNullOrEmpty(x)).ToArray();
             lstEncontrados.AddRange( lstClientes.Where(c => NombrePartes.Where(np => obtenerCadenaSinAcentos(c.Nombre.ToLower()).Split(' ').Contains(np)).Count() == NombrePartes.Count()).ToList() );
+            if (lstEncontrados.Count == 0)
+            {
+                lstEncontrados.Add(new Model.ClientFinding() { Cuenta = "Sin datos", Nombre = "No se encontraron resultados." });
+            }
 
             lbcListadoContratos.ValueMember = "id";
             lbcListadoContratos.DisplayMember = "DisplayData";
             lbcListadoContratos.DataSource = lstEncontrados;
             lbcListadoContratos.SelectedIndex = 0;
 
+            pnlOpContribuyente.Visible = false;
+            pnlResultadosBusquda.Visible = true;
         }
         private void BusquedaPorDireccion()
         {
+            List<Model.ClientFinding> lstEncontrados = new List<Model.ClientFinding>();
+            //busqueda de la direccion.
+            string[] DireccionPartes = { tbxCalle.Text.ToLower(), tbxNumero.Text.ToLower(), tbxColonia.Text.ToLower() };
+            //lstEncontrados.AddRange(lstClientes.Where(c => DireccionPartes.Where(dp => obtenerCadenaSinAcentos(string.Format("{0} {1} {2} {3}",c.Street, c.Outdoor, c.Indoor, c.Colonia).ToLower()).Split(' ').Contains(dp)).Count() == DireccionPartes.Count()).ToList());
+            lstEncontrados.AddRange(lstClientes
+                .Where(c => obtenerCadenaSinAcentos(string.Format("{0} {1} {2} {3}", c.Street, c.Outdoor, c.Indoor, c.Colonia).ToLower()).Contains(tbxCalle.Text.ToLower()) 
+                            && obtenerCadenaSinAcentos(string.Format("{0} {1} {2} {3}", c.Street, c.Outdoor, c.Indoor, c.Colonia).ToLower()).Contains(tbxNumero.Text.ToLower())
+                            && obtenerCadenaSinAcentos(string.Format("{0} {1} {2} {3}", c.Street, c.Outdoor, c.Indoor, c.Colonia).ToLower()).Contains(tbxColonia.Text.ToLower())
+                    )
+            );
+            if (lstEncontrados.Count == 0)
+            {
+                lstEncontrados.Add(new Model.ClientFinding() { Cuenta = "Sin datos", Nombre = "No se encontraron resultados." });
+            }
+            
+            lbcListadoContratos.ValueMember = "id";
+            lbcListadoContratos.DisplayMember = "DisplayData";
+            lbcListadoContratos.DataSource = null;
+            lbcListadoContratos.DataSource = lstEncontrados;
+            lbcListadoContratos.SelectedIndex = 0;
 
+            pnlDireccion.Visible = false;
+            pnlResultadosBusquda.Visible = true;
         }
                
         //Llena datos de servicios
@@ -327,10 +361,87 @@ namespace SOAPAP.UI.ReportesForms
             }
         }
 
+        private string obtenerCadenaSinAcentos(string pCadena)
+        {
+            string CadenaNormalizada = pCadena.Normalize(NormalizationForm.FormD);
+            Regex reg = new Regex("[^a-zA-Z0-9 ]");
+            string textoSinAcentos = reg.Replace(CadenaNormalizada, "");
+            return textoSinAcentos.TrimEnd().TrimStart();
+        }
+
+        //Elemento seleccionado de la lista de usuarios encontrados. (Tambien aplica para direcciones.)
+        private async void lbcListadoContratos_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Model.ClientFinding cf = (Model.ClientFinding)((DevExpress.XtraEditors.ListBoxControl)sender).SelectedItem;
+
+            if (cf.Cuenta != "Sin datos")
+            {   
+                if (cf.Id_Client != 0)  //Es un aggrement
+                {
+                    //Busqueda por numero de cuenta
+                    var resultTypeTransaction = await Requests.SendURIAsync("/api/Agreements/GetSummary/" + cf.Cuenta, HttpMethod.Get, Variables.LoginModel.Token);
+                    if (resultTypeTransaction.Contains("error"))
+                    {
+                        mensaje = new MessageBoxForm("Error", resultTypeTransaction.Split(':')[1].Replace("}", ""), TypeIcon.Icon.Cancel);
+                        result = mensaje.ShowDialog();
+                    }
+                    else
+                    {
+                        var Contrato = JsonConvert.DeserializeObject<SOAPAP.Model.Agreement>(resultTypeTransaction);
+                        if (Contrato != null)
+                            await LlenaDatos(Contrato);
+                        else
+                        {
+                            mensaje = new MessageBoxForm("Advertencia", "No se encontró el detalle del pago.", TypeIcon.Icon.Cancel);
+                            result = mensaje.ShowDialog();
+                        }
+                    }
+                }
+                else                   //Es un OrderSale
+                {
+                    //Busqueda por numero de cuenta
+                    var resultTypeTransaction = await Requests.SendURIAsync("/api/Payments/Resume/" + cf.Cuenta, HttpMethod.Get, Variables.LoginModel.Token);
+                    if (resultTypeTransaction.Contains("error"))
+                    {
+                        mensaje = new MessageBoxForm("Error", resultTypeTransaction.Split(':')[1].Replace("}", ""), TypeIcon.Icon.Cancel);
+                        result = mensaje.ShowDialog();
+                    }
+                    else
+                    {
+                        var Contrato = JsonConvert.DeserializeObject<SOAPAP.Model.PaymentResume>(resultTypeTransaction);
+                        if (Contrato != null)
+                            await LlenaDatosProducto(Contrato);
+                        else
+                        {
+                            mensaje = new MessageBoxForm("Advertencia", "No se encontró el detalle del producto.", TypeIcon.Icon.Cancel);
+                            result = mensaje.ShowDialog();
+                        }
+                    }
+                } 
+            }            
+        }
+
+        //Volver a vista de origen de busqueda (Nombre o direccion.)
+        private void button1_Click(object sender, EventArgs e)
+        {
+            DataComboBox item = (DataComboBox)cbxBusqudaPor.SelectedItem;
+            if (item.value == "Dirección")
+            {
+                pnlResultadosBusquda.Visible = false;
+                pnlDireccion.Visible = true;
+            }
+            else
+            {
+                pnlResultadosBusquda.Visible = false;
+                pnlOpContribuyente.Visible = true;
+            }
+        }
+
+        #region togglebuttons - Botones para mostrar u ocultar secciones de informacion. 
 
         private void tswInfoContriyente_Toggled(object sender, EventArgs e)
-        {            
-            gbxContribuyente.Visible = ((DevExpress.XtraEditors.ToggleSwitch)sender).IsOn;    
+        {
+            gbxContribuyente.Visible = ((DevExpress.XtraEditors.ToggleSwitch)sender).IsOn;
             lblOffContribuyente.Visible = !((DevExpress.XtraEditors.ToggleSwitch)sender).IsOn;
             sepOffContribuyente.Visible = !((DevExpress.XtraEditors.ToggleSwitch)sender).IsOn;
         }
@@ -355,31 +466,7 @@ namespace SOAPAP.UI.ReportesForms
             lblOffSaldo.Visible = !((DevExpress.XtraEditors.ToggleSwitch)sender).IsOn;
             sepOffSaldo.Visible = !((DevExpress.XtraEditors.ToggleSwitch)sender).IsOn;
         }
-
-        private string obtenerCadenaSinAcentos(string pCadena)
-        {
-            string CadenaNormalizada = pCadena.Normalize(NormalizationForm.FormD);
-            Regex reg = new Regex("[^a-zA-Z0-9 ]");
-            string textoSinAcentos = reg.Replace(CadenaNormalizada, "");
-            return textoSinAcentos.TrimEnd().TrimStart();
-        }
-
-        private async void lbcListadoContratos_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            Model.ClientFinding cf = (Model.ClientFinding)((DevExpress.XtraEditors.ListBoxControl)sender).SelectedItem;
-            
-            //Busqueda por numero de cuenta
-            var resultTypeTransaction = await Requests.SendURIAsync("/api/Agreements/GetSummary/" + cf.Cuenta, HttpMethod.Get, Variables.LoginModel.Token);
-            if (resultTypeTransaction.Contains("error"))
-            {
-                mensaje = new MessageBoxForm("Error", resultTypeTransaction.Split(':')[1].Replace("}", ""), TypeIcon.Icon.Cancel);
-                result = mensaje.ShowDialog();
-            }
-            else
-            {
-                var Contrato = JsonConvert.DeserializeObject<SOAPAP.Model.Agreement>(resultTypeTransaction);
-                await LlenaDatos(Contrato);
-            }
-        }
+        
+        #endregion
     }
 }

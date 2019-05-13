@@ -934,6 +934,7 @@
     <None Include="Resources\bg-left.png" />
     <None Include="Resources\bg-rigth.png" />
     <None Include="Resources\bg-center.png" />
+    <None Include="Resources\back.png" />
     <Content Include="Resources\buscar.png" />
     <None Include="Resources\cancelado.png" />
     <None Include="Resources\cerrada.png" />

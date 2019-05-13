@@ -30,15 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             this.pnlHeader = new System.Windows.Forms.Panel();
-            this.pnlOpContribuyente = new System.Windows.Forms.Panel();
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.label6 = new System.Windows.Forms.Label();
-            this.lbcListadoContratos = new DevExpress.XtraEditors.ListBoxControl();
-            this.tbxRFC = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.tbxNombre = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.btnExportar = new System.Windows.Forms.Button();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.lblOpcionBusqueda = new System.Windows.Forms.Label();
@@ -49,6 +41,12 @@
             this.label5 = new System.Windows.Forms.Label();
             this.btnBuscar = new System.Windows.Forms.Button();
             this.lblTitulo = new System.Windows.Forms.Label();
+            this.pnlResultadosBusquda = new System.Windows.Forms.Panel();
+            this.button1 = new System.Windows.Forms.Button();
+            this.tableLayoutPanel7 = new System.Windows.Forms.TableLayoutPanel();
+            this.label6 = new System.Windows.Forms.Label();
+            this.lbcListadoContratos = new DevExpress.XtraEditors.ListBoxControl();
+            this.label16 = new System.Windows.Forms.Label();
             this.pnlDireccion = new System.Windows.Forms.Panel();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.label11 = new System.Windows.Forms.Label();
@@ -62,6 +60,13 @@
             this.radDFiscal = new System.Windows.Forms.RadioButton();
             this.radDPadron = new System.Windows.Forms.RadioButton();
             this.label10 = new System.Windows.Forms.Label();
+            this.pnlOpContribuyente = new System.Windows.Forms.Panel();
+            this.label1 = new System.Windows.Forms.Label();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.tbxRFC = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.tbxNombre = new System.Windows.Forms.TextBox();
             this.gbxContribuyente = new System.Windows.Forms.GroupBox();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
             this.lblCel = new DevExpress.XtraEditors.LabelControl();
@@ -140,6 +145,7 @@
             this.lblTituloPrepaid = new DevExpress.XtraEditors.LabelControl();
             this.pnlRepOrderSale = new System.Windows.Forms.Panel();
             this.pgcOrderSale = new DevExpress.XtraPivotGrid.PivotGridControl();
+            this.dataTaxpayerOrderSaleBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.pgfConceptoOS = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfDescripcionOS = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfAmountOS = new DevExpress.XtraPivotGrid.PivotGridField();
@@ -149,19 +155,20 @@
             this.pgfTaxOS = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfTotalOS = new DevExpress.XtraPivotGrid.PivotGridField();
             this.labelControl7 = new DevExpress.XtraEditors.LabelControl();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.dataTaxpayerOrderSaleBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.prepaidBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.debtDetailBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.pnlHeader.SuspendLayout();
-            this.pnlOpContribuyente.SuspendLayout();
-            this.tableLayoutPanel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.lbcListadoContratos)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.tableLayoutPanel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pcbIncomeByConcept)).BeginInit();
+            this.pnlResultadosBusquda.SuspendLayout();
+            this.tableLayoutPanel7.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.lbcListadoContratos)).BeginInit();
             this.pnlDireccion.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
             this.panel1.SuspendLayout();
+            this.pnlOpContribuyente.SuspendLayout();
+            this.tableLayoutPanel1.SuspendLayout();
             this.gbxContribuyente.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tswInfoContriyente.Properties)).BeginInit();
@@ -189,7 +196,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.pgcPrepaid)).BeginInit();
             this.pnlRepOrderSale.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pgcOrderSale)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataTaxpayerOrderSaleBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.prepaidBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.debtDetailBindingSource)).BeginInit();
@@ -209,113 +215,22 @@
             this.pnlHeader.Controls.Add(this.lblTitulo);
             this.pnlHeader.Controls.Add(this.pnlDireccion);
             this.pnlHeader.Controls.Add(this.pnlOpContribuyente);
+            this.pnlHeader.Controls.Add(this.pnlResultadosBusquda);
             this.pnlHeader.Location = new System.Drawing.Point(1, 0);
             this.pnlHeader.Name = "pnlHeader";
             this.pnlHeader.Size = new System.Drawing.Size(938, 211);
             this.pnlHeader.TabIndex = 50;
             // 
-            // pnlOpContribuyente
+            // pictureBox1
             // 
-            this.pnlOpContribuyente.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.pnlOpContribuyente.BackColor = System.Drawing.Color.White;
-            this.pnlOpContribuyente.Controls.Add(this.tableLayoutPanel1);
-            this.pnlOpContribuyente.Controls.Add(this.label1);
-            this.pnlOpContribuyente.Location = new System.Drawing.Point(251, 66);
-            this.pnlOpContribuyente.Name = "pnlOpContribuyente";
-            this.pnlOpContribuyente.Size = new System.Drawing.Size(451, 143);
-            this.pnlOpContribuyente.TabIndex = 57;
-            this.pnlOpContribuyente.Visible = false;
-            // 
-            // tableLayoutPanel1
-            // 
-            this.tableLayoutPanel1.ColumnCount = 2;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 80F));
-            this.tableLayoutPanel1.Controls.Add(this.label6, 0, 2);
-            this.tableLayoutPanel1.Controls.Add(this.lbcListadoContratos, 1, 2);
-            this.tableLayoutPanel1.Controls.Add(this.tbxRFC, 1, 1);
-            this.tableLayoutPanel1.Controls.Add(this.label2, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.label4, 0, 1);
-            this.tableLayoutPanel1.Controls.Add(this.tbxNombre, 1, 0);
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(11, 25);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 3;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(437, 115);
-            this.tableLayoutPanel1.TabIndex = 1;
-            // 
-            // label6
-            // 
-            this.label6.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(10, 67);
-            this.label6.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(74, 39);
-            this.label6.TabIndex = 60;
-            this.label6.Text = "Selecciona el contrato a consultar.";
-            // 
-            // lbcListadoContratos
-            // 
-            this.lbcListadoContratos.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.lbcListadoContratos.Cursor = System.Windows.Forms.Cursors.Default;
-            this.lbcListadoContratos.HorizontalScrollbar = true;
-            this.lbcListadoContratos.Location = new System.Drawing.Point(90, 59);
-            this.lbcListadoContratos.Name = "lbcListadoContratos";
-            this.lbcListadoContratos.Size = new System.Drawing.Size(344, 53);
-            this.lbcListadoContratos.TabIndex = 59;
-            this.lbcListadoContratos.SelectedIndexChanged += new System.EventHandler(this.lbcListadoContratos_SelectedIndexChanged);
-            // 
-            // tbxRFC
-            // 
-            this.tbxRFC.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbxRFC.Location = new System.Drawing.Point(90, 32);
-            this.tbxRFC.Name = "tbxRFC";
-            this.tbxRFC.Size = new System.Drawing.Size(344, 20);
-            this.tbxRFC.TabIndex = 59;
-            // 
-            // label2
-            // 
-            this.label2.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(37, 9);
-            this.label2.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(47, 13);
-            this.label2.TabIndex = 55;
-            this.label2.Text = "Nombre:";
-            // 
-            // label4
-            // 
-            this.label4.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(53, 37);
-            this.label4.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(31, 13);
-            this.label4.TabIndex = 56;
-            this.label4.Text = "RFC:";
-            // 
-            // tbxNombre
-            // 
-            this.tbxNombre.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbxNombre.Location = new System.Drawing.Point(90, 4);
-            this.tbxNombre.Name = "tbxNombre";
-            this.tbxNombre.Size = new System.Drawing.Size(344, 20);
-            this.tbxNombre.TabIndex = 58;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(173, 2);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(145, 20);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "CONTRIBUYENTE";
+            this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
+            this.pictureBox1.Image = global::SOAPAP.Properties.Resources.reportes;
+            this.pictureBox1.InitialImage = global::SOAPAP.Properties.Resources.reportes;
+            this.pictureBox1.Location = new System.Drawing.Point(15, 13);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(20, 20);
+            this.pictureBox1.TabIndex = 59;
+            this.pictureBox1.TabStop = false;
             // 
             // btnExportar
             // 
@@ -443,13 +358,88 @@
             this.lblTitulo.Text = "Busqueda";
             this.lblTitulo.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
+            // pnlResultadosBusquda
+            // 
+            this.pnlResultadosBusquda.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.pnlResultadosBusquda.BackColor = System.Drawing.Color.White;
+            this.pnlResultadosBusquda.Controls.Add(this.button1);
+            this.pnlResultadosBusquda.Controls.Add(this.tableLayoutPanel7);
+            this.pnlResultadosBusquda.Controls.Add(this.label16);
+            this.pnlResultadosBusquda.Location = new System.Drawing.Point(251, 66);
+            this.pnlResultadosBusquda.Name = "pnlResultadosBusquda";
+            this.pnlResultadosBusquda.Size = new System.Drawing.Size(451, 142);
+            this.pnlResultadosBusquda.TabIndex = 60;
+            this.pnlResultadosBusquda.Visible = false;
+            // 
+            // button1
+            // 
+            this.button1.BackColor = System.Drawing.Color.White;
+            this.button1.BackgroundImage = global::SOAPAP.Properties.Resources.back;
+            this.button1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.button1.Location = new System.Drawing.Point(9, 1);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(26, 24);
+            this.button1.TabIndex = 2;
+            this.button1.UseVisualStyleBackColor = false;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // tableLayoutPanel7
+            // 
+            this.tableLayoutPanel7.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutPanel7.ColumnCount = 1;
+            this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel7.Controls.Add(this.label6, 0, 0);
+            this.tableLayoutPanel7.Controls.Add(this.lbcListadoContratos, 0, 1);
+            this.tableLayoutPanel7.Location = new System.Drawing.Point(8, 24);
+            this.tableLayoutPanel7.Name = "tableLayoutPanel7";
+            this.tableLayoutPanel7.RowCount = 2;
+            this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel7.Size = new System.Drawing.Size(437, 111);
+            this.tableLayoutPanel7.TabIndex = 1;
+            // 
+            // label6
+            // 
+            this.label6.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(3, 5);
+            this.label6.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(171, 13);
+            this.label6.TabIndex = 61;
+            this.label6.Text = "Selecciona el contrato a consultar.";
+            // 
+            // lbcListadoContratos
+            // 
+            this.lbcListadoContratos.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lbcListadoContratos.Cursor = System.Windows.Forms.Cursors.Default;
+            this.lbcListadoContratos.HorizontalScrollbar = true;
+            this.lbcListadoContratos.Location = new System.Drawing.Point(3, 23);
+            this.lbcListadoContratos.Name = "lbcListadoContratos";
+            this.lbcListadoContratos.Size = new System.Drawing.Size(431, 85);
+            this.lbcListadoContratos.TabIndex = 60;
+            this.lbcListadoContratos.SelectedIndexChanged += new System.EventHandler(this.lbcListadoContratos_SelectedIndexChanged);
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label16.Location = new System.Drawing.Point(135, 3);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(186, 20);
+            this.label16.TabIndex = 0;
+            this.label16.Text = "Resultados Busqueda";
+            // 
             // pnlDireccion
             // 
             this.pnlDireccion.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.pnlDireccion.BackColor = System.Drawing.Color.White;
             this.pnlDireccion.Controls.Add(this.tableLayoutPanel3);
             this.pnlDireccion.Controls.Add(this.label10);
-            this.pnlDireccion.Location = new System.Drawing.Point(252, 65);
+            this.pnlDireccion.Location = new System.Drawing.Point(251, 65);
             this.pnlDireccion.Name = "pnlDireccion";
             this.pnlDireccion.Size = new System.Drawing.Size(451, 142);
             this.pnlDireccion.TabIndex = 58;
@@ -564,6 +554,7 @@
             this.radDFiscal.TabIndex = 1;
             this.radDFiscal.Text = "Domicilio Fiscal";
             this.radDFiscal.UseVisualStyleBackColor = true;
+            this.radDFiscal.Visible = false;
             // 
             // radDPadron
             // 
@@ -571,10 +562,10 @@
             this.radDPadron.Checked = true;
             this.radDPadron.Location = new System.Drawing.Point(18, 1);
             this.radDPadron.Name = "radDPadron";
-            this.radDPadron.Size = new System.Drawing.Size(104, 17);
+            this.radDPadron.Size = new System.Drawing.Size(67, 17);
             this.radDPadron.TabIndex = 0;
             this.radDPadron.TabStop = true;
-            this.radDPadron.Text = "Domicilio Padron";
+            this.radDPadron.Text = "Domicilio";
             this.radDPadron.UseVisualStyleBackColor = true;
             // 
             // label10
@@ -586,6 +577,84 @@
             this.label10.Size = new System.Drawing.Size(81, 20);
             this.label10.TabIndex = 0;
             this.label10.Text = "Domicilio";
+            // 
+            // pnlOpContribuyente
+            // 
+            this.pnlOpContribuyente.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.pnlOpContribuyente.BackColor = System.Drawing.Color.White;
+            this.pnlOpContribuyente.Controls.Add(this.label1);
+            this.pnlOpContribuyente.Controls.Add(this.tableLayoutPanel1);
+            this.pnlOpContribuyente.Location = new System.Drawing.Point(251, 66);
+            this.pnlOpContribuyente.Name = "pnlOpContribuyente";
+            this.pnlOpContribuyente.Size = new System.Drawing.Size(451, 143);
+            this.pnlOpContribuyente.TabIndex = 57;
+            this.pnlOpContribuyente.Visible = false;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(173, 2);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(145, 20);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "CONTRIBUYENTE";
+            // 
+            // tableLayoutPanel1
+            // 
+            this.tableLayoutPanel1.ColumnCount = 2;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 80F));
+            this.tableLayoutPanel1.Controls.Add(this.tbxRFC, 1, 1);
+            this.tableLayoutPanel1.Controls.Add(this.label2, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.label4, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.tbxNombre, 1, 0);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(11, 25);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 3;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(437, 115);
+            this.tableLayoutPanel1.TabIndex = 1;
+            // 
+            // tbxRFC
+            // 
+            this.tbxRFC.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.tbxRFC.Location = new System.Drawing.Point(90, 32);
+            this.tbxRFC.Name = "tbxRFC";
+            this.tbxRFC.Size = new System.Drawing.Size(344, 20);
+            this.tbxRFC.TabIndex = 59;
+            // 
+            // label2
+            // 
+            this.label2.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(37, 9);
+            this.label2.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(47, 13);
+            this.label2.TabIndex = 55;
+            this.label2.Text = "Nombre:";
+            // 
+            // label4
+            // 
+            this.label4.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(53, 37);
+            this.label4.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(31, 13);
+            this.label4.TabIndex = 56;
+            this.label4.Text = "RFC:";
+            // 
+            // tbxNombre
+            // 
+            this.tbxNombre.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.tbxNombre.Location = new System.Drawing.Point(90, 4);
+            this.tbxNombre.Name = "tbxNombre";
+            this.tbxNombre.Size = new System.Drawing.Size(344, 20);
+            this.tbxNombre.TabIndex = 58;
             // 
             // gbxContribuyente
             // 
@@ -1513,6 +1582,10 @@
             this.pgcOrderSale.Size = new System.Drawing.Size(751, 156);
             this.pgcOrderSale.TabIndex = 16;
             // 
+            // dataTaxpayerOrderSaleBindingSource
+            // 
+            this.dataTaxpayerOrderSaleBindingSource.DataSource = typeof(SOAPAP.Reportes.DataTaxpayerOrderSale);
+            // 
             // pgfConceptoOS
             // 
             this.pgfConceptoOS.Area = DevExpress.XtraPivotGrid.PivotArea.RowArea;
@@ -1590,21 +1663,6 @@
             this.labelControl7.TabIndex = 15;
             this.labelControl7.Text = "Pago productos";
             // 
-            // pictureBox1
-            // 
-            this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
-            this.pictureBox1.Image = global::SOAPAP.Properties.Resources.reportes;
-            this.pictureBox1.InitialImage = global::SOAPAP.Properties.Resources.reportes;
-            this.pictureBox1.Location = new System.Drawing.Point(15, 13);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(20, 20);
-            this.pictureBox1.TabIndex = 59;
-            this.pictureBox1.TabStop = false;
-            // 
-            // dataTaxpayerOrderSaleBindingSource
-            // 
-            this.dataTaxpayerOrderSaleBindingSource.DataSource = typeof(SOAPAP.Reportes.DataTaxpayerOrderSale);
-            // 
             // prepaidBindingSource
             // 
             this.prepaidBindingSource.DataSource = typeof(SOAPAP.Model.Prepaid);
@@ -1625,20 +1683,25 @@
             this.Load += new System.EventHandler(this.RepTaxpayer_Load);
             this.pnlHeader.ResumeLayout(false);
             this.pnlHeader.PerformLayout();
-            this.pnlOpContribuyente.ResumeLayout(false);
-            this.pnlOpContribuyente.PerformLayout();
-            this.tableLayoutPanel1.ResumeLayout(false);
-            this.tableLayoutPanel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.lbcListadoContratos)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pcbIncomeByConcept)).EndInit();
+            this.pnlResultadosBusquda.ResumeLayout(false);
+            this.pnlResultadosBusquda.PerformLayout();
+            this.tableLayoutPanel7.ResumeLayout(false);
+            this.tableLayoutPanel7.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.lbcListadoContratos)).EndInit();
             this.pnlDireccion.ResumeLayout(false);
             this.pnlDireccion.PerformLayout();
             this.tableLayoutPanel3.ResumeLayout(false);
             this.tableLayoutPanel3.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            this.pnlOpContribuyente.ResumeLayout(false);
+            this.pnlOpContribuyente.PerformLayout();
+            this.tableLayoutPanel1.ResumeLayout(false);
+            this.tableLayoutPanel1.PerformLayout();
             this.gbxContribuyente.ResumeLayout(false);
             this.tableLayoutPanel4.ResumeLayout(false);
             this.tableLayoutPanel4.PerformLayout();
@@ -1676,7 +1739,6 @@
             this.pnlRepOrderSale.ResumeLayout(false);
             this.pnlRepOrderSale.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pgcOrderSale)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataTaxpayerOrderSaleBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.prepaidBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.debtDetailBindingSource)).EndInit();
@@ -1807,8 +1869,12 @@
         private DevExpress.XtraPivotGrid.PivotGridField pgfTaxOS;
         private DevExpress.XtraPivotGrid.PivotGridField pgfTotalOS;
         private DevExpress.XtraEditors.LabelControl labelControl7;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.Panel pnlResultadosBusquda;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel7;
         private System.Windows.Forms.Label label6;
         private DevExpress.XtraEditors.ListBoxControl lbcListadoContratos;
-        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.Label label16;
     }
 }

@@ -8,17 +8,19 @@ namespace SOAPAP.Model
 {
     class ClientFinding
     {
-        public int Id { get; set; }
-        public string Nombre { get; set; }       
+        public int Id_Client { get; set; }
+        public int Id_TaxUser { get; set; }
+        public string Nombre { get; set; }
         public string RFC { get; set; }
         public string Cuenta { get; set; }
         public string Street { get; set; }
         public string Outdoor { get; set; }
-        public string Indoor { get; set; }        
+        public string Indoor { get; set; }
         public string Zip { get; set; }
         public string Referencia { get; set; }
         public string Colonia { get; set; }
         public string Municipio { get; set; }
+        public string type_address { get; set;}
         public string DisplayData
         {
             get
