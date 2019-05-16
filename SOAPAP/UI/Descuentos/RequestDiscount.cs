@@ -25,7 +25,7 @@ namespace SOAPAP.UI.Descuentos
 {
     public partial class RequestDiscount : Form
     {
-        public readonly FirebaseClient firebase = new FirebaseClient("https://siscom-notifications.firebaseio.com/");
+        public readonly FirebaseClient firebase = new FirebaseClient(Variables.Configuration.StringURLFirebase);
         private decimal Total { get; set; }
         private bool SelectImage { get; set; } = false;
         private string FilePath { get; set; }
@@ -72,7 +72,6 @@ namespace SOAPAP.UI.Descuentos
             txtFolio.Text = Shuffler.GetFolio();
             txtAmount.Text = Total.ToString("c2");
             cmbTypeDescount.SelectedIndex = 0;
-            //centraX(pnlFolio, lblFolioGenerate);
         }
 
         private void CmbTypeDescount_SelectionChangeCommitted(object sender, EventArgs e)
@@ -153,18 +152,12 @@ namespace SOAPAP.UI.Descuentos
                                         cmbTypeDescount.SelectedIndex == 2 ? (short)Convert.ToDecimal(txtAmountDiscount.Text) :
                                         Convert.ToInt16(0),
                     UserRequestId = Variables.LoginModel.User,
+                    AccountAdjusted = "0"
                 };
                 if (Variables.Agreement != null)
                 {
                     discountAuthorization.Account = Variables.Agreement.Account;
-                    //Variables.Agreement.Debts.ToList().ForEach(x =>
-                    //{
-                    //    discountAuthorization.DiscountAuthorizationDetails.Add(new DiscountAuthorizationDetail
-                    //    {
-                    //        DebtId = x.Id,
-                    //        OrderSaleId = 0,
-                    //    });
-                    //});
+ 
                     pDebts.ToList().ForEach(x =>
                     {
                         discountAuthorization.DiscountAuthorizationDetails.Add(new DiscountAuthorizationDetail
@@ -217,7 +210,8 @@ namespace SOAPAP.UI.Descuentos
                                                                      Account = discountAuthorization.Account,
                                                                      ExpirationDate = DateTime.Now.ToLocalTime().AddDays(1),
                                                                      UserResponseId = string.Empty,
-                                                                     Observation = discountAuthorization.Observation
+                                                                     Observation = discountAuthorization.Observation,
+                                                                     IsView = false
                                                                  }, true);
                     string key = @object.Key;
                     discountAuthorization.KeyFirebase = key;

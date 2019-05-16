@@ -19,5 +19,6 @@ namespace SOAPAP.Model
         public DateTime RequestDate { get; set; }
         public DateTime ResponseDate { get; set; }
         public DateTime ExpirationDate { get; set; }
+        public bool IsView { get; set; }
     }
 }

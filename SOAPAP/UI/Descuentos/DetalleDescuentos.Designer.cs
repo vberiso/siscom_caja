@@ -167,6 +167,7 @@
             this.dgvDiscounts.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvDiscounts.Size = new System.Drawing.Size(1144, 482);
             this.dgvDiscounts.TabIndex = 1;
+            this.dgvDiscounts.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DgvDiscounts_CellMouseDoubleClick);
             // 
             // DetalleDescuentos
             // 

@@ -25,6 +25,7 @@ namespace SOAPAP.Model
         public Int16 DiscountPercentage { get; set; }
         [Required]
         public string Account { get; set; }
+        public string AccountAdjusted { get; set; }
         [Required]
         public string Folio { get; set; }
         public string KeyFirebase { get; set; }

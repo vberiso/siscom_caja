@@ -66,7 +66,8 @@ namespace SOAPAP.UI
             dgvConceptosCobro.Columns["Importe"].DefaultCellStyle.Format = "c2";
             dgvConceptosCobro.Columns["Importe"].DefaultCellStyle.FormatProvider = new CultureInfo("es-MX");
             dgvConceptosCobro.Columns["Importe"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
-            dgvConceptosCobro.Columns["Type"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;              
+            dgvConceptosCobro.Columns["Type"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            Variables.cuenta = string.Empty;
         }
 
         private void pbBuscar_Click(object sender, EventArgs e)
@@ -956,6 +957,12 @@ namespace SOAPAP.UI
                 discount.ShowDialog(this);
             }
 
+        }
+
+        private void EstatusToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DetalleDescuentos detalle = new DetalleDescuentos(false);
+            detalle.ShowDialog(this);
         }
     }
 

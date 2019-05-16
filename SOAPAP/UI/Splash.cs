@@ -29,7 +29,7 @@ namespace SOAPAP.UI
         public Splash()
         {
             InitializeComponent();
-            this.progressBar.Maximum = 100;
+            this.progressBar.Maximum = 110;
             Requests = new RequestsAPI(UrlBase);
             GetConfigurations();
         }
@@ -55,7 +55,7 @@ namespace SOAPAP.UI
             {
                 DialogResult result = new DialogResult();
                 Form mensaje = new MessageBoxForm("Error", a.Split(':')[1].Replace("}", ""), TypeIcon.Icon.Cancel);
-                result = mensaje.ShowDialog();              
+                result = mensaje.ShowDialog();
             }
             configuration.Terminal = JsonConvert.DeserializeObject<SOAPAP.Model.Terminal>(a);
             lblProgress.Text = "Obteniendo Configuración de la Terminal ...";
@@ -165,10 +165,20 @@ namespace SOAPAP.UI
                 }
             }
             /*20*/
-            RunProgress(progressn);
-            configuration.Anual = ValidResponse(await Requests.SendURIAsync("/api/ValueParameters?value=ANUAL", HttpMethod.Get)) == "" ? false : true; 
+            configuration.Anual = ValidResponse(await Requests.SendURIAsync("/api/ValueParameters?value=ANUAL", HttpMethod.Get)) == "" ? false : true;
             lblProgress.Text = "Obteniendo Caracteristicas de Pago ...";
+            RunProgress(progressn);
+
+            /*21*/
+            configuration.StringURLFirebase = ValidResponse(await Requests.SendURIAsync("/api/ValueParameters?value=STRINGURLFIREBASE", HttpMethod.Get));
+            lblProgress.Text = "Obteniendo Dirección de Notificaciones ...";
+            RunProgress(progressn);
+
+            /*22*/
             configuration.DefaultPrinter = Requests.ImpresoraPredeterminada();
+            lblProgress.Text = "Obteniendo Impresora Predeterminada ...";
+            RunProgress(progressn);
+
             if (configuration.Terminal == null)
             {
                 DialogResult result = new DialogResult();

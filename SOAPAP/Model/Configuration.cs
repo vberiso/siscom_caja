@@ -29,5 +29,6 @@ namespace SOAPAP.Model
         public string CFDIPassword { get; set; }
         public string CFDIKeyCancel{ get; set; }
         public string CFDICertificado { get; set; }
+        public string StringURLFirebase { get; set; }
     }
 }

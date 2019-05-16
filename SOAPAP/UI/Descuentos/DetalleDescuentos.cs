@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
@@ -25,15 +26,25 @@ namespace SOAPAP.UI.Descuentos
         private string UrlBase = Properties.Settings.Default.URL;
         private List<DiscountAuthorization> authorization;
         private int IdDiscount { get; set; }
-        public DetalleDescuentos(int IdDiscount)
+        public bool ClickNotification { get; set; }
+        public DetalleDescuentos(int IdDiscount, bool ClickNotification)
         {
             InitializeComponent();
             this.IdDiscount = IdDiscount;
             Requests = new RequestsAPI(UrlBase);
+            this.ClickNotification = ClickNotification;
+        }
+
+        public DetalleDescuentos(bool ClickNotification)
+        {
+            InitializeComponent();
+            Requests = new RequestsAPI(UrlBase);
+            this.ClickNotification = ClickNotification;
         }
 
         private async void DetalleDescuentos_Load(object sender, EventArgs e)
         {
+            string account = string.Empty;
             loading = new Loading();
             loading.Show(this);
             var results = await Requests.SendURIAsync(String.Format("/api/DiscountAuthorizations/List/{0}", Variables.LoginModel.User), HttpMethod.Get, Variables.LoginModel.Token);
@@ -74,7 +85,8 @@ namespace SOAPAP.UI.Descuentos
                     Estatus = x.Status == "EDE01" ? "Solicitado" :
                                 x.Status == "EDE02" ? "Autorizado" :
                                 x.Status == "EDE03" ? "Cancelado" :
-                                "Rechazado"
+                                "Rechazado",
+                    Ajuste_Cuenta = x.AccountAdjusted
                 }).ToList();
 
                 Table = ConvertToDataTable<DiscountAuthorizationVM>(DiscountAuth);
@@ -87,32 +99,65 @@ namespace SOAPAP.UI.Descuentos
 
                 for (int i = 0; i < dgvDiscounts.Columns.Count; i++)
                 {
-                    dgvDiscounts.Columns[i].DataPropertyName = Table.Columns[i].ColumnName.Replace("_", " ");
+                    dgvDiscounts.Columns[i].DataPropertyName = Table.Columns[i].ColumnName;
                     dgvDiscounts.Columns[i].HeaderText = Table.Columns[i].Caption.Replace("_", " ");
                 }
 
                 dgvDiscounts.Refresh();
 
-                //dgvDiscounts.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.NotSet;
                 dgvDiscounts.Columns[0].Visible = false;
                 dgvDiscounts.Columns[1].Visible = false;
                 dgvDiscounts.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.NotSet;
-                dgvDiscounts.Columns[2].Width = 70;
+                dgvDiscounts.Columns[2].Width = 75;
                 dgvDiscounts.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.NotSet;
-                dgvDiscounts.Columns[3].Width = 70;
+                dgvDiscounts.Columns[3].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                dgvDiscounts.Columns[3].Width = 75;
                 dgvDiscounts.Columns[4].AutoSizeMode = DataGridViewAutoSizeColumnMode.NotSet;
-                dgvDiscounts.Columns[4].Width = 250;
-                dgvDiscounts.Columns[5].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+                dgvDiscounts.Columns[4].Width = 300;
+                dgvDiscounts.Columns[5].Visible = false;
+                dgvDiscounts.Columns[6].Visible = false;
+                dgvDiscounts.Columns[7].AutoSizeMode = DataGridViewAutoSizeColumnMode.NotSet;
+                dgvDiscounts.Columns[7].Width = 120;
+                dgvDiscounts.Columns[7].DefaultCellStyle.Format = "c2";
+                dgvDiscounts.Columns[7].DefaultCellStyle.FormatProvider = new CultureInfo("es-MX");
+                dgvDiscounts.Columns[8].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                dgvDiscounts.Columns[9].Visible = false;
+                dgvDiscounts.Columns[10].Visible = false;
+                dgvDiscounts.Columns[11].Visible = false;
+                dgvDiscounts.Columns[12].Visible = false;
+                dgvDiscounts.Columns[13].Visible = false;
+                dgvDiscounts.Columns[14].Visible = false;
 
                 foreach (DataGridViewRow item in dgvDiscounts.Rows)
                 {
-                    if((item.Cells[0].FormattedValue.ToString() != "" ? Convert.ToInt32(item.Cells[0].FormattedValue.ToString()): 0) == IdDiscount)
+                    if (ClickNotification)
                     {
-                        //dgvDiscounts.FirstDisplayedScrollingRowIndex = item.Index;
-                        //dgvDiscounts.Refresh();
-                        EnsureVisibleRow(dgvDiscounts, item.Index);
-                        dgvDiscounts.Refresh();
+                        if ((item.Cells[0].FormattedValue.ToString() != "" ? Convert.ToInt32(item.Cells[0].FormattedValue.ToString()) : 0) == IdDiscount)
+                        {
+                            EnsureVisibleRow(dgvDiscounts, item.Index);
+                            dgvDiscounts.Refresh();
+                            account = item.Cells[2].FormattedValue.ToString();
+                        }
                     }
+                   
+                    switch (item.Cells[3].FormattedValue.ToString())
+                    {
+                        case "Solicitado":
+                            item.Cells[3].Style.BackColor = Color.FromArgb(43, 187, 173);
+                            item.Cells[3].Style.ForeColor = Color.White;
+                            item.Cells[3].Style.Font = new Font("Century Gothic", 8, FontStyle.Bold);
+                            break;
+                        case "Autorizado":
+                            item.Cells[3].Style.BackColor = Color.FromArgb(66, 133, 244);
+                            item.Cells[3].Style.ForeColor = Color.White;
+                            item.Cells[3].Style.Font = new Font("Century Gothic", 8, FontStyle.Bold);
+                            break;
+                    }
+                }
+                if (ClickNotification)
+                {
+                    SOAPAP.Base formBase = this.Owner as SOAPAP.Base;
+                    formBase.RemoveItemSelected(account);
                 }
             }
         }
@@ -151,6 +196,20 @@ namespace SOAPAP.UI.Descuentos
                 }
             }
         }
+
+        private void DgvDiscounts_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            var account = dgvDiscounts.Rows[e.RowIndex].Cells[2].FormattedValue.ToString();
+
+            if (account.Contains("-"))
+                Variables.cuenta = dgvDiscounts.Rows[e.RowIndex].Cells[14].FormattedValue.ToString();
+            else
+                Variables.cuenta = account;
+
+            SOAPAP.Base @base = this.Owner as SOAPAP.Base;
+            @base.ShowForm("SOAPAP.UI", "Cobro");
+            this.Close();
+        }
     }
     public partial class DiscountAuthorizationVM
     {
@@ -168,5 +227,6 @@ namespace SOAPAP.UI.Descuentos
         public decimal Descuento { get; set; }
         public Int16 Porcentaje { get; set; }
         public string Archivo { get; set; }
+        public string Ajuste_Cuenta { get; set; }
     }
 }

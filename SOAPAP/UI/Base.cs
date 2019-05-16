@@ -19,6 +19,7 @@ using System.Net;
 using Firebase.Database;
 using SOAPAP.Properties;
 using SOAPAP.UI.Descuentos;
+using Firebase.Database.Query;
 
 namespace SOAPAP
 {
@@ -33,7 +34,7 @@ namespace SOAPAP
         int _typeTransaction = 0;
         private RequestsAPI Requests = null;
         private string UrlBase = Properties.Settings.Default.URL;
-        public readonly FirebaseClient firebase = new FirebaseClient("https://siscom-notifications.firebaseio.com/");
+        public readonly FirebaseClient firebase = new FirebaseClient(Variables.Configuration.StringURLFirebase);
         private List<string> keystemp = new List<string>();
 
         #region IForm Members
@@ -59,7 +60,7 @@ namespace SOAPAP
                                  if(d.Object != null)
                                      if (d.Object.UserRequestId == Variables.LoginModel.User)
                                      {
-                                         if(d.Object.IsReply == true)
+                                         if(d.Object.IsReply == true && !d.Object.IsView)
                                          {
                                              if (!Variables.keys.Contains(d.Key))
                                              {
@@ -67,13 +68,13 @@ namespace SOAPAP
                                                  notificacionesToolStripMenuItem.Image = Resources.notificacion;
 
                                                  ToolStripItem newDropDownItem = new ToolStripMenuItem();
-                                                 //newDropDownItem.
+                                                 newDropDownItem.ToolTipText = d.Key;
                                                  newDropDownItem.Text = $"El descuento ha sido autorizado {Environment.NewLine} para la cuenta: {d.Object.Account} ";
                                                  newDropDownItem.Image = Resources.comprobado;
                                                  newDropDownItem.ImageAlign = ContentAlignment.MiddleCenter;
                                                  newDropDownItem.Click += (object sender, EventArgs e) =>
                                                  {
-                                                     Showdiscount(d.Object.AuthorizationDiscountId);
+                                                     Showdiscount(d.Object.AuthorizationDiscountId, d.Key);
                                                  };
                                                  try
                                                  {
@@ -176,10 +177,39 @@ namespace SOAPAP
                              });
         }
 
-        private void Showdiscount(int idDiscount)
+
+        public void RemoveItemSelected(string account)
         {
-            DetalleDescuentos detalle = new DetalleDescuentos(idDiscount);
-            detalle.ShowDialog();
+            for (int i = 0; i < notificacionesToolStripMenuItem.DropDown.Items.Count; i++)
+            {
+                ToolStripItem item = notificacionesToolStripMenuItem.DropDown.Items[i];
+                if (item.Text.Contains(account))
+                    notificacionesToolStripMenuItem.DropDown.Items.Remove(item);
+
+                if(notificacionesToolStripMenuItem.DropDown.Items.Count == 0)
+                {
+                    notificacionesToolStripMenuItem.Image = null;
+                    notificacionesToolStripMenuItem.Enabled = false;
+                }
+            }
+        }
+
+        private async void Showdiscount(int idDiscount, string key)
+        {
+            var notification = await firebase
+                  .Child("DiscountAuthorization")
+                  .Child(key)
+                  .OnceSingleAsync<PushNotification>();
+
+            notification.IsView = true;
+
+            await firebase
+                  .Child("DiscountAuthorization")
+                  .Child(key)
+                  .PutAsync(notification);
+
+            DetalleDescuentos detalle = new DetalleDescuentos(idDiscount, true);
+            detalle.ShowDialog(this);
         }
 
         private void Base_Load(object sender, EventArgs e)
