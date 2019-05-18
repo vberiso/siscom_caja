@@ -152,9 +152,7 @@ namespace SOAPAP.UI.ReportesForms
                 {
                     var cuentas = lstData.GroupBy(x => x.id_payment).Select(y => new { id_payment = y.Key, lst = y.ToList() }).ToList();
 
-                    List<IncomeByConceptVM> lstIBC = new List<IncomeByConceptVM>();
-                    //lstIBC.Add(new IncomeByConceptVM() { FOLIO = "ab-3456", CUENTA = "987654", NOMBRE = "Jose Mauricio" });
-                    //lstIBC.Add(new IncomeByConceptVM() { FOLIO = "cd-3456", CUENTA = "987123", NOMBRE = "Julio Cesar" });
+                    List<IncomeByConceptVM> lstIBC = new List<IncomeByConceptVM>();                    
                     foreach (var elem in cuentas)
                     {
                         string FOLIO = elem.lst.First().folio_impresion;

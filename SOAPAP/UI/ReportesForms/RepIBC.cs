@@ -262,14 +262,15 @@ namespace SOAPAP.UI.ReportesForms
                 }
                 else
                 {
-                    //Filtro por oficinas.
-                    List<DataIncomeByConcept> lstDataTmp;
-                    if (OfiSeleccionado == "Todos")
-                        lstDataTmp = lstData;
-                    else
-                        lstDataTmp = lstData.Where(x => OfiSeleccionado.Split(',').Contains(x.branch_office)).ToList();
+                    //////Filtro por oficinas.
+                    ////List<DataIncomeByConcept> lstDataTmp;
+                    ////if (OfiSeleccionado == "Todos")
+                    ////    lstDataTmp = lstData;
+                    ////else
+                    ////    lstDataTmp = lstData.Where(x => OfiSeleccionado.Split(',').Contains(x.branch_office)).ToList();
+              
                     //Generacion de lista que se manda a reporte.
-                    var cuentas = lstDataTmp.GroupBy(x => x.id_payment).Select(y => new { id_payment = y.Key, lst = y.ToList() }).ToList();
+                    var cuentas = lstData.GroupBy(x => x.id_payment).Select(y => new { id_payment = y.Key, lst = y.ToList() }).ToList();
 
                     List<IncomeByConceptVM> lstIBC = new List<IncomeByConceptVM>();                    
                     foreach (var elem in cuentas)
@@ -310,8 +311,8 @@ namespace SOAPAP.UI.ReportesForms
                         foreach (var SubElem in elem.lst.Where(x => x.tipo_movimiento == "TIP05").ToList())
                             elem.lst.Remove(SubElem);
 
-                        decimal OTROS = elem.lst.Where(x => x.tipo_movimiento == "S/T" || x.tipo_movimiento == "TIP02").Sum(y => y.importe);
-                        decimal tmpOtros = elem.lst.Sum(y => y.importe);
+                        //decimal OTROS = elem.lst.Where(x => x.tipo_movimiento == "S/T" || x.tipo_movimiento == "TIP02").Sum(y => y.importe);
+                        decimal OTROS = elem.lst.Sum(y => y.importe);
 
                         decimal TOTAL = AGUA + DRENAJE + SAN + REC + NOTIF + IVA + ANTI + OTROS; // + DESCUENTO;
                         string ESTA = "ACT";

@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             this.pnlHeader = new System.Windows.Forms.Panel();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.rdbSoloCancelados = new System.Windows.Forms.RadioButton();
@@ -43,6 +42,8 @@
             this.cbxArea = new System.Windows.Forms.ComboBox();
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
+            this.chcbxOperador = new DevExpress.XtraEditors.CheckedComboBoxEdit();
+            this.chcbxOficina = new DevExpress.XtraEditors.CheckedComboBoxEdit();
             this.pcbIncomeByConcept = new System.Windows.Forms.PictureBox();
             this.pbBG = new System.Windows.Forms.PictureBox();
             this.pnlHRigth = new System.Windows.Forms.Panel();
@@ -55,6 +56,7 @@
             this.lblTitulo = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.pgcIFB = new DevExpress.XtraPivotGrid.PivotGridControl();
+            this.dataIncomeFromBoxBindingSource = new System.Windows.Forms.BindingSource();
             this.pgfFolio = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfCuenta = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfNombre = new DevExpress.XtraPivotGrid.PivotGridField();
@@ -65,15 +67,15 @@
             this.pgfFecha = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pfgEstatus = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfFolioFiscal = new DevExpress.XtraPivotGrid.PivotGridField();
-            this.chcbxOperador = new DevExpress.XtraEditors.CheckedComboBoxEdit();
-            this.chcbxOficina = new DevExpress.XtraEditors.CheckedComboBoxEdit();
-            this.dataIncomeFromBoxBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.pgfOficina = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfOperador = new DevExpress.XtraPivotGrid.PivotGridField();
+            this.pgfIva = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pnlHeader.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chcbxOperador.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chcbxOficina.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pcbIncomeByConcept)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbBG)).BeginInit();
             this.pnlHRigth.SuspendLayout();
@@ -81,8 +83,6 @@
             this.pnlHLeft.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pgcIFB)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.chcbxOperador.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.chcbxOficina.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataIncomeFromBoxBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
@@ -261,6 +261,30 @@
             this.label7.TabIndex = 55;
             this.label7.Text = "Seleccione la oficina:";
             // 
+            // chcbxOperador
+            // 
+            this.chcbxOperador.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.chcbxOperador.EditValue = "";
+            this.chcbxOperador.Location = new System.Drawing.Point(371, 19);
+            this.chcbxOperador.Name = "chcbxOperador";
+            this.chcbxOperador.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.chcbxOperador.Size = new System.Drawing.Size(180, 20);
+            this.chcbxOperador.TabIndex = 57;
+            // 
+            // chcbxOficina
+            // 
+            this.chcbxOficina.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.chcbxOficina.EditValue = "";
+            this.chcbxOficina.Location = new System.Drawing.Point(187, 19);
+            this.chcbxOficina.Name = "chcbxOficina";
+            this.chcbxOficina.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.chcbxOficina.Size = new System.Drawing.Size(178, 20);
+            this.chcbxOficina.TabIndex = 58;
+            // 
             // pcbIncomeByConcept
             // 
             this.pcbIncomeByConcept.Anchor = System.Windows.Forms.AnchorStyles.Top;
@@ -417,12 +441,17 @@
             this.pfgEstatus,
             this.pgfFolioFiscal,
             this.pgfOficina,
-            this.pgfOperador});
+            this.pgfOperador,
+            this.pgfIva});
             this.pgcIFB.Location = new System.Drawing.Point(0, 142);
             this.pgcIFB.Name = "pgcIFB";
             this.pgcIFB.OptionsData.DataProcessingEngine = DevExpress.XtraPivotGrid.PivotDataProcessingEngine.LegacyOptimized;
             this.pgcIFB.Size = new System.Drawing.Size(1027, 277);
             this.pgcIFB.TabIndex = 49;
+            // 
+            // dataIncomeFromBoxBindingSource
+            // 
+            this.dataIncomeFromBoxBindingSource.DataSource = typeof(SOAPAP.Reportes.DataIncomeFromBox);
             // 
             // pgfFolio
             // 
@@ -476,7 +505,7 @@
             // pgfTotal
             // 
             this.pgfTotal.Area = DevExpress.XtraPivotGrid.PivotArea.DataArea;
-            this.pgfTotal.AreaIndex = 2;
+            this.pgfTotal.AreaIndex = 3;
             this.pgfTotal.Caption = "TOTAL";
             this.pgfTotal.FieldName = "TOTAL_P";
             this.pgfTotal.Name = "pgfTotal";
@@ -506,34 +535,6 @@
             this.pgfFolioFiscal.FieldName = "folioTransaction";
             this.pgfFolioFiscal.Name = "pgfFolioFiscal";
             // 
-            // chcbxOperador
-            // 
-            this.chcbxOperador.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.chcbxOperador.EditValue = "";
-            this.chcbxOperador.Location = new System.Drawing.Point(371, 19);
-            this.chcbxOperador.Name = "chcbxOperador";
-            this.chcbxOperador.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.chcbxOperador.Size = new System.Drawing.Size(180, 20);
-            this.chcbxOperador.TabIndex = 57;
-            // 
-            // chcbxOficina
-            // 
-            this.chcbxOficina.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.chcbxOficina.EditValue = "";
-            this.chcbxOficina.Location = new System.Drawing.Point(187, 19);
-            this.chcbxOficina.Name = "chcbxOficina";
-            this.chcbxOficina.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.chcbxOficina.Size = new System.Drawing.Size(178, 20);
-            this.chcbxOficina.TabIndex = 58;
-            // 
-            // dataIncomeFromBoxBindingSource
-            // 
-            this.dataIncomeFromBoxBindingSource.DataSource = typeof(SOAPAP.Reportes.DataIncomeFromBox);
-            // 
             // pgfOficina
             // 
             this.pgfOficina.AreaIndex = 0;
@@ -547,6 +548,14 @@
             this.pgfOperador.Caption = "CAJERO";
             this.pgfOperador.FieldName = "cajero";
             this.pgfOperador.Name = "pgfOperador";
+            // 
+            // pgfIva
+            // 
+            this.pgfIva.Area = DevExpress.XtraPivotGrid.PivotArea.DataArea;
+            this.pgfIva.AreaIndex = 2;
+            this.pgfIva.Caption = "IVA";
+            this.pgfIva.FieldName = "iva";
+            this.pgfIva.Name = "pgfIva";
             // 
             // RepIFB
             // 
@@ -565,6 +574,8 @@
             this.tableLayoutPanel2.PerformLayout();
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chcbxOperador.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chcbxOficina.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pcbIncomeByConcept)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbBG)).EndInit();
             this.pnlHRigth.ResumeLayout(false);
@@ -573,8 +584,6 @@
             this.pnlHLeft.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pgcIFB)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.chcbxOperador.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.chcbxOficina.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataIncomeFromBoxBindingSource)).EndInit();
             this.ResumeLayout(false);
 
@@ -623,5 +632,6 @@
         private DevExpress.XtraEditors.CheckedComboBoxEdit chcbxOficina;
         private DevExpress.XtraPivotGrid.PivotGridField pgfOficina;
         private DevExpress.XtraPivotGrid.PivotGridField pgfOperador;
+        private DevExpress.XtraPivotGrid.PivotGridField pgfIva;
     }
 }

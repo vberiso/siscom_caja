@@ -37,6 +37,8 @@
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.cmbPeriodoBusqueda = new System.Windows.Forms.ComboBox();
             this.cmbTypeReporte = new System.Windows.Forms.ComboBox();
+            this.pcbIncomeByConcept = new System.Windows.Forms.PictureBox();
+            this.pbBG = new System.Windows.Forms.PictureBox();
             this.pnlHRigth = new System.Windows.Forms.Panel();
             this.panel1 = new System.Windows.Forms.Panel();
             this.button2 = new System.Windows.Forms.Button();
@@ -45,18 +47,16 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.lblTitulo = new System.Windows.Forms.Label();
-            this.rvwReportes = new Microsoft.Reporting.WinForms.ReportViewer();
-            this.pcbIncomeByConcept = new System.Windows.Forms.PictureBox();
-            this.pbBG = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.rvwReportes = new Microsoft.Reporting.WinForms.ReportViewer();
             this.pnlHeader.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pcbIncomeByConcept)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbBG)).BeginInit();
             this.pnlHRigth.SuspendLayout();
             this.panel1.SuspendLayout();
             this.pnlHLeft.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pcbIncomeByConcept)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbBG)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -177,6 +177,32 @@
             this.cmbTypeReporte.Size = new System.Drawing.Size(211, 28);
             this.cmbTypeReporte.TabIndex = 48;
             // 
+            // pcbIncomeByConcept
+            // 
+            this.pcbIncomeByConcept.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.pcbIncomeByConcept.BackColor = System.Drawing.Color.Transparent;
+            this.pcbIncomeByConcept.Image = global::SOAPAP.Properties.Resources.bg;
+            this.pcbIncomeByConcept.InitialImage = global::SOAPAP.Properties.Resources.bg;
+            this.pcbIncomeByConcept.Location = new System.Drawing.Point(185, 62);
+            this.pcbIncomeByConcept.Name = "pcbIncomeByConcept";
+            this.pcbIncomeByConcept.Size = new System.Drawing.Size(454, 51);
+            this.pcbIncomeByConcept.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pcbIncomeByConcept.TabIndex = 52;
+            this.pcbIncomeByConcept.TabStop = false;
+            // 
+            // pbBG
+            // 
+            this.pbBG.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.pbBG.BackColor = System.Drawing.Color.Transparent;
+            this.pbBG.Image = global::SOAPAP.Properties.Resources.bg;
+            this.pbBG.InitialImage = global::SOAPAP.Properties.Resources.bg;
+            this.pbBG.Location = new System.Drawing.Point(185, 7);
+            this.pbBG.Name = "pbBG";
+            this.pbBG.Size = new System.Drawing.Size(454, 50);
+            this.pbBG.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbBG.TabIndex = 41;
+            this.pbBG.TabStop = false;
+            // 
             // pnlHRigth
             // 
             this.pnlHRigth.Controls.Add(this.panel1);
@@ -275,42 +301,6 @@
             this.lblTitulo.Text = "Reportes";
             this.lblTitulo.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // rvwReportes
-            // 
-            this.rvwReportes.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.rvwReportes.Location = new System.Drawing.Point(0, 117);
-            this.rvwReportes.Name = "rvwReportes";
-            this.rvwReportes.Size = new System.Drawing.Size(800, 221);
-            this.rvwReportes.TabIndex = 48;
-            // 
-            // pcbIncomeByConcept
-            // 
-            this.pcbIncomeByConcept.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.pcbIncomeByConcept.BackColor = System.Drawing.Color.Transparent;
-            this.pcbIncomeByConcept.Image = global::SOAPAP.Properties.Resources.bg;
-            this.pcbIncomeByConcept.InitialImage = global::SOAPAP.Properties.Resources.bg;
-            this.pcbIncomeByConcept.Location = new System.Drawing.Point(185, 62);
-            this.pcbIncomeByConcept.Name = "pcbIncomeByConcept";
-            this.pcbIncomeByConcept.Size = new System.Drawing.Size(454, 51);
-            this.pcbIncomeByConcept.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pcbIncomeByConcept.TabIndex = 52;
-            this.pcbIncomeByConcept.TabStop = false;
-            // 
-            // pbBG
-            // 
-            this.pbBG.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.pbBG.BackColor = System.Drawing.Color.Transparent;
-            this.pbBG.Image = global::SOAPAP.Properties.Resources.bg;
-            this.pbBG.InitialImage = global::SOAPAP.Properties.Resources.bg;
-            this.pbBG.Location = new System.Drawing.Point(185, 7);
-            this.pbBG.Name = "pbBG";
-            this.pbBG.Size = new System.Drawing.Size(454, 50);
-            this.pbBG.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pbBG.TabIndex = 41;
-            this.pbBG.TabStop = false;
-            // 
             // pictureBox1
             // 
             this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
@@ -321,6 +311,16 @@
             this.pictureBox1.Size = new System.Drawing.Size(20, 20);
             this.pictureBox1.TabIndex = 37;
             this.pictureBox1.TabStop = false;
+            // 
+            // rvwReportes
+            // 
+            this.rvwReportes.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.rvwReportes.Location = new System.Drawing.Point(0, 117);
+            this.rvwReportes.Name = "rvwReportes";
+            this.rvwReportes.Size = new System.Drawing.Size(800, 221);
+            this.rvwReportes.TabIndex = 48;
             // 
             // ReporteIBC
             // 
@@ -336,12 +336,12 @@
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel2.PerformLayout();
             this.tableLayoutPanel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pcbIncomeByConcept)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbBG)).EndInit();
             this.pnlHRigth.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.pnlHLeft.ResumeLayout(false);
             this.pnlHLeft.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pcbIncomeByConcept)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbBG)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 

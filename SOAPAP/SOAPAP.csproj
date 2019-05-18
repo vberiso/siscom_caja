@@ -91,6 +91,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="DevExpress.BonusSkins.v17.1, Version=17.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Charts.v17.1.Core, Version=17.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.Data.v17.1, Version=17.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.Pdf.v17.1.Core, Version=17.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.Pdf.v17.1.Drawing, Version=17.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
@@ -98,6 +99,9 @@
     <Reference Include="DevExpress.Printing.v17.1.Core, Version=17.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.Utils.v17.1, Version=17.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.XtraBars.v17.1, Version=17.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraCharts.v17.1, Version=17.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraCharts.v17.1.UI, Version=17.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraCharts.v17.1.Wizard, Version=17.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.XtraEditors.v17.1, Version=17.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.XtraGrid.v17.1, Version=17.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraLayout.v17.1, Version=17.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
@@ -395,6 +399,13 @@
     </Compile>
     <Compile Include="UI\FindOrders.Designer.cs">
       <DependentUpon>FindOrders.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\HistorialTransacciones\DataHistorial.cs" />
+    <Compile Include="UI\HistorialTransacciones\Historial.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\HistorialTransacciones\Historial.Designer.cs">
+      <DependentUpon>Historial.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\MessageBoxFormOption.cs">
       <SubType>Form</SubType>
@@ -742,6 +753,9 @@
     <EmbeddedResource Include="UI\FindOrders.resx">
       <DependentUpon>FindOrders.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UI\HistorialTransacciones\Historial.resx">
+      <DependentUpon>Historial.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\MessageBoxFormOption.resx">
       <DependentUpon>MessageBoxFormOption.cs</DependentUpon>
     </EmbeddedResource>
@@ -895,6 +909,8 @@
     <None Include="Properties\DataSources\SOAPAP.Reportes.DataTaxpayerOrderSale.datasource" />
     <None Include="Properties\DataSources\SOAPAP.Reportes.DataTaxpayerPrepaid.datasource" />
     <None Include="Properties\DataSources\SOAPAP.Reportes.IncomeByConceptVM.datasource" />
+    <None Include="Properties\DataSources\SOAPAP.UI.HistorialTransacciones.DataHistorial.datasource" />
+    <None Include="Properties\DataSources\SOAPAP.UI.HistorialTransacciones.Historial.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -958,6 +974,7 @@
     <None Include="Resources\home.png" />
     <None Include="Resources\id-card.png" />
     <None Include="Resources\ico-information.png" />
+    <None Include="Resources\Historial.png" />
     <Content Include="Resources\liquidacion.png" />
     <None Include="Resources\liquidar.png" />
     <Content Include="Resources\logo - blanco.png" />
@@ -1005,152 +1022,152 @@
   <ItemGroup>
     <PublishFile Include="CrystalDecisions.ReportAppServer.ClientDoc">
       <Visible>False</Visible>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
       <Group>
       </Group>
       <TargetPath>
       </TargetPath>
-      <PublishState>Include</PublishState>
-      <IncludeHash>True</IncludeHash>
       <FileType>Assembly</FileType>
     </PublishFile>
     <PublishFile Include="CrystalDecisions.ReportAppServer.CommLayer">
       <Visible>False</Visible>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
       <Group>
       </Group>
       <TargetPath>
       </TargetPath>
-      <PublishState>Include</PublishState>
-      <IncludeHash>True</IncludeHash>
       <FileType>Assembly</FileType>
     </PublishFile>
     <PublishFile Include="CrystalDecisions.ReportAppServer.CommonControls">
       <Visible>False</Visible>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
       <Group>
       </Group>
       <TargetPath>
       </TargetPath>
-      <PublishState>Include</PublishState>
-      <IncludeHash>True</IncludeHash>
       <FileType>Assembly</FileType>
     </PublishFile>
     <PublishFile Include="CrystalDecisions.ReportAppServer.CommonObjectModel">
       <Visible>False</Visible>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
       <Group>
       </Group>
       <TargetPath>
       </TargetPath>
-      <PublishState>Include</PublishState>
-      <IncludeHash>True</IncludeHash>
       <FileType>Assembly</FileType>
     </PublishFile>
     <PublishFile Include="CrystalDecisions.ReportAppServer.Controllers">
       <Visible>False</Visible>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
       <Group>
       </Group>
       <TargetPath>
       </TargetPath>
-      <PublishState>Include</PublishState>
-      <IncludeHash>True</IncludeHash>
       <FileType>Assembly</FileType>
     </PublishFile>
     <PublishFile Include="CrystalDecisions.ReportAppServer.CubeDefModel">
       <Visible>False</Visible>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
       <Group>
       </Group>
       <TargetPath>
       </TargetPath>
-      <PublishState>Include</PublishState>
-      <IncludeHash>True</IncludeHash>
       <FileType>Assembly</FileType>
     </PublishFile>
     <PublishFile Include="CrystalDecisions.ReportAppServer.DataDefModel">
       <Visible>False</Visible>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
       <Group>
       </Group>
       <TargetPath>
       </TargetPath>
-      <PublishState>Include</PublishState>
-      <IncludeHash>True</IncludeHash>
       <FileType>Assembly</FileType>
     </PublishFile>
     <PublishFile Include="CrystalDecisions.ReportAppServer.DataSetConversion">
       <Visible>False</Visible>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
       <Group>
       </Group>
       <TargetPath>
       </TargetPath>
-      <PublishState>Include</PublishState>
-      <IncludeHash>True</IncludeHash>
       <FileType>Assembly</FileType>
     </PublishFile>
     <PublishFile Include="CrystalDecisions.ReportAppServer.ObjectFactory">
       <Visible>False</Visible>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
       <Group>
       </Group>
       <TargetPath>
       </TargetPath>
-      <PublishState>Include</PublishState>
-      <IncludeHash>True</IncludeHash>
       <FileType>Assembly</FileType>
     </PublishFile>
     <PublishFile Include="CrystalDecisions.ReportAppServer.Prompting">
       <Visible>False</Visible>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
       <Group>
       </Group>
       <TargetPath>
       </TargetPath>
-      <PublishState>Include</PublishState>
-      <IncludeHash>True</IncludeHash>
       <FileType>Assembly</FileType>
     </PublishFile>
     <PublishFile Include="CrystalDecisions.ReportAppServer.ReportDefModel">
       <Visible>False</Visible>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
       <Group>
       </Group>
       <TargetPath>
       </TargetPath>
-      <PublishState>Include</PublishState>
-      <IncludeHash>True</IncludeHash>
       <FileType>Assembly</FileType>
     </PublishFile>
     <PublishFile Include="CrystalDecisions.ReportAppServer.XmlSerialize">
       <Visible>False</Visible>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
       <Group>
       </Group>
       <TargetPath>
       </TargetPath>
-      <PublishState>Include</PublishState>
-      <IncludeHash>True</IncludeHash>
       <FileType>Assembly</FileType>
     </PublishFile>
     <PublishFile Include="cubo-ConvertImage %282%29.ico">
       <Visible>False</Visible>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
       <Group>
       </Group>
       <TargetPath>
       </TargetPath>
-      <PublishState>Include</PublishState>
-      <IncludeHash>True</IncludeHash>
       <FileType>File</FileType>
     </PublishFile>
     <PublishFile Include="es\Humanizer.resources">
       <Visible>False</Visible>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
       <Group>
       </Group>
       <TargetPath>
       </TargetPath>
-      <PublishState>Include</PublishState>
-      <IncludeHash>True</IncludeHash>
       <FileType>Satellite</FileType>
     </PublishFile>
     <PublishFile Include="log4net">
       <Visible>False</Visible>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
       <Group>
       </Group>
       <TargetPath>
       </TargetPath>
-      <PublishState>Include</PublishState>
-      <IncludeHash>True</IncludeHash>
       <FileType>Assembly</FileType>
     </PublishFile>
   </ItemGroup>

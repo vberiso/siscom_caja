@@ -798,7 +798,7 @@
         <DataSetName>PWa</DataSetName>
         <Top>0.03528cm</Top>
         <Height>1.2cm</Height>
-        <Width>28.83391cm</Width>
+        <Width>28.83393cm</Width>
         <Style>
           <Border>
             <Style>None</Style>
@@ -809,7 +809,7 @@
     <Height>2in</Height>
     <Style />
   </Body>
-  <Width>11.35193in</Width>
+  <Width>11.35194in</Width>
   <Page>
     <PageHeader>
       <Height>2.54cm</Height>
@@ -871,6 +871,13 @@
         <ConnectString>/* Local Connection */</ConnectString>
       </ConnectionProperties>
       <rd:DataSourceID>87d16857-6026-4802-bf35-4e175d98434f</rd:DataSourceID>
+    </DataSource>
+    <DataSource Name="SOAPAPUIHistorialTransacciones">
+      <ConnectionProperties>
+        <DataProvider>System.Data.DataSet</DataProvider>
+        <ConnectString>/* Local Connection */</ConnectString>
+      </ConnectionProperties>
+      <rd:DataSourceID>3f62f26c-87ea-40b2-bdcc-31ba5f14ebb6</rd:DataSourceID>
     </DataSource>
   </DataSources>
   <DataSets>
@@ -961,6 +968,63 @@
         <rd:DataSetName>SOAPAP.Reportes</rd:DataSetName>
         <rd:TableName>DataPadronWater</rd:TableName>
         <rd:ObjectDataSourceType>SOAPAP.Reportes.DataPadronWater, SISCOM, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</rd:ObjectDataSourceType>
+      </rd:DataSetInfo>
+    </DataSet>
+    <DataSet Name="dsHistorial">
+      <Query>
+        <DataSourceName>SOAPAPUIHistorialTransacciones</DataSourceName>
+        <CommandText>/* Local Query */</CommandText>
+      </Query>
+      <Fields>
+        <Field Name="Amount">
+          <DataField>Amount</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="Cajero">
+          <DataField>Cajero</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="FechaTransaction">
+          <DataField>FechaTransaction</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="IdTransaction">
+          <DataField>IdTransaction</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="MetodoPago">
+          <DataField>MetodoPago</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="rounding">
+          <DataField>rounding</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="Sign">
+          <DataField>Sign</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="Tax">
+          <DataField>Tax</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="Total">
+          <DataField>Total</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="TypeTransactionId">
+          <DataField>TypeTransactionId</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="TypeTransactionName">
+          <DataField>TypeTransactionName</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+      </Fields>
+      <rd:DataSetInfo>
+        <rd:DataSetName>SOAPAP.UI.HistorialTransacciones</rd:DataSetName>
+        <rd:TableName>DataHistorial</rd:TableName>
+        <rd:ObjectDataSourceType>SOAPAP.UI.HistorialTransacciones.DataHistorial, SISCOM, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</rd:ObjectDataSourceType>
       </rd:DataSetInfo>
     </DataSet>
   </DataSets>

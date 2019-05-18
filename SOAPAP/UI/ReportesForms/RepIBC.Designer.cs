@@ -55,6 +55,7 @@
             this.lblTitulo = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.pgcIBC = new DevExpress.XtraPivotGrid.PivotGridControl();
+            this.incomeByConceptVMBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.pgfFolio = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfCuenta = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfNombre = new DevExpress.XtraPivotGrid.PivotGridField();
@@ -74,7 +75,6 @@
             this.pgfFechaPago = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfOficina = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfOperador = new DevExpress.XtraPivotGrid.PivotGridField();
-            this.incomeByConceptVMBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.pnlHeader.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -434,6 +434,10 @@
             this.pgcIBC.Size = new System.Drawing.Size(1014, 302);
             this.pgcIBC.TabIndex = 49;
             // 
+            // incomeByConceptVMBindingSource
+            // 
+            this.incomeByConceptVMBindingSource.DataSource = typeof(SOAPAP.Reportes.IncomeByConceptVM);
+            // 
             // pgfFolio
             // 
             this.pgfFolio.Area = DevExpress.XtraPivotGrid.PivotArea.RowArea;
@@ -583,10 +587,6 @@
             this.pgfOperador.Caption = "OPERADOR";
             this.pgfOperador.FieldName = "CAJERO";
             this.pgfOperador.Name = "pgfOperador";
-            // 
-            // incomeByConceptVMBindingSource
-            // 
-            this.incomeByConceptVMBindingSource.DataSource = typeof(SOAPAP.Reportes.IncomeByConceptVM);
             // 
             // RepIBC
             // 

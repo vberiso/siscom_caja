@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             this.pnlHeader = new System.Windows.Forms.Panel();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.label3 = new System.Windows.Forms.Label();
@@ -52,7 +51,7 @@
             this.lblTitulo = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.pgcCollection = new DevExpress.XtraPivotGrid.PivotGridControl();
-            this.dataCollectionBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.dataCollectionBindingSource = new System.Windows.Forms.BindingSource();
             this.pgfDescripcion = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfSubtotal = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfDescuento = new DevExpress.XtraPivotGrid.PivotGridField();

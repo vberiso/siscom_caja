@@ -69,6 +69,7 @@
             this.btnApertura = new System.Windows.Forms.Button();
             this.btnBuscar = new System.Windows.Forms.Button();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
+            this.btnHistorial = new System.Windows.Forms.Button();
             this.pnlContenido.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.pnlBottom.SuspendLayout();
@@ -315,6 +316,7 @@
             // pnlLeft
             // 
             this.pnlLeft.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(50)))), ((int)(((byte)(62)))));
+            this.pnlLeft.Controls.Add(this.btnHistorial);
             this.pnlLeft.Controls.Add(this.label2);
             this.pnlLeft.Controls.Add(this.pnlTitulo);
             this.pnlLeft.Controls.Add(this.pnlTerminal);
@@ -453,7 +455,7 @@
             this.btnReportes.ForeColor = System.Drawing.Color.White;
             this.btnReportes.Image = global::SOAPAP.Properties.Resources.reportes;
             this.btnReportes.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnReportes.Location = new System.Drawing.Point(8, 374);
+            this.btnReportes.Location = new System.Drawing.Point(8, 362);
             this.btnReportes.Name = "btnReportes";
             this.btnReportes.Size = new System.Drawing.Size(210, 38);
             this.btnReportes.TabIndex = 40;
@@ -474,7 +476,7 @@
             this.btnMovimientos.ForeColor = System.Drawing.Color.White;
             this.btnMovimientos.Image = global::SOAPAP.Properties.Resources.movimientos;
             this.btnMovimientos.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnMovimientos.Location = new System.Drawing.Point(8, 336);
+            this.btnMovimientos.Location = new System.Drawing.Point(8, 325);
             this.btnMovimientos.Name = "btnMovimientos";
             this.btnMovimientos.Size = new System.Drawing.Size(210, 38);
             this.btnMovimientos.TabIndex = 39;
@@ -538,7 +540,7 @@
             this.btnApertura.ForeColor = System.Drawing.Color.White;
             this.btnApertura.Image = global::SOAPAP.Properties.Resources.cerrar_caja;
             this.btnApertura.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnApertura.Location = new System.Drawing.Point(8, 294);
+            this.btnApertura.Location = new System.Drawing.Point(8, 289);
             this.btnApertura.Name = "btnApertura";
             this.btnApertura.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.btnApertura.Size = new System.Drawing.Size(210, 38);
@@ -580,6 +582,27 @@
             this.pictureBox3.Size = new System.Drawing.Size(233, 488);
             this.pictureBox3.TabIndex = 23;
             this.pictureBox3.TabStop = false;
+            // 
+            // btnHistorial
+            // 
+            this.btnHistorial.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(50)))), ((int)(((byte)(62)))));
+            this.btnHistorial.FlatAppearance.BorderSize = 0;
+            this.btnHistorial.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(3)))), ((int)(((byte)(138)))), ((int)(((byte)(255)))));
+            this.btnHistorial.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnHistorial.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnHistorial.ForeColor = System.Drawing.Color.White;
+            this.btnHistorial.Image = global::SOAPAP.Properties.Resources.Historial;
+            this.btnHistorial.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnHistorial.Location = new System.Drawing.Point(8, 400);
+            this.btnHistorial.Name = "btnHistorial";
+            this.btnHistorial.Size = new System.Drawing.Size(210, 38);
+            this.btnHistorial.TabIndex = 41;
+            this.btnHistorial.Text = "   Historial";
+            this.btnHistorial.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnHistorial.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnHistorial.UseVisualStyleBackColor = false;
+            this.btnHistorial.Click += new System.EventHandler(this.btnHistorial_Click);
+            this.btnHistorial.MouseLeave += new System.EventHandler(this.btnHistorial_MouseLeave);
             // 
             // Base
             // 
@@ -663,5 +686,6 @@
         private System.Windows.Forms.ToolStripMenuItem facturacionAgrupadaToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem facturacionAgrupadaCanceladasToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem notificacionesToolStripMenuItem;
+        private System.Windows.Forms.Button btnHistorial;
     }
 }

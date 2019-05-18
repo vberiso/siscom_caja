@@ -592,6 +592,20 @@ namespace SOAPAP
                 btnReportes.BackColor = System.Drawing.Color.FromArgb(45, 50, 62);
         }
 
+        /// <summary>
+        /// REPORTES DE CAJA
+        /// </summary>
+        private void btnHistorial_Click(object sender, EventArgs e)
+        {
+            ShowForm("SOAPAP", "UI.HistorialTransacciones.Historial");
+            SelectOption(btnHistorial);
+        }
+        private void btnHistorial_MouseLeave(object sender, EventArgs e)
+        {
+            if (btnSeleccionado != btnHistorial)
+                btnHistorial.BackColor = System.Drawing.Color.FromArgb(45, 50, 62);
+        }
+
 
         /// <summary>
         /// VENTA DE PRODUCTOS
@@ -631,6 +645,7 @@ namespace SOAPAP
             btnMovimientos.Visible = accessParam == CashBoxAccess.Access.SinAcceso || accessParam == CashBoxAccess.Access.Admin ? false : true;
             btnReportes.Visible = accessParam == CashBoxAccess.Access.SinAcceso || accessParam == CashBoxAccess.Access.Admin ? false : true;
             btnProductos.Visible = accessParam == CashBoxAccess.Access.SinAcceso || accessParam == CashBoxAccess.Access.Admin ? false : true;
+            btnHistorial.Visible = accessParam == CashBoxAccess.Access.SinAcceso || accessParam == CashBoxAccess.Access.Admin ? false : true;
 
             btnApertura.Enabled = accessParam == CashBoxAccess.Access.SinCierreAnterior ? false : true;
             btnCobro.Enabled = accessParam != CashBoxAccess.Access.Cobro ? false : true;
@@ -638,6 +653,7 @@ namespace SOAPAP
             btnMovimientos.Enabled = accessParam != CashBoxAccess.Access.Cobro ? false : true;
             btnReportes.Enabled = accessParam != CashBoxAccess.Access.Cobro ? false : true;
             btnProductos.Enabled = accessParam != CashBoxAccess.Access.Cobro ? false : true;
+            btnHistorial.Enabled = accessParam != CashBoxAccess.Access.Cobro ? false : true;
 
             btnApertura.Image = accessParam == CashBoxAccess.Access.Cobro ? Properties.Resources.abrir_caja : Properties.Resources.cerrar_caja;
         }
@@ -788,5 +804,6 @@ namespace SOAPAP
             querys q = new querys();
             q.sacarcaja(Requests.ImpresoraPredeterminada(), Variables.Configuration.ANSII);
         }
+
     }
 }

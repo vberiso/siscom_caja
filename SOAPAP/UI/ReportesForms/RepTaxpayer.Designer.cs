@@ -31,7 +31,6 @@
             this.components = new System.ComponentModel.Container();
             this.pnlHeader = new System.Windows.Forms.Panel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.btnExportar = new System.Windows.Forms.Button();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.lblOpcionBusqueda = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -41,12 +40,6 @@
             this.label5 = new System.Windows.Forms.Label();
             this.btnBuscar = new System.Windows.Forms.Button();
             this.lblTitulo = new System.Windows.Forms.Label();
-            this.pnlResultadosBusquda = new System.Windows.Forms.Panel();
-            this.button1 = new System.Windows.Forms.Button();
-            this.tableLayoutPanel7 = new System.Windows.Forms.TableLayoutPanel();
-            this.label6 = new System.Windows.Forms.Label();
-            this.lbcListadoContratos = new DevExpress.XtraEditors.ListBoxControl();
-            this.label16 = new System.Windows.Forms.Label();
             this.pnlDireccion = new System.Windows.Forms.Panel();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.label11 = new System.Windows.Forms.Label();
@@ -67,6 +60,12 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.tbxNombre = new System.Windows.Forms.TextBox();
+            this.pnlResultadosBusquda = new System.Windows.Forms.Panel();
+            this.button1 = new System.Windows.Forms.Button();
+            this.tableLayoutPanel7 = new System.Windows.Forms.TableLayoutPanel();
+            this.label6 = new System.Windows.Forms.Label();
+            this.lbcListadoContratos = new DevExpress.XtraEditors.ListBoxControl();
+            this.label16 = new System.Windows.Forms.Label();
             this.gbxContribuyente = new System.Windows.Forms.GroupBox();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
             this.lblCel = new DevExpress.XtraEditors.LabelControl();
@@ -161,14 +160,14 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.tableLayoutPanel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pcbIncomeByConcept)).BeginInit();
-            this.pnlResultadosBusquda.SuspendLayout();
-            this.tableLayoutPanel7.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.lbcListadoContratos)).BeginInit();
             this.pnlDireccion.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
             this.panel1.SuspendLayout();
             this.pnlOpContribuyente.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
+            this.pnlResultadosBusquda.SuspendLayout();
+            this.tableLayoutPanel7.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.lbcListadoContratos)).BeginInit();
             this.gbxContribuyente.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tswInfoContriyente.Properties)).BeginInit();
@@ -207,7 +206,6 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.pnlHeader.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(3)))), ((int)(((byte)(155)))), ((int)(((byte)(229)))));
             this.pnlHeader.Controls.Add(this.pictureBox1);
-            this.pnlHeader.Controls.Add(this.btnExportar);
             this.pnlHeader.Controls.Add(this.tableLayoutPanel2);
             this.pnlHeader.Controls.Add(this.pcbIncomeByConcept);
             this.pnlHeader.Controls.Add(this.label5);
@@ -231,21 +229,6 @@
             this.pictureBox1.Size = new System.Drawing.Size(20, 20);
             this.pictureBox1.TabIndex = 59;
             this.pictureBox1.TabStop = false;
-            // 
-            // btnExportar
-            // 
-            this.btnExportar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnExportar.BackColor = System.Drawing.Color.White;
-            this.btnExportar.FlatAppearance.BorderSize = 0;
-            this.btnExportar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnExportar.Font = new System.Drawing.Font("Segoe UI Black", 12F, System.Drawing.FontStyle.Bold);
-            this.btnExportar.ForeColor = System.Drawing.Color.Black;
-            this.btnExportar.Location = new System.Drawing.Point(793, 58);
-            this.btnExportar.Name = "btnExportar";
-            this.btnExportar.Size = new System.Drawing.Size(133, 41);
-            this.btnExportar.TabIndex = 56;
-            this.btnExportar.Text = "EXPORTAR";
-            this.btnExportar.UseVisualStyleBackColor = false;
             // 
             // tableLayoutPanel2
             // 
@@ -357,81 +340,6 @@
             this.lblTitulo.TabIndex = 36;
             this.lblTitulo.Text = "Busqueda";
             this.lblTitulo.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // pnlResultadosBusquda
-            // 
-            this.pnlResultadosBusquda.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.pnlResultadosBusquda.BackColor = System.Drawing.Color.White;
-            this.pnlResultadosBusquda.Controls.Add(this.button1);
-            this.pnlResultadosBusquda.Controls.Add(this.tableLayoutPanel7);
-            this.pnlResultadosBusquda.Controls.Add(this.label16);
-            this.pnlResultadosBusquda.Location = new System.Drawing.Point(251, 66);
-            this.pnlResultadosBusquda.Name = "pnlResultadosBusquda";
-            this.pnlResultadosBusquda.Size = new System.Drawing.Size(451, 142);
-            this.pnlResultadosBusquda.TabIndex = 60;
-            this.pnlResultadosBusquda.Visible = false;
-            // 
-            // button1
-            // 
-            this.button1.BackColor = System.Drawing.Color.White;
-            this.button1.BackgroundImage = global::SOAPAP.Properties.Resources.back;
-            this.button1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.button1.Location = new System.Drawing.Point(9, 1);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(26, 24);
-            this.button1.TabIndex = 2;
-            this.button1.UseVisualStyleBackColor = false;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // tableLayoutPanel7
-            // 
-            this.tableLayoutPanel7.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tableLayoutPanel7.ColumnCount = 1;
-            this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel7.Controls.Add(this.label6, 0, 0);
-            this.tableLayoutPanel7.Controls.Add(this.lbcListadoContratos, 0, 1);
-            this.tableLayoutPanel7.Location = new System.Drawing.Point(8, 24);
-            this.tableLayoutPanel7.Name = "tableLayoutPanel7";
-            this.tableLayoutPanel7.RowCount = 2;
-            this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel7.Size = new System.Drawing.Size(437, 111);
-            this.tableLayoutPanel7.TabIndex = 1;
-            // 
-            // label6
-            // 
-            this.label6.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(3, 5);
-            this.label6.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(171, 13);
-            this.label6.TabIndex = 61;
-            this.label6.Text = "Selecciona el contrato a consultar.";
-            // 
-            // lbcListadoContratos
-            // 
-            this.lbcListadoContratos.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.lbcListadoContratos.Cursor = System.Windows.Forms.Cursors.Default;
-            this.lbcListadoContratos.HorizontalScrollbar = true;
-            this.lbcListadoContratos.Location = new System.Drawing.Point(3, 23);
-            this.lbcListadoContratos.Name = "lbcListadoContratos";
-            this.lbcListadoContratos.Size = new System.Drawing.Size(431, 85);
-            this.lbcListadoContratos.TabIndex = 60;
-            this.lbcListadoContratos.SelectedIndexChanged += new System.EventHandler(this.lbcListadoContratos_SelectedIndexChanged);
-            // 
-            // label16
-            // 
-            this.label16.AutoSize = true;
-            this.label16.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label16.Location = new System.Drawing.Point(135, 3);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(186, 20);
-            this.label16.TabIndex = 0;
-            this.label16.Text = "Resultados Busqueda";
             // 
             // pnlDireccion
             // 
@@ -655,6 +563,81 @@
             this.tbxNombre.Name = "tbxNombre";
             this.tbxNombre.Size = new System.Drawing.Size(344, 20);
             this.tbxNombre.TabIndex = 58;
+            // 
+            // pnlResultadosBusquda
+            // 
+            this.pnlResultadosBusquda.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.pnlResultadosBusquda.BackColor = System.Drawing.Color.White;
+            this.pnlResultadosBusquda.Controls.Add(this.button1);
+            this.pnlResultadosBusquda.Controls.Add(this.tableLayoutPanel7);
+            this.pnlResultadosBusquda.Controls.Add(this.label16);
+            this.pnlResultadosBusquda.Location = new System.Drawing.Point(251, 66);
+            this.pnlResultadosBusquda.Name = "pnlResultadosBusquda";
+            this.pnlResultadosBusquda.Size = new System.Drawing.Size(451, 142);
+            this.pnlResultadosBusquda.TabIndex = 60;
+            this.pnlResultadosBusquda.Visible = false;
+            // 
+            // button1
+            // 
+            this.button1.BackColor = System.Drawing.Color.White;
+            this.button1.BackgroundImage = global::SOAPAP.Properties.Resources.back;
+            this.button1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.button1.Location = new System.Drawing.Point(9, 1);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(26, 24);
+            this.button1.TabIndex = 2;
+            this.button1.UseVisualStyleBackColor = false;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // tableLayoutPanel7
+            // 
+            this.tableLayoutPanel7.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutPanel7.ColumnCount = 1;
+            this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel7.Controls.Add(this.label6, 0, 0);
+            this.tableLayoutPanel7.Controls.Add(this.lbcListadoContratos, 0, 1);
+            this.tableLayoutPanel7.Location = new System.Drawing.Point(8, 24);
+            this.tableLayoutPanel7.Name = "tableLayoutPanel7";
+            this.tableLayoutPanel7.RowCount = 2;
+            this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel7.Size = new System.Drawing.Size(437, 111);
+            this.tableLayoutPanel7.TabIndex = 1;
+            // 
+            // label6
+            // 
+            this.label6.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(3, 5);
+            this.label6.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(171, 13);
+            this.label6.TabIndex = 61;
+            this.label6.Text = "Selecciona el contrato a consultar.";
+            // 
+            // lbcListadoContratos
+            // 
+            this.lbcListadoContratos.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lbcListadoContratos.Cursor = System.Windows.Forms.Cursors.Default;
+            this.lbcListadoContratos.HorizontalScrollbar = true;
+            this.lbcListadoContratos.Location = new System.Drawing.Point(3, 23);
+            this.lbcListadoContratos.Name = "lbcListadoContratos";
+            this.lbcListadoContratos.Size = new System.Drawing.Size(431, 85);
+            this.lbcListadoContratos.TabIndex = 60;
+            this.lbcListadoContratos.SelectedIndexChanged += new System.EventHandler(this.lbcListadoContratos_SelectedIndexChanged);
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label16.Location = new System.Drawing.Point(135, 3);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(186, 20);
+            this.label16.TabIndex = 0;
+            this.label16.Text = "Resultados Busqueda";
             // 
             // gbxContribuyente
             // 
@@ -1687,11 +1670,6 @@
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pcbIncomeByConcept)).EndInit();
-            this.pnlResultadosBusquda.ResumeLayout(false);
-            this.pnlResultadosBusquda.PerformLayout();
-            this.tableLayoutPanel7.ResumeLayout(false);
-            this.tableLayoutPanel7.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.lbcListadoContratos)).EndInit();
             this.pnlDireccion.ResumeLayout(false);
             this.pnlDireccion.PerformLayout();
             this.tableLayoutPanel3.ResumeLayout(false);
@@ -1702,6 +1680,11 @@
             this.pnlOpContribuyente.PerformLayout();
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
+            this.pnlResultadosBusquda.ResumeLayout(false);
+            this.pnlResultadosBusquda.PerformLayout();
+            this.tableLayoutPanel7.ResumeLayout(false);
+            this.tableLayoutPanel7.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.lbcListadoContratos)).EndInit();
             this.gbxContribuyente.ResumeLayout(false);
             this.tableLayoutPanel4.ResumeLayout(false);
             this.tableLayoutPanel4.PerformLayout();
@@ -1749,7 +1732,6 @@
         #endregion
 
         private System.Windows.Forms.Panel pnlHeader;
-        private System.Windows.Forms.Button btnExportar;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.PictureBox pcbIncomeByConcept;
