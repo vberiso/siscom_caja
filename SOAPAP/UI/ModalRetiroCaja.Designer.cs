@@ -42,21 +42,21 @@
             this.btnAceptar = new System.Windows.Forms.Button();
             this.btnCancelar = new System.Windows.Forms.Button();
             this.pnlContent = new System.Windows.Forms.Panel();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.label7 = new System.Windows.Forms.Label();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.lblRetiradoTransferencia = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
+            this.lblCobradoTransferencia = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
             this.lblRetiradoTarjeta = new System.Windows.Forms.Label();
-            this.lblRetiradoCheque = new System.Windows.Forms.Label();
-            this.lblRetiradoEfectivo = new System.Windows.Forms.Label();
+            this.lbltxtTransferencia = new System.Windows.Forms.Label();
             this.lblCobradoTarjeta = new System.Windows.Forms.Label();
-            this.lblCobradoCheque = new System.Windows.Forms.Label();
+            this.lbltxtfectivo = new System.Windows.Forms.Label();
             this.lblCobradoEfectivo = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
-            this.label10 = new System.Windows.Forms.Label();
+            this.lblRetiradoCheque = new System.Windows.Forms.Label();
+            this.lbltxtTarjeta = new System.Windows.Forms.Label();
+            this.lblRetiradoEfectivo = new System.Windows.Forms.Label();
+            this.lbltxtCheque = new System.Windows.Forms.Label();
+            this.lblCobradoCheque = new System.Windows.Forms.Label();
             this.pnlImagen.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbxIcon)).BeginInit();
             this.pnlTitle.SuspendLayout();
@@ -64,7 +64,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.nudAmount)).BeginInit();
             this.pnlButtons.SuspendLayout();
             this.pnlContent.SuspendLayout();
-            this.panel1.SuspendLayout();
+            this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // pnlImagen
@@ -209,7 +209,7 @@
             // pnlContent
             // 
             this.pnlContent.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pnlContent.Controls.Add(this.panel1);
+            this.pnlContent.Controls.Add(this.tableLayoutPanel1);
             this.pnlContent.Controls.Add(this.pnlText);
             this.pnlContent.Controls.Add(this.pnlTitle);
             this.pnlContent.Controls.Add(this.pnlImagen);
@@ -220,179 +220,225 @@
             this.pnlContent.Size = new System.Drawing.Size(412, 477);
             this.pnlContent.TabIndex = 2;
             // 
-            // panel1
+            // tableLayoutPanel1
             // 
-            this.panel1.BackColor = System.Drawing.Color.Transparent;
-            this.panel1.Controls.Add(this.label10);
-            this.panel1.Controls.Add(this.label9);
-            this.panel1.Controls.Add(this.label8);
-            this.panel1.Controls.Add(this.label7);
-            this.panel1.Controls.Add(this.label6);
-            this.panel1.Controls.Add(this.lblRetiradoTarjeta);
-            this.panel1.Controls.Add(this.lblRetiradoCheque);
-            this.panel1.Controls.Add(this.lblRetiradoEfectivo);
-            this.panel1.Controls.Add(this.lblCobradoTarjeta);
-            this.panel1.Controls.Add(this.lblCobradoCheque);
-            this.panel1.Controls.Add(this.lblCobradoEfectivo);
-            this.panel1.Controls.Add(this.label5);
-            this.panel1.Controls.Add(this.label4);
-            this.panel1.Controls.Add(this.label3);
-            this.panel1.Location = new System.Drawing.Point(0, 140);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(410, 128);
-            this.panel1.TabIndex = 4;
+            this.tableLayoutPanel1.ColumnCount = 3;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 34.04255F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 65.95744F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 174F));
+            this.tableLayoutPanel1.Controls.Add(this.lblRetiradoTransferencia, 2, 4);
+            this.tableLayoutPanel1.Controls.Add(this.label6, 1, 0);
+            this.tableLayoutPanel1.Controls.Add(this.lblCobradoTransferencia, 1, 4);
+            this.tableLayoutPanel1.Controls.Add(this.label7, 2, 0);
+            this.tableLayoutPanel1.Controls.Add(this.lblRetiradoTarjeta, 2, 3);
+            this.tableLayoutPanel1.Controls.Add(this.lbltxtTransferencia, 0, 4);
+            this.tableLayoutPanel1.Controls.Add(this.lblCobradoTarjeta, 1, 3);
+            this.tableLayoutPanel1.Controls.Add(this.lbltxtfectivo, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.lblCobradoEfectivo, 1, 1);
+            this.tableLayoutPanel1.Controls.Add(this.lblRetiradoCheque, 2, 2);
+            this.tableLayoutPanel1.Controls.Add(this.lbltxtTarjeta, 0, 3);
+            this.tableLayoutPanel1.Controls.Add(this.lblRetiradoEfectivo, 2, 1);
+            this.tableLayoutPanel1.Controls.Add(this.lbltxtCheque, 0, 2);
+            this.tableLayoutPanel1.Controls.Add(this.lblCobradoCheque, 1, 2);
+            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 137);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 5;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(410, 100);
+            this.tableLayoutPanel1.TabIndex = 4;
             // 
-            // label7
+            // lblRetiradoTransferencia
             // 
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Microsoft YaHei UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(284, 9);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(83, 19);
-            this.label7.TabIndex = 14;
-            this.label7.Text = "Por Retirar";
+            this.lblRetiradoTransferencia.AutoSize = true;
+            this.lblRetiradoTransferencia.BackColor = System.Drawing.Color.White;
+            this.lblRetiradoTransferencia.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblRetiradoTransferencia.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblRetiradoTransferencia.Location = new System.Drawing.Point(238, 80);
+            this.lblRetiradoTransferencia.Name = "lblRetiradoTransferencia";
+            this.lblRetiradoTransferencia.Padding = new System.Windows.Forms.Padding(0, 0, 10, 0);
+            this.lblRetiradoTransferencia.Size = new System.Drawing.Size(169, 20);
+            this.lblRetiradoTransferencia.TabIndex = 17;
+            this.lblRetiradoTransferencia.Text = "$0.00";
+            this.lblRetiradoTransferencia.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // label6
             // 
             this.label6.AutoSize = true;
+            this.label6.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label6.Font = new System.Drawing.Font("Microsoft YaHei UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(160, 9);
+            this.label6.Location = new System.Drawing.Point(83, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(51, 19);
+            this.label6.Size = new System.Drawing.Size(149, 20);
             this.label6.TabIndex = 13;
-            this.label6.Text = "Cobro";
+            this.label6.Text = "Cobrado";
+            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lblCobradoTransferencia
+            // 
+            this.lblCobradoTransferencia.AutoSize = true;
+            this.lblCobradoTransferencia.BackColor = System.Drawing.Color.White;
+            this.lblCobradoTransferencia.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblCobradoTransferencia.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCobradoTransferencia.Location = new System.Drawing.Point(83, 80);
+            this.lblCobradoTransferencia.Name = "lblCobradoTransferencia";
+            this.lblCobradoTransferencia.Padding = new System.Windows.Forms.Padding(0, 0, 5, 0);
+            this.lblCobradoTransferencia.Size = new System.Drawing.Size(149, 20);
+            this.lblCobradoTransferencia.TabIndex = 16;
+            this.lblCobradoTransferencia.Text = "$0.00";
+            this.lblCobradoTransferencia.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label7.Font = new System.Drawing.Font("Microsoft YaHei UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.Location = new System.Drawing.Point(238, 0);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(169, 20);
+            this.label7.TabIndex = 14;
+            this.label7.Text = "Por Retirar";
+            this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lblRetiradoTarjeta
             // 
             this.lblRetiradoTarjeta.AutoSize = true;
             this.lblRetiradoTarjeta.BackColor = System.Drawing.Color.White;
+            this.lblRetiradoTarjeta.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblRetiradoTarjeta.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblRetiradoTarjeta.Location = new System.Drawing.Point(298, 78);
+            this.lblRetiradoTarjeta.Location = new System.Drawing.Point(238, 60);
             this.lblRetiradoTarjeta.Name = "lblRetiradoTarjeta";
-            this.lblRetiradoTarjeta.Size = new System.Drawing.Size(34, 15);
+            this.lblRetiradoTarjeta.Padding = new System.Windows.Forms.Padding(0, 0, 10, 0);
+            this.lblRetiradoTarjeta.Size = new System.Drawing.Size(169, 20);
             this.lblRetiradoTarjeta.TabIndex = 12;
             this.lblRetiradoTarjeta.Text = "$0.00";
+            this.lblRetiradoTarjeta.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // lblRetiradoCheque
+            // lbltxtTransferencia
             // 
-            this.lblRetiradoCheque.AutoSize = true;
-            this.lblRetiradoCheque.BackColor = System.Drawing.Color.White;
-            this.lblRetiradoCheque.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblRetiradoCheque.Location = new System.Drawing.Point(298, 56);
-            this.lblRetiradoCheque.Name = "lblRetiradoCheque";
-            this.lblRetiradoCheque.Size = new System.Drawing.Size(34, 15);
-            this.lblRetiradoCheque.TabIndex = 11;
-            this.lblRetiradoCheque.Text = "$0.00";
-            // 
-            // lblRetiradoEfectivo
-            // 
-            this.lblRetiradoEfectivo.AutoSize = true;
-            this.lblRetiradoEfectivo.BackColor = System.Drawing.Color.White;
-            this.lblRetiradoEfectivo.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblRetiradoEfectivo.Location = new System.Drawing.Point(298, 34);
-            this.lblRetiradoEfectivo.Name = "lblRetiradoEfectivo";
-            this.lblRetiradoEfectivo.Size = new System.Drawing.Size(34, 15);
-            this.lblRetiradoEfectivo.TabIndex = 10;
-            this.lblRetiradoEfectivo.Text = "$0.00";
+            this.lbltxtTransferencia.AutoSize = true;
+            this.lbltxtTransferencia.BackColor = System.Drawing.Color.White;
+            this.lbltxtTransferencia.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lbltxtTransferencia.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbltxtTransferencia.Location = new System.Drawing.Point(3, 80);
+            this.lbltxtTransferencia.Name = "lbltxtTransferencia";
+            this.lbltxtTransferencia.Size = new System.Drawing.Size(74, 20);
+            this.lbltxtTransferencia.TabIndex = 15;
+            this.lbltxtTransferencia.Text = "Trasferecia:";
+            this.lbltxtTransferencia.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // lblCobradoTarjeta
             // 
             this.lblCobradoTarjeta.AutoSize = true;
             this.lblCobradoTarjeta.BackColor = System.Drawing.Color.White;
+            this.lblCobradoTarjeta.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblCobradoTarjeta.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblCobradoTarjeta.Location = new System.Drawing.Point(169, 79);
+            this.lblCobradoTarjeta.Location = new System.Drawing.Point(83, 60);
             this.lblCobradoTarjeta.Name = "lblCobradoTarjeta";
-            this.lblCobradoTarjeta.Size = new System.Drawing.Size(34, 15);
+            this.lblCobradoTarjeta.Padding = new System.Windows.Forms.Padding(0, 0, 5, 0);
+            this.lblCobradoTarjeta.Size = new System.Drawing.Size(149, 20);
             this.lblCobradoTarjeta.TabIndex = 6;
             this.lblCobradoTarjeta.Text = "$0.00";
+            this.lblCobradoTarjeta.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // lblCobradoCheque
+            // lbltxtfectivo
             // 
-            this.lblCobradoCheque.AutoSize = true;
-            this.lblCobradoCheque.BackColor = System.Drawing.Color.White;
-            this.lblCobradoCheque.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblCobradoCheque.Location = new System.Drawing.Point(169, 57);
-            this.lblCobradoCheque.Name = "lblCobradoCheque";
-            this.lblCobradoCheque.Size = new System.Drawing.Size(34, 15);
-            this.lblCobradoCheque.TabIndex = 5;
-            this.lblCobradoCheque.Text = "$0.00";
+            this.lbltxtfectivo.AutoSize = true;
+            this.lbltxtfectivo.BackColor = System.Drawing.Color.White;
+            this.lbltxtfectivo.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lbltxtfectivo.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbltxtfectivo.Location = new System.Drawing.Point(3, 20);
+            this.lbltxtfectivo.Name = "lbltxtfectivo";
+            this.lbltxtfectivo.Size = new System.Drawing.Size(74, 20);
+            this.lbltxtfectivo.TabIndex = 1;
+            this.lbltxtfectivo.Text = "Efectivo:";
+            this.lbltxtfectivo.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // lblCobradoEfectivo
             // 
             this.lblCobradoEfectivo.AutoSize = true;
             this.lblCobradoEfectivo.BackColor = System.Drawing.Color.White;
+            this.lblCobradoEfectivo.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblCobradoEfectivo.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblCobradoEfectivo.Location = new System.Drawing.Point(169, 35);
+            this.lblCobradoEfectivo.Location = new System.Drawing.Point(83, 20);
             this.lblCobradoEfectivo.Name = "lblCobradoEfectivo";
-            this.lblCobradoEfectivo.Size = new System.Drawing.Size(34, 15);
+            this.lblCobradoEfectivo.Padding = new System.Windows.Forms.Padding(0, 0, 5, 0);
+            this.lblCobradoEfectivo.Size = new System.Drawing.Size(149, 20);
             this.lblCobradoEfectivo.TabIndex = 4;
             this.lblCobradoEfectivo.Text = "$0.00";
+            this.lblCobradoEfectivo.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // label5
+            // lblRetiradoCheque
             // 
-            this.label5.AutoSize = true;
-            this.label5.BackColor = System.Drawing.Color.White;
-            this.label5.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(54, 79);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(45, 15);
-            this.label5.TabIndex = 3;
-            this.label5.Text = "Tarjeta:";
+            this.lblRetiradoCheque.AutoSize = true;
+            this.lblRetiradoCheque.BackColor = System.Drawing.Color.White;
+            this.lblRetiradoCheque.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblRetiradoCheque.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblRetiradoCheque.Location = new System.Drawing.Point(238, 40);
+            this.lblRetiradoCheque.Name = "lblRetiradoCheque";
+            this.lblRetiradoCheque.Padding = new System.Windows.Forms.Padding(0, 0, 10, 0);
+            this.lblRetiradoCheque.Size = new System.Drawing.Size(169, 20);
+            this.lblRetiradoCheque.TabIndex = 11;
+            this.lblRetiradoCheque.Text = "$0.00";
+            this.lblRetiradoCheque.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // label4
+            // lbltxtTarjeta
             // 
-            this.label4.AutoSize = true;
-            this.label4.BackColor = System.Drawing.Color.White;
-            this.label4.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(48, 57);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(51, 15);
-            this.label4.TabIndex = 2;
-            this.label4.Text = "Cheque:";
+            this.lbltxtTarjeta.AutoSize = true;
+            this.lbltxtTarjeta.BackColor = System.Drawing.Color.White;
+            this.lbltxtTarjeta.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lbltxtTarjeta.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbltxtTarjeta.Location = new System.Drawing.Point(3, 60);
+            this.lbltxtTarjeta.Name = "lbltxtTarjeta";
+            this.lbltxtTarjeta.Size = new System.Drawing.Size(74, 20);
+            this.lbltxtTarjeta.TabIndex = 3;
+            this.lbltxtTarjeta.Text = "Tarjeta:";
+            this.lbltxtTarjeta.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // label3
+            // lblRetiradoEfectivo
             // 
-            this.label3.AutoSize = true;
-            this.label3.BackColor = System.Drawing.Color.White;
-            this.label3.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(47, 35);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(52, 15);
-            this.label3.TabIndex = 1;
-            this.label3.Text = "Efectivo:";
+            this.lblRetiradoEfectivo.AutoSize = true;
+            this.lblRetiradoEfectivo.BackColor = System.Drawing.Color.White;
+            this.lblRetiradoEfectivo.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblRetiradoEfectivo.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblRetiradoEfectivo.Location = new System.Drawing.Point(238, 20);
+            this.lblRetiradoEfectivo.Name = "lblRetiradoEfectivo";
+            this.lblRetiradoEfectivo.Padding = new System.Windows.Forms.Padding(0, 0, 10, 0);
+            this.lblRetiradoEfectivo.Size = new System.Drawing.Size(169, 20);
+            this.lblRetiradoEfectivo.TabIndex = 10;
+            this.lblRetiradoEfectivo.Text = "$0.00";
+            this.lblRetiradoEfectivo.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // label8
+            // lbltxtCheque
             // 
-            this.label8.AutoSize = true;
-            this.label8.BackColor = System.Drawing.Color.White;
-            this.label8.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(33, 103);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(66, 15);
-            this.label8.TabIndex = 15;
-            this.label8.Text = "Trasferecia:";
+            this.lbltxtCheque.AutoSize = true;
+            this.lbltxtCheque.BackColor = System.Drawing.Color.White;
+            this.lbltxtCheque.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lbltxtCheque.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbltxtCheque.Location = new System.Drawing.Point(3, 40);
+            this.lbltxtCheque.Name = "lbltxtCheque";
+            this.lbltxtCheque.Size = new System.Drawing.Size(74, 20);
+            this.lbltxtCheque.TabIndex = 2;
+            this.lbltxtCheque.Text = "Cheque:";
+            this.lbltxtCheque.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // label9
+            // lblCobradoCheque
             // 
-            this.label9.AutoSize = true;
-            this.label9.BackColor = System.Drawing.Color.White;
-            this.label9.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(169, 103);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(34, 15);
-            this.label9.TabIndex = 16;
-            this.label9.Text = "$0.00";
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.BackColor = System.Drawing.Color.White;
-            this.label10.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.Location = new System.Drawing.Point(298, 103);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(34, 15);
-            this.label10.TabIndex = 17;
-            this.label10.Text = "$0.00";
+            this.lblCobradoCheque.AutoSize = true;
+            this.lblCobradoCheque.BackColor = System.Drawing.Color.White;
+            this.lblCobradoCheque.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblCobradoCheque.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCobradoCheque.Location = new System.Drawing.Point(83, 40);
+            this.lblCobradoCheque.Name = "lblCobradoCheque";
+            this.lblCobradoCheque.Padding = new System.Windows.Forms.Padding(0, 0, 5, 0);
+            this.lblCobradoCheque.Size = new System.Drawing.Size(149, 20);
+            this.lblCobradoCheque.TabIndex = 5;
+            this.lblCobradoCheque.Text = "$0.00";
+            this.lblCobradoCheque.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // ModalRetiroCaja
             // 
@@ -416,8 +462,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.nudAmount)).EndInit();
             this.pnlButtons.ResumeLayout(false);
             this.pnlContent.ResumeLayout(false);
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
+            this.tableLayoutPanel1.ResumeLayout(false);
+            this.tableLayoutPanel1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -438,10 +484,9 @@
         private System.Windows.Forms.Label lblCashBox;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ComboBox comboBox1;
-        private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label lbltxtTarjeta;
+        private System.Windows.Forms.Label lbltxtCheque;
+        private System.Windows.Forms.Label lbltxtfectivo;
         private System.Windows.Forms.Label lblCobradoTarjeta;
         private System.Windows.Forms.Label lblCobradoCheque;
         private System.Windows.Forms.Label lblCobradoEfectivo;
@@ -450,8 +495,9 @@
         private System.Windows.Forms.Label lblRetiradoEfectivo;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label lbltxtTransferencia;
+        private System.Windows.Forms.Label lblCobradoTransferencia;
+        private System.Windows.Forms.Label lblRetiradoTransferencia;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
     }
 }

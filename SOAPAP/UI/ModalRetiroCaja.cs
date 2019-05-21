@@ -9,6 +9,7 @@ using System.Text;
 using SOAPAP.Services;
 using System.Linq;
 using System.Data;
+using System.Globalization;
 
 namespace SOAPAP.UI
 {
@@ -71,7 +72,7 @@ namespace SOAPAP.UI
                 mensaje = new MessageBoxForm("Error", "El monto ingresado es mayor que al retirado", TypeIcon.Icon.Warning);
                 mensaje.ShowDialog();
             }
-            else if (Convert.ToInt32(comboBox1.SelectedValue) == 3 && (Convert.ToDecimal(nudAmount.Value) > Convert.ToDecimal(label10.Text.Replace("$", ""))))
+            else if (Convert.ToInt32(comboBox1.SelectedValue) == 3 && (Convert.ToDecimal(nudAmount.Value) > Convert.ToDecimal(lblRetiradoTransferencia.Text.Replace("$", ""))))
             {
                 mensaje = new MessageBoxForm("Error", "El monto ingresado es mayor que al retirado", TypeIcon.Icon.Warning);
                 mensaje.ShowDialog();
@@ -275,23 +276,23 @@ namespace SOAPAP.UI
 
             resultadoe = positivoe - negativoe;
             resultadoes = positivoes - negativoes;
-            lblCobradoEfectivo.Text = resultadoes.ToString();
-            lblRetiradoEfectivo.Text = resultadoe.ToString();
+            lblCobradoEfectivo.Text = string.Format(new CultureInfo("es-MX"), "{0:C2}", resultadoes);
+            lblRetiradoEfectivo.Text = string.Format(new CultureInfo("es-MX"), "{0:C2}", resultadoe);
 
             resultadoc = positivoc - negativoc;
             resultadocs = positivocs - negativocs;
-            lblCobradoCheque.Text = resultadocs.ToString();
-            lblRetiradoCheque.Text = resultadoc.ToString();
+            lblCobradoCheque.Text = string.Format(new CultureInfo("es-MX"), "{0:C2}", resultadocs);
+            lblRetiradoCheque.Text = string.Format(new CultureInfo("es-MX"), "{0:C2}", resultadoc);
             
             resultadot = positivot - negativot;
             resultadots = positivots - negativots;
-            lblCobradoTarjeta.Text = resultadots.ToString();
-            lblRetiradoTarjeta.Text = resultadot.ToString();
+            lblCobradoTarjeta.Text = string.Format(new CultureInfo("es-MX"), "{0:C2}", resultadots);
+            lblRetiradoTarjeta.Text = string.Format(new CultureInfo("es-MX"), "{0:C2}", resultadot);
 
             resultadotr = positivotr - negativotr;
             resultadotsr = positivotsr - negativotsr;
-            label9.Text = resultadotsr.ToString();
-            label10.Text = resultadotr.ToString();
+            lblCobradoTransferencia.Text = string.Format(new CultureInfo("es-MX"), "{0:C2}", resultadotsr);
+            lblRetiradoTransferencia.Text = string.Format(new CultureInfo("es-MX"), "{0:C2}", resultadotr);
 
 
             dtcombo1 = await q.GETPayMethod("/api/PayMethod");
