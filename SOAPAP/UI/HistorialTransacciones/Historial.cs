@@ -26,6 +26,7 @@ namespace SOAPAP.UI.HistorialTransacciones
         string json = string.Empty;
 
         List<SOAPAP.Model.Users> lstCajeros = new List<Model.Users>();
+        List<DataHistorial> lstData;
 
         public Historial()
         {
@@ -89,18 +90,18 @@ namespace SOAPAP.UI.HistorialTransacciones
         #region Procesos
         public async Task cargar()
         {
-            DateTime FechaIni = dtpFecha.Value;
-            
+            DateTime Fecha = dtpFecha.Value;
+
             ////Se obtiene el cajero para filtrar la consulta            
             var temp = chcbxOperador.Properties.Items.ToList();
-            string idOperadorSelecciionado = "";
+            string idOperadorSeleccionado = "";
             
             if (Variables.LoginModel.RolName[0] == "Supervisor")
             {
                 //Cajero(s) seleccionado(s)
                 if (temp.Where(x => x.CheckState == CheckState.Checked).Count() == 0)
                 {
-                    idOperadorSelecciionado = "";
+                    idOperadorSeleccionado = "";
                     mensaje = new MessageBoxForm("Advertencia: ", "Debe seleccionar un cajero.", TypeIcon.Icon.Cancel);
                     result = mensaje.ShowDialog();
                 }
@@ -109,9 +110,9 @@ namespace SOAPAP.UI.HistorialTransacciones
                     foreach (var item in temp)
                     {
                         if (item.CheckState == CheckState.Checked)
-                            idOperadorSelecciionado = idOperadorSelecciionado + item.Value + ",";
+                            idOperadorSeleccionado = idOperadorSeleccionado + item.Value + ",";
                     }
-                    idOperadorSelecciionado = idOperadorSelecciionado.Substring(0, idOperadorSelecciionado.Length - 1);
+                    idOperadorSeleccionado = idOperadorSeleccionado.Substring(0, idOperadorSeleccionado.Length - 1);
                 }
             }
             else
@@ -119,21 +120,27 @@ namespace SOAPAP.UI.HistorialTransacciones
                 //Operador actual
                 if (temp.Where(x => x.CheckState == CheckState.Checked).Count() == 0)
                 {
-                    idOperadorSelecciionado = "";
+                    idOperadorSeleccionado = "";
                     mensaje = new MessageBoxForm("Advertencia: ", "Debe seleccionar un cajero.", TypeIcon.Icon.Cancel);
                     result = mensaje.ShowDialog();
                 }
                 else
                 {
-                    idOperadorSelecciionado = temp.First().Value.ToString();
+                    idOperadorSeleccionado = temp.First().Value.ToString();
                 }                
             }
-                        
+
+            DataReportes dRep = new DataReportes()
+            {
+                FechaIni = Fecha.ToString("yyyy-MM-dd"),                
+                CajeroId = idOperadorSeleccionado
+            };
+
             HttpContent content;
-            json = JsonConvert.SerializeObject(idOperadorSelecciionado);
+            json = JsonConvert.SerializeObject(dRep);
             content = new StringContent(json, Encoding.UTF8, "application/json");
 
-            var _resulTransaction = await Requests.SendURIAsync("/api/Transaction/ResumeTransactions/" + FechaIni.ToString("yyyy-MM-dd"), HttpMethod.Post, Variables.LoginModel.Token, content);
+            var _resulTransaction = await Requests.SendURIAsync("/api/Reports/Historial", HttpMethod.Post, Variables.LoginModel.Token, content);
 
             if (_resulTransaction.Contains("error"))
             {
@@ -142,7 +149,7 @@ namespace SOAPAP.UI.HistorialTransacciones
             }
             else
             {
-                var lstData = JsonConvert.DeserializeObject<List<Model.Transaction>>(_resulTransaction);
+                lstData = JsonConvert.DeserializeObject<List<DataHistorial>>(_resulTransaction);
 
                 if (lstData == null)
                 {
@@ -150,37 +157,10 @@ namespace SOAPAP.UI.HistorialTransacciones
                     result = mensaje.ShowDialog();
                 }
                 else
-                {                    
-                    List<DataHistorial> lstDH = new List<DataHistorial>();
-                    foreach (var elem in lstData)
-                    {
-                        int Signo = elem.Sign ? 1 : -1;
-
-                        foreach(var subElem in elem.TransactionDetails)
-                        {
-                            DataHistorial ibcTemp = new DataHistorial()
-                            {
-                                IdTransaction = elem.Id,
-                                FechaTransaction = elem.DateTransaction.ToString("yyyy/MM/dd"),
-                                TypeTransactionId = elem.TypeTransactionId,
-                                TypeTransactionName = elem.TypeTransaction.Name,
-                                Sign = elem.Sign ? 1 : 0,
-                                Amount = elem.Amount,
-                                Tax = elem.Tax,
-                                rounding = elem.Rounding,
-                                Total = elem.Total * Signo,
-                                MetodoPago = elem.PayMethod.Name,
-                                Cajero = lstCajeros.Where(x => x.id == elem.TerminalUser.UserId).Select(y => string.Format("{0} {1} {2}", y.name, y.lastName, y.secondLastName)).FirstOrDefault(),
-                                Detalle = subElem.Description,
-                                Subtotal = subElem.Amount * Signo
-                            };
-                            lstDH.Add(ibcTemp);
-                        }
-                    }
-
+                {
                     try
                     {
-                        pgcHistorial.DataSource = lstDH;
+                        pgcHistorial.DataSource = lstData;                        
                     }
                     catch (Exception e)
                     {
@@ -191,5 +171,26 @@ namespace SOAPAP.UI.HistorialTransacciones
         }
 
         #endregion
+
+        private void pgcHistorial_CellSelectionChanged(object sender, EventArgs e)
+        {
+            var pivotGridControl1 = ((DevExpress.XtraPivotGrid.PivotGridControl)sender);
+            var Selected = ((DevExpress.XtraPivotGrid.PivotGridControl)sender).Cells.Selection;
+
+            try
+            {
+                //int Indice = (lstData.Count - 1) - Selected.Y;
+                var Res4 = lstData[Selected.Y];
+
+                //var Res = ((DevExpress.XtraPivotGrid.PivotGridControl)sender).GetFieldAt(new Point(Selected.X, Selected.Y));
+                //var Res3 = pivotGridControl1.Fields[Selected.Y];
+                //var Res2 = ((DevExpress.XtraPivotGrid.PivotGridControl)sender).GetFieldValue(pivotGridControl1.Fields["Row"], Selected.Y);
+                                
+            }
+            catch (Exception ex)
+            {
+            }
+
+        }
     }
 }

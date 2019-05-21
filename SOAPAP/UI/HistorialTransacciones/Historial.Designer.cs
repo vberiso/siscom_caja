@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.pnlHeader = new System.Windows.Forms.Panel();
             this.btnExportar = new System.Windows.Forms.Button();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
@@ -40,21 +41,23 @@
             this.lblTitulo = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.pgcHistorial = new DevExpress.XtraPivotGrid.PivotGridControl();
-            this.dataHistorialBindingSource = new System.Windows.Forms.BindingSource();
             this.pgfMetodo = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfCajero = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfType = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfFecha = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfTotal = new DevExpress.XtraPivotGrid.PivotGridField();
-            this.pgfDetalle = new DevExpress.XtraPivotGrid.PivotGridField();
-            this.pgfSubtotal = new DevExpress.XtraPivotGrid.PivotGridField();
+            this.pgfOficina = new DevExpress.XtraPivotGrid.PivotGridField();
+            this.pgfHora = new DevExpress.XtraPivotGrid.PivotGridField();
+            this.dataHistorialBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.pnlHeader.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chcbxOperador.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pcbIncomeByConcept)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
+            this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pgcHistorial)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataHistorialBindingSource)).BeginInit();
             this.SuspendLayout();
@@ -205,19 +208,28 @@
             // 
             // tableLayoutPanel1
             // 
-            this.tableLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.tableLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tableLayoutPanel1.BackColor = System.Drawing.SystemColors.Window;
-            this.tableLayoutPanel1.ColumnCount = 2;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Controls.Add(this.pgcHistorial, 1, 0);
+            this.tableLayoutPanel1.ColumnCount = 1;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel1.Controls.Add(this.panel1, 0, 0);
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 107);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 1;
+            this.tableLayoutPanel1.RowCount = 2;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(800, 314);
             this.tableLayoutPanel1.TabIndex = 51;
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.pgcHistorial);
+            this.panel1.Location = new System.Drawing.Point(3, 3);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(794, 151);
+            this.panel1.TabIndex = 1;
             // 
             // pgcHistorial
             // 
@@ -231,71 +243,72 @@
             this.pgfType,
             this.pgfFecha,
             this.pgfTotal,
-            this.pgfDetalle,
-            this.pgfSubtotal});
-            this.pgcHistorial.Location = new System.Drawing.Point(403, 3);
+            this.pgfOficina,
+            this.pgfHora});
+            this.pgcHistorial.Location = new System.Drawing.Point(3, 3);
             this.pgcHistorial.Name = "pgcHistorial";
             this.pgcHistorial.OptionsData.DataProcessingEngine = DevExpress.XtraPivotGrid.PivotDataProcessingEngine.LegacyOptimized;
-            this.pgcHistorial.Size = new System.Drawing.Size(394, 308);
+            this.pgcHistorial.Size = new System.Drawing.Size(436, 145);
             this.pgcHistorial.TabIndex = 0;
-            // 
-            // dataHistorialBindingSource
-            // 
-            this.dataHistorialBindingSource.DataSource = typeof(SOAPAP.UI.HistorialTransacciones.DataHistorial);
+            this.pgcHistorial.CellSelectionChanged += new System.EventHandler(this.pgcHistorial_CellSelectionChanged);
             // 
             // pgfMetodo
             // 
             this.pgfMetodo.Area = DevExpress.XtraPivotGrid.PivotArea.RowArea;
-            this.pgfMetodo.AreaIndex = 3;
+            this.pgfMetodo.AreaIndex = 2;
             this.pgfMetodo.Caption = "Metodo";
-            this.pgfMetodo.FieldName = "MetodoPago";
+            this.pgfMetodo.FieldName = "TipoPago";
             this.pgfMetodo.Name = "pgfMetodo";
             // 
             // pgfCajero
             // 
             this.pgfCajero.AreaIndex = 0;
             this.pgfCajero.Caption = "Cajero";
-            this.pgfCajero.FieldName = "Cajero";
+            this.pgfCajero.FieldName = "cajero";
             this.pgfCajero.Name = "pgfCajero";
             // 
             // pgfType
             // 
             this.pgfType.Area = DevExpress.XtraPivotGrid.PivotArea.RowArea;
-            this.pgfType.AreaIndex = 0;
+            this.pgfType.AreaIndex = 1;
             this.pgfType.Caption = "Tipo Op";
             this.pgfType.FieldName = "TypeTransactionName";
             this.pgfType.Name = "pgfType";
+            this.pgfType.Width = 132;
             // 
             // pgfFecha
             // 
             this.pgfFecha.AreaIndex = 1;
             this.pgfFecha.Caption = "Fecha";
-            this.pgfFecha.FieldName = "FechaTransaction";
+            this.pgfFecha.FieldName = "Fecha";
             this.pgfFecha.Name = "pgfFecha";
             // 
             // pgfTotal
             // 
-            this.pgfTotal.Area = DevExpress.XtraPivotGrid.PivotArea.RowArea;
-            this.pgfTotal.AreaIndex = 1;
+            this.pgfTotal.Area = DevExpress.XtraPivotGrid.PivotArea.DataArea;
+            this.pgfTotal.AreaIndex = 0;
             this.pgfTotal.Caption = "Total";
-            this.pgfTotal.FieldName = "Total";
+            this.pgfTotal.FieldName = "TotalConSigno";
             this.pgfTotal.Name = "pgfTotal";
             // 
-            // pgfDetalle
+            // pgfOficina
             // 
-            this.pgfDetalle.Area = DevExpress.XtraPivotGrid.PivotArea.RowArea;
-            this.pgfDetalle.AreaIndex = 2;
-            this.pgfDetalle.Caption = "Detalle";
-            this.pgfDetalle.FieldName = "Detalle";
-            this.pgfDetalle.Name = "pgfDetalle";
+            this.pgfOficina.AreaIndex = 2;
+            this.pgfOficina.Caption = "Oficina";
+            this.pgfOficina.FieldName = "Oficina";
+            this.pgfOficina.Name = "pgfOficina";
             // 
-            // pgfSubtotal
+            // pgfHora
             // 
-            this.pgfSubtotal.Area = DevExpress.XtraPivotGrid.PivotArea.DataArea;
-            this.pgfSubtotal.AreaIndex = 0;
-            this.pgfSubtotal.Caption = "Subtotal";
-            this.pgfSubtotal.FieldName = "Subtotal";
-            this.pgfSubtotal.Name = "pgfSubtotal";
+            this.pgfHora.Area = DevExpress.XtraPivotGrid.PivotArea.RowArea;
+            this.pgfHora.AreaIndex = 0;
+            this.pgfHora.Caption = "Hora";
+            this.pgfHora.FieldName = "Hora";
+            this.pgfHora.Name = "pgfHora";
+            // 
+            // dataHistorialBindingSource
+            // 
+            this.dataHistorialBindingSource.DataSource = typeof(SOAPAP.UI.HistorialTransacciones.DataHistorial);
             // 
             // Historial
             // 
@@ -315,6 +328,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pcbIncomeByConcept)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.tableLayoutPanel1.ResumeLayout(false);
+            this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pgcHistorial)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataHistorialBindingSource)).EndInit();
             this.ResumeLayout(false);
@@ -337,12 +351,13 @@
         private DevExpress.XtraPivotGrid.PivotGridControl pgcHistorial;
         private DevExpress.XtraEditors.CheckedComboBoxEdit chcbxOperador;
         private DevExpress.XtraPivotGrid.PivotGridField pgfMetodo;
-        private System.Windows.Forms.BindingSource dataHistorialBindingSource;
         private DevExpress.XtraPivotGrid.PivotGridField pgfCajero;
         private DevExpress.XtraPivotGrid.PivotGridField pgfType;
         private DevExpress.XtraPivotGrid.PivotGridField pgfFecha;
         private DevExpress.XtraPivotGrid.PivotGridField pgfTotal;
-        private DevExpress.XtraPivotGrid.PivotGridField pgfDetalle;
-        private DevExpress.XtraPivotGrid.PivotGridField pgfSubtotal;
+        private DevExpress.XtraPivotGrid.PivotGridField pgfOficina;
+        private DevExpress.XtraPivotGrid.PivotGridField pgfHora;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.BindingSource dataHistorialBindingSource;
     }
 }

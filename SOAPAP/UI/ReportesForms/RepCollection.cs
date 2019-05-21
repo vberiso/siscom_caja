@@ -127,7 +127,7 @@ namespace SOAPAP.UI.ReportesForms
 
             if (fbd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                string NombreFile = "IngresosDeCaja_" + Variables.LoginModel.FullName.Replace(" ", "") + "_" + DateTime.Now.ToString("yyyy-MM-dd");
+                string NombreFile = "Recaudacion_" + Variables.LoginModel.FullName.Replace(" ", "") + "_" + DateTime.Now.ToString("yyyy-MM-dd");
                 pgcCollection.ExportToXlsx(fbd.SelectedPath + "\\" + NombreFile + ".xlsx", pivotExportOptions);                
                 Process.Start(fbd.SelectedPath + "\\" + NombreFile + ".xlsx");
                 MessageBox.Show("Archivo " + NombreFile + ".xlsx" + " guardado.");

@@ -303,8 +303,8 @@ namespace SOAPAP.UI.ReportesForms
                         foreach (var SubElem in elem.lst.Where(x => x.description.Contains("RECARGO") && x.tipo_movimiento == "TIP01").ToList())
                             elem.lst.Remove(SubElem);
 
-                        decimal NOTIF = elem.lst.Where(x => x.description.Contains("Notificacion") && x.tipo_movimiento == "TIP03").Sum(y => y.importe);
-                        foreach (var SubElem in elem.lst.Where(x => x.description.Contains("Notificacion") && x.tipo_movimiento == "TIP03").ToList())
+                        decimal NOTIF = elem.lst.Where(x => x.description.Contains("Notifica") && x.tipo_movimiento == "TIP03").Sum(y => y.importe);
+                        foreach (var SubElem in elem.lst.Where(x => x.description.Contains("Notifica") && x.tipo_movimiento == "TIP03").ToList())
                             elem.lst.Remove(SubElem);
 
                         decimal ANTI = elem.lst.Where(x => x.tipo_movimiento == "TIP05").Sum(y => y.importe);
