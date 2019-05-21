@@ -113,6 +113,12 @@ namespace SOAPAP.UI.ReportesForms
             chcbxOficina.Properties.ValueMember = "keyString";
             chcbxOficina.Properties.DisplayMember = "value";
             chcbxOficina.Properties.DataSource = lstOfi;
+
+            if (Variables.LoginModel.RolName[0] != "Supervisor")
+            {
+                chcbxOperador.CheckAll();
+                chcbxOficina.CheckAll();
+            }
         }
 
         private void cmbPeriodoBusqueda_SelectionChangeCommitted(object sender, EventArgs e)

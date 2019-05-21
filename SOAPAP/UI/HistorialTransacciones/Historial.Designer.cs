@@ -51,6 +51,8 @@
             this.pgfOficina = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfHora = new DevExpress.XtraPivotGrid.PivotGridField();
             this.dataHistorialBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.grdcDetalle = new DevExpress.XtraGrid.GridControl();
+            this.gridView1 = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.pnlHeader.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chcbxOperador.Properties)).BeginInit();
@@ -60,6 +62,8 @@
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pgcHistorial)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataHistorialBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.grdcDetalle)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // pnlHeader
@@ -214,21 +218,25 @@
             this.tableLayoutPanel1.BackColor = System.Drawing.SystemColors.Window;
             this.tableLayoutPanel1.ColumnCount = 1;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel1.Controls.Add(this.grdcDetalle, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.panel1, 0, 0);
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 107);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 2;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(800, 314);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(800, 457);
             this.tableLayoutPanel1.TabIndex = 51;
             // 
             // panel1
             // 
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.Controls.Add(this.pgcHistorial);
             this.panel1.Location = new System.Drawing.Point(3, 3);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(794, 151);
+            this.panel1.Size = new System.Drawing.Size(794, 222);
             this.panel1.TabIndex = 1;
             // 
             // pgcHistorial
@@ -248,7 +256,7 @@
             this.pgcHistorial.Location = new System.Drawing.Point(3, 3);
             this.pgcHistorial.Name = "pgcHistorial";
             this.pgcHistorial.OptionsData.DataProcessingEngine = DevExpress.XtraPivotGrid.PivotDataProcessingEngine.LegacyOptimized;
-            this.pgcHistorial.Size = new System.Drawing.Size(436, 145);
+            this.pgcHistorial.Size = new System.Drawing.Size(436, 216);
             this.pgcHistorial.TabIndex = 0;
             this.pgcHistorial.CellSelectionChanged += new System.EventHandler(this.pgcHistorial_CellSelectionChanged);
             // 
@@ -310,11 +318,26 @@
             // 
             this.dataHistorialBindingSource.DataSource = typeof(SOAPAP.UI.HistorialTransacciones.DataHistorial);
             // 
+            // grdcDetalle
+            // 
+            this.grdcDetalle.Location = new System.Drawing.Point(3, 231);
+            this.grdcDetalle.MainView = this.gridView1;
+            this.grdcDetalle.Name = "grdcDetalle";
+            this.grdcDetalle.Size = new System.Drawing.Size(794, 223);
+            this.grdcDetalle.TabIndex = 1;
+            this.grdcDetalle.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
+            this.gridView1});
+            // 
+            // gridView1
+            // 
+            this.gridView1.GridControl = this.grdcDetalle;
+            this.gridView1.Name = "gridView1";
+            // 
             // Historial
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(800, 593);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.pnlHeader);
             this.Name = "Historial";
@@ -331,6 +354,8 @@
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pgcHistorial)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataHistorialBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.grdcDetalle)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridView1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -359,5 +384,7 @@
         private DevExpress.XtraPivotGrid.PivotGridField pgfHora;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.BindingSource dataHistorialBindingSource;
+        private DevExpress.XtraGrid.GridControl grdcDetalle;
+        private DevExpress.XtraGrid.Views.Grid.GridView gridView1;
     }
 }
