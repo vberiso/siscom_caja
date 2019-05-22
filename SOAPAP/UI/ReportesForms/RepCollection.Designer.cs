@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.pnlHeader = new System.Windows.Forms.Panel();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.label3 = new System.Windows.Forms.Label();
@@ -51,7 +52,6 @@
             this.lblTitulo = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.pgcCollection = new DevExpress.XtraPivotGrid.PivotGridControl();
-            this.dataCollectionBindingSource = new System.Windows.Forms.BindingSource();
             this.pgfDescripcion = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfSubtotal = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfDescuento = new DevExpress.XtraPivotGrid.PivotGridField();
@@ -61,6 +61,11 @@
             this.pgfCajero = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfOficina = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfFecha = new DevExpress.XtraPivotGrid.PivotGridField();
+            this.dataCollectionBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.pgfFormaPago = new DevExpress.XtraPivotGrid.PivotGridField();
+            this.pgfBanco = new DevExpress.XtraPivotGrid.PivotGridField();
+            this.pgfCuenta = new DevExpress.XtraPivotGrid.PivotGridField();
+            this.pgfFolio = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pnlHeader.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -365,21 +370,21 @@
             this.pgfIva,
             this.pgfCajero,
             this.pgfOficina,
-            this.pgfFecha});
+            this.pgfFecha,
+            this.pgfFormaPago,
+            this.pgfBanco,
+            this.pgfCuenta,
+            this.pgfFolio});
             this.pgcCollection.Location = new System.Drawing.Point(0, 121);
             this.pgcCollection.Name = "pgcCollection";
             this.pgcCollection.OptionsData.DataProcessingEngine = DevExpress.XtraPivotGrid.PivotDataProcessingEngine.LegacyOptimized;
             this.pgcCollection.Size = new System.Drawing.Size(891, 295);
             this.pgcCollection.TabIndex = 50;
             // 
-            // dataCollectionBindingSource
-            // 
-            this.dataCollectionBindingSource.DataSource = typeof(SOAPAP.Reportes.DataCollection);
-            // 
             // pgfDescripcion
             // 
             this.pgfDescripcion.Area = DevExpress.XtraPivotGrid.PivotArea.RowArea;
-            this.pgfDescripcion.AreaIndex = 0;
+            this.pgfDescripcion.AreaIndex = 2;
             this.pgfDescripcion.Caption = "CONCEPTO";
             this.pgfDescripcion.FieldName = "DESCRIPCION";
             this.pgfDescripcion.Name = "pgfDescripcion";
@@ -446,6 +451,40 @@
             this.pgfFecha.FieldName = "FECHA_PAGO";
             this.pgfFecha.Name = "pgfFecha";
             // 
+            // dataCollectionBindingSource
+            // 
+            this.dataCollectionBindingSource.DataSource = typeof(SOAPAP.Reportes.DataCollection);
+            // 
+            // pgfFormaPago
+            // 
+            this.pgfFormaPago.AreaIndex = 3;
+            this.pgfFormaPago.Caption = "FORMA PAGO";
+            this.pgfFormaPago.FieldName = "MetodoPago";
+            this.pgfFormaPago.Name = "pgfFormaPago";
+            // 
+            // pgfBanco
+            // 
+            this.pgfBanco.AreaIndex = 4;
+            this.pgfBanco.Caption = "BANCO";
+            this.pgfBanco.FieldName = "OrigenPagoExterno";
+            this.pgfBanco.Name = "pgfBanco";
+            // 
+            // pgfCuenta
+            // 
+            this.pgfCuenta.Area = DevExpress.XtraPivotGrid.PivotArea.RowArea;
+            this.pgfCuenta.AreaIndex = 0;
+            this.pgfCuenta.Caption = "CUENTA";
+            this.pgfCuenta.FieldName = "CUENTA";
+            this.pgfCuenta.Name = "pgfCuenta";
+            // 
+            // pgfFolio
+            // 
+            this.pgfFolio.Area = DevExpress.XtraPivotGrid.PivotArea.RowArea;
+            this.pgfFolio.AreaIndex = 1;
+            this.pgfFolio.Caption = "FOLIO";
+            this.pgfFolio.FieldName = "folio_impresion";
+            this.pgfFolio.Name = "pgfFolio";
+            // 
             // RepCollection
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -511,5 +550,9 @@
         private DevExpress.XtraPivotGrid.PivotGridField pgfCajero;
         private DevExpress.XtraPivotGrid.PivotGridField pgfOficina;
         private DevExpress.XtraPivotGrid.PivotGridField pgfFecha;
+        private DevExpress.XtraPivotGrid.PivotGridField pgfFormaPago;
+        private DevExpress.XtraPivotGrid.PivotGridField pgfBanco;
+        private DevExpress.XtraPivotGrid.PivotGridField pgfCuenta;
+        private DevExpress.XtraPivotGrid.PivotGridField pgfFolio;
     }
 }

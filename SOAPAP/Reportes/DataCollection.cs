@@ -12,7 +12,12 @@ namespace SOAPAP.Reportes
         public string OFICINA { get; set; }
         public string CAJERO { get; set; }
         public string FECHA_PAGO { get; set; }
+        public string CUENTA { get; set; }
+        public string folio_impresion { get; set; }
         public string DESCRIPCION { get; set; }
+        public string MetodoPago { get; set; }
+        public string OrigenPago { get; set; }
+        public string OrigenPagoExterno { get; set; }
         public decimal MONTO { get; set; }        
         public decimal DESCUENTO { get; set; }
         public decimal SUBTOTAL { get; set; }
