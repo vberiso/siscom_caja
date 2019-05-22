@@ -289,6 +289,7 @@ namespace SOAPAP.UI.ReportesForms
                         string OFICINA = elem.lst.First().branch_office;
                         string FECHA = elem.lst.First().fecha_pago;
                         string CAJERO = elem.lst.First().cajero;
+                        string BANCO = elem.lst.First().banco;
 
                         decimal IVA = elem.lst.Sum(y => y.iva);
                         decimal DESCUENTO = elem.lst.Sum(y => y.Descuento);
@@ -320,7 +321,9 @@ namespace SOAPAP.UI.ReportesForms
                         //decimal OTROS = elem.lst.Where(x => x.tipo_movimiento == "S/T" || x.tipo_movimiento == "TIP02").Sum(y => y.importe);
                         decimal OTROS = elem.lst.Sum(y => y.importe);
 
-                        decimal TOTAL = AGUA + DRENAJE + SAN + REC + NOTIF + IVA + ANTI + OTROS; // + DESCUENTO;
+                        decimal Monto = AGUA + DRENAJE + SAN + REC + NOTIF + ANTI + OTROS + DESCUENTO;
+                        decimal Subtotal = AGUA + DRENAJE + SAN + REC + NOTIF + ANTI + OTROS;
+                        decimal TOTAL = AGUA + DRENAJE + SAN + REC + NOTIF + ANTI + OTROS + IVA;
                         string ESTA = "ACT";
                         
                         IncomeByConceptVM ibcTemp = new IncomeByConceptVM()
@@ -332,6 +335,7 @@ namespace SOAPAP.UI.ReportesForms
                             OFICINA = OFICINA,
                             CAJERO = CAJERO,
                             FECHA = FECHA,
+                            MONTO = Monto,
                             AGUA = AGUA,
                             DRENAJE = DRENAJE,
                             SAN = SAN,
@@ -341,9 +345,11 @@ namespace SOAPAP.UI.ReportesForms
                             OTROS = OTROS,
                             DCTO = DESCUENTO,
                             ANTI = ANTI,
+                            SUBTOTAL = Subtotal,
                             TOTAL = TOTAL,
                             ESTA = ESTA,
-                            MP = MP
+                            MP = MP,
+                            BANCO = BANCO
                         };
                         lstIBC.Add(ibcTemp);
                     }
