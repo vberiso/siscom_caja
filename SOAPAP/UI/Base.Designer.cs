@@ -419,7 +419,7 @@
             this.btnProductos.Name = "btnProductos";
             this.btnProductos.Size = new System.Drawing.Size(210, 38);
             this.btnProductos.TabIndex = 43;
-            this.btnProductos.Text = "  Venta de Productos";
+            this.btnProductos.Text = "   Ordenes";
             this.btnProductos.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnProductos.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnProductos.UseVisualStyleBackColor = false;

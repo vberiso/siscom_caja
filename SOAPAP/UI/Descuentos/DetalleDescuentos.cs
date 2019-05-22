@@ -47,7 +47,7 @@ namespace SOAPAP.UI.Descuentos
             string account = string.Empty;
             loading = new Loading();
             loading.Show(this);
-            var results = await Requests.SendURIAsync(String.Format("/api/DiscountAuthorizations/List/{0}", Variables.LoginModel.User), HttpMethod.Get, Variables.LoginModel.Token);
+            var results = await Requests.SendURIAsync(String.Format("/api/DiscountAuthorizations/List/{0}/{1}", Variables.LoginModel.User,DateTime.Now.ToString("yyyy-MM-dd")), HttpMethod.Get, Variables.LoginModel.Token);
             if (results.Contains("error"))
             {
                 try
@@ -137,6 +137,7 @@ namespace SOAPAP.UI.Descuentos
                             EnsureVisibleRow(dgvDiscounts, item.Index);
                             dgvDiscounts.Refresh();
                             account = item.Cells[2].FormattedValue.ToString();
+                            dgvDiscounts.Rows[item.Index].Selected = true;
                         }
                     }
                    
@@ -149,6 +150,11 @@ namespace SOAPAP.UI.Descuentos
                             break;
                         case "Autorizado":
                             item.Cells[3].Style.BackColor = Color.FromArgb(66, 133, 244);
+                            item.Cells[3].Style.ForeColor = Color.White;
+                            item.Cells[3].Style.Font = new Font("Century Gothic", 8, FontStyle.Bold);
+                            break;
+                        case "Cancelado":
+                            item.Cells[3].Style.BackColor = Color.FromArgb(204, 0, 0);
                             item.Cells[3].Style.ForeColor = Color.White;
                             item.Cells[3].Style.Font = new Font("Century Gothic", 8, FontStyle.Bold);
                             break;
@@ -200,15 +206,136 @@ namespace SOAPAP.UI.Descuentos
         private void DgvDiscounts_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
         {
             var account = dgvDiscounts.Rows[e.RowIndex].Cells[2].FormattedValue.ToString();
-
-            if (account.Contains("-"))
-                Variables.cuenta = dgvDiscounts.Rows[e.RowIndex].Cells[14].FormattedValue.ToString();
+            if(dgvDiscounts.Rows[e.RowIndex].Cells[3].FormattedValue.ToString() != "Autorizado")
+            {
+                mensaje = new MessageBoxForm(Variables.titleprincipal, "El descuento aún no ha sido autorizado", TypeIcon.Icon.Cancel);
+                result = mensaje.ShowDialog();
+            }
             else
-                Variables.cuenta = account;
+            {
+                if (account.Contains("-"))
+                    Variables.cuenta = dgvDiscounts.Rows[e.RowIndex].Cells[14].FormattedValue.ToString();
+                else
+                    Variables.cuenta = account;
 
-            SOAPAP.Base @base = this.Owner as SOAPAP.Base;
-            @base.ShowForm("SOAPAP.UI", "Cobro");
-            this.Close();
+                SOAPAP.Base @base = this.Owner as SOAPAP.Base;
+                @base.ShowForm("SOAPAP.UI", "Cobro");
+                this.Close();
+            }
+        }
+
+        private async void DateTimePicker1_ValueChanged(object sender, EventArgs e)
+        {
+            loading = new Loading();
+            loading.Show(this);
+            if(dgvDiscounts.Rows.Count > 0)
+            {
+                dgvDiscounts.DataSource = null;
+                dgvDiscounts.Refresh();
+            }
+            var results = await Requests.SendURIAsync(String.Format("/api/DiscountAuthorizations/List/{0}/{1}", Variables.LoginModel.User, dateTimePicker1.Value.ToString("yyyy-MM-dd")), HttpMethod.Get, Variables.LoginModel.Token);
+            if (results.Contains("error"))
+            {
+                try
+                {
+                    mensaje = new MessageBoxForm("Error", JsonConvert.DeserializeObject<Error>(results).error, TypeIcon.Icon.Cancel);
+                    result = mensaje.ShowDialog();
+                    loading.Close();
+                }
+                catch (Exception)
+                {
+                    mensaje = new MessageBoxForm("Error", "Servicio no disponible favor de comunicarse con el administrador", TypeIcon.Icon.Cancel);
+                    result = mensaje.ShowDialog();
+                    loading.Close();
+                }
+            }
+            else
+            {
+                loading.Close();
+                authorization = JsonConvert.DeserializeObject<List<DiscountAuthorization>>(results);
+                var DiscountAuth = authorization.Select(x => new DiscountAuthorizationVM
+                {
+                    Id = x.Id,
+                    Cuenta = x.Account,
+                    Monto_Original = x.Amount,
+                    Monto_Ajustado = x.Amount - x.AmountDiscount,
+                    Descuento = x.AmountDiscount,
+                    Fecha_Solicitud = String.Format("{0:G}", x.RequestDate),
+                    Autorizacion = x.AuthorizationDate.ToShortDateString(),
+                    Sucursal = x.BranchOffice,
+                    Porcentaje = x.DiscountPercentage,
+                    Archivo = x.FileName,
+                    Folio = x.Folio,
+                    Autorizo = x.NameUserResponse,
+                    Observaciones = x.ObservationResponse,
+                    Estatus = x.Status == "EDE01" ? "Solicitado" :
+                                x.Status == "EDE02" ? "Autorizado" :
+                                x.Status == "EDE03" ? "Cancelado" :
+                                "Rechazado",
+                    Ajuste_Cuenta = x.AccountAdjusted
+                }).ToList();
+
+                Table = ConvertToDataTable<DiscountAuthorizationVM>(DiscountAuth);
+                BindingSource source = new BindingSource();
+                source.DataSource = Table;
+
+                dgvDiscounts.AutoGenerateColumns = true;
+                dgvDiscounts.Columns.Clear();
+                dgvDiscounts.DataSource = source;
+
+                for (int i = 0; i < dgvDiscounts.Columns.Count; i++)
+                {
+                    dgvDiscounts.Columns[i].DataPropertyName = Table.Columns[i].ColumnName;
+                    dgvDiscounts.Columns[i].HeaderText = Table.Columns[i].Caption.Replace("_", " ");
+                }
+
+                dgvDiscounts.Refresh();
+
+                dgvDiscounts.Columns[0].Visible = false;
+                dgvDiscounts.Columns[1].Visible = false;
+                dgvDiscounts.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.NotSet;
+                dgvDiscounts.Columns[2].Width = 75;
+                dgvDiscounts.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.NotSet;
+                dgvDiscounts.Columns[3].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                dgvDiscounts.Columns[3].Width = 75;
+                dgvDiscounts.Columns[4].AutoSizeMode = DataGridViewAutoSizeColumnMode.NotSet;
+                dgvDiscounts.Columns[4].Width = 300;
+                dgvDiscounts.Columns[5].Visible = false;
+                dgvDiscounts.Columns[6].Visible = false;
+                dgvDiscounts.Columns[7].AutoSizeMode = DataGridViewAutoSizeColumnMode.NotSet;
+                dgvDiscounts.Columns[7].Width = 120;
+                dgvDiscounts.Columns[7].DefaultCellStyle.Format = "c2";
+                dgvDiscounts.Columns[7].DefaultCellStyle.FormatProvider = new CultureInfo("es-MX");
+                dgvDiscounts.Columns[8].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                dgvDiscounts.Columns[9].Visible = false;
+                dgvDiscounts.Columns[10].Visible = false;
+                dgvDiscounts.Columns[11].Visible = false;
+                dgvDiscounts.Columns[12].Visible = false;
+                dgvDiscounts.Columns[13].Visible = false;
+                dgvDiscounts.Columns[14].Visible = false;
+
+                foreach (DataGridViewRow item in dgvDiscounts.Rows)
+                {
+                    switch (item.Cells[3].FormattedValue.ToString())
+                    {
+                        case "Solicitado":
+                            item.Cells[3].Style.BackColor = Color.FromArgb(43, 187, 173);
+                            item.Cells[3].Style.ForeColor = Color.White;
+                            item.Cells[3].Style.Font = new Font("Century Gothic", 8, FontStyle.Bold);
+                            break;
+                        case "Autorizado":
+                            item.Cells[3].Style.BackColor = Color.FromArgb(66, 133, 244);
+                            item.Cells[3].Style.ForeColor = Color.White;
+                            item.Cells[3].Style.Font = new Font("Century Gothic", 8, FontStyle.Bold);
+                            break;
+                        case "Cancelado":
+                            item.Cells[3].Style.BackColor = Color.FromArgb(204, 0, 0);
+                            item.Cells[3].Style.ForeColor = Color.White;
+                            item.Cells[3].Style.Font = new Font("Century Gothic", 8, FontStyle.Bold);
+                            break;
+                    }
+                }
+            }
         }
     }
     public partial class DiscountAuthorizationVM

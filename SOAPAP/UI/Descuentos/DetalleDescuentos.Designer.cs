@@ -30,21 +30,18 @@
         {
             this.panel1 = new System.Windows.Forms.Panel();
             this.pnlHeaderBuscar = new System.Windows.Forms.Panel();
-            this.mstMenu = new System.Windows.Forms.MenuStrip();
-            this.stmiOpciones = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiInformacion = new System.Windows.Forms.ToolStripMenuItem();
-            this.descuentosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.estatusToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pnlHeaderLeft = new System.Windows.Forms.Panel();
             this.pbxIcon = new System.Windows.Forms.PictureBox();
             this.lblTitulo = new System.Windows.Forms.Label();
             this.dgvDiscounts = new System.Windows.Forms.DataGridView();
+            this.pbBG = new System.Windows.Forms.PictureBox();
+            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.panel1.SuspendLayout();
             this.pnlHeaderBuscar.SuspendLayout();
-            this.mstMenu.SuspendLayout();
             this.pnlHeaderLeft.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbxIcon)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDiscounts)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbBG)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
@@ -55,66 +52,18 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1144, 51);
+            this.panel1.Size = new System.Drawing.Size(1144, 60);
             this.panel1.TabIndex = 0;
             // 
             // pnlHeaderBuscar
             // 
-            this.pnlHeaderBuscar.Controls.Add(this.mstMenu);
+            this.pnlHeaderBuscar.Controls.Add(this.dateTimePicker1);
+            this.pnlHeaderBuscar.Controls.Add(this.pbBG);
             this.pnlHeaderBuscar.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlHeaderBuscar.Location = new System.Drawing.Point(276, 0);
             this.pnlHeaderBuscar.Name = "pnlHeaderBuscar";
-            this.pnlHeaderBuscar.Size = new System.Drawing.Size(868, 51);
+            this.pnlHeaderBuscar.Size = new System.Drawing.Size(868, 60);
             this.pnlHeaderBuscar.TabIndex = 50;
-            // 
-            // mstMenu
-            // 
-            this.mstMenu.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.mstMenu.BackColor = System.Drawing.Color.Transparent;
-            this.mstMenu.Dock = System.Windows.Forms.DockStyle.None;
-            this.mstMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.stmiOpciones});
-            this.mstMenu.Location = new System.Drawing.Point(816, 9);
-            this.mstMenu.Name = "mstMenu";
-            this.mstMenu.Size = new System.Drawing.Size(43, 31);
-            this.mstMenu.TabIndex = 0;
-            this.mstMenu.Text = "menuStrip1";
-            // 
-            // stmiOpciones
-            // 
-            this.stmiOpciones.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.stmiOpciones.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tsmiInformacion});
-            this.stmiOpciones.Font = new System.Drawing.Font("Segoe UI", 12F);
-            this.stmiOpciones.ForeColor = System.Drawing.Color.DimGray;
-            this.stmiOpciones.Image = global::SOAPAP.Properties.Resources.config_blanco;
-            this.stmiOpciones.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.stmiOpciones.Name = "stmiOpciones";
-            this.stmiOpciones.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.stmiOpciones.Size = new System.Drawing.Size(35, 27);
-            // 
-            // tsmiInformacion
-            // 
-            this.tsmiInformacion.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.descuentosToolStripMenuItem,
-            this.estatusToolStripMenuItem});
-            this.tsmiInformacion.ForeColor = System.Drawing.Color.DimGray;
-            this.tsmiInformacion.Name = "tsmiInformacion";
-            this.tsmiInformacion.Size = new System.Drawing.Size(160, 26);
-            this.tsmiInformacion.Text = "Descuentos";
-            // 
-            // descuentosToolStripMenuItem
-            // 
-            this.descuentosToolStripMenuItem.Enabled = false;
-            this.descuentosToolStripMenuItem.Name = "descuentosToolStripMenuItem";
-            this.descuentosToolStripMenuItem.Size = new System.Drawing.Size(213, 26);
-            this.descuentosToolStripMenuItem.Text = "Solicitar Descuento";
-            // 
-            // estatusToolStripMenuItem
-            // 
-            this.estatusToolStripMenuItem.Name = "estatusToolStripMenuItem";
-            this.estatusToolStripMenuItem.Size = new System.Drawing.Size(213, 26);
-            this.estatusToolStripMenuItem.Text = "Ver Estatus";
             // 
             // pnlHeaderLeft
             // 
@@ -123,7 +72,7 @@
             this.pnlHeaderLeft.Dock = System.Windows.Forms.DockStyle.Left;
             this.pnlHeaderLeft.Location = new System.Drawing.Point(0, 0);
             this.pnlHeaderLeft.Name = "pnlHeaderLeft";
-            this.pnlHeaderLeft.Size = new System.Drawing.Size(276, 51);
+            this.pnlHeaderLeft.Size = new System.Drawing.Size(276, 60);
             this.pnlHeaderLeft.TabIndex = 48;
             // 
             // pbxIcon
@@ -159,15 +108,38 @@
             this.dgvDiscounts.BackgroundColor = System.Drawing.Color.White;
             this.dgvDiscounts.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvDiscounts.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgvDiscounts.Location = new System.Drawing.Point(0, 51);
+            this.dgvDiscounts.Location = new System.Drawing.Point(0, 60);
             this.dgvDiscounts.MultiSelect = false;
             this.dgvDiscounts.Name = "dgvDiscounts";
             this.dgvDiscounts.ReadOnly = true;
             this.dgvDiscounts.RowHeadersVisible = false;
             this.dgvDiscounts.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvDiscounts.Size = new System.Drawing.Size(1144, 482);
+            this.dgvDiscounts.Size = new System.Drawing.Size(1144, 473);
             this.dgvDiscounts.TabIndex = 1;
             this.dgvDiscounts.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DgvDiscounts_CellMouseDoubleClick);
+            // 
+            // pbBG
+            // 
+            this.pbBG.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.pbBG.BackColor = System.Drawing.Color.Transparent;
+            this.pbBG.Image = global::SOAPAP.Properties.Resources.bg;
+            this.pbBG.InitialImage = global::SOAPAP.Properties.Resources.bg;
+            this.pbBG.Location = new System.Drawing.Point(77, 9);
+            this.pbBG.Name = "pbBG";
+            this.pbBG.Size = new System.Drawing.Size(303, 39);
+            this.pbBG.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbBG.TabIndex = 43;
+            this.pbBG.TabStop = false;
+            // 
+            // dateTimePicker1
+            // 
+            this.dateTimePicker1.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.dateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dateTimePicker1.Location = new System.Drawing.Point(115, 18);
+            this.dateTimePicker1.Name = "dateTimePicker1";
+            this.dateTimePicker1.Size = new System.Drawing.Size(236, 20);
+            this.dateTimePicker1.TabIndex = 48;
+            this.dateTimePicker1.ValueChanged += new System.EventHandler(this.DateTimePicker1_ValueChanged);
             // 
             // DetalleDescuentos
             // 
@@ -182,13 +154,11 @@
             this.Load += new System.EventHandler(this.DetalleDescuentos_Load);
             this.panel1.ResumeLayout(false);
             this.pnlHeaderBuscar.ResumeLayout(false);
-            this.pnlHeaderBuscar.PerformLayout();
-            this.mstMenu.ResumeLayout(false);
-            this.mstMenu.PerformLayout();
             this.pnlHeaderLeft.ResumeLayout(false);
             this.pnlHeaderLeft.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbxIcon)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDiscounts)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbBG)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -197,14 +167,11 @@
 
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Panel pnlHeaderBuscar;
-        private System.Windows.Forms.MenuStrip mstMenu;
-        private System.Windows.Forms.ToolStripMenuItem stmiOpciones;
-        private System.Windows.Forms.ToolStripMenuItem tsmiInformacion;
-        private System.Windows.Forms.ToolStripMenuItem descuentosToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem estatusToolStripMenuItem;
         private System.Windows.Forms.Panel pnlHeaderLeft;
         private System.Windows.Forms.PictureBox pbxIcon;
         private System.Windows.Forms.Label lblTitulo;
         private System.Windows.Forms.DataGridView dgvDiscounts;
+        private System.Windows.Forms.PictureBox pbBG;
+        private System.Windows.Forms.DateTimePicker dateTimePicker1;
     }
 }

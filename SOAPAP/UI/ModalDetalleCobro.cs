@@ -528,7 +528,7 @@ namespace SOAPAP.UI
             transaction.TerminalUserId = Variables.Configuration.Terminal.TerminalUsers.FirstOrDefault().Id;
             transaction.Cancellation = "";
             transaction.OriginPaymentId = 1;
-            transaction.ExternalOriginPaymentId = 1;
+            transaction.ExternalOriginPaymentId = cmbBank.SelectedValue == null ? 1 : Convert.ToInt32(cmbBank.SelectedValue.ToString());
             
             transaction.AgreementId = Variables.Agreement.Id;
             transaction.Account = Variables.Agreement.Account;

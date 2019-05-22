@@ -55,7 +55,7 @@ namespace SOAPAP
         HttpContent content;
         private RequestsAPI Requests = null;
         private string UrlBase = Properties.Settings.Default.URL;
-
+        BindingSource source;
         public Movimientos()
         {
             Requests = new RequestsAPI(UrlBase);
@@ -262,6 +262,7 @@ namespace SOAPAP
         {
             centraX(pnlHeader, pbBG);
             centraX(pnlHeader, cmbTypeTransaction);
+            centraX(pnlHeader, pnlSearch);
 
 
             var _resulTransaction = await Requests.SendURIAsync(string.Format("/api/Transaction/{0}/{1}", DateTime.Now.ToString("yyyy-MM-dd"), Variables.Configuration.Terminal.TerminalUsers.FirstOrDefault().Id.ToString()), HttpMethod.Get, Variables.LoginModel.Token);
@@ -273,7 +274,7 @@ namespace SOAPAP
             }
             else
             {
-                var source = new BindingSource();
+                source = new BindingSource();
                 List<SOAPAP.Model.Transaction> transactions = JsonConvert.DeserializeObject<List<SOAPAP.Model.Transaction>>(_resulTransaction);
 
                 if (transactions == null)
@@ -337,6 +338,7 @@ namespace SOAPAP
                 }
                 dgvMovimientos.DataSource = source;
                 dgvMovimientos.Refresh();
+                await Total();
             }
         }
         #endregion
@@ -1377,6 +1379,40 @@ namespace SOAPAP
             }
         }
 
-        
+        private DataTable GetDataTableFromDGV(DataGridView dgv)
+        {
+            var dt = new DataTable();
+            foreach (DataGridViewColumn column in dgv.Columns)
+            {
+                if (column.Visible)
+                {
+                    // You could potentially name the column based on the DGV column name (beware of dupes)
+                    // or assign a type based on the data type of the data bound to this DGV column.
+                    dt.Columns.Add();
+                }
+            }
+
+            object[] cellValues = new object[dgv.Columns.Count];
+            foreach (DataGridViewRow row in dgv.Rows)
+            {
+                for (int i = 0; i < row.Cells.Count; i++)
+                {
+                    cellValues[i] = row.Cells[i].Value;
+                }
+                dt.Rows.Add(cellValues);
+            }
+
+            return dt;
+        }
+
+        private async void TxtSearchFolio_TextChanged(object sender, EventArgs e)
+        {
+            DataTable table = GetDataTableFromDGV(dgvMovimientos);
+            DataView dataView = new DataView(table);
+            dataView.RowFilter = string.Format("FOLIO LIKE '%{0}%'", txtSearchFolio.Text);
+            dgvMovimientos.DataSource = dataView;
+            dgvMovimientos.Refresh();
+            await Total();
+        }
     }
 }
