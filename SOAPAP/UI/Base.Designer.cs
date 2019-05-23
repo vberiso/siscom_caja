@@ -50,8 +50,15 @@
             this.facturacionAgrupadaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.facturacionAgrupadaCanceladasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.notificacionesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.reportesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ingresosDeCajaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ingresosPorConceptoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.padrónToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.recaudaciónToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.buscarContribuyenteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.lblEstadoCaja = new System.Windows.Forms.Label();
             this.pnlLeft = new System.Windows.Forms.Panel();
+            this.btnHistorial = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.pnlTitulo = new System.Windows.Forms.Panel();
             this.lblTitulo = new System.Windows.Forms.Label();
@@ -69,7 +76,6 @@
             this.btnApertura = new System.Windows.Forms.Button();
             this.btnBuscar = new System.Windows.Forms.Button();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
-            this.btnHistorial = new System.Windows.Forms.Button();
             this.pnlContenido.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.pnlBottom.SuspendLayout();
@@ -203,7 +209,8 @@
             this.msPrincipal.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.usuarioToolStripMenuItem,
             this.opcionesToolStripMenuItem,
-            this.notificacionesToolStripMenuItem});
+            this.notificacionesToolStripMenuItem,
+            this.reportesToolStripMenuItem});
             this.msPrincipal.Location = new System.Drawing.Point(0, 0);
             this.msPrincipal.Name = "msPrincipal";
             this.msPrincipal.Padding = new System.Windows.Forms.Padding(6, 2, 20, 2);
@@ -234,7 +241,7 @@
             this.perfilToolStripMenuItem.Image = global::SOAPAP.Properties.Resources.perfil;
             this.perfilToolStripMenuItem.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.perfilToolStripMenuItem.Name = "perfilToolStripMenuItem";
-            this.perfilToolStripMenuItem.Size = new System.Drawing.Size(115, 26);
+            this.perfilToolStripMenuItem.Size = new System.Drawing.Size(184, 26);
             this.perfilToolStripMenuItem.Text = "Perfil";
             this.perfilToolStripMenuItem.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.perfilToolStripMenuItem.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
@@ -245,7 +252,7 @@
             this.salirToolStripMenuItem.Image = global::SOAPAP.Properties.Resources.logout;
             this.salirToolStripMenuItem.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.salirToolStripMenuItem.Name = "salirToolStripMenuItem";
-            this.salirToolStripMenuItem.Size = new System.Drawing.Size(115, 26);
+            this.salirToolStripMenuItem.Size = new System.Drawing.Size(184, 26);
             this.salirToolStripMenuItem.Text = "Salir";
             this.salirToolStripMenuItem.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.salirToolStripMenuItem.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
@@ -299,6 +306,59 @@
             this.notificacionesToolStripMenuItem.Size = new System.Drawing.Size(120, 45);
             this.notificacionesToolStripMenuItem.Text = "Notificaciones";
             // 
+            // reportesToolStripMenuItem
+            // 
+            this.reportesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.ingresosDeCajaToolStripMenuItem,
+            this.ingresosPorConceptoToolStripMenuItem,
+            this.padrónToolStripMenuItem,
+            this.recaudaciónToolStripMenuItem,
+            this.buscarContribuyenteToolStripMenuItem});
+            this.reportesToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 12F);
+            this.reportesToolStripMenuItem.ForeColor = System.Drawing.Color.DimGray;
+            this.reportesToolStripMenuItem.Image = global::SOAPAP.Properties.Resources.file;
+            this.reportesToolStripMenuItem.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.reportesToolStripMenuItem.Name = "reportesToolStripMenuItem";
+            this.reportesToolStripMenuItem.Size = new System.Drawing.Size(104, 45);
+            this.reportesToolStripMenuItem.Text = "Reportes";
+            this.reportesToolStripMenuItem.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.reportesToolStripMenuItem.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
+            // 
+            // ingresosDeCajaToolStripMenuItem
+            // 
+            this.ingresosDeCajaToolStripMenuItem.ForeColor = System.Drawing.Color.DimGray;
+            this.ingresosDeCajaToolStripMenuItem.Name = "ingresosDeCajaToolStripMenuItem";
+            this.ingresosDeCajaToolStripMenuItem.Size = new System.Drawing.Size(237, 26);
+            this.ingresosDeCajaToolStripMenuItem.Text = "Ingresos de Caja";
+            // 
+            // ingresosPorConceptoToolStripMenuItem
+            // 
+            this.ingresosPorConceptoToolStripMenuItem.ForeColor = System.Drawing.Color.DimGray;
+            this.ingresosPorConceptoToolStripMenuItem.Name = "ingresosPorConceptoToolStripMenuItem";
+            this.ingresosPorConceptoToolStripMenuItem.Size = new System.Drawing.Size(237, 26);
+            this.ingresosPorConceptoToolStripMenuItem.Text = "Ingresos por Concepto";
+            // 
+            // padrónToolStripMenuItem
+            // 
+            this.padrónToolStripMenuItem.ForeColor = System.Drawing.Color.DimGray;
+            this.padrónToolStripMenuItem.Name = "padrónToolStripMenuItem";
+            this.padrónToolStripMenuItem.Size = new System.Drawing.Size(237, 26);
+            this.padrónToolStripMenuItem.Text = "Padrón";
+            // 
+            // recaudaciónToolStripMenuItem
+            // 
+            this.recaudaciónToolStripMenuItem.ForeColor = System.Drawing.Color.DimGray;
+            this.recaudaciónToolStripMenuItem.Name = "recaudaciónToolStripMenuItem";
+            this.recaudaciónToolStripMenuItem.Size = new System.Drawing.Size(237, 26);
+            this.recaudaciónToolStripMenuItem.Text = "Recaudación";
+            // 
+            // buscarContribuyenteToolStripMenuItem
+            // 
+            this.buscarContribuyenteToolStripMenuItem.ForeColor = System.Drawing.Color.DimGray;
+            this.buscarContribuyenteToolStripMenuItem.Name = "buscarContribuyenteToolStripMenuItem";
+            this.buscarContribuyenteToolStripMenuItem.Size = new System.Drawing.Size(237, 26);
+            this.buscarContribuyenteToolStripMenuItem.Text = "Buscar Contribuyente";
+            // 
             // lblEstadoCaja
             // 
             this.lblEstadoCaja.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(33)))), ((int)(((byte)(41)))));
@@ -339,6 +399,27 @@
             this.pnlLeft.Name = "pnlLeft";
             this.pnlLeft.Size = new System.Drawing.Size(233, 709);
             this.pnlLeft.TabIndex = 42;
+            // 
+            // btnHistorial
+            // 
+            this.btnHistorial.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(50)))), ((int)(((byte)(62)))));
+            this.btnHistorial.FlatAppearance.BorderSize = 0;
+            this.btnHistorial.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(3)))), ((int)(((byte)(138)))), ((int)(((byte)(255)))));
+            this.btnHistorial.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnHistorial.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnHistorial.ForeColor = System.Drawing.Color.White;
+            this.btnHistorial.Image = global::SOAPAP.Properties.Resources.Historial;
+            this.btnHistorial.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnHistorial.Location = new System.Drawing.Point(8, 400);
+            this.btnHistorial.Name = "btnHistorial";
+            this.btnHistorial.Size = new System.Drawing.Size(210, 38);
+            this.btnHistorial.TabIndex = 41;
+            this.btnHistorial.Text = "   Historial";
+            this.btnHistorial.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnHistorial.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnHistorial.UseVisualStyleBackColor = false;
+            this.btnHistorial.Click += new System.EventHandler(this.btnHistorial_Click);
+            this.btnHistorial.MouseLeave += new System.EventHandler(this.btnHistorial_MouseLeave);
             // 
             // label2
             // 
@@ -583,27 +664,6 @@
             this.pictureBox3.TabIndex = 23;
             this.pictureBox3.TabStop = false;
             // 
-            // btnHistorial
-            // 
-            this.btnHistorial.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(50)))), ((int)(((byte)(62)))));
-            this.btnHistorial.FlatAppearance.BorderSize = 0;
-            this.btnHistorial.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(3)))), ((int)(((byte)(138)))), ((int)(((byte)(255)))));
-            this.btnHistorial.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnHistorial.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnHistorial.ForeColor = System.Drawing.Color.White;
-            this.btnHistorial.Image = global::SOAPAP.Properties.Resources.Historial;
-            this.btnHistorial.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnHistorial.Location = new System.Drawing.Point(8, 400);
-            this.btnHistorial.Name = "btnHistorial";
-            this.btnHistorial.Size = new System.Drawing.Size(210, 38);
-            this.btnHistorial.TabIndex = 41;
-            this.btnHistorial.Text = "   Historial";
-            this.btnHistorial.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnHistorial.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.btnHistorial.UseVisualStyleBackColor = false;
-            this.btnHistorial.Click += new System.EventHandler(this.btnHistorial_Click);
-            this.btnHistorial.MouseLeave += new System.EventHandler(this.btnHistorial_MouseLeave);
-            // 
             // Base
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -687,5 +747,11 @@
         private System.Windows.Forms.ToolStripMenuItem facturacionAgrupadaCanceladasToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem notificacionesToolStripMenuItem;
         private System.Windows.Forms.Button btnHistorial;
+        private System.Windows.Forms.ToolStripMenuItem reportesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem ingresosDeCajaToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem ingresosPorConceptoToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem padrónToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem recaudaciónToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem buscarContribuyenteToolStripMenuItem;
     }
 }
