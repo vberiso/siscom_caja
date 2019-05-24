@@ -55,11 +55,6 @@ namespace SOAPAP.UI.Descuentos
             Requests = new RequestsAPI(UrlBase);
         }
 
-        private void PictureBox1_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
-
         private void centraX(Control padre, Control hijo)
         {
             int x = 0;
@@ -360,6 +355,11 @@ namespace SOAPAP.UI.Descuentos
                 default:
                     return false;
             }
+        }
+
+        private void btnCerrar_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 

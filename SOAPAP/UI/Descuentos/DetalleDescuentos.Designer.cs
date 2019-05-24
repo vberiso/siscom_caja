@@ -30,18 +30,18 @@
         {
             this.panel1 = new System.Windows.Forms.Panel();
             this.pnlHeaderBuscar = new System.Windows.Forms.Panel();
+            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
+            this.pbBG = new System.Windows.Forms.PictureBox();
             this.pnlHeaderLeft = new System.Windows.Forms.Panel();
             this.pbxIcon = new System.Windows.Forms.PictureBox();
             this.lblTitulo = new System.Windows.Forms.Label();
             this.dgvDiscounts = new System.Windows.Forms.DataGridView();
-            this.pbBG = new System.Windows.Forms.PictureBox();
-            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.panel1.SuspendLayout();
             this.pnlHeaderBuscar.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbBG)).BeginInit();
             this.pnlHeaderLeft.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbxIcon)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDiscounts)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbBG)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
@@ -52,7 +52,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1144, 60);
+            this.panel1.Size = new System.Drawing.Size(997, 60);
             this.panel1.TabIndex = 0;
             // 
             // pnlHeaderBuscar
@@ -62,8 +62,31 @@
             this.pnlHeaderBuscar.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlHeaderBuscar.Location = new System.Drawing.Point(276, 0);
             this.pnlHeaderBuscar.Name = "pnlHeaderBuscar";
-            this.pnlHeaderBuscar.Size = new System.Drawing.Size(868, 60);
+            this.pnlHeaderBuscar.Size = new System.Drawing.Size(721, 60);
             this.pnlHeaderBuscar.TabIndex = 50;
+            // 
+            // dateTimePicker1
+            // 
+            this.dateTimePicker1.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.dateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dateTimePicker1.Location = new System.Drawing.Point(41, 18);
+            this.dateTimePicker1.Name = "dateTimePicker1";
+            this.dateTimePicker1.Size = new System.Drawing.Size(236, 20);
+            this.dateTimePicker1.TabIndex = 48;
+            this.dateTimePicker1.ValueChanged += new System.EventHandler(this.DateTimePicker1_ValueChanged);
+            // 
+            // pbBG
+            // 
+            this.pbBG.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.pbBG.BackColor = System.Drawing.Color.Transparent;
+            this.pbBG.Image = global::SOAPAP.Properties.Resources.bg;
+            this.pbBG.InitialImage = global::SOAPAP.Properties.Resources.bg;
+            this.pbBG.Location = new System.Drawing.Point(3, 9);
+            this.pbBG.Name = "pbBG";
+            this.pbBG.Size = new System.Drawing.Size(303, 39);
+            this.pbBG.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbBG.TabIndex = 43;
+            this.pbBG.TabStop = false;
             // 
             // pnlHeaderLeft
             // 
@@ -114,51 +137,30 @@
             this.dgvDiscounts.ReadOnly = true;
             this.dgvDiscounts.RowHeadersVisible = false;
             this.dgvDiscounts.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvDiscounts.Size = new System.Drawing.Size(1144, 473);
+            this.dgvDiscounts.Size = new System.Drawing.Size(997, 473);
             this.dgvDiscounts.TabIndex = 1;
             this.dgvDiscounts.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DgvDiscounts_CellMouseDoubleClick);
-            // 
-            // pbBG
-            // 
-            this.pbBG.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.pbBG.BackColor = System.Drawing.Color.Transparent;
-            this.pbBG.Image = global::SOAPAP.Properties.Resources.bg;
-            this.pbBG.InitialImage = global::SOAPAP.Properties.Resources.bg;
-            this.pbBG.Location = new System.Drawing.Point(77, 9);
-            this.pbBG.Name = "pbBG";
-            this.pbBG.Size = new System.Drawing.Size(303, 39);
-            this.pbBG.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pbBG.TabIndex = 43;
-            this.pbBG.TabStop = false;
-            // 
-            // dateTimePicker1
-            // 
-            this.dateTimePicker1.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.dateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dateTimePicker1.Location = new System.Drawing.Point(115, 18);
-            this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(236, 20);
-            this.dateTimePicker1.TabIndex = 48;
-            this.dateTimePicker1.ValueChanged += new System.EventHandler(this.DateTimePicker1_ValueChanged);
             // 
             // DetalleDescuentos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1144, 533);
+            this.BackColor = System.Drawing.Color.White;
+            this.ClientSize = new System.Drawing.Size(997, 533);
             this.Controls.Add(this.dgvDiscounts);
             this.Controls.Add(this.panel1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "DetalleDescuentos";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Detalle de Descuentos";
             this.Load += new System.EventHandler(this.DetalleDescuentos_Load);
             this.panel1.ResumeLayout(false);
             this.pnlHeaderBuscar.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pbBG)).EndInit();
             this.pnlHeaderLeft.ResumeLayout(false);
             this.pnlHeaderLeft.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbxIcon)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDiscounts)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbBG)).EndInit();
             this.ResumeLayout(false);
 
         }

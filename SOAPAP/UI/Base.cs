@@ -643,17 +643,20 @@ namespace SOAPAP
             btnCobro.Visible = accessParam == CashBoxAccess.Access.SinAcceso || accessParam == CashBoxAccess.Access.Admin ? false : true;
             btnBuscar.Visible = accessParam == CashBoxAccess.Access.SinAcceso || accessParam == CashBoxAccess.Access.Admin ? false : true;
             btnMovimientos.Visible = accessParam == CashBoxAccess.Access.SinAcceso || accessParam == CashBoxAccess.Access.Admin ? false : true;
-            btnReportes.Visible = accessParam == CashBoxAccess.Access.SinAcceso || accessParam == CashBoxAccess.Access.Admin ? false : true;
+            //btnReportes.Visible = accessParam == CashBoxAccess.Access.SinAcceso || accessParam == CashBoxAccess.Access.Admin ? false : true;
+            btnReportes.Visible = false;
             btnProductos.Visible = accessParam == CashBoxAccess.Access.SinAcceso || accessParam == CashBoxAccess.Access.Admin ? false : true;
             //btnHistorial.Visible = accessParam == CashBoxAccess.Access.SinAcceso || accessParam == CashBoxAccess.Access.Admin ? false : true;
+            reportesToolStripMenuItem.Visible = accessParam == CashBoxAccess.Access.SinAcceso || accessParam == CashBoxAccess.Access.Admin ? false : true;
 
             btnApertura.Enabled = accessParam == CashBoxAccess.Access.SinCierreAnterior ? false : true;
             btnCobro.Enabled = accessParam != CashBoxAccess.Access.Cobro ? false : true;
             btnBuscar.Enabled = accessParam != CashBoxAccess.Access.Cobro ? false : true;
             btnMovimientos.Enabled = accessParam != CashBoxAccess.Access.Cobro ? false : true;
-            btnReportes.Enabled = accessParam != CashBoxAccess.Access.Cobro ? false : true;
+            //btnReportes.Enabled = accessParam != CashBoxAccess.Access.Cobro ? false : true;
             btnProductos.Enabled = accessParam != CashBoxAccess.Access.Cobro ? false : true;
             //btnHistorial.Enabled = accessParam != CashBoxAccess.Access.Cobro ? false : true;
+            reportesToolStripMenuItem.Enabled = accessParam != CashBoxAccess.Access.Cobro ? false : true;
 
             btnApertura.Image = accessParam == CashBoxAccess.Access.Cobro ? Properties.Resources.abrir_caja : Properties.Resources.cerrar_caja;
         }
@@ -805,5 +808,34 @@ namespace SOAPAP
             q.sacarcaja(Requests.ImpresoraPredeterminada(), Variables.Configuration.ANSII);
         }
 
+        private void ingresosDeCajaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ShowForm("SOAPAP", "UI.ReportesForms.RepIFB");
+        }
+
+        private void ingresosPorConceptoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ShowForm("SOAPAP", "UI.ReportesForms.RepIBC");
+        }
+
+        private void padrónToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ShowForm("SOAPAP", "UI.ReportesForms.RepPadronWater");
+        }
+
+        private void recaudaciónToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ShowForm("SOAPAP", "UI.ReportesForms.RepCollection");
+        }
+
+        private void buscarContribuyenteToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ShowForm("SOAPAP", "UI.ReportesForms.RepTaxpayer");
+        }
+
+        private void descuentosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ShowForm("SOAPAP", "UI.UI.Descuentos.DetalleDescuentos");
+        }
     }
 }
