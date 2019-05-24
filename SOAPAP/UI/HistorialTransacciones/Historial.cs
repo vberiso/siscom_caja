@@ -160,6 +160,7 @@ namespace SOAPAP.UI.HistorialTransacciones
                 {
                     try
                     {
+                        lstData = lstData.OrderBy(x => x.Hora).ToList();
                         pgcHistorial.DataSource = lstData;                        
                     }
                     catch (Exception e)
@@ -172,25 +173,39 @@ namespace SOAPAP.UI.HistorialTransacciones
 
         #endregion
 
-        private void pgcHistorial_CellSelectionChanged(object sender, EventArgs e)
-        {
-            var pivotGridControl1 = ((DevExpress.XtraPivotGrid.PivotGridControl)sender);
-            var Selected = ((DevExpress.XtraPivotGrid.PivotGridControl)sender).Cells.Selection;
+        //private async void pgcHistorial_CellSelectionChanged(object sender, EventArgs e)
+        //{            
+        //    try
+        //    {
+        //        var Selected = ((DevExpress.XtraPivotGrid.PivotGridControl)sender).Cells.Selection;
+        //        //int Indice = (lstData.Count - 1) - Selected.Y;
+        //        var elementoSeleccionado = lstData[Selected.Y];
 
-            try
-            {
-                //int Indice = (lstData.Count - 1) - Selected.Y;
-                var Res4 = lstData[Selected.Y];
+        //        if (elementoSeleccionado.TypeTransactionId == 3 || elementoSeleccionado.TypeTransactionId == 4) //Cobro o Cancelacion
+        //        {
+        //            string tmpFolio = elementoSeleccionado.TypeTransactionId == 3 ? elementoSeleccionado.folio : elementoSeleccionado.cancellation_folio;
+        //            //Detalle
+        //            var resultTypeTransaction = await Requests.SendURIAsync("/api/Reports/HistorialElemento/" + tmpFolio, HttpMethod.Get, Variables.LoginModel.Token);
+        //            if (resultTypeTransaction.Contains("error"))
+        //            {
+        //                mensaje = new MessageBoxForm("Error", resultTypeTransaction.Split(':')[1].Replace("}", ""), TypeIcon.Icon.Cancel);
+        //                result = mensaje.ShowDialog();
+        //            }
+        //            else
+        //            {
+        //                List<DataHistorialElemento> lstPagos = JsonConvert.DeserializeObject<List<DataHistorialElemento>>(resultTypeTransaction);
+        //                pgcDetalles.DataSource = lstPagos;                        
+        //            }
+        //        }
+        //        else
+        //        {
+        //            List<DataHistorialElemento> lstPagos = new List<DataHistorialElemento>() { new DataHistorialElemento() { Descripcion = "Sin detalle" } };                    
+        //            pgcDetalles.DataSource = lstPagos;
+        //        }
+                
 
-                //var Res = ((DevExpress.XtraPivotGrid.PivotGridControl)sender).GetFieldAt(new Point(Selected.X, Selected.Y));
-                //var Res3 = pivotGridControl1.Fields[Selected.Y];
-                //var Res2 = ((DevExpress.XtraPivotGrid.PivotGridControl)sender).GetFieldValue(pivotGridControl1.Fields["Row"], Selected.Y);
-                                
-            }
-            catch (Exception ex)
-            {
-            }
-
-        }
+        //    }
+        //    catch (Exception ex){ }
+        //}
     }
 }

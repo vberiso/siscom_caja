@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.pnlHeader = new System.Windows.Forms.Panel();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.label7 = new System.Windows.Forms.Label();
@@ -54,6 +55,7 @@
             this.lblTitulo = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.pgcIBC = new DevExpress.XtraPivotGrid.PivotGridControl();
+            this.incomeByConceptVMBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.pgfFolio = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfCuenta = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfNombre = new DevExpress.XtraPivotGrid.PivotGridField();
@@ -76,7 +78,6 @@
             this.pgfBanco = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfMonto = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfSubtotal = new DevExpress.XtraPivotGrid.PivotGridField();
-            this.incomeByConceptVMBindingSource = new System.Windows.Forms.BindingSource();
             this.pnlHeader.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -439,6 +440,10 @@
             this.pgcIBC.Size = new System.Drawing.Size(1014, 302);
             this.pgcIBC.TabIndex = 49;
             // 
+            // incomeByConceptVMBindingSource
+            // 
+            this.incomeByConceptVMBindingSource.DataSource = typeof(SOAPAP.Reportes.IncomeByConceptVM);
+            // 
             // pgfFolio
             // 
             this.pgfFolio.Area = DevExpress.XtraPivotGrid.PivotArea.RowArea;
@@ -611,10 +616,6 @@
             this.pgfSubtotal.Caption = "SUBTOTAL";
             this.pgfSubtotal.FieldName = "SUBTOTAL";
             this.pgfSubtotal.Name = "pgfSubtotal";
-            // 
-            // incomeByConceptVMBindingSource
-            // 
-            this.incomeByConceptVMBindingSource.DataSource = typeof(SOAPAP.Reportes.IncomeByConceptVM);
             // 
             // RepIBC
             // 

@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            DevExpress.XtraCharts.XYDiagram xyDiagram1 = new DevExpress.XtraCharts.XYDiagram();
             this.pnlHeader = new System.Windows.Forms.Panel();
             this.btnExportar = new System.Windows.Forms.Button();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
@@ -50,9 +51,15 @@
             this.pgfTotal = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfOficina = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfHora = new DevExpress.XtraPivotGrid.PivotGridField();
+            this.pgfDetalle = new DevExpress.XtraPivotGrid.PivotGridField();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.chartControl1 = new DevExpress.XtraCharts.ChartControl();
+            this.behaviorManager1 = new DevExpress.Utils.Behaviors.BehaviorManager(this.components);
             this.dataHistorialBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.grdcDetalle = new DevExpress.XtraGrid.GridControl();
-            this.gridView1 = new DevExpress.XtraGrid.Views.Grid.GridView();
+            this.pgfMonto = new DevExpress.XtraPivotGrid.PivotGridField();
+            this.pgfDescuento = new DevExpress.XtraPivotGrid.PivotGridField();
+            this.pgfSubtotal = new DevExpress.XtraPivotGrid.PivotGridField();
+            this.pgfIva = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pnlHeader.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chcbxOperador.Properties)).BeginInit();
@@ -61,9 +68,11 @@
             this.tableLayoutPanel1.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pgcHistorial)).BeginInit();
+            this.panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chartControl1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(xyDiagram1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.behaviorManager1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataHistorialBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.grdcDetalle)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // pnlHeader
@@ -79,7 +88,7 @@
             this.pnlHeader.Controls.Add(this.pictureBox1);
             this.pnlHeader.Location = new System.Drawing.Point(0, 0);
             this.pnlHeader.Name = "pnlHeader";
-            this.pnlHeader.Size = new System.Drawing.Size(800, 106);
+            this.pnlHeader.Size = new System.Drawing.Size(964, 106);
             this.pnlHeader.TabIndex = 50;
             // 
             // btnExportar
@@ -90,7 +99,7 @@
             this.btnExportar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnExportar.Font = new System.Drawing.Font("Segoe UI Black", 12F, System.Drawing.FontStyle.Bold);
             this.btnExportar.ForeColor = System.Drawing.Color.Black;
-            this.btnExportar.Location = new System.Drawing.Point(655, 50);
+            this.btnExportar.Location = new System.Drawing.Point(819, 50);
             this.btnExportar.Name = "btnExportar";
             this.btnExportar.Size = new System.Drawing.Size(133, 39);
             this.btnExportar.TabIndex = 56;
@@ -109,7 +118,7 @@
             this.tableLayoutPanel2.Controls.Add(this.label3, 1, 0);
             this.tableLayoutPanel2.Controls.Add(this.label2, 0, 0);
             this.tableLayoutPanel2.Controls.Add(this.dtpFecha, 0, 1);
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(208, 23);
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(290, 23);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 2;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
@@ -163,7 +172,7 @@
             this.pcbIncomeByConcept.BackColor = System.Drawing.Color.Transparent;
             this.pcbIncomeByConcept.Image = global::SOAPAP.Properties.Resources.bg;
             this.pcbIncomeByConcept.InitialImage = global::SOAPAP.Properties.Resources.bg;
-            this.pcbIncomeByConcept.Location = new System.Drawing.Point(182, 20);
+            this.pcbIncomeByConcept.Location = new System.Drawing.Point(264, 20);
             this.pcbIncomeByConcept.Name = "pcbIncomeByConcept";
             this.pcbIncomeByConcept.Size = new System.Drawing.Size(451, 54);
             this.pcbIncomeByConcept.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -178,7 +187,7 @@
             this.btnCargar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCargar.Font = new System.Drawing.Font("Segoe UI Black", 12F, System.Drawing.FontStyle.Bold);
             this.btnCargar.ForeColor = System.Drawing.Color.Black;
-            this.btnCargar.Location = new System.Drawing.Point(655, 7);
+            this.btnCargar.Location = new System.Drawing.Point(819, 7);
             this.btnCargar.Name = "btnCargar";
             this.btnCargar.Size = new System.Drawing.Size(133, 39);
             this.btnCargar.TabIndex = 18;
@@ -218,14 +227,14 @@
             this.tableLayoutPanel1.BackColor = System.Drawing.SystemColors.Window;
             this.tableLayoutPanel1.ColumnCount = 1;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Controls.Add(this.grdcDetalle, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.panel1, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.panel2, 0, 1);
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 107);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 2;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(800, 457);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(964, 457);
             this.tableLayoutPanel1.TabIndex = 51;
             // 
             // panel1
@@ -236,7 +245,7 @@
             this.panel1.Controls.Add(this.pgcHistorial);
             this.panel1.Location = new System.Drawing.Point(3, 3);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(794, 222);
+            this.panel1.Size = new System.Drawing.Size(958, 222);
             this.panel1.TabIndex = 1;
             // 
             // pgcHistorial
@@ -252,13 +261,17 @@
             this.pgfFecha,
             this.pgfTotal,
             this.pgfOficina,
-            this.pgfHora});
+            this.pgfHora,
+            this.pgfDetalle,
+            this.pgfMonto,
+            this.pgfDescuento,
+            this.pgfSubtotal,
+            this.pgfIva});
             this.pgcHistorial.Location = new System.Drawing.Point(3, 3);
             this.pgcHistorial.Name = "pgcHistorial";
             this.pgcHistorial.OptionsData.DataProcessingEngine = DevExpress.XtraPivotGrid.PivotDataProcessingEngine.LegacyOptimized;
-            this.pgcHistorial.Size = new System.Drawing.Size(436, 216);
+            this.pgcHistorial.Size = new System.Drawing.Size(952, 216);
             this.pgcHistorial.TabIndex = 0;
-            this.pgcHistorial.CellSelectionChanged += new System.EventHandler(this.pgcHistorial_CellSelectionChanged);
             // 
             // pgfMetodo
             // 
@@ -296,7 +309,7 @@
             this.pgfTotal.Area = DevExpress.XtraPivotGrid.PivotArea.DataArea;
             this.pgfTotal.AreaIndex = 0;
             this.pgfTotal.Caption = "Total";
-            this.pgfTotal.FieldName = "TotalConSigno";
+            this.pgfTotal.FieldName = "TotalConSigno_dt";
             this.pgfTotal.Name = "pgfTotal";
             // 
             // pgfOficina
@@ -314,30 +327,87 @@
             this.pgfHora.FieldName = "Hora";
             this.pgfHora.Name = "pgfHora";
             // 
+            // pgfDetalle
+            // 
+            this.pgfDetalle.Area = DevExpress.XtraPivotGrid.PivotArea.RowArea;
+            this.pgfDetalle.AreaIndex = 3;
+            this.pgfDetalle.Caption = "Detalle";
+            this.pgfDetalle.FieldName = "Descripcion_dt";
+            this.pgfDetalle.Name = "pgfDetalle";
+            // 
+            // panel2
+            // 
+            this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel2.Controls.Add(this.chartControl1);
+            this.panel2.Location = new System.Drawing.Point(3, 231);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(958, 223);
+            this.panel2.TabIndex = 2;
+            // 
+            // chartControl1
+            // 
+            this.chartControl1.DataBindings = null;
+            this.chartControl1.DataSource = this.pgcHistorial;
+            xyDiagram1.AxisX.Title.Text = "Hora Tipo Op Metodo Detalle Monto Descuento Subtotal IVA";
+            xyDiagram1.AxisX.VisibleInPanesSerializable = "-1";
+            xyDiagram1.AxisY.Title.Text = "Total";
+            xyDiagram1.AxisY.VisibleInPanesSerializable = "-1";
+            this.chartControl1.Diagram = xyDiagram1;
+            this.chartControl1.Legend.MaxHorizontalPercentage = 30D;
+            this.chartControl1.Legend.Name = "Default Legend";
+            this.chartControl1.Location = new System.Drawing.Point(12, 20);
+            this.chartControl1.Name = "chartControl1";
+            this.chartControl1.SeriesDataMember = "Series";
+            this.chartControl1.SeriesSerializable = new DevExpress.XtraCharts.Series[0];
+            this.chartControl1.SeriesTemplate.ArgumentDataMember = "Arguments";
+            this.chartControl1.SeriesTemplate.ArgumentScaleType = DevExpress.XtraCharts.ScaleType.Qualitative;
+            this.chartControl1.SeriesTemplate.ValueDataMembersSerializable = "Values";
+            this.chartControl1.Size = new System.Drawing.Size(937, 200);
+            this.chartControl1.TabIndex = 0;
+            // 
             // dataHistorialBindingSource
             // 
             this.dataHistorialBindingSource.DataSource = typeof(SOAPAP.UI.HistorialTransacciones.DataHistorial);
             // 
-            // grdcDetalle
+            // pgfMonto
             // 
-            this.grdcDetalle.Location = new System.Drawing.Point(3, 231);
-            this.grdcDetalle.MainView = this.gridView1;
-            this.grdcDetalle.Name = "grdcDetalle";
-            this.grdcDetalle.Size = new System.Drawing.Size(794, 223);
-            this.grdcDetalle.TabIndex = 1;
-            this.grdcDetalle.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
-            this.gridView1});
+            this.pgfMonto.Area = DevExpress.XtraPivotGrid.PivotArea.RowArea;
+            this.pgfMonto.AreaIndex = 4;
+            this.pgfMonto.Caption = "Monto";
+            this.pgfMonto.FieldName = "MontoConSigno_dt";
+            this.pgfMonto.Name = "pgfMonto";
             // 
-            // gridView1
+            // pgfDescuento
             // 
-            this.gridView1.GridControl = this.grdcDetalle;
-            this.gridView1.Name = "gridView1";
+            this.pgfDescuento.Area = DevExpress.XtraPivotGrid.PivotArea.RowArea;
+            this.pgfDescuento.AreaIndex = 5;
+            this.pgfDescuento.Caption = "Descuento";
+            this.pgfDescuento.FieldName = "DescuentoConSigno_dt";
+            this.pgfDescuento.Name = "pgfDescuento";
+            // 
+            // pgfSubtotal
+            // 
+            this.pgfSubtotal.Area = DevExpress.XtraPivotGrid.PivotArea.RowArea;
+            this.pgfSubtotal.AreaIndex = 6;
+            this.pgfSubtotal.Caption = "Subtotal";
+            this.pgfSubtotal.FieldName = "SubtotalConSigno_dt";
+            this.pgfSubtotal.Name = "pgfSubtotal";
+            // 
+            // pgfIva
+            // 
+            this.pgfIva.Area = DevExpress.XtraPivotGrid.PivotArea.RowArea;
+            this.pgfIva.AreaIndex = 7;
+            this.pgfIva.Caption = "IVA";
+            this.pgfIva.FieldName = "ivaConSigno_dt";
+            this.pgfIva.Name = "pgfIva";
             // 
             // Historial
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 593);
+            this.ClientSize = new System.Drawing.Size(964, 593);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.pnlHeader);
             this.Name = "Historial";
@@ -353,9 +423,11 @@
             this.tableLayoutPanel1.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pgcHistorial)).EndInit();
+            this.panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(xyDiagram1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chartControl1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.behaviorManager1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataHistorialBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.grdcDetalle)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gridView1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -383,8 +455,14 @@
         private DevExpress.XtraPivotGrid.PivotGridField pgfOficina;
         private DevExpress.XtraPivotGrid.PivotGridField pgfHora;
         private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel panel2;
+        private DevExpress.XtraCharts.ChartControl chartControl1;
+        private DevExpress.Utils.Behaviors.BehaviorManager behaviorManager1;
+        private DevExpress.XtraPivotGrid.PivotGridField pgfDetalle;
         private System.Windows.Forms.BindingSource dataHistorialBindingSource;
-        private DevExpress.XtraGrid.GridControl grdcDetalle;
-        private DevExpress.XtraGrid.Views.Grid.GridView gridView1;
+        private DevExpress.XtraPivotGrid.PivotGridField pgfMonto;
+        private DevExpress.XtraPivotGrid.PivotGridField pgfDescuento;
+        private DevExpress.XtraPivotGrid.PivotGridField pgfSubtotal;
+        private DevExpress.XtraPivotGrid.PivotGridField pgfIva;
     }
 }

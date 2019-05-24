@@ -108,6 +108,8 @@
     <Reference Include="DevExpress.XtraPdfViewer.v17.1, Version=17.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraPivotGrid.v17.1, Version=17.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraPrinting.v17.1, Version=17.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraScheduler.v17.1, Version=17.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraScheduler.v17.1.Core, Version=17.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.XtraTreeList.v17.1, Version=17.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="Firebase, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\FirebaseDatabase.net.4.0.1\lib\netstandard2.0\Firebase.dll</HintPath>
@@ -401,6 +403,7 @@
       <DependentUpon>FindOrders.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\HistorialTransacciones\DataHistorial.cs" />
+    <Compile Include="UI\HistorialTransacciones\DataHistorialElemento.cs" />
     <Compile Include="UI\HistorialTransacciones\Historial.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -910,6 +913,7 @@
     <None Include="Properties\DataSources\SOAPAP.Reportes.DataTaxpayerPrepaid.datasource" />
     <None Include="Properties\DataSources\SOAPAP.Reportes.IncomeByConceptVM.datasource" />
     <None Include="Properties\DataSources\SOAPAP.UI.HistorialTransacciones.DataHistorial.datasource" />
+    <None Include="Properties\DataSources\SOAPAP.UI.HistorialTransacciones.DataHistorialElemento.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

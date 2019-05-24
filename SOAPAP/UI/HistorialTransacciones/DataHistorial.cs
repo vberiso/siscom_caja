@@ -24,10 +24,42 @@ namespace SOAPAP.UI.HistorialTransacciones
         public string TipoPago { get; set; }
         public string Oficina { get; set; }
         public string cajero { get; set; }
+        public string Descripcion_dt { get; set; }
+        public decimal Monto_dt { get; set; }
+        public decimal Descuento_dt { get; set; }
+        public decimal Subtotal_dt { get; set; }
+        public decimal iva_dt { get; set; }
+        public decimal Total_dt { get; set; }
+        public string tipo_dt { get; set; }
+
         public decimal TotalConSigno
         {
             get { return total * (sign ? 1 : -1); }
         }
+
+
+        public decimal MontoConSigno_dt
+        {
+            get { return Monto_dt * (sign ? 1 : -1); }
+        }
+        public decimal DescuentoConSigno_dt
+        {
+            get { return Descuento_dt * (sign ? 1 : -1); }
+        }
+        public decimal SubtotalConSigno_dt
+        {
+            get { return Subtotal_dt * (sign ? 1 : -1); }
+        }
+        public decimal ivaConSigno_dt
+        {
+            get { return iva_dt * (sign ? 1 : -1); }
+        }
+        public decimal TotalConSigno_dt
+        {
+            get { return Total_dt * (sign ? 1 : -1); }
+        }
+
+
         public string Fecha
         {
             get { return date_transaction.Split('T')[0]; }
