@@ -174,8 +174,8 @@
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.pnlOtros);
             this.groupBox2.Controls.Add(this.pnlEfectivo);
+            this.groupBox2.Controls.Add(this.pnlOtros);
             this.groupBox2.Controls.Add(this.pnlReferencia);
             this.groupBox2.Dock = System.Windows.Forms.DockStyle.Top;
             this.groupBox2.Location = new System.Drawing.Point(0, 157);

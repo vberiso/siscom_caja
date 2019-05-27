@@ -24,7 +24,7 @@ namespace SOAPAP.UI.Descuentos
         private DataTable Table = new DataTable();
         private DialogResult result = new DialogResult();
         private string UrlBase = Properties.Settings.Default.URL;
-        private List<DiscountAuthorization> authorization;
+        private List<SOAPAP.Model.DiscountAuthorizationVM> authorization;
         private int IdDiscount { get; set; }
         public bool ClickNotification { get; set; }
         public DetalleDescuentos(int IdDiscount, bool ClickNotification)
@@ -66,7 +66,7 @@ namespace SOAPAP.UI.Descuentos
             else
             {
                 loading.Close();
-                authorization = JsonConvert.DeserializeObject<List<DiscountAuthorization>>(results);
+                authorization = JsonConvert.DeserializeObject<List<SOAPAP.Model.DiscountAuthorizationVM>>(results);
                 var DiscountAuth = authorization.Select(x => new DiscountAuthorizationVM
                 {
                     Id = x.Id,
@@ -120,13 +120,14 @@ namespace SOAPAP.UI.Descuentos
                 dgvDiscounts.Columns[7].Width = 120;
                 dgvDiscounts.Columns[7].DefaultCellStyle.Format = "c2";
                 dgvDiscounts.Columns[7].DefaultCellStyle.FormatProvider = new CultureInfo("es-MX");
-                dgvDiscounts.Columns[8].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-                dgvDiscounts.Columns[9].Visible = false;
-                dgvDiscounts.Columns[10].Visible = false;
+                dgvDiscounts.Columns[8].Visible = true;
+                dgvDiscounts.Columns[9].Visible = true;
+                dgvDiscounts.Columns[10].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
                 dgvDiscounts.Columns[11].Visible = false;
                 dgvDiscounts.Columns[12].Visible = false;
                 dgvDiscounts.Columns[13].Visible = false;
                 dgvDiscounts.Columns[14].Visible = false;
+                dgvDiscounts.Columns[15].Visible = false;
 
                 foreach (DataGridViewRow item in dgvDiscounts.Rows)
                 {
@@ -144,12 +145,12 @@ namespace SOAPAP.UI.Descuentos
                     switch (item.Cells[3].FormattedValue.ToString())
                     {
                         case "Solicitado":
-                            item.Cells[3].Style.BackColor = Color.FromArgb(43, 187, 173);
+                            item.Cells[3].Style.BackColor = Color.FromArgb(7, 96, 125, 139);
                             item.Cells[3].Style.ForeColor = Color.White;
                             item.Cells[3].Style.Font = new Font("Century Gothic", 8, FontStyle.Bold);
                             break;
                         case "Autorizado":
-                            item.Cells[3].Style.BackColor = Color.FromArgb(66, 133, 244);
+                            item.Cells[3].Style.BackColor = Color.FromArgb(7,76, 175, 80);
                             item.Cells[3].Style.ForeColor = Color.White;
                             item.Cells[3].Style.Font = new Font("Century Gothic", 8, FontStyle.Bold);
                             break;
@@ -252,7 +253,7 @@ namespace SOAPAP.UI.Descuentos
             else
             {
                 loading.Close();
-                authorization = JsonConvert.DeserializeObject<List<DiscountAuthorization>>(results);
+                authorization = JsonConvert.DeserializeObject<List<SOAPAP.Model.DiscountAuthorizationVM>>(results);
                 var DiscountAuth = authorization.Select(x => new DiscountAuthorizationVM
                 {
                     Id = x.Id,
@@ -272,7 +273,8 @@ namespace SOAPAP.UI.Descuentos
                                 x.Status == "EDE02" ? "Autorizado" :
                                 x.Status == "EDE03" ? "Cancelado" :
                                 "Rechazado",
-                    Ajuste_Cuenta = x.AccountAdjusted
+                    Ajuste_Cuenta = x.AccountAdjusted,
+                    Cobrado = x.IsApplied
                 }).ToList();
 
                 Table = ConvertToDataTable<DiscountAuthorizationVM>(DiscountAuth);
@@ -299,37 +301,40 @@ namespace SOAPAP.UI.Descuentos
                 dgvDiscounts.Columns[3].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
                 dgvDiscounts.Columns[3].Width = 75;
                 dgvDiscounts.Columns[4].AutoSizeMode = DataGridViewAutoSizeColumnMode.NotSet;
-                dgvDiscounts.Columns[4].Width = 300;
+                dgvDiscounts.Columns[4].Width = 270;
                 dgvDiscounts.Columns[5].Visible = false;
                 dgvDiscounts.Columns[6].Visible = false;
                 dgvDiscounts.Columns[7].AutoSizeMode = DataGridViewAutoSizeColumnMode.NotSet;
                 dgvDiscounts.Columns[7].Width = 120;
                 dgvDiscounts.Columns[7].DefaultCellStyle.Format = "c2";
                 dgvDiscounts.Columns[7].DefaultCellStyle.FormatProvider = new CultureInfo("es-MX");
-                dgvDiscounts.Columns[8].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-                dgvDiscounts.Columns[9].Visible = false;
-                dgvDiscounts.Columns[10].Visible = false;
+                dgvDiscounts.Columns[8].AutoSizeMode = DataGridViewAutoSizeColumnMode.NotSet;
+                dgvDiscounts.Columns[8].Width = 120;
+                dgvDiscounts.Columns[9].AutoSizeMode = DataGridViewAutoSizeColumnMode.NotSet;
+                dgvDiscounts.Columns[9].Width = 80;
+                dgvDiscounts.Columns[10].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
                 dgvDiscounts.Columns[11].Visible = false;
                 dgvDiscounts.Columns[12].Visible = false;
                 dgvDiscounts.Columns[13].Visible = false;
                 dgvDiscounts.Columns[14].Visible = false;
+                dgvDiscounts.Columns[15].Visible = false;
 
                 foreach (DataGridViewRow item in dgvDiscounts.Rows)
                 {
                     switch (item.Cells[3].FormattedValue.ToString())
                     {
                         case "Solicitado":
-                            item.Cells[3].Style.BackColor = Color.FromArgb(43, 187, 173);
+                            item.Cells[3].Style.BackColor = Color.FromArgb(255, 96, 125, 139);
                             item.Cells[3].Style.ForeColor = Color.White;
                             item.Cells[3].Style.Font = new Font("Century Gothic", 8, FontStyle.Bold);
                             break;
                         case "Autorizado":
-                            item.Cells[3].Style.BackColor = Color.FromArgb(66, 133, 244);
+                            item.Cells[3].Style.BackColor = Color.FromArgb(255, 0, 150, 136);
                             item.Cells[3].Style.ForeColor = Color.White;
                             item.Cells[3].Style.Font = new Font("Century Gothic", 8, FontStyle.Bold);
                             break;
                         case "Cancelado":
-                            item.Cells[3].Style.BackColor = Color.FromArgb(204, 0, 0);
+                            item.Cells[3].Style.BackColor = Color.FromArgb(255, 244, 67, 54);
                             item.Cells[3].Style.ForeColor = Color.White;
                             item.Cells[3].Style.Font = new Font("Century Gothic", 8, FontStyle.Bold);
                             break;
@@ -348,8 +353,9 @@ namespace SOAPAP.UI.Descuentos
         public string Sucursal { get; set; }
         public decimal Monto_Original { get; set; }
         public decimal Monto_Ajustado { get; set; }
-        public string Observaciones { get; set; }
         public string Fecha_Solicitud { get; set; }
+        public bool Cobrado { get; set; }
+        public string Observaciones { get; set; }
         public string Autorizacion { get; set; }
         public decimal Descuento { get; set; }
         public Int16 Porcentaje { get; set; }

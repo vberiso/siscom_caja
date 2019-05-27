@@ -19,6 +19,7 @@ using System.IO;
 using System.Drawing.Imaging;
 using Humanizer;
 using SOAPAP.Tools;
+using SOAPAP.Model;
 
 namespace SOAPAP.UI
 {
@@ -260,33 +261,6 @@ namespace SOAPAP.UI
             }
         }
 
-        private void txtEntregado_KeyUp(object sender, KeyEventArgs e)
-        {
-            if (!string.IsNullOrEmpty(txtEntregado.Text) && !txtEntregado.Text.StartsWith("."))
-            {
-
-                var entregado = Convert.ToDecimal(txtEntregado.Text);
-                if (entregado > PaidUp)
-                {
-                    lblCambiopnl.Text = string.Format(new CultureInfo("es-MX"), "{0:C2}", (PaidUp - entregado) * -1);
-                    this.lblCambiopnl.ForeColor = System.Drawing.Color.Black;
-                    centraX(pnlCambio, lblCambiopnl);
-                }
-                else
-                {
-                    lblCambiopnl.Text = "$0.00";
-                    this.lblCambiopnl.ForeColor = System.Drawing.Color.DarkGray;
-                    centraX(pnlCambio, lblCambiopnl);
-                }
-            }
-            else
-            {
-                lblCambiopnl.Text = "$0.00";
-                this.lblCambiopnl.ForeColor = System.Drawing.Color.DarkGray;
-                centraX(pnlCambio, lblCambiopnl);
-            }
-        }
-
         private void txtTarjetaCheque_Leave(object sender, EventArgs e)
         {
             if ((new Regex(@"^4[0-9]{12}(?:[0-9]{3})?$")).IsMatch(txtTarjetaCheque.Text)) //Visa
@@ -377,6 +351,41 @@ namespace SOAPAP.UI
                     else
                         PostTransactionOrder();
                 }
+            }
+        }
+
+        private void txtEntregado_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (!string.IsNullOrEmpty(txtEntregado.Text) && !txtEntregado.Text.StartsWith("."))
+            {
+
+                var entregado = Convert.ToDecimal(txtEntregado.Text);
+                if (entregado > PaidUp)
+                {
+                    if(((PaidUp - entregado) * -1) > 1000){
+                        mensaje = new MessageBoxForm(Variables.titleprincipal, "El monto proporcionado supera en cambio máximo permitido, favor de verificar", TypeIcon.Icon.Cancel);
+                        result = mensaje.ShowDialog();
+                        txtEntregado.Text = "";
+                    }
+                    else
+                    {
+                        lblCambiopnl.Text = string.Format(new CultureInfo("es-MX"), "{0:C2}", (PaidUp - entregado) * -1);
+                        this.lblCambiopnl.ForeColor = System.Drawing.Color.Black;
+                        centraX(pnlCambio, lblCambiopnl);
+                    }
+                }
+                else
+                {
+                    lblCambiopnl.Text = "$0.00";
+                    this.lblCambiopnl.ForeColor = System.Drawing.Color.DarkGray;
+                    centraX(pnlCambio, lblCambiopnl);
+                }
+            }
+            else
+            {
+                lblCambiopnl.Text = "$0.00";
+                this.lblCambiopnl.ForeColor = System.Drawing.Color.DarkGray;
+                centraX(pnlCambio, lblCambiopnl);
             }
         }
 
@@ -604,7 +613,26 @@ namespace SOAPAP.UI
                 }
                 else
                 {
-                    if(Debts.Any(x => x.Type.Contains("TIP02")))
+                    resultados = await Requests.SendURIAsync($"/api/GetDiscountAuthorizationByAccount/{Variables.Agreement.Account}", HttpMethod.Get, Variables.LoginModel.Token);
+                    if (resultados.Contains("error"))
+                    {
+                        loading.Close();
+                        mensaje = new MessageBoxForm("Error", JsonConvert.DeserializeObject<Error>(resultados).error, TypeIcon.Icon.Cancel);
+                        result = mensaje.ShowDialog();
+                    }
+                    else
+                    {
+                        List<DiscountAuthorizationVM> discounts = JsonConvert.DeserializeObject<List<DiscountAuthorizationVM>>(resultados);
+                        if(discounts.Count > 0)
+                        {
+                            loading.Close();
+                            mensaje = new MessageBoxForm(Variables.titleprincipal, "La cuenta que intenta cobrar tiene una solicitud de descuento pendiente de autorización, de proceder con el cobro la solicitud quedara anulada, ¿Deseas proceder con el cobro de todas formas?", TypeIcon.Icon.Info);
+                            result = mensaje.ShowDialog();
+                            if(result == DialogResult.Cancel)
+                                throw new Exception();
+                        }
+                    }
+                    if (Debts.Any(x => x.Type.Contains("TIP02")))
                     {
                         haveProduct = true;
                     }

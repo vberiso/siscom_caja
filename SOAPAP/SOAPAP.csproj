@@ -264,6 +264,7 @@
     <Compile Include="Model\ContactVM.cs" />
     <Compile Include="Model\DiscountAuthorization.cs" />
     <Compile Include="Model\DiscountAuthorizationDetail.cs" />
+    <Compile Include="Model\DiscountAuthorizationVM.cs" />
     <Compile Include="Model\Division.cs" />
     <Compile Include="Model\OrderSale.cs" />
     <Compile Include="Model\OrderSaleDetails.cs" />
