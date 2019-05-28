@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             DevExpress.XtraCharts.XYDiagram xyDiagram1 = new DevExpress.XtraCharts.XYDiagram();
             this.pnlHeader = new System.Windows.Forms.Panel();
             this.btnExportar = new System.Windows.Forms.Button();
@@ -52,14 +51,14 @@
             this.pgfOficina = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfHora = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfDetalle = new DevExpress.XtraPivotGrid.PivotGridField();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.chartControl1 = new DevExpress.XtraCharts.ChartControl();
-            this.behaviorManager1 = new DevExpress.Utils.Behaviors.BehaviorManager(this.components);
-            this.dataHistorialBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.pgfMonto = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfDescuento = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfSubtotal = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfIva = new DevExpress.XtraPivotGrid.PivotGridField();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.chartControl1 = new DevExpress.XtraCharts.ChartControl();
+            this.behaviorManager1 = new DevExpress.Utils.Behaviors.BehaviorManager();
+            this.dataHistorialBindingSource = new System.Windows.Forms.BindingSource();
             this.pnlHeader.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chcbxOperador.Properties)).BeginInit();
@@ -307,7 +306,7 @@
             // pgfTotal
             // 
             this.pgfTotal.Area = DevExpress.XtraPivotGrid.PivotArea.DataArea;
-            this.pgfTotal.AreaIndex = 0;
+            this.pgfTotal.AreaIndex = 4;
             this.pgfTotal.Caption = "Total";
             this.pgfTotal.FieldName = "TotalConSigno_dt";
             this.pgfTotal.Name = "pgfTotal";
@@ -335,6 +334,38 @@
             this.pgfDetalle.FieldName = "Descripcion_dt";
             this.pgfDetalle.Name = "pgfDetalle";
             // 
+            // pgfMonto
+            // 
+            this.pgfMonto.Area = DevExpress.XtraPivotGrid.PivotArea.DataArea;
+            this.pgfMonto.AreaIndex = 0;
+            this.pgfMonto.Caption = "Monto";
+            this.pgfMonto.FieldName = "MontoConSigno_dt";
+            this.pgfMonto.Name = "pgfMonto";
+            // 
+            // pgfDescuento
+            // 
+            this.pgfDescuento.Area = DevExpress.XtraPivotGrid.PivotArea.DataArea;
+            this.pgfDescuento.AreaIndex = 1;
+            this.pgfDescuento.Caption = "Descuento";
+            this.pgfDescuento.FieldName = "DescuentoConSigno_dt";
+            this.pgfDescuento.Name = "pgfDescuento";
+            // 
+            // pgfSubtotal
+            // 
+            this.pgfSubtotal.Area = DevExpress.XtraPivotGrid.PivotArea.DataArea;
+            this.pgfSubtotal.AreaIndex = 2;
+            this.pgfSubtotal.Caption = "Subtotal";
+            this.pgfSubtotal.FieldName = "SubtotalConSigno_dt";
+            this.pgfSubtotal.Name = "pgfSubtotal";
+            // 
+            // pgfIva
+            // 
+            this.pgfIva.Area = DevExpress.XtraPivotGrid.PivotArea.DataArea;
+            this.pgfIva.AreaIndex = 3;
+            this.pgfIva.Caption = "IVA";
+            this.pgfIva.FieldName = "ivaConSigno_dt";
+            this.pgfIva.Name = "pgfIva";
+            // 
             // panel2
             // 
             this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -350,14 +381,14 @@
             // 
             this.chartControl1.DataBindings = null;
             this.chartControl1.DataSource = this.pgcHistorial;
-            xyDiagram1.AxisX.Title.Text = "Hora Tipo Op Metodo Detalle Monto Descuento Subtotal IVA";
+            xyDiagram1.AxisX.Title.Text = "Hora Tipo Op Metodo Detalle";
             xyDiagram1.AxisX.VisibleInPanesSerializable = "-1";
-            xyDiagram1.AxisY.Title.Text = "Total";
+            xyDiagram1.AxisY.Title.Text = "Monto Descuento Subtotal IVA Total";
             xyDiagram1.AxisY.VisibleInPanesSerializable = "-1";
             this.chartControl1.Diagram = xyDiagram1;
             this.chartControl1.Legend.MaxHorizontalPercentage = 30D;
             this.chartControl1.Legend.Name = "Default Legend";
-            this.chartControl1.Location = new System.Drawing.Point(12, 20);
+            this.chartControl1.Location = new System.Drawing.Point(12, 16);
             this.chartControl1.Name = "chartControl1";
             this.chartControl1.SeriesDataMember = "Series";
             this.chartControl1.SeriesSerializable = new DevExpress.XtraCharts.Series[0];
@@ -370,38 +401,6 @@
             // dataHistorialBindingSource
             // 
             this.dataHistorialBindingSource.DataSource = typeof(SOAPAP.UI.HistorialTransacciones.DataHistorial);
-            // 
-            // pgfMonto
-            // 
-            this.pgfMonto.Area = DevExpress.XtraPivotGrid.PivotArea.RowArea;
-            this.pgfMonto.AreaIndex = 4;
-            this.pgfMonto.Caption = "Monto";
-            this.pgfMonto.FieldName = "MontoConSigno_dt";
-            this.pgfMonto.Name = "pgfMonto";
-            // 
-            // pgfDescuento
-            // 
-            this.pgfDescuento.Area = DevExpress.XtraPivotGrid.PivotArea.RowArea;
-            this.pgfDescuento.AreaIndex = 5;
-            this.pgfDescuento.Caption = "Descuento";
-            this.pgfDescuento.FieldName = "DescuentoConSigno_dt";
-            this.pgfDescuento.Name = "pgfDescuento";
-            // 
-            // pgfSubtotal
-            // 
-            this.pgfSubtotal.Area = DevExpress.XtraPivotGrid.PivotArea.RowArea;
-            this.pgfSubtotal.AreaIndex = 6;
-            this.pgfSubtotal.Caption = "Subtotal";
-            this.pgfSubtotal.FieldName = "SubtotalConSigno_dt";
-            this.pgfSubtotal.Name = "pgfSubtotal";
-            // 
-            // pgfIva
-            // 
-            this.pgfIva.Area = DevExpress.XtraPivotGrid.PivotArea.RowArea;
-            this.pgfIva.AreaIndex = 7;
-            this.pgfIva.Caption = "IVA";
-            this.pgfIva.FieldName = "ivaConSigno_dt";
-            this.pgfIva.Name = "pgfIva";
             // 
             // Historial
             // 

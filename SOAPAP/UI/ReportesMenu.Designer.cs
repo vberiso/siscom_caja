@@ -34,6 +34,7 @@
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.btnRecaudacion = new System.Windows.Forms.Button();
             this.btnBusqudaContribuyente = new System.Windows.Forms.Button();
+            this.btnIOT = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -100,6 +101,7 @@
             this.tableLayoutPanel1.Controls.Add(this.btnIPC, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.btnRecaudacion, 3, 0);
             this.tableLayoutPanel1.Controls.Add(this.btnBusqudaContribuyente, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.btnIOT, 1, 1);
             this.tableLayoutPanel1.Location = new System.Drawing.Point(12, 12);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 4;
@@ -142,6 +144,22 @@
             this.btnBusqudaContribuyente.UseVisualStyleBackColor = false;
             this.btnBusqudaContribuyente.Click += new System.EventHandler(this.btnBusqudaContribuyente_Click);
             // 
+            // btnIOT
+            // 
+            this.btnIOT.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.btnIOT.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(3)))), ((int)(((byte)(155)))), ((int)(((byte)(229)))));
+            this.btnIOT.FlatAppearance.BorderSize = 0;
+            this.btnIOT.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnIOT.Font = new System.Drawing.Font("Segoe UI Black", 12F, System.Drawing.FontStyle.Bold);
+            this.btnIOT.ForeColor = System.Drawing.Color.White;
+            this.btnIOT.Location = new System.Drawing.Point(218, 87);
+            this.btnIOT.Name = "btnIOT";
+            this.btnIOT.Size = new System.Drawing.Size(145, 57);
+            this.btnIOT.TabIndex = 24;
+            this.btnIOT.Text = "INGRESOS DE TESORERIA";
+            this.btnIOT.UseVisualStyleBackColor = false;
+            this.btnIOT.Click += new System.EventHandler(this.btnIOT_Click);
+            // 
             // ReportesMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -162,5 +180,6 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.Button btnRecaudacion;
         private System.Windows.Forms.Button btnBusqudaContribuyente;
+        private System.Windows.Forms.Button btnIOT;
     }
 }
