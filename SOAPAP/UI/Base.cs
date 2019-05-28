@@ -837,5 +837,10 @@ namespace SOAPAP
         {
             ShowForm("SOAPAP", "UI.UI.Descuentos.DetalleDescuentos");
         }
+
+        private void ingresosDeTesoreríaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ShowForm("SOAPAP", "UI.ReportesForms.RepIOT");
+        }
     }
 }

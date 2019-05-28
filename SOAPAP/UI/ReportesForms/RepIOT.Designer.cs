@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             this.pnlHeader = new System.Windows.Forms.Panel();
             this.chceMostrarDetalle = new DevExpress.XtraEditors.CheckEdit();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -51,6 +50,7 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.lblTitulo = new System.Windows.Forms.Label();
             this.pgdIOT = new DevExpress.XtraPivotGrid.PivotGridControl();
+            this.dataIncomeOfTreasuryBindingSource = new System.Windows.Forms.BindingSource();
             this.pgfFolio = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfNombre = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfFecha = new DevExpress.XtraPivotGrid.PivotGridField();
@@ -64,7 +64,7 @@
             this.pgfSub = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfIva = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfTotaDt = new DevExpress.XtraPivotGrid.PivotGridField();
-            this.dataIncomeOfTreasuryBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.pgfCuenta = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pnlHeader.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chceMostrarDetalle.Properties)).BeginInit();
             this.tableLayoutPanel2.SuspendLayout();
@@ -364,17 +364,22 @@
             this.pgfDesc,
             this.pgfSub,
             this.pgfIva,
-            this.pgfTotaDt});
+            this.pgfTotaDt,
+            this.pgfCuenta});
             this.pgdIOT.Location = new System.Drawing.Point(3, 161);
             this.pgdIOT.Name = "pgdIOT";
             this.pgdIOT.OptionsData.DataProcessingEngine = DevExpress.XtraPivotGrid.PivotDataProcessingEngine.LegacyOptimized;
             this.pgdIOT.Size = new System.Drawing.Size(929, 384);
             this.pgdIOT.TabIndex = 50;
             // 
+            // dataIncomeOfTreasuryBindingSource
+            // 
+            this.dataIncomeOfTreasuryBindingSource.DataSource = typeof(SOAPAP.Reportes.DataIncomeOfTreasury);
+            // 
             // pgfFolio
             // 
             this.pgfFolio.Area = DevExpress.XtraPivotGrid.PivotArea.RowArea;
-            this.pgfFolio.AreaIndex = 0;
+            this.pgfFolio.AreaIndex = 1;
             this.pgfFolio.Caption = "Folio";
             this.pgfFolio.FieldName = "Folio";
             this.pgfFolio.Name = "pgfFolio";
@@ -382,7 +387,7 @@
             // pgfNombre
             // 
             this.pgfNombre.Area = DevExpress.XtraPivotGrid.PivotArea.RowArea;
-            this.pgfNombre.AreaIndex = 1;
+            this.pgfNombre.AreaIndex = 2;
             this.pgfNombre.Caption = "Nombre";
             this.pgfNombre.FieldName = "Nombre";
             this.pgfNombre.Name = "pgfNombre";
@@ -391,7 +396,7 @@
             // pgfFecha
             // 
             this.pgfFecha.Area = DevExpress.XtraPivotGrid.PivotArea.RowArea;
-            this.pgfFecha.AreaIndex = 2;
+            this.pgfFecha.AreaIndex = 3;
             this.pgfFecha.Caption = "Fecha";
             this.pgfFecha.FieldName = "Fecha";
             this.pgfFecha.Name = "pgfFecha";
@@ -407,7 +412,7 @@
             // pgfStatus
             // 
             this.pgfStatus.Area = DevExpress.XtraPivotGrid.PivotArea.RowArea;
-            this.pgfStatus.AreaIndex = 3;
+            this.pgfStatus.AreaIndex = 4;
             this.pgfStatus.Caption = "Estatus";
             this.pgfStatus.FieldName = "Estado";
             this.pgfStatus.Name = "pgfStatus";
@@ -430,7 +435,7 @@
             // pgfDetalle
             // 
             this.pgfDetalle.Area = DevExpress.XtraPivotGrid.PivotArea.RowArea;
-            this.pgfDetalle.AreaIndex = 4;
+            this.pgfDetalle.AreaIndex = 5;
             this.pgfDetalle.Caption = "Detalle";
             this.pgfDetalle.FieldName = "Descripcion";
             this.pgfDetalle.Name = "pgfDetalle";
@@ -475,9 +480,13 @@
             this.pgfTotaDt.FieldName = "Total_dt_CS";
             this.pgfTotaDt.Name = "pgfTotaDt";
             // 
-            // dataIncomeOfTreasuryBindingSource
+            // pgfCuenta
             // 
-            this.dataIncomeOfTreasuryBindingSource.DataSource = typeof(SOAPAP.Reportes.DataIncomeOfTreasury);
+            this.pgfCuenta.Area = DevExpress.XtraPivotGrid.PivotArea.RowArea;
+            this.pgfCuenta.AreaIndex = 0;
+            this.pgfCuenta.Caption = "Cuenta";
+            this.pgfCuenta.FieldName = "Cuenta";
+            this.pgfCuenta.Name = "pgfCuenta";
             // 
             // RepIOT
             // 
@@ -545,5 +554,6 @@
         private DevExpress.XtraPivotGrid.PivotGridField pgfSub;
         private DevExpress.XtraPivotGrid.PivotGridField pgfIva;
         private DevExpress.XtraPivotGrid.PivotGridField pgfTotaDt;
+        private DevExpress.XtraPivotGrid.PivotGridField pgfCuenta;
     }
 }

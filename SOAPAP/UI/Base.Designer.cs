@@ -47,6 +47,7 @@
             this.salirToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.opcionesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cajasToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.descuentosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.facturacionAgrupadaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.facturacionAgrupadaCanceladasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.notificacionesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -76,7 +77,7 @@
             this.btnApertura = new System.Windows.Forms.Button();
             this.btnBuscar = new System.Windows.Forms.Button();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
-            this.descuentosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ingresosDeTesoreríaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pnlContenido.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.pnlBottom.SuspendLayout();
@@ -210,8 +211,8 @@
             this.msPrincipal.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.usuarioToolStripMenuItem,
             this.opcionesToolStripMenuItem,
-            this.notificacionesToolStripMenuItem,
-            this.reportesToolStripMenuItem});
+            this.reportesToolStripMenuItem,
+            this.notificacionesToolStripMenuItem});
             this.msPrincipal.Location = new System.Drawing.Point(0, 0);
             this.msPrincipal.Name = "msPrincipal";
             this.msPrincipal.Padding = new System.Windows.Forms.Padding(6, 2, 20, 2);
@@ -242,7 +243,7 @@
             this.perfilToolStripMenuItem.Image = global::SOAPAP.Properties.Resources.perfil;
             this.perfilToolStripMenuItem.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.perfilToolStripMenuItem.Name = "perfilToolStripMenuItem";
-            this.perfilToolStripMenuItem.Size = new System.Drawing.Size(115, 26);
+            this.perfilToolStripMenuItem.Size = new System.Drawing.Size(184, 26);
             this.perfilToolStripMenuItem.Text = "Perfil";
             this.perfilToolStripMenuItem.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.perfilToolStripMenuItem.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
@@ -253,7 +254,7 @@
             this.salirToolStripMenuItem.Image = global::SOAPAP.Properties.Resources.logout;
             this.salirToolStripMenuItem.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.salirToolStripMenuItem.Name = "salirToolStripMenuItem";
-            this.salirToolStripMenuItem.Size = new System.Drawing.Size(115, 26);
+            this.salirToolStripMenuItem.Size = new System.Drawing.Size(184, 26);
             this.salirToolStripMenuItem.Text = "Salir";
             this.salirToolStripMenuItem.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.salirToolStripMenuItem.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
@@ -281,6 +282,14 @@
             this.cajasToolStripMenuItem1.Size = new System.Drawing.Size(321, 26);
             this.cajasToolStripMenuItem1.Text = "Cajas";
             this.cajasToolStripMenuItem1.Click += new System.EventHandler(this.cajasToolStripMenuItem1_Click);
+            // 
+            // descuentosToolStripMenuItem
+            // 
+            this.descuentosToolStripMenuItem.ForeColor = System.Drawing.Color.DimGray;
+            this.descuentosToolStripMenuItem.Name = "descuentosToolStripMenuItem";
+            this.descuentosToolStripMenuItem.Size = new System.Drawing.Size(321, 26);
+            this.descuentosToolStripMenuItem.Text = "Descuentos";
+            this.descuentosToolStripMenuItem.Click += new System.EventHandler(this.descuentosToolStripMenuItem_Click);
             // 
             // facturacionAgrupadaToolStripMenuItem
             // 
@@ -315,7 +324,8 @@
             this.ingresosPorConceptoToolStripMenuItem,
             this.padrónToolStripMenuItem,
             this.recaudaciónToolStripMenuItem,
-            this.buscarContribuyenteToolStripMenuItem});
+            this.buscarContribuyenteToolStripMenuItem,
+            this.ingresosDeTesoreríaToolStripMenuItem});
             this.reportesToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 12F);
             this.reportesToolStripMenuItem.ForeColor = System.Drawing.Color.DimGray;
             this.reportesToolStripMenuItem.Image = global::SOAPAP.Properties.Resources.file;
@@ -671,13 +681,13 @@
             this.pictureBox3.TabIndex = 23;
             this.pictureBox3.TabStop = false;
             // 
-            // descuentosToolStripMenuItem
+            // ingresosDeTesoreríaToolStripMenuItem
             // 
-            this.descuentosToolStripMenuItem.ForeColor = System.Drawing.Color.DimGray;
-            this.descuentosToolStripMenuItem.Name = "descuentosToolStripMenuItem";
-            this.descuentosToolStripMenuItem.Size = new System.Drawing.Size(321, 26);
-            this.descuentosToolStripMenuItem.Text = "Descuentos";
-            this.descuentosToolStripMenuItem.Click += new System.EventHandler(this.descuentosToolStripMenuItem_Click);
+            this.ingresosDeTesoreríaToolStripMenuItem.ForeColor = System.Drawing.Color.DimGray;
+            this.ingresosDeTesoreríaToolStripMenuItem.Name = "ingresosDeTesoreríaToolStripMenuItem";
+            this.ingresosDeTesoreríaToolStripMenuItem.Size = new System.Drawing.Size(237, 26);
+            this.ingresosDeTesoreríaToolStripMenuItem.Text = "Ingresos de Tesorería";
+            this.ingresosDeTesoreríaToolStripMenuItem.Click += new System.EventHandler(this.ingresosDeTesoreríaToolStripMenuItem_Click);
             // 
             // Base
             // 
@@ -769,5 +779,6 @@
         private System.Windows.Forms.ToolStripMenuItem recaudaciónToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem buscarContribuyenteToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem descuentosToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem ingresosDeTesoreríaToolStripMenuItem;
     }
 }
