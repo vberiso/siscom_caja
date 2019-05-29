@@ -55,6 +55,7 @@
             this.lblTitulo = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.pgcIBC = new DevExpress.XtraPivotGrid.PivotGridControl();
+            this.incomeByConceptVMBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.pgfFolio = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfCuenta = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfNombre = new DevExpress.XtraPivotGrid.PivotGridField();
@@ -77,7 +78,6 @@
             this.pgfBanco = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfMonto = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfSubtotal = new DevExpress.XtraPivotGrid.PivotGridField();
-            this.incomeByConceptVMBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.pnlHeader.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -238,9 +238,9 @@
             this.label6.Location = new System.Drawing.Point(3, 3);
             this.label6.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(51, 13);
+            this.label6.Size = new System.Drawing.Size(43, 13);
             this.label6.TabIndex = 51;
-            this.label6.Text = "Operador";
+            this.label6.Text = "Usuario";
             // 
             // chcbxOperador
             // 
@@ -440,6 +440,10 @@
             this.pgcIBC.Size = new System.Drawing.Size(1014, 302);
             this.pgcIBC.TabIndex = 49;
             // 
+            // incomeByConceptVMBindingSource
+            // 
+            this.incomeByConceptVMBindingSource.DataSource = typeof(SOAPAP.Reportes.IncomeByConceptVM);
+            // 
             // pgfFolio
             // 
             this.pgfFolio.Area = DevExpress.XtraPivotGrid.PivotArea.RowArea;
@@ -586,7 +590,7 @@
             // pgfOperador
             // 
             this.pgfOperador.AreaIndex = 1;
-            this.pgfOperador.Caption = "OPERADOR";
+            this.pgfOperador.Caption = "USUARIO";
             this.pgfOperador.FieldName = "CAJERO";
             this.pgfOperador.Name = "pgfOperador";
             // 
@@ -613,18 +617,14 @@
             this.pgfSubtotal.FieldName = "SUBTOTAL";
             this.pgfSubtotal.Name = "pgfSubtotal";
             // 
-            // incomeByConceptVMBindingSource
-            // 
-            this.incomeByConceptVMBindingSource.DataSource = typeof(SOAPAP.Reportes.IncomeByConceptVM);
-            // 
-            // RepIBC
+            // RepIA
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1014, 450);
             this.Controls.Add(this.pgcIBC);
             this.Controls.Add(this.pnlHeader);
-            this.Name = "RepIBC";
+            this.Name = "RepIA";
             this.Text = "RepIBC";
             this.Load += new System.EventHandler(this.RepIBC_Load);
             this.pnlHeader.ResumeLayout(false);

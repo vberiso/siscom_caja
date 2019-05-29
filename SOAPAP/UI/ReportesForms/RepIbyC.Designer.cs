@@ -47,11 +47,12 @@
             this.btnExportar = new System.Windows.Forms.Button();
             this.btnGenerar = new System.Windows.Forms.Button();
             this.pnlHLeft = new System.Windows.Forms.Panel();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.lblTitulo = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.pgcCollection = new DevExpress.XtraPivotGrid.PivotGridControl();
-            this.dataCollectionBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.pgfDescripcion = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfSubtotal = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfDescuento = new DevExpress.XtraPivotGrid.PivotGridField();
@@ -65,8 +66,7 @@
             this.pgfBanco = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfCuenta = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfFolio = new DevExpress.XtraPivotGrid.PivotGridField();
-            this.label7 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
+            this.dataCollectionBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.pnlHeader.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -202,9 +202,9 @@
             this.label6.Location = new System.Drawing.Point(3, 3);
             this.label6.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(54, 13);
+            this.label6.Size = new System.Drawing.Size(46, 13);
             this.label6.TabIndex = 52;
-            this.label6.Text = "Operador:";
+            this.label6.Text = "Usuario:";
             // 
             // label4
             // 
@@ -307,6 +307,32 @@
             this.pnlHLeft.Size = new System.Drawing.Size(302, 144);
             this.pnlHLeft.TabIndex = 44;
             // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(3)))), ((int)(((byte)(155)))), ((int)(((byte)(229)))));
+            this.label7.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.ForeColor = System.Drawing.Color.White;
+            this.label7.Location = new System.Drawing.Point(6, 50);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(118, 21);
+            this.label7.TabIndex = 48;
+            this.label7.Text = "por conceptos";
+            this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(3)))), ((int)(((byte)(155)))), ((int)(((byte)(229)))));
+            this.label8.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.ForeColor = System.Drawing.Color.White;
+            this.label8.Location = new System.Drawing.Point(50, 30);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(74, 21);
+            this.label8.TabIndex = 47;
+            this.label8.Text = "Ingresos";
+            this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -369,10 +395,6 @@
             this.pgcCollection.Size = new System.Drawing.Size(891, 295);
             this.pgcCollection.TabIndex = 50;
             // 
-            // dataCollectionBindingSource
-            // 
-            this.dataCollectionBindingSource.DataSource = typeof(SOAPAP.Reportes.DataCollection);
-            // 
             // pgfDescripcion
             // 
             this.pgfDescripcion.Area = DevExpress.XtraPivotGrid.PivotArea.RowArea;
@@ -425,7 +447,7 @@
             // pgfCajero
             // 
             this.pgfCajero.AreaIndex = 0;
-            this.pgfCajero.Caption = "OPERADOR";
+            this.pgfCajero.Caption = "USUARIO";
             this.pgfCajero.FieldName = "CAJERO";
             this.pgfCajero.Name = "pgfCajero";
             // 
@@ -473,40 +495,18 @@
             this.pgfFolio.FieldName = "folio_impresion";
             this.pgfFolio.Name = "pgfFolio";
             // 
-            // label7
+            // dataCollectionBindingSource
             // 
-            this.label7.AutoSize = true;
-            this.label7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(3)))), ((int)(((byte)(155)))), ((int)(((byte)(229)))));
-            this.label7.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.ForeColor = System.Drawing.Color.White;
-            this.label7.Location = new System.Drawing.Point(6, 50);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(118, 21);
-            this.label7.TabIndex = 48;
-            this.label7.Text = "por conceptos";
-            this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.dataCollectionBindingSource.DataSource = typeof(SOAPAP.Reportes.DataCollection);
             // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(3)))), ((int)(((byte)(155)))), ((int)(((byte)(229)))));
-            this.label8.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.ForeColor = System.Drawing.Color.White;
-            this.label8.Location = new System.Drawing.Point(50, 30);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(74, 21);
-            this.label8.TabIndex = 47;
-            this.label8.Text = "Ingresos";
-            this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // RepCollection
+            // RepIbyC
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(891, 450);
             this.Controls.Add(this.pgcCollection);
             this.Controls.Add(this.pnlHeader);
-            this.Name = "RepCollection";
+            this.Name = "RepIbyC";
             this.Text = "RepCollection";
             this.Load += new System.EventHandler(this.RepCollection_Load);
             this.pnlHeader.ResumeLayout(false);

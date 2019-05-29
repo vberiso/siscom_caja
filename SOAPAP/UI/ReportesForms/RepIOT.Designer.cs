@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.pnlHeader = new System.Windows.Forms.Panel();
             this.chceMostrarDetalle = new DevExpress.XtraEditors.CheckEdit();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -50,7 +51,7 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.lblTitulo = new System.Windows.Forms.Label();
             this.pgdIOT = new DevExpress.XtraPivotGrid.PivotGridControl();
-            this.dataIncomeOfTreasuryBindingSource = new System.Windows.Forms.BindingSource();
+            this.dataIncomeOfTreasuryBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.pgfFolio = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfNombre = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfFecha = new DevExpress.XtraPivotGrid.PivotGridField();
@@ -267,9 +268,9 @@
             this.label6.Location = new System.Drawing.Point(3, 3);
             this.label6.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(51, 13);
+            this.label6.Size = new System.Drawing.Size(43, 13);
             this.label6.TabIndex = 51;
-            this.label6.Text = "Operador";
+            this.label6.Text = "Usuario";
             // 
             // chcbxOperador
             // 
@@ -428,7 +429,7 @@
             // pgfCajero
             // 
             this.pgfCajero.AreaIndex = 0;
-            this.pgfCajero.Caption = "Cajero";
+            this.pgfCajero.Caption = "Usuario";
             this.pgfCajero.FieldName = "Cajero";
             this.pgfCajero.Name = "pgfCajero";
             // 

@@ -57,6 +57,7 @@
             this.lblTitulo = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.pgcIFB = new DevExpress.XtraPivotGrid.PivotGridControl();
+            this.dataIncomeFromBoxBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.pgfFolio = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfCuenta = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfNombre = new DevExpress.XtraPivotGrid.PivotGridField();
@@ -70,7 +71,6 @@
             this.pgfOficina = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfOperador = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfIva = new DevExpress.XtraPivotGrid.PivotGridField();
-            this.dataIncomeFromBoxBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.pgfMonto = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfFormaPago = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfBanco = new DevExpress.XtraPivotGrid.PivotGridField();
@@ -251,9 +251,9 @@
             this.label6.Location = new System.Drawing.Point(371, 3);
             this.label6.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(119, 13);
+            this.label6.Size = new System.Drawing.Size(111, 13);
             this.label6.TabIndex = 52;
-            this.label6.Text = "Seleccione el operador:";
+            this.label6.Text = "Seleccione el usuario:";
             // 
             // label7
             // 
@@ -456,6 +456,10 @@
             this.pgcIFB.Size = new System.Drawing.Size(1027, 277);
             this.pgcIFB.TabIndex = 49;
             // 
+            // dataIncomeFromBoxBindingSource
+            // 
+            this.dataIncomeFromBoxBindingSource.DataSource = typeof(SOAPAP.Reportes.DataIncomeFromBox);
+            // 
             // pgfFolio
             // 
             this.pgfFolio.Area = DevExpress.XtraPivotGrid.PivotArea.RowArea;
@@ -548,7 +552,7 @@
             // pgfOperador
             // 
             this.pgfOperador.AreaIndex = 1;
-            this.pgfOperador.Caption = "CAJERO";
+            this.pgfOperador.Caption = "USUARIO";
             this.pgfOperador.FieldName = "cajero";
             this.pgfOperador.Name = "pgfOperador";
             // 
@@ -559,10 +563,6 @@
             this.pgfIva.Caption = "IVA";
             this.pgfIva.FieldName = "iva";
             this.pgfIva.Name = "pgfIva";
-            // 
-            // dataIncomeFromBoxBindingSource
-            // 
-            this.dataIncomeFromBoxBindingSource.DataSource = typeof(SOAPAP.Reportes.DataIncomeFromBox);
             // 
             // pgfMonto
             // 

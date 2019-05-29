@@ -40,6 +40,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.dtpFechaIni = new System.Windows.Forms.DateTimePicker();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.chxPorFechaContrato = new System.Windows.Forms.CheckBox();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.chlbxToma = new DevExpress.XtraEditors.CheckedListBoxControl();
@@ -78,7 +79,6 @@
             this.pgfTipoToma = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfMes = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfAño = new DevExpress.XtraPivotGrid.PivotGridField();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.pnlHeader.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
@@ -254,6 +254,16 @@
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
             this.tableLayoutPanel3.Size = new System.Drawing.Size(393, 25);
             this.tableLayoutPanel3.TabIndex = 54;
+            // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Location = new System.Drawing.Point(198, 3);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(83, 17);
+            this.checkBox1.TabIndex = 2;
+            this.checkBox1.Text = "Incluir todos";
+            this.checkBox1.UseVisualStyleBackColor = true;
             // 
             // chxPorFechaContrato
             // 
@@ -664,16 +674,6 @@
             this.pgfAño.Caption = "AÑO";
             this.pgfAño.FieldName = "CONTRATO_AÑO";
             this.pgfAño.Name = "pgfAño";
-            // 
-            // checkBox1
-            // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(198, 3);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(83, 17);
-            this.checkBox1.TabIndex = 2;
-            this.checkBox1.Text = "Incluir todos";
-            this.checkBox1.UseVisualStyleBackColor = true;
             // 
             // RepPadronWater
             // 

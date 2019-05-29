@@ -437,9 +437,9 @@
             this.btnHistorial.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnHistorial.Location = new System.Drawing.Point(8, 400);
             this.btnHistorial.Name = "btnHistorial";
-            this.btnHistorial.Size = new System.Drawing.Size(210, 38);
+            this.btnHistorial.Size = new System.Drawing.Size(210, 56);
             this.btnHistorial.TabIndex = 41;
-            this.btnHistorial.Text = "   Historial";
+            this.btnHistorial.Text = "   Operación de caja             historico";
             this.btnHistorial.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnHistorial.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnHistorial.UseVisualStyleBackColor = false;
