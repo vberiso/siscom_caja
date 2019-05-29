@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿//Antes Recaudacion, ahora Ingresos por concepto.
+using Newtonsoft.Json;
 using SOAPAP.Enums;
 using SOAPAP.Reportes;
 using SOAPAP.Services;
@@ -133,7 +134,7 @@ namespace SOAPAP.UI.ReportesForms
 
             if (fbd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                string NombreFile = "Recaudacion_" + Variables.LoginModel.FullName.Replace(" ", "") + "_" + DateTime.Now.ToString("yyyy-MM-dd");
+                string NombreFile = "IngresosPorConcepto_" + Variables.LoginModel.FullName.Replace(" ", "") + "_" + DateTime.Now.ToString("yyyy-MM-dd");
                 pgcCollection.ExportToXlsx(fbd.SelectedPath + "\\" + NombreFile + ".xlsx", pivotExportOptions);                
                 Process.Start(fbd.SelectedPath + "\\" + NombreFile + ".xlsx");
                 MessageBox.Show("Archivo " + NombreFile + ".xlsx" + " guardado.");
@@ -226,7 +227,7 @@ namespace SOAPAP.UI.ReportesForms
             json = JsonConvert.SerializeObject(dRep);
             content = new StringContent(json, Encoding.UTF8, "application/json");
 
-            var _resulTransaction = await Requests.SendURIAsync("/api/Reports/Collection", HttpMethod.Post, Variables.LoginModel.Token, content);
+            var _resulTransaction = await Requests.SendURIAsync("/api/Reports/IncomeByConcept", HttpMethod.Post, Variables.LoginModel.Token, content);
 
             if (_resulTransaction.Contains("error"))
             {

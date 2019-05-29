@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.pnlHeader = new System.Windows.Forms.Panel();
             this.btnExportar = new System.Windows.Forms.Button();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
@@ -58,12 +59,11 @@
             this.cheColonia = new DevExpress.XtraEditors.CheckEdit();
             this.checkEdit1 = new DevExpress.XtraEditors.CheckEdit();
             this.pcbIncomeByConcept = new System.Windows.Forms.PictureBox();
-            this.label5 = new System.Windows.Forms.Label();
             this.btnGenerar = new System.Windows.Forms.Button();
             this.lblTitulo = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.pgcRepPadronWater = new DevExpress.XtraPivotGrid.PivotGridControl();
-            this.dataPadronWaterBindingSource = new System.Windows.Forms.BindingSource();
+            this.dataPadronWaterBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.pgfCuenta = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfNombre = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfDomicilio = new DevExpress.XtraPivotGrid.PivotGridField();
@@ -78,6 +78,7 @@
             this.pgfTipoToma = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfMes = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfAño = new DevExpress.XtraPivotGrid.PivotGridField();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.pnlHeader.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
@@ -113,7 +114,6 @@
             this.pnlHeader.Controls.Add(this.tableLayoutPanel3);
             this.pnlHeader.Controls.Add(this.tableLayoutPanel1);
             this.pnlHeader.Controls.Add(this.pcbIncomeByConcept);
-            this.pnlHeader.Controls.Add(this.label5);
             this.pnlHeader.Controls.Add(this.btnGenerar);
             this.pnlHeader.Controls.Add(this.lblTitulo);
             this.pnlHeader.Controls.Add(this.pictureBox1);
@@ -245,6 +245,7 @@
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 49.82578F));
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.17422F));
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 175F));
+            this.tableLayoutPanel3.Controls.Add(this.checkBox1, 0, 0);
             this.tableLayoutPanel3.Controls.Add(this.chxPorFechaContrato, 0, 0);
             this.tableLayoutPanel3.Location = new System.Drawing.Point(212, 9);
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
@@ -487,19 +488,6 @@
             this.pcbIncomeByConcept.TabIndex = 52;
             this.pcbIncomeByConcept.TabStop = false;
             // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(3)))), ((int)(((byte)(155)))), ((int)(((byte)(229)))));
-            this.label5.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.ForeColor = System.Drawing.Color.White;
-            this.label5.Location = new System.Drawing.Point(11, 35);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(130, 21);
-            this.label5.TabIndex = 45;
-            this.label5.Text = "Padron de agua";
-            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
             // btnGenerar
             // 
             this.btnGenerar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -524,9 +512,9 @@
             this.lblTitulo.ForeColor = System.Drawing.Color.White;
             this.lblTitulo.Location = new System.Drawing.Point(48, 12);
             this.lblTitulo.Name = "lblTitulo";
-            this.lblTitulo.Size = new System.Drawing.Size(92, 25);
+            this.lblTitulo.Size = new System.Drawing.Size(78, 25);
             this.lblTitulo.TabIndex = 36;
-            this.lblTitulo.Text = "Reportes";
+            this.lblTitulo.Text = "Padron";
             this.lblTitulo.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // pictureBox1
@@ -677,6 +665,16 @@
             this.pgfAño.FieldName = "CONTRATO_AÑO";
             this.pgfAño.Name = "pgfAño";
             // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Location = new System.Drawing.Point(198, 3);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(83, 17);
+            this.checkBox1.TabIndex = 2;
+            this.checkBox1.Text = "Incluir todos";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            // 
             // RepPadronWater
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -736,7 +734,6 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.PictureBox pcbIncomeByConcept;
-        private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button btnGenerar;
         private System.Windows.Forms.Label lblTitulo;
         private System.Windows.Forms.PictureBox pictureBox1;
@@ -770,5 +767,6 @@
         private System.Windows.Forms.NumericUpDown numericUpDown1;
         private DevExpress.XtraPivotGrid.PivotGridField pgfMes;
         private DevExpress.XtraPivotGrid.PivotGridField pgfAño;
+        private System.Windows.Forms.CheckBox checkBox1;
     }
 }

@@ -815,7 +815,7 @@ namespace SOAPAP
 
         private void ingresosPorConceptoToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ShowForm("SOAPAP", "UI.ReportesForms.RepIBC");
+            ShowForm("SOAPAP", "UI.ReportesForms.RepIA");
         }
 
         private void padrónToolStripMenuItem_Click(object sender, EventArgs e)

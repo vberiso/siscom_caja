@@ -568,11 +568,11 @@
     <Compile Include="UI\ReportesForms\RepCollection.Designer.cs">
       <DependentUpon>RepCollection.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\ReportesForms\RepIBC.cs">
+    <Compile Include="UI\ReportesForms\RepIA.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\ReportesForms\RepIBC.Designer.cs">
-      <DependentUpon>RepIBC.cs</DependentUpon>
+    <Compile Include="UI\ReportesForms\RepIA.Designer.cs">
+      <DependentUpon>RepIA.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\ReportesForms\RepIFB.cs">
       <SubType>Form</SubType>
@@ -806,8 +806,8 @@
     <EmbeddedResource Include="UI\ReportesForms\RepCollection.resx">
       <DependentUpon>RepCollection.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\ReportesForms\RepIBC.resx">
-      <DependentUpon>RepIBC.cs</DependentUpon>
+    <EmbeddedResource Include="UI\ReportesForms\RepIA.resx">
+      <DependentUpon>RepIA.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\ReportesForms\RepIFB.resx">
       <DependentUpon>RepIFB.cs</DependentUpon>
