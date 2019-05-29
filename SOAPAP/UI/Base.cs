@@ -825,7 +825,7 @@ namespace SOAPAP
 
         private void recaudaciónToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ShowForm("SOAPAP", "UI.ReportesForms.RepCollection");
+            ShowForm("SOAPAP", "UI.ReportesForms.RepIbyC");
         }
 
         private void buscarContribuyenteToolStripMenuItem_Click(object sender, EventArgs e)
