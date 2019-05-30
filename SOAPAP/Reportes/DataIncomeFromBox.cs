@@ -28,5 +28,7 @@ namespace SOAPAP.Reportes
         public string MetodoPago { get; set; }
         public string OrigenPago { get; set; }
         public string OrigenPagoExterno { get; set; }
+        public string TipoId { get; set; }
+        public string TipoNombre { get; set; }
     }
 }
