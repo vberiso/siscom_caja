@@ -30,5 +30,7 @@ namespace SOAPAP.Reportes
         public string ESTATUS { get; set; }
         public int idTIPO_TOMA { get; set; }
         public string TIPO_TOMA { get; set; }
+
+        public int ContadorCuenta { get { return 1; } }
     }
 }

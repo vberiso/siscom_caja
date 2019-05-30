@@ -40,8 +40,6 @@
             this.label2 = new System.Windows.Forms.Label();
             this.dtpFechaIni = new System.Windows.Forms.DateTimePicker();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.chxPorFechaContrato = new System.Windows.Forms.CheckBox();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.chlbxToma = new DevExpress.XtraEditors.CheckedListBoxControl();
             this.cheToma = new DevExpress.XtraEditors.CheckEdit();
@@ -64,7 +62,6 @@
             this.lblTitulo = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.pgcRepPadronWater = new DevExpress.XtraPivotGrid.PivotGridControl();
-            this.dataPadronWaterBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.pgfCuenta = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfNombre = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfDomicilio = new DevExpress.XtraPivotGrid.PivotGridField();
@@ -79,6 +76,10 @@
             this.pgfTipoToma = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfMes = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfAño = new DevExpress.XtraPivotGrid.PivotGridField();
+            this.tswtFiltro = new DevExpress.XtraEditors.ToggleSwitch();
+            this.pgfContador = new DevExpress.XtraPivotGrid.PivotGridField();
+            this.pgfFechaUltimaPago = new DevExpress.XtraPivotGrid.PivotGridField();
+            this.dataPadronWaterBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.pnlHeader.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
@@ -100,6 +101,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pcbIncomeByConcept)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pgcRepPadronWater)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tswtFiltro.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataPadronWaterBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
@@ -119,7 +121,7 @@
             this.pnlHeader.Controls.Add(this.pictureBox1);
             this.pnlHeader.Location = new System.Drawing.Point(1, 0);
             this.pnlHeader.Name = "pnlHeader";
-            this.pnlHeader.Size = new System.Drawing.Size(800, 259);
+            this.pnlHeader.Size = new System.Drawing.Size(951, 259);
             this.pnlHeader.TabIndex = 49;
             // 
             // btnExportar
@@ -130,7 +132,7 @@
             this.btnExportar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnExportar.Font = new System.Drawing.Font("Segoe UI Black", 12F, System.Drawing.FontStyle.Bold);
             this.btnExportar.ForeColor = System.Drawing.Color.Black;
-            this.btnExportar.Location = new System.Drawing.Point(655, 50);
+            this.btnExportar.Location = new System.Drawing.Point(806, 50);
             this.btnExportar.Name = "btnExportar";
             this.btnExportar.Size = new System.Drawing.Size(133, 39);
             this.btnExportar.TabIndex = 56;
@@ -147,7 +149,7 @@
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 58.44156F));
             this.tableLayoutPanel4.Controls.Add(this.label1, 0, 0);
             this.tableLayoutPanel4.Controls.Add(this.numericUpDown1, 1, 0);
-            this.tableLayoutPanel4.Location = new System.Drawing.Point(557, 228);
+            this.tableLayoutPanel4.Location = new System.Drawing.Point(708, 228);
             this.tableLayoutPanel4.Name = "tableLayoutPanel4";
             this.tableLayoutPanel4.RowCount = 1;
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
@@ -191,7 +193,7 @@
             this.tableLayoutPanel2.Controls.Add(this.dtpFechaFin, 1, 1);
             this.tableLayoutPanel2.Controls.Add(this.label2, 0, 0);
             this.tableLayoutPanel2.Controls.Add(this.dtpFechaIni, 0, 1);
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(208, 37);
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(283, 37);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 2;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
@@ -242,40 +244,17 @@
             this.tableLayoutPanel3.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.tableLayoutPanel3.BackColor = System.Drawing.Color.Transparent;
             this.tableLayoutPanel3.ColumnCount = 2;
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 49.82578F));
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.17422F));
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 56.48855F));
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 43.51145F));
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 175F));
-            this.tableLayoutPanel3.Controls.Add(this.checkBox1, 0, 0);
-            this.tableLayoutPanel3.Controls.Add(this.chxPorFechaContrato, 0, 0);
-            this.tableLayoutPanel3.Location = new System.Drawing.Point(212, 9);
+            this.tableLayoutPanel3.Controls.Add(this.tswtFiltro, 0, 0);
+            this.tableLayoutPanel3.Location = new System.Drawing.Point(287, 9);
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
             this.tableLayoutPanel3.RowCount = 1;
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
             this.tableLayoutPanel3.Size = new System.Drawing.Size(393, 25);
             this.tableLayoutPanel3.TabIndex = 54;
-            // 
-            // checkBox1
-            // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(198, 3);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(83, 17);
-            this.checkBox1.TabIndex = 2;
-            this.checkBox1.Text = "Incluir todos";
-            this.checkBox1.UseVisualStyleBackColor = true;
-            // 
-            // chxPorFechaContrato
-            // 
-            this.chxPorFechaContrato.AutoSize = true;
-            this.chxPorFechaContrato.Checked = true;
-            this.chxPorFechaContrato.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chxPorFechaContrato.Location = new System.Drawing.Point(3, 3);
-            this.chxPorFechaContrato.Name = "chxPorFechaContrato";
-            this.chxPorFechaContrato.Size = new System.Drawing.Size(156, 17);
-            this.chxPorFechaContrato.TabIndex = 1;
-            this.chxPorFechaContrato.Text = "Filtrar por fecha de contrato";
-            this.chxPorFechaContrato.UseVisualStyleBackColor = true;
             // 
             // tableLayoutPanel1
             // 
@@ -310,7 +289,7 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 22F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(773, 133);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(924, 133);
             this.tableLayoutPanel1.TabIndex = 49;
             // 
             // chlbxToma
@@ -318,14 +297,14 @@
             this.chlbxToma.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.chlbxToma.Cursor = System.Windows.Forms.Cursors.Default;
-            this.chlbxToma.Location = new System.Drawing.Point(582, 65);
+            this.chlbxToma.Location = new System.Drawing.Point(696, 65);
             this.chlbxToma.Name = "chlbxToma";
-            this.chlbxToma.Size = new System.Drawing.Size(188, 65);
+            this.chlbxToma.Size = new System.Drawing.Size(225, 65);
             this.chlbxToma.TabIndex = 64;
             // 
             // cheToma
             // 
-            this.cheToma.Location = new System.Drawing.Point(582, 43);
+            this.cheToma.Location = new System.Drawing.Point(696, 43);
             this.cheToma.Name = "cheToma";
             this.cheToma.Properties.Caption = "Todos";
             this.cheToma.Size = new System.Drawing.Size(75, 19);
@@ -337,13 +316,13 @@
             this.srchToma.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.srchToma.Client = this.chlbxToma;
-            this.srchToma.Location = new System.Drawing.Point(582, 18);
+            this.srchToma.Location = new System.Drawing.Point(696, 18);
             this.srchToma.Name = "srchToma";
             this.srchToma.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Repository.ClearButton(),
             new DevExpress.XtraEditors.Repository.SearchButton()});
             this.srchToma.Properties.Client = this.chlbxToma;
-            this.srchToma.Size = new System.Drawing.Size(188, 20);
+            this.srchToma.Size = new System.Drawing.Size(225, 20);
             this.srchToma.TabIndex = 62;
             // 
             // srchServicio
@@ -351,13 +330,13 @@
             this.srchServicio.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.srchServicio.Client = this.chlbxServicio;
-            this.srchServicio.Location = new System.Drawing.Point(389, 18);
+            this.srchServicio.Location = new System.Drawing.Point(465, 18);
             this.srchServicio.Name = "srchServicio";
             this.srchServicio.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Repository.ClearButton(),
             new DevExpress.XtraEditors.Repository.SearchButton()});
             this.srchServicio.Properties.Client = this.chlbxServicio;
-            this.srchServicio.Size = new System.Drawing.Size(187, 20);
+            this.srchServicio.Size = new System.Drawing.Size(225, 20);
             this.srchServicio.TabIndex = 59;
             // 
             // chlbxServicio
@@ -365,9 +344,9 @@
             this.chlbxServicio.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.chlbxServicio.Cursor = System.Windows.Forms.Cursors.Default;
-            this.chlbxServicio.Location = new System.Drawing.Point(389, 65);
+            this.chlbxServicio.Location = new System.Drawing.Point(465, 65);
             this.chlbxServicio.Name = "chlbxServicio";
-            this.chlbxServicio.Size = new System.Drawing.Size(187, 65);
+            this.chlbxServicio.Size = new System.Drawing.Size(225, 65);
             this.chlbxServicio.TabIndex = 61;
             // 
             // srchColonia
@@ -375,13 +354,13 @@
             this.srchColonia.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.srchColonia.Client = this.chlbxColonia;
-            this.srchColonia.Location = new System.Drawing.Point(196, 18);
+            this.srchColonia.Location = new System.Drawing.Point(234, 18);
             this.srchColonia.Name = "srchColonia";
             this.srchColonia.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Repository.ClearButton(),
             new DevExpress.XtraEditors.Repository.SearchButton()});
             this.srchColonia.Properties.Client = this.chlbxColonia;
-            this.srchColonia.Size = new System.Drawing.Size(187, 20);
+            this.srchColonia.Size = new System.Drawing.Size(225, 20);
             this.srchColonia.TabIndex = 56;
             // 
             // chlbxColonia
@@ -389,15 +368,15 @@
             this.chlbxColonia.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.chlbxColonia.Cursor = System.Windows.Forms.Cursors.Default;
-            this.chlbxColonia.Location = new System.Drawing.Point(196, 65);
+            this.chlbxColonia.Location = new System.Drawing.Point(234, 65);
             this.chlbxColonia.Name = "chlbxColonia";
-            this.chlbxColonia.Size = new System.Drawing.Size(187, 65);
+            this.chlbxColonia.Size = new System.Drawing.Size(225, 65);
             this.chlbxColonia.TabIndex = 58;
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(196, 3);
+            this.label6.Location = new System.Drawing.Point(234, 3);
             this.label6.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(133, 12);
@@ -417,7 +396,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(389, 3);
+            this.label8.Location = new System.Drawing.Point(465, 3);
             this.label8.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(101, 12);
@@ -427,7 +406,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(582, 3);
+            this.label7.Location = new System.Drawing.Point(696, 3);
             this.label7.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(72, 12);
@@ -445,7 +424,7 @@
             new DevExpress.XtraEditors.Repository.ClearButton(),
             new DevExpress.XtraEditors.Repository.SearchButton()});
             this.srchRuta.Properties.Client = this.chlbxRuta;
-            this.srchRuta.Size = new System.Drawing.Size(187, 20);
+            this.srchRuta.Size = new System.Drawing.Size(225, 20);
             this.srchRuta.TabIndex = 53;
             // 
             // chlbxRuta
@@ -455,7 +434,7 @@
             this.chlbxRuta.Cursor = System.Windows.Forms.Cursors.Default;
             this.chlbxRuta.Location = new System.Drawing.Point(3, 65);
             this.chlbxRuta.Name = "chlbxRuta";
-            this.chlbxRuta.Size = new System.Drawing.Size(187, 65);
+            this.chlbxRuta.Size = new System.Drawing.Size(225, 65);
             this.chlbxRuta.TabIndex = 55;
             // 
             // cheRuta
@@ -469,7 +448,7 @@
             // 
             // cheColonia
             // 
-            this.cheColonia.Location = new System.Drawing.Point(196, 43);
+            this.cheColonia.Location = new System.Drawing.Point(234, 43);
             this.cheColonia.Name = "cheColonia";
             this.cheColonia.Properties.Caption = "Todos";
             this.cheColonia.Size = new System.Drawing.Size(75, 19);
@@ -478,7 +457,7 @@
             // 
             // checkEdit1
             // 
-            this.checkEdit1.Location = new System.Drawing.Point(389, 43);
+            this.checkEdit1.Location = new System.Drawing.Point(465, 43);
             this.checkEdit1.Name = "checkEdit1";
             this.checkEdit1.Properties.Caption = "Todos";
             this.checkEdit1.Size = new System.Drawing.Size(75, 19);
@@ -491,7 +470,7 @@
             this.pcbIncomeByConcept.BackColor = System.Drawing.Color.Transparent;
             this.pcbIncomeByConcept.Image = global::SOAPAP.Properties.Resources.bg;
             this.pcbIncomeByConcept.InitialImage = global::SOAPAP.Properties.Resources.bg;
-            this.pcbIncomeByConcept.Location = new System.Drawing.Point(182, 35);
+            this.pcbIncomeByConcept.Location = new System.Drawing.Point(257, 35);
             this.pcbIncomeByConcept.Name = "pcbIncomeByConcept";
             this.pcbIncomeByConcept.Size = new System.Drawing.Size(451, 54);
             this.pcbIncomeByConcept.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -506,7 +485,7 @@
             this.btnGenerar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnGenerar.Font = new System.Drawing.Font("Segoe UI Black", 12F, System.Drawing.FontStyle.Bold);
             this.btnGenerar.ForeColor = System.Drawing.Color.Black;
-            this.btnGenerar.Location = new System.Drawing.Point(655, 7);
+            this.btnGenerar.Location = new System.Drawing.Point(806, 7);
             this.btnGenerar.Name = "btnGenerar";
             this.btnGenerar.Size = new System.Drawing.Size(133, 39);
             this.btnGenerar.TabIndex = 18;
@@ -558,16 +537,14 @@
             this.pgfPago,
             this.pgfTipoToma,
             this.pgfMes,
-            this.pgfAño});
+            this.pgfAño,
+            this.pgfContador,
+            this.pgfFechaUltimaPago});
             this.pgcRepPadronWater.Location = new System.Drawing.Point(1, 258);
             this.pgcRepPadronWater.Name = "pgcRepPadronWater";
             this.pgcRepPadronWater.OptionsData.DataProcessingEngine = DevExpress.XtraPivotGrid.PivotDataProcessingEngine.LegacyOptimized;
-            this.pgcRepPadronWater.Size = new System.Drawing.Size(800, 161);
+            this.pgcRepPadronWater.Size = new System.Drawing.Size(951, 161);
             this.pgcRepPadronWater.TabIndex = 50;
-            // 
-            // dataPadronWaterBindingSource
-            // 
-            this.dataPadronWaterBindingSource.DataSource = typeof(SOAPAP.Reportes.DataPadronWater);
             // 
             // pgfCuenta
             // 
@@ -641,7 +618,7 @@
             // pgfAdeudo
             // 
             this.pgfAdeudo.Area = DevExpress.XtraPivotGrid.PivotArea.DataArea;
-            this.pgfAdeudo.AreaIndex = 0;
+            this.pgfAdeudo.AreaIndex = 1;
             this.pgfAdeudo.Caption = "ADEUDO";
             this.pgfAdeudo.FieldName = "ADEUDO";
             this.pgfAdeudo.Name = "pgfAdeudo";
@@ -675,11 +652,41 @@
             this.pgfAño.FieldName = "CONTRATO_AÑO";
             this.pgfAño.Name = "pgfAño";
             // 
+            // tswtFiltro
+            // 
+            this.tswtFiltro.EditValue = true;
+            this.tswtFiltro.Location = new System.Drawing.Point(3, 3);
+            this.tswtFiltro.Name = "tswtFiltro";
+            this.tswtFiltro.Properties.OffText = "Todos los contratos";
+            this.tswtFiltro.Properties.OnText = "Filtrar por fecha de contrato";
+            this.tswtFiltro.Size = new System.Drawing.Size(215, 24);
+            this.tswtFiltro.TabIndex = 2;
+            // 
+            // pgfContador
+            // 
+            this.pgfContador.Area = DevExpress.XtraPivotGrid.PivotArea.DataArea;
+            this.pgfContador.AreaIndex = 0;
+            this.pgfContador.Caption = "Elementos";
+            this.pgfContador.FieldName = "ContadorCuenta";
+            this.pgfContador.Name = "pgfContador";
+            // 
+            // pgfFechaUltimaPago
+            // 
+            this.pgfFechaUltimaPago.Area = DevExpress.XtraPivotGrid.PivotArea.RowArea;
+            this.pgfFechaUltimaPago.AreaIndex = 7;
+            this.pgfFechaUltimaPago.Caption = "FECHA ULT PAGO";
+            this.pgfFechaUltimaPago.FieldName = "FECHA_ULTIMO_PAGO";
+            this.pgfFechaUltimaPago.Name = "pgfFechaUltimaPago";
+            // 
+            // dataPadronWaterBindingSource
+            // 
+            this.dataPadronWaterBindingSource.DataSource = typeof(SOAPAP.Reportes.DataPadronWater);
+            // 
             // RepPadronWater
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(951, 450);
             this.Controls.Add(this.pgcRepPadronWater);
             this.Controls.Add(this.pnlHeader);
             this.Name = "RepPadronWater";
@@ -693,7 +700,6 @@
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel2.PerformLayout();
             this.tableLayoutPanel3.ResumeLayout(false);
-            this.tableLayoutPanel3.PerformLayout();
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chlbxToma)).EndInit();
@@ -711,6 +717,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pcbIncomeByConcept)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pgcRepPadronWater)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tswtFiltro.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataPadronWaterBindingSource)).EndInit();
             this.ResumeLayout(false);
 
@@ -727,7 +734,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.DateTimePicker dtpFechaIni;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
-        private System.Windows.Forms.CheckBox chxPorFechaContrato;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label4;
@@ -767,6 +773,8 @@
         private System.Windows.Forms.NumericUpDown numericUpDown1;
         private DevExpress.XtraPivotGrid.PivotGridField pgfMes;
         private DevExpress.XtraPivotGrid.PivotGridField pgfAño;
-        private System.Windows.Forms.CheckBox checkBox1;
+        private DevExpress.XtraEditors.ToggleSwitch tswtFiltro;
+        private DevExpress.XtraPivotGrid.PivotGridField pgfContador;
+        private DevExpress.XtraPivotGrid.PivotGridField pgfFechaUltimaPago;
     }
 }

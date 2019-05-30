@@ -207,7 +207,7 @@ namespace SOAPAP.UI.ReportesForms
             List<DataComboBox> lstServicio = new List<DataComboBox>();
             if (itemsServ.Count == 0)
             {                
-                mensaje = new MessageBoxForm("Advertencia: ", "Debe seleccionar un estatus de Servicio.", TypeIcon.Icon.Cancel);
+                mensaje = new MessageBoxForm("Advertencia: ", "Debe seleccionar almenos un estatus de Servicio.", TypeIcon.Icon.Cancel);
                 result = mensaje.ShowDialog();
                 return;
             }
@@ -224,7 +224,7 @@ namespace SOAPAP.UI.ReportesForms
             List<DataComboBox> lstTomas = new List<DataComboBox>();
             if (itemsToma.Count == 0)
             {                
-                mensaje = new MessageBoxForm("Advertencia: ", "Debe seleccionar una ruta.", TypeIcon.Icon.Cancel);
+                mensaje = new MessageBoxForm("Advertencia: ", "Debe seleccionar almenos un tipo de toma.", TypeIcon.Icon.Cancel);
                 result = mensaje.ShowDialog();
                 return;
             }
@@ -236,12 +236,14 @@ namespace SOAPAP.UI.ReportesForms
                 }                
             }
 
+            
+
             DataReportes dRep = new DataReportes()
                 {
                 FechaIni = FechaIni.ToString("yyyy-MM-dd"),
                 FechaFin = FechaFin.ToString("yyyy-MM-dd"),
                 CajeroId = id,                
-                pwaFiltrarPorContrato = chxPorFechaContrato.Checked
+                pwaFiltrarPorContrato = tswtFiltro.IsOn     //chxPorFechaContrato.Checked
             };
 
             HttpContent content;
@@ -267,16 +269,33 @@ namespace SOAPAP.UI.ReportesForms
                 else
                 {
                     //Filtro por la rutas seleccionadas.
-                    lstTMP = lstData.Where(x => lstRuta.Select(y => y.keyInt.ToString()).Contains(x.RUTA)).ToList();
-                    
+                    if(chlbxRuta.CheckedItems.Count == chlbxRuta.ItemCount)  //Estan seleccionados todos.
+                    {
+                        lstTMP = lstData;
+                    }
+                    else
+                    {
+                        lstTMP = lstData.Where(x => lstRuta.Select(y => y.keyInt.ToString()).Contains(x.RUTA)).ToList();
+                    }
+
                     ////Filtro de Colonias Seleccionadas
-                    lstTMP = lstTMP.Where(x => lstColonia.Select(y => y.keyInt).Contains(x.idCOLONIA)).ToList();
-
+                    if (chlbxColonia.CheckedItems.Count != chlbxColonia.ItemCount)                    
+                    {
+                        lstTMP = lstTMP.Where(x => lstColonia.Select(y => y.keyInt).Contains(x.idCOLONIA)).ToList();
+                    }
+                    
                     ////Filtro de Estatus de servicio
-                    lstTMP = lstTMP.Where(x => lstServicio.Select(y => y.keyInt).Contains(x.idESTATUS)).ToList();
-
+                    if(chlbxServicio.CheckedItems.Count != chlbxServicio.ItemCount)                    
+                    {
+                        lstTMP = lstTMP.Where(x => lstServicio.Select(y => y.keyInt).Contains(x.idESTATUS)).ToList();
+                    }
+                    
                     ////Filtro de Tipo de toma
-                    lstTMP = lstTMP.Where(x => lstTomas.Select(y => y.keyInt).Contains(x.idTIPO_TOMA)).ToList();
+                    if(chlbxToma.CheckedItems.Count != chlbxToma.ItemCount)
+                    {
+                        lstTMP = lstTMP.Where(x => lstTomas.Select(y => y.keyInt).Contains(x.idTIPO_TOMA)).ToList();
+                    }
+                    
                     
                     //Filtro por cantidad de adeudo mayor a.
                     if (numericUpDown1.Value > 0)
