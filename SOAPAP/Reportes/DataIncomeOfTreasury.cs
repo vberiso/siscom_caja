@@ -16,8 +16,8 @@ namespace SOAPAP.Reportes
         public string Cuenta { get; set; }
         public int DivisionId { get; set; }
         public string Area { get; set; }
-        public int TaxUserId { get; set; }
-        public string Nombre { get; set; }
+        public int ClienteId { get; set; }
+        public string Cliente { get; set; }
         public string TransactionFolio { get; set; }
         public string Folio { get; set; }
         public string Descripcion { get; set; }

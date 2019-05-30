@@ -51,7 +51,6 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.lblTitulo = new System.Windows.Forms.Label();
             this.pgdIOT = new DevExpress.XtraPivotGrid.PivotGridControl();
-            this.dataIncomeOfTreasuryBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.pgfFolio = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfNombre = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfFecha = new DevExpress.XtraPivotGrid.PivotGridField();
@@ -66,6 +65,7 @@
             this.pgfIva = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfTotaDt = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfCuenta = new DevExpress.XtraPivotGrid.PivotGridField();
+            this.dataIncomeOfTreasuryBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.pnlHeader.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chceMostrarDetalle.Properties)).BeginInit();
             this.tableLayoutPanel2.SuspendLayout();
@@ -373,10 +373,6 @@
             this.pgdIOT.Size = new System.Drawing.Size(929, 384);
             this.pgdIOT.TabIndex = 50;
             // 
-            // dataIncomeOfTreasuryBindingSource
-            // 
-            this.dataIncomeOfTreasuryBindingSource.DataSource = typeof(SOAPAP.Reportes.DataIncomeOfTreasury);
-            // 
             // pgfFolio
             // 
             this.pgfFolio.Area = DevExpress.XtraPivotGrid.PivotArea.RowArea;
@@ -390,7 +386,7 @@
             this.pgfNombre.Area = DevExpress.XtraPivotGrid.PivotArea.RowArea;
             this.pgfNombre.AreaIndex = 2;
             this.pgfNombre.Caption = "Nombre";
-            this.pgfNombre.FieldName = "Nombre";
+            this.pgfNombre.FieldName = "Cliente";
             this.pgfNombre.Name = "pgfNombre";
             this.pgfNombre.Width = 300;
             // 
@@ -488,6 +484,10 @@
             this.pgfCuenta.Caption = "Cuenta";
             this.pgfCuenta.FieldName = "Cuenta";
             this.pgfCuenta.Name = "pgfCuenta";
+            // 
+            // dataIncomeOfTreasuryBindingSource
+            // 
+            this.dataIncomeOfTreasuryBindingSource.DataSource = typeof(SOAPAP.Reportes.DataIncomeOfTreasury);
             // 
             // RepIOT
             // 
