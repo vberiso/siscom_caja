@@ -45,11 +45,6 @@
             this.usuarioToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.perfilToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.salirToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.opcionesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.cajasToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.descuentosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.facturacionAgrupadaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.facturacionAgrupadaCanceladasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.reportesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ingresosDeCajaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ingresosPorConceptoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -57,6 +52,10 @@
             this.recaudaciónToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.buscarContribuyenteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ingresosDeTesoreríaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.opcionesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.cajasToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.facturacionAgrupadaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.facturacionAgrupadaCanceladasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.notificacionesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.lblEstadoCaja = new System.Windows.Forms.Label();
             this.pnlLeft = new System.Windows.Forms.Panel();
@@ -260,53 +259,6 @@
             this.salirToolStripMenuItem.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
             this.salirToolStripMenuItem.Click += new System.EventHandler(this.salirToolStripMenuItem_Click_1);
             // 
-            // opcionesToolStripMenuItem
-            // 
-            this.opcionesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.cajasToolStripMenuItem1,
-            this.descuentosToolStripMenuItem,
-            this.facturacionAgrupadaToolStripMenuItem,
-            this.facturacionAgrupadaCanceladasToolStripMenuItem});
-            this.opcionesToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 12F);
-            this.opcionesToolStripMenuItem.ForeColor = System.Drawing.Color.DimGray;
-            this.opcionesToolStripMenuItem.Name = "opcionesToolStripMenuItem";
-            this.opcionesToolStripMenuItem.Padding = new System.Windows.Forms.Padding(4, 0, 19, 0);
-            this.opcionesToolStripMenuItem.Size = new System.Drawing.Size(102, 45);
-            this.opcionesToolStripMenuItem.Text = "Opciones";
-            this.opcionesToolStripMenuItem.Visible = false;
-            // 
-            // cajasToolStripMenuItem1
-            // 
-            this.cajasToolStripMenuItem1.ForeColor = System.Drawing.Color.DimGray;
-            this.cajasToolStripMenuItem1.Name = "cajasToolStripMenuItem1";
-            this.cajasToolStripMenuItem1.Size = new System.Drawing.Size(321, 26);
-            this.cajasToolStripMenuItem1.Text = "Cajas";
-            this.cajasToolStripMenuItem1.Click += new System.EventHandler(this.cajasToolStripMenuItem1_Click);
-            // 
-            // descuentosToolStripMenuItem
-            // 
-            this.descuentosToolStripMenuItem.ForeColor = System.Drawing.Color.DimGray;
-            this.descuentosToolStripMenuItem.Name = "descuentosToolStripMenuItem";
-            this.descuentosToolStripMenuItem.Size = new System.Drawing.Size(321, 26);
-            this.descuentosToolStripMenuItem.Text = "Descuentos";
-            this.descuentosToolStripMenuItem.Click += new System.EventHandler(this.descuentosToolStripMenuItem_Click);
-            // 
-            // facturacionAgrupadaToolStripMenuItem
-            // 
-            this.facturacionAgrupadaToolStripMenuItem.ForeColor = System.Drawing.Color.DimGray;
-            this.facturacionAgrupadaToolStripMenuItem.Name = "facturacionAgrupadaToolStripMenuItem";
-            this.facturacionAgrupadaToolStripMenuItem.Size = new System.Drawing.Size(321, 26);
-            this.facturacionAgrupadaToolStripMenuItem.Text = "Facturación Agrupada Cobros ";
-            this.facturacionAgrupadaToolStripMenuItem.Click += new System.EventHandler(this.facturacionAgrupadaToolStripMenuItem_Click);
-            // 
-            // facturacionAgrupadaCanceladasToolStripMenuItem
-            // 
-            this.facturacionAgrupadaCanceladasToolStripMenuItem.ForeColor = System.Drawing.Color.DimGray;
-            this.facturacionAgrupadaCanceladasToolStripMenuItem.Name = "facturacionAgrupadaCanceladasToolStripMenuItem";
-            this.facturacionAgrupadaCanceladasToolStripMenuItem.Size = new System.Drawing.Size(321, 26);
-            this.facturacionAgrupadaCanceladasToolStripMenuItem.Text = "Facturación Agrupada Canceladas  ";
-            this.facturacionAgrupadaCanceladasToolStripMenuItem.Click += new System.EventHandler(this.facturacionAgrupadaCanceladasToolStripMenuItem_Click);
-            // 
             // reportesToolStripMenuItem
             // 
             this.reportesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -373,6 +325,44 @@
             this.ingresosDeTesoreríaToolStripMenuItem.Size = new System.Drawing.Size(237, 26);
             this.ingresosDeTesoreríaToolStripMenuItem.Text = "Ingresos de Tesorería";
             this.ingresosDeTesoreríaToolStripMenuItem.Click += new System.EventHandler(this.ingresosDeTesoreríaToolStripMenuItem_Click);
+            // 
+            // opcionesToolStripMenuItem
+            // 
+            this.opcionesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.cajasToolStripMenuItem1,
+            this.facturacionAgrupadaToolStripMenuItem,
+            this.facturacionAgrupadaCanceladasToolStripMenuItem});
+            this.opcionesToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 12F);
+            this.opcionesToolStripMenuItem.ForeColor = System.Drawing.Color.DimGray;
+            this.opcionesToolStripMenuItem.Name = "opcionesToolStripMenuItem";
+            this.opcionesToolStripMenuItem.Padding = new System.Windows.Forms.Padding(4, 0, 19, 0);
+            this.opcionesToolStripMenuItem.Size = new System.Drawing.Size(102, 45);
+            this.opcionesToolStripMenuItem.Text = "Opciones";
+            this.opcionesToolStripMenuItem.Visible = false;
+            // 
+            // cajasToolStripMenuItem1
+            // 
+            this.cajasToolStripMenuItem1.ForeColor = System.Drawing.Color.DimGray;
+            this.cajasToolStripMenuItem1.Name = "cajasToolStripMenuItem1";
+            this.cajasToolStripMenuItem1.Size = new System.Drawing.Size(321, 26);
+            this.cajasToolStripMenuItem1.Text = "Cajas";
+            this.cajasToolStripMenuItem1.Click += new System.EventHandler(this.cajasToolStripMenuItem1_Click);
+            // 
+            // facturacionAgrupadaToolStripMenuItem
+            // 
+            this.facturacionAgrupadaToolStripMenuItem.ForeColor = System.Drawing.Color.DimGray;
+            this.facturacionAgrupadaToolStripMenuItem.Name = "facturacionAgrupadaToolStripMenuItem";
+            this.facturacionAgrupadaToolStripMenuItem.Size = new System.Drawing.Size(321, 26);
+            this.facturacionAgrupadaToolStripMenuItem.Text = "Facturación Agrupada Cobros ";
+            this.facturacionAgrupadaToolStripMenuItem.Click += new System.EventHandler(this.facturacionAgrupadaToolStripMenuItem_Click);
+            // 
+            // facturacionAgrupadaCanceladasToolStripMenuItem
+            // 
+            this.facturacionAgrupadaCanceladasToolStripMenuItem.ForeColor = System.Drawing.Color.DimGray;
+            this.facturacionAgrupadaCanceladasToolStripMenuItem.Name = "facturacionAgrupadaCanceladasToolStripMenuItem";
+            this.facturacionAgrupadaCanceladasToolStripMenuItem.Size = new System.Drawing.Size(321, 26);
+            this.facturacionAgrupadaCanceladasToolStripMenuItem.Text = "Facturación Agrupada Canceladas  ";
+            this.facturacionAgrupadaCanceladasToolStripMenuItem.Click += new System.EventHandler(this.facturacionAgrupadaCanceladasToolStripMenuItem_Click);
             // 
             // notificacionesToolStripMenuItem
             // 
@@ -778,7 +768,6 @@
         private System.Windows.Forms.ToolStripMenuItem padrónToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem recaudaciónToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem buscarContribuyenteToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem descuentosToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem ingresosDeTesoreríaToolStripMenuItem;
     }
 }

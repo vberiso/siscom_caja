@@ -432,6 +432,7 @@
             this.estatusToolStripMenuItem.Name = "estatusToolStripMenuItem";
             this.estatusToolStripMenuItem.Size = new System.Drawing.Size(213, 26);
             this.estatusToolStripMenuItem.Text = "Ver Estatus";
+            this.estatusToolStripMenuItem.Visible = false;
             this.estatusToolStripMenuItem.Click += new System.EventHandler(this.EstatusToolStripMenuItem_Click);
             // 
             // pbBG

@@ -27,6 +27,13 @@ namespace SOAPAP.UI.Descuentos
         private List<SOAPAP.Model.DiscountAuthorizationVM> authorization;
         private int IdDiscount { get; set; }
         public bool ClickNotification { get; set; }
+
+        public DetalleDescuentos()
+        {
+            InitializeComponent();
+            Requests = new RequestsAPI(UrlBase);
+        }
+
         public DetalleDescuentos(int IdDiscount, bool ClickNotification)
         {
             InitializeComponent();

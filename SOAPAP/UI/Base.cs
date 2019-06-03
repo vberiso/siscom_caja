@@ -767,10 +767,10 @@ namespace SOAPAP
                 btnApertura.Text = "Alta de Caja";
                 CargaMenu(CashBoxAccess.Access.Admin);
             }
-            if (Variables.LoginModel.RolName.ToList().Find(x => x.Contains("Supervisor")) != null)
-            {
+            //if (Variables.LoginModel.RolName.ToList().Find(x => x.Contains("Supervisor")) != null)
+            //{
                 opcionesToolStripMenuItem.Visible = true;
-            }
+            //}
         }
 
         private void ThreadProc()
@@ -833,10 +833,6 @@ namespace SOAPAP
             ShowForm("SOAPAP", "UI.ReportesForms.RepTaxpayer");
         }
 
-        private void descuentosToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            ShowForm("SOAPAP", "UI.UI.Descuentos.DetalleDescuentos");
-        }
 
         private void ingresosDeTesoreríaToolStripMenuItem_Click(object sender, EventArgs e)
         {

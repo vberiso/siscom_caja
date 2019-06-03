@@ -30,6 +30,8 @@
         {
             this.components = new System.ComponentModel.Container();
             this.pnlHeader = new System.Windows.Forms.Panel();
+            this.label1 = new System.Windows.Forms.Label();
+            this.lblTitle = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.panel3 = new System.Windows.Forms.Panel();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
@@ -52,12 +54,11 @@
             this.btnSend = new System.Windows.Forms.Button();
             this.pnlBackground = new System.Windows.Forms.Panel();
             this.pnlContent = new System.Windows.Forms.Panel();
-            this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
-            this.lblTitle = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
             this.tbcDescuento = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.dgvDiscounts = new System.Windows.Forms.DataGridView();
+            this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.pnlHeader.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -67,9 +68,11 @@
             this.pnlFooter.SuspendLayout();
             this.pnlBackground.SuspendLayout();
             this.pnlContent.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.tbcDescuento.SuspendLayout();
             this.tabPage1.SuspendLayout();
+            this.tabPage2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvDiscounts)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
             // 
             // pnlHeader
@@ -80,8 +83,31 @@
             this.pnlHeader.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlHeader.Location = new System.Drawing.Point(0, 0);
             this.pnlHeader.Name = "pnlHeader";
-            this.pnlHeader.Size = new System.Drawing.Size(624, 77);
+            this.pnlHeader.Size = new System.Drawing.Size(694, 77);
             this.pnlHeader.TabIndex = 0;
+            // 
+            // label1
+            // 
+            this.label1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.label1.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.White;
+            this.label1.Location = new System.Drawing.Point(0, 35);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(694, 22);
+            this.label1.TabIndex = 3;
+            this.label1.Text = "Gestión de descuentos";
+            // 
+            // lblTitle
+            // 
+            this.lblTitle.Dock = System.Windows.Forms.DockStyle.Top;
+            this.lblTitle.Font = new System.Drawing.Font("Segoe UI Semibold", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTitle.ForeColor = System.Drawing.Color.White;
+            this.lblTitle.Location = new System.Drawing.Point(0, 0);
+            this.lblTitle.Name = "lblTitle";
+            this.lblTitle.Size = new System.Drawing.Size(694, 35);
+            this.lblTitle.TabIndex = 1;
+            this.lblTitle.Text = "Solicitud de Descuento";
+            this.lblTitle.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
             // 
             // groupBox1
             // 
@@ -89,7 +115,7 @@
             this.groupBox1.Controls.Add(this.panel1);
             this.groupBox1.Location = new System.Drawing.Point(310, 6);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(298, 328);
+            this.groupBox1.Size = new System.Drawing.Size(369, 328);
             this.groupBox1.TabIndex = 9;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Previsualizador";
@@ -100,14 +126,14 @@
             this.panel3.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel3.Location = new System.Drawing.Point(3, 293);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(292, 32);
+            this.panel3.Size = new System.Drawing.Size(363, 32);
             this.panel3.TabIndex = 1;
             // 
             // tableLayoutPanel1
             // 
             this.tableLayoutPanel1.ColumnCount = 2;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 84.84849F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 15.15152F));
             this.tableLayoutPanel1.Controls.Add(this.btnRemove, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.btnOpen, 0, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -115,37 +141,35 @@
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(292, 32);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(363, 32);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // btnRemove
             // 
-            this.btnRemove.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(87)))), ((int)(((byte)(34)))));
-            this.btnRemove.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnRemove.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.btnRemove.Dock = System.Windows.Forms.DockStyle.Right;
             this.btnRemove.Enabled = false;
-            this.btnRemove.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(67)))), ((int)(((byte)(21)))));
-            this.btnRemove.FlatAppearance.BorderSize = 2;
             this.btnRemove.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnRemove.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnRemove.ForeColor = System.Drawing.Color.White;
-            this.btnRemove.Location = new System.Drawing.Point(149, 3);
+            this.btnRemove.Location = new System.Drawing.Point(327, 3);
             this.btnRemove.Name = "btnRemove";
-            this.btnRemove.Size = new System.Drawing.Size(140, 26);
+            this.btnRemove.Size = new System.Drawing.Size(33, 26);
             this.btnRemove.TabIndex = 9;
-            this.btnRemove.Text = "Quitar";
+            this.btnRemove.Text = "X";
             this.btnRemove.UseVisualStyleBackColor = false;
             this.btnRemove.Click += new System.EventHandler(this.BtnRemove_Click);
             // 
             // btnOpen
             // 
-            this.btnOpen.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(76)))), ((int)(((byte)(175)))), ((int)(((byte)(80)))));
-            this.btnOpen.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnOpen.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(125)))), ((int)(((byte)(50)))));
-            this.btnOpen.FlatAppearance.BorderSize = 2;
+            this.btnOpen.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(133)))), ((int)(((byte)(214)))));
+            this.btnOpen.Dock = System.Windows.Forms.DockStyle.Right;
             this.btnOpen.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnOpen.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnOpen.ForeColor = System.Drawing.Color.White;
-            this.btnOpen.Location = new System.Drawing.Point(3, 3);
+            this.btnOpen.Location = new System.Drawing.Point(219, 3);
             this.btnOpen.Name = "btnOpen";
-            this.btnOpen.Size = new System.Drawing.Size(140, 26);
+            this.btnOpen.Size = new System.Drawing.Size(86, 26);
             this.btnOpen.TabIndex = 8;
             this.btnOpen.Text = "Seleccionar";
             this.btnOpen.UseVisualStyleBackColor = false;
@@ -157,7 +181,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(3, 17);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(292, 308);
+            this.panel1.Size = new System.Drawing.Size(363, 308);
             this.panel1.TabIndex = 0;
             // 
             // pcbPreview
@@ -167,7 +191,7 @@
             this.pcbPreview.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pcbPreview.Location = new System.Drawing.Point(0, 0);
             this.pcbPreview.Name = "pcbPreview";
-            this.pcbPreview.Size = new System.Drawing.Size(292, 308);
+            this.pcbPreview.Size = new System.Drawing.Size(363, 308);
             this.pcbPreview.TabIndex = 11;
             this.pcbPreview.TabStop = false;
             // 
@@ -284,14 +308,14 @@
             this.pnlFooter.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.pnlFooter.Location = new System.Drawing.Point(0, 448);
             this.pnlFooter.Name = "pnlFooter";
-            this.pnlFooter.Size = new System.Drawing.Size(624, 43);
+            this.pnlFooter.Size = new System.Drawing.Size(694, 43);
             this.pnlFooter.TabIndex = 2;
             // 
             // btnCerrar
             // 
             this.btnCerrar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(133)))), ((int)(((byte)(214)))));
             this.btnCerrar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnCerrar.Font = new System.Drawing.Font("Microsoft YaHei UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCerrar.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCerrar.ForeColor = System.Drawing.Color.White;
             this.btnCerrar.Location = new System.Drawing.Point(309, 3);
             this.btnCerrar.Name = "btnCerrar";
@@ -305,7 +329,7 @@
             // 
             this.btnSend.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.btnSend.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnSend.Font = new System.Drawing.Font("Microsoft YaHei UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSend.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSend.ForeColor = System.Drawing.Color.White;
             this.btnSend.Location = new System.Drawing.Point(188, 3);
             this.btnSend.Name = "btnSend";
@@ -324,7 +348,7 @@
             this.pnlBackground.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlBackground.Location = new System.Drawing.Point(0, 0);
             this.pnlBackground.Name = "pnlBackground";
-            this.pnlBackground.Size = new System.Drawing.Size(626, 493);
+            this.pnlBackground.Size = new System.Drawing.Size(696, 493);
             this.pnlBackground.TabIndex = 3;
             // 
             // pnlContent
@@ -333,35 +357,8 @@
             this.pnlContent.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlContent.Location = new System.Drawing.Point(0, 77);
             this.pnlContent.Name = "pnlContent";
-            this.pnlContent.Size = new System.Drawing.Size(624, 414);
+            this.pnlContent.Size = new System.Drawing.Size(694, 414);
             this.pnlContent.TabIndex = 0;
-            // 
-            // errorProvider1
-            // 
-            this.errorProvider1.ContainerControl = this;
-            // 
-            // lblTitle
-            // 
-            this.lblTitle.Dock = System.Windows.Forms.DockStyle.Top;
-            this.lblTitle.Font = new System.Drawing.Font("Segoe UI Semibold", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTitle.ForeColor = System.Drawing.Color.White;
-            this.lblTitle.Location = new System.Drawing.Point(0, 0);
-            this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(624, 35);
-            this.lblTitle.TabIndex = 1;
-            this.lblTitle.Text = "Solicitud de Descuento";
-            this.lblTitle.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
-            // 
-            // label1
-            // 
-            this.label1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label1.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(0, 35);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(624, 22);
-            this.label1.TabIndex = 3;
-            this.label1.Text = "Gestión de descuentos";
             // 
             // tbcDescuento
             // 
@@ -371,8 +368,9 @@
             this.tbcDescuento.Location = new System.Drawing.Point(0, 0);
             this.tbcDescuento.Name = "tbcDescuento";
             this.tbcDescuento.SelectedIndex = 0;
-            this.tbcDescuento.Size = new System.Drawing.Size(624, 414);
+            this.tbcDescuento.Size = new System.Drawing.Size(694, 414);
             this.tbcDescuento.TabIndex = 2;
+            this.tbcDescuento.Selected += new System.Windows.Forms.TabControlEventHandler(this.tbcDescuento_Selected);
             // 
             // tabPage1
             // 
@@ -390,27 +388,50 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 25);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(616, 385);
+            this.tabPage1.Size = new System.Drawing.Size(686, 385);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Solicitud";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.dgvDiscounts);
             this.tabPage2.Location = new System.Drawing.Point(4, 25);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(582, 220);
+            this.tabPage2.Size = new System.Drawing.Size(686, 385);
             this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Estado";
+            this.tabPage2.Text = "Detalle";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // dgvDiscounts
+            // 
+            this.dgvDiscounts.AllowUserToAddRows = false;
+            this.dgvDiscounts.AllowUserToDeleteRows = false;
+            this.dgvDiscounts.AllowUserToResizeColumns = false;
+            this.dgvDiscounts.AllowUserToResizeRows = false;
+            this.dgvDiscounts.BackgroundColor = System.Drawing.Color.White;
+            this.dgvDiscounts.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvDiscounts.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgvDiscounts.Location = new System.Drawing.Point(3, 3);
+            this.dgvDiscounts.MultiSelect = false;
+            this.dgvDiscounts.Name = "dgvDiscounts";
+            this.dgvDiscounts.ReadOnly = true;
+            this.dgvDiscounts.RowHeadersVisible = false;
+            this.dgvDiscounts.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvDiscounts.Size = new System.Drawing.Size(680, 379);
+            this.dgvDiscounts.TabIndex = 2;
+            // 
+            // errorProvider1
+            // 
+            this.errorProvider1.ContainerControl = this;
             // 
             // RequestDiscount
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(626, 493);
+            this.ClientSize = new System.Drawing.Size(696, 493);
             this.Controls.Add(this.pnlBackground);
             this.Font = new System.Drawing.Font("Microsoft YaHei UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
@@ -428,10 +449,12 @@
             this.pnlFooter.ResumeLayout(false);
             this.pnlBackground.ResumeLayout(false);
             this.pnlContent.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.tbcDescuento.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
+            this.tabPage2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvDiscounts)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -467,5 +490,6 @@
         private System.Windows.Forms.TabControl tbcDescuento;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.DataGridView dgvDiscounts;
     }
 }

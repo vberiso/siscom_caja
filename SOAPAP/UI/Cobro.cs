@@ -961,11 +961,8 @@ namespace SOAPAP.UI
 
         private void EstatusToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            mensaje = new DetalleDescuentos(false);
-            result = mensaje.ShowDialog();
-
-            //DetalleDescuentos detalle = new DetalleDescuentos(false);
-            //detalle.ShowDialog(this);
+            DetalleDescuentos detalle = new DetalleDescuentos(false);
+            detalle.ShowDialog(this);
         }
     }
 
