@@ -433,16 +433,12 @@ namespace SOAPAP.UI.Descuentos
                 dgvDiscounts.Columns[0].Visible = false;
                 dgvDiscounts.Columns[1].Visible = false;
                 dgvDiscounts.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.NotSet;
-                dgvDiscounts.Columns[2].Width = 75;
                 dgvDiscounts.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.NotSet;
                 dgvDiscounts.Columns[3].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-                dgvDiscounts.Columns[3].Width = 75;
                 dgvDiscounts.Columns[4].AutoSizeMode = DataGridViewAutoSizeColumnMode.NotSet;
-                dgvDiscounts.Columns[4].Width = 300;
                 dgvDiscounts.Columns[5].Visible = false;
                 dgvDiscounts.Columns[6].Visible = false;
-                dgvDiscounts.Columns[7].AutoSizeMode = DataGridViewAutoSizeColumnMode.NotSet;
-                dgvDiscounts.Columns[7].Width = 120;
+                dgvDiscounts.Columns[7].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
                 dgvDiscounts.Columns[7].DefaultCellStyle.Format = "c2";
                 dgvDiscounts.Columns[7].DefaultCellStyle.FormatProvider = new CultureInfo("es-MX");
                 dgvDiscounts.Columns[8].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
