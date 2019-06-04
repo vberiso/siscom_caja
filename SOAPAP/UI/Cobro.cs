@@ -764,6 +764,8 @@ namespace SOAPAP.UI
         
         private void SendPayment()
         {
+            decimal total = Convert.ToDecimal((System.Text.RegularExpressions.Regex.Replace(lblTotal.Text, @"[^\d.]", "")));
+            decimal amount = Convert.ToDecimal(txtTotal.Text);
             if (orderSale)
             {
                 txtTotal.Text = txtTotal.Text.Trim();
@@ -786,6 +788,7 @@ namespace SOAPAP.UI
             }
             else
             {
+                
                 if (string.IsNullOrWhiteSpace(txtTotal.Text))
                 {
                     mensaje = new MessageBoxForm(Variables.titleprincipal, "El monto capturado esta no es valido", TypeIcon.Icon.Cancel);
@@ -793,7 +796,23 @@ namespace SOAPAP.UI
                 }
                 else
                 {
-                    PaymentModal();
+                    if (amount < total)
+                    {
+                        if (lblIva.Text != "$0.00")
+                        {
+                            mensaje = new MessageBoxForm(Variables.titleprincipal, "El monto de cobro sera proporcional al iva", TypeIcon.Icon.Warning);
+                            mensaje.ShowDialog();
+                            PaymentModal();
+                        }
+                        else
+                        {
+                            PaymentModal();
+                        }
+                    }
+                    else
+                    {
+                        PaymentModal();
+                    }
                 }
             }
            

@@ -1031,7 +1031,7 @@ namespace SOAPAP
 
                             try
                             {
-                                ExportGridToXML(payment.taxReceipts.FirstOrDefault(x => x.status == "ET001").xml);
+                                ExportGridToXML(payment.TaxReceipts.FirstOrDefault(x => x.Status == "ET001").Xml);
                             }
                             catch (Exception)
                             {
@@ -1045,7 +1045,7 @@ namespace SOAPAP
                         {
                             try
                             {
-                                ExportGridToXML(payment.taxReceipts.FirstOrDefault(x => x.status == "ET002").xml);
+                                ExportGridToXML(payment.TaxReceipts.FirstOrDefault(x => x.Status == "ET002").Xml);
                             }
                             catch (Exception)
                             {
@@ -1077,7 +1077,7 @@ namespace SOAPAP
                         
                         try
                         {
-                            var rest = n.ObtenerPDF("CFDI010233001", "Pruebas1a$", payment.taxReceipts.FirstOrDefault(x=>x.status== "ET001").xml, "", "", "", 1, ref test);
+                            var rest = n.ObtenerPDF("CFDI010233001", "Pruebas1a$", payment.TaxReceipts.FirstOrDefault(x=>x.Status== "ET001").Xml, "", "", "", 1, ref test);
                             ExportGridToPDF(rest);
                         }
                         catch (Exception)
@@ -1115,7 +1115,7 @@ namespace SOAPAP
                             try
                             {
 
-                                if (payment.taxReceipts.FirstOrDefault(x => x.status == "ET001").xml != null)
+                                if (payment.TaxReceipts.FirstOrDefault(x => x.Status == "ET001").Xml != null)
                                 {
                                     mensaje = new MessageBoxForm(Variables.titleprincipal, "Esta trasaccion esta timbrada", TypeIcon.Icon.Cancel);
                                     mensaje.ShowDialog();
@@ -1161,7 +1161,7 @@ namespace SOAPAP
                             try
                                 {
 
-                                    if (payment.taxReceipts.FirstOrDefault(x => x.status== "ET002").xml != null)
+                                    if (payment.TaxReceipts.FirstOrDefault(x => x.Status== "ET002").Xml != null)
                                     {
                                         mensaje = new MessageBoxForm(Variables.titleprincipal, "Esta trasaccion esta timbrada", TypeIcon.Icon.Cancel);
                                         mensaje.ShowDialog();
@@ -1173,7 +1173,7 @@ namespace SOAPAP
                                 {
 
                                     Facturaelectronica fs = new Facturaelectronica();
-                                    xmltimbrado = await fs.facturar(transactionSelect.Transaction.Id.ToString(), "ET002", payment.taxReceipts.FirstOrDefault().fielXML);
+                                    xmltimbrado = await fs.facturar(transactionSelect.Transaction.Id.ToString(), "ET002", payment.TaxReceipts.FirstOrDefault().FielXML);
                                     separadas = xmltimbrado.Split('/');
                                     if (separadas[0].ToString() == "error")
                                     {
@@ -1185,7 +1185,7 @@ namespace SOAPAP
                                     
                                     var resultTransactionss = await Requests.SendURIAsync(string.Format("/api/Payments/{0}", transactionSelect.Payment.Id), HttpMethod.Get, Variables.LoginModel.Token);
                                     Model.Payment payments = JsonConvert.DeserializeObject<Model.Payment>(resultTransactionss);
-                                    ExportGridToXML(payments.taxReceipts.FirstOrDefault(x => x.status == "ET002").xml);
+                                    ExportGridToXML(payments.TaxReceipts.FirstOrDefault(x => x.Status == "ET002").Xml);
                                    }
                                 }
                             }
@@ -1267,7 +1267,7 @@ namespace SOAPAP
                                     try
                                     {
 
-                                        if (payment.taxReceipts.FirstOrDefault(x => x.status == "ET002").xml != null)
+                                        if (payment.TaxReceipts.FirstOrDefault(x => x.Status == "ET002").Xml != null)
                                         {
                                             mensaje = new MessageBoxForm(Variables.titleprincipal, "Esta trasaccion esta timbrada", TypeIcon.Icon.Cancel);
                                             mensaje.ShowDialog();
@@ -1276,10 +1276,10 @@ namespace SOAPAP
                                     }
                                     catch (Exception)
                                     {
-                                        if(payment.taxReceipts.Count() > 0)
+                                        if(payment.TaxReceipts.Count() > 0)
                                         {
                                             Facturaelectronica fst = new Facturaelectronica();
-                                            xmltimbrado = await fst.facturar(transactionSelect.Transaction.Id.ToString(), "ET002", payment.taxReceipts.FirstOrDefault().fielXML);
+                                            xmltimbrado = await fst.facturar(transactionSelect.Transaction.Id.ToString(), "ET002", payment.TaxReceipts.FirstOrDefault().FielXML);
                                             separadas = xmltimbrado.Split('/');
                                             if (separadas[0].ToString() == "error")
                                             {
@@ -1291,7 +1291,7 @@ namespace SOAPAP
 
                                                 var resultTransactionss = await Requests.SendURIAsync(string.Format("/api/Payments/{0}", transactionSelect.Payment.Id), HttpMethod.Get, Variables.LoginModel.Token);
                                                 Model.Payment payments = JsonConvert.DeserializeObject<Model.Payment>(resultTransactionss);
-                                                ExportGridToXML(payments.taxReceipts.FirstOrDefault(x => x.status == "ET002").xml);
+                                                ExportGridToXML(payments.TaxReceipts.FirstOrDefault(x => x.Status == "ET002").Xml);
                                             }
                                         }
                                       

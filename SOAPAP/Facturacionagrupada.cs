@@ -158,18 +158,18 @@ namespace SOAPAP
                     if (detalle.OperacionExitosa)
                     {
 
-                        List<Model.XML> xML = new List<Model.XML>();
+                        List<Model.TaxReceipt> xML = new List<Model.TaxReceipt>();
                         transactions.lstPayment.ToList().ForEach(s =>
                         {
                             
                             s.taxReceipts.ToList().ForEach(r =>
                             {
 
-                                if(s.id == r.paymentId)
+                                if(s.id == r.PaymentId)
                                 {
-                                    if (r.status == "ET001") { 
+                                    if (r.Status == "ET001") { 
 
-                                    Model.XML xMLS = new Model.XML();
+                                    Model.TaxReceipt xMLS = new Model.TaxReceipt();
                                     try
                                     {
                                         xMLS.RFC = "XEXX010101000";
@@ -181,13 +181,13 @@ namespace SOAPAP
 
                                     }
 
-                                    xMLS.status = status;
-                                    xMLS.paymentId = s.id;
-                                    xMLS.taxReceiptDate = DateTime.Now;
-                                    xMLS.type = "CAT02";
-                                    xMLS.xml = detalle.XMLAcuse;
-                                    xMLS.fielXML = uuids;
-                                    xMLS.userId = Variables.Configuration.Terminal.TerminalUsers.FirstOrDefault().UserId;
+                                    xMLS.Status = status;
+                                    xMLS.PaymentId = s.id;
+                                    xMLS.TaxReceiptDate = DateTime.Now;
+                                    xMLS.Type = "CAT02";
+                                    xMLS.Xml = detalle.XMLAcuse;
+                                    xMLS.FielXML = uuids;
+                                    xMLS.UserId = Variables.Configuration.Terminal.TerminalUsers.FirstOrDefault().UserId;
                                     xML.Add(xMLS);
                                     }
                                 }
@@ -215,16 +215,16 @@ namespace SOAPAP
                     }
                     else
                     {
-                        List<Model.XML> xML = new List<Model.XML>();
+                        List<Model.TaxReceipt> xML = new List<Model.TaxReceipt>();
                         transactions.lstPayment.ToList().ForEach(s =>
                         {
                             s.taxReceipts.ToList().ForEach(r =>
                             {
-                                if (s.id == r.paymentId)
+                                if (s.id == r.PaymentId)
                                 {
-                                    if(r.status== "ET001") { 
+                                    if(r.Status== "ET001") { 
 
-                                    Model.XML xMLS = new Model.XML();
+                                    Model.TaxReceipt xMLS = new Model.TaxReceipt();
                                     try
                                     {
                                         xMLS.RFC = "XEXX010101000";
@@ -236,13 +236,13 @@ namespace SOAPAP
 
                                     }
 
-                                    xMLS.status = status;
-                                    xMLS.paymentId = s.id;
-                                    xMLS.taxReceiptDate = DateTime.Now;
-                                    xMLS.type = "CAT02";
-                                    xMLS.xml = xmla;
-                                    xMLS.fielXML = uuids;
-                                    xMLS.userId = Variables.Configuration.Terminal.TerminalUsers.FirstOrDefault().UserId;
+                                    xMLS.Status = status;
+                                    xMLS.PaymentId = s.id;
+                                    xMLS.TaxReceiptDate = DateTime.Now;
+                                    xMLS.Type = "CAT02";
+                                    xMLS.Xml = xmla;
+                                    xMLS.FielXML = uuids;
+                                    xMLS.UserId = Variables.Configuration.Terminal.TerminalUsers.FirstOrDefault().UserId;
                                     xML.Add(xMLS);
                                     }
                                 }
@@ -291,9 +291,9 @@ namespace SOAPAP
                     if (respuestas.exito)
                     {
 
-                        List<Model.XML> xML = new List<Model.XML>();
+                        List<Model.TaxReceipt> xML = new List<Model.TaxReceipt>();
                         transactions.lstPayment.ToList().ForEach(s => {
-                            Model.XML xMLS = new Model.XML();
+                            Model.TaxReceipt xMLS = new Model.TaxReceipt();
                             try
                             {
                                 xMLS.RFC = "XEXX010101000";
@@ -302,13 +302,13 @@ namespace SOAPAP
                             {
                                 xMLS.RFC = "XEXX010101000";
                             }
-                            xMLS.status = status;
-                            xMLS.paymentId = s.id;
-                            xMLS.taxReceiptDate = DateTime.Now;
-                            xMLS.type = "CAT01";
-                            xMLS.xml = respuestas.xmlTimbrado;
-                            xMLS.fielXML = respuestas.uuid;
-                            xMLS.userId = Variables.Configuration.Terminal.TerminalUsers.FirstOrDefault().UserId;
+                            xMLS.Status = status;
+                            xMLS.PaymentId = s.id;
+                            xMLS.TaxReceiptDate = DateTime.Now;
+                            xMLS.Type = "CAT01";
+                            xMLS.Xml = respuestas.xmlTimbrado;
+                            xMLS.FielXML = respuestas.uuid;
+                            xMLS.UserId = Variables.Configuration.Terminal.TerminalUsers.FirstOrDefault().UserId;
                             xML.Add(xMLS);
                         });
 

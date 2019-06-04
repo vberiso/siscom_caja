@@ -152,17 +152,22 @@ namespace SOAPAP.UI.Descuentos
                     switch (item.Cells[3].FormattedValue.ToString())
                     {
                         case "Solicitado":
-                            item.Cells[3].Style.BackColor = Color.FromArgb(7, 96, 125, 139);
+                            item.Cells[3].Style.BackColor = Color.FromArgb(84, 110, 122);
                             item.Cells[3].Style.ForeColor = Color.White;
                             item.Cells[3].Style.Font = new Font("Century Gothic", 8, FontStyle.Bold);
                             break;
                         case "Autorizado":
-                            item.Cells[3].Style.BackColor = Color.FromArgb(7,76, 175, 80);
+                            item.Cells[3].Style.BackColor = Color.FromArgb(67, 160, 71);
                             item.Cells[3].Style.ForeColor = Color.White;
                             item.Cells[3].Style.Font = new Font("Century Gothic", 8, FontStyle.Bold);
                             break;
                         case "Cancelado":
                             item.Cells[3].Style.BackColor = Color.FromArgb(204, 0, 0);
+                            item.Cells[3].Style.ForeColor = Color.White;
+                            item.Cells[3].Style.Font = new Font("Century Gothic", 8, FontStyle.Bold);
+                            break;
+                        case "Rechazado":
+                            item.Cells[3].Style.BackColor = Color.FromArgb(239, 108, 0);
                             item.Cells[3].Style.ForeColor = Color.White;
                             item.Cells[3].Style.Font = new Font("Century Gothic", 8, FontStyle.Bold);
                             break;
@@ -331,17 +336,22 @@ namespace SOAPAP.UI.Descuentos
                     switch (item.Cells[3].FormattedValue.ToString())
                     {
                         case "Solicitado":
-                            item.Cells[3].Style.BackColor = Color.FromArgb(255, 96, 125, 139);
+                            item.Cells[3].Style.BackColor = Color.FromArgb(84, 110, 122);
                             item.Cells[3].Style.ForeColor = Color.White;
                             item.Cells[3].Style.Font = new Font("Century Gothic", 8, FontStyle.Bold);
                             break;
                         case "Autorizado":
-                            item.Cells[3].Style.BackColor = Color.FromArgb(255, 0, 150, 136);
+                            item.Cells[3].Style.BackColor = Color.FromArgb(67, 160, 71);
                             item.Cells[3].Style.ForeColor = Color.White;
                             item.Cells[3].Style.Font = new Font("Century Gothic", 8, FontStyle.Bold);
                             break;
                         case "Cancelado":
                             item.Cells[3].Style.BackColor = Color.FromArgb(255, 244, 67, 54);
+                            item.Cells[3].Style.ForeColor = Color.White;
+                            item.Cells[3].Style.Font = new Font("Century Gothic", 8, FontStyle.Bold);
+                            break;
+                        case "Rechazado":
+                            item.Cells[3].Style.BackColor = Color.FromArgb(239, 108, 0);
                             item.Cells[3].Style.ForeColor = Color.White;
                             item.Cells[3].Style.Font = new Font("Century Gothic", 8, FontStyle.Bold);
                             break;

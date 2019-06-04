@@ -16,9 +16,9 @@
     <TargetFrameworkProfile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
-    <PublishUrl>\\installer.sosapac.gob.mx\c%24\inetpub\wwwroot\caja\</PublishUrl>
+    <PublishUrl>\\web-services.cuautlancingo.gob.mx\c%24\inetpub\wwwroot\caja\</PublishUrl>
     <Install>true</Install>
-    <InstallFrom>Unc</InstallFrom>
+    <InstallFrom>Disk</InstallFrom>
     <UpdateEnabled>true</UpdateEnabled>
     <UpdateMode>Foreground</UpdateMode>
     <UpdateInterval>7</UpdateInterval>
@@ -26,12 +26,11 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>true</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <InstallUrl>\\installer.sosapac.gob.mx\c%24\inetpub\wwwroot\caja\</InstallUrl>
-    <UpdateUrl>http://installer.sosapac.gob.mx/</UpdateUrl>
+    <UpdateUrl>\\web-services.cuautlancingo.gob.mx\c%24\inetpub\wwwroot\caja\</UpdateUrl>
     <MinimumRequiredVersion>1.1.1.1</MinimumRequiredVersion>
-    <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>67</ApplicationRevision>
+    <AutorunEnabled>true</AutorunEnabled>
+    <ApplicationRevision>80</ApplicationRevision>
     <ApplicationVersion>1.1.1.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -252,6 +251,7 @@
     <Compile Include="Getdata.cs" />
     <Compile Include="Model\AdressVM.cs" />
     <Compile Include="Model\AgreementProductVM.cs" />
+    <Compile Include="Model\AuthorizationDiscountVM.cs" />
     <Compile Include="Model\Breach.cs" />
     <Compile Include="Model\BreachArticle.cs" />
     <Compile Include="Model\BreachDetail.cs" />
@@ -262,6 +262,7 @@
     <Compile Include="Model\ClientVM.cs" />
     <Compile Include="Model\Comprobante.cs" />
     <Compile Include="Model\ContactVM.cs" />
+    <Compile Include="Model\DebtandDiscount.cs" />
     <Compile Include="Model\DiscountAuthorization.cs" />
     <Compile Include="Model\DiscountAuthorizationDetail.cs" />
     <Compile Include="Model\DiscountAuthorizationVM.cs" />
@@ -287,7 +288,7 @@
     <Compile Include="Model\Users.cs" />
     <Compile Include="Model\UsersByTerminal.cs" />
     <Compile Include="Model\Warranty.cs" />
-    <Compile Include="Model\XML.cs" />
+    <Compile Include="Model\TaxReceipt.cs" />
     <Compile Include="notificationDetails.cs" />
     <Compile Include="Notify.cs" />
     <Compile Include="PopAnticipo.cs">
@@ -945,6 +946,7 @@
     <Service Include="{C0C07587-41A7-46C8-8FBD-3F9C8EBE2DDC}" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\xmlBCO.png" />
     <None Include="Connected Services\WsIntegral33Pruebas\WsCFDI33.disco" />
     <None Include="Connected Services\WsIntegral33Pruebas\configuration91.svcinfo" />
     <None Include="Connected Services\WsIntegral33Pruebas\configuration.svcinfo" />
@@ -967,6 +969,7 @@
     <None Include="Resources\bg-rigth.png" />
     <None Include="Resources\bg-center.png" />
     <None Include="Resources\back.png" />
+    <None Include="Resources\bares.png" />
     <Content Include="Resources\buscar.png" />
     <None Include="Resources\cancelado.png" />
     <None Include="Resources\cerrada.png" />
@@ -999,6 +1002,7 @@
     <None Include="Resources\money.png" />
     <None Include="Resources\pdfF.png" />
     <None Include="Resources\notificacion.png" />
+    <None Include="Resources\pdfBCO.png" />
     <Content Include="Resources\perfil.jpg" />
     <Content Include="Resources\productos.png" />
     <Content Include="Resources\reportes.png" />

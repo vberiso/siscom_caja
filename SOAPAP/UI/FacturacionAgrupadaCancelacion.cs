@@ -170,7 +170,7 @@ namespace SOAPAP.UI
 
                     bool contador = false;
 
-                    if (transactions.lstPayment.FirstOrDefault().taxReceipts.FirstOrDefault().status == "ET001")
+                    if (transactions.lstPayment.FirstOrDefault().taxReceipts.FirstOrDefault().Status == "ET001")
                     {
                         
 
@@ -179,7 +179,7 @@ namespace SOAPAP.UI
 
                             s.taxReceipts.ToList().ForEach(st =>
                             {
-                                if (st.status == "ET002")
+                                if (st.Status == "ET002")
                                 {
                                     contador = true;
                                 }
@@ -189,7 +189,7 @@ namespace SOAPAP.UI
                         });
 
                         Facturacionagrupada fs = new Facturacionagrupada();
-                        xmltimbrado = await fs.facturar("ET002", transactions.lstPayment.FirstOrDefault().taxReceipts.FirstOrDefault(x => x.status == "ET001").fielXML, transactions, contador, transactions.lstPayment.FirstOrDefault().taxReceipts.FirstOrDefault().xml);
+                        xmltimbrado = await fs.facturar("ET002", transactions.lstPayment.FirstOrDefault().taxReceipts.FirstOrDefault(x => x.Status == "ET001").FielXML, transactions, contador, transactions.lstPayment.FirstOrDefault().taxReceipts.FirstOrDefault().Xml);
                         separadas = xmltimbrado.Split('¡');
                         if (separadas[0].ToString() == "error")
                         {
@@ -199,9 +199,9 @@ namespace SOAPAP.UI
                         else
                         {
 
-                            List<Model.XML> xML = new List<Model.XML>();
-                            xML = JsonConvert.DeserializeObject<List<Model.XML>>(separadas[1]);
-                            ExportGridToXML(xML.FirstOrDefault().xml);
+                            List<Model.TaxReceipt> xML = new List<Model.TaxReceipt>();
+                            xML = JsonConvert.DeserializeObject<List<Model.TaxReceipt>>(separadas[1]);
+                            ExportGridToXML(xML.FirstOrDefault().Xml);
                             
                         }
                         await cargar();

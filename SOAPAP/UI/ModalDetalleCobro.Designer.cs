@@ -35,22 +35,6 @@
             this.btnAceptar = new System.Windows.Forms.Button();
             this.pnlContent = new System.Windows.Forms.Panel();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.pnlOtros = new System.Windows.Forms.Panel();
-            this.panel3 = new System.Windows.Forms.Panel();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.lblTypeElectron = new System.Windows.Forms.Label();
-            this.lblTotPagar = new System.Windows.Forms.Label();
-            this.pnlTotalOtros = new System.Windows.Forms.Panel();
-            this.lblTotalOtros = new System.Windows.Forms.Label();
-            this.txtAuth = new System.Windows.Forms.TextBox();
-            this.txtTarjetaCheque = new System.Windows.Forms.TextBox();
-            this.txtCheque = new System.Windows.Forms.TextBox();
-            this.lblTCheque = new System.Windows.Forms.Label();
-            this.lblAuth = new System.Windows.Forms.Label();
-            this.lblBank = new System.Windows.Forms.Label();
-            this.cmbBank = new System.Windows.Forms.ComboBox();
-            this.pnlTitle = new System.Windows.Forms.Panel();
-            this.lblTitle = new System.Windows.Forms.Label();
             this.pnlEfectivo = new System.Windows.Forms.Panel();
             this.grbEfectivo = new System.Windows.Forms.GroupBox();
             this.pnlContentTotal = new System.Windows.Forms.Panel();
@@ -76,6 +60,22 @@
             this.panel8 = new System.Windows.Forms.Panel();
             this.panel9 = new System.Windows.Forms.Panel();
             this.label7 = new System.Windows.Forms.Label();
+            this.pnlOtros = new System.Windows.Forms.Panel();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.lblTypeElectron = new System.Windows.Forms.Label();
+            this.lblTotPagar = new System.Windows.Forms.Label();
+            this.pnlTotalOtros = new System.Windows.Forms.Panel();
+            this.lblTotalOtros = new System.Windows.Forms.Label();
+            this.txtAuth = new System.Windows.Forms.TextBox();
+            this.txtTarjetaCheque = new System.Windows.Forms.TextBox();
+            this.txtCheque = new System.Windows.Forms.TextBox();
+            this.lblTCheque = new System.Windows.Forms.Label();
+            this.lblAuth = new System.Windows.Forms.Label();
+            this.lblBank = new System.Windows.Forms.Label();
+            this.cmbBank = new System.Windows.Forms.ComboBox();
+            this.pnlTitle = new System.Windows.Forms.Panel();
+            this.lblTitle = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label1 = new System.Windows.Forms.Label();
             this.cmbPaymentMethod = new System.Windows.Forms.ComboBox();
@@ -84,11 +84,6 @@
             this.pnlButtons.SuspendLayout();
             this.pnlContent.SuspendLayout();
             this.groupBox2.SuspendLayout();
-            this.pnlOtros.SuspendLayout();
-            this.panel3.SuspendLayout();
-            this.panel2.SuspendLayout();
-            this.pnlTotalOtros.SuspendLayout();
-            this.pnlTitle.SuspendLayout();
             this.pnlEfectivo.SuspendLayout();
             this.grbEfectivo.SuspendLayout();
             this.pnlContentTotal.SuspendLayout();
@@ -100,6 +95,11 @@
             this.panel5.SuspendLayout();
             this.pnlTotalTran.SuspendLayout();
             this.panel9.SuspendLayout();
+            this.pnlOtros.SuspendLayout();
+            this.panel3.SuspendLayout();
+            this.panel2.SuspendLayout();
+            this.pnlTotalOtros.SuspendLayout();
+            this.pnlTitle.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -140,7 +140,7 @@
             this.btnCancelar.Location = new System.Drawing.Point(304, 4);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(97, 31);
-            this.btnCancelar.TabIndex = 8;
+            this.btnCancelar.TabIndex = 4;
             this.btnCancelar.Text = "Cancelar";
             this.btnCancelar.UseVisualStyleBackColor = false;
             this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
@@ -154,7 +154,7 @@
             this.btnAceptar.Location = new System.Drawing.Point(201, 4);
             this.btnAceptar.Name = "btnAceptar";
             this.btnAceptar.Size = new System.Drawing.Size(97, 31);
-            this.btnAceptar.TabIndex = 8;
+            this.btnAceptar.TabIndex = 3;
             this.btnAceptar.Text = "Aceptar";
             this.btnAceptar.UseVisualStyleBackColor = false;
             this.btnAceptar.Click += new System.EventHandler(this.btnAceptar_Click);
@@ -175,180 +175,14 @@
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.pnlEfectivo);
-            this.groupBox2.Controls.Add(this.pnlOtros);
             this.groupBox2.Controls.Add(this.pnlReferencia);
+            this.groupBox2.Controls.Add(this.pnlOtros);
             this.groupBox2.Dock = System.Windows.Forms.DockStyle.Top;
             this.groupBox2.Location = new System.Drawing.Point(0, 157);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(435, 202);
             this.groupBox2.TabIndex = 5;
             this.groupBox2.TabStop = false;
-            // 
-            // pnlOtros
-            // 
-            this.pnlOtros.Controls.Add(this.panel3);
-            this.pnlOtros.Controls.Add(this.pnlTitle);
-            this.pnlOtros.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlOtros.Location = new System.Drawing.Point(3, 17);
-            this.pnlOtros.Name = "pnlOtros";
-            this.pnlOtros.Size = new System.Drawing.Size(429, 182);
-            this.pnlOtros.TabIndex = 0;
-            // 
-            // panel3
-            // 
-            this.panel3.Controls.Add(this.panel2);
-            this.panel3.Controls.Add(this.lblTotPagar);
-            this.panel3.Controls.Add(this.pnlTotalOtros);
-            this.panel3.Controls.Add(this.txtAuth);
-            this.panel3.Controls.Add(this.txtTarjetaCheque);
-            this.panel3.Controls.Add(this.txtCheque);
-            this.panel3.Controls.Add(this.lblTCheque);
-            this.panel3.Controls.Add(this.lblAuth);
-            this.panel3.Controls.Add(this.lblBank);
-            this.panel3.Controls.Add(this.cmbBank);
-            this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel3.Location = new System.Drawing.Point(0, 18);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(429, 164);
-            this.panel3.TabIndex = 1;
-            // 
-            // panel2
-            // 
-            this.panel2.Controls.Add(this.lblTypeElectron);
-            this.panel2.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.panel2.Location = new System.Drawing.Point(308, 118);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(100, 13);
-            this.panel2.TabIndex = 31;
-            // 
-            // lblTypeElectron
-            // 
-            this.lblTypeElectron.AutoSize = true;
-            this.lblTypeElectron.Dock = System.Windows.Forms.DockStyle.Right;
-            this.lblTypeElectron.Font = new System.Drawing.Font("Microsoft YaHei UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTypeElectron.ForeColor = System.Drawing.Color.CornflowerBlue;
-            this.lblTypeElectron.Location = new System.Drawing.Point(100, 0);
-            this.lblTypeElectron.Name = "lblTypeElectron";
-            this.lblTypeElectron.Size = new System.Drawing.Size(0, 16);
-            this.lblTypeElectron.TabIndex = 32;
-            // 
-            // lblTotPagar
-            // 
-            this.lblTotPagar.AutoSize = true;
-            this.lblTotPagar.Location = new System.Drawing.Point(35, 29);
-            this.lblTotPagar.Name = "lblTotPagar";
-            this.lblTotPagar.Size = new System.Drawing.Size(76, 16);
-            this.lblTotPagar.TabIndex = 30;
-            this.lblTotPagar.Text = "Total a Pagar";
-            // 
-            // pnlTotalOtros
-            // 
-            this.pnlTotalOtros.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pnlTotalOtros.Controls.Add(this.lblTotalOtros);
-            this.pnlTotalOtros.Location = new System.Drawing.Point(140, 24);
-            this.pnlTotalOtros.Name = "pnlTotalOtros";
-            this.pnlTotalOtros.Size = new System.Drawing.Size(268, 24);
-            this.pnlTotalOtros.TabIndex = 29;
-            // 
-            // lblTotalOtros
-            // 
-            this.lblTotalOtros.AutoSize = true;
-            this.lblTotalOtros.Font = new System.Drawing.Font("Microsoft YaHei UI", 12.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTotalOtros.Location = new System.Drawing.Point(100, -1);
-            this.lblTotalOtros.Name = "lblTotalOtros";
-            this.lblTotalOtros.Size = new System.Drawing.Size(55, 24);
-            this.lblTotalOtros.TabIndex = 0;
-            this.lblTotalOtros.Text = "$0.00";
-            // 
-            // txtAuth
-            // 
-            this.txtAuth.Font = new System.Drawing.Font("Microsoft YaHei UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtAuth.Location = new System.Drawing.Point(140, 131);
-            this.txtAuth.MaxLength = 25;
-            this.txtAuth.Name = "txtAuth";
-            this.txtAuth.Size = new System.Drawing.Size(268, 24);
-            this.txtAuth.TabIndex = 28;
-            this.txtAuth.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtAuth_KeyDown);
-            this.txtAuth.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtAuth_KeyPress);
-            // 
-            // txtTarjetaCheque
-            // 
-            this.txtTarjetaCheque.Font = new System.Drawing.Font("Microsoft YaHei UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtTarjetaCheque.Location = new System.Drawing.Point(140, 94);
-            this.txtTarjetaCheque.Name = "txtTarjetaCheque";
-            this.txtTarjetaCheque.Size = new System.Drawing.Size(268, 24);
-            this.txtTarjetaCheque.TabIndex = 27;
-            this.txtTarjetaCheque.Leave += new System.EventHandler(this.txtTarjetaCheque_Leave);
-            // 
-            // txtCheque
-            // 
-            this.txtCheque.Font = new System.Drawing.Font("Microsoft YaHei UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtCheque.Location = new System.Drawing.Point(140, 94);
-            this.txtCheque.MaxLength = 31;
-            this.txtCheque.Name = "txtCheque";
-            this.txtCheque.Size = new System.Drawing.Size(268, 24);
-            this.txtCheque.TabIndex = 28;
-            this.txtCheque.TextChanged += new System.EventHandler(this.txtCheque_TextChanged);
-            this.txtCheque.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtCheque_KeyPress);
-            // 
-            // lblTCheque
-            // 
-            this.lblTCheque.AutoSize = true;
-            this.lblTCheque.Location = new System.Drawing.Point(43, 99);
-            this.lblTCheque.Name = "lblTCheque";
-            this.lblTCheque.Size = new System.Drawing.Size(68, 16);
-            this.lblTCheque.TabIndex = 23;
-            this.lblTCheque.Text = "No. Tarjeta:";
-            // 
-            // lblAuth
-            // 
-            this.lblAuth.AutoSize = true;
-            this.lblAuth.Location = new System.Drawing.Point(33, 136);
-            this.lblAuth.Name = "lblAuth";
-            this.lblAuth.Size = new System.Drawing.Size(78, 16);
-            this.lblAuth.TabIndex = 24;
-            this.lblAuth.Text = "Autorización:";
-            // 
-            // lblBank
-            // 
-            this.lblBank.AutoSize = true;
-            this.lblBank.Location = new System.Drawing.Point(67, 63);
-            this.lblBank.Name = "lblBank";
-            this.lblBank.Size = new System.Drawing.Size(44, 16);
-            this.lblBank.TabIndex = 25;
-            this.lblBank.Text = "Banco:";
-            // 
-            // cmbBank
-            // 
-            this.cmbBank.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmbBank.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbBank.Font = new System.Drawing.Font("Microsoft YaHei UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cmbBank.FormattingEnabled = true;
-            this.cmbBank.Location = new System.Drawing.Point(140, 57);
-            this.cmbBank.Name = "cmbBank";
-            this.cmbBank.Size = new System.Drawing.Size(268, 27);
-            this.cmbBank.TabIndex = 26;
-            // 
-            // pnlTitle
-            // 
-            this.pnlTitle.Controls.Add(this.lblTitle);
-            this.pnlTitle.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pnlTitle.Location = new System.Drawing.Point(0, 0);
-            this.pnlTitle.Name = "pnlTitle";
-            this.pnlTitle.Size = new System.Drawing.Size(429, 18);
-            this.pnlTitle.TabIndex = 0;
-            // 
-            // lblTitle
-            // 
-            this.lblTitle.AutoSize = true;
-            this.lblTitle.Font = new System.Drawing.Font("Microsoft YaHei UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTitle.Location = new System.Drawing.Point(148, 0);
-            this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(133, 20);
-            this.lblTitle.TabIndex = 1;
-            this.lblTitle.Text = "Detalle de Cobro";
             // 
             // pnlEfectivo
             // 
@@ -603,6 +437,172 @@
             this.label7.TabIndex = 0;
             this.label7.Text = "Detalle de Cobro";
             // 
+            // pnlOtros
+            // 
+            this.pnlOtros.Controls.Add(this.panel3);
+            this.pnlOtros.Controls.Add(this.pnlTitle);
+            this.pnlOtros.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlOtros.Location = new System.Drawing.Point(3, 17);
+            this.pnlOtros.Name = "pnlOtros";
+            this.pnlOtros.Size = new System.Drawing.Size(429, 182);
+            this.pnlOtros.TabIndex = 0;
+            // 
+            // panel3
+            // 
+            this.panel3.Controls.Add(this.panel2);
+            this.panel3.Controls.Add(this.lblTotPagar);
+            this.panel3.Controls.Add(this.pnlTotalOtros);
+            this.panel3.Controls.Add(this.txtAuth);
+            this.panel3.Controls.Add(this.txtTarjetaCheque);
+            this.panel3.Controls.Add(this.txtCheque);
+            this.panel3.Controls.Add(this.lblTCheque);
+            this.panel3.Controls.Add(this.lblAuth);
+            this.panel3.Controls.Add(this.lblBank);
+            this.panel3.Controls.Add(this.cmbBank);
+            this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel3.Location = new System.Drawing.Point(0, 18);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(429, 164);
+            this.panel3.TabIndex = 1;
+            // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.lblTypeElectron);
+            this.panel2.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.panel2.Location = new System.Drawing.Point(308, 118);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(100, 13);
+            this.panel2.TabIndex = 31;
+            // 
+            // lblTypeElectron
+            // 
+            this.lblTypeElectron.AutoSize = true;
+            this.lblTypeElectron.Dock = System.Windows.Forms.DockStyle.Right;
+            this.lblTypeElectron.Font = new System.Drawing.Font("Microsoft YaHei UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTypeElectron.ForeColor = System.Drawing.Color.CornflowerBlue;
+            this.lblTypeElectron.Location = new System.Drawing.Point(100, 0);
+            this.lblTypeElectron.Name = "lblTypeElectron";
+            this.lblTypeElectron.Size = new System.Drawing.Size(0, 16);
+            this.lblTypeElectron.TabIndex = 32;
+            // 
+            // lblTotPagar
+            // 
+            this.lblTotPagar.AutoSize = true;
+            this.lblTotPagar.Location = new System.Drawing.Point(35, 29);
+            this.lblTotPagar.Name = "lblTotPagar";
+            this.lblTotPagar.Size = new System.Drawing.Size(76, 16);
+            this.lblTotPagar.TabIndex = 30;
+            this.lblTotPagar.Text = "Total a Pagar";
+            // 
+            // pnlTotalOtros
+            // 
+            this.pnlTotalOtros.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pnlTotalOtros.Controls.Add(this.lblTotalOtros);
+            this.pnlTotalOtros.Location = new System.Drawing.Point(140, 24);
+            this.pnlTotalOtros.Name = "pnlTotalOtros";
+            this.pnlTotalOtros.Size = new System.Drawing.Size(268, 24);
+            this.pnlTotalOtros.TabIndex = 29;
+            // 
+            // lblTotalOtros
+            // 
+            this.lblTotalOtros.AutoSize = true;
+            this.lblTotalOtros.Font = new System.Drawing.Font("Microsoft YaHei UI", 12.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTotalOtros.Location = new System.Drawing.Point(100, -1);
+            this.lblTotalOtros.Name = "lblTotalOtros";
+            this.lblTotalOtros.Size = new System.Drawing.Size(55, 24);
+            this.lblTotalOtros.TabIndex = 0;
+            this.lblTotalOtros.Text = "$0.00";
+            // 
+            // txtAuth
+            // 
+            this.txtAuth.Font = new System.Drawing.Font("Microsoft YaHei UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtAuth.Location = new System.Drawing.Point(140, 131);
+            this.txtAuth.MaxLength = 25;
+            this.txtAuth.Name = "txtAuth";
+            this.txtAuth.Size = new System.Drawing.Size(268, 24);
+            this.txtAuth.TabIndex = 4;
+            this.txtAuth.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtAuth_KeyDown);
+            this.txtAuth.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtAuth_KeyPress);
+            // 
+            // txtTarjetaCheque
+            // 
+            this.txtTarjetaCheque.Font = new System.Drawing.Font("Microsoft YaHei UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtTarjetaCheque.Location = new System.Drawing.Point(140, 94);
+            this.txtTarjetaCheque.Name = "txtTarjetaCheque";
+            this.txtTarjetaCheque.Size = new System.Drawing.Size(268, 24);
+            this.txtTarjetaCheque.TabIndex = 3;
+            this.txtTarjetaCheque.Leave += new System.EventHandler(this.txtTarjetaCheque_Leave);
+            // 
+            // txtCheque
+            // 
+            this.txtCheque.Font = new System.Drawing.Font("Microsoft YaHei UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtCheque.Location = new System.Drawing.Point(140, 94);
+            this.txtCheque.MaxLength = 31;
+            this.txtCheque.Name = "txtCheque";
+            this.txtCheque.Size = new System.Drawing.Size(268, 24);
+            this.txtCheque.TabIndex = 28;
+            this.txtCheque.TextChanged += new System.EventHandler(this.txtCheque_TextChanged);
+            this.txtCheque.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtCheque_KeyPress);
+            // 
+            // lblTCheque
+            // 
+            this.lblTCheque.AutoSize = true;
+            this.lblTCheque.Location = new System.Drawing.Point(43, 99);
+            this.lblTCheque.Name = "lblTCheque";
+            this.lblTCheque.Size = new System.Drawing.Size(68, 16);
+            this.lblTCheque.TabIndex = 23;
+            this.lblTCheque.Text = "No. Tarjeta:";
+            // 
+            // lblAuth
+            // 
+            this.lblAuth.AutoSize = true;
+            this.lblAuth.Location = new System.Drawing.Point(33, 136);
+            this.lblAuth.Name = "lblAuth";
+            this.lblAuth.Size = new System.Drawing.Size(78, 16);
+            this.lblAuth.TabIndex = 24;
+            this.lblAuth.Text = "Autorización:";
+            // 
+            // lblBank
+            // 
+            this.lblBank.AutoSize = true;
+            this.lblBank.Location = new System.Drawing.Point(67, 63);
+            this.lblBank.Name = "lblBank";
+            this.lblBank.Size = new System.Drawing.Size(44, 16);
+            this.lblBank.TabIndex = 25;
+            this.lblBank.Text = "Banco:";
+            // 
+            // cmbBank
+            // 
+            this.cmbBank.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmbBank.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbBank.Font = new System.Drawing.Font("Microsoft YaHei UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmbBank.FormattingEnabled = true;
+            this.cmbBank.Location = new System.Drawing.Point(140, 57);
+            this.cmbBank.Name = "cmbBank";
+            this.cmbBank.Size = new System.Drawing.Size(268, 27);
+            this.cmbBank.TabIndex = 2;
+            // 
+            // pnlTitle
+            // 
+            this.pnlTitle.Controls.Add(this.lblTitle);
+            this.pnlTitle.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pnlTitle.Location = new System.Drawing.Point(0, 0);
+            this.pnlTitle.Name = "pnlTitle";
+            this.pnlTitle.Size = new System.Drawing.Size(429, 18);
+            this.pnlTitle.TabIndex = 0;
+            // 
+            // lblTitle
+            // 
+            this.lblTitle.AutoSize = true;
+            this.lblTitle.Font = new System.Drawing.Font("Microsoft YaHei UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTitle.Location = new System.Drawing.Point(148, 0);
+            this.lblTitle.Name = "lblTitle";
+            this.lblTitle.Size = new System.Drawing.Size(133, 20);
+            this.lblTitle.TabIndex = 1;
+            this.lblTitle.Text = "Detalle de Cobro";
+            // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.label1);
@@ -635,7 +635,7 @@
             this.cmbPaymentMethod.Location = new System.Drawing.Point(137, 20);
             this.cmbPaymentMethod.Name = "cmbPaymentMethod";
             this.cmbPaymentMethod.Size = new System.Drawing.Size(262, 24);
-            this.cmbPaymentMethod.TabIndex = 21;
+            this.cmbPaymentMethod.TabIndex = 1;
             this.cmbPaymentMethod.SelectionChangeCommitted += new System.EventHandler(this.cmbPaymentMethod_SelectionChangeCommitted);
             // 
             // ModalDetalleCobro
@@ -658,15 +658,6 @@
             this.pnlButtons.ResumeLayout(false);
             this.pnlContent.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
-            this.pnlOtros.ResumeLayout(false);
-            this.panel3.ResumeLayout(false);
-            this.panel3.PerformLayout();
-            this.panel2.ResumeLayout(false);
-            this.panel2.PerformLayout();
-            this.pnlTotalOtros.ResumeLayout(false);
-            this.pnlTotalOtros.PerformLayout();
-            this.pnlTitle.ResumeLayout(false);
-            this.pnlTitle.PerformLayout();
             this.pnlEfectivo.ResumeLayout(false);
             this.grbEfectivo.ResumeLayout(false);
             this.pnlContentTotal.ResumeLayout(false);
@@ -685,6 +676,15 @@
             this.pnlTotalTran.PerformLayout();
             this.panel9.ResumeLayout(false);
             this.panel9.PerformLayout();
+            this.pnlOtros.ResumeLayout(false);
+            this.panel3.ResumeLayout(false);
+            this.panel3.PerformLayout();
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
+            this.pnlTotalOtros.ResumeLayout(false);
+            this.pnlTotalOtros.PerformLayout();
+            this.pnlTitle.ResumeLayout(false);
+            this.pnlTitle.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);

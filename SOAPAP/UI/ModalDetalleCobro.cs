@@ -613,12 +613,14 @@ namespace SOAPAP.UI
                 }
                 else
                 {
-                    resultados = await Requests.SendURIAsync($"/api/GetDiscountAuthorizationByAccount/{Variables.Agreement.Account}", HttpMethod.Get, Variables.LoginModel.Token);
+                    //Validate that there is a discount at the time of making a payment
+                    resultados = await Requests.SendURIAsync($"/api/DiscountAuthorizations/GetDiscountAuthorizationByAccount/{Variables.Agreement.Account}", HttpMethod.Get, Variables.LoginModel.Token);
                     if (resultados.Contains("error"))
                     {
                         loading.Close();
                         mensaje = new MessageBoxForm("Error", JsonConvert.DeserializeObject<Error>(resultados).error, TypeIcon.Icon.Cancel);
                         result = mensaje.ShowDialog();
+                        throw new Exception();
                     }
                     else
                     {
@@ -626,10 +628,32 @@ namespace SOAPAP.UI
                         if(discounts.Count > 0)
                         {
                             loading.Close();
-                            mensaje = new MessageBoxForm(Variables.titleprincipal, "La cuenta que intenta cobrar tiene una solicitud de descuento pendiente de autorización, de proceder con el cobro la solicitud quedara anulada, ¿Deseas proceder con el cobro de todas formas?", TypeIcon.Icon.Info);
+                            mensaje = new MessageBoxForm(Variables.titleprincipal, "La cuenta que intenta cobrar tiene una solicitud de descuento pendiente de autorización, de proceder con el cobro la solicitud quedara anulada, ¿Deseas proceder con el cobro de todas formas?", TypeIcon.Icon.Info, true);
                             result = mensaje.ShowDialog();
                             if(result == DialogResult.Cancel)
                                 throw new Exception();
+                            if(result == DialogResult.OK)
+                            {
+                                loading = new Loading();
+                                loading.Show(this);
+                                AuthorizationDiscountVM discountVM = new AuthorizationDiscountVM
+                                {
+                                    Id = discounts.FirstOrDefault().Id,
+                                    Key = discounts.FirstOrDefault().KeyFirebase,
+                                    Status = "EDE03",
+                                    UserId = Variables.LoginModel.User,
+                                    ResponseObservations = "SOLICITUD CANCELADA POR CAJERO AL REALIZAR EL COBRO"
+                                };
+                                HttpContent httpContent = new StringContent(JsonConvert.SerializeObject(discountVM), Encoding.UTF8, "application/json");
+                                resultados = await Requests.SendURIAsync($"/api/DiscountAuthorizations/{discounts.FirstOrDefault().Id}", HttpMethod.Post, Variables.LoginModel.Token, httpContent);
+                                if (resultados.Contains("error"))
+                                {
+                                    loading.Close();
+                                    mensaje = new MessageBoxForm("Error", JsonConvert.DeserializeObject<Error>(resultados).error, TypeIcon.Icon.Cancel);
+                                    result = mensaje.ShowDialog();
+                                    throw new Exception();
+                                }
+                            }
                         }
                     }
                     if (Debts.Any(x => x.Type.Contains("TIP02")))
@@ -646,6 +670,8 @@ namespace SOAPAP.UI
                     if (Debts.Any(x => x.Type == "TIP03") && Debts.Any(x => x.Type == "TIP02"))
                         transaction.Type = "PAY03";
                     else if (Debts.Any(x => x.Type == "TIP01"))
+                        transaction.Type = "PAY01";
+                    else if (Debts.Any(x => x.Type == "TIP04"))
                         transaction.Type = "PAY01";
                     else if (Debts.Any(x => x.Type == "TIP03"))
                         transaction.Type = "PAY05";

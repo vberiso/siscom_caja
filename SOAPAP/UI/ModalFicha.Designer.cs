@@ -82,12 +82,12 @@
             this.EndDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Pagos = new System.Windows.Forms.TabPage();
             this.dgvPayment = new System.Windows.Forms.DataGridView();
-            this.DatePay = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.BranchOffice = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.PayMethod = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.AmountPay = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Observaciones = new System.Windows.Forms.TabPage();
             this.dgvObservaciones = new System.Windows.Forms.DataGridView();
+            this.DateObservation = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Observation = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CFDI = new System.Windows.Forms.TabPage();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.lblTxtObservaciones = new System.Windows.Forms.Label();
             this.lblObservaciones = new System.Windows.Forms.Label();
@@ -108,8 +108,13 @@
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.lblTipo = new System.Windows.Forms.Label();
             this.lblDireccion = new System.Windows.Forms.Label();
-            this.DateObservation = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Observation = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DatePay = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.BranchOffice = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.PayMethod = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.AmountPay = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.XML = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.PDF = new System.Windows.Forms.DataGridViewButtonColumn();
             this.pnlButtons.SuspendLayout();
             this.pnlContent.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
@@ -126,6 +131,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvPayment)).BeginInit();
             this.Observaciones.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvObservaciones)).BeginInit();
+            this.CFDI.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.tableLayoutPanel3.SuspendLayout();
             this.pnlEncabezado.SuspendLayout();
             this.tlbEncabezado.SuspendLayout();
@@ -142,7 +149,7 @@
             this.pnlButtons.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.pnlButtons.Location = new System.Drawing.Point(0, 556);
             this.pnlButtons.Name = "pnlButtons";
-            this.pnlButtons.Size = new System.Drawing.Size(798, 42);
+            this.pnlButtons.Size = new System.Drawing.Size(909, 42);
             this.pnlButtons.TabIndex = 3;
             // 
             // btnAceptar
@@ -152,7 +159,7 @@
             this.btnAceptar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAceptar.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAceptar.ForeColor = System.Drawing.Color.White;
-            this.btnAceptar.Location = new System.Drawing.Point(682, 5);
+            this.btnAceptar.Location = new System.Drawing.Point(793, 5);
             this.btnAceptar.Name = "btnAceptar";
             this.btnAceptar.Size = new System.Drawing.Size(97, 31);
             this.btnAceptar.TabIndex = 8;
@@ -170,7 +177,7 @@
             this.pnlContent.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlContent.Location = new System.Drawing.Point(0, 0);
             this.pnlContent.Name = "pnlContent";
-            this.pnlContent.Size = new System.Drawing.Size(800, 600);
+            this.pnlContent.Size = new System.Drawing.Size(911, 600);
             this.pnlContent.TabIndex = 2;
             // 
             // tableLayoutPanel2
@@ -187,11 +194,12 @@
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 14.44444F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 293F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 11F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(798, 395);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(909, 395);
             this.tableLayoutPanel2.TabIndex = 4;
             // 
             // tbcInformacion
             // 
+            this.tbcInformacion.AccessibleName = "";
             this.tbcInformacion.Appearance = System.Windows.Forms.TabAppearance.FlatButtons;
             this.tbcInformacion.Controls.Add(this.Deuda);
             this.tbcInformacion.Controls.Add(this.Recibos);
@@ -199,11 +207,12 @@
             this.tbcInformacion.Controls.Add(this.Descuentos);
             this.tbcInformacion.Controls.Add(this.Pagos);
             this.tbcInformacion.Controls.Add(this.Observaciones);
+            this.tbcInformacion.Controls.Add(this.CFDI);
             this.tbcInformacion.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tbcInformacion.Location = new System.Drawing.Point(3, 93);
             this.tbcInformacion.Name = "tbcInformacion";
             this.tbcInformacion.SelectedIndex = 0;
-            this.tbcInformacion.Size = new System.Drawing.Size(792, 287);
+            this.tbcInformacion.Size = new System.Drawing.Size(903, 287);
             this.tbcInformacion.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
             this.tbcInformacion.TabIndex = 92;
             // 
@@ -214,7 +223,7 @@
             this.Deuda.Location = new System.Drawing.Point(4, 28);
             this.Deuda.Name = "Deuda";
             this.Deuda.Padding = new System.Windows.Forms.Padding(3);
-            this.Deuda.Size = new System.Drawing.Size(784, 255);
+            this.Deuda.Size = new System.Drawing.Size(895, 255);
             this.Deuda.TabIndex = 0;
             this.Deuda.Text = "Deuda";
             // 
@@ -270,7 +279,7 @@
             this.dgvConceptosCobro.RowsDefaultCellStyle = dataGridViewCellStyle4;
             this.dgvConceptosCobro.RowTemplate.DefaultCellStyle.BackColor = System.Drawing.Color.White;
             this.dgvConceptosCobro.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvConceptosCobro.Size = new System.Drawing.Size(778, 249);
+            this.dgvConceptosCobro.Size = new System.Drawing.Size(889, 249);
             this.dgvConceptosCobro.TabIndex = 91;
             // 
             // Description
@@ -294,7 +303,7 @@
             this.Recibos.Location = new System.Drawing.Point(4, 28);
             this.Recibos.Name = "Recibos";
             this.Recibos.Padding = new System.Windows.Forms.Padding(3);
-            this.Recibos.Size = new System.Drawing.Size(784, 255);
+            this.Recibos.Size = new System.Drawing.Size(895, 255);
             this.Recibos.TabIndex = 4;
             this.Recibos.Text = "Recibos";
             this.Recibos.UseVisualStyleBackColor = true;
@@ -335,6 +344,7 @@
             this.dgvRecibos.GridColor = System.Drawing.Color.White;
             this.dgvRecibos.Location = new System.Drawing.Point(3, 3);
             this.dgvRecibos.Margin = new System.Windows.Forms.Padding(3, 3, 10, 3);
+            this.dgvRecibos.MultiSelect = false;
             this.dgvRecibos.Name = "dgvRecibos";
             this.dgvRecibos.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
             dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
@@ -353,20 +363,22 @@
             this.dgvRecibos.RowsDefaultCellStyle = dataGridViewCellStyle8;
             this.dgvRecibos.RowTemplate.DefaultCellStyle.BackColor = System.Drawing.Color.White;
             this.dgvRecibos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvRecibos.Size = new System.Drawing.Size(778, 249);
+            this.dgvRecibos.Size = new System.Drawing.Size(889, 249);
             this.dgvRecibos.TabIndex = 92;
             this.dgvRecibos.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvRecibos_CellContentDoubleClick);
+            this.dgvRecibos.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DgvRecibos_CellDoubleClick);
             // 
             // DebType
             // 
             this.DebType.DataPropertyName = "DebType";
+            this.DebType.FillWeight = 104.9048F;
             this.DebType.HeaderText = "Tipo";
             this.DebType.Name = "DebType";
             // 
             // DebPeriod
             // 
             this.DebPeriod.DataPropertyName = "DebPeriod";
-            this.DebPeriod.FillWeight = 160.1227F;
+            this.DebPeriod.FillWeight = 167.9764F;
             this.DebPeriod.HeaderText = "Periodo";
             this.DebPeriod.Name = "DebPeriod";
             this.DebPeriod.ReadOnly = true;
@@ -374,13 +386,14 @@
             // DebStatus
             // 
             this.DebStatus.DataPropertyName = "DebStatus";
+            this.DebStatus.FillWeight = 104.9048F;
             this.DebStatus.HeaderText = "Estado";
             this.DebStatus.Name = "DebStatus";
             // 
             // DebAmount
             // 
             this.DebAmount.DataPropertyName = "DebAmount";
-            this.DebAmount.FillWeight = 60.93083F;
+            this.DebAmount.FillWeight = 63.91935F;
             this.DebAmount.HeaderText = "Total";
             this.DebAmount.Name = "DebAmount";
             // 
@@ -390,7 +403,7 @@
             this.Anticipos.Location = new System.Drawing.Point(4, 28);
             this.Anticipos.Name = "Anticipos";
             this.Anticipos.Padding = new System.Windows.Forms.Padding(3);
-            this.Anticipos.Size = new System.Drawing.Size(784, 255);
+            this.Anticipos.Size = new System.Drawing.Size(895, 255);
             this.Anticipos.TabIndex = 1;
             this.Anticipos.Text = "Anticipos";
             this.Anticipos.UseVisualStyleBackColor = true;
@@ -451,7 +464,7 @@
             this.dgvAnticipos.RowsDefaultCellStyle = dataGridViewCellStyle12;
             this.dgvAnticipos.RowTemplate.DefaultCellStyle.BackColor = System.Drawing.Color.White;
             this.dgvAnticipos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvAnticipos.Size = new System.Drawing.Size(778, 249);
+            this.dgvAnticipos.Size = new System.Drawing.Size(889, 249);
             this.dgvAnticipos.TabIndex = 92;
             // 
             // Type
@@ -498,7 +511,7 @@
             this.Descuentos.Controls.Add(this.dgvDescuentos);
             this.Descuentos.Location = new System.Drawing.Point(4, 28);
             this.Descuentos.Name = "Descuentos";
-            this.Descuentos.Size = new System.Drawing.Size(784, 255);
+            this.Descuentos.Size = new System.Drawing.Size(895, 255);
             this.Descuentos.TabIndex = 2;
             this.Descuentos.Text = "Descuentos";
             this.Descuentos.UseVisualStyleBackColor = true;
@@ -556,7 +569,7 @@
             this.dgvDescuentos.RowsDefaultCellStyle = dataGridViewCellStyle16;
             this.dgvDescuentos.RowTemplate.DefaultCellStyle.BackColor = System.Drawing.Color.White;
             this.dgvDescuentos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvDescuentos.Size = new System.Drawing.Size(784, 255);
+            this.dgvDescuentos.Size = new System.Drawing.Size(895, 255);
             this.dgvDescuentos.TabIndex = 93;
             // 
             // Discount
@@ -586,7 +599,7 @@
             this.Pagos.Location = new System.Drawing.Point(4, 28);
             this.Pagos.Name = "Pagos";
             this.Pagos.Padding = new System.Windows.Forms.Padding(3);
-            this.Pagos.Size = new System.Drawing.Size(784, 255);
+            this.Pagos.Size = new System.Drawing.Size(895, 255);
             this.Pagos.TabIndex = 3;
             this.Pagos.Text = "Pagos";
             this.Pagos.UseVisualStyleBackColor = true;
@@ -610,10 +623,13 @@
             this.dgvPayment.ColumnHeadersHeight = 35;
             this.dgvPayment.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dgvPayment.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.ID,
             this.DatePay,
             this.BranchOffice,
             this.PayMethod,
-            this.AmountPay});
+            this.AmountPay,
+            this.XML,
+            this.PDF});
             this.dgvPayment.Cursor = System.Windows.Forms.Cursors.Hand;
             dataGridViewCellStyle18.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle18.BackColor = System.Drawing.SystemColors.Window;
@@ -645,35 +661,10 @@
             this.dgvPayment.RowsDefaultCellStyle = dataGridViewCellStyle20;
             this.dgvPayment.RowTemplate.DefaultCellStyle.BackColor = System.Drawing.Color.White;
             this.dgvPayment.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvPayment.Size = new System.Drawing.Size(778, 249);
+            this.dgvPayment.Size = new System.Drawing.Size(889, 249);
             this.dgvPayment.TabIndex = 94;
-            // 
-            // DatePay
-            // 
-            this.DatePay.DataPropertyName = "DatePay";
-            this.DatePay.FillWeight = 160.1227F;
-            this.DatePay.HeaderText = "Fecha";
-            this.DatePay.Name = "DatePay";
-            this.DatePay.ReadOnly = true;
-            // 
-            // BranchOffice
-            // 
-            this.BranchOffice.DataPropertyName = "BranchOffice";
-            this.BranchOffice.FillWeight = 60.93083F;
-            this.BranchOffice.HeaderText = "Sucursal";
-            this.BranchOffice.Name = "BranchOffice";
-            // 
-            // PayMethod
-            // 
-            this.PayMethod.DataPropertyName = "PayMethod";
-            this.PayMethod.HeaderText = "Forma";
-            this.PayMethod.Name = "PayMethod";
-            // 
-            // AmountPay
-            // 
-            this.AmountPay.DataPropertyName = "AmountPay";
-            this.AmountPay.HeaderText = "Importe";
-            this.AmountPay.Name = "AmountPay";
+            this.dgvPayment.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DgvPayment_CellContentClick);
+            this.dgvPayment.CellPainting += new System.Windows.Forms.DataGridViewCellPaintingEventHandler(this.DgvPayment_CellPainting);
             // 
             // Observaciones
             // 
@@ -681,7 +672,7 @@
             this.Observaciones.Location = new System.Drawing.Point(4, 28);
             this.Observaciones.Name = "Observaciones";
             this.Observaciones.Padding = new System.Windows.Forms.Padding(3);
-            this.Observaciones.Size = new System.Drawing.Size(784, 255);
+            this.Observaciones.Size = new System.Drawing.Size(895, 255);
             this.Observaciones.TabIndex = 5;
             this.Observaciones.Text = "Observaciones";
             this.Observaciones.UseVisualStyleBackColor = true;
@@ -738,8 +729,50 @@
             this.dgvObservaciones.RowsDefaultCellStyle = dataGridViewCellStyle24;
             this.dgvObservaciones.RowTemplate.DefaultCellStyle.BackColor = System.Drawing.Color.White;
             this.dgvObservaciones.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvObservaciones.Size = new System.Drawing.Size(778, 249);
+            this.dgvObservaciones.Size = new System.Drawing.Size(889, 249);
             this.dgvObservaciones.TabIndex = 92;
+            // 
+            // DateObservation
+            // 
+            this.DateObservation.DataPropertyName = "DateObservation";
+            this.DateObservation.FillWeight = 60.93083F;
+            this.DateObservation.HeaderText = "Fecha";
+            this.DateObservation.Name = "DateObservation";
+            // 
+            // Observation
+            // 
+            this.Observation.DataPropertyName = "Observation";
+            this.Observation.FillWeight = 160.1227F;
+            this.Observation.HeaderText = "Concepto";
+            this.Observation.Name = "Observation";
+            this.Observation.ReadOnly = true;
+            // 
+            // CFDI
+            // 
+            this.CFDI.Controls.Add(this.dataGridView1);
+            this.CFDI.Location = new System.Drawing.Point(4, 28);
+            this.CFDI.Name = "CFDI";
+            this.CFDI.Padding = new System.Windows.Forms.Padding(3);
+            this.CFDI.Size = new System.Drawing.Size(895, 255);
+            this.CFDI.TabIndex = 6;
+            this.CFDI.Text = "CFDI";
+            this.CFDI.UseVisualStyleBackColor = true;
+            // 
+            // dataGridView1
+            // 
+            this.dataGridView1.AllowUserToAddRows = false;
+            this.dataGridView1.AllowUserToDeleteRows = false;
+            this.dataGridView1.BackgroundColor = System.Drawing.Color.White;
+            this.dataGridView1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridView1.Location = new System.Drawing.Point(3, 3);
+            this.dataGridView1.MultiSelect = false;
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.ReadOnly = true;
+            this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridView1.Size = new System.Drawing.Size(889, 249);
+            this.dataGridView1.TabIndex = 0;
             // 
             // tableLayoutPanel3
             // 
@@ -754,7 +787,7 @@
             this.tableLayoutPanel3.RowCount = 2;
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 59F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(792, 71);
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(903, 71);
             this.tableLayoutPanel3.TabIndex = 93;
             // 
             // lblTxtObservaciones
@@ -764,7 +797,7 @@
             this.lblTxtObservaciones.ForeColor = System.Drawing.Color.Gray;
             this.lblTxtObservaciones.Location = new System.Drawing.Point(3, 12);
             this.lblTxtObservaciones.Name = "lblTxtObservaciones";
-            this.lblTxtObservaciones.Size = new System.Drawing.Size(73, 59);
+            this.lblTxtObservaciones.Size = new System.Drawing.Size(84, 59);
             this.lblTxtObservaciones.TabIndex = 4;
             this.lblTxtObservaciones.Text = "Observaciones:";
             this.lblTxtObservaciones.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -774,9 +807,9 @@
             this.lblObservaciones.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblObservaciones.Font = new System.Drawing.Font("Segoe UI Semibold", 7F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblObservaciones.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.lblObservaciones.Location = new System.Drawing.Point(82, 12);
+            this.lblObservaciones.Location = new System.Drawing.Point(93, 12);
             this.lblObservaciones.Name = "lblObservaciones";
-            this.lblObservaciones.Size = new System.Drawing.Size(707, 59);
+            this.lblObservaciones.Size = new System.Drawing.Size(807, 59);
             this.lblObservaciones.TabIndex = 6;
             this.lblObservaciones.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -787,7 +820,7 @@
             this.pnlEncabezado.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlEncabezado.Location = new System.Drawing.Point(0, 0);
             this.pnlEncabezado.Name = "pnlEncabezado";
-            this.pnlEncabezado.Size = new System.Drawing.Size(798, 161);
+            this.pnlEncabezado.Size = new System.Drawing.Size(909, 161);
             this.pnlEncabezado.TabIndex = 0;
             // 
             // tlbEncabezado
@@ -812,7 +845,7 @@
             this.tlbEncabezado.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 99F));
             this.tlbEncabezado.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 10F));
             this.tlbEncabezado.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
-            this.tlbEncabezado.Size = new System.Drawing.Size(798, 161);
+            this.tlbEncabezado.Size = new System.Drawing.Size(909, 161);
             this.tlbEncabezado.TabIndex = 3;
             // 
             // pbLine2
@@ -822,7 +855,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.pbLine2.BackColor = System.Drawing.Color.LightGray;
             this.pbLine2.Image = global::SOAPAP.Properties.Resources.pix_gris;
-            this.pbLine2.Location = new System.Drawing.Point(153, 124);
+            this.pbLine2.Location = new System.Drawing.Point(264, 124);
             this.pbLine2.Name = "pbLine2";
             this.pbLine2.Padding = new System.Windows.Forms.Padding(0, 5, 0, 5);
             this.pbLine2.Size = new System.Drawing.Size(1, 34);
@@ -837,7 +870,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.pbLinea.BackColor = System.Drawing.Color.LightGray;
             this.pbLinea.Image = global::SOAPAP.Properties.Resources.pix_gris;
-            this.pbLinea.Location = new System.Drawing.Point(153, 15);
+            this.pbLinea.Location = new System.Drawing.Point(264, 15);
             this.pbLinea.Name = "pbLinea";
             this.pbLinea.Padding = new System.Windows.Forms.Padding(0, 5, 0, 5);
             this.pbLinea.Size = new System.Drawing.Size(1, 93);
@@ -857,7 +890,7 @@
             this.tlpCuenta.Controls.Add(this.lblCuenta, 1, 0);
             this.tlpCuenta.Controls.Add(this.lblEstado, 1, 1);
             this.tlpCuenta.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tlpCuenta.Location = new System.Drawing.Point(568, 15);
+            this.tlpCuenta.Location = new System.Drawing.Point(679, 15);
             this.tlpCuenta.Name = "tlpCuenta";
             this.tlpCuenta.RowCount = 3;
             this.tlpCuenta.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
@@ -954,7 +987,7 @@
             this.lblTxtCliente.ForeColor = System.Drawing.Color.Gray;
             this.lblTxtCliente.Location = new System.Drawing.Point(3, 121);
             this.lblTxtCliente.Name = "lblTxtCliente";
-            this.lblTxtCliente.Size = new System.Drawing.Size(144, 40);
+            this.lblTxtCliente.Size = new System.Drawing.Size(255, 40);
             this.lblTxtCliente.TabIndex = 2;
             this.lblTxtCliente.Text = "CLIENTE";
             this.lblTxtCliente.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -967,7 +1000,7 @@
             this.pictureBox1.Image = global::SOAPAP.Properties.Resources.home_blue;
             this.pictureBox1.Location = new System.Drawing.Point(3, 15);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(144, 93);
+            this.pictureBox1.Size = new System.Drawing.Size(255, 93);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.pictureBox1.TabIndex = 7;
             this.pictureBox1.TabStop = false;
@@ -977,7 +1010,7 @@
             this.lblCliente.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblCliente.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblCliente.ForeColor = System.Drawing.Color.Gray;
-            this.lblCliente.Location = new System.Drawing.Point(154, 121);
+            this.lblCliente.Location = new System.Drawing.Point(265, 121);
             this.lblCliente.Name = "lblCliente";
             this.lblCliente.Padding = new System.Windows.Forms.Padding(20, 0, 0, 0);
             this.lblCliente.Size = new System.Drawing.Size(408, 40);
@@ -990,7 +1023,7 @@
             this.tableLayoutPanel1.Controls.Add(this.lblTipo, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.lblDireccion, 0, 1);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(154, 15);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(265, 15);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 2;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20.43011F));
@@ -1020,27 +1053,62 @@
             this.lblDireccion.Size = new System.Drawing.Size(402, 74);
             this.lblDireccion.TabIndex = 4;
             // 
-            // DateObservation
+            // ID
             // 
-            this.DateObservation.DataPropertyName = "DateObservation";
-            this.DateObservation.FillWeight = 60.93083F;
-            this.DateObservation.HeaderText = "Fecha";
-            this.DateObservation.Name = "DateObservation";
+            this.ID.DataPropertyName = "ID";
+            this.ID.HeaderText = "ID";
+            this.ID.Name = "ID";
+            this.ID.Visible = false;
             // 
-            // Observation
+            // DatePay
             // 
-            this.Observation.DataPropertyName = "Observation";
-            this.Observation.FillWeight = 160.1227F;
-            this.Observation.HeaderText = "Concepto";
-            this.Observation.Name = "Observation";
-            this.Observation.ReadOnly = true;
+            this.DatePay.DataPropertyName = "DatePay";
+            this.DatePay.FillWeight = 160.1227F;
+            this.DatePay.HeaderText = "Fecha";
+            this.DatePay.Name = "DatePay";
+            this.DatePay.ReadOnly = true;
+            // 
+            // BranchOffice
+            // 
+            this.BranchOffice.DataPropertyName = "BranchOffice";
+            this.BranchOffice.FillWeight = 60.93083F;
+            this.BranchOffice.HeaderText = "Sucursal";
+            this.BranchOffice.Name = "BranchOffice";
+            // 
+            // PayMethod
+            // 
+            this.PayMethod.DataPropertyName = "PayMethod";
+            this.PayMethod.HeaderText = "Forma";
+            this.PayMethod.Name = "PayMethod";
+            // 
+            // AmountPay
+            // 
+            this.AmountPay.DataPropertyName = "AmountPay";
+            this.AmountPay.HeaderText = "Importe";
+            this.AmountPay.Name = "AmountPay";
+            // 
+            // XML
+            // 
+            this.XML.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.XML.DataPropertyName = "XML";
+            this.XML.HeaderText = "";
+            this.XML.Name = "XML";
+            this.XML.Width = 50;
+            // 
+            // PDF
+            // 
+            this.PDF.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.PDF.DataPropertyName = "PDF";
+            this.PDF.HeaderText = "";
+            this.PDF.Name = "PDF";
+            this.PDF.Width = 50;
             // 
             // ModalFicha
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(800, 600);
+            this.ClientSize = new System.Drawing.Size(911, 600);
             this.Controls.Add(this.pnlContent);
             this.Font = new System.Drawing.Font("Microsoft YaHei UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
@@ -1065,6 +1133,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvPayment)).EndInit();
             this.Observaciones.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvObservaciones)).EndInit();
+            this.CFDI.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.tableLayoutPanel3.ResumeLayout(false);
             this.pnlEncabezado.ResumeLayout(false);
             this.tlbEncabezado.ResumeLayout(false);
@@ -1099,42 +1169,47 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.Label lblTipo;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
+        private System.Windows.Forms.Label lblTxtObservaciones;
+        private System.Windows.Forms.Label lblObservaciones;
+        private System.Windows.Forms.TabControl tbcInformacion;
+        private System.Windows.Forms.TabPage Deuda;
         private System.Windows.Forms.DataGridView dgvConceptosCobro;
         private System.Windows.Forms.DataGridViewTextBoxColumn Description;
         private System.Windows.Forms.DataGridViewTextBoxColumn Total;
-        private System.Windows.Forms.TabControl tbcInformacion;
-        private System.Windows.Forms.TabPage Deuda;
-        private System.Windows.Forms.TabPage Anticipos;
-        private System.Windows.Forms.TabPage Descuentos;
-        private System.Windows.Forms.DataGridView dgvAnticipos;
-        private System.Windows.Forms.DataGridView dgvDescuentos;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Type;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Status;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Date;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Amount;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Accredited;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Residue;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Discount;
-        private System.Windows.Forms.DataGridViewTextBoxColumn State;
-        private System.Windows.Forms.DataGridViewTextBoxColumn EndDate;
-        private System.Windows.Forms.TabPage Pagos;
-        private System.Windows.Forms.DataGridView dgvPayment;
-        private System.Windows.Forms.DataGridViewTextBoxColumn DatePay;
-        private System.Windows.Forms.DataGridViewTextBoxColumn BranchOffice;
-        private System.Windows.Forms.DataGridViewTextBoxColumn PayMethod;
-        private System.Windows.Forms.DataGridViewTextBoxColumn AmountPay;
         private System.Windows.Forms.TabPage Recibos;
         private System.Windows.Forms.DataGridView dgvRecibos;
         private System.Windows.Forms.DataGridViewTextBoxColumn DebType;
         private System.Windows.Forms.DataGridViewTextBoxColumn DebPeriod;
         private System.Windows.Forms.DataGridViewTextBoxColumn DebStatus;
         private System.Windows.Forms.DataGridViewTextBoxColumn DebAmount;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
-        private System.Windows.Forms.Label lblTxtObservaciones;
-        private System.Windows.Forms.Label lblObservaciones;
+        private System.Windows.Forms.TabPage Anticipos;
+        private System.Windows.Forms.DataGridView dgvAnticipos;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Type;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Status;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Date;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Amount;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Accredited;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Residue;
+        private System.Windows.Forms.TabPage Descuentos;
+        private System.Windows.Forms.DataGridView dgvDescuentos;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Discount;
+        private System.Windows.Forms.DataGridViewTextBoxColumn State;
+        private System.Windows.Forms.DataGridViewTextBoxColumn EndDate;
+        private System.Windows.Forms.TabPage Pagos;
+        private System.Windows.Forms.DataGridView dgvPayment;
         private System.Windows.Forms.TabPage Observaciones;
         private System.Windows.Forms.DataGridView dgvObservaciones;
         private System.Windows.Forms.DataGridViewTextBoxColumn DateObservation;
         private System.Windows.Forms.DataGridViewTextBoxColumn Observation;
+        private System.Windows.Forms.TabPage CFDI;
+        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ID;
+        private System.Windows.Forms.DataGridViewTextBoxColumn DatePay;
+        private System.Windows.Forms.DataGridViewTextBoxColumn BranchOffice;
+        private System.Windows.Forms.DataGridViewTextBoxColumn PayMethod;
+        private System.Windows.Forms.DataGridViewTextBoxColumn AmountPay;
+        private System.Windows.Forms.DataGridViewButtonColumn XML;
+        private System.Windows.Forms.DataGridViewButtonColumn PDF;
     }
 }

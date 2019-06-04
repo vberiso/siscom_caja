@@ -23,14 +23,31 @@ namespace SOAPAP.UI
         private string UrlBase = Properties.Settings.Default.URL;
         Search.Type _typeSearchSelect = Search.Type.Ninguno;
         string _id = String.Empty;
+        private string Title;
 
         public ModalDetalleCaja(string Title, string Message, TypeIcon.Icon TypeIcon, string Id, Search.Type Type)
         {
             InitializeComponent();
-            btnAceptar.Location = new Point(198, 5);
+            //btnAceptar.Location = new Point(198, 5);
             Requests = new RequestsAPI(UrlBase);
             _id = Id;
             _typeSearchSelect = Type;
+            lblStatus.Visible = false;
+            panel1.Visible = false;
+            panel2.Visible = false;
+        }
+
+        public ModalDetalleCaja(string Title, string Message, TypeIcon.Icon TypeIcon, string Id, Search.Type Type, string Status)
+        {
+            InitializeComponent();
+            //btnAceptar.Location = new Point(198, 5);
+            Requests = new RequestsAPI(UrlBase);
+            _id = Id;
+            _typeSearchSelect = Type;
+            lblStatus.Visible = true;
+            lblStatus.Text = Status;
+            panel1.Visible = true;
+            panel2.Visible = true;
         }
 
 
@@ -70,6 +87,16 @@ namespace SOAPAP.UI
             dgvConceptosCobro.Columns["Total"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
             dgvConceptosCobro.Columns["Total"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
 
+            dgvConceptosCobro.Columns["Descuento"].DefaultCellStyle.Format = "c2";
+            dgvConceptosCobro.Columns["Descuento"].DefaultCellStyle.FormatProvider = new CultureInfo("es-MX");
+            dgvConceptosCobro.Columns["Descuento"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            dgvConceptosCobro.Columns["Descuento"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+
+            dgvConceptosCobro.Columns["OriginalAmount"].DefaultCellStyle.Format = "c2";
+            dgvConceptosCobro.Columns["OriginalAmount"].DefaultCellStyle.FormatProvider = new CultureInfo("es-MX");
+            dgvConceptosCobro.Columns["OriginalAmount"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            dgvConceptosCobro.Columns["OriginalAmount"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+
             dgvConceptosCobro.Columns["Description"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
 
 
@@ -91,7 +118,9 @@ namespace SOAPAP.UI
                     }
                     else
                     {
-                        DebtDetailCollection = JsonConvert.DeserializeObject<List<Model.DebtDetail>>(resultDebt);
+                        var response = JsonConvert.DeserializeObject<Model.DebtandDiscount>(resultDebt);
+
+                        DebtDetailCollection = response.Detail;
 
                         if (DebtDetailCollection != null & DebtDetailCollection.Count > 0)
                         {
@@ -100,6 +129,9 @@ namespace SOAPAP.UI
                                                 {
                                                     Id = d.Id,
                                                     Description = d.NameConcept,
+                                                    //AmountDiscount = response.DebtDiscount.Where(x => x.CodeConcept == d.CodeConcept).Select(x => x.DiscountAmount).FirstOrDefault(),
+                                                    OriginalAmount = response.DebtDiscount.Count > 0 ? response.DebtDiscount.Where(x => x.CodeConcept == d.CodeConcept).Select(x => x.OriginalAmount).FirstOrDefault() : d.Amount,
+                                                    AmountDiscount = response.DebtDiscount.Count > 0 ? (response.DebtDiscount.Where(x => x.CodeConcept == d.CodeConcept).Select(x => x.DiscountAmount).FirstOrDefault() * -1 ) : Convert.ToDecimal(0),
                                                     Amount = d.Amount,
                                                     OnAccount = d.OnAccount,
                                                     Total = d.Amount - d.OnAccount
@@ -147,6 +179,15 @@ namespace SOAPAP.UI
             }
 
             Total = lCollectConcepts != null ? lCollectConcepts.Sum(x => x.Total) : 0;
+            var totalDiscount = lCollectConcepts.Sum(x => x.OriginalAmount);
+            if (totalDiscount > 0) {
+                lblTotalDescuento.Visible = true;
+                lblTotalDescuento.Text = "Total Sin Descuento: " + string.Format(new CultureInfo("es-MX"), "{0:C2}", totalDiscount);
+            }
+            else
+            {
+                lblTotalDescuento.Visible = false;
+            }
             lblTotal.Text = "Total: " + string.Format(new CultureInfo("es-MX"), "{0:C2}", Total);
             source.DataSource = lCollectConcepts;
             dgvConceptosCobro.DataSource = source;
@@ -157,6 +198,8 @@ namespace SOAPAP.UI
     {
         public int Id { get; set; }
         public string Description { get; set; }
+        public decimal OriginalAmount { get; set; }
+        public decimal AmountDiscount { get; set; }
         public decimal Amount { get; set; }
         public decimal OnAccount { get; set; }
         public decimal Total { get; set; }

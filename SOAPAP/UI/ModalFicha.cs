@@ -14,6 +14,7 @@ using System.Globalization;
 using System.Threading.Tasks;
 using System.Linq.Expressions;
 using System.Reflection;
+using System.Xml;
 
 namespace SOAPAP.UI
 {
@@ -87,12 +88,23 @@ namespace SOAPAP.UI
 
         private void dgvRecibos_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
+            //if (e.RowIndex >= 0)
+            //{
+            //    mensaje = new ModalDetalleCaja("Detalle Conceptos", "", TypeIcon.Icon.Warning, this.dgvRecibos.Rows[e.RowIndex].Cells["Id"].Value.ToString(), _typeSearchSelect);
+            //    result = mensaje.ShowDialog();
+            //}
+        }
+
+        private void DgvRecibos_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
             if (e.RowIndex >= 0)
             {
-                mensaje = new ModalDetalleCaja("Detalle Conceptos", "", TypeIcon.Icon.Warning, this.dgvRecibos.Rows[e.RowIndex].Cells["Id"].Value.ToString(), _typeSearchSelect);
+                string status = this.dgvRecibos.Rows[e.RowIndex].Cells[2].FormattedValue.ToString();
+                mensaje = new ModalDetalleCaja("Detalle Conceptos", "", TypeIcon.Icon.Warning, this.dgvRecibos.Rows[e.RowIndex].Cells["Id"].Value.ToString(), _typeSearchSelect, status);
                 result = mensaje.ShowDialog();
             }
         }
+
         #endregion
 
         #region PrivateMethod
@@ -372,12 +384,14 @@ namespace SOAPAP.UI
                                         DebType = x.DescriptionType,
                                         DebPeriod = x.FromDate.Date.ToString("dd-MM-yyyy") + " al " + x.UntilDate.Date.ToString("dd-MM-yyyy"),
                                         DebStatus = x.DescriptionStatus,
-                                        DebAmount = x.Amount
+                                        DebAmount = x.Amount,
+                                        ID = x.Id
                                     }).ToList();
             }
 
             source.DataSource = lCollectDebs ?? new List<CollectDebSumary>();
             dgvRecibos.DataSource = source;
+            dgvRecibos.Columns[4].Visible = false;
         }
 
         private void CargaDescuentos()
@@ -435,6 +449,7 @@ namespace SOAPAP.UI
                                     .OrderByDescending(x => x.PaymentDate)
                                       .Select(x => new CollectPaymentSumary
                                       {
+                                          Id = x.Id,
                                           DatePay = String.Format("{0:dd/MM/yyyy}", x.PaymentDate),
                                           BranchOffice = x.BranchOffice,
                                           PayMethod = x.PayMethod.Name,
@@ -471,8 +486,77 @@ namespace SOAPAP.UI
             dgvObservaciones.DataSource = source;
         }
 
+
         #endregion
-        
+
+        private void DgvPayment_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
+        {
+            if (e.ColumnIndex >= 0 && this.dgvPayment.Columns[e.ColumnIndex].Name == "XML" && e.RowIndex >= 0)
+            {
+                DataGridViewButtonCell c = (DataGridViewButtonCell)dgvPayment.Rows[e.RowIndex].Cells[0];
+                DataGridViewRow row = this.dgvPayment.Rows[e.RowIndex];
+                var idPayment = Convert.ToInt32(row.Cells["ID"].FormattedValue.ToString());
+                if (_payments[e.RowIndex].BranchOffice.Contains("Migracion") && _payments.Where(x => x.Id == idPayment).FirstOrDefault().TaxReceipts.Count > 0)
+                {
+                   
+                    c.FlatStyle = FlatStyle.Popup;
+                    c.Style.BackColor = Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(133)))), ((int)(((byte)(214)))));
+                    c.Style.ForeColor = Color.White;
+                    e.Paint(e.CellBounds, DataGridViewPaintParts.All);
+                    c.Value = "XML";
+                    e.Handled = true;
+                }
+            }
+
+            if (e.ColumnIndex >= 0 && this.dgvPayment.Columns[e.ColumnIndex].Name == "PDF" && e.RowIndex >= 0)
+            {
+                DataGridViewButtonCell c = (DataGridViewButtonCell)dgvPayment.Rows[e.RowIndex].Cells[1];
+                if (!_payments[e.RowIndex].BranchOffice.Contains("Migracion"))
+                {
+                    c.FlatStyle = FlatStyle.Popup;
+                    c.Style.BackColor = Color.FromArgb(((int)(((byte)(221)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
+                    c.Style.ForeColor = Color.White;
+                    e.Paint(e.CellBounds, DataGridViewPaintParts.All);
+                    c.Value = "PDF";
+                    e.Handled = true;
+                }  
+            }
+        }
+
+        private void DgvPayment_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                DataGridViewRow row = this.dgvPayment.Rows[e.RowIndex];
+                if (e.ColumnIndex == dgvPayment.Columns["XML"].Index && e.RowIndex >= 0)
+                {
+                    //if()
+                    var idPayment = Convert.ToInt32(row.Cells["ID"].FormattedValue.ToString());
+                    var payment = _payments.Where(x => x.Id == idPayment).FirstOrDefault().TaxReceipts;
+                    var xml = payment.FirstOrDefault();
+                    if(xml != null)
+                    {
+                        ExportGridToXML(xml.Xml.StartsWith("ï»¿") ? xml.Xml.Replace("ï»¿", "") : xml.Xml);
+                    }
+
+                }
+            }
+        }
+
+        private void ExportGridToXML(string xml)
+        {
+            SaveFileDialog SaveXMLFileDialog = new SaveFileDialog();
+            SaveXMLFileDialog.Filter = "Xml files (*.xml)|*.xml";
+            SaveXMLFileDialog.FilterIndex = 2;
+            SaveXMLFileDialog.RestoreDirectory = true;
+            SaveXMLFileDialog.Title = "Exportar XML de Factura";
+            if (SaveXMLFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                XmlDocument xdoc = new XmlDocument();
+                xdoc.LoadXml(xml);
+                xdoc.Save(System.IO.File.OpenWrite(SaveXMLFileDialog.FileName));
+            }
+        }
     }
 
     public static class ControlExtension
@@ -501,11 +585,12 @@ namespace SOAPAP.UI
     }
 
     public partial class CollectDebSumary
-    {        
+    {
         public string DebType { get; set; }
         public string DebPeriod { get; set; }
         public string DebStatus { get; set; }
         public decimal DebAmount { get; set; }
+        public int ID { get; set; }
     }
 
     public partial class CollectPrepaidSumary
@@ -527,6 +612,7 @@ namespace SOAPAP.UI
 
     public partial class CollectPaymentSumary
     {
+        public int Id { get; set; }
         public string DatePay { get; set; }
         public string BranchOffice { get; set; }
         public string PayMethod { get; set; }
@@ -537,5 +623,106 @@ namespace SOAPAP.UI
     {
         public string DateObservation { get; set; }
         public string Observation { get; set; }
+    }
+
+    public class DataGridViewDisableButtonColumn : DataGridViewButtonColumn
+    {
+        public DataGridViewDisableButtonColumn()
+        {
+            this.CellTemplate = new DataGridViewDisableButtonCell();
+        }
+    }
+
+    public class DataGridViewDisableButtonCell : DataGridViewButtonCell
+    {
+        private bool enabledValue;
+        public bool Enabled
+        {
+            get
+            {
+                return enabledValue;
+            }
+            set
+            {
+                enabledValue = value;
+            }
+        }
+
+        // Override the Clone method so that the Enabled property is copied.
+        public override object Clone()
+        {
+            DataGridViewDisableButtonCell cell =
+                (DataGridViewDisableButtonCell)base.Clone();
+            cell.Enabled = this.Enabled;
+            return cell;
+        }
+
+        // By default, enable the button cell.
+        public DataGridViewDisableButtonCell()
+        {
+            this.enabledValue = true;
+        }
+
+        protected override void Paint(Graphics graphics,
+            Rectangle clipBounds, Rectangle cellBounds, int rowIndex,
+            DataGridViewElementStates elementState, object value,
+            object formattedValue, string errorText,
+            DataGridViewCellStyle cellStyle,
+            DataGridViewAdvancedBorderStyle advancedBorderStyle,
+            DataGridViewPaintParts paintParts)
+        {
+            // The button cell is disabled, so paint the border,  
+            // background, and disabled button for the cell.
+            if (!this.enabledValue)
+            {
+                // Draw the cell background, if specified.
+                if ((paintParts & DataGridViewPaintParts.Background) ==
+                    DataGridViewPaintParts.Background)
+                {
+                    SolidBrush cellBackground =
+                        new SolidBrush(cellStyle.BackColor);
+                    graphics.FillRectangle(cellBackground, cellBounds);
+                    cellBackground.Dispose();
+                }
+
+                // Draw the cell borders, if specified.
+                if ((paintParts & DataGridViewPaintParts.Border) ==
+                    DataGridViewPaintParts.Border)
+                {
+                    PaintBorder(graphics, clipBounds, cellBounds, cellStyle,
+                        advancedBorderStyle);
+                }
+
+                // Calculate the area in which to draw the button.
+                Rectangle buttonArea = cellBounds;
+                Rectangle buttonAdjustment =
+                    this.BorderWidths(advancedBorderStyle);
+                buttonArea.X += buttonAdjustment.X;
+                buttonArea.Y += buttonAdjustment.Y;
+                buttonArea.Height -= buttonAdjustment.Height;
+                buttonArea.Width -= buttonAdjustment.Width;
+
+                // Draw the disabled button.                
+                ButtonRenderer.DrawButton(graphics, buttonArea,
+                    System.Windows.Forms.VisualStyles.PushButtonState.Disabled);
+
+                // Draw the disabled button text. 
+                if (this.FormattedValue is String)
+                {
+                    TextRenderer.DrawText(graphics,
+                        (string)this.FormattedValue,
+                        this.DataGridView.Font,
+                        buttonArea, SystemColors.GrayText);
+                }
+            }
+            else
+            {
+                // The button cell is enabled, so let the base class 
+                // handle the painting.
+                base.Paint(graphics, clipBounds, cellBounds, rowIndex,
+                    elementState, value, formattedValue, errorText,
+                    cellStyle, advancedBorderStyle, paintParts);
+            }
+        }
     }
 }

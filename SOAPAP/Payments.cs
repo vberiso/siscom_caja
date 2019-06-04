@@ -29,7 +29,7 @@ namespace SOAPAP
         public int payMethodId { get; set; }
         public PayMethod payMethod { get; set; }
         public ICollection<PaymentDetails> paymentDetails { get; set; }
-        public ICollection<XML> taxReceipts { get; set; }
+        public ICollection<TaxReceipt> taxReceipts { get; set; }
         
     }
 }

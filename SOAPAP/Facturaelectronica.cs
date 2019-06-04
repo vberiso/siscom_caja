@@ -160,7 +160,7 @@ namespace SOAPAP
                         //ET001
                         //ET002
 
-                        Model.XML xMLS = new Model.XML();
+                        Model.TaxReceipt xMLS = new Model.TaxReceipt();
                         try
                         {
                             xMLS.RFC = ms.Clients.FirstOrDefault(x => x.typeUser == "CLI01").rfc;
@@ -172,13 +172,13 @@ namespace SOAPAP
 
                         }
 
-                        xMLS.status = status;
-                        xMLS.paymentId = m.payment.id;
-                        xMLS.taxReceiptDate = DateTime.Now;
-                        xMLS.type = "CAT02";
-                        xMLS.xml = detalle.XMLAcuse;
-                        xMLS.fielXML = uuids;
-                        xMLS.userId = Variables.Configuration.Terminal.TerminalUsers.FirstOrDefault().UserId;
+                        xMLS.Status = status;
+                        xMLS.PaymentId = m.payment.id;
+                        xMLS.TaxReceiptDate = DateTime.Now;
+                        xMLS.Type = "CAT02";
+                        xMLS.Xml = detalle.XMLAcuse;
+                        xMLS.FielXML = uuids;
+                        xMLS.UserId = Variables.Configuration.Terminal.TerminalUsers.FirstOrDefault().UserId;
                         HttpContent content;
                         json = JsonConvert.SerializeObject(xMLS);
                         content = new StringContent(json, Encoding.UTF8, "application/json");
@@ -232,7 +232,7 @@ namespace SOAPAP
                 //ET001
                 //ET002
 
-                Model.XML xMLS = new Model.XML();
+                Model.TaxReceipt xMLS = new Model.TaxReceipt();
                 try
                 {
                     xMLS.RFC = ms.Clients.FirstOrDefault(x => x.typeUser == "CLI01").rfc;
@@ -244,13 +244,13 @@ namespace SOAPAP
 
                 }
                 
-                xMLS.status = status;
-                xMLS.paymentId = m.payment.id;
-                xMLS.taxReceiptDate = DateTime.Now;
-                xMLS.type = "CAT01";
-                xMLS.xml = respuestas.xmlTimbrado;
-                xMLS.fielXML = respuestas.uuid;
-                xMLS.userId = Variables.Configuration.Terminal.TerminalUsers.FirstOrDefault().UserId;
+                xMLS.Status = status;
+                xMLS.PaymentId = m.payment.id;
+                xMLS.TaxReceiptDate = DateTime.Now;
+                xMLS.Type = "CAT01";
+                xMLS.Xml = respuestas.xmlTimbrado;
+                xMLS.FielXML = respuestas.uuid;
+                xMLS.UserId = Variables.Configuration.Terminal.TerminalUsers.FirstOrDefault().UserId;
                 HttpContent content;
                 json = JsonConvert.SerializeObject(xMLS);
 
