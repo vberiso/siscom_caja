@@ -27,6 +27,9 @@ namespace SOAPAP.Reportes
         public decimal iva_dt { get; set; }
         public decimal Total_dt { get; set; }
         public string Cajero { get; set; }
+        public string OrigenPago { get; set; }
+        public string NombreOrigenPago { get; set; }
+        public string MetodoPago { get; set; }
 
         public decimal TotalCS
         {

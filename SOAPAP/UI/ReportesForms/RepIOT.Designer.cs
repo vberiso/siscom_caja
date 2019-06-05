@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             this.pnlHeader = new System.Windows.Forms.Panel();
             this.chceMostrarDetalle = new DevExpress.XtraEditors.CheckEdit();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -65,7 +64,10 @@
             this.pgfIva = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfTotaDt = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfCuenta = new DevExpress.XtraPivotGrid.PivotGridField();
-            this.dataIncomeOfTreasuryBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.pgfOrigenPago = new DevExpress.XtraPivotGrid.PivotGridField();
+            this.pgfNombreOrigenPago = new DevExpress.XtraPivotGrid.PivotGridField();
+            this.dataIncomeOfTreasuryBindingSource = new System.Windows.Forms.BindingSource();
+            this.pgfMetodoPago = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pnlHeader.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chceMostrarDetalle.Properties)).BeginInit();
             this.tableLayoutPanel2.SuspendLayout();
@@ -366,7 +368,10 @@
             this.pgfSub,
             this.pgfIva,
             this.pgfTotaDt,
-            this.pgfCuenta});
+            this.pgfCuenta,
+            this.pgfOrigenPago,
+            this.pgfNombreOrigenPago,
+            this.pgfMetodoPago});
             this.pgdIOT.Location = new System.Drawing.Point(3, 161);
             this.pgdIOT.Name = "pgdIOT";
             this.pgdIOT.OptionsData.DataProcessingEngine = DevExpress.XtraPivotGrid.PivotDataProcessingEngine.LegacyOptimized;
@@ -485,9 +490,30 @@
             this.pgfCuenta.FieldName = "Cuenta";
             this.pgfCuenta.Name = "pgfCuenta";
             // 
+            // pgfOrigenPago
+            // 
+            this.pgfOrigenPago.AreaIndex = 1;
+            this.pgfOrigenPago.Caption = "Origen pago";
+            this.pgfOrigenPago.FieldName = "OrigenPago";
+            this.pgfOrigenPago.Name = "pgfOrigenPago";
+            // 
+            // pgfNombreOrigenPago
+            // 
+            this.pgfNombreOrigenPago.AreaIndex = 2;
+            this.pgfNombreOrigenPago.Caption = "Donde pago";
+            this.pgfNombreOrigenPago.FieldName = "NombreOrigenPago";
+            this.pgfNombreOrigenPago.Name = "pgfNombreOrigenPago";
+            // 
             // dataIncomeOfTreasuryBindingSource
             // 
             this.dataIncomeOfTreasuryBindingSource.DataSource = typeof(SOAPAP.Reportes.DataIncomeOfTreasury);
+            // 
+            // pgfMetodoPago
+            // 
+            this.pgfMetodoPago.AreaIndex = 3;
+            this.pgfMetodoPago.Caption = "Metodo de pago";
+            this.pgfMetodoPago.FieldName = "MetodoPago";
+            this.pgfMetodoPago.Name = "pgfMetodoPago";
             // 
             // RepIOT
             // 
@@ -556,5 +582,8 @@
         private DevExpress.XtraPivotGrid.PivotGridField pgfIva;
         private DevExpress.XtraPivotGrid.PivotGridField pgfTotaDt;
         private DevExpress.XtraPivotGrid.PivotGridField pgfCuenta;
+        private DevExpress.XtraPivotGrid.PivotGridField pgfOrigenPago;
+        private DevExpress.XtraPivotGrid.PivotGridField pgfNombreOrigenPago;
+        private DevExpress.XtraPivotGrid.PivotGridField pgfMetodoPago;
     }
 }
