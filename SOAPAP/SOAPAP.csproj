@@ -320,8 +320,11 @@
     <Compile Include="pyment.cs" />
     <Compile Include="Reportes\DataCollection.cs" />
     <Compile Include="Reportes\DataComboBox.cs" />
+    <Compile Include="Reportes\DataDebts.cs" />
     <Compile Include="Reportes\DataIncomeFromBox.cs" />
+    <Compile Include="Reportes\DataIncomeNewAccounts.cs" />
     <Compile Include="Reportes\DataIncomeOfTreasury.cs" />
+    <Compile Include="Reportes\DataOrders.cs" />
     <Compile Include="Reportes\DataPadronWater.cs" />
     <Compile Include="Reportes\DataReportes.cs" />
     <Compile Include="Reportes\DataIncomeByConcept.cs" />
@@ -563,6 +566,12 @@
     <Compile Include="UI\Reportes.Designer.cs">
       <DependentUpon>Reportes.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\ReportesForms\RepDebts.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\ReportesForms\RepDebts.Designer.cs">
+      <DependentUpon>RepDebts.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\ReportesForms\RepIbyC.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -581,11 +590,23 @@
     <Compile Include="UI\ReportesForms\RepIFB.Designer.cs">
       <DependentUpon>RepIFB.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\ReportesForms\RepINA.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\ReportesForms\RepINA.Designer.cs">
+      <DependentUpon>RepINA.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\ReportesForms\RepIOT.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="UI\ReportesForms\RepIOT.Designer.cs">
       <DependentUpon>RepIOT.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\ReportesForms\RepOrders.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\ReportesForms\RepOrders.Designer.cs">
+      <DependentUpon>RepOrders.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\ReportesForms\ReportePadronWater.cs">
       <SubType>Form</SubType>
@@ -804,6 +825,9 @@
     <EmbeddedResource Include="UI\Reportes.resx">
       <DependentUpon>Reportes.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UI\ReportesForms\RepDebts.resx">
+      <DependentUpon>RepDebts.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\ReportesForms\RepIbyC.resx">
       <DependentUpon>RepIbyC.cs</DependentUpon>
     </EmbeddedResource>
@@ -813,8 +837,14 @@
     <EmbeddedResource Include="UI\ReportesForms\RepIFB.resx">
       <DependentUpon>RepIFB.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UI\ReportesForms\RepINA.resx">
+      <DependentUpon>RepINA.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\ReportesForms\RepIOT.resx">
       <DependentUpon>RepIOT.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\ReportesForms\RepOrders.resx">
+      <DependentUpon>RepOrders.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\ReportesForms\ReporteIBC.resx">
       <DependentUpon>ReporteIBC.cs</DependentUpon>
@@ -917,9 +947,12 @@
     <None Include="Properties\DataSources\SOAPAP.Model.DebtDetail.datasource" />
     <None Include="Properties\DataSources\SOAPAP.Model.Prepaid.datasource" />
     <None Include="Properties\DataSources\SOAPAP.Reportes.DataCollection.datasource" />
+    <None Include="Properties\DataSources\SOAPAP.Reportes.DataDebts.datasource" />
     <None Include="Properties\DataSources\SOAPAP.Reportes.DataIncomeByConcept.datasource" />
     <None Include="Properties\DataSources\SOAPAP.Reportes.DataIncomeFromBox1.datasource" />
+    <None Include="Properties\DataSources\SOAPAP.Reportes.DataIncomeNewAccounts.datasource" />
     <None Include="Properties\DataSources\SOAPAP.Reportes.DataIncomeOfTreasury.datasource" />
+    <None Include="Properties\DataSources\SOAPAP.Reportes.DataOrders.datasource" />
     <None Include="Properties\DataSources\SOAPAP.Reportes.DataPadronWater.datasource" />
     <None Include="Properties\DataSources\SOAPAP.Reportes.DataTaxpayerDebt.datasource" />
     <None Include="Properties\DataSources\SOAPAP.Reportes.DataTaxpayerOrderSale.datasource" />

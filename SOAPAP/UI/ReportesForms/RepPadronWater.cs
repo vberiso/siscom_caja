@@ -71,7 +71,7 @@ namespace SOAPAP.UI.ReportesForms
             //Combo de Colonias.
             List<DataComboBox> lstColonias = new List<DataComboBox>();
             var resultTypeTransaction2 = await Requests.SendURIAsync("/api/Towns/2/Suburbs", HttpMethod.Get, Variables.LoginModel.Token);
-            if (resultTypeTransaction.Contains("error"))
+            if (resultTypeTransaction2.Contains("error"))
             {
                 mensaje = new MessageBoxForm("Error", resultTypeTransaction2.Split(':')[1].Replace("}", ""), TypeIcon.Icon.Cancel);
                 result = mensaje.ShowDialog();

@@ -40,6 +40,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.dtpFechaIni = new System.Windows.Forms.DateTimePicker();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
+            this.tswtFiltro = new DevExpress.XtraEditors.ToggleSwitch();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.chlbxToma = new DevExpress.XtraEditors.CheckedListBoxControl();
             this.cheToma = new DevExpress.XtraEditors.CheckEdit();
@@ -57,10 +58,8 @@
             this.cheRuta = new DevExpress.XtraEditors.CheckEdit();
             this.cheColonia = new DevExpress.XtraEditors.CheckEdit();
             this.checkEdit1 = new DevExpress.XtraEditors.CheckEdit();
-            this.pcbIncomeByConcept = new System.Windows.Forms.PictureBox();
             this.btnGenerar = new System.Windows.Forms.Button();
             this.lblTitulo = new System.Windows.Forms.Label();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.pgcRepPadronWater = new DevExpress.XtraPivotGrid.PivotGridControl();
             this.pgfCuenta = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfNombre = new DevExpress.XtraPivotGrid.PivotGridField();
@@ -76,15 +75,17 @@
             this.pgfTipoToma = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfMes = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfAño = new DevExpress.XtraPivotGrid.PivotGridField();
-            this.tswtFiltro = new DevExpress.XtraEditors.ToggleSwitch();
             this.pgfContador = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfFechaUltimaPago = new DevExpress.XtraPivotGrid.PivotGridField();
+            this.pcbIncomeByConcept = new System.Windows.Forms.PictureBox();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.dataPadronWaterBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.pnlHeader.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.tableLayoutPanel2.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.tswtFiltro.Properties)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chlbxToma)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cheToma.Properties)).BeginInit();
@@ -98,10 +99,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.cheRuta.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cheColonia.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.checkEdit1.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pgcRepPadronWater)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pcbIncomeByConcept)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pgcRepPadronWater)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tswtFiltro.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataPadronWaterBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
@@ -255,6 +255,16 @@
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
             this.tableLayoutPanel3.Size = new System.Drawing.Size(393, 25);
             this.tableLayoutPanel3.TabIndex = 54;
+            // 
+            // tswtFiltro
+            // 
+            this.tswtFiltro.EditValue = true;
+            this.tswtFiltro.Location = new System.Drawing.Point(3, 3);
+            this.tswtFiltro.Name = "tswtFiltro";
+            this.tswtFiltro.Properties.OffText = "Todos los contratos";
+            this.tswtFiltro.Properties.OnText = "Filtrar por fecha de contrato";
+            this.tswtFiltro.Size = new System.Drawing.Size(215, 24);
+            this.tswtFiltro.TabIndex = 2;
             // 
             // tableLayoutPanel1
             // 
@@ -464,19 +474,6 @@
             this.checkEdit1.TabIndex = 60;
             this.checkEdit1.CheckedChanged += new System.EventHandler(this.checkEdit1_CheckedChanged);
             // 
-            // pcbIncomeByConcept
-            // 
-            this.pcbIncomeByConcept.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.pcbIncomeByConcept.BackColor = System.Drawing.Color.Transparent;
-            this.pcbIncomeByConcept.Image = global::SOAPAP.Properties.Resources.bg;
-            this.pcbIncomeByConcept.InitialImage = global::SOAPAP.Properties.Resources.bg;
-            this.pcbIncomeByConcept.Location = new System.Drawing.Point(257, 35);
-            this.pcbIncomeByConcept.Name = "pcbIncomeByConcept";
-            this.pcbIncomeByConcept.Size = new System.Drawing.Size(451, 54);
-            this.pcbIncomeByConcept.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pcbIncomeByConcept.TabIndex = 52;
-            this.pcbIncomeByConcept.TabStop = false;
-            // 
             // btnGenerar
             // 
             this.btnGenerar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -505,17 +502,6 @@
             this.lblTitulo.TabIndex = 36;
             this.lblTitulo.Text = "Padron";
             this.lblTitulo.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
-            this.pictureBox1.Image = global::SOAPAP.Properties.Resources.reportes;
-            this.pictureBox1.InitialImage = global::SOAPAP.Properties.Resources.reportes;
-            this.pictureBox1.Location = new System.Drawing.Point(15, 14);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(20, 20);
-            this.pictureBox1.TabIndex = 37;
-            this.pictureBox1.TabStop = false;
             // 
             // pgcRepPadronWater
             // 
@@ -652,16 +638,6 @@
             this.pgfAño.FieldName = "CONTRATO_AÑO";
             this.pgfAño.Name = "pgfAño";
             // 
-            // tswtFiltro
-            // 
-            this.tswtFiltro.EditValue = true;
-            this.tswtFiltro.Location = new System.Drawing.Point(3, 3);
-            this.tswtFiltro.Name = "tswtFiltro";
-            this.tswtFiltro.Properties.OffText = "Todos los contratos";
-            this.tswtFiltro.Properties.OnText = "Filtrar por fecha de contrato";
-            this.tswtFiltro.Size = new System.Drawing.Size(215, 24);
-            this.tswtFiltro.TabIndex = 2;
-            // 
             // pgfContador
             // 
             this.pgfContador.Area = DevExpress.XtraPivotGrid.PivotArea.DataArea;
@@ -677,6 +653,30 @@
             this.pgfFechaUltimaPago.Caption = "FECHA ULT PAGO";
             this.pgfFechaUltimaPago.FieldName = "FECHA_ULTIMO_PAGO";
             this.pgfFechaUltimaPago.Name = "pgfFechaUltimaPago";
+            // 
+            // pcbIncomeByConcept
+            // 
+            this.pcbIncomeByConcept.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.pcbIncomeByConcept.BackColor = System.Drawing.Color.Transparent;
+            this.pcbIncomeByConcept.Image = global::SOAPAP.Properties.Resources.bg;
+            this.pcbIncomeByConcept.InitialImage = global::SOAPAP.Properties.Resources.bg;
+            this.pcbIncomeByConcept.Location = new System.Drawing.Point(257, 35);
+            this.pcbIncomeByConcept.Name = "pcbIncomeByConcept";
+            this.pcbIncomeByConcept.Size = new System.Drawing.Size(451, 54);
+            this.pcbIncomeByConcept.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pcbIncomeByConcept.TabIndex = 52;
+            this.pcbIncomeByConcept.TabStop = false;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
+            this.pictureBox1.Image = global::SOAPAP.Properties.Resources.reportes;
+            this.pictureBox1.InitialImage = global::SOAPAP.Properties.Resources.reportes;
+            this.pictureBox1.Location = new System.Drawing.Point(15, 14);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(20, 20);
+            this.pictureBox1.TabIndex = 37;
+            this.pictureBox1.TabStop = false;
             // 
             // dataPadronWaterBindingSource
             // 
@@ -700,6 +700,7 @@
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel2.PerformLayout();
             this.tableLayoutPanel3.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.tswtFiltro.Properties)).EndInit();
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chlbxToma)).EndInit();
@@ -714,10 +715,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.cheRuta.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cheColonia.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.checkEdit1.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pgcRepPadronWater)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pcbIncomeByConcept)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pgcRepPadronWater)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tswtFiltro.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataPadronWaterBindingSource)).EndInit();
             this.ResumeLayout(false);
 

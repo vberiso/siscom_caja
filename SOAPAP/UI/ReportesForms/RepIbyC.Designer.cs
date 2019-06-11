@@ -53,6 +53,7 @@
             this.lblTitulo = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.pgcCollection = new DevExpress.XtraPivotGrid.PivotGridControl();
+            this.dataCollectionBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.pgfDescripcion = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfSubtotal = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfDescuento = new DevExpress.XtraPivotGrid.PivotGridField();
@@ -66,7 +67,6 @@
             this.pgfBanco = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfCuenta = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfFolio = new DevExpress.XtraPivotGrid.PivotGridField();
-            this.dataCollectionBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.pnlHeader.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -395,6 +395,10 @@
             this.pgcCollection.Size = new System.Drawing.Size(891, 295);
             this.pgcCollection.TabIndex = 50;
             // 
+            // dataCollectionBindingSource
+            // 
+            this.dataCollectionBindingSource.DataSource = typeof(SOAPAP.Reportes.DataCollection);
+            // 
             // pgfDescripcion
             // 
             this.pgfDescripcion.Area = DevExpress.XtraPivotGrid.PivotArea.RowArea;
@@ -460,21 +464,22 @@
             // 
             // pgfFecha
             // 
-            this.pgfFecha.AreaIndex = 2;
+            this.pgfFecha.Area = DevExpress.XtraPivotGrid.PivotArea.RowArea;
+            this.pgfFecha.AreaIndex = 3;
             this.pgfFecha.Caption = "FECHA";
             this.pgfFecha.FieldName = "FECHA_PAGO";
             this.pgfFecha.Name = "pgfFecha";
             // 
             // pgfFormaPago
             // 
-            this.pgfFormaPago.AreaIndex = 3;
+            this.pgfFormaPago.AreaIndex = 2;
             this.pgfFormaPago.Caption = "FORMA PAGO";
             this.pgfFormaPago.FieldName = "MetodoPago";
             this.pgfFormaPago.Name = "pgfFormaPago";
             // 
             // pgfBanco
             // 
-            this.pgfBanco.AreaIndex = 4;
+            this.pgfBanco.AreaIndex = 3;
             this.pgfBanco.Caption = "BANCO";
             this.pgfBanco.FieldName = "OrigenPagoExterno";
             this.pgfBanco.Name = "pgfBanco";
@@ -494,10 +499,6 @@
             this.pgfFolio.Caption = "FOLIO";
             this.pgfFolio.FieldName = "folio_impresion";
             this.pgfFolio.Name = "pgfFolio";
-            // 
-            // dataCollectionBindingSource
-            // 
-            this.dataCollectionBindingSource.DataSource = typeof(SOAPAP.Reportes.DataCollection);
             // 
             // RepIbyC
             // 
