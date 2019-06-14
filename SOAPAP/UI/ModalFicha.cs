@@ -552,9 +552,18 @@ namespace SOAPAP.UI
             SaveXMLFileDialog.Title = "Exportar XML de Factura";
             if (SaveXMLFileDialog.ShowDialog() == DialogResult.OK)
             {
-                XmlDocument xdoc = new XmlDocument();
-                xdoc.LoadXml(xml);
-                xdoc.Save(System.IO.File.OpenWrite(SaveXMLFileDialog.FileName));
+                try
+                {
+                    XmlDocument xdoc = new XmlDocument();
+                    xdoc.LoadXml(xml);
+                    xdoc.Save(System.IO.File.OpenWrite(SaveXMLFileDialog.FileName));
+                }
+                catch (Exception)
+                {
+                    mensaje = new MessageBoxForm(Variables.titleprincipal, "Por el momento no se puede descargar el xml", TypeIcon.Icon.Cancel);
+                    result = mensaje.ShowDialog();
+                }
+                
             }
         }
     }

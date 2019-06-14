@@ -150,7 +150,7 @@ namespace SOAPAP.UI
                                 x.Select = false;
                         });
                     }
-                    if (_cuenta.Length > 2 && char.IsLetter(Convert.ToChar(_cuenta.Substring(0, 1))))
+                    if (_cuenta.Length > 2 && char.IsLetter(Convert.ToChar(_cuenta.Substring(0, 1))) && _cuenta.Contains("-"))
                     {
                         List<Model.OrderSale> ordersList = new List<Model.OrderSale>();
                         ordersList.Add(Variables.OrderSale);

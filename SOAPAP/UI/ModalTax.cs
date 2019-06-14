@@ -298,7 +298,7 @@ namespace SOAPAP.UI
             
             Tax.IsActive = true;
             Tax.Name = txtName.Text;
-            Tax.RFC = txtRFC.Text;
+            Tax.RFC = string.IsNullOrEmpty(txtRFC.Text) ? "XAXX010101000" : txtRFC.Text;
             Tax.CURP = txtCURP.Text;
             Tax.PhoneNumber = txtPhone.Text == "" ? "0" : txtPhone.Text;
             Tax.EMail = txtEmail.Text;
@@ -319,7 +319,7 @@ namespace SOAPAP.UI
                 Model.TaxAddress taxs = new Model.TaxAddress
                 {
                     Street = txtAddress.Text,
-                    Outdoor = txtOutdoor.Text,
+                    Outdoor = string.IsNullOrEmpty(txtOutdoor.Text) ? "0" : txtOutdoor.Text,
                     Indoor = txtIndoor.Text,
                     Zip = txtCP.Text,
                     Suburb = txtSuburb.Text,

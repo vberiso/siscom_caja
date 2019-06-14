@@ -28,6 +28,9 @@ namespace SOAPAP.UI
         private string NumberCardOrCheck { get; set; }
         private RequestsAPI Requests = null;
         private string UrlBase = Properties.Settings.Default.URL;
+        private bool mixEfectivo = false, mixCheque = false, mixTarjeta = false, mixTransfer = false; 
+        private decimal mixAmountEfectivo = 0, mixAmountCheque = 0, mixAmountTarjeta = 0, mixAmountTransfer = 0;
+        private int countMixed = 0;
         DialogResult result = new DialogResult();
         Form mensaje;
         Form loading;
@@ -39,6 +42,7 @@ namespace SOAPAP.UI
         private decimal Tax { get; set; }
         private decimal Rounding { get; set; }
         private decimal PaidUp { get; set; }
+        private decimal TotalMixed { get; set; }
         private List<Model.Debt> Debts { get; set; }
         private string Padron { get; set; }
         decimal Porcentaje;
@@ -67,6 +71,7 @@ namespace SOAPAP.UI
 
         private void ModalDetalleCobro_Load(object sender, EventArgs e)
         {
+            pnlMixto.Visible = false;
             CargaCombo();
             lblTotal.Text = string.Format(new CultureInfo("es-MX"), "{0:C2}", PaidUp);
             lblTotalOtros.Text = string.Format(new CultureInfo("es-MX"), "{0:C2}", PaidUp);
@@ -164,6 +169,7 @@ namespace SOAPAP.UI
                 pnlEfectivo.Visible = true;
                 pnlOtros.Visible = false;
                 pnlReferencia.Visible = false;
+                pnlMixto.Visible = false;
                 paymethod = 1;
             }
             else if (name.Contains("cheque"))
@@ -172,6 +178,7 @@ namespace SOAPAP.UI
                 pnlEfectivo.Visible = false;
                 pnlOtros.Visible = false;
                 pnlReferencia.Visible = false;
+                pnlMixto.Visible = false;
                 loading = new Loading();
                 loading.Show(this);
                 var getBanks = await Requests.SendURIAsync("/api/ExternalOriginPayments", HttpMethod.Get, Variables.LoginModel.Token);
@@ -215,6 +222,7 @@ namespace SOAPAP.UI
                 pnlEfectivo.Visible = false;
                 pnlOtros.Visible = false;
                 pnlReferencia.Visible = true;
+                pnlMixto.Visible = false;
             }
             else if (name.Contains("tarjeta"))
             {
@@ -222,6 +230,7 @@ namespace SOAPAP.UI
                 pnlEfectivo.Visible = false;
                 pnlOtros.Visible = false;
                 pnlReferencia.Visible = false;
+                pnlMixto.Visible = false;
                 loading = new Loading();
                 loading.Show(this);
                 var getBanks = await Requests.SendURIAsync("/api/ExternalOriginPayments", HttpMethod.Get, Variables.LoginModel.Token);
@@ -257,6 +266,45 @@ namespace SOAPAP.UI
                     panel2.Visible = true;
                     lblTCheque.Text = "No. Tarjeta:";
                     lblAuth.Text = "Autorización:";
+                }
+            }
+            else if (name.Contains("mixto"))
+            {
+                paymethod = 5;
+                lblMixedAmountEfectivo.Text = string.Format(new CultureInfo("es-MX"), "{0:C2}", PaidUp);
+                centraX(pnlContainerMixedAmount, lblMixedAmountEfectivo);
+                pnlEfectivo.Visible = false;
+                pnlOtros.Visible = false;
+                pnlReferencia.Visible = false;
+                pnlMixto.Visible = true;
+                loading = new Loading();
+                loading.Show(this);
+                var getBanks = await Requests.SendURIAsync("/api/ExternalOriginPayments", HttpMethod.Get, Variables.LoginModel.Token);
+                if (getBanks.Contains("error"))
+                {
+                    loading.Close();
+                    mensaje = new MessageBoxForm("Error", getBanks.Split(':')[1].Replace("}", ""), TypeIcon.Icon.Cancel);
+                    result = mensaje.ShowDialog();
+                }
+                else
+                {
+                    var Banks = JsonConvert.DeserializeObject<List<SOAPAP.Model.ExternalOriginPayment>>(getBanks).Where(x => x.IsBank && x.IsActive).ToList();
+                    Banks.Add(new Model.ExternalOriginPayment
+                    {
+                        Id = 0,
+                        Name = "Seleccionar"
+                    });
+                    Banks.OrderBy(x => x.Name);
+                    cbxMixedCheque.ValueMember = "Id";
+                    cbxMixedCheque.DisplayMember = "Name";
+                    cbxMixedCheque.DataSource = Banks;
+                    cbxMixedCheque.SelectedIndex = cbxMixedCheque.FindString("Seleccionar");
+
+                    cbxMixedTarjeta.ValueMember = "Id";
+                    cbxMixedTarjeta.DisplayMember = "Name";
+                    cbxMixedTarjeta.DataSource = Banks;
+                    cbxMixedTarjeta.SelectedIndex = cbxMixedTarjeta.FindString("Seleccionar");
+                    loading.Close();
                 }
             }
         }
@@ -488,6 +536,22 @@ namespace SOAPAP.UI
                     }
                   
                     break;
+                case 5:
+                    decimal resta = Convert.ToDecimal((Regex.Replace(lblMixedAmountEfectivo.Text, @"[^\d.]", "")));
+                    ChangeTabMixed();
+                    if (resta > 0 || resta < 0)
+                    {
+                        mensaje = new MessageBoxForm("Error", "Error al intentar realizar el cobro, los montos son incorrectos, favor de verificar", TypeIcon.Icon.Cancel);
+                        result = mensaje.ShowDialog();
+                    }
+                    else if (ValidPayMixed())
+                    {
+                        if (Debts != null || Anual || Prepaid)
+                            PostTransaction();
+                        else
+                            PostTransactionOrder();
+                    }
+                    break;
             }
             
         }
@@ -542,7 +606,19 @@ namespace SOAPAP.UI
             transaction.AgreementId = Variables.Agreement.Id;
             transaction.Account = Variables.Agreement.Account;
             transaction.NumberBank = (string.IsNullOrEmpty(txtCheque.Text) ? txtTarjetaCheque.Text : txtCheque.Text);
-            if(paymethod == 2)
+            //if (transaction.PayMethodId == 4)
+            //{
+            //    //TODO
+            //    List<DetailOfPaymentMethods> detailOfPaymentMethods = new List<DetailOfPaymentMethods>();
+            //    for (int i = 0; i <= countMixed; i++)
+            //    {
+            //        if (mixEfectivo)
+            //        {
+                       
+            //        }
+            //    }
+            //}
+            if (paymethod == 2)
             {
                 transaction.AccountNumber = txtAuth.Text;
             }
@@ -656,10 +732,13 @@ namespace SOAPAP.UI
                             }
                         }
                     }
-                    if (Debts.Any(x => x.Type.Contains("TIP02")))
-                    {
-                        haveProduct = true;
-                    }
+
+                    //------------------------------------- Validacion de Productos en cuenta ---------------------------------------
+                    //if (Debts.Any(x => x.Type.Contains("TIP02")))
+                    //{
+                    //    haveProduct = true;
+                    //}
+                    //---------------------------------------------------------------------------------------------------------------
 
                     if (Debts.Any(x => x.Type == "TIP01") && Debts.Any(x => x.Type == "TIP03") && Debts.Any(x => x.Type == "TIP02"))
                         transaction.Type = "PAY03";
@@ -677,6 +756,7 @@ namespace SOAPAP.UI
                         transaction.Type = "PAY05";
                     else if (Debts.Any(x => x.Type == "TIP02"))
                         transaction.Type = "PAY02";
+
 
                     if (haveProduct)
                     {
@@ -739,9 +819,8 @@ namespace SOAPAP.UI
                     pagado = 0;
                     ivaTotal = 0;
 
-                    Debts.Where(x => x.Type != "TIP02").ToList().ForEach(x =>
+                    Debts.ToList().ForEach(x =>
                     {
-                        // PorPagar = (x.Amount - x.OnAccount) + (x.DebtDetails.Any(z => z.HaveTax) ? Convert.ToDecimal(x.DebtDetails.Where(z => z.HaveTax).Sum(z => ((z.Amount - z.OnAccount) * 16) / 100).ToString("#.##")) : 0);
                         TotalIva = 0;
                         x.DebtDetails.ToList().ForEach(y =>
                         {
@@ -775,8 +854,6 @@ namespace SOAPAP.UI
                             });
                             onAccount = Convert.ToDecimal((x.DebtDetails.Sum(z => (z.OnPayment)) + ivaTotal).ToString("#.##"));
 
-
-
                             x.NewStatus = "ED005";
                             x.OnAccount = total;
                             transaction.PaytStatus = "ED005";
@@ -790,13 +867,11 @@ namespace SOAPAP.UI
                         else if (totalDisponible != 0 && totalDisponible > 0)
                         {
                             ivaTotal = 0;
-                            //TotalIva = x.DebtDetails.Where(z => z.HaveTax).Sum(z => ((z.Amount - z.OnAccount) * 16) / 100).ToString("#.##") == "" ? 0 : Convert.ToDecimal(x.DebtDetails.Where(z => z.HaveTax).Sum(z => ((z.Amount - z.OnAccount) * 16) / 100).ToString("#.##"));
                             TotalSinIva = x.DebtDetails.Sum(z => (z.Amount - z.OnAccount));
                             tmp = TotalIva + TotalSinIva;
                             x.NewStatus = "ED004";
                             bool notValid = true;
                             bool wrongIVA = false;
-                            //PaidUp = PaidUp + x.OnAccount;
                             do
                             {
                                 x.DebtDetails.ToList().ForEach(y =>
@@ -806,7 +881,6 @@ namespace SOAPAP.UI
                                         decimal ajuste = 0;
                                         if (wrongIVA)
                                         {
-                                            //decimal ajuste = 0;
                                             var detail = x.DebtDetails.Where(h => h.HaveTax).FirstOrDefault();
                                             if (IVA < ivaTotal)
                                             {
@@ -891,18 +965,6 @@ namespace SOAPAP.UI
                             transaction.PaytStatus = "ED003";
                             transaction.Total = Math.Round(PaidUp, 2);
 
-
-                            //if (x.DebtDetails.Where(z => z.DebtId == x.Id).FirstOrDefault().HaveTax)
-                            //{
-                            //    if ((onAccount) > totalDisponible)
-                            //    {
-                            //        loading.Close();
-                            //        mensaje = new MessageBoxForm("Error", "El monto ingresado no permite realizar un cobro parcial al pago de servicios, favor de verificar", TypeIcon.Icon.Cancel);
-                            //        result = mensaje.ShowDialog();
-                            //        throw new Exception();
-                            //    }
-
-                            //}
                             totalDisponible = totalDisponible - onAccount;
                         }
                     });
@@ -1129,11 +1191,7 @@ namespace SOAPAP.UI
                 {
                     if (x.HaveTax)
                     {
-
-                        //x.Tax = Convert.ToDecimal((((x.Amount - x.OnAccount) * Convert.ToDecimal(.16)).ToString("#.##")));
                         x.OnAccount = (x.Amount - x.OnAccount);
-                        //x.Tax = (Math.Round(x.OnAccount * Convert.ToDecimal(.16), 2));
-                        //.Tax = Math.Round(((x.OnAccount * Convert.ToDecimal(Variables.Configuration.IVA)) / 100), 2);
                         x.Tax = (Math.Round(((x.OnAccount) * Convert.ToDecimal(Variables.Configuration.IVA)) / 100, 2));
                         total += x.OnAccount;
                         ivaTotal += x.Tax;
@@ -1143,16 +1201,152 @@ namespace SOAPAP.UI
                         x.OnAccount = (x.Amount - x.OnAccount);
                         total += x.OnAccount;
                     }
-                    
-                    
+
+
                 }
                 Variables.OrderSale.OnAccount += total;
             });
+
             transaction.Tax += ivaTotal;
             transaction.Total = PaidUp;
             transaction.Amount = PaidUp - Math.Round(transaction.Tax, 2);
-            //transaction.Amount = Variables.OrderSale.OnAccount;
             Variables.OrderSale.Status = "EOS02";
+
+            //--------------------------------------------------------------------------------------------------------------------------------------------
+            //Variables.OrderSale.OrderSaleDetails.ToList().ForEach(x =>
+            //{
+            //    TotalIva = 0;
+
+            //    Variables.OrderSale.OrderSaleDetails.ToList().ForEach(y =>
+            //    {
+            //        if (y.HaveTax)
+            //            TotalIva = TotalIva + (Math.Round(((y.Amount - y.OnAccount) * Convert.ToDecimal(Variables.Configuration.IVA)) / 100, 2));
+            //    });
+
+            //    PorPagar = Math.Round((x.Amount - x.OnAccount) + (x.HaveTax ? Convert.ToDecimal(((x.Amount - x.OnAccount) * 16) / 100) : 0), 2);
+            //    total = 0;
+            //    x.NameConcept = string.Join(" ", Regex.Split(x.NameConcept, @"(?:\r\n|\n|\r)"));
+
+            //    if (PorPagar <= totalDisponible && totalDisponible != 0)
+            //    {
+            //        if (x.HaveTax)
+            //        {
+            //            x.OnAccount = (x.Amount - x.OnAccount);
+            //            x.Tax = (Math.Round(((x.OnAccount) * Convert.ToDecimal(Variables.Configuration.IVA)) / 100, 2));
+            //            total += x.OnAccount;
+            //            ivaTotal += x.Tax;
+            //        }
+            //        else
+            //        {
+            //            x.OnAccount = (x.Amount - x.OnAccount);
+            //            total += x.OnAccount;
+            //        }
+            //        Variables.OrderSale.OnAccount += total;
+            //    }
+            //    else if (totalDisponible != 0 && totalDisponible > 0)
+            //    {
+            //        ivaTotal = 0;
+            //        TotalSinIva = x.Amount - x.OnAccount;
+            //        tmp = TotalIva + TotalSinIva;
+            //        Variables.OrderSale.Status = "EOS04";
+            //        bool notValid = true;
+            //        bool wrongIVA = false;
+            //        do
+            //        {
+            //            if (notValid == false)
+            //            {
+            //                decimal ajuste = 0;
+            //                if (wrongIVA)
+            //                {
+            //                    if (x.HaveTax)
+            //                    {
+            //                        if (IVA < ivaTotal)
+            //                        {
+            //                            ajuste = IVA - ivaTotal;
+            //                            x.Tax = x.Tax + ajuste;
+            //                            ivaTotal = ivaTotal + ajuste;
+            //                            ajuste = 0;
+            //                        }
+            //                        else if (IVA > ivaTotal)
+            //                        {
+            //                            ajuste = ivaTotal - IVA;
+            //                            x.Tax = x.Tax - ajuste;
+            //                            ivaTotal = ivaTotal - ajuste;
+            //                            ajuste = 0;
+            //                        }
+            //                    }
+            //                    notValid = true;
+            //                    cambio = true;
+            //                    wrongIVA = false;
+            //                    return;
+            //                }
+            //                else
+            //                {
+            //                    if (totalDisponible < onAccount)
+            //                    {
+            //                        ajuste = totalDisponible - onAccount;
+            //                        if (!x.HaveTax)
+            //                        {
+            //                            x.OnAccount = x.OnAccount + ajuste;
+            //                            x.OnPayment = x.OnPayment + ajuste;
+            //                            ajuste = 0;
+            //                        }
+            //                    }
+            //                    else if (totalDisponible > onAccount)
+            //                    {
+            //                        ajuste = onAccount - totalDisponible;
+            //                        if (!x.HaveTax)
+            //                        {
+            //                            x.OnAccount = x.OnAccount - ajuste;
+            //                            x.OnPayment = x.OnPayment - ajuste;
+            //                            ajuste = 0;
+            //                        }
+            //                    }
+            //                    notValid = true;
+            //                    onAccount = Math.Round(x.OnPayment + ivaTotal, 2);
+            //                    Variables.OrderSale.OnAccount = Variables.OrderSale.OnAccount + onAccount - ivaTotal;
+            //                    amout = true;
+            //                    cambio = true;
+            //                    return;
+            //                }
+            //            }
+            //            else
+            //            {
+            //                if (!cambio)
+            //                {
+            //                    if (totalDisponible > onAccount || totalDisponible != 0)
+            //                    {
+            //                        var calc = Math.Round(((x.Amount - x.OnAccount) / tmp) * totalDisponible, 2);
+            //                        x.OnAccount = x.OnAccount + calc;
+            //                        IVA = (TotalIva > 0) ? Convert.ToDecimal(((TotalIva / tmp) * totalDisponible).ToString("#.##")) : 0;
+            //                        x.OnPayment = calc;
+            //                        if (x.HaveTax)
+            //                        {
+            //                            x.Tax = Convert.ToDecimal((Math.Round(x.OnPayment * Convert.ToDecimal(.16), 2)));
+            //                            ivaTotal += x.Tax;
+            //                        }
+            //                    }
+            //                }
+            //            }
+            //            onAccount = Math.Round((x.OnPayment + ivaTotal), 2);
+            //            notValid = false;
+            //        } while (totalDisponible > onAccount || onAccount > totalDisponible || wrongIVA);
+
+            //        if (!amout)
+            //        {
+            //            x.OnAccount = x.OnAccount + onAccount - ivaTotal;
+            //        }
+
+            //        transaction.Tax += ivaTotal;
+            //        transaction.Amount = PaidUp - (transaction.Tax);
+            //        transaction.PaytStatus = "EOS02";
+            //        transaction.Total = Math.Round(PaidUp, 2);
+
+            //        totalDisponible = totalDisponible - onAccount;
+            //    }
+            //});
+            //------------------------------------------------------------------------------------------------------------------------------------------------
+           
 
             Variables.OrderSale.OrderSaleDetails.ToList().ForEach(x =>
             {
@@ -1591,5 +1785,431 @@ namespace SOAPAP.UI
             //Return.anual = false;
             //Return.prepaid = false;
         }
+
+        #region PayMixed
+       
+        private void TxtMixedEfectivo_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
+            {
+                e.Handled = true;
+            }
+
+            // only allow one decimal point
+            if ((e.KeyChar == '.') && ((sender as TextBox).Text.IndexOf('.') > -1))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void TxtMixedMontoTarjeta_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
+            {
+                e.Handled = true;
+            }
+
+            // only allow one decimal point
+            if ((e.KeyChar == '.') && ((sender as TextBox).Text.IndexOf('.') > -1))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void TxtMixedMontoCheque_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
+            {
+                e.Handled = true;
+            }
+
+            // only allow one decimal point
+            if ((e.KeyChar == '.') && ((sender as TextBox).Text.IndexOf('.') > -1))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void TabMixto_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ChangeTabMixed();
+        }
+
+        private void BtnCleanCash_Click(object sender, EventArgs e)
+        {
+            txtMixedEfectivo.Text = "";
+            SumAmount();
+        }
+
+        private void BtnCleanCard_Click(object sender, EventArgs e)
+        {
+            txtMixedMontoTarjeta.Text = "";
+            SumAmount();
+            txtMixedAutorizacion.Text = "";
+            txtMixedNumeroTarjeta.Text = "";
+            cbxMixedTarjeta.SelectedIndex = cbxMixedTarjeta.FindString("Seleccionar");
+            lblMixedTypeElectron.Text = "";
+        }
+
+        private void BtnCleanCheque_Click(object sender, EventArgs e)
+        {
+            txtMixedMontoCheque.Text = "";
+            SumAmount();
+            txtMixedNumeroCuenta.Text = "";
+            txtMixedNumeroCheque.Text = "";
+            cbxMixedCheque.SelectedIndex = cbxMixedCheque.FindString("Seleccionar");
+        }
+
+        private void BtnCleanTransfer_Click(object sender, EventArgs e)
+        {
+            txtMixedMontoTransfer.Text = "";
+            SumAmount();
+            txtMixedReferencia.Text = "";
+        }
+
+        private void TxtMixedMontoTransfer_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
+            {
+                e.Handled = true;
+            }
+
+            // only allow one decimal point
+            if ((e.KeyChar == '.') && ((sender as TextBox).Text.IndexOf('.') > -1))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void TxtMixedNumeroTarjeta_Leave(object sender, EventArgs e)
+        {
+            if ((new Regex(@"^4[0-9]{12}(?:[0-9]{3})?$")).IsMatch(txtMixedNumeroTarjeta.Text)) //Visa
+            {
+                lblMixedTypeElectron.ForeColor = Color.Navy;
+                lblMixedTypeElectron.Text = "Visa";
+                txtMixedNumeroTarjeta.ForeColor = Color.Black;
+                txtMixedNumeroTarjeta.Text = MaskedNumber(txtMixedNumeroTarjeta.Text);
+                validCard = true;
+            }
+            else if ((new Regex(@"^(?:5[1-5][0-9]{2}|222[1-9]|22[3-9][0-9]|2[3-6][0-9]{2}|27[01][0-9]|2720)[0-9]{12}$")).IsMatch(txtMixedNumeroTarjeta.Text)) //MasterCard
+            {
+                lblMixedTypeElectron.ForeColor = Color.OrangeRed;
+                lblMixedTypeElectron.Text = "Mastercard";
+                txtMixedNumeroTarjeta.ForeColor = Color.Black;
+                txtMixedNumeroTarjeta.Text = MaskedNumber(txtMixedNumeroTarjeta.Text);
+                validCard = true;
+            }
+            else if ((new Regex(@"^3[47][0-9]{13}$")).IsMatch(txtMixedNumeroTarjeta.Text)) //American Express
+            {
+                lblMixedTypeElectron.ForeColor = Color.DarkSeaGreen;
+                lblMixedTypeElectron.Text = "American Express";
+                txtMixedNumeroTarjeta.ForeColor = Color.Black;
+                txtMixedNumeroTarjeta.Text = MaskedNumber(txtMixedNumeroTarjeta.Text);
+                validCard = true;
+            }
+            else
+            {
+                mensaje = new MessageBoxForm("Error", "Error en la tarjeta", TypeIcon.Icon.Cancel);
+                result = mensaje.ShowDialog();
+                txtMixedNumeroTarjeta.ForeColor = Color.Magenta;
+                validCard = false;
+            }
+        }
+
+        private void TxtMixedNumeroCheque_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = !char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar);
+        }
+
+        private void TxtMixedNumeroCheque_TextChanged(object sender, EventArgs e)
+        {
+            if (txtMixedNumeroCheque.Text.Length < 31)
+            {
+                txtMixedNumeroCheque.ForeColor = Color.Red;
+                validCheque = false;
+            }
+            else if (txtMixedNumeroCheque.Text.Length == 31)
+            {
+                txtMixedNumeroCheque.ForeColor = Color.Black;
+                validCheque = true;
+            }
+        }
+        
+        private void ValidAmount()
+        {
+            if (!string.IsNullOrEmpty(txtMixedEfectivo.Text) && !mixEfectivo)
+            {
+                decimal resta = Convert.ToDecimal((Regex.Replace(lblMixedAmountEfectivo.Text, @"[^\d.]", "")));
+                decimal efectivo = Convert.ToDecimal(txtMixedEfectivo.Text);
+                mixAmountEfectivo = efectivo;
+                lblMixedAmountEfectivo.Text = string.Format(new CultureInfo("es-MX"), "{0:C2}", (resta - efectivo));
+                mixEfectivo = true;
+                countMixed++;
+            }
+            if (!string.IsNullOrEmpty(txtMixedMontoTarjeta.Text) && !mixTarjeta)
+            {
+                decimal resta = Convert.ToDecimal((Regex.Replace(lblMixedAmountEfectivo.Text, @"[^\d.]", "")));
+                decimal efectivo = Convert.ToDecimal(txtMixedMontoTarjeta.Text);
+                mixAmountTarjeta = efectivo;
+                lblMixedAmountEfectivo.Text = string.Format(new CultureInfo("es-MX"), "{0:C2}", (resta - efectivo));
+                mixTarjeta = true;
+                countMixed++;
+            }
+            if (!string.IsNullOrEmpty(txtMixedMontoCheque.Text) && !mixCheque)
+            {
+                decimal resta = Convert.ToDecimal((Regex.Replace(lblMixedAmountEfectivo.Text, @"[^\d.]", "")));
+                decimal efectivo = Convert.ToDecimal(txtMixedMontoCheque.Text);
+                mixAmountCheque= efectivo;
+                lblMixedAmountEfectivo.Text = string.Format(new CultureInfo("es-MX"), "{0:C2}", (resta - efectivo));
+                mixCheque = true;
+                countMixed++;
+            }
+            if (!string.IsNullOrEmpty(txtMixedMontoTransfer.Text) && !mixTransfer)
+            {
+                decimal resta = Convert.ToDecimal((Regex.Replace(lblMixedAmountEfectivo.Text, @"[^\d.]", "")));
+                decimal efectivo = Convert.ToDecimal(txtMixedMontoTransfer.Text);
+                mixAmountTransfer = efectivo;
+                lblMixedAmountEfectivo.Text = string.Format(new CultureInfo("es-MX"), "{0:C2}", (resta - efectivo));
+                mixTransfer = true;
+                countMixed++;
+            }
+        }
+        
+        private void SumAmount()
+        {
+            decimal cash = string.IsNullOrEmpty(txtMixedEfectivo.Text) ? 0 : Convert.ToDecimal(txtMixedEfectivo.Text);
+            decimal card = string.IsNullOrEmpty(txtMixedMontoTarjeta.Text) ? 0 : Convert.ToDecimal(txtMixedMontoTarjeta.Text);
+            decimal cheque = string.IsNullOrEmpty(txtMixedMontoCheque.Text) ? 0 : Convert.ToDecimal(txtMixedMontoCheque.Text);
+            decimal transfer = string.IsNullOrEmpty(txtMixedMontoTransfer.Text) ? 0 : Convert.ToDecimal(txtMixedMontoTransfer.Text);
+            //decimal resta = Convert.ToDecimal((Regex.Replace(lblMixedAmountEfectivo.Text, @"[^\d.]", "")));
+
+            decimal total = PaidUp - (card + cash + cheque + transfer);
+            lblMixedAmountEfectivo.Text = string.Format(new CultureInfo("es-MX"), "{0:C2}", total );
+        }
+
+        private bool ValidPayMixed()
+        {
+            if (mixTarjeta)
+            {
+                if (string.IsNullOrEmpty(txtMixedMontoTarjeta.Text) || string.IsNullOrEmpty(txtMixedAutorizacion.Text) || cbxMixedTarjeta.SelectedIndex == cmbBank.FindString("Seleccionar") || string.IsNullOrEmpty(txtMixedNumeroTarjeta.Text))
+                {
+                    mensaje = new MessageBoxForm("Error", "Error al intentar realizar el cobro favor de verificar los campos", TypeIcon.Icon.Cancel);
+                    result = mensaje.ShowDialog();
+                    return false;
+                }
+                else if (!validCard)
+                {
+                    mensaje = new MessageBoxForm("Error", "Error al intentar realizar el cobro, los datos de la tarjeta no son validos", TypeIcon.Icon.Cancel);
+                    result = mensaje.ShowDialog();
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+            if (mixCheque)
+            {
+                if (string.IsNullOrEmpty(txtMixedMontoCheque.Text) || string.IsNullOrEmpty(txtMixedNumeroCuenta.Text) || cbxMixedCheque.SelectedIndex == cmbBank.FindString("Seleccionar") || string.IsNullOrEmpty(txtMixedNumeroTarjeta.Text))
+                {
+                    mensaje = new MessageBoxForm("Error", "Error al intentar realizar el cobro favor de verificar los campos", TypeIcon.Icon.Cancel);
+                    result = mensaje.ShowDialog();
+                    return false;
+                }
+                else if (!validCheque)
+                {
+                    mensaje = new MessageBoxForm("Error", "Error al intentar realizar el cobro, los datos de la tarjeta no son validos", TypeIcon.Icon.Cancel);
+                    result = mensaje.ShowDialog();
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+            if (mixTransfer)
+            {
+                if(string.IsNullOrEmpty(txtMixedMontoTransfer.Text) || string.IsNullOrEmpty(txtMixedReferencia.Text))
+                {
+                    mensaje = new MessageBoxForm("Error", "Error al intentar realizar el cobro favor de verificar los campos", TypeIcon.Icon.Cancel);
+                    result = mensaje.ShowDialog();
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+            if(countMixed > 1)
+            {
+                return true;
+            }
+            else
+            {
+                mensaje = new MessageBoxForm("Error", "Error al intentar realizar el cobro MIXTO, debe seleccionar al menos 2 forma de pago. Favor de verificar.", TypeIcon.Icon.Cancel);
+                result = mensaje.ShowDialog();
+                return false;
+            }
+
+            //return false;
+        }
+        
+        private void ChangeTabMixed()
+        {
+            switch (tabMixto.SelectedIndex)
+            {
+                case 0:
+                    ValidAmount();
+                    if (mixAmountEfectivo != Convert.ToDecimal(txtMixedEfectivo.Text != "" ? txtMixedEfectivo.Text : "0"))
+                    {
+                        mixEfectivo = false;
+                        countMixed--;
+                        ValidAmount();
+                        SumAmount();
+                    }
+                    if (mixAmountTarjeta != Convert.ToDecimal(txtMixedMontoTarjeta.Text != "" ? txtMixedMontoTarjeta.Text : "0"))
+                    {
+                        mixTarjeta = false;
+                        countMixed--;
+                        ValidAmount();
+                        SumAmount();
+                    }
+                    if (mixAmountCheque != Convert.ToDecimal(txtMixedMontoCheque.Text != "" ? txtMixedMontoCheque.Text : "0"))
+                    {
+                        mixCheque = false;
+                        countMixed--;
+                        ValidAmount();
+                        SumAmount();
+                    }
+                    if (mixAmountTransfer != Convert.ToDecimal(txtMixedMontoTransfer.Text != "" ? txtMixedMontoTransfer.Text : "0"))
+                    {
+                        mixTransfer = false;
+                        countMixed--;
+                        ValidAmount();
+                        SumAmount();
+                    }
+                    decimal labelpaidUpE = Convert.ToDecimal((Regex.Replace(lblMixedAmountEfectivo.Text, @"[^\d.]", "")));
+                    if (labelpaidUpE < 0)
+                    {
+                        mensaje = new MessageBoxForm(Variables.titleprincipal, "El monto recibido es mayor al monte de deuda, favor de verificar", TypeIcon.Icon.Cancel);
+                        result = mensaje.ShowDialog();
+                    }
+                    break;
+                case 1:
+                    ValidAmount();
+                    if (mixAmountTarjeta != Convert.ToDecimal(txtMixedMontoTarjeta.Text != "" ? txtMixedMontoTarjeta.Text : "0"))
+                    {
+                        mixTarjeta = false;
+                        countMixed--;
+                        ValidAmount();
+                        SumAmount();
+                    }
+                    if (mixAmountEfectivo != Convert.ToDecimal(txtMixedEfectivo.Text != "" ? txtMixedEfectivo.Text : "0"))
+                    {
+                        mixEfectivo = false;
+                        countMixed--;
+                        ValidAmount();
+                        SumAmount();
+                    }
+                    if (mixAmountCheque != Convert.ToDecimal(txtMixedMontoCheque.Text != "" ? txtMixedMontoCheque.Text : "0"))
+                    {
+                        mixCheque = false;
+                        countMixed--;
+                        ValidAmount();
+                        SumAmount();
+                    }
+                    if (mixAmountTransfer != Convert.ToDecimal(txtMixedMontoTransfer.Text != "" ? txtMixedMontoTransfer.Text : "0"))
+                    {
+                        mixTransfer = false;
+                        countMixed--;
+                        ValidAmount();
+                        SumAmount();
+                    }
+                    decimal labelpaidUpT = Convert.ToDecimal((Regex.Replace(lblMixedAmountEfectivo.Text, @"[^\d.]", "")));
+                    if (labelpaidUpT < 0)
+                    {
+                        mensaje = new MessageBoxForm(Variables.titleprincipal, "El monto recibido es mayor al monte de deuda, favor de verificar", TypeIcon.Icon.Cancel);
+                        result = mensaje.ShowDialog();
+                    }
+                    break;
+                case 2:
+                    ValidAmount();
+                    if (mixAmountCheque != Convert.ToDecimal(txtMixedMontoCheque.Text != "" ? txtMixedMontoCheque.Text : "0"))
+                    {
+                        mixCheque = false;
+                        countMixed--;
+                        ValidAmount();
+                        SumAmount();
+                    }
+                    if (mixAmountTarjeta != Convert.ToDecimal(txtMixedMontoTarjeta.Text != "" ? txtMixedMontoTarjeta.Text : "0"))
+                    {
+                        mixTarjeta = false;
+                        countMixed--;
+                        ValidAmount();
+                        SumAmount();
+                    }
+                    if (mixAmountEfectivo != Convert.ToDecimal(txtMixedEfectivo.Text != "" ? txtMixedEfectivo.Text : "0"))
+                    {
+                        mixEfectivo = false;
+                        countMixed--;
+                        ValidAmount();
+                        SumAmount();
+                    }
+                    if (mixAmountTransfer != Convert.ToDecimal(txtMixedMontoTransfer.Text != "" ? txtMixedMontoTransfer.Text : "0"))
+                    {
+                        mixTransfer = false;
+                        countMixed--;
+                        ValidAmount();
+                        SumAmount();
+                    }
+                    decimal labelpaidUpC = Convert.ToDecimal((Regex.Replace(lblMixedAmountEfectivo.Text, @"[^\d.]", "")));
+                    if (labelpaidUpC < 0)
+                    {
+                        mensaje = new MessageBoxForm(Variables.titleprincipal, "El monto recibido es mayor al monte de deuda, favor de verificar", TypeIcon.Icon.Cancel);
+                        result = mensaje.ShowDialog();
+                    }
+                    break;
+                case 3:
+                    ValidAmount();
+                    if (mixAmountTransfer != Convert.ToDecimal(txtMixedMontoTransfer.Text != "" ? txtMixedMontoTransfer.Text : "0"))
+                    {
+                        mixTransfer = false;
+                        countMixed--;
+                        ValidAmount();
+                        SumAmount();
+                    }
+                    if (mixAmountCheque != Convert.ToDecimal(txtMixedMontoCheque.Text != "" ? txtMixedMontoCheque.Text : "0"))
+                    {
+                        mixCheque = false;
+                        countMixed--;
+                        ValidAmount();
+                        SumAmount();
+                    }
+                    if (mixAmountTarjeta != Convert.ToDecimal(txtMixedMontoTarjeta.Text != "" ? txtMixedMontoTarjeta.Text : "0"))
+                    {
+                        mixTarjeta = false;
+                        countMixed--;
+                        ValidAmount();
+                        SumAmount();
+                    }
+                    if (mixAmountEfectivo != Convert.ToDecimal(txtMixedEfectivo.Text != "" ? txtMixedEfectivo.Text : "0"))
+                    {
+                        mixEfectivo = false;
+                        countMixed--;
+                        ValidAmount();
+                        SumAmount();
+                    }
+                    decimal labelpaidUp = Convert.ToDecimal((Regex.Replace(lblMixedAmountEfectivo.Text, @"[^\d.]", "")));
+                    if (labelpaidUp < 0)
+                    {
+                        mensaje = new MessageBoxForm(Variables.titleprincipal, "El monto recibido es mayor al monte de deuda, favor de verificar", TypeIcon.Icon.Cancel);
+                        result = mensaje.ShowDialog();
+                    }
+                    break;
+            }
+        }
+        #endregion
+
+
     }
 }

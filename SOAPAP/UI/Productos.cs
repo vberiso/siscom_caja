@@ -959,7 +959,7 @@ namespace SOAPAP.UI
                         {
                             lista.Add(new Model.DebtDetail
                             {
-                                Amount = Convert.ToDecimal(row.Cells[3].Value),
+                                Amount = Math.Round(Convert.ToDecimal(row.Cells[3].Value),2),
                                 OnPayment = 0,
                                 CodeConcept = Convert.ToString(row.Cells[1].Value),
                                 HaveTax = Convert.ToBoolean(row.Cells[4].Value),

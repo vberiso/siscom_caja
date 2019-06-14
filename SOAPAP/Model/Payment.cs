@@ -39,8 +39,13 @@ namespace SOAPAP.Model
         public ExternalOriginPayment ExternalOriginPayment { get; set; }
         public int PayMethodId { get; set; }
         public PayMethod PayMethod { get; set; }
+        public decimal CashPayment { get; set; }
+        public decimal CardPayment { get; set; }
+        public decimal BankDraftPayment { get; set; }
+        public decimal TansferencePayment { get; set; }
         public ICollection<PaymentDetail> PaymentDetails { get; set; }
         public ICollection<TaxReceipt> TaxReceipts { get; set; }
+        public ICollection<DetailOfPaymentMethods> DetailOfPaymentMethods { get; set; }
 
     }
 }

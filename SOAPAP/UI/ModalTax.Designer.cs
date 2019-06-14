@@ -637,7 +637,7 @@
             // 
             this.txtName.Font = new System.Drawing.Font("Microsoft YaHei UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtName.Location = new System.Drawing.Point(15, 24);
-            this.txtName.MaxLength = 31;
+            this.txtName.MaxLength = 100;
             this.txtName.Name = "txtName";
             this.txtName.Size = new System.Drawing.Size(360, 24);
             this.txtName.TabIndex = 3;
@@ -701,6 +701,7 @@
             // 
             this.txtPhone.Font = new System.Drawing.Font("Microsoft YaHei UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtPhone.Location = new System.Drawing.Point(15, 113);
+            this.txtPhone.MaxLength = 13;
             this.txtPhone.Name = "txtPhone";
             this.txtPhone.Size = new System.Drawing.Size(193, 24);
             this.txtPhone.TabIndex = 9;

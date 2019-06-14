@@ -16,9 +16,9 @@
     <TargetFrameworkProfile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
-    <PublishUrl>\\web-services.cuautlancingo.gob.mx\c%24\inetpub\wwwroot\caja\</PublishUrl>
+    <PublishUrl>\\installer.cuautlancingo.gob.mx\caja\</PublishUrl>
     <Install>true</Install>
-    <InstallFrom>Disk</InstallFrom>
+    <InstallFrom>Unc</InstallFrom>
     <UpdateEnabled>true</UpdateEnabled>
     <UpdateMode>Foreground</UpdateMode>
     <UpdateInterval>7</UpdateInterval>
@@ -26,11 +26,12 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>true</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <UpdateUrl>\\web-services.cuautlancingo.gob.mx\c%24\inetpub\wwwroot\caja\</UpdateUrl>
+    <UpdateUrl>\\installer.cuautlancingo.gob.mx\caja\</UpdateUrl>
     <MinimumRequiredVersion>1.1.1.1</MinimumRequiredVersion>
+    <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
     <AutorunEnabled>true</AutorunEnabled>
-    <ApplicationRevision>80</ApplicationRevision>
+    <ApplicationRevision>86</ApplicationRevision>
     <ApplicationVersion>1.1.1.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -263,6 +264,7 @@
     <Compile Include="Model\Comprobante.cs" />
     <Compile Include="Model\ContactVM.cs" />
     <Compile Include="Model\DebtandDiscount.cs" />
+    <Compile Include="Model\DetailOfPaymentMethods.cs" />
     <Compile Include="Model\DiscountAuthorization.cs" />
     <Compile Include="Model\DiscountAuthorizationDetail.cs" />
     <Compile Include="Model\DiscountAuthorizationVM.cs" />

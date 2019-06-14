@@ -16,6 +16,7 @@ namespace SOAPAP.Model
         public string NameConcept { get; set; }
         public decimal Amount { get; set; }
         public decimal OnAccount { get; set; }
+        public decimal OnPayment { get; set; }
         public decimal Tax { get; set; }
 
         public int OrderSaleId { get; set; }

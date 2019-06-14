@@ -35,6 +35,56 @@
             this.btnAceptar = new System.Windows.Forms.Button();
             this.pnlContent = new System.Windows.Forms.Panel();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.pnlMixto = new System.Windows.Forms.Panel();
+            this.tabMixto = new System.Windows.Forms.TabControl();
+            this.tabEfectivo = new System.Windows.Forms.TabPage();
+            this.btnCleanCash = new System.Windows.Forms.Button();
+            this.panel4 = new System.Windows.Forms.Panel();
+            this.pnlHeaderEfectivo = new System.Windows.Forms.Panel();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.txtMixedEfectivo = new System.Windows.Forms.TextBox();
+            this.lblMixedRecibido = new System.Windows.Forms.Label();
+            this.tabTarjeta = new System.Windows.Forms.TabPage();
+            this.btnCleanCard = new System.Windows.Forms.Button();
+            this.panel6 = new System.Windows.Forms.Panel();
+            this.lblMixedTypeElectron = new System.Windows.Forms.Label();
+            this.txtMixedMontoTarjeta = new System.Windows.Forms.TextBox();
+            this.txtMixedAutorizacion = new System.Windows.Forms.TextBox();
+            this.txtMixedNumeroTarjeta = new System.Windows.Forms.TextBox();
+            this.label14 = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
+            this.label15 = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
+            this.cbxMixedTarjeta = new System.Windows.Forms.ComboBox();
+            this.pnlHeaderTarjeta = new System.Windows.Forms.Panel();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.tabCheque = new System.Windows.Forms.TabPage();
+            this.btnCleanCheque = new System.Windows.Forms.Button();
+            this.txtMixedMontoCheque = new System.Windows.Forms.TextBox();
+            this.txtMixedNumeroCuenta = new System.Windows.Forms.TextBox();
+            this.txtMixedNumeroCheque = new System.Windows.Forms.TextBox();
+            this.label21 = new System.Windows.Forms.Label();
+            this.label17 = new System.Windows.Forms.Label();
+            this.label18 = new System.Windows.Forms.Label();
+            this.label19 = new System.Windows.Forms.Label();
+            this.cbxMixedCheque = new System.Windows.Forms.ComboBox();
+            this.pnlHeaderCheque = new System.Windows.Forms.Panel();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.tabTransferencia = new System.Windows.Forms.TabPage();
+            this.btnCleanTransfer = new System.Windows.Forms.Button();
+            this.panel7 = new System.Windows.Forms.Panel();
+            this.txtMixedMontoTransfer = new System.Windows.Forms.TextBox();
+            this.txtMixedReferencia = new System.Windows.Forms.TextBox();
+            this.label22 = new System.Windows.Forms.Label();
+            this.label20 = new System.Windows.Forms.Label();
+            this.pnlHeaderTransfer = new System.Windows.Forms.Panel();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.pnlContainerMixedAmount = new System.Windows.Forms.Panel();
+            this.lblMixedAmountEfectivo = new System.Windows.Forms.Label();
             this.pnlEfectivo = new System.Windows.Forms.Panel();
             this.grbEfectivo = new System.Windows.Forms.GroupBox();
             this.pnlContentTotal = new System.Windows.Forms.Panel();
@@ -84,6 +134,18 @@
             this.pnlButtons.SuspendLayout();
             this.pnlContent.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            this.pnlMixto.SuspendLayout();
+            this.tabMixto.SuspendLayout();
+            this.tabEfectivo.SuspendLayout();
+            this.pnlHeaderEfectivo.SuspendLayout();
+            this.tabTarjeta.SuspendLayout();
+            this.panel6.SuspendLayout();
+            this.pnlHeaderTarjeta.SuspendLayout();
+            this.tabCheque.SuspendLayout();
+            this.pnlHeaderCheque.SuspendLayout();
+            this.tabTransferencia.SuspendLayout();
+            this.pnlHeaderTransfer.SuspendLayout();
+            this.pnlContainerMixedAmount.SuspendLayout();
             this.pnlEfectivo.SuspendLayout();
             this.grbEfectivo.SuspendLayout();
             this.pnlContentTotal.SuspendLayout();
@@ -109,7 +171,7 @@
             this.pnlImagen.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlImagen.Location = new System.Drawing.Point(0, 0);
             this.pnlImagen.Name = "pnlImagen";
-            this.pnlImagen.Size = new System.Drawing.Size(435, 102);
+            this.pnlImagen.Size = new System.Drawing.Size(462, 102);
             this.pnlImagen.TabIndex = 0;
             // 
             // pbxIcon
@@ -126,9 +188,9 @@
             this.pnlButtons.Controls.Add(this.btnCancelar);
             this.pnlButtons.Controls.Add(this.btnAceptar);
             this.pnlButtons.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.pnlButtons.Location = new System.Drawing.Point(0, 364);
+            this.pnlButtons.Location = new System.Drawing.Point(0, 411);
             this.pnlButtons.Name = "pnlButtons";
-            this.pnlButtons.Size = new System.Drawing.Size(435, 42);
+            this.pnlButtons.Size = new System.Drawing.Size(462, 42);
             this.pnlButtons.TabIndex = 3;
             // 
             // btnCancelar
@@ -137,7 +199,7 @@
             this.btnCancelar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCancelar.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCancelar.ForeColor = System.Drawing.Color.White;
-            this.btnCancelar.Location = new System.Drawing.Point(304, 4);
+            this.btnCancelar.Location = new System.Drawing.Point(361, 5);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(97, 31);
             this.btnCancelar.TabIndex = 4;
@@ -151,7 +213,7 @@
             this.btnAceptar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAceptar.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAceptar.ForeColor = System.Drawing.Color.White;
-            this.btnAceptar.Location = new System.Drawing.Point(201, 4);
+            this.btnAceptar.Location = new System.Drawing.Point(258, 5);
             this.btnAceptar.Name = "btnAceptar";
             this.btnAceptar.Size = new System.Drawing.Size(97, 31);
             this.btnAceptar.TabIndex = 3;
@@ -169,20 +231,595 @@
             this.pnlContent.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlContent.Location = new System.Drawing.Point(0, 0);
             this.pnlContent.Name = "pnlContent";
-            this.pnlContent.Size = new System.Drawing.Size(437, 408);
+            this.pnlContent.Size = new System.Drawing.Size(464, 455);
             this.pnlContent.TabIndex = 2;
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.pnlMixto);
             this.groupBox2.Controls.Add(this.pnlEfectivo);
             this.groupBox2.Controls.Add(this.pnlReferencia);
             this.groupBox2.Controls.Add(this.pnlOtros);
             this.groupBox2.Dock = System.Windows.Forms.DockStyle.Top;
             this.groupBox2.Location = new System.Drawing.Point(0, 157);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(435, 202);
+            this.groupBox2.Size = new System.Drawing.Size(462, 253);
             this.groupBox2.TabIndex = 5;
             this.groupBox2.TabStop = false;
+            // 
+            // pnlMixto
+            // 
+            this.pnlMixto.Controls.Add(this.tabMixto);
+            this.pnlMixto.Controls.Add(this.pnlContainerMixedAmount);
+            this.pnlMixto.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlMixto.Location = new System.Drawing.Point(3, 17);
+            this.pnlMixto.Name = "pnlMixto";
+            this.pnlMixto.Size = new System.Drawing.Size(456, 233);
+            this.pnlMixto.TabIndex = 24;
+            // 
+            // tabMixto
+            // 
+            this.tabMixto.Alignment = System.Windows.Forms.TabAlignment.Bottom;
+            this.tabMixto.Controls.Add(this.tabEfectivo);
+            this.tabMixto.Controls.Add(this.tabTarjeta);
+            this.tabMixto.Controls.Add(this.tabCheque);
+            this.tabMixto.Controls.Add(this.tabTransferencia);
+            this.tabMixto.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabMixto.Location = new System.Drawing.Point(0, 28);
+            this.tabMixto.Multiline = true;
+            this.tabMixto.Name = "tabMixto";
+            this.tabMixto.SelectedIndex = 0;
+            this.tabMixto.Size = new System.Drawing.Size(456, 205);
+            this.tabMixto.TabIndex = 0;
+            this.tabMixto.SelectedIndexChanged += new System.EventHandler(this.TabMixto_SelectedIndexChanged);
+            // 
+            // tabEfectivo
+            // 
+            this.tabEfectivo.BackColor = System.Drawing.Color.White;
+            this.tabEfectivo.Controls.Add(this.btnCleanCash);
+            this.tabEfectivo.Controls.Add(this.panel4);
+            this.tabEfectivo.Controls.Add(this.pnlHeaderEfectivo);
+            this.tabEfectivo.Controls.Add(this.txtMixedEfectivo);
+            this.tabEfectivo.Controls.Add(this.lblMixedRecibido);
+            this.tabEfectivo.Font = new System.Drawing.Font("Microsoft YaHei UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tabEfectivo.Location = new System.Drawing.Point(4, 4);
+            this.tabEfectivo.Name = "tabEfectivo";
+            this.tabEfectivo.Padding = new System.Windows.Forms.Padding(3);
+            this.tabEfectivo.Size = new System.Drawing.Size(448, 176);
+            this.tabEfectivo.TabIndex = 0;
+            this.tabEfectivo.Text = "Efectivo";
+            // 
+            // btnCleanCash
+            // 
+            this.btnCleanCash.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(221)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
+            this.btnCleanCash.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCleanCash.Font = new System.Drawing.Font("Microsoft YaHei UI", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCleanCash.ForeColor = System.Drawing.Color.White;
+            this.btnCleanCash.Location = new System.Drawing.Point(241, 136);
+            this.btnCleanCash.Name = "btnCleanCash";
+            this.btnCleanCash.Size = new System.Drawing.Size(21, 20);
+            this.btnCleanCash.TabIndex = 6;
+            this.btnCleanCash.Text = "X";
+            this.btnCleanCash.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.btnCleanCash.UseVisualStyleBackColor = false;
+            this.btnCleanCash.Click += new System.EventHandler(this.BtnCleanCash_Click);
+            // 
+            // panel4
+            // 
+            this.panel4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(3)))), ((int)(((byte)(155)))), ((int)(((byte)(229)))));
+            this.panel4.Dock = System.Windows.Forms.DockStyle.Right;
+            this.panel4.Location = new System.Drawing.Point(295, 41);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(150, 132);
+            this.panel4.TabIndex = 5;
+            // 
+            // pnlHeaderEfectivo
+            // 
+            this.pnlHeaderEfectivo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(3)))), ((int)(((byte)(155)))), ((int)(((byte)(229)))));
+            this.pnlHeaderEfectivo.Controls.Add(this.label3);
+            this.pnlHeaderEfectivo.Controls.Add(this.label2);
+            this.pnlHeaderEfectivo.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pnlHeaderEfectivo.Location = new System.Drawing.Point(3, 3);
+            this.pnlHeaderEfectivo.Name = "pnlHeaderEfectivo";
+            this.pnlHeaderEfectivo.Size = new System.Drawing.Size(442, 38);
+            this.pnlHeaderEfectivo.TabIndex = 4;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft YaHei UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.ForeColor = System.Drawing.Color.White;
+            this.label3.Location = new System.Drawing.Point(3, 10);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(156, 19);
+            this.label3.TabIndex = 0;
+            this.label3.Text = "PAGO EN EFECTIVO";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft YaHei UI", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.ForeColor = System.Drawing.Color.White;
+            this.label2.Location = new System.Drawing.Point(384, 0);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(58, 14);
+            this.label2.TabIndex = 3;
+            this.label2.Text = "Pago Mixto";
+            // 
+            // txtMixedEfectivo
+            // 
+            this.txtMixedEfectivo.Font = new System.Drawing.Font("Microsoft YaHei UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtMixedEfectivo.Location = new System.Drawing.Point(34, 90);
+            this.txtMixedEfectivo.Name = "txtMixedEfectivo";
+            this.txtMixedEfectivo.Size = new System.Drawing.Size(228, 24);
+            this.txtMixedEfectivo.TabIndex = 2;
+            this.txtMixedEfectivo.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TxtMixedEfectivo_KeyPress);
+            // 
+            // lblMixedRecibido
+            // 
+            this.lblMixedRecibido.AutoSize = true;
+            this.lblMixedRecibido.Font = new System.Drawing.Font("Microsoft YaHei UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblMixedRecibido.Location = new System.Drawing.Point(29, 70);
+            this.lblMixedRecibido.Name = "lblMixedRecibido";
+            this.lblMixedRecibido.Size = new System.Drawing.Size(61, 19);
+            this.lblMixedRecibido.TabIndex = 1;
+            this.lblMixedRecibido.Text = "Recibido";
+            // 
+            // tabTarjeta
+            // 
+            this.tabTarjeta.BackColor = System.Drawing.Color.White;
+            this.tabTarjeta.Controls.Add(this.btnCleanCard);
+            this.tabTarjeta.Controls.Add(this.panel6);
+            this.tabTarjeta.Controls.Add(this.txtMixedMontoTarjeta);
+            this.tabTarjeta.Controls.Add(this.txtMixedAutorizacion);
+            this.tabTarjeta.Controls.Add(this.txtMixedNumeroTarjeta);
+            this.tabTarjeta.Controls.Add(this.label14);
+            this.tabTarjeta.Controls.Add(this.label13);
+            this.tabTarjeta.Controls.Add(this.label15);
+            this.tabTarjeta.Controls.Add(this.label16);
+            this.tabTarjeta.Controls.Add(this.cbxMixedTarjeta);
+            this.tabTarjeta.Controls.Add(this.pnlHeaderTarjeta);
+            this.tabTarjeta.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tabTarjeta.Location = new System.Drawing.Point(4, 4);
+            this.tabTarjeta.Name = "tabTarjeta";
+            this.tabTarjeta.Padding = new System.Windows.Forms.Padding(3);
+            this.tabTarjeta.Size = new System.Drawing.Size(448, 177);
+            this.tabTarjeta.TabIndex = 1;
+            this.tabTarjeta.Text = "Tarjeta";
+            // 
+            // btnCleanCard
+            // 
+            this.btnCleanCard.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(221)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
+            this.btnCleanCard.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCleanCard.Font = new System.Drawing.Font("Microsoft YaHei UI", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCleanCard.ForeColor = System.Drawing.Color.White;
+            this.btnCleanCard.Location = new System.Drawing.Point(421, 143);
+            this.btnCleanCard.Name = "btnCleanCard";
+            this.btnCleanCard.Size = new System.Drawing.Size(21, 20);
+            this.btnCleanCard.TabIndex = 39;
+            this.btnCleanCard.Text = "X";
+            this.btnCleanCard.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.btnCleanCard.UseVisualStyleBackColor = false;
+            this.btnCleanCard.Click += new System.EventHandler(this.BtnCleanCard_Click);
+            // 
+            // panel6
+            // 
+            this.panel6.Controls.Add(this.lblMixedTypeElectron);
+            this.panel6.Font = new System.Drawing.Font("Microsoft YaHei UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.panel6.Location = new System.Drawing.Point(328, 55);
+            this.panel6.Name = "panel6";
+            this.panel6.Size = new System.Drawing.Size(116, 13);
+            this.panel6.TabIndex = 38;
+            // 
+            // lblMixedTypeElectron
+            // 
+            this.lblMixedTypeElectron.AutoSize = true;
+            this.lblMixedTypeElectron.Dock = System.Windows.Forms.DockStyle.Right;
+            this.lblMixedTypeElectron.Font = new System.Drawing.Font("Microsoft YaHei UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblMixedTypeElectron.ForeColor = System.Drawing.Color.CornflowerBlue;
+            this.lblMixedTypeElectron.Location = new System.Drawing.Point(116, 0);
+            this.lblMixedTypeElectron.Name = "lblMixedTypeElectron";
+            this.lblMixedTypeElectron.Size = new System.Drawing.Size(0, 16);
+            this.lblMixedTypeElectron.TabIndex = 32;
+            // 
+            // txtMixedMontoTarjeta
+            // 
+            this.txtMixedMontoTarjeta.Font = new System.Drawing.Font("Microsoft YaHei UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtMixedMontoTarjeta.Location = new System.Drawing.Point(9, 112);
+            this.txtMixedMontoTarjeta.MaxLength = 25;
+            this.txtMixedMontoTarjeta.Name = "txtMixedMontoTarjeta";
+            this.txtMixedMontoTarjeta.Size = new System.Drawing.Size(216, 24);
+            this.txtMixedMontoTarjeta.TabIndex = 34;
+            this.txtMixedMontoTarjeta.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TxtMixedMontoTarjeta_KeyPress);
+            // 
+            // txtMixedAutorizacion
+            // 
+            this.txtMixedAutorizacion.Font = new System.Drawing.Font("Microsoft YaHei UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtMixedAutorizacion.Location = new System.Drawing.Point(231, 112);
+            this.txtMixedAutorizacion.MaxLength = 25;
+            this.txtMixedAutorizacion.Name = "txtMixedAutorizacion";
+            this.txtMixedAutorizacion.Size = new System.Drawing.Size(213, 24);
+            this.txtMixedAutorizacion.TabIndex = 35;
+            // 
+            // txtMixedNumeroTarjeta
+            // 
+            this.txtMixedNumeroTarjeta.Font = new System.Drawing.Font("Microsoft YaHei UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtMixedNumeroTarjeta.Location = new System.Drawing.Point(231, 68);
+            this.txtMixedNumeroTarjeta.MaxLength = 20;
+            this.txtMixedNumeroTarjeta.Name = "txtMixedNumeroTarjeta";
+            this.txtMixedNumeroTarjeta.Size = new System.Drawing.Size(213, 24);
+            this.txtMixedNumeroTarjeta.TabIndex = 33;
+            this.txtMixedNumeroTarjeta.Leave += new System.EventHandler(this.TxtMixedNumeroTarjeta_Leave);
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Font = new System.Drawing.Font("Microsoft YaHei UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label14.Location = new System.Drawing.Point(229, 49);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(79, 19);
+            this.label14.TabIndex = 35;
+            this.label14.Text = "No. Tarjeta:";
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Font = new System.Drawing.Font("Microsoft YaHei UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label13.Location = new System.Drawing.Point(8, 95);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(54, 19);
+            this.label13.TabIndex = 36;
+            this.label13.Text = "Monto:";
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Font = new System.Drawing.Font("Microsoft YaHei UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label15.Location = new System.Drawing.Point(229, 94);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(89, 19);
+            this.label15.TabIndex = 36;
+            this.label15.Text = "Autorización:";
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Font = new System.Drawing.Font("Microsoft YaHei UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label16.Location = new System.Drawing.Point(7, 48);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(50, 19);
+            this.label16.TabIndex = 37;
+            this.label16.Text = "Banco:";
+            // 
+            // cbxMixedTarjeta
+            // 
+            this.cbxMixedTarjeta.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.cbxMixedTarjeta.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbxMixedTarjeta.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbxMixedTarjeta.FormattingEnabled = true;
+            this.cbxMixedTarjeta.Location = new System.Drawing.Point(9, 67);
+            this.cbxMixedTarjeta.Name = "cbxMixedTarjeta";
+            this.cbxMixedTarjeta.Size = new System.Drawing.Size(214, 25);
+            this.cbxMixedTarjeta.TabIndex = 32;
+            // 
+            // pnlHeaderTarjeta
+            // 
+            this.pnlHeaderTarjeta.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(3)))), ((int)(((byte)(155)))), ((int)(((byte)(229)))));
+            this.pnlHeaderTarjeta.Controls.Add(this.label4);
+            this.pnlHeaderTarjeta.Controls.Add(this.label9);
+            this.pnlHeaderTarjeta.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pnlHeaderTarjeta.Location = new System.Drawing.Point(3, 3);
+            this.pnlHeaderTarjeta.Name = "pnlHeaderTarjeta";
+            this.pnlHeaderTarjeta.Size = new System.Drawing.Size(442, 38);
+            this.pnlHeaderTarjeta.TabIndex = 5;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft YaHei UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.ForeColor = System.Drawing.Color.White;
+            this.label4.Location = new System.Drawing.Point(3, 10);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(162, 19);
+            this.label4.TabIndex = 0;
+            this.label4.Text = "PAGO CON TARJETA";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("Microsoft YaHei UI", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.ForeColor = System.Drawing.Color.White;
+            this.label9.Location = new System.Drawing.Point(384, 0);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(58, 14);
+            this.label9.TabIndex = 3;
+            this.label9.Text = "Pago Mixto";
+            // 
+            // tabCheque
+            // 
+            this.tabCheque.BackColor = System.Drawing.Color.White;
+            this.tabCheque.Controls.Add(this.btnCleanCheque);
+            this.tabCheque.Controls.Add(this.txtMixedMontoCheque);
+            this.tabCheque.Controls.Add(this.txtMixedNumeroCuenta);
+            this.tabCheque.Controls.Add(this.txtMixedNumeroCheque);
+            this.tabCheque.Controls.Add(this.label21);
+            this.tabCheque.Controls.Add(this.label17);
+            this.tabCheque.Controls.Add(this.label18);
+            this.tabCheque.Controls.Add(this.label19);
+            this.tabCheque.Controls.Add(this.cbxMixedCheque);
+            this.tabCheque.Controls.Add(this.pnlHeaderCheque);
+            this.tabCheque.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tabCheque.Location = new System.Drawing.Point(4, 4);
+            this.tabCheque.Name = "tabCheque";
+            this.tabCheque.Size = new System.Drawing.Size(448, 177);
+            this.tabCheque.TabIndex = 2;
+            this.tabCheque.Text = "Cheque";
+            // 
+            // btnCleanCheque
+            // 
+            this.btnCleanCheque.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(221)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
+            this.btnCleanCheque.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCleanCheque.Font = new System.Drawing.Font("Microsoft YaHei UI", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCleanCheque.ForeColor = System.Drawing.Color.White;
+            this.btnCleanCheque.Location = new System.Drawing.Point(421, 143);
+            this.btnCleanCheque.Name = "btnCleanCheque";
+            this.btnCleanCheque.Size = new System.Drawing.Size(21, 20);
+            this.btnCleanCheque.TabIndex = 44;
+            this.btnCleanCheque.Text = "X";
+            this.btnCleanCheque.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.btnCleanCheque.UseVisualStyleBackColor = false;
+            this.btnCleanCheque.Click += new System.EventHandler(this.BtnCleanCheque_Click);
+            // 
+            // txtMixedMontoCheque
+            // 
+            this.txtMixedMontoCheque.Font = new System.Drawing.Font("Microsoft YaHei UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtMixedMontoCheque.Location = new System.Drawing.Point(9, 112);
+            this.txtMixedMontoCheque.MaxLength = 25;
+            this.txtMixedMontoCheque.Name = "txtMixedMontoCheque";
+            this.txtMixedMontoCheque.Size = new System.Drawing.Size(164, 24);
+            this.txtMixedMontoCheque.TabIndex = 38;
+            this.txtMixedMontoCheque.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TxtMixedMontoCheque_KeyPress);
+            // 
+            // txtMixedNumeroCuenta
+            // 
+            this.txtMixedNumeroCuenta.Font = new System.Drawing.Font("Microsoft YaHei UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtMixedNumeroCuenta.Location = new System.Drawing.Point(222, 66);
+            this.txtMixedNumeroCuenta.MaxLength = 25;
+            this.txtMixedNumeroCuenta.Name = "txtMixedNumeroCuenta";
+            this.txtMixedNumeroCuenta.Size = new System.Drawing.Size(220, 24);
+            this.txtMixedNumeroCuenta.TabIndex = 37;
+            // 
+            // txtMixedNumeroCheque
+            // 
+            this.txtMixedNumeroCheque.Font = new System.Drawing.Font("Microsoft YaHei UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtMixedNumeroCheque.Location = new System.Drawing.Point(178, 112);
+            this.txtMixedNumeroCheque.MaxLength = 31;
+            this.txtMixedNumeroCheque.Name = "txtMixedNumeroCheque";
+            this.txtMixedNumeroCheque.Size = new System.Drawing.Size(264, 24);
+            this.txtMixedNumeroCheque.TabIndex = 39;
+            this.txtMixedNumeroCheque.TextChanged += new System.EventHandler(this.TxtMixedNumeroCheque_TextChanged);
+            this.txtMixedNumeroCheque.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TxtMixedNumeroCheque_KeyPress);
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Font = new System.Drawing.Font("Microsoft YaHei UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label21.Location = new System.Drawing.Point(9, 93);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(54, 19);
+            this.label21.TabIndex = 42;
+            this.label21.Text = "Monto:";
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.BackColor = System.Drawing.Color.Transparent;
+            this.label17.Font = new System.Drawing.Font("Microsoft YaHei UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label17.Location = new System.Drawing.Point(179, 93);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(85, 19);
+            this.label17.TabIndex = 41;
+            this.label17.Text = "No. Cheque:";
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Font = new System.Drawing.Font("Microsoft YaHei UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label18.Location = new System.Drawing.Point(218, 48);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(82, 19);
+            this.label18.TabIndex = 42;
+            this.label18.Text = "No. Cuenta:";
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Font = new System.Drawing.Font("Microsoft YaHei UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label19.Location = new System.Drawing.Point(10, 46);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(50, 19);
+            this.label19.TabIndex = 43;
+            this.label19.Text = "Banco:";
+            // 
+            // cbxMixedCheque
+            // 
+            this.cbxMixedCheque.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.cbxMixedCheque.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbxMixedCheque.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbxMixedCheque.FormattingEnabled = true;
+            this.cbxMixedCheque.Location = new System.Drawing.Point(9, 65);
+            this.cbxMixedCheque.Name = "cbxMixedCheque";
+            this.cbxMixedCheque.Size = new System.Drawing.Size(207, 25);
+            this.cbxMixedCheque.TabIndex = 36;
+            // 
+            // pnlHeaderCheque
+            // 
+            this.pnlHeaderCheque.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(3)))), ((int)(((byte)(155)))), ((int)(((byte)(229)))));
+            this.pnlHeaderCheque.Controls.Add(this.label8);
+            this.pnlHeaderCheque.Controls.Add(this.label10);
+            this.pnlHeaderCheque.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pnlHeaderCheque.Location = new System.Drawing.Point(0, 0);
+            this.pnlHeaderCheque.Name = "pnlHeaderCheque";
+            this.pnlHeaderCheque.Size = new System.Drawing.Size(448, 37);
+            this.pnlHeaderCheque.TabIndex = 6;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Microsoft YaHei UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.ForeColor = System.Drawing.Color.White;
+            this.label8.Location = new System.Drawing.Point(3, 11);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(160, 19);
+            this.label8.TabIndex = 0;
+            this.label8.Text = "PAGO CON CHEQUE";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label10.ForeColor = System.Drawing.Color.White;
+            this.label10.Location = new System.Drawing.Point(394, 3);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(52, 12);
+            this.label10.TabIndex = 3;
+            this.label10.Text = "Pago Mixto";
+            // 
+            // tabTransferencia
+            // 
+            this.tabTransferencia.BackColor = System.Drawing.Color.White;
+            this.tabTransferencia.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.tabTransferencia.Controls.Add(this.btnCleanTransfer);
+            this.tabTransferencia.Controls.Add(this.panel7);
+            this.tabTransferencia.Controls.Add(this.txtMixedMontoTransfer);
+            this.tabTransferencia.Controls.Add(this.txtMixedReferencia);
+            this.tabTransferencia.Controls.Add(this.label22);
+            this.tabTransferencia.Controls.Add(this.label20);
+            this.tabTransferencia.Controls.Add(this.pnlHeaderTransfer);
+            this.tabTransferencia.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tabTransferencia.Location = new System.Drawing.Point(4, 4);
+            this.tabTransferencia.Name = "tabTransferencia";
+            this.tabTransferencia.Size = new System.Drawing.Size(448, 177);
+            this.tabTransferencia.TabIndex = 3;
+            this.tabTransferencia.Text = "Transferencia";
+            // 
+            // btnCleanTransfer
+            // 
+            this.btnCleanTransfer.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(221)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
+            this.btnCleanTransfer.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCleanTransfer.Font = new System.Drawing.Font("Microsoft YaHei UI", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCleanTransfer.ForeColor = System.Drawing.Color.White;
+            this.btnCleanTransfer.Location = new System.Drawing.Point(236, 146);
+            this.btnCleanTransfer.Name = "btnCleanTransfer";
+            this.btnCleanTransfer.Size = new System.Drawing.Size(21, 20);
+            this.btnCleanTransfer.TabIndex = 42;
+            this.btnCleanTransfer.Text = "X";
+            this.btnCleanTransfer.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.btnCleanTransfer.UseVisualStyleBackColor = false;
+            this.btnCleanTransfer.Click += new System.EventHandler(this.BtnCleanTransfer_Click);
+            // 
+            // panel7
+            // 
+            this.panel7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(3)))), ((int)(((byte)(155)))), ((int)(((byte)(229)))));
+            this.panel7.Dock = System.Windows.Forms.DockStyle.Right;
+            this.panel7.Location = new System.Drawing.Point(296, 36);
+            this.panel7.Name = "panel7";
+            this.panel7.Size = new System.Drawing.Size(150, 139);
+            this.panel7.TabIndex = 9;
+            // 
+            // txtMixedMontoTransfer
+            // 
+            this.txtMixedMontoTransfer.Font = new System.Drawing.Font("Microsoft YaHei UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtMixedMontoTransfer.Location = new System.Drawing.Point(31, 62);
+            this.txtMixedMontoTransfer.Name = "txtMixedMontoTransfer";
+            this.txtMixedMontoTransfer.Size = new System.Drawing.Size(226, 24);
+            this.txtMixedMontoTransfer.TabIndex = 40;
+            this.txtMixedMontoTransfer.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TxtMixedMontoTransfer_KeyPress);
+            // 
+            // txtMixedReferencia
+            // 
+            this.txtMixedReferencia.Font = new System.Drawing.Font("Microsoft YaHei UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtMixedReferencia.Location = new System.Drawing.Point(31, 111);
+            this.txtMixedReferencia.Name = "txtMixedReferencia";
+            this.txtMixedReferencia.Size = new System.Drawing.Size(226, 24);
+            this.txtMixedReferencia.TabIndex = 41;
+            // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Font = new System.Drawing.Font("Microsoft YaHei UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label22.Location = new System.Drawing.Point(27, 43);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(54, 19);
+            this.label22.TabIndex = 7;
+            this.label22.Text = "Monto:";
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Font = new System.Drawing.Font("Microsoft YaHei UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label20.Location = new System.Drawing.Point(27, 90);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(76, 19);
+            this.label20.TabIndex = 7;
+            this.label20.Text = "Referencia:";
+            // 
+            // pnlHeaderTransfer
+            // 
+            this.pnlHeaderTransfer.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(3)))), ((int)(((byte)(155)))), ((int)(((byte)(229)))));
+            this.pnlHeaderTransfer.Controls.Add(this.label11);
+            this.pnlHeaderTransfer.Controls.Add(this.label12);
+            this.pnlHeaderTransfer.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pnlHeaderTransfer.Location = new System.Drawing.Point(0, 0);
+            this.pnlHeaderTransfer.Name = "pnlHeaderTransfer";
+            this.pnlHeaderTransfer.Size = new System.Drawing.Size(446, 36);
+            this.pnlHeaderTransfer.TabIndex = 6;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Font = new System.Drawing.Font("Microsoft YaHei UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label11.ForeColor = System.Drawing.Color.White;
+            this.label11.Location = new System.Drawing.Point(3, 9);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(223, 19);
+            this.label11.TabIndex = 0;
+            this.label11.Text = "PAGO CON TRANSFERENCIA";
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label12.ForeColor = System.Drawing.Color.White;
+            this.label12.Location = new System.Drawing.Point(393, 1);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(52, 12);
+            this.label12.TabIndex = 3;
+            this.label12.Text = "Pago Mixto";
+            // 
+            // pnlContainerMixedAmount
+            // 
+            this.pnlContainerMixedAmount.Controls.Add(this.lblMixedAmountEfectivo);
+            this.pnlContainerMixedAmount.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pnlContainerMixedAmount.Location = new System.Drawing.Point(0, 0);
+            this.pnlContainerMixedAmount.Name = "pnlContainerMixedAmount";
+            this.pnlContainerMixedAmount.Size = new System.Drawing.Size(456, 28);
+            this.pnlContainerMixedAmount.TabIndex = 1;
+            // 
+            // lblMixedAmountEfectivo
+            // 
+            this.lblMixedAmountEfectivo.AutoSize = true;
+            this.lblMixedAmountEfectivo.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblMixedAmountEfectivo.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.lblMixedAmountEfectivo.Location = new System.Drawing.Point(164, 0);
+            this.lblMixedAmountEfectivo.Name = "lblMixedAmountEfectivo";
+            this.lblMixedAmountEfectivo.Size = new System.Drawing.Size(134, 25);
+            this.lblMixedAmountEfectivo.TabIndex = 2;
+            this.lblMixedAmountEfectivo.Text = "Resta: $0.00";
             // 
             // pnlEfectivo
             // 
@@ -190,7 +827,7 @@
             this.pnlEfectivo.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlEfectivo.Location = new System.Drawing.Point(3, 17);
             this.pnlEfectivo.Name = "pnlEfectivo";
-            this.pnlEfectivo.Size = new System.Drawing.Size(429, 182);
+            this.pnlEfectivo.Size = new System.Drawing.Size(456, 233);
             this.pnlEfectivo.TabIndex = 0;
             // 
             // grbEfectivo
@@ -200,7 +837,7 @@
             this.grbEfectivo.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.grbEfectivo.Location = new System.Drawing.Point(0, 0);
             this.grbEfectivo.Name = "grbEfectivo";
-            this.grbEfectivo.Size = new System.Drawing.Size(429, 182);
+            this.grbEfectivo.Size = new System.Drawing.Size(456, 233);
             this.grbEfectivo.TabIndex = 1;
             this.grbEfectivo.TabStop = false;
             // 
@@ -217,7 +854,7 @@
             this.pnlContentTotal.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlContentTotal.Location = new System.Drawing.Point(3, 19);
             this.pnlContentTotal.Name = "pnlContentTotal";
-            this.pnlContentTotal.Size = new System.Drawing.Size(423, 157);
+            this.pnlContentTotal.Size = new System.Drawing.Size(450, 157);
             this.pnlContentTotal.TabIndex = 23;
             // 
             // pnlTotal
@@ -306,7 +943,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel1.Location = new System.Drawing.Point(0, 153);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(423, 4);
+            this.panel1.Size = new System.Drawing.Size(450, 4);
             this.panel1.TabIndex = 1;
             // 
             // pnlTitleTotal
@@ -315,7 +952,7 @@
             this.pnlTitleTotal.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlTitleTotal.Location = new System.Drawing.Point(0, 0);
             this.pnlTitleTotal.Name = "pnlTitleTotal";
-            this.pnlTitleTotal.Size = new System.Drawing.Size(423, 18);
+            this.pnlTitleTotal.Size = new System.Drawing.Size(450, 18);
             this.pnlTitleTotal.TabIndex = 0;
             // 
             // lblSubtotal
@@ -334,7 +971,7 @@
             this.pnlReferencia.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlReferencia.Location = new System.Drawing.Point(3, 17);
             this.pnlReferencia.Name = "pnlReferencia";
-            this.pnlReferencia.Size = new System.Drawing.Size(429, 182);
+            this.pnlReferencia.Size = new System.Drawing.Size(456, 233);
             this.pnlReferencia.TabIndex = 1;
             // 
             // groupBox3
@@ -344,7 +981,7 @@
             this.groupBox3.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox3.Location = new System.Drawing.Point(0, 0);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(429, 182);
+            this.groupBox3.Size = new System.Drawing.Size(456, 233);
             this.groupBox3.TabIndex = 1;
             this.groupBox3.TabStop = false;
             // 
@@ -359,7 +996,7 @@
             this.panel5.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel5.Location = new System.Drawing.Point(3, 19);
             this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(423, 157);
+            this.panel5.Size = new System.Drawing.Size(450, 157);
             this.panel5.TabIndex = 23;
             // 
             // pnlTotalTran
@@ -415,7 +1052,7 @@
             this.panel8.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel8.Location = new System.Drawing.Point(0, 153);
             this.panel8.Name = "panel8";
-            this.panel8.Size = new System.Drawing.Size(423, 4);
+            this.panel8.Size = new System.Drawing.Size(450, 4);
             this.panel8.TabIndex = 1;
             // 
             // panel9
@@ -424,7 +1061,7 @@
             this.panel9.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel9.Location = new System.Drawing.Point(0, 0);
             this.panel9.Name = "panel9";
-            this.panel9.Size = new System.Drawing.Size(423, 18);
+            this.panel9.Size = new System.Drawing.Size(450, 18);
             this.panel9.TabIndex = 0;
             // 
             // label7
@@ -444,7 +1081,7 @@
             this.pnlOtros.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlOtros.Location = new System.Drawing.Point(3, 17);
             this.pnlOtros.Name = "pnlOtros";
-            this.pnlOtros.Size = new System.Drawing.Size(429, 182);
+            this.pnlOtros.Size = new System.Drawing.Size(456, 233);
             this.pnlOtros.TabIndex = 0;
             // 
             // panel3
@@ -462,7 +1099,7 @@
             this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel3.Location = new System.Drawing.Point(0, 18);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(429, 164);
+            this.panel3.Size = new System.Drawing.Size(456, 215);
             this.panel3.TabIndex = 1;
             // 
             // panel2
@@ -528,6 +1165,7 @@
             // 
             this.txtTarjetaCheque.Font = new System.Drawing.Font("Microsoft YaHei UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtTarjetaCheque.Location = new System.Drawing.Point(140, 94);
+            this.txtTarjetaCheque.MaxLength = 20;
             this.txtTarjetaCheque.Name = "txtTarjetaCheque";
             this.txtTarjetaCheque.Size = new System.Drawing.Size(268, 24);
             this.txtTarjetaCheque.TabIndex = 3;
@@ -581,7 +1219,7 @@
             this.cmbBank.FormattingEnabled = true;
             this.cmbBank.Location = new System.Drawing.Point(140, 57);
             this.cmbBank.Name = "cmbBank";
-            this.cmbBank.Size = new System.Drawing.Size(268, 27);
+            this.cmbBank.Size = new System.Drawing.Size(266, 27);
             this.cmbBank.TabIndex = 2;
             // 
             // pnlTitle
@@ -590,7 +1228,7 @@
             this.pnlTitle.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlTitle.Location = new System.Drawing.Point(0, 0);
             this.pnlTitle.Name = "pnlTitle";
-            this.pnlTitle.Size = new System.Drawing.Size(429, 18);
+            this.pnlTitle.Size = new System.Drawing.Size(456, 18);
             this.pnlTitle.TabIndex = 0;
             // 
             // lblTitle
@@ -611,7 +1249,7 @@
             this.groupBox1.Location = new System.Drawing.Point(0, 102);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(50, 5, 50, 5);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(435, 55);
+            this.groupBox1.Size = new System.Drawing.Size(462, 55);
             this.groupBox1.TabIndex = 4;
             this.groupBox1.TabStop = false;
             // 
@@ -634,7 +1272,7 @@
             this.cmbPaymentMethod.FormattingEnabled = true;
             this.cmbPaymentMethod.Location = new System.Drawing.Point(137, 20);
             this.cmbPaymentMethod.Name = "cmbPaymentMethod";
-            this.cmbPaymentMethod.Size = new System.Drawing.Size(262, 24);
+            this.cmbPaymentMethod.Size = new System.Drawing.Size(289, 24);
             this.cmbPaymentMethod.TabIndex = 1;
             this.cmbPaymentMethod.SelectionChangeCommitted += new System.EventHandler(this.cmbPaymentMethod_SelectionChangeCommitted);
             // 
@@ -643,7 +1281,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(437, 408);
+            this.ClientSize = new System.Drawing.Size(464, 455);
             this.Controls.Add(this.pnlContent);
             this.Font = new System.Drawing.Font("Microsoft YaHei UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
@@ -658,6 +1296,28 @@
             this.pnlButtons.ResumeLayout(false);
             this.pnlContent.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
+            this.pnlMixto.ResumeLayout(false);
+            this.tabMixto.ResumeLayout(false);
+            this.tabEfectivo.ResumeLayout(false);
+            this.tabEfectivo.PerformLayout();
+            this.pnlHeaderEfectivo.ResumeLayout(false);
+            this.pnlHeaderEfectivo.PerformLayout();
+            this.tabTarjeta.ResumeLayout(false);
+            this.tabTarjeta.PerformLayout();
+            this.panel6.ResumeLayout(false);
+            this.panel6.PerformLayout();
+            this.pnlHeaderTarjeta.ResumeLayout(false);
+            this.pnlHeaderTarjeta.PerformLayout();
+            this.tabCheque.ResumeLayout(false);
+            this.tabCheque.PerformLayout();
+            this.pnlHeaderCheque.ResumeLayout(false);
+            this.pnlHeaderCheque.PerformLayout();
+            this.tabTransferencia.ResumeLayout(false);
+            this.tabTransferencia.PerformLayout();
+            this.pnlHeaderTransfer.ResumeLayout(false);
+            this.pnlHeaderTransfer.PerformLayout();
+            this.pnlContainerMixedAmount.ResumeLayout(false);
+            this.pnlContainerMixedAmount.PerformLayout();
             this.pnlEfectivo.ResumeLayout(false);
             this.grbEfectivo.ResumeLayout(false);
             this.pnlContentTotal.ResumeLayout(false);
@@ -744,5 +1404,55 @@
         private System.Windows.Forms.Panel panel8;
         private System.Windows.Forms.Panel panel9;
         private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Panel pnlMixto;
+        private System.Windows.Forms.TabControl tabMixto;
+        private System.Windows.Forms.TabPage tabEfectivo;
+        private System.Windows.Forms.Panel pnlHeaderEfectivo;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TextBox txtMixedEfectivo;
+        private System.Windows.Forms.Label lblMixedRecibido;
+        private System.Windows.Forms.TabPage tabTarjeta;
+        private System.Windows.Forms.TabPage tabCheque;
+        private System.Windows.Forms.TabPage tabTransferencia;
+        private System.Windows.Forms.Panel pnlContainerMixedAmount;
+        private System.Windows.Forms.Label lblMixedAmountEfectivo;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Panel panel6;
+        private System.Windows.Forms.Label lblMixedTypeElectron;
+        private System.Windows.Forms.TextBox txtMixedAutorizacion;
+        private System.Windows.Forms.TextBox txtMixedNumeroTarjeta;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.ComboBox cbxMixedTarjeta;
+        private System.Windows.Forms.Panel pnlHeaderTarjeta;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.TextBox txtMixedNumeroCuenta;
+        private System.Windows.Forms.TextBox txtMixedNumeroCheque;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.ComboBox cbxMixedCheque;
+        private System.Windows.Forms.Panel pnlHeaderCheque;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.TextBox txtMixedReferencia;
+        private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.Panel pnlHeaderTransfer;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Panel panel4;
+        private System.Windows.Forms.TextBox txtMixedMontoTarjeta;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.Panel panel7;
+        private System.Windows.Forms.TextBox txtMixedMontoCheque;
+        private System.Windows.Forms.Label label21;
+        private System.Windows.Forms.TextBox txtMixedMontoTransfer;
+        private System.Windows.Forms.Label label22;
+        private System.Windows.Forms.Button btnCleanCash;
+        private System.Windows.Forms.Button btnCleanCard;
+        private System.Windows.Forms.Button btnCleanCheque;
+        private System.Windows.Forms.Button btnCleanTransfer;
     }
 }
