@@ -1211,7 +1211,8 @@ namespace SOAPAP.UI
             transaction.Total = PaidUp;
             transaction.Amount = PaidUp - Math.Round(transaction.Tax, 2);
             Variables.OrderSale.Status = "EOS02";
-
+            
+            #region Cobro Parcial Productos
             //--------------------------------------------------------------------------------------------------------------------------------------------
             //Variables.OrderSale.OrderSaleDetails.ToList().ForEach(x =>
             //{
@@ -1346,7 +1347,7 @@ namespace SOAPAP.UI
             //    }
             //});
             //------------------------------------------------------------------------------------------------------------------------------------------------
-           
+            #endregion
 
             Variables.OrderSale.OrderSaleDetails.ToList().ForEach(x =>
             {

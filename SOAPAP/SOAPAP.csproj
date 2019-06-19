@@ -31,7 +31,7 @@
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
     <AutorunEnabled>true</AutorunEnabled>
-    <ApplicationRevision>86</ApplicationRevision>
+    <ApplicationRevision>87</ApplicationRevision>
     <ApplicationVersion>1.1.1.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -269,6 +269,7 @@
     <Compile Include="Model\DiscountAuthorization.cs" />
     <Compile Include="Model\DiscountAuthorizationDetail.cs" />
     <Compile Include="Model\DiscountAuthorizationVM.cs" />
+    <Compile Include="Model\DiscountCampaign.cs" />
     <Compile Include="Model\Division.cs" />
     <Compile Include="Model\OrderSale.cs" />
     <Compile Include="Model\OrderSaleDetails.cs" />
@@ -392,6 +393,12 @@
     </Compile>
     <Compile Include="UI\Descuentos\RequestDiscount.Designer.cs">
       <DependentUpon>RequestDiscount.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Email\SendEmail.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Email\SendEmail.Designer.cs">
+      <DependentUpon>SendEmail.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\FacturaAgrupada.cs">
       <SubType>Form</SubType>
@@ -786,6 +793,9 @@
     <EmbeddedResource Include="UI\Descuentos\RequestDiscount.resx">
       <DependentUpon>RequestDiscount.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UI\Email\SendEmail.resx">
+      <DependentUpon>SendEmail.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\FacturaAgrupada.resx">
       <DependentUpon>FacturaAgrupada.cs</DependentUpon>
     </EmbeddedResource>
@@ -1015,6 +1025,7 @@
     <None Include="Resources\bg-center.png" />
     <None Include="Resources\back.png" />
     <None Include="Resources\bares.png" />
+    <None Include="Resources\Banner.png" />
     <Content Include="Resources\buscar.png" />
     <None Include="Resources\cancelado.png" />
     <None Include="Resources\cerrada.png" />
@@ -1028,6 +1039,7 @@
     <None Include="Resources\cruz-signo-remover.png" />
     <None Include="Resources\descuento.png" />
     <None Include="Resources\comprobado.png" />
+    <None Include="Resources\close.png" />
     <Content Include="Resources\detalle.png" />
     <None Include="Resources\folder.png" />
     <None Include="Resources\file.ico" />
@@ -1048,6 +1060,7 @@
     <None Include="Resources\pdfF.png" />
     <None Include="Resources\notificacion.png" />
     <None Include="Resources\pdfBCO.png" />
+    <None Include="Resources\mail.png" />
     <Content Include="Resources\perfil.jpg" />
     <Content Include="Resources\productos.png" />
     <Content Include="Resources\reportes.png" />

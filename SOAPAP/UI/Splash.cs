@@ -29,7 +29,7 @@ namespace SOAPAP.UI
         public Splash()
         {
             InitializeComponent();
-            this.progressBar.Maximum = 110;
+            this.progressBar.Maximum = 115;
             Requests = new RequestsAPI(UrlBase);
             GetConfigurations();
         }
@@ -178,6 +178,22 @@ namespace SOAPAP.UI
             configuration.DefaultPrinter = Requests.ImpresoraPredeterminada();
             lblProgress.Text = "Obteniendo Impresora Predeterminada ...";
             RunProgress(progressn);
+
+            /*23*/
+            var campaign = await Requests.SendURIAsync("/api/ValueParameters/Campaign", HttpMethod.Get);
+            if (campaign.Contains("error"))
+            {
+                DialogResult result = new DialogResult();
+                Form mensaje = new MessageBoxForm("Error", campaign.Split(':')[1].Replace("}", ""), TypeIcon.Icon.Cancel);
+                result = mensaje.ShowDialog();
+            }
+            else
+            {
+                configuration.DiscountCampaigns = JsonConvert.DeserializeObject<List<DiscountCampaign>>(campaign);
+                lblProgress.Text = "Obteniendo Descuentos Disponibles ...";
+                RunProgress(progressn);
+            }
+            
 
             if (configuration.Terminal == null)
             {

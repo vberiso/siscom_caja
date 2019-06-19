@@ -13,6 +13,6 @@ namespace SOAPAP.Model
         public string Token { get; set; }
         public DateTime Expiration { get; set; }
         public List<string> RolName { get; set; }
-        public Int16 Division { get; set; }
+        public int Divition { get; set; }
     }
 }

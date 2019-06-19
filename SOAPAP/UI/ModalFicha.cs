@@ -15,6 +15,7 @@ using System.Threading.Tasks;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Xml;
+using SOAPAP.UI.Email;
 
 namespace SOAPAP.UI
 {
@@ -495,31 +496,54 @@ namespace SOAPAP.UI
             {
                 DataGridViewButtonCell c = (DataGridViewButtonCell)dgvPayment.Rows[e.RowIndex].Cells[0];
                 DataGridViewRow row = this.dgvPayment.Rows[e.RowIndex];
-                var idPayment = Convert.ToInt32(row.Cells["ID"].FormattedValue.ToString());
-                if (_payments[e.RowIndex].BranchOffice.Contains("Migracion") && _payments.Where(x => x.Id == idPayment).FirstOrDefault().TaxReceipts.Count > 0)
-                {
-                   
-                    c.FlatStyle = FlatStyle.Popup;
-                    c.Style.BackColor = Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(133)))), ((int)(((byte)(214)))));
-                    c.Style.ForeColor = Color.White;
-                    e.Paint(e.CellBounds, DataGridViewPaintParts.All);
-                    c.Value = "XML";
-                    e.Handled = true;
-                }
-            }
+                c.FlatStyle = FlatStyle.Popup;
+                c.Style.BackColor = Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(133)))), ((int)(((byte)(214)))));
+                c.Style.ForeColor = Color.White;
+                e.Paint(e.CellBounds, DataGridViewPaintParts.All);
+                c.Value = "XML";
+                e.Handled = true;
+                //    var idPayment = Convert.ToInt32(row.Cells["ID"].FormattedValue.ToString());
+                //    if (_payments[e.RowIndex].BranchOffice.Contains("Migracion") && _payments.Where(x => x.Id == idPayment).FirstOrDefault().TaxReceipts.Count > 0)
+                //    {
 
-            if (e.ColumnIndex >= 0 && this.dgvPayment.Columns[e.ColumnIndex].Name == "PDF" && e.RowIndex >= 0)
+                //        c.FlatStyle = FlatStyle.Popup;
+                //        c.Style.BackColor = Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(133)))), ((int)(((byte)(214)))));
+                //        c.Style.ForeColor = Color.White;
+                //        e.Paint(e.CellBounds, DataGridViewPaintParts.All);
+                //        c.Value = "XML";
+                //        e.Handled = true;
+                //    }
+                //}
+
+                //if (e.ColumnIndex >= 0 && this.dgvPayment.Columns[e.ColumnIndex].Name == "PDF" && e.RowIndex >= 0)
+                //{
+                //    DataGridViewButtonCell c = (DataGridViewButtonCell)dgvPayment.Rows[e.RowIndex].Cells[1];
+                //    if (!_payments[e.RowIndex].BranchOffice.Contains("Migracion"))
+                //    {
+                //        c.FlatStyle = FlatStyle.Popup;
+                //        c.Style.BackColor = Color.FromArgb(((int)(((byte)(221)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
+                //        c.Style.ForeColor = Color.White;
+                //        e.Paint(e.CellBounds, DataGridViewPaintParts.All);
+                //        c.Value = "PDF";
+                //        e.Handled = true;
+                //    }  
+            }
+            else if (e.ColumnIndex >= 0 && this.dgvPayment.Columns[e.ColumnIndex].Name == "PDF" && e.RowIndex >= 0)
             {
                 DataGridViewButtonCell c = (DataGridViewButtonCell)dgvPayment.Rows[e.RowIndex].Cells[1];
-                if (!_payments[e.RowIndex].BranchOffice.Contains("Migracion"))
-                {
-                    c.FlatStyle = FlatStyle.Popup;
-                    c.Style.BackColor = Color.FromArgb(((int)(((byte)(221)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
-                    c.Style.ForeColor = Color.White;
-                    e.Paint(e.CellBounds, DataGridViewPaintParts.All);
-                    c.Value = "PDF";
-                    e.Handled = true;
-                }  
+                DataGridViewRow row = this.dgvPayment.Rows[e.RowIndex];
+                c.FlatStyle = FlatStyle.Popup;
+                c.Style.BackColor = Color.FromArgb(((int)(((byte)(221)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
+                c.Style.ForeColor = Color.White;
+                e.Paint(e.CellBounds, DataGridViewPaintParts.All);
+                c.Value = "PDF";
+                e.Handled = true;
+            }
+            else if(e.ColumnIndex >= 0 && this.dgvPayment.Columns[e.ColumnIndex].Name == "Email" && e.RowIndex >= 0)
+            {
+                DataGridViewButtonCell c = (DataGridViewButtonCell)dgvPayment.Rows[e.RowIndex].Cells[2];
+                DataGridViewRow row = this.dgvPayment.Rows[e.RowIndex];
+                c.Value = "Enviar";
             }
         }
 
@@ -538,7 +562,28 @@ namespace SOAPAP.UI
                     {
                         ExportGridToXML(xml.Xml.StartsWith("ï»¿") ? xml.Xml.Replace("ï»¿", "") : xml.Xml);
                     }
-
+                    else
+                    {
+                        mensaje = new MessageBoxForm(Variables.titleprincipal, "Xml no disponible, posiblemente este pago no este facturado para mayor información contactarse con el administrador del sistema.", TypeIcon.Icon.Cancel);
+                        result = mensaje.ShowDialog();
+                    }
+                }
+                if(e.ColumnIndex == dgvPayment.Columns["Email"].Index && e.RowIndex >= 0)
+                {
+                    var idPayment = Convert.ToInt32(row.Cells["ID"].FormattedValue.ToString());
+                    var payment = _payments.Where(x => x.Id == idPayment).FirstOrDefault().TaxReceipts;
+                    var xml = payment.FirstOrDefault();
+                    var account = _payments.FirstOrDefault().Account;
+                    if(xml != null)
+                    {
+                        SendEmail email = new SendEmail((xml.Xml.StartsWith("ï»¿") ? xml.Xml.Replace("ï»¿", "") : xml.Xml), account, lblCliente.Text);
+                        email.ShowDialog();
+                    }
+                    else
+                    {
+                        mensaje = new MessageBoxForm(Variables.titleprincipal, "Xml no disponible, posiblemente este pago no este facturado para mayor información contactarse con el administrador del sistema.", TypeIcon.Icon.Cancel);
+                        result = mensaje.ShowDialog();
+                    }
                 }
             }
         }

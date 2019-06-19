@@ -108,6 +108,8 @@
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.lblTipo = new System.Windows.Forms.Label();
             this.lblDireccion = new System.Windows.Forms.Label();
+            this.dataGridViewButtonColumn1 = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.dataGridViewButtonColumn2 = new System.Windows.Forms.DataGridViewButtonColumn();
             this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.DatePay = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.BranchOffice = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -115,6 +117,7 @@
             this.AmountPay = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.XML = new System.Windows.Forms.DataGridViewButtonColumn();
             this.PDF = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.Email = new System.Windows.Forms.DataGridViewButtonColumn();
             this.pnlButtons.SuspendLayout();
             this.pnlContent.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
@@ -363,7 +366,7 @@
             this.dgvRecibos.RowsDefaultCellStyle = dataGridViewCellStyle8;
             this.dgvRecibos.RowTemplate.DefaultCellStyle.BackColor = System.Drawing.Color.White;
             this.dgvRecibos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvRecibos.Size = new System.Drawing.Size(889, 249);
+            this.dgvRecibos.Size = new System.Drawing.Size(889, 252);
             this.dgvRecibos.TabIndex = 92;
             this.dgvRecibos.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvRecibos_CellContentDoubleClick);
             this.dgvRecibos.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DgvRecibos_CellDoubleClick);
@@ -464,7 +467,7 @@
             this.dgvAnticipos.RowsDefaultCellStyle = dataGridViewCellStyle12;
             this.dgvAnticipos.RowTemplate.DefaultCellStyle.BackColor = System.Drawing.Color.White;
             this.dgvAnticipos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvAnticipos.Size = new System.Drawing.Size(889, 249);
+            this.dgvAnticipos.Size = new System.Drawing.Size(889, 252);
             this.dgvAnticipos.TabIndex = 92;
             // 
             // Type
@@ -569,7 +572,7 @@
             this.dgvDescuentos.RowsDefaultCellStyle = dataGridViewCellStyle16;
             this.dgvDescuentos.RowTemplate.DefaultCellStyle.BackColor = System.Drawing.Color.White;
             this.dgvDescuentos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvDescuentos.Size = new System.Drawing.Size(895, 255);
+            this.dgvDescuentos.Size = new System.Drawing.Size(895, 258);
             this.dgvDescuentos.TabIndex = 93;
             // 
             // Discount
@@ -629,7 +632,8 @@
             this.PayMethod,
             this.AmountPay,
             this.XML,
-            this.PDF});
+            this.PDF,
+            this.Email});
             this.dgvPayment.Cursor = System.Windows.Forms.Cursors.Hand;
             dataGridViewCellStyle18.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle18.BackColor = System.Drawing.SystemColors.Window;
@@ -729,7 +733,7 @@
             this.dgvObservaciones.RowsDefaultCellStyle = dataGridViewCellStyle24;
             this.dgvObservaciones.RowTemplate.DefaultCellStyle.BackColor = System.Drawing.Color.White;
             this.dgvObservaciones.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvObservaciones.Size = new System.Drawing.Size(889, 249);
+            this.dgvObservaciones.Size = new System.Drawing.Size(889, 252);
             this.dgvObservaciones.TabIndex = 92;
             // 
             // DateObservation
@@ -771,7 +775,7 @@
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView1.Size = new System.Drawing.Size(889, 249);
+            this.dataGridView1.Size = new System.Drawing.Size(889, 252);
             this.dataGridView1.TabIndex = 0;
             // 
             // tableLayoutPanel3
@@ -1053,6 +1057,22 @@
             this.lblDireccion.Size = new System.Drawing.Size(402, 74);
             this.lblDireccion.TabIndex = 4;
             // 
+            // dataGridViewButtonColumn1
+            // 
+            this.dataGridViewButtonColumn1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.dataGridViewButtonColumn1.DataPropertyName = "XML";
+            this.dataGridViewButtonColumn1.HeaderText = "";
+            this.dataGridViewButtonColumn1.Name = "dataGridViewButtonColumn1";
+            this.dataGridViewButtonColumn1.Width = 50;
+            // 
+            // dataGridViewButtonColumn2
+            // 
+            this.dataGridViewButtonColumn2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.dataGridViewButtonColumn2.DataPropertyName = "PDF";
+            this.dataGridViewButtonColumn2.HeaderText = "";
+            this.dataGridViewButtonColumn2.Name = "dataGridViewButtonColumn2";
+            this.dataGridViewButtonColumn2.Width = 50;
+            // 
             // ID
             // 
             this.ID.DataPropertyName = "ID";
@@ -1102,6 +1122,15 @@
             this.PDF.HeaderText = "";
             this.PDF.Name = "PDF";
             this.PDF.Width = 50;
+            // 
+            // Email
+            // 
+            this.Email.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.Email.DataPropertyName = "Email";
+            this.Email.HeaderText = "";
+            this.Email.Name = "Email";
+            this.Email.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.Email.Width = 60;
             // 
             // ModalFicha
             // 
@@ -1211,5 +1240,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn AmountPay;
         private System.Windows.Forms.DataGridViewButtonColumn XML;
         private System.Windows.Forms.DataGridViewButtonColumn PDF;
+        private System.Windows.Forms.DataGridViewButtonColumn Email;
+        private System.Windows.Forms.DataGridViewButtonColumn dataGridViewButtonColumn1;
+        private System.Windows.Forms.DataGridViewButtonColumn dataGridViewButtonColumn2;
     }
 }

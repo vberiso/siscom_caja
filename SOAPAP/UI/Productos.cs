@@ -320,7 +320,7 @@ namespace SOAPAP.UI
 
             dt.PrimaryKey = new DataColumn[] { dt.Columns["ID"] };
 
-            dt = await q.GETTProdcutos("/api/Products/Division/" + Variables.LoginModel.Division);
+            dt = await q.GETTProdcutos("/api/Products/Division/" + Variables.LoginModel.Divition);
 
             CreateTreeViewNodesRecursive(dt, treeList1.Nodes, 0);
 
@@ -890,7 +890,7 @@ namespace SOAPAP.UI
                     orderSale.Period = 1;
                     orderSale.Type = "OA001";
                     orderSale.Status = "ED001";
-                    orderSale.DivisionId = Variables.LoginModel.Division;
+                    orderSale.DivisionId = Variables.LoginModel.Divition;
 
                     string check = string.Empty;
                     List<Model.OrderSaleDetails> lista = new List<Model.OrderSaleDetails>();
