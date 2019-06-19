@@ -4,6 +4,7 @@ using Gma.QrCodeNet.Encoding.Windows.Render;
 using Humanizer;
 using Newtonsoft.Json;
 using SOAPAP.Enums;
+using SOAPAP.Model;
 using SOAPAP.Services;
 using SOAPAP.UI;
 using SOAPAP.UI.Descuentos;
@@ -104,7 +105,9 @@ namespace SOAPAP.UI
         {
             if (e.RowIndex >= 0)
             {
-                mensaje = new ModalDetalleCaja("Detalle Conceptos", "", TypeIcon.Icon.Warning,this.dgvConceptosCobro.Rows[e.RowIndex].Cells["Id"].Value.ToString(), TypeSearchSelect);
+                CollectConcepts temp = (CollectConcepts)((System.Windows.Forms.BindingSource)((System.Windows.Forms.DataGridView)sender).DataSource).Current;
+
+                mensaje = new ModalDetalleCaja("Detalle Conceptos", "", TypeIcon.Icon.Warning,this.dgvConceptosCobro.Rows[e.RowIndex].Cells["Id"].Value.ToString(), TypeSearchSelect, txtCuenta.Text.Trim(), temp.Type);
                 result = mensaje.ShowDialog();
             }
         }
@@ -121,7 +124,9 @@ namespace SOAPAP.UI
 
                 if (e.ColumnIndex == dgvConceptosCobro.Columns["detail"].Index && e.RowIndex >= 0)
                 {
-                    mensaje = new ModalDetalleCaja("Detalle Conceptos", "", TypeIcon.Icon.Warning, this.dgvConceptosCobro.Rows[e.RowIndex].Cells["Id"].Value.ToString(), TypeSearchSelect);
+                    CollectConcepts temp = (CollectConcepts)((System.Windows.Forms.BindingSource)((System.Windows.Forms.DataGridView)sender).DataSource).Current;
+
+                    mensaje = new ModalDetalleCaja("Detalle Conceptos", "", TypeIcon.Icon.Warning, this.dgvConceptosCobro.Rows[e.RowIndex].Cells["Id"].Value.ToString(), TypeSearchSelect, txtCuenta.Text.Trim(), temp.Type);
                     result = mensaje.ShowDialog();
                 }
                 if (this.dgvConceptosCobro.Columns[e.ColumnIndex].Name == "Select")
@@ -982,6 +987,18 @@ namespace SOAPAP.UI
         {
             DetalleDescuentos detalle = new DetalleDescuentos(false);
             detalle.ShowDialog(this);
+        }
+
+        private CancelProduct obtenerDetalleCancelacion(object sender)
+        {
+            CollectConcepts temp = (CollectConcepts)((System.Windows.Forms.BindingSource)((System.Windows.Forms.DataGridView)sender).DataSource).Current;
+            CancelProduct cp = new CancelProduct()
+            {
+                Account = txtCuenta.Text.Trim(),
+                //TipoCobro = temp.Type,
+                //Id = temp.Id
+            };
+            return cp;
         }
     }
 

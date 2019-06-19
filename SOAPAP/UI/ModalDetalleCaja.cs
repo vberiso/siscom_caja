@@ -11,6 +11,8 @@ using System.Linq;
 using System.Data;
 using System.Collections.Generic;
 using System.Globalization;
+using SOAPAP.Model;
+using System.Threading.Tasks;
 
 namespace SOAPAP.UI
 {
@@ -24,8 +26,15 @@ namespace SOAPAP.UI
         Search.Type _typeSearchSelect = Search.Type.Ninguno;
         string _id = String.Empty;
         private string Title;
+        Model.DebtandDiscount response;
+        Model.OrderSale _orderSale = null;
+        CancelProduct CanPro = null;
+        string TipoCobro;
+        string Cuenta;
+        Boolean hayPagosPrevios = false;
+        string json = string.Empty;
 
-        public ModalDetalleCaja(string Title, string Message, TypeIcon.Icon TypeIcon, string Id, Search.Type Type)
+        public ModalDetalleCaja(string Title, string Message, TypeIcon.Icon TypeIcon, string Id, Search.Type Type, string pCuenta = "s/c", string pTipoCobro = "Servicio")
         {
             InitializeComponent();
             //btnAceptar.Location = new Point(198, 5);
@@ -35,6 +44,8 @@ namespace SOAPAP.UI
             lblStatus.Visible = false;
             panel1.Visible = false;
             panel2.Visible = false;
+            Cuenta = pCuenta;
+            TipoCobro = pTipoCobro;
         }
 
         public ModalDetalleCaja(string Title, string Message, TypeIcon.Icon TypeIcon, string Id, Search.Type Type, string Status)
@@ -49,8 +60,7 @@ namespace SOAPAP.UI
             panel1.Visible = true;
             panel2.Visible = true;
         }
-
-
+                
         private void centraX(Control padre, Control hijo)
         {
             int x = 0;
@@ -67,7 +77,7 @@ namespace SOAPAP.UI
         {
             var source = new BindingSource();
             List<Model.DebtDetail> DebtDetailCollection = null;
-            Model.OrderSale _orderSale = null;
+            
             List<CollectConceptsDetail> lCollectConcepts = null;
             decimal Total = 0;
             dgvConceptosCobro.ReadOnly = true;
@@ -99,8 +109,6 @@ namespace SOAPAP.UI
 
             dgvConceptosCobro.Columns["Description"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
 
-
-
             switch (_typeSearchSelect)
             {
                 case Search.Type.Ninguno:
@@ -118,7 +126,7 @@ namespace SOAPAP.UI
                     }
                     else
                     {
-                        var response = JsonConvert.DeserializeObject<Model.DebtandDiscount>(resultDebt);
+                        response = JsonConvert.DeserializeObject<Model.DebtandDiscount>(resultDebt);
 
                         DebtDetailCollection = response.Detail;
 
@@ -137,6 +145,8 @@ namespace SOAPAP.UI
                                                     Total = d.Amount - d.OnAccount
                                                 }).ToList();
                         }
+
+                        hayPagosPrevios = await validaSiHayPagosPrevios(response.Detail[0].DebtId);
                     }
                     break;
                 case Search.Type.Folio:
@@ -173,6 +183,8 @@ namespace SOAPAP.UI
                                                                   Total = d.Amount - d.OnAccount
                                                               }).ToList();
                             }
+
+                            hayPagosPrevios = _orderSale.Status == "EOS01" ? false : true;
                         }
                     }
                     break;
@@ -191,8 +203,130 @@ namespace SOAPAP.UI
             lblTotal.Text = "Total: " + string.Format(new CultureInfo("es-MX"), "{0:C2}", Total);
             source.DataSource = lCollectConcepts;
             dgvConceptosCobro.DataSource = source;
+
+            //Valida si se puede mostrar el boton para cancelar Productos
+            if(TipoCobro == "Productos")
+            {
+                if (hayPagosPrevios == false)
+                    btnSolicCancel.Visible = true;
+                else
+                    btnSolicCancel.Visible = false;
+            }            
+            //btnSolicCancel.Visible = TipoCobro == "Productos" ? true : false;
+
+
         }
-    } 
+
+        private async Task<Boolean> validaSiHayPagosPrevios(int pIdDebt)
+        {
+            Model.Debt tmpDebt = new Debt();
+            Boolean HayPagos = false;
+            try
+            {                
+                var resultDebt = await Requests.SendURIAsync(string.Format("/api/Debts/id/{0}", pIdDebt), HttpMethod.Get, Variables.LoginModel.Token);
+                if (resultDebt.Contains("error"))
+                {
+                    mensaje = new MessageBoxForm("Error", resultDebt.Split(':')[1].Replace("}", ""), TypeIcon.Icon.Cancel);
+                    result = mensaje.ShowDialog();
+                }
+                else
+                {                    
+                    tmpDebt = JsonConvert.DeserializeObject<SOAPAP.Model.Debt>(resultDebt);
+                    if (tmpDebt.Status != "ED001")
+                        HayPagos = true;
+                }                            
+            }
+            catch (Exception e)
+            {
+
+            }
+            return HayPagos;
+        }
+
+        private async void btnSolicCancel_Click(object sender, EventArgs e)
+        {
+            CancelProduct cp = null;
+            switch (_typeSearchSelect)
+            {
+                case Search.Type.Ninguno:
+                    break;
+                case Search.Type.Cuenta:
+                    var temp = response;
+                    cp = new CancelProduct()
+                    {
+                        Account = Cuenta,
+                        CodeConcept = temp.Detail[0].CodeConcept,
+                        NameConcept = temp.Detail[0].NameConcept,
+                        RequestDate = DateTime.Now,
+                        RequesterId = Variables.LoginModel.User,
+                        AuthorisationDate = DateTime.MinValue,
+                        SupervisorId = "s/d",
+                        Status = "EC001",
+                        Type = "TCA01",     //CON CUENTA
+                        MotivoCancelacion = "s/d",
+                        DebtId = temp.Detail[0].DebtId,
+                        OrderSaleId = 0
+                    };
+
+                    break;
+                case Search.Type.Folio:
+                    var temp2 = _orderSale;
+                    cp = new CancelProduct()
+                    {
+                        Account = Cuenta,
+                        CodeConcept = temp2.OrderSaleDetails.FirstOrDefault().CodeConcept,
+                        NameConcept = temp2.OrderSaleDetails.FirstOrDefault().NameConcept,
+                        RequestDate = DateTime.Now,
+                        RequesterId = Variables.LoginModel.User,
+                        AuthorisationDate = DateTime.MinValue,
+                        SupervisorId = "s/d",
+                        Status = "EC001",
+                        Type = "TCA02",     //SIN CUENTA
+                        MotivoCancelacion = "s/d",
+                        DebtId = 0,
+                        OrderSaleId = temp2.OrderSaleDetails.FirstOrDefault().OrderSaleId
+                    };
+                    break;
+            }
+
+            HttpContent content;
+            json = JsonConvert.SerializeObject(cp);
+            content = new StringContent(json, Encoding.UTF8, "application/json");
+
+            var _resulTransaction = await Requests.SendURIAsync("/api/CancelProducts/add", HttpMethod.Post, Variables.LoginModel.Token, content);
+
+            if (_resulTransaction.Contains("error"))
+            {
+                mensaje = new MessageBoxForm("Error", _resulTransaction.Split(':')[1].Replace("}", ""), TypeIcon.Icon.Cancel);
+                result = mensaje.ShowDialog();
+            }
+            else
+            {
+                mensaje = new MessageBoxForm( "Solicitud de Cancelación", "La solicitud fue enviada.", TypeIcon.Icon.Info, true);
+                result = mensaje.ShowDialog();
+                
+                //var lstData = JsonConvert.DeserializeObject<List<DataCollection>>(_resulTransaction);
+
+                    //if (lstData == null)
+                    //{
+                    //    mensaje = new MessageBoxForm("Sin Operaciones", "No se encontraron movimientos.", TypeIcon.Icon.Warning);
+                    //    result = mensaje.ShowDialog();
+                    //}
+
+                    //try
+                    //{
+                    //    //Filtros finales                    
+                    //    pgcCollection.DataSource = lstData;
+
+                    //}
+                    //catch (Exception e)
+                    //{
+                    //    var res = e.Message;
+                    //}
+
+            }
+        }
+    }
 
     public partial class CollectConceptsDetail
     {

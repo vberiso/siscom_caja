@@ -1108,5 +1108,11 @@ namespace SOAPAP.UI
             FindOrders orders = new FindOrders();
             orders.ShowDialog(this);
         }
+
+        private void cancelarOrdenesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FindOrders orders = new FindOrders();
+            orders.ShowDialog(this);
+        }
     }
 }

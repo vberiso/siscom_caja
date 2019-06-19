@@ -34,6 +34,8 @@ namespace SOAPAP.Model
         public string NewStatus { get; set; }
         public int? DebtPeriodId { get; set; }
         public DateTime ExpirationDate { get; set; }
+        public DateTime RechargesDate { get; set; }
+
         public int AgreementId { get; set; }
         public Agreement Agreement { get; set; }
 
