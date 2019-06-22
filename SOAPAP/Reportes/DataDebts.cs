@@ -35,6 +35,8 @@ namespace SOAPAP.Reportes
         public decimal Recargo_Sa { get; set; }
         public decimal Total_Debt { get; set; }
         public decimal Total_DebtDetail { get; set; }
+        public string Descuento { get; set; }
+        public int DescuentoPorcentaje { get; set; }
         public int count { get { return 1; } }
     }
 }
