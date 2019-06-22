@@ -43,7 +43,6 @@
             this.lblTitulo = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.pgcINA = new DevExpress.XtraPivotGrid.PivotGridControl();
-            this.dataIncomeNewAccountsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.pgfColonia = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfAño = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfTipoVivienda = new DevExpress.XtraPivotGrid.PivotGridField();
@@ -51,6 +50,9 @@
             this.pgfObtDrenaje = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfObtSan = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfCount = new DevExpress.XtraPivotGrid.PivotGridField();
+            this.dataIncomeNewAccountsBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.pgfCuenta = new DevExpress.XtraPivotGrid.PivotGridField();
+            this.pgfCliente = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pnlHeader.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pcbIncomeByConcept)).BeginInit();
@@ -243,16 +245,14 @@
             this.pgfObtAgua,
             this.pgfObtDrenaje,
             this.pgfObtSan,
-            this.pgfCount});
+            this.pgfCount,
+            this.pgfCuenta,
+            this.pgfCliente});
             this.pgcINA.Location = new System.Drawing.Point(0, 113);
             this.pgcINA.Name = "pgcINA";
             this.pgcINA.OptionsData.DataProcessingEngine = DevExpress.XtraPivotGrid.PivotDataProcessingEngine.LegacyOptimized;
             this.pgcINA.Size = new System.Drawing.Size(995, 303);
             this.pgcINA.TabIndex = 51;
-            // 
-            // dataIncomeNewAccountsBindingSource
-            // 
-            this.dataIncomeNewAccountsBindingSource.DataSource = typeof(SOAPAP.Reportes.DataIncomeNewAccounts);
             // 
             // pgfColonia
             // 
@@ -312,6 +312,26 @@
             this.pgfCount.FieldName = "count";
             this.pgfCount.Name = "pgfCount";
             // 
+            // dataIncomeNewAccountsBindingSource
+            // 
+            this.dataIncomeNewAccountsBindingSource.DataSource = typeof(SOAPAP.Reportes.DataIncomeNewAccounts);
+            // 
+            // pgfCuenta
+            // 
+            this.pgfCuenta.Area = DevExpress.XtraPivotGrid.PivotArea.RowArea;
+            this.pgfCuenta.AreaIndex = 2;
+            this.pgfCuenta.Caption = "Cuenta";
+            this.pgfCuenta.FieldName = "CUENTA";
+            this.pgfCuenta.Name = "pgfCuenta";
+            // 
+            // pgfCliente
+            // 
+            this.pgfCliente.Area = DevExpress.XtraPivotGrid.PivotArea.RowArea;
+            this.pgfCliente.AreaIndex = 3;
+            this.pgfCliente.Caption = "Cliente";
+            this.pgfCliente.FieldName = "CLIENTE";
+            this.pgfCliente.Name = "pgfCliente";
+            // 
             // RepINA
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -358,5 +378,7 @@
         private DevExpress.XtraPivotGrid.PivotGridField pgfObtDrenaje;
         private DevExpress.XtraPivotGrid.PivotGridField pgfObtSan;
         private DevExpress.XtraPivotGrid.PivotGridField pgfCount;
+        private DevExpress.XtraPivotGrid.PivotGridField pgfCuenta;
+        private DevExpress.XtraPivotGrid.PivotGridField pgfCliente;
     }
 }

@@ -10,6 +10,7 @@ namespace SOAPAP.Reportes
     {
         public int id_agreement { get; set; }
         public string CUENTA { get; set; }
+        public string CLIENTE { get; set; }
         public string CONTRATO_FECHA { get; set; }
         public int CONTRATO_AÑO { get; set; }
         public int CONTRATO_MES { get; set; }

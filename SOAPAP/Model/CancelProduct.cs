@@ -11,7 +11,9 @@ namespace SOAPAP.Model
         public int Id { get; set; }        
         public string Account { get; set; }        
         public string CodeConcept { get; set; }        
-        public string NameConcept { get; set; }       
+        public string NameConcept { get; set; }
+        public string TypeConcept { get; set; }
+        public decimal Amount { get; set; }
         public DateTime RequestDate { get; set; }       
         public string RequesterId { get; set; }        
         public DateTime AuthorisationDate { get; set; }        

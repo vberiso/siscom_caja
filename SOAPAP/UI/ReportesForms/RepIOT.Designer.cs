@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.pnlHeader = new System.Windows.Forms.Panel();
             this.chceMostrarDetalle = new DevExpress.XtraEditors.CheckEdit();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -66,8 +67,8 @@
             this.pgfCuenta = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfOrigenPago = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfNombreOrigenPago = new DevExpress.XtraPivotGrid.PivotGridField();
-            this.dataIncomeOfTreasuryBindingSource = new System.Windows.Forms.BindingSource();
             this.pgfMetodoPago = new DevExpress.XtraPivotGrid.PivotGridField();
+            this.dataIncomeOfTreasuryBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.pnlHeader.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chceMostrarDetalle.Properties)).BeginInit();
             this.tableLayoutPanel2.SuspendLayout();
@@ -453,7 +454,7 @@
             // pgfDesc
             // 
             this.pgfDesc.Area = DevExpress.XtraPivotGrid.PivotArea.DataArea;
-            this.pgfDesc.AreaIndex = 3;
+            this.pgfDesc.AreaIndex = 2;
             this.pgfDesc.Caption = "Descuento";
             this.pgfDesc.FieldName = "Descuento_dt_CS";
             this.pgfDesc.Name = "pgfDesc";
@@ -461,7 +462,7 @@
             // pgfSub
             // 
             this.pgfSub.Area = DevExpress.XtraPivotGrid.PivotArea.DataArea;
-            this.pgfSub.AreaIndex = 2;
+            this.pgfSub.AreaIndex = 3;
             this.pgfSub.Caption = "Subtotal";
             this.pgfSub.FieldName = "Subtotal_dt_CS";
             this.pgfSub.Name = "pgfSub";
@@ -504,16 +505,16 @@
             this.pgfNombreOrigenPago.FieldName = "NombreOrigenPago";
             this.pgfNombreOrigenPago.Name = "pgfNombreOrigenPago";
             // 
-            // dataIncomeOfTreasuryBindingSource
-            // 
-            this.dataIncomeOfTreasuryBindingSource.DataSource = typeof(SOAPAP.Reportes.DataIncomeOfTreasury);
-            // 
             // pgfMetodoPago
             // 
             this.pgfMetodoPago.AreaIndex = 3;
             this.pgfMetodoPago.Caption = "Metodo de pago";
             this.pgfMetodoPago.FieldName = "MetodoPago";
             this.pgfMetodoPago.Name = "pgfMetodoPago";
+            // 
+            // dataIncomeOfTreasuryBindingSource
+            // 
+            this.dataIncomeOfTreasuryBindingSource.DataSource = typeof(SOAPAP.Reportes.DataIncomeOfTreasury);
             // 
             // RepIOT
             // 

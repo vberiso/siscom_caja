@@ -28,11 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
             this.pnlImagen = new System.Windows.Forms.Panel();
+            this.btnSolicCancel = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel1 = new System.Windows.Forms.Panel();
             this.lblTotalDescuento = new System.Windows.Forms.Label();
@@ -52,7 +53,6 @@
             this.Amount = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.OnAccount = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Total = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.btnSolicCancel = new System.Windows.Forms.Button();
             this.pnlImagen.SuspendLayout();
             this.pnlButtons.SuspendLayout();
             this.pnlContent.SuspendLayout();
@@ -78,6 +78,21 @@
             this.pnlImagen.Name = "pnlImagen";
             this.pnlImagen.Size = new System.Drawing.Size(651, 116);
             this.pnlImagen.TabIndex = 0;
+            // 
+            // btnSolicCancel
+            // 
+            this.btnSolicCancel.BackColor = System.Drawing.Color.Red;
+            this.btnSolicCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSolicCancel.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSolicCancel.ForeColor = System.Drawing.Color.White;
+            this.btnSolicCancel.Location = new System.Drawing.Point(477, 26);
+            this.btnSolicCancel.Name = "btnSolicCancel";
+            this.btnSolicCancel.Size = new System.Drawing.Size(171, 31);
+            this.btnSolicCancel.TabIndex = 9;
+            this.btnSolicCancel.Text = "Solicitar Cancelación";
+            this.btnSolicCancel.UseVisualStyleBackColor = false;
+            this.btnSolicCancel.Visible = false;
+            this.btnSolicCancel.Click += new System.EventHandler(this.btnSolicCancel_Click);
             // 
             // panel2
             // 
@@ -206,12 +221,12 @@
             this.dgvConceptosCobro.BackgroundColor = System.Drawing.Color.White;
             this.dgvConceptosCobro.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.dgvConceptosCobro.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle9.Font = new System.Drawing.Font("Microsoft YaHei UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            this.dgvConceptosCobro.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle9;
+            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft YaHei UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            this.dgvConceptosCobro.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
             this.dgvConceptosCobro.ColumnHeadersHeight = 35;
             this.dgvConceptosCobro.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dgvConceptosCobro.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -223,34 +238,34 @@
             this.OnAccount,
             this.Total});
             this.dgvConceptosCobro.Cursor = System.Windows.Forms.Cursors.Hand;
-            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle10.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle10.Font = new System.Drawing.Font("Microsoft YaHei UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle10.ForeColor = System.Drawing.Color.DimGray;
-            dataGridViewCellStyle10.SelectionBackColor = System.Drawing.Color.Silver;
-            dataGridViewCellStyle10.SelectionForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvConceptosCobro.DefaultCellStyle = dataGridViewCellStyle10;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft YaHei UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle6.ForeColor = System.Drawing.Color.DimGray;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.Silver;
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvConceptosCobro.DefaultCellStyle = dataGridViewCellStyle6;
             this.dgvConceptosCobro.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvConceptosCobro.GridColor = System.Drawing.Color.White;
             this.dgvConceptosCobro.Location = new System.Drawing.Point(0, 0);
             this.dgvConceptosCobro.Margin = new System.Windows.Forms.Padding(3, 3, 10, 3);
             this.dgvConceptosCobro.Name = "dgvConceptosCobro";
             this.dgvConceptosCobro.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle11.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle11.Font = new System.Drawing.Font("Microsoft YaHei UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle11.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle11.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle11.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvConceptosCobro.RowHeadersDefaultCellStyle = dataGridViewCellStyle11;
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle7.Font = new System.Drawing.Font("Microsoft YaHei UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvConceptosCobro.RowHeadersDefaultCellStyle = dataGridViewCellStyle7;
             this.dgvConceptosCobro.RowHeadersVisible = false;
-            dataGridViewCellStyle12.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle12.ForeColor = System.Drawing.Color.DimGray;
-            dataGridViewCellStyle12.SelectionBackColor = System.Drawing.Color.Silver;
-            dataGridViewCellStyle12.SelectionForeColor = System.Drawing.Color.Black;
-            this.dgvConceptosCobro.RowsDefaultCellStyle = dataGridViewCellStyle12;
+            dataGridViewCellStyle8.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle8.ForeColor = System.Drawing.Color.DimGray;
+            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.Color.Silver;
+            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.Color.Black;
+            this.dgvConceptosCobro.RowsDefaultCellStyle = dataGridViewCellStyle8;
             this.dgvConceptosCobro.RowTemplate.DefaultCellStyle.BackColor = System.Drawing.Color.White;
             this.dgvConceptosCobro.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvConceptosCobro.Size = new System.Drawing.Size(651, 217);
@@ -304,20 +319,6 @@
             this.Total.FillWeight = 60.93083F;
             this.Total.HeaderText = "Total";
             this.Total.Name = "Total";
-            // 
-            // btnSolicCancel
-            // 
-            this.btnSolicCancel.BackColor = System.Drawing.Color.Red;
-            this.btnSolicCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnSolicCancel.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSolicCancel.ForeColor = System.Drawing.Color.White;
-            this.btnSolicCancel.Location = new System.Drawing.Point(500, 26);
-            this.btnSolicCancel.Name = "btnSolicCancel";
-            this.btnSolicCancel.Size = new System.Drawing.Size(148, 31);
-            this.btnSolicCancel.TabIndex = 9;
-            this.btnSolicCancel.Text = "Solicitar Cancelación";
-            this.btnSolicCancel.UseVisualStyleBackColor = false;
-            this.btnSolicCancel.Click += new System.EventHandler(this.btnSolicCancel_Click);
             // 
             // ModalDetalleCaja
             // 

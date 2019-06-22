@@ -30,6 +30,7 @@ namespace SOAPAP.Reportes
         public string OrigenPago { get; set; }
         public string NombreOrigenPago { get; set; }
         public string MetodoPago { get; set; }
+        public int count { get { return 1; } }
 
         public decimal TotalCS
         {

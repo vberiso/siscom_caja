@@ -31,7 +31,7 @@ namespace SOAPAP.UI
         CancelProduct CanPro = null;
         string TipoCobro;
         string Cuenta;
-        Boolean hayPagosPrevios = false;
+        Boolean enEstadoDeDeuda = false;
         string json = string.Empty;
 
         public ModalDetalleCaja(string Title, string Message, TypeIcon.Icon TypeIcon, string Id, Search.Type Type, string pCuenta = "s/c", string pTipoCobro = "Servicio")
@@ -146,7 +146,7 @@ namespace SOAPAP.UI
                                                 }).ToList();
                         }
 
-                        hayPagosPrevios = await validaSiHayPagosPrevios(response.Detail[0].DebtId);
+                        enEstadoDeDeuda = await validaSiHayDeuda(response.Detail[0].DebtId);
                     }
                     break;
                 case Search.Type.Folio:
@@ -184,7 +184,7 @@ namespace SOAPAP.UI
                                                               }).ToList();
                             }
 
-                            hayPagosPrevios = _orderSale.Status == "EOS01" ? false : true;
+                            enEstadoDeDeuda = _orderSale.Status == "EOS01" ? true : false;
                         }
                     }
                     break;
@@ -207,20 +207,29 @@ namespace SOAPAP.UI
             //Valida si se puede mostrar el boton para cancelar Productos
             if(TipoCobro == "Productos")
             {
-                if (hayPagosPrevios == false)
+                btnSolicCancel.Text = "Solicitar Cancelación";
+                if (enEstadoDeDeuda == true)
                     btnSolicCancel.Visible = true;
                 else
                     btnSolicCancel.Visible = false;
-            }            
+            }   
+            else if(TipoCobro == "Servicios")
+            {
+                btnSolicCancel.Text = "Solicitar Condonación";
+                if (enEstadoDeDeuda == true)
+                    btnSolicCancel.Visible = true;
+                else
+                    btnSolicCancel.Visible = false;
+            }
             //btnSolicCancel.Visible = TipoCobro == "Productos" ? true : false;
 
 
         }
 
-        private async Task<Boolean> validaSiHayPagosPrevios(int pIdDebt)
-        {
-            Model.Debt tmpDebt = new Debt();
-            Boolean HayPagos = false;
+        Model.Debt tmpDebt = new Debt();
+        private async Task<Boolean> validaSiHayDeuda(int pIdDebt)
+        {            
+            Boolean CumpleEstado = false;
             try
             {                
                 var resultDebt = await Requests.SendURIAsync(string.Format("/api/Debts/id/{0}", pIdDebt), HttpMethod.Get, Variables.LoginModel.Token);
@@ -232,15 +241,24 @@ namespace SOAPAP.UI
                 else
                 {                    
                     tmpDebt = JsonConvert.DeserializeObject<SOAPAP.Model.Debt>(resultDebt);
-                    if (tmpDebt.Status != "ED001")
-                        HayPagos = true;
+
+                    if(TipoCobro == "Productos")
+                    {
+                        if (tmpDebt.Status == "ED001")
+                            CumpleEstado = true;
+                    }
+                    else if(TipoCobro == "Servicios")
+                    {
+                        if (tmpDebt.Status == "ED001" || tmpDebt.Status == "ED004" || tmpDebt.Status == "ED007" || tmpDebt.Status == "ED011")
+                            CumpleEstado = true;
+                    }
                 }                            
             }
             catch (Exception e)
             {
 
             }
-            return HayPagos;
+            return CumpleEstado;
         }
 
         private async void btnSolicCancel_Click(object sender, EventArgs e)
@@ -255,10 +273,12 @@ namespace SOAPAP.UI
                     cp = new CancelProduct()
                     {
                         Account = Cuenta,
-                        CodeConcept = temp.Detail[0].CodeConcept,
-                        NameConcept = temp.Detail[0].NameConcept,
+                        CodeConcept = string.Join(",", temp.Detail.Select(x => x.CodeConcept).ToArray()),
+                        NameConcept = string.Join(",", temp.Detail.Select(x => x.NameConcept).ToArray()),
+                        TypeConcept = tmpDebt.Type == "TIP01" ? "Condonación" : "Cancelación",
+                        Amount = tmpDebt.Amount,
                         RequestDate = DateTime.Now,
-                        RequesterId = Variables.LoginModel.User,
+                        RequesterId = Variables.LoginModel.FullName,
                         AuthorisationDate = DateTime.MinValue,
                         SupervisorId = "s/d",
                         Status = "EC001",
@@ -276,8 +296,10 @@ namespace SOAPAP.UI
                         Account = Cuenta,
                         CodeConcept = temp2.OrderSaleDetails.FirstOrDefault().CodeConcept,
                         NameConcept = temp2.OrderSaleDetails.FirstOrDefault().NameConcept,
+                        TypeConcept = tmpDebt.Type == "TIP01" ? "Condonación" : "Cancelación",
+                        Amount = temp2.OrderSaleDetails.FirstOrDefault().Amount,
                         RequestDate = DateTime.Now,
-                        RequesterId = Variables.LoginModel.User,
+                        RequesterId = Variables.LoginModel.FullName,
                         AuthorisationDate = DateTime.MinValue,
                         SupervisorId = "s/d",
                         Status = "EC001",
@@ -290,7 +312,7 @@ namespace SOAPAP.UI
             }
 
             HttpContent content;
-            json = JsonConvert.SerializeObject(cp);
+           json = JsonConvert.SerializeObject(cp);
             content = new StringContent(json, Encoding.UTF8, "application/json");
 
             var _resulTransaction = await Requests.SendURIAsync("/api/CancelProducts/add", HttpMethod.Post, Variables.LoginModel.Token, content);
@@ -303,27 +325,7 @@ namespace SOAPAP.UI
             else
             {
                 mensaje = new MessageBoxForm( "Solicitud de Cancelación", "La solicitud fue enviada.", TypeIcon.Icon.Info, true);
-                result = mensaje.ShowDialog();
-                
-                //var lstData = JsonConvert.DeserializeObject<List<DataCollection>>(_resulTransaction);
-
-                    //if (lstData == null)
-                    //{
-                    //    mensaje = new MessageBoxForm("Sin Operaciones", "No se encontraron movimientos.", TypeIcon.Icon.Warning);
-                    //    result = mensaje.ShowDialog();
-                    //}
-
-                    //try
-                    //{
-                    //    //Filtros finales                    
-                    //    pgcCollection.DataSource = lstData;
-
-                    //}
-                    //catch (Exception e)
-                    //{
-                    //    var res = e.Message;
-                    //}
-
+                result = mensaje.ShowDialog();                
             }
         }
     }

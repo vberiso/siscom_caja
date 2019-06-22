@@ -37,7 +37,7 @@ namespace SOAPAP.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://api-siscom.sosapac.gob.mx/")]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://api-siscom.cuautlancingo.gob.mx/")]
         public string URL {
             get {
                 return ((string)(this["URL"]));
