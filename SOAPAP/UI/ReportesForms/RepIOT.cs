@@ -213,8 +213,10 @@ namespace SOAPAP.UI.ReportesForms
                 else
                 {  
                     try
-                    {
-                        pgdIOT.DataSource = lstData;                        
+                    {                        
+                        pgdIOT.DataSource = lstData;
+                        //Para este atributo se uncheck los tipo cancelado.
+                        pgfStatus.FilterValues.Add("Cancelado");
                     }
                     catch (Exception e)
                     {
