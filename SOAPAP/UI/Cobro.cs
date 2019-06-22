@@ -55,7 +55,7 @@ namespace SOAPAP.UI
                 ObtenerInformacion();
             }
             anual = false;
-            prepaid = false;
+            prepaid = false;       
         }
 
 
@@ -329,7 +329,11 @@ namespace SOAPAP.UI
         private async void ObtenerInformacion()
         {
             LimpiaDatos();
-
+            if (Variables.Configuration.DiscountCampaigns.Count > 0)
+            {
+                gbxCampaign.Visible = true;
+                lblTitleCampaign.Text = Variables.Configuration.DiscountCampaigns.First().Name;
+            }
             if (txtCuenta.Text.Trim().Length != 0)
             {
                 string _cuenta = txtCuenta.Text.Trim();

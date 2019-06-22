@@ -643,6 +643,16 @@ namespace SOAPAP.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap percentage {
+            get {
+                object obj = ResourceManager.GetObject("percentage", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap perfil {
             get {
                 object obj = ResourceManager.GetObject("perfil", resourceCulture);

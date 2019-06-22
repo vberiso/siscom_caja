@@ -68,6 +68,12 @@
             this.lblTitulo = new System.Windows.Forms.Label();
             this.pbxIcon = new System.Windows.Forms.PictureBox();
             this.pnlDatos = new System.Windows.Forms.Panel();
+            this.gbxCampaign = new System.Windows.Forms.GroupBox();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.pictureBox3 = new System.Windows.Forms.PictureBox();
+            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.lblTitleCampaign = new System.Windows.Forms.Label();
+            this.btnAcept = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.tlpRFC = new System.Windows.Forms.TableLayoutPanel();
             this.lblRFC = new System.Windows.Forms.Label();
@@ -100,6 +106,10 @@
             this.pnlHeaderLeft.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbxIcon)).BeginInit();
             this.pnlDatos.SuspendLayout();
+            this.gbxCampaign.SuspendLayout();
+            this.tableLayoutPanel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
+            this.tableLayoutPanel2.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.tlpRFC.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
@@ -390,9 +400,9 @@
             this.mstMenu.Dock = System.Windows.Forms.DockStyle.None;
             this.mstMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.stmiOpciones});
-            this.mstMenu.Location = new System.Drawing.Point(470, 9);
+            this.mstMenu.Location = new System.Drawing.Point(590, 9);
             this.mstMenu.Name = "mstMenu";
-            this.mstMenu.Size = new System.Drawing.Size(163, 31);
+            this.mstMenu.Size = new System.Drawing.Size(43, 31);
             this.mstMenu.TabIndex = 0;
             this.mstMenu.Text = "menuStrip1";
             // 
@@ -416,7 +426,7 @@
             this.estatusToolStripMenuItem});
             this.tsmiInformacion.ForeColor = System.Drawing.Color.DimGray;
             this.tsmiInformacion.Name = "tsmiInformacion";
-            this.tsmiInformacion.Size = new System.Drawing.Size(180, 26);
+            this.tsmiInformacion.Size = new System.Drawing.Size(160, 26);
             this.tsmiInformacion.Text = "Descuentos";
             // 
             // descuentosToolStripMenuItem
@@ -553,6 +563,7 @@
             // pnlDatos
             // 
             this.pnlDatos.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.pnlDatos.Controls.Add(this.gbxCampaign);
             this.pnlDatos.Controls.Add(this.groupBox2);
             this.pnlDatos.Controls.Add(this.groupBox1);
             this.pnlDatos.Controls.Add(this.gbContribuyente);
@@ -561,6 +572,91 @@
             this.pnlDatos.Name = "pnlDatos";
             this.pnlDatos.Size = new System.Drawing.Size(344, 578);
             this.pnlDatos.TabIndex = 47;
+            // 
+            // gbxCampaign
+            // 
+            this.gbxCampaign.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.gbxCampaign.AutoSize = true;
+            this.gbxCampaign.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.gbxCampaign.Controls.Add(this.tableLayoutPanel1);
+            this.gbxCampaign.Location = new System.Drawing.Point(13, 291);
+            this.gbxCampaign.Margin = new System.Windows.Forms.Padding(20);
+            this.gbxCampaign.Name = "gbxCampaign";
+            this.gbxCampaign.Size = new System.Drawing.Size(316, 101);
+            this.gbxCampaign.TabIndex = 3;
+            this.gbxCampaign.TabStop = false;
+            this.gbxCampaign.Visible = false;
+            // 
+            // tableLayoutPanel1
+            // 
+            this.tableLayoutPanel1.ColumnCount = 2;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 10.17442F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 89.82558F));
+            this.tableLayoutPanel1.Controls.Add(this.pictureBox3, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel2, 1, 0);
+            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 16);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 1;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(310, 82);
+            this.tableLayoutPanel1.TabIndex = 2;
+            // 
+            // pictureBox3
+            // 
+            this.pictureBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.pictureBox3.BackColor = System.Drawing.Color.Transparent;
+            this.pictureBox3.Image = global::SOAPAP.Properties.Resources.percentage;
+            this.pictureBox3.InitialImage = global::SOAPAP.Properties.Resources.movimientos;
+            this.pictureBox3.Location = new System.Drawing.Point(3, 3);
+            this.pictureBox3.Name = "pictureBox3";
+            this.pictureBox3.Size = new System.Drawing.Size(25, 76);
+            this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.pictureBox3.TabIndex = 38;
+            this.pictureBox3.TabStop = false;
+            // 
+            // tableLayoutPanel2
+            // 
+            this.tableLayoutPanel2.ColumnCount = 1;
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel2.Controls.Add(this.lblTitleCampaign, 0, 0);
+            this.tableLayoutPanel2.Controls.Add(this.btnAcept, 0, 1);
+            this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(34, 3);
+            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
+            this.tableLayoutPanel2.RowCount = 2;
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(273, 76);
+            this.tableLayoutPanel2.TabIndex = 39;
+            // 
+            // lblTitleCampaign
+            // 
+            this.lblTitleCampaign.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblTitleCampaign.Location = new System.Drawing.Point(3, 0);
+            this.lblTitleCampaign.Name = "lblTitleCampaign";
+            this.lblTitleCampaign.Size = new System.Drawing.Size(267, 38);
+            this.lblTitleCampaign.TabIndex = 0;
+            this.lblTitleCampaign.Text = "Descuento";
+            this.lblTitleCampaign.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // btnAcept
+            // 
+            this.btnAcept.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(3)))), ((int)(((byte)(155)))), ((int)(((byte)(229)))));
+            this.btnAcept.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnAcept.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(3)))), ((int)(((byte)(155)))), ((int)(((byte)(250)))));
+            this.btnAcept.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnAcept.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAcept.ForeColor = System.Drawing.Color.White;
+            this.btnAcept.Location = new System.Drawing.Point(3, 41);
+            this.btnAcept.Name = "btnAcept";
+            this.btnAcept.Size = new System.Drawing.Size(267, 32);
+            this.btnAcept.TabIndex = 1;
+            this.btnAcept.Text = "Aplicar";
+            this.btnAcept.UseVisualStyleBackColor = false;
             // 
             // groupBox2
             // 
@@ -827,6 +923,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.pbxIcon)).EndInit();
             this.pnlDatos.ResumeLayout(false);
             this.pnlDatos.PerformLayout();
+            this.gbxCampaign.ResumeLayout(false);
+            this.tableLayoutPanel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
+            this.tableLayoutPanel2.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             this.tlpRFC.ResumeLayout(false);
             this.tlpRFC.PerformLayout();
@@ -894,5 +994,11 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Importe;
         private System.Windows.Forms.ToolStripMenuItem descuentosToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem estatusToolStripMenuItem;
+        private System.Windows.Forms.GroupBox gbxCampaign;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private System.Windows.Forms.PictureBox pictureBox3;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
+        private System.Windows.Forms.Label lblTitleCampaign;
+        private System.Windows.Forms.Button btnAcept;
     }
 }

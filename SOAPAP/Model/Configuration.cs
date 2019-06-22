@@ -31,5 +31,6 @@ namespace SOAPAP.Model
         public string CFDICertificado { get; set; }
         public string StringURLFirebase { get; set; }
         public List<DiscountCampaign> DiscountCampaigns { get; set; }
+        public decimal Percentage { get; set; }
     }
 }

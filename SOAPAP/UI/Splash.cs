@@ -29,7 +29,7 @@ namespace SOAPAP.UI
         public Splash()
         {
             InitializeComponent();
-            this.progressBar.Maximum = 115;
+            this.progressBar.Maximum = 120;
             Requests = new RequestsAPI(UrlBase);
             GetConfigurations();
         }
@@ -193,7 +193,13 @@ namespace SOAPAP.UI
                 lblProgress.Text = "Obteniendo Descuentos Disponibles ...";
                 RunProgress(progressn);
             }
-            
+
+            /*24*/
+            decimal Percentage = 0;
+            Decimal.TryParse(ValidResponses(await Requests.SendURIAsync("/api/ValueParameters?value=AIM", HttpMethod.Get)), out Percentage);
+            configuration.Percentage = Percentage;
+            lblProgress.Text = "Obteniendo AIM ...";
+            RunProgress(progressn);
 
             if (configuration.Terminal == null)
             {

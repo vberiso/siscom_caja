@@ -68,10 +68,6 @@ namespace SOAPAP.UI
                     PopulateTreeView(newParentNode, folder["ID"].ToString(), folders);
                 }
             }
-
-            //var result = tree.Nodes.OfType<TreeNode>()
-            //     .SelectMany(x => x.ChildNodes.OfType<TreeNode>())
-            //     .FirstOrDefault(x => x.Text == "C");
         }
 
         void Total()
@@ -116,7 +112,8 @@ namespace SOAPAP.UI
                         DataRow row = dts1.NewRow();
                         row["ID"] = m.productId;
                         row["NOMBRE"] = namesconcept == "" ? GetPath(treeList1.FindNodeByID(treeList1.FocusedNode.Id), "") : namesconcept;
-                        row["TOTAL"] = ModalProduct.Quatity;
+                        //row["TOTAL"] = ModalProduct.Quatity
+                        row["TOTAL"] = Variables.LoginModel.Divition == 2 ? Math.Round((ModalProduct.Quatity * ((Variables.Configuration.Percentage / 100) + 1)), 2) : ModalProduct.Quatity;
                         row["IVA"] = m.haveTax;
                         if (m.haveTax)
                             row["AMOUNTIVA"] = Math.Round((((decimal)row["TOTAL"] * Convert.ToDecimal(Variables.Configuration.IVA)) / 100), 2);
@@ -144,7 +141,8 @@ namespace SOAPAP.UI
                         DataRow row = dts1.NewRow();
                         row["ID"] = m.productId;
                         row["NOMBRE"] = namesconcept == "" ? GetPath(treeList1.FindNodeByID(treeList1.FocusedNode.Id), "") : namesconcept;
-                        row["TOTAL"] = (ModalProduct.Quatity * m.percentage) / 100;
+                        //row["TOTAL"] = (ModalProduct.Quatity * m.percentage) / 100;
+                        row["TOTAL"] = Variables.LoginModel.Divition == 2 ? Math.Round((Math.Round(((ModalProduct.Quatity * m.percentage) / 100), 2 ) * ((Variables.Configuration.Percentage / 100) + 1)), 2) : (ModalProduct.Quatity * m.percentage) / 100;
                         row["IVA"] = m.haveTax;
                         if (m.haveTax)
                             row["AMOUNTIVA"] = Math.Round((((decimal)row["TOTAL"] * Convert.ToDecimal(Variables.Configuration.IVA)) / 100), 2);
@@ -171,7 +169,8 @@ namespace SOAPAP.UI
                         DataRow row = dts1.NewRow();
                         row["ID"] = m.productId;
                         row["NOMBRE"] = namesconcept == "" ? GetPath(treeList1.FindNodeByID(treeList1.FocusedNode.Id), "") : namesconcept;
-                        row["TOTAL"] = ModalProduct.Quatity * Convert.ToDecimal(m.amount);
+                        //row["TOTAL"] = ModalProduct.Quatity * Convert.ToDecimal(m.amount);
+                        row["TOTAL"] = Variables.LoginModel.Divition == 2 ? Math.Round(((ModalProduct.Quatity * Convert.ToDecimal(m.amount)) * ((Variables.Configuration.Percentage / 100) + 1)), 2) : ModalProduct.Quatity * Convert.ToDecimal(m.amount);
                         row["IVA"] = m.haveTax;
                         if (m.haveTax)
                             row["AMOUNTIVA"] = Math.Round((((decimal)row["TOTAL"] * Convert.ToDecimal(Variables.Configuration.IVA)) / 100), 2);
@@ -198,7 +197,8 @@ namespace SOAPAP.UI
                         DataRow row = dts1.NewRow();
                         row["ID"] = m.productId;
                         row["NOMBRE"] = namesconcept == "" ? GetPath(treeList1.FindNodeByID(treeList1.FocusedNode.Id), "") : namesconcept;
-                        row["TOTAL"] = Convert.ToDecimal(Variables.Configuration.minimumsalary) * ModalProduct.Quatity;
+                        //row["TOTAL"] = Convert.ToDecimal(Variables.Configuration.minimumsalary) * ModalProduct.Quatity;
+                        row["TOTAL"] = Variables.LoginModel.Divition == 2 ? Math.Round(((Convert.ToDecimal(Variables.Configuration.minimumsalary) * ModalProduct.Quatity) * ((Variables.Configuration.Percentage / 100) + 1)), 2) : Convert.ToDecimal(Variables.Configuration.minimumsalary) * ModalProduct.Quatity;
                         row["IVA"] = m.haveTax;
                         decimal amount = Convert.ToDecimal(Variables.Configuration.minimumsalary) * ModalProduct.Quatity;
                         if (m.haveTax)
@@ -231,7 +231,8 @@ namespace SOAPAP.UI
                                 DataRow row = dts1.NewRow();
                                 row["ID"] = m.productId;
                                 row["NOMBRE"] = name;
-                                row["TOTAL"] = (decimal)m.amount * ModalProduct.Quatity;
+                                //row["TOTAL"] = (decimal)m.amount * ModalProduct.Quatity;
+                                row["TOTAL"] = Variables.LoginModel.Divition == 2 ? Math.Round((((decimal)m.amount * ModalProduct.Quatity) * ((Variables.Configuration.Percentage / 100) + 1)), 2) : (decimal)m.amount * ModalProduct.Quatity;
                                 row["IVA"] = m.haveTax;
                                 row["CANTIDAD"] = ModalProduct.Quatity;
                                 if (m.haveTax)
@@ -398,88 +399,6 @@ namespace SOAPAP.UI
         {
             int rowIndex = RonwIndexIfExist();
             var rowCountAfterAdding = dts1.Rows.Count;
-            //if(dgvMovimientos.Rows.Count)
-            //switch (vp)
-            //{
-            //    case 1:
-            //        {
-            //            DataRow row = dts1.NewRow();
-            //            row["ID"] = m.productId;
-            //            row["NOMBRE"] = namesconcept == "" ? GetPath(treeList1.FindNodeByID(treeList1.FocusedNode.Id), "") : namesconcept;
-            //            row["TOTAL"] = ModalProduct.Quatity;
-            //            row["IVA"] = m.haveTax;
-            //            if (m.haveTax)
-            //                row["AMOUNTIVA"] = Math.Round((((decimal)row["TOTAL"] * Convert.ToDecimal(Variables.Configuration.IVA)) / 100), 2);
-            //            else
-            //                row["AMOUNTIVA"] = 0;
-            //            row["CANTIDAD"] = 1;
-            //            row["UNIDAD"] = m.product.ProductParams.FirstOrDefault().UnitMeasurement;
-            //            dts1.Rows.Add(row);
-
-            //            tarifagrid();
-            //            Total();
-            //            break;
-            //        }
-
-            //    case 2:
-            //        {
-            //            DataRow row = dts1.NewRow();
-            //            row["ID"] = m.productId;
-            //            row["NOMBRE"] = namesconcept == "" ? GetPath(treeList1.FindNodeByID(treeList1.FocusedNode.Id), "") : namesconcept;
-            //            row["TOTAL"] = (ModalProduct.Quatity * m.percentage) / 100;
-            //            row["IVA"] = m.haveTax;
-            //            if (m.haveTax)
-            //                row["AMOUNTIVA"] = Math.Round((((decimal)row["TOTAL"] * Convert.ToDecimal(Variables.Configuration.IVA)) / 100), 2);
-            //            else
-            //                row["AMOUNTIVA"] = 0;
-            //            row["CANTIDAD"] = 1;
-            //            row["UNIDAD"] = m.product.ProductParams.FirstOrDefault().UnitMeasurement;
-            //            dts1.Rows.Add(row);
-            //            tarifagrid();
-            //            Total();
-            //            break;
-            //        }
-
-            //    case 3:
-            //        {
-            //            DataRow row = dts1.NewRow();
-            //            row["ID"] = m.productId;
-            //            row["NOMBRE"] = namesconcept == "" ? GetPath(treeList1.FindNodeByID(treeList1.FocusedNode.Id), "") : namesconcept;
-            //            row["TOTAL"] = ModalProduct.Quatity * Convert.ToDecimal(m.amount);
-            //            row["IVA"] = m.haveTax;
-            //            if (m.haveTax)
-            //                row["AMOUNTIVA"] = Math.Round((((decimal)row["TOTAL"] * Convert.ToDecimal(Variables.Configuration.IVA)) / 100), 2);
-            //            else
-            //                row["AMOUNTIVA"] = 0;
-            //            row["CANTIDAD"] = ModalProduct.Quatity;
-            //            row["UNIDAD"] = m.product.ProductParams.FirstOrDefault().UnitMeasurement;
-            //            dts1.Rows.Add(row);
-            //            tarifagrid();
-            //            Total();
-            //            break;
-            //        }
-
-            //    case 4:
-            //        {
-            //            //var rowCountAfterAdding = dts1.Rows.Count;
-            //            DataRow row = dts1.NewRow();
-            //            row["ID"] = m.productId;
-            //            row["NOMBRE"] = namesconcept == "" ? GetPath(treeList1.FindNodeByID(treeList1.FocusedNode.Id), "") : namesconcept;
-            //            row["TOTAL"] = Convert.ToDecimal(Variables.Configuration.minimumsalary) * ModalProduct.Quatity;
-            //            row["IVA"] = m.haveTax;
-            //            decimal amount = Convert.ToDecimal(Variables.Configuration.minimumsalary) * ModalProduct.Quatity;
-            //            if (m.haveTax)
-            //                row["AMOUNTIVA"] = Math.Round(((amount * Convert.ToDecimal(Variables.Configuration.IVA)) / 100), 2);
-            //            else
-            //                row["AMOUNTIVA"] = 0;
-            //            row["CANTIDAD"] = 1;
-            //            row["UNIDAD"] = m.product.ProductParams.FirstOrDefault().UnitMeasurement;
-            //            dts1.Rows.Add(row);
-            //            tarifagrid();
-            //            Total();
-            //            break;
-            //        }
-            //}
         }
 
         private void dgvMovimientos_CellClick(object sender, DataGridViewCellEventArgs e)

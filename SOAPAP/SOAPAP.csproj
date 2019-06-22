@@ -31,7 +31,7 @@
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
     <AutorunEnabled>true</AutorunEnabled>
-    <ApplicationRevision>87</ApplicationRevision>
+    <ApplicationRevision>91</ApplicationRevision>
     <ApplicationVersion>1.1.1.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -1061,6 +1061,7 @@
     <None Include="Resources\notificacion.png" />
     <None Include="Resources\pdfBCO.png" />
     <None Include="Resources\mail.png" />
+    <None Include="Resources\percentage.png" />
     <Content Include="Resources\perfil.jpg" />
     <Content Include="Resources\productos.png" />
     <Content Include="Resources\reportes.png" />
