@@ -841,7 +841,10 @@ namespace SOAPAP
 
         private void adeudosToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ShowForm("SOAPAP", "UI.ReportesForms.RepDebts");
+            if(Variables.Configuration.IsMunicipal)
+                ShowForm("SOAPAP", "UI.ReportesForms.RepDebtsAyunt");
+            else
+                ShowForm("SOAPAP", "UI.ReportesForms.RepDebts");
         }
 
         private void fraccionamientosNuevosToolStripMenuItem_Click(object sender, EventArgs e)

@@ -16,7 +16,7 @@ using System.Windows.Forms;
 
 namespace SOAPAP.UI.ReportesForms
 {
-    public partial class RepDebts : Form
+    public partial class RepDebtsAyunt : Form
     {
         Form loading;
         private RequestsAPI Requests = null;
@@ -26,13 +26,13 @@ namespace SOAPAP.UI.ReportesForms
         private string UrlBase = Properties.Settings.Default.URL;
         string json = string.Empty;
 
-        public RepDebts()
+        public RepDebtsAyunt()
         {
             Requests = new RequestsAPI(UrlBase);
             InitializeComponent();
         }
 
-        private async void RepDebts_Load(object sender, EventArgs e)
+        private async void RepDebtsAyunt_Load(object sender, EventArgs e)
         {
             loading = new Loading();
             loading.Show(this);
@@ -43,7 +43,7 @@ namespace SOAPAP.UI.ReportesForms
         }
 
         private async Task CargarCombos()
-        {             
+        {
             //Combo de Colonias.
             List<DataComboBox> lstColonias = new List<DataComboBox>();
             var resultTypeTransaction2 = await Requests.SendURIAsync("/api/Towns/2/Suburbs", HttpMethod.Get, Variables.LoginModel.Token);
@@ -73,7 +73,7 @@ namespace SOAPAP.UI.ReportesForms
             loading.Close();
         }
 
-        private void btnExportar_Click(object sender, EventArgs e)
+        private async void btnExportar_Click(object sender, EventArgs e)
         {
             ////Metodo de exportar
             //DevExpress.Export.ExportSettings.DefaultExportType = DevExpress.Export.ExportType.DataAware;
@@ -94,11 +94,11 @@ namespace SOAPAP.UI.ReportesForms
         }
 
         public async Task cargar()
-        {            
+        {
             var id = Variables.LoginModel.User;
-                        
+
             ////Se obtiene las Colonias          
-            var itemsCol = chlbxColonia.CheckedItems;            
+            var itemsCol = chlbxColonia.CheckedItems;
             string lstColonias = "";
             if (itemsCol.Count == 0)
             {
@@ -115,8 +115,8 @@ namespace SOAPAP.UI.ReportesForms
                 }
                 lstColonias = lstColonias.Substring(0, lstColonias.Length - 1);
             }
-                        
-            var _resulTransaction = await Requests.SendURIAsync("/api/Reports/DebtsWater/" + lstColonias, HttpMethod.Get, Variables.LoginModel.Token);
+
+            var _resulTransaction = await Requests.SendURIAsync("/api/Reports/DebtsCouncil/" + lstColonias, HttpMethod.Get, Variables.LoginModel.Token);
 
             if (_resulTransaction.Contains("error"))
             {
@@ -125,14 +125,14 @@ namespace SOAPAP.UI.ReportesForms
             }
             else
             {
-                List<DataDebts> lstData = JsonConvert.DeserializeObject<List<DataDebts>>(_resulTransaction);                
+                List<DataDebtsAyunt> lstData = JsonConvert.DeserializeObject<List<DataDebtsAyunt>>(_resulTransaction);
                 if (lstData == null)
                 {
                     mensaje = new MessageBoxForm("Sin Operaciones", "No se encontraron movimientos.", TypeIcon.Icon.Warning);
                     result = mensaje.ShowDialog();
                 }
                 else
-                {                   
+                {
                     try
                     {
                         pgcAdeudos.DataSource = lstData;

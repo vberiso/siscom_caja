@@ -1,6 +1,6 @@
 ﻿namespace SOAPAP.UI.ReportesForms
 {
-    partial class RepDebts
+    partial class RepDebtsAyunt
     {
         /// <summary>
         /// Required designer variable.
@@ -47,10 +47,8 @@
             this.pgfHasta = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfRecAgua = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfMontoAgua = new DevExpress.XtraPivotGrid.PivotGridField();
-            this.pgfMontoDr = new DevExpress.XtraPivotGrid.PivotGridField();
-            this.pgfRecargoDr = new DevExpress.XtraPivotGrid.PivotGridField();
-            this.pgfMontoSan = new DevExpress.XtraPivotGrid.PivotGridField();
-            this.pgfRecargoSan = new DevExpress.XtraPivotGrid.PivotGridField();
+            this.pgfMontoLi = new DevExpress.XtraPivotGrid.PivotGridField();
+            this.pgfRecargoLi = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfTotal = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfColonia = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfTipoPredio = new DevExpress.XtraPivotGrid.PivotGridField();
@@ -61,7 +59,10 @@
             this.pgfPorcentaje = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pbBG = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.dataDebtsBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.pgfDesdeLi = new DevExpress.XtraPivotGrid.PivotGridField();
+            this.pgfHastaLi = new DevExpress.XtraPivotGrid.PivotGridField();
+            this.pgfTotalPr = new DevExpress.XtraPivotGrid.PivotGridField();
+            this.dataDebtsAyuntBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.pnlHeader.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chlbxColonia)).BeginInit();
@@ -70,7 +71,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pgcAdeudos)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbBG)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataDebtsBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataDebtsAyuntBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // pnlHeader
@@ -86,8 +87,8 @@
             this.pnlHeader.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlHeader.Location = new System.Drawing.Point(0, 0);
             this.pnlHeader.Name = "pnlHeader";
-            this.pnlHeader.Size = new System.Drawing.Size(1176, 158);
-            this.pnlHeader.TabIndex = 50;
+            this.pnlHeader.Size = new System.Drawing.Size(1131, 158);
+            this.pnlHeader.TabIndex = 51;
             // 
             // btnExportar
             // 
@@ -97,7 +98,7 @@
             this.btnExportar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnExportar.Font = new System.Drawing.Font("Segoe UI Black", 12F, System.Drawing.FontStyle.Bold);
             this.btnExportar.ForeColor = System.Drawing.Color.Black;
-            this.btnExportar.Location = new System.Drawing.Point(1021, 54);
+            this.btnExportar.Location = new System.Drawing.Point(976, 54);
             this.btnExportar.Name = "btnExportar";
             this.btnExportar.Size = new System.Drawing.Size(133, 39);
             this.btnExportar.TabIndex = 19;
@@ -113,7 +114,7 @@
             this.btnGenerar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnGenerar.Font = new System.Drawing.Font("Segoe UI Black", 12F, System.Drawing.FontStyle.Bold);
             this.btnGenerar.ForeColor = System.Drawing.Color.Black;
-            this.btnGenerar.Location = new System.Drawing.Point(1021, 9);
+            this.btnGenerar.Location = new System.Drawing.Point(976, 9);
             this.btnGenerar.Name = "btnGenerar";
             this.btnGenerar.Size = new System.Drawing.Size(133, 39);
             this.btnGenerar.TabIndex = 18;
@@ -131,7 +132,7 @@
             this.tableLayoutPanel1.Controls.Add(this.label6, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.srchColonia, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.cheColonia, 0, 2);
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(459, 11);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(436, 11);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 4;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 15F));
@@ -215,7 +216,7 @@
             this.pgcAdeudos.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.pgcAdeudos.DataSource = this.dataDebtsBindingSource;
+            this.pgcAdeudos.DataSource = this.dataDebtsAyuntBindingSource;
             this.pgcAdeudos.Fields.AddRange(new DevExpress.XtraPivotGrid.PivotGridField[] {
             this.pgfCuenta,
             this.pgfNombre,
@@ -224,10 +225,8 @@
             this.pgfHasta,
             this.pgfRecAgua,
             this.pgfMontoAgua,
-            this.pgfMontoDr,
-            this.pgfRecargoDr,
-            this.pgfMontoSan,
-            this.pgfRecargoSan,
+            this.pgfMontoLi,
+            this.pgfRecargoLi,
             this.pgfTotal,
             this.pgfColonia,
             this.pgfTipoPredio,
@@ -235,12 +234,15 @@
             this.pgfRegion,
             this.pgfCount,
             this.pgfDescuento,
-            this.pgfPorcentaje});
+            this.pgfPorcentaje,
+            this.pgfDesdeLi,
+            this.pgfHastaLi,
+            this.pgfTotalPr});
             this.pgcAdeudos.Location = new System.Drawing.Point(1, 158);
             this.pgcAdeudos.Name = "pgcAdeudos";
             this.pgcAdeudos.OptionsData.DataProcessingEngine = DevExpress.XtraPivotGrid.PivotDataProcessingEngine.LegacyOptimized;
-            this.pgcAdeudos.Size = new System.Drawing.Size(1172, 264);
-            this.pgcAdeudos.TabIndex = 51;
+            this.pgcAdeudos.Size = new System.Drawing.Size(1130, 264);
+            this.pgcAdeudos.TabIndex = 52;
             // 
             // pgfCuenta
             // 
@@ -269,19 +271,17 @@
             // 
             // pgfDesde
             // 
-            this.pgfDesde.Area = DevExpress.XtraPivotGrid.PivotArea.RowArea;
-            this.pgfDesde.AreaIndex = 7;
-            this.pgfDesde.Caption = "Desde";
-            this.pgfDesde.FieldName = "DESDE";
+            this.pgfDesde.AreaIndex = 0;
+            this.pgfDesde.Caption = "Desde Pr";
+            this.pgfDesde.FieldName = "DESDE_Pr";
             this.pgfDesde.Name = "pgfDesde";
             this.pgfDesde.Width = 90;
             // 
             // pgfHasta
             // 
-            this.pgfHasta.Area = DevExpress.XtraPivotGrid.PivotArea.RowArea;
-            this.pgfHasta.AreaIndex = 8;
-            this.pgfHasta.Caption = "Hasta";
-            this.pgfHasta.FieldName = "HASTA";
+            this.pgfHasta.AreaIndex = 1;
+            this.pgfHasta.Caption = "Hasta Pr";
+            this.pgfHasta.FieldName = "HASTA_Pr";
             this.pgfHasta.Name = "pgfHasta";
             this.pgfHasta.Width = 90;
             // 
@@ -289,56 +289,40 @@
             // 
             this.pgfRecAgua.Area = DevExpress.XtraPivotGrid.PivotArea.DataArea;
             this.pgfRecAgua.AreaIndex = 2;
-            this.pgfRecAgua.Caption = "Recargos Agua";
-            this.pgfRecAgua.FieldName = "Recarto_Ag";
+            this.pgfRecAgua.Caption = "Recargos Pr";
+            this.pgfRecAgua.FieldName = "Recargo_Pr";
             this.pgfRecAgua.Name = "pgfRecAgua";
             // 
             // pgfMontoAgua
             // 
             this.pgfMontoAgua.Area = DevExpress.XtraPivotGrid.PivotArea.DataArea;
             this.pgfMontoAgua.AreaIndex = 1;
-            this.pgfMontoAgua.Caption = "Monto Agua";
-            this.pgfMontoAgua.FieldName = "Monto_Ag";
+            this.pgfMontoAgua.Caption = "Monto Pr";
+            this.pgfMontoAgua.FieldName = "Monto_Pr";
             this.pgfMontoAgua.Name = "pgfMontoAgua";
             // 
-            // pgfMontoDr
+            // pgfMontoLi
             // 
-            this.pgfMontoDr.Area = DevExpress.XtraPivotGrid.PivotArea.DataArea;
-            this.pgfMontoDr.AreaIndex = 3;
-            this.pgfMontoDr.Caption = "Monto Dre";
-            this.pgfMontoDr.FieldName = "Monto_Dr";
-            this.pgfMontoDr.Name = "pgfMontoDr";
+            this.pgfMontoLi.Area = DevExpress.XtraPivotGrid.PivotArea.DataArea;
+            this.pgfMontoLi.AreaIndex = 4;
+            this.pgfMontoLi.Caption = "Monto Li";
+            this.pgfMontoLi.FieldName = "Monto_Li";
+            this.pgfMontoLi.Name = "pgfMontoLi";
             // 
-            // pgfRecargoDr
+            // pgfRecargoLi
             // 
-            this.pgfRecargoDr.Area = DevExpress.XtraPivotGrid.PivotArea.DataArea;
-            this.pgfRecargoDr.AreaIndex = 4;
-            this.pgfRecargoDr.Caption = "Recargo Dre";
-            this.pgfRecargoDr.FieldName = "Recargo_Dr";
-            this.pgfRecargoDr.Name = "pgfRecargoDr";
-            // 
-            // pgfMontoSan
-            // 
-            this.pgfMontoSan.Area = DevExpress.XtraPivotGrid.PivotArea.DataArea;
-            this.pgfMontoSan.AreaIndex = 5;
-            this.pgfMontoSan.Caption = "Monto San";
-            this.pgfMontoSan.FieldName = "Monto_Sa";
-            this.pgfMontoSan.Name = "pgfMontoSan";
-            // 
-            // pgfRecargoSan
-            // 
-            this.pgfRecargoSan.Area = DevExpress.XtraPivotGrid.PivotArea.DataArea;
-            this.pgfRecargoSan.AreaIndex = 6;
-            this.pgfRecargoSan.Caption = "Recargo San";
-            this.pgfRecargoSan.FieldName = "Recargo_Sa";
-            this.pgfRecargoSan.Name = "pgfRecargoSan";
+            this.pgfRecargoLi.Area = DevExpress.XtraPivotGrid.PivotArea.DataArea;
+            this.pgfRecargoLi.AreaIndex = 5;
+            this.pgfRecargoLi.Caption = "Recargo Li";
+            this.pgfRecargoLi.FieldName = "Recargo_Li";
+            this.pgfRecargoLi.Name = "pgfRecargoLi";
             // 
             // pgfTotal
             // 
             this.pgfTotal.Area = DevExpress.XtraPivotGrid.PivotArea.DataArea;
-            this.pgfTotal.AreaIndex = 7;
-            this.pgfTotal.Caption = "Total";
-            this.pgfTotal.FieldName = "Total_Debt";
+            this.pgfTotal.AreaIndex = 6;
+            this.pgfTotal.Caption = "Total Li";
+            this.pgfTotal.FieldName = "Total_Li";
             this.pgfTotal.Name = "pgfTotal";
             // 
             // pgfColonia
@@ -387,7 +371,7 @@
             // pgfDescuento
             // 
             this.pgfDescuento.Area = DevExpress.XtraPivotGrid.PivotArea.RowArea;
-            this.pgfDescuento.AreaIndex = 9;
+            this.pgfDescuento.AreaIndex = 7;
             this.pgfDescuento.Caption = "Pob vul";
             this.pgfDescuento.FieldName = "Descuento";
             this.pgfDescuento.Name = "pgfDescuento";
@@ -395,7 +379,7 @@
             // pgfPorcentaje
             // 
             this.pgfPorcentaje.Area = DevExpress.XtraPivotGrid.PivotArea.RowArea;
-            this.pgfPorcentaje.AreaIndex = 10;
+            this.pgfPorcentaje.AreaIndex = 8;
             this.pgfPorcentaje.Caption = "%";
             this.pgfPorcentaje.FieldName = "DescuentoPorcentaje";
             this.pgfPorcentaje.Name = "pgfPorcentaje";
@@ -407,7 +391,7 @@
             this.pbBG.BackColor = System.Drawing.Color.Transparent;
             this.pbBG.Image = global::SOAPAP.Properties.Resources.bg;
             this.pbBG.InitialImage = global::SOAPAP.Properties.Resources.bg;
-            this.pbBG.Location = new System.Drawing.Point(441, 7);
+            this.pbBG.Location = new System.Drawing.Point(418, 7);
             this.pbBG.Name = "pbBG";
             this.pbBG.Size = new System.Drawing.Size(321, 142);
             this.pbBG.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -425,20 +409,42 @@
             this.pictureBox1.TabIndex = 37;
             this.pictureBox1.TabStop = false;
             // 
-            // dataDebtsBindingSource
+            // pgfDesdeLi
             // 
-            this.dataDebtsBindingSource.DataSource = typeof(SOAPAP.Reportes.DataDebts);
+            this.pgfDesdeLi.AreaIndex = 2;
+            this.pgfDesdeLi.Caption = "Desde Li";
+            this.pgfDesdeLi.FieldName = "DESDE_Li";
+            this.pgfDesdeLi.Name = "pgfDesdeLi";
             // 
-            // RepDebts
+            // pgfHastaLi
+            // 
+            this.pgfHastaLi.AreaIndex = 3;
+            this.pgfHastaLi.Caption = "Hasta Li";
+            this.pgfHastaLi.FieldName = "HASTA_Li";
+            this.pgfHastaLi.Name = "pgfHastaLi";
+            // 
+            // pgfTotalPr
+            // 
+            this.pgfTotalPr.Area = DevExpress.XtraPivotGrid.PivotArea.DataArea;
+            this.pgfTotalPr.AreaIndex = 3;
+            this.pgfTotalPr.Caption = "Total Pr";
+            this.pgfTotalPr.FieldName = "Total_Pr";
+            this.pgfTotalPr.Name = "pgfTotalPr";
+            // 
+            // dataDebtsAyuntBindingSource
+            // 
+            this.dataDebtsAyuntBindingSource.DataSource = typeof(SOAPAP.Reportes.DataDebtsAyunt);
+            // 
+            // RepDebtsAyunt
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1176, 450);
+            this.ClientSize = new System.Drawing.Size(1131, 450);
             this.Controls.Add(this.pgcAdeudos);
             this.Controls.Add(this.pnlHeader);
-            this.Name = "RepDebts";
-            this.Text = "RepDebts";
-            this.Load += new System.EventHandler(this.RepDebts_Load);
+            this.Name = "RepDebtsAyunt";
+            this.Text = "RepDebtsAyunt";
+            this.Load += new System.EventHandler(this.RepDebtsAyunt_Load);
             this.pnlHeader.ResumeLayout(false);
             this.pnlHeader.PerformLayout();
             this.tableLayoutPanel1.ResumeLayout(false);
@@ -449,7 +455,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pgcAdeudos)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbBG)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataDebtsBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataDebtsAyuntBindingSource)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -460,16 +466,15 @@
         private System.Windows.Forms.Button btnExportar;
         private System.Windows.Forms.Button btnGenerar;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private DevExpress.XtraEditors.CheckedListBoxControl chlbxColonia;
         private System.Windows.Forms.Label label6;
+        private DevExpress.XtraEditors.SearchControl srchColonia;
+        private DevExpress.XtraEditors.CheckEdit cheColonia;
         private System.Windows.Forms.PictureBox pbBG;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Label lblTitulo;
-        private DevExpress.XtraEditors.SearchControl srchColonia;
-        private DevExpress.XtraEditors.CheckEdit cheColonia;
-        private DevExpress.XtraEditors.CheckedListBoxControl chlbxColonia;
         private DevExpress.XtraPivotGrid.PivotGridControl pgcAdeudos;
-        private System.Windows.Forms.BindingSource dataDebtsBindingSource;
         private DevExpress.XtraPivotGrid.PivotGridField pgfCuenta;
         private DevExpress.XtraPivotGrid.PivotGridField pgfNombre;
         private DevExpress.XtraPivotGrid.PivotGridField pgfDomicilio;
@@ -477,10 +482,8 @@
         private DevExpress.XtraPivotGrid.PivotGridField pgfHasta;
         private DevExpress.XtraPivotGrid.PivotGridField pgfRecAgua;
         private DevExpress.XtraPivotGrid.PivotGridField pgfMontoAgua;
-        private DevExpress.XtraPivotGrid.PivotGridField pgfMontoDr;
-        private DevExpress.XtraPivotGrid.PivotGridField pgfRecargoDr;
-        private DevExpress.XtraPivotGrid.PivotGridField pgfMontoSan;
-        private DevExpress.XtraPivotGrid.PivotGridField pgfRecargoSan;
+        private DevExpress.XtraPivotGrid.PivotGridField pgfMontoLi;
+        private DevExpress.XtraPivotGrid.PivotGridField pgfRecargoLi;
         private DevExpress.XtraPivotGrid.PivotGridField pgfTotal;
         private DevExpress.XtraPivotGrid.PivotGridField pgfColonia;
         private DevExpress.XtraPivotGrid.PivotGridField pgfTipoPredio;
@@ -489,5 +492,9 @@
         private DevExpress.XtraPivotGrid.PivotGridField pgfCount;
         private DevExpress.XtraPivotGrid.PivotGridField pgfDescuento;
         private DevExpress.XtraPivotGrid.PivotGridField pgfPorcentaje;
+        private System.Windows.Forms.BindingSource dataDebtsAyuntBindingSource;
+        private DevExpress.XtraPivotGrid.PivotGridField pgfDesdeLi;
+        private DevExpress.XtraPivotGrid.PivotGridField pgfHastaLi;
+        private DevExpress.XtraPivotGrid.PivotGridField pgfTotalPr;
     }
 }
