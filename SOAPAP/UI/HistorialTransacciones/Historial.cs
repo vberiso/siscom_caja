@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Net.Http;
@@ -171,6 +172,26 @@ namespace SOAPAP.UI.HistorialTransacciones
             }
         }
 
+        private void btnExportar_Click(object sender, EventArgs e)
+        {
+            ////Metodo de exportar
+            //DevExpress.Export.ExportSettings.DefaultExportType = DevExpress.Export.ExportType.DataAware;
+            var pivotExportOptions = new DevExpress.XtraPivotGrid.PivotXlsxExportOptions();
+            pivotExportOptions.ExportType = DevExpress.Export.ExportType.WYSIWYG;
+
+            //Selecciono el directorio destino
+            FolderBrowserDialog fbd = new FolderBrowserDialog();
+            fbd.Description = "Selecciona el directorio destino.";
+
+            if (fbd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                string NombreFile = "OperacionDeCajaHistorico_" + Variables.LoginModel.FullName.Replace(" ", "") + "_" + DateTime.Now.ToString("yyyy-MM-dd");
+                pgcHistorial.ExportToXlsx(fbd.SelectedPath + "\\" + NombreFile + ".xlsx", pivotExportOptions);
+                Process.Start(fbd.SelectedPath + "\\" + NombreFile + ".xlsx");
+                MessageBox.Show("Archivo " + NombreFile + ".xlsx" + " guardado.");
+            }
+        }
+
         #endregion
 
         //private async void pgcHistorial_CellSelectionChanged(object sender, EventArgs e)
@@ -202,7 +223,7 @@ namespace SOAPAP.UI.HistorialTransacciones
         //            List<DataHistorialElemento> lstPagos = new List<DataHistorialElemento>() { new DataHistorialElemento() { Descripcion = "Sin detalle" } };                    
         //            pgcDetalles.DataSource = lstPagos;
         //        }
-                
+
 
         //    }
         //    catch (Exception ex){ }

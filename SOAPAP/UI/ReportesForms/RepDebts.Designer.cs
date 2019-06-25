@@ -42,6 +42,7 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.lblTitulo = new System.Windows.Forms.Label();
             this.pgcAdeudos = new DevExpress.XtraPivotGrid.PivotGridControl();
+            this.dataDebtsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.pgfCuenta = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfNombre = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfDomicilio = new DevExpress.XtraPivotGrid.PivotGridField();
@@ -61,7 +62,6 @@
             this.pgfCount = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfDescuento = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfPorcentaje = new DevExpress.XtraPivotGrid.PivotGridField();
-            this.dataDebtsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.pnlHeader.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chlbxColonia)).BeginInit();
@@ -266,6 +266,10 @@
             this.pgcAdeudos.Size = new System.Drawing.Size(1172, 264);
             this.pgcAdeudos.TabIndex = 51;
             // 
+            // dataDebtsBindingSource
+            // 
+            this.dataDebtsBindingSource.DataSource = typeof(SOAPAP.Reportes.DataDebts);
+            // 
             // pgfCuenta
             // 
             this.pgfCuenta.Area = DevExpress.XtraPivotGrid.PivotArea.RowArea;
@@ -424,10 +428,6 @@
             this.pgfPorcentaje.FieldName = "DescuentoPorcentaje";
             this.pgfPorcentaje.Name = "pgfPorcentaje";
             this.pgfPorcentaje.Width = 60;
-            // 
-            // dataDebtsBindingSource
-            // 
-            this.dataDebtsBindingSource.DataSource = typeof(SOAPAP.Reportes.DataDebts);
             // 
             // RepDebts
             // 
