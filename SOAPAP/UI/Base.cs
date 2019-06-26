@@ -878,7 +878,10 @@ namespace SOAPAP
 
         private void fraccionamientosNuevosToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ShowForm("SOAPAP", "UI.ReportesForms.RepINA");
+            if (Variables.Configuration.IsMunicipal)
+                ShowForm("SOAPAP", "UI.ReportesForms.RepINAAyunt");
+            else
+                ShowForm("SOAPAP", "UI.ReportesForms.RepINA");
         }
 
         private void ordenesToolStripMenuItem_Click(object sender, EventArgs e)

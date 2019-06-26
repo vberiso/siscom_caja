@@ -328,6 +328,7 @@
     <Compile Include="Reportes\DataDebtsAyunt.cs" />
     <Compile Include="Reportes\DataIncomeFromBox.cs" />
     <Compile Include="Reportes\DataIncomeNewAccounts.cs" />
+    <Compile Include="Reportes\DataIncomeNewAccountsAyunt.cs" />
     <Compile Include="Reportes\DataIncomeOfTreasury.cs" />
     <Compile Include="Reportes\DataOrders.cs" />
     <Compile Include="Reportes\DataPadronWater.cs" />
@@ -619,6 +620,12 @@
     <Compile Include="UI\ReportesForms\RepINA.Designer.cs">
       <DependentUpon>RepINA.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\ReportesForms\RepINAAyunt.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\ReportesForms\RepINAAyunt.Designer.cs">
+      <DependentUpon>RepINAAyunt.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\ReportesForms\RepIOT.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -872,6 +879,9 @@
     <EmbeddedResource Include="UI\ReportesForms\RepINA.resx">
       <DependentUpon>RepINA.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UI\ReportesForms\RepINAAyunt.resx">
+      <DependentUpon>RepINAAyunt.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\ReportesForms\RepIOT.resx">
       <DependentUpon>RepIOT.cs</DependentUpon>
     </EmbeddedResource>
@@ -984,6 +994,7 @@
     <None Include="Properties\DataSources\SOAPAP.Reportes.DataIncomeByConcept.datasource" />
     <None Include="Properties\DataSources\SOAPAP.Reportes.DataIncomeFromBox1.datasource" />
     <None Include="Properties\DataSources\SOAPAP.Reportes.DataIncomeNewAccounts.datasource" />
+    <None Include="Properties\DataSources\SOAPAP.Reportes.DataIncomeNewAccountsAyunt.datasource" />
     <None Include="Properties\DataSources\SOAPAP.Reportes.DataIncomeOfTreasury.datasource" />
     <None Include="Properties\DataSources\SOAPAP.Reportes.DataOrders.datasource" />
     <None Include="Properties\DataSources\SOAPAP.Reportes.DataPadronWater.datasource" />
