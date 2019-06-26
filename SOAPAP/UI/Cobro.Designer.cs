@@ -657,6 +657,7 @@
             this.btnAcept.TabIndex = 1;
             this.btnAcept.Text = "Aplicar";
             this.btnAcept.UseVisualStyleBackColor = false;
+            this.btnAcept.Click += new System.EventHandler(this.BtnAcept_Click);
             // 
             // groupBox2
             // 

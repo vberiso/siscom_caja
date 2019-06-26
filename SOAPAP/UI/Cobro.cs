@@ -329,11 +329,6 @@ namespace SOAPAP.UI
         private async void ObtenerInformacion()
         {
             LimpiaDatos();
-            if (Variables.Configuration.DiscountCampaigns.Count > 0)
-            {
-                gbxCampaign.Visible = true;
-                lblTitleCampaign.Text = Variables.Configuration.DiscountCampaigns.First().Name;
-            }
             if (txtCuenta.Text.Trim().Length != 0)
             {
                 string _cuenta = txtCuenta.Text.Trim();
@@ -341,6 +336,7 @@ namespace SOAPAP.UI
 
                 if (_cuenta.Length > 2 && char.IsLetter(Convert.ToChar(_cuenta.Substring(0, 1))) && _cuenta.Contains("-"))
                 {
+                    gbxCampaign.Visible = false;
                     orderSale = true;
                     cmbTipos.Enabled = false;
                     TypeSearchSelect = Search.Type.Folio;
@@ -419,6 +415,11 @@ namespace SOAPAP.UI
                 }
                 else
                 {
+                    if (Variables.Configuration.DiscountCampaigns.Count > 0)
+                    {
+                        gbxCampaign.Visible = true;
+                        lblTitleCampaign.Text = Variables.Configuration.DiscountCampaigns.First().Name;
+                    }
                     orderSale = false;
                     TypeSearchSelect = Search.Type.Cuenta;
                     loading = new Loading();
@@ -1003,6 +1004,35 @@ namespace SOAPAP.UI
                 //Id = temp.Id
             };
             return cp;
+        }
+        //Button Campaign Recharges
+        private async void BtnAcept_Click(object sender, EventArgs e)
+        {
+            loading = new Loading();
+            loading.Show(this);
+            var resultCampaign = await Requests.SendURIAsync(string.Format("/api/Discounts/{0}", Variables.Agreement.Id), HttpMethod.Post, Variables.LoginModel.Token);
+            if (resultCampaign.Contains("error"))
+            {
+                try
+                {
+                    mensaje = new MessageBoxForm("Error", JsonConvert.DeserializeObject<Error>(resultCampaign).error, TypeIcon.Icon.Cancel);
+                    result = mensaje.ShowDialog();
+                    loading.Close();
+                }
+                catch (Exception)
+                {
+                    mensaje = new MessageBoxForm("Error", "Servicio no disponible favor de comunicarse con el administrador", TypeIcon.Icon.Cancel);
+                    result = mensaje.ShowDialog();
+                    loading.Close();
+                }
+            }
+            else
+            {
+                mensaje = new MessageBoxForm(Variables.titleprincipal, "La condonación de recargos se ha realizado con exito", TypeIcon.Icon.Success);
+                result = mensaje.ShowDialog();
+                loading.Close();
+                ObtenerInformacion();
+            }
         }
     }
 

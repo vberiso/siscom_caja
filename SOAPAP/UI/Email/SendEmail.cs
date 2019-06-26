@@ -45,33 +45,48 @@ namespace SOAPAP.UI.Email
         {
             try
             {
-                loading = new Loading();
-                loading.Show(this);
+                string test = "before passing";
+                if (string.IsNullOrEmpty(txtFrom.Text))
+                {
+                    mensaje = new MessageBoxForm("Error", "El correo electrónico no puede enviarse sin un correo destinatario", TypeIcon.Icon.Cancel);
+                    result = mensaje.ShowDialog();
+                }
+                else
+                {
+                    loading = new Loading();
+                    loading.Show(this);
 
-                MailMessage mail = new MailMessage();
-                SmtpClient SmtpServer = new SmtpClient("sosapac.gob.mx");
-                mail.From = new MailAddress("facturacion@sosapac.gob.mx");
-                mail.To.Add(txtFrom.Text);
-                if (!string.IsNullOrEmpty(txtCopy.Text))
-                    mail.CC.Add(txtCopy.Text);
-                mail.Subject = "Envió de comprobante fiscal CFDI";
-                mail.AlternateViews.Add(getEmbeddedImage());
-              
-                MemoryStream memoryStream = new MemoryStream();
-                XmlDocument xDocument = new XmlDocument();
-                xDocument.LoadXml(Xml);
-                xDocument.Save(memoryStream);
-                memoryStream.Flush();//Adjust this if you want read your data 
-                memoryStream.Position = 0;
-                Stream stream = memoryStream;
-                Attachment attachment = new Attachment(stream, string.Format("Comprobante_{0}.xml", Account), "application/xml");
-                mail.Attachments.Add(attachment);
-                SmtpServer.Port = 25;
-                SmtpServer.Credentials = new System.Net.NetworkCredential("facturacion@sosapac.gob.mx", "e0P?k0k8");
-                SmtpServer.Send(mail);
-                loading.Close();
-                mensaje = new MessageBoxForm("Envio Exitoso","El correo electrónico se ha enviado exitosamente" , TypeIcon.Icon.Success);
-                result = mensaje.ShowDialog();
+                    MailMessage mail = new MailMessage();
+                    SmtpClient SmtpServer = new SmtpClient("sosapac.gob.mx");
+                    mail.From = new MailAddress("facturacion@sosapac.gob.mx");
+                    mail.To.Add(txtFrom.Text);
+                    if (!string.IsNullOrEmpty(txtCopy.Text))
+                        mail.CC.Add(txtCopy.Text);
+                    mail.Subject = "Envió de comprobante fiscal CFDI";
+                    mail.AlternateViews.Add(getEmbeddedImage());
+
+                    WsIntegral33Pruebas.WsCFDI33Client n = new WsIntegral33Pruebas.WsCFDI33Client();
+                    var rest = n.ObtenerPDF("CFDI010233001", "Pruebas1a$", Xml, "", "", "", 1, ref test);
+                    Stream streamPDF = new MemoryStream(rest);
+                    MemoryStream memoryStream = new MemoryStream();
+                    XmlDocument xDocument = new XmlDocument();
+                    xDocument.LoadXml(Xml);
+                    xDocument.Save(memoryStream);
+                    memoryStream.Flush();//Adjust this if you want read your data 
+                    memoryStream.Position = 0;
+                    Stream stream = memoryStream;
+                    Attachment attachment = new Attachment(stream, string.Format("Comprobante_{0}.xml", Account), "application/xml");
+                    Attachment attachmentPDF = new Attachment(streamPDF, string.Format("Comprobante_{0}.pdf", Account), "application/pdf");
+                    mail.Attachments.Add(attachment);
+                    mail.Attachments.Add(attachmentPDF);
+                    SmtpServer.Port = 25;
+                    SmtpServer.Credentials = new System.Net.NetworkCredential("facturacion@sosapac.gob.mx", "e0P?k0k8");
+                    SmtpServer.Send(mail);
+                    loading.Close();
+                    mensaje = new MessageBoxForm("Envio Exitoso", "El correo electrónico se ha enviado exitosamente", TypeIcon.Icon.Success);
+                    result = mensaje.ShowDialog();
+                }
+               
             }
             catch (Exception ex)
             {
@@ -146,6 +161,11 @@ namespace SOAPAP.UI.Email
                                              </html>", Taxpayer, Account, txtMessage.Text == "" ? "Sin detalles de envío" : txtMessage.Text);
             AlternateView alternateView = AlternateView.CreateAlternateViewFromString(htmlBody, null, MediaTypeNames.Text.Html);
             return alternateView;
+        }
+
+        private void BtnCancel_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

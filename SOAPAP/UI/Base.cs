@@ -51,7 +51,7 @@ namespace SOAPAP
         {
             Requests = new RequestsAPI(UrlBase);
             InitializeComponent();
-
+            LoadDivition();
             var observable = firebase
                              .Child("DiscountAuthorization")
                              .AsObservable<PushNotification>()
@@ -177,7 +177,35 @@ namespace SOAPAP
                              });
         }
 
-
+        public async void LoadDivition()
+        {
+            var resultName = await Requests.SendURIAsync("/api/Division/", HttpMethod.Get, Variables.LoginModel.Token);
+            if (resultName.Contains("error"))
+            {
+                try
+                {
+                    mensaje = new MessageBoxForm("Error", JsonConvert.DeserializeObject<Error>(resultName).error, TypeIcon.Icon.Cancel);
+                    result = mensaje.ShowDialog();
+                    loading.Close();
+                }
+                catch (Exception)
+                {
+                    mensaje = new MessageBoxForm("Error", "Servicio no disponible favor de comunicarse con el administrador", TypeIcon.Icon.Cancel);
+                    result = mensaje.ShowDialog();
+                    loading.Close();
+                }
+            }
+            else
+            {
+                List<Division> divisions = JsonConvert.DeserializeObject<List<Division>>(resultName);
+                lblDivition.Text = divisions.Where(x => x.Id == Variables.LoginModel.Divition).FirstOrDefault() == null ? "Sin División" : divisions.Where(x => x.Id == Variables.LoginModel.Divition).FirstOrDefault().Name;
+                var a = lblDivition.Text.IndexOf("PREDIAL", StringComparison.OrdinalIgnoreCase);
+                if (lblDivition.Text.IndexOf("PREDIAL", StringComparison.OrdinalIgnoreCase) != -1)
+                {
+                    btnProductos.Visible = false;
+                }
+            }
+        }
         public void RemoveItemSelected(string account)
         {
             for (int i = 0; i < notificacionesToolStripMenuItem.DropDown.Items.Count; i++)
@@ -646,6 +674,7 @@ namespace SOAPAP
             //btnReportes.Visible = accessParam == CashBoxAccess.Access.SinAcceso || accessParam == CashBoxAccess.Access.Admin ? false : true;
             btnReportes.Visible = false;
             btnProductos.Visible = accessParam == CashBoxAccess.Access.SinAcceso || accessParam == CashBoxAccess.Access.Admin ? false : true;
+           
             //btnHistorial.Visible = accessParam == CashBoxAccess.Access.SinAcceso || accessParam == CashBoxAccess.Access.Admin ? false : true;
             reportesToolStripMenuItem.Visible = accessParam == CashBoxAccess.Access.SinAcceso || accessParam == CashBoxAccess.Access.Admin ? false : true;
 
@@ -767,10 +796,10 @@ namespace SOAPAP
                 btnApertura.Text = "Alta de Caja";
                 CargaMenu(CashBoxAccess.Access.Admin);
             }
-            //if (Variables.LoginModel.RolName.ToList().Find(x => x.Contains("Supervisor")) != null)
-            //{
+            if (Variables.LoginModel.RolName.ToList().Find(x => x.Contains("Supervisor")) != null)
+            {
                 opcionesToolStripMenuItem.Visible = true;
-            //}
+            }
         }
 
         private void ThreadProc()

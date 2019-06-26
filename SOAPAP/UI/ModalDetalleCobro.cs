@@ -110,7 +110,7 @@ namespace SOAPAP.UI
             }
             else
             {
-                var Payments = JsonConvert.DeserializeObject<List<SOAPAP.Model.PayMethod>>(getPaymentMethods);
+                var Payments = JsonConvert.DeserializeObject<List<SOAPAP.Model.PayMethod>>(getPaymentMethods).Where(x => x.IsActive).ToList();
 
                 cmbPaymentMethod.ValueMember = "Id";
                 cmbPaymentMethod.DisplayMember = "Name";

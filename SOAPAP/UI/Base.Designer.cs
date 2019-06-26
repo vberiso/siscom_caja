@@ -55,9 +55,9 @@
             this.ordenesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmPadron = new System.Windows.Forms.ToolStripMenuItem();
             this.padrónToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.adeudosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.buscarContribuyenteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.fraccionamientosNuevosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.adeudosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.opcionesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cajasToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.facturacionAgrupadaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -85,6 +85,8 @@
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.xxxToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.lblDivition = new System.Windows.Forms.Label();
             this.pnlContenido.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.pnlBottom.SuspendLayout();
@@ -100,6 +102,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -291,7 +294,7 @@
             this.ingresosPorConceptoToolStripMenuItem,
             this.recaudaciónToolStripMenuItem});
             this.ingresosToolStripMenuItem.Name = "ingresosToolStripMenuItem";
-            this.ingresosToolStripMenuItem.Size = new System.Drawing.Size(180, 26);
+            this.ingresosToolStripMenuItem.Size = new System.Drawing.Size(139, 26);
             this.ingresosToolStripMenuItem.Text = "Ingresos";
             // 
             // ingresosDeCajaToolStripMenuItem
@@ -331,7 +334,7 @@
             this.tsmOrdenes.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.ordenesToolStripMenuItem});
             this.tsmOrdenes.Name = "tsmOrdenes";
-            this.tsmOrdenes.Size = new System.Drawing.Size(180, 26);
+            this.tsmOrdenes.Size = new System.Drawing.Size(139, 26);
             this.tsmOrdenes.Text = "Ordenes";
             // 
             // ordenesToolStripMenuItem
@@ -350,7 +353,7 @@
             this.buscarContribuyenteToolStripMenuItem,
             this.fraccionamientosNuevosToolStripMenuItem});
             this.tsmPadron.Name = "tsmPadron";
-            this.tsmPadron.Size = new System.Drawing.Size(180, 26);
+            this.tsmPadron.Size = new System.Drawing.Size(139, 26);
             this.tsmPadron.Text = "Padrón";
             // 
             // padrónToolStripMenuItem
@@ -360,6 +363,14 @@
             this.padrónToolStripMenuItem.Size = new System.Drawing.Size(259, 26);
             this.padrónToolStripMenuItem.Text = "Padrón";
             this.padrónToolStripMenuItem.Click += new System.EventHandler(this.padrónToolStripMenuItem_Click);
+            // 
+            // adeudosToolStripMenuItem
+            // 
+            this.adeudosToolStripMenuItem.ForeColor = System.Drawing.Color.DimGray;
+            this.adeudosToolStripMenuItem.Name = "adeudosToolStripMenuItem";
+            this.adeudosToolStripMenuItem.Size = new System.Drawing.Size(259, 26);
+            this.adeudosToolStripMenuItem.Text = "Adeudos";
+            this.adeudosToolStripMenuItem.Click += new System.EventHandler(this.adeudosToolStripMenuItem_Click);
             // 
             // buscarContribuyenteToolStripMenuItem
             // 
@@ -376,14 +387,6 @@
             this.fraccionamientosNuevosToolStripMenuItem.Size = new System.Drawing.Size(259, 26);
             this.fraccionamientosNuevosToolStripMenuItem.Text = "Fraccionamientos Nuevos";
             this.fraccionamientosNuevosToolStripMenuItem.Click += new System.EventHandler(this.fraccionamientosNuevosToolStripMenuItem_Click);
-            // 
-            // adeudosToolStripMenuItem
-            // 
-            this.adeudosToolStripMenuItem.ForeColor = System.Drawing.Color.DimGray;
-            this.adeudosToolStripMenuItem.Name = "adeudosToolStripMenuItem";
-            this.adeudosToolStripMenuItem.Size = new System.Drawing.Size(259, 26);
-            this.adeudosToolStripMenuItem.Text = "Adeudos";
-            this.adeudosToolStripMenuItem.Click += new System.EventHandler(this.adeudosToolStripMenuItem_Click);
             // 
             // opcionesToolStripMenuItem
             // 
@@ -455,6 +458,7 @@
             this.pnlLeft.Controls.Add(this.pnlTitulo);
             this.pnlLeft.Controls.Add(this.pnlTerminal);
             this.pnlLeft.Controls.Add(this.pnlEstadoOperacion);
+            this.pnlLeft.Controls.Add(this.panel1);
             this.pnlLeft.Controls.Add(this.btnProductos);
             this.pnlLeft.Controls.Add(this.pbxLogoEmpresa);
             this.pnlLeft.Controls.Add(this.label4);
@@ -511,7 +515,7 @@
             // 
             this.pnlTitulo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(33)))), ((int)(((byte)(41)))));
             this.pnlTitulo.Controls.Add(this.lblTitulo);
-            this.pnlTitulo.Location = new System.Drawing.Point(0, 58);
+            this.pnlTitulo.Location = new System.Drawing.Point(0, 43);
             this.pnlTitulo.Name = "pnlTitulo";
             this.pnlTitulo.Size = new System.Drawing.Size(233, 30);
             this.pnlTitulo.TabIndex = 46;
@@ -533,7 +537,7 @@
             // 
             this.pnlTerminal.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(33)))), ((int)(((byte)(41)))));
             this.pnlTerminal.Controls.Add(this.lblTerminal);
-            this.pnlTerminal.Location = new System.Drawing.Point(0, 87);
+            this.pnlTerminal.Location = new System.Drawing.Point(0, 66);
             this.pnlTerminal.Name = "pnlTerminal";
             this.pnlTerminal.Size = new System.Drawing.Size(233, 40);
             this.pnlTerminal.TabIndex = 45;
@@ -555,7 +559,7 @@
             // 
             this.pnlEstadoOperacion.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(33)))), ((int)(((byte)(41)))));
             this.pnlEstadoOperacion.Controls.Add(this.lblEstadoCaja);
-            this.pnlEstadoOperacion.Location = new System.Drawing.Point(0, 127);
+            this.pnlEstadoOperacion.Location = new System.Drawing.Point(0, 108);
             this.pnlEstadoOperacion.Name = "pnlEstadoOperacion";
             this.pnlEstadoOperacion.Size = new System.Drawing.Size(233, 25);
             this.pnlEstadoOperacion.TabIndex = 44;
@@ -748,6 +752,29 @@
             this.xxxToolStripMenuItem.Name = "xxxToolStripMenuItem";
             this.xxxToolStripMenuItem.Size = new System.Drawing.Size(32, 19);
             // 
+            // panel1
+            // 
+            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(33)))), ((int)(((byte)(41)))));
+            this.panel1.Controls.Add(this.lblDivition);
+            this.panel1.Location = new System.Drawing.Point(3, 135);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(230, 25);
+            this.panel1.TabIndex = 45;
+            // 
+            // lblDivition
+            // 
+            this.lblDivition.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(33)))), ((int)(((byte)(41)))));
+            this.lblDivition.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblDivition.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblDivition.ForeColor = System.Drawing.Color.DarkGray;
+            this.lblDivition.Location = new System.Drawing.Point(0, 0);
+            this.lblDivition.MaximumSize = new System.Drawing.Size(233, 0);
+            this.lblDivition.Name = "lblDivition";
+            this.lblDivition.Size = new System.Drawing.Size(230, 25);
+            this.lblDivition.TabIndex = 1;
+            this.lblDivition.Text = "Caja";
+            this.lblDivition.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // Base
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -785,6 +812,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
+            this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -846,5 +874,7 @@
         private System.Windows.Forms.ToolStripMenuItem tsmOrdenes;
         private System.Windows.Forms.ToolStripMenuItem tsmPadron;
         private System.Windows.Forms.ToolStripMenuItem xxxToolStripMenuItem;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Label lblDivition;
     }
 }
