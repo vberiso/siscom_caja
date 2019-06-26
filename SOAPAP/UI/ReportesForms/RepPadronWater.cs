@@ -60,7 +60,7 @@ namespace SOAPAP.UI.ReportesForms
                 var lstTmpRutas = JsonConvert.DeserializeObject<List<int>>(resultTypeTransaction);                
                 foreach (var item in lstTmpRutas)
                 {
-                    if (item != 0)
+                    //if (item != 0)
                         lstRutas.Add(new DataComboBox() { keyInt = item, value = item.ToString() });
                 }
             }
