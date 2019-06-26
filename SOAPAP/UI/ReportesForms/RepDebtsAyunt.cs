@@ -116,7 +116,11 @@ namespace SOAPAP.UI.ReportesForms
                 lstColonias = lstColonias.Substring(0, lstColonias.Length - 1);
             }
 
-            var _resulTransaction = await Requests.SendURIAsync("/api/Reports/DebtsCouncil/" + lstColonias, HttpMethod.Get, Variables.LoginModel.Token);
+            HttpContent content;
+            json = JsonConvert.SerializeObject(lstColonias);
+            content = new StringContent(json, Encoding.UTF8, "application/json");
+
+            var _resulTransaction = await Requests.SendURIAsync("/api/Reports/DebtsCouncil" , HttpMethod.Post, Variables.LoginModel.Token, content);
 
             if (_resulTransaction.Contains("error"))
             {

@@ -9,7 +9,7 @@ namespace SOAPAP.Reportes
     class DataDebtsAyunt
     {
         public int id_agreement { get; set; }
-        public int Cuenta { get; set; }
+        public string Cuenta { get; set; }
         public string FechaContrato { get; set; }
         public string TipoPredio { get; set; }
         public string TipoEstadoServicio { get; set; }

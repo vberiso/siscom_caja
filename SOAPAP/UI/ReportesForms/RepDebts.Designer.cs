@@ -37,9 +37,12 @@
             this.label6 = new System.Windows.Forms.Label();
             this.srchColonia = new DevExpress.XtraEditors.SearchControl();
             this.cheColonia = new DevExpress.XtraEditors.CheckEdit();
+            this.pbBG = new System.Windows.Forms.PictureBox();
             this.label4 = new System.Windows.Forms.Label();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.lblTitulo = new System.Windows.Forms.Label();
             this.pgcAdeudos = new DevExpress.XtraPivotGrid.PivotGridControl();
+            this.dataDebtsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.pgfCuenta = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfNombre = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfDomicilio = new DevExpress.XtraPivotGrid.PivotGridField();
@@ -59,17 +62,14 @@
             this.pgfCount = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfDescuento = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfPorcentaje = new DevExpress.XtraPivotGrid.PivotGridField();
-            this.pbBG = new System.Windows.Forms.PictureBox();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.dataDebtsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.pnlHeader.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chlbxColonia)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.srchColonia.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cheColonia.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pgcAdeudos)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbBG)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pgcAdeudos)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataDebtsBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
@@ -184,6 +184,19 @@
             this.cheColonia.TabIndex = 58;
             this.cheColonia.CheckedChanged += new System.EventHandler(this.cheColonia_CheckedChanged);
             // 
+            // pbBG
+            // 
+            this.pbBG.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.pbBG.BackColor = System.Drawing.Color.Transparent;
+            this.pbBG.Image = global::SOAPAP.Properties.Resources.bg;
+            this.pbBG.InitialImage = global::SOAPAP.Properties.Resources.bg;
+            this.pbBG.Location = new System.Drawing.Point(441, 7);
+            this.pbBG.Name = "pbBG";
+            this.pbBG.Size = new System.Drawing.Size(321, 142);
+            this.pbBG.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbBG.TabIndex = 41;
+            this.pbBG.TabStop = false;
+            // 
             // label4
             // 
             this.label4.AutoSize = true;
@@ -196,6 +209,17 @@
             this.label4.TabIndex = 45;
             this.label4.Text = "Adeudos";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
+            this.pictureBox1.Image = global::SOAPAP.Properties.Resources.reportes;
+            this.pictureBox1.InitialImage = global::SOAPAP.Properties.Resources.reportes;
+            this.pictureBox1.Location = new System.Drawing.Point(3, 7);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(20, 20);
+            this.pictureBox1.TabIndex = 37;
+            this.pictureBox1.TabStop = false;
             // 
             // lblTitulo
             // 
@@ -241,6 +265,10 @@
             this.pgcAdeudos.OptionsData.DataProcessingEngine = DevExpress.XtraPivotGrid.PivotDataProcessingEngine.LegacyOptimized;
             this.pgcAdeudos.Size = new System.Drawing.Size(1172, 264);
             this.pgcAdeudos.TabIndex = 51;
+            // 
+            // dataDebtsBindingSource
+            // 
+            this.dataDebtsBindingSource.DataSource = typeof(SOAPAP.Reportes.DataDebts);
             // 
             // pgfCuenta
             // 
@@ -401,34 +429,6 @@
             this.pgfPorcentaje.Name = "pgfPorcentaje";
             this.pgfPorcentaje.Width = 60;
             // 
-            // pbBG
-            // 
-            this.pbBG.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.pbBG.BackColor = System.Drawing.Color.Transparent;
-            this.pbBG.Image = global::SOAPAP.Properties.Resources.bg;
-            this.pbBG.InitialImage = global::SOAPAP.Properties.Resources.bg;
-            this.pbBG.Location = new System.Drawing.Point(441, 7);
-            this.pbBG.Name = "pbBG";
-            this.pbBG.Size = new System.Drawing.Size(321, 142);
-            this.pbBG.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pbBG.TabIndex = 41;
-            this.pbBG.TabStop = false;
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
-            this.pictureBox1.Image = global::SOAPAP.Properties.Resources.reportes;
-            this.pictureBox1.InitialImage = global::SOAPAP.Properties.Resources.reportes;
-            this.pictureBox1.Location = new System.Drawing.Point(3, 7);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(20, 20);
-            this.pictureBox1.TabIndex = 37;
-            this.pictureBox1.TabStop = false;
-            // 
-            // dataDebtsBindingSource
-            // 
-            this.dataDebtsBindingSource.DataSource = typeof(SOAPAP.Reportes.DataDebts);
-            // 
             // RepDebts
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -446,9 +446,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.chlbxColonia)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.srchColonia.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cheColonia.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pgcAdeudos)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbBG)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pgcAdeudos)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataDebtsBindingSource)).EndInit();
             this.ResumeLayout(false);
 
