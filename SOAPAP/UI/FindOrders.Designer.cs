@@ -163,6 +163,7 @@
             this.dgvOrders.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvOrders.Size = new System.Drawing.Size(960, 481);
             this.dgvOrders.TabIndex = 1;
+            this.dgvOrders.CellPainting += new System.Windows.Forms.DataGridViewCellPaintingEventHandler(this.DgvOrders_CellPainting);
             // 
             // panel1
             // 

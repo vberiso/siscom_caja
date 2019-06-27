@@ -26,7 +26,7 @@ namespace SOAPAP
             Requests = new RequestsAPI(UrlBase);
         }
 
-        public async Task<string> facturar(string idtraccaction, string status,string uuid)
+        public async Task<string> facturar(string idtraccaction, string status, string uuid)
         {
             string respuesta = string.Empty;
             string rutas = string.Empty;
@@ -35,14 +35,14 @@ namespace SOAPAP
             int contadordeiva1 = 0;
             bool check = false;
 
-            
+
 
             var resultado = await Requests.SendURIAsync(string.Format("/api/Transaction/{0}", idtraccaction), HttpMethod.Get, Variables.LoginModel.Token);
             TransactionVM m = JsonConvert.DeserializeObject<TransactionVM>(resultado);
 
-            var resultados = await Requests.SendURIAsync(string.Format("/api/Agreements/AgreementByAccount/{0}", m.payment.agreementId), HttpMethod.Get, Variables.LoginModel.Token);
+            var resultados = await Requests.SendURIAsync(string.Format("/api/Agreements/AgreementByAccount/{0}", m.payment.AgreementId), HttpMethod.Get, Variables.LoginModel.Token);
             Agreement ms = JsonConvert.DeserializeObject<Agreement>(resultados);
-            
+
             string seriefolio = m.transaction.transactionFolios.FirstOrDefault().folio.ToString();
             string serie = string.Empty;
             string folio = string.Empty;
@@ -62,22 +62,22 @@ namespace SOAPAP
             }
             else
             {
-                xml = xml + "<cfdi:Emisor Rfc=\""+ Variables.Configuration.RFC+"\" Nombre=\""+ Variables.Configuration.LegendRegime+"\" RegimenFiscal=\"603\" />";
-                xml = xml + "<cfdi:Receptor Rfc=\""+ ms.Clients.FirstOrDefault().rfc + "\" Nombre=\""+ms.Clients.FirstOrDefault().name+" "+ ms.Clients.FirstOrDefault().lastName+ " "+ ms.Clients.FirstOrDefault().secondLastName+" \" UsoCFDI=\"P01\"/>";
+                xml = xml + "<cfdi:Emisor Rfc=\"" + Variables.Configuration.RFC + "\" Nombre=\"" + Variables.Configuration.LegendRegime + "\" RegimenFiscal=\"603\" />";
+                xml = xml + "<cfdi:Receptor Rfc=\"" + ms.Clients.FirstOrDefault().rfc + "\" Nombre=\"" + ms.Clients.FirstOrDefault().name + " " + ms.Clients.FirstOrDefault().lastName + " " + ms.Clients.FirstOrDefault().secondLastName + " \" UsoCFDI=\"P01\"/>";
 
             }
 
-            
+
             xml = xml + "<cfdi:Conceptos>";
 
-            foreach (var pay in m.payment.paymentDetails)
+            foreach (var pay in m.payment.PaymentDetails)
             {
-              
-               xml = xml + "<cfdi:Concepto ClaveProdServ=\""+pay.accountNumber+"\" Cantidad=\"1\" ClaveUnidad=\""+pay.unitMeasurement+"\" Unidad=\"Unidad de servicio\"  Descripcion=\"" + pay.description + "\" ValorUnitario=\"" + pay.amount + "\" Importe=\"" + pay.amount + "\">";
 
-                if (pay.haveTax == true)
+                xml = xml + "<cfdi:Concepto ClaveProdServ=\"" + pay.AccountNumber + "\" Cantidad=\"1\" ClaveUnidad=\"" + pay.UnitMeasurement + "\" Unidad=\"Unidad de servicio\"  Descripcion=\"" + pay.Description + "\" ValorUnitario=\"" + pay.Amount + "\" Importe=\"" + pay.Amount + "\">";
+
+                if (pay.HaveTax == true)
                 {
-                    xml = xml + "<cfdi:Impuestos><cfdi:Traslados><cfdi:Traslado Base=\"" + pay.amount + "\" Impuesto=\"002\" TipoFactor=\"Tasa\" TasaOCuota=\"0.160000\" Importe=\"" + pay.tax + "\" /></cfdi:Traslados></cfdi:Impuestos>";
+                    xml = xml + "<cfdi:Impuestos><cfdi:Traslados><cfdi:Traslado Base=\"" + pay.Amount + "\" Impuesto=\"002\" TipoFactor=\"Tasa\" TasaOCuota=\"0.160000\" Importe=\"" + pay.Tax + "\" /></cfdi:Traslados></cfdi:Impuestos>";
                     xml = xml + "</cfdi:Concepto>";
                     contadordeiva = contadordeiva + 1;
                 }
@@ -86,15 +86,15 @@ namespace SOAPAP
                     xml = xml + "</cfdi:Concepto>";
                 }
             }
-            
-            foreach (var pays in m.payment.paymentDetails)
+
+            foreach (var pays in m.payment.PaymentDetails)
             {
-                if (pays.haveTax == true)
+                if (pays.HaveTax == true)
                 {
-                    if (check ==false)
+                    if (check == false)
                     {
                         xml = xml + "</cfdi:Conceptos><cfdi:Impuestos TotalImpuestosTrasladados=\"" + m.transaction.tax + "\"><cfdi:Traslados>";
-                        xml= xml + "<cfdi:Traslado  Impuesto=\"002\" TipoFactor=\"Tasa\" TasaOCuota=\"0.160000\" Importe=\"" + m.transaction.tax + "\" />";
+                        xml = xml + "<cfdi:Traslado  Impuesto=\"002\" TipoFactor=\"Tasa\" TasaOCuota=\"0.160000\" Importe=\"" + m.transaction.tax + "\" />";
                         check = true;
                         contadordeiva1 = contadordeiva1 + 1;
                     }
@@ -102,10 +102,10 @@ namespace SOAPAP
                     {
                         contadordeiva1 = contadordeiva1 + 1;
                     }
-                }  
+                }
             }
 
-            if (contadordeiva== contadordeiva1 && check ==true)
+            if (contadordeiva == contadordeiva1 && check == true)
             {
                 xml = xml + "</cfdi:Traslados></cfdi:Impuestos></cfdi:Comprobante>";
             }
@@ -113,14 +113,14 @@ namespace SOAPAP
             {
                 xml = xml + "</cfdi:Conceptos></cfdi:Comprobante>";
             }
-            
+
             string xmlcreado = xml;
             string xmltimbre = string.Empty;
-            
+
 
             WsIntegral33Pruebas.WsCFDI33Client n = new WsIntegral33Pruebas.WsCFDI33Client();
-            
-            if (status=="ET002")
+
+            if (status == "ET002")
             {
 
                 try
@@ -133,27 +133,27 @@ namespace SOAPAP
                     }
                     else
                     {
-                        log_txt = "C:/CFDI/"+ Variables.Configuration.CFDIKeyCancel + "";
+                        log_txt = "C:/CFDI/" + Variables.Configuration.CFDIKeyCancel + "";
                     }
 
 
                     var pkcs = System.IO.File.ReadAllText(log_txt);
                     Thread.Sleep(3000);
-                    
+
 
                     WsIntegral33Pruebas.RespuestaCancelacionV2 detalle = new WsIntegral33Pruebas.RespuestaCancelacionV2();
                     if (Variables.Configuration.CFDITest == "Verdadero")
                     {
                         detalle = n.CancelarCFDIConValidacion("CFDI010233001", "Pruebas1a$", "TES030201001", "267138D4-7E57-7E57-7E57-AD01F16DAC82", pkcs, "12345678a");
-                        
+
                     }
                     else
                     {
                         detalle = n.CancelarCFDIConValidacion(Variables.Configuration.CFDIUser, Variables.Configuration.CFDIPassword, ms.Clients.FirstOrDefault().rfc, uuids, pkcs, Variables.Configuration.CFDICertificado);
-                        
+
                     }
-                        
-                    
+
+
                     if (detalle.OperacionExitosa)
                     {
 
@@ -173,7 +173,7 @@ namespace SOAPAP
                         }
 
                         xMLS.Status = status;
-                        xMLS.PaymentId = m.payment.id;
+                        xMLS.PaymentId = m.payment.Id;
                         xMLS.TaxReceiptDate = DateTime.Now;
                         xMLS.Type = "CAT02";
                         xMLS.Xml = detalle.XMLAcuse;
@@ -183,6 +183,9 @@ namespace SOAPAP
                         json = JsonConvert.SerializeObject(xMLS);
                         content = new StringContent(json, Encoding.UTF8, "application/json");
                         var jsonResponse = await Requests.SendURIAsync("/api/TaxReceipt/", HttpMethod.Post, Variables.LoginModel.Token, content);
+                        m.payment.HaveTaxReceipt = true;
+                        content = new StringContent(JsonConvert.SerializeObject(m.payment), Encoding.UTF8, "application/json");
+                        var updatePayment = await Requests.SendURIAsync(string.Format("/api/Payments/{0}", m.payment.Id), HttpMethod.Put, Variables.LoginModel.Token, content);
                         respuesta = rutas;
                         return respuesta;
 
@@ -204,10 +207,10 @@ namespace SOAPAP
 
             }
             else
-            { 
-
-            try
             {
+
+                try
+                {
 
                     Thread.Sleep(3000);
 
@@ -223,67 +226,70 @@ namespace SOAPAP
                         respuestas = n.Sellar(Variables.Configuration.CFDIUser, Variables.Configuration.CFDIPassword, xmlcreado, "", false, 1, "", true);
                     }
 
-                    
-    
 
-            if (respuestas.exito)
-            {
 
-                //ET001
-                //ET002
 
-                Model.TaxReceipt xMLS = new Model.TaxReceipt();
-                try
-                {
-                    xMLS.RFC = ms.Clients.FirstOrDefault(x => x.typeUser == "CLI01").rfc;
+                    if (respuestas.exito)
+                    {
+
+                        //ET001
+                        //ET002
+
+                        Model.TaxReceipt xMLS = new Model.TaxReceipt();
+                        try
+                        {
+                            xMLS.RFC = ms.Clients.FirstOrDefault(x => x.typeUser == "CLI01").rfc;
+                        }
+                        catch (Exception)
+                        {
+
+                            xMLS.RFC = "XEXX010101000";
+
+                        }
+
+                        xMLS.Status = status;
+                        xMLS.PaymentId = m.payment.Id;
+                        xMLS.TaxReceiptDate = DateTime.Now;
+                        xMLS.Type = "CAT01";
+                        xMLS.Xml = respuestas.xmlTimbrado;
+                        xMLS.FielXML = respuestas.uuid;
+                        xMLS.UserId = Variables.Configuration.Terminal.TerminalUsers.FirstOrDefault().UserId;
+                        HttpContent content;
+                        json = JsonConvert.SerializeObject(xMLS);
+
+                        content = new StringContent(json, Encoding.UTF8, "application/json");
+                        var jsonResponse = await Requests.SendURIAsync("/api/TaxReceipt/", HttpMethod.Post, Variables.LoginModel.Token, content);
+
+                        m.payment.HaveTaxReceipt = true;
+                        content = new StringContent(JsonConvert.SerializeObject(m.payment), Encoding.UTF8, "application/json");
+
+                        var updatePayment = await Requests.SendURIAsync(string.Format("/api/Payments/{0}", m.payment.Id), HttpMethod.Put, Variables.LoginModel.Token, content);
+                        String log_txts = AppDomain.CurrentDomain.BaseDirectory;
+                        if (respuestas.pdf != null)
+                        {
+
+                            System.IO.File.WriteAllBytes(log_txts + @"\PDF.pdf", respuestas.pdf);
+                            rutas = log_txts + @"\PDF.pdf";
+
+                        }
+
+                        respuesta = rutas;
+                        return respuesta;
+
+                    }
+                    else
+                    {
+
+                        respuesta = "error/" + respuestas.errorGeneral + " " + respuestas.errorEspecifico;
+                        return respuesta;
+
+                    }
                 }
                 catch (Exception)
                 {
-
-                    xMLS.RFC = "XEXX010101000";
-
+                    respuesta = "error/La Facturacion se encuentra fuera de linea";
+                    return respuesta;
                 }
-                
-                xMLS.Status = status;
-                xMLS.PaymentId = m.payment.id;
-                xMLS.TaxReceiptDate = DateTime.Now;
-                xMLS.Type = "CAT01";
-                xMLS.Xml = respuestas.xmlTimbrado;
-                xMLS.FielXML = respuestas.uuid;
-                xMLS.UserId = Variables.Configuration.Terminal.TerminalUsers.FirstOrDefault().UserId;
-                HttpContent content;
-                json = JsonConvert.SerializeObject(xMLS);
-
-
-
-                content = new StringContent(json, Encoding.UTF8, "application/json");
-                var jsonResponse = await Requests.SendURIAsync("/api/TaxReceipt/", HttpMethod.Post, Variables.LoginModel.Token, content);
-                String log_txts = AppDomain.CurrentDomain.BaseDirectory;
-                if (respuestas.pdf != null)
-                {
-
-                    System.IO.File.WriteAllBytes(log_txts + @"\PDF.pdf", respuestas.pdf);
-                    rutas = log_txts + @"\PDF.pdf";
-
-                }
-
-                respuesta = rutas;
-                return respuesta;
-
-            }
-            else
-            {
-
-                respuesta = "error/" + respuestas.errorGeneral + " "+ respuestas.errorEspecifico;
-                return respuesta;
-
-            }
-            }
-            catch (Exception)
-            {
-                respuesta = "error/La Facturacion se encuentra fuera de linea";
-                return respuesta;
-            }
             }
         }
     }

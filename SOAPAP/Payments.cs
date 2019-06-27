@@ -22,6 +22,10 @@ namespace SOAPAP
         public int agreementId { get; set; }
         public string status { get; set; }
         public string type { get; set; }
+        public string PayMethodNumber { get; set; }
+        public bool HaveTaxReceipt { get; set; }
+        public string Account { get; set; }
+        public int OrderSaleId { get; set; }
         public int originPaymentId { get; set; }
         public OriginPayment originPayment { get; set; }
         public int externalOriginPaymentId { get; set; }

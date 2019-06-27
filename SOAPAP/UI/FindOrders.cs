@@ -2,6 +2,7 @@
 using SOAPAP.Enums;
 using SOAPAP.Model;
 using SOAPAP.Services;
+using SOAPAP.UI.Email;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,6 +14,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml;
 
 namespace SOAPAP.UI
 {
@@ -110,9 +112,80 @@ namespace SOAPAP.UI
                 dgvOrders.Columns[5].AutoSizeMode = DataGridViewAutoSizeColumnMode.NotSet;
                 dgvOrders.Columns[6].AutoSizeMode = DataGridViewAutoSizeColumnMode.NotSet;
                 dgvOrders.Columns[7].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-
+                DataGridViewButtonColumn sendEmail = new DataGridViewButtonColumn();
+                sendEmail.Name = "Email";
+                sendEmail.Text = "Eviar";
+                if (dgvOrders.Columns["Email"] == null)
+                {
+                    dgvOrders.Columns.Insert(8, sendEmail);
+                }
+                dgvOrders.CellClick += dgvOrders_CellClick;
+                dgvOrders.Columns[8].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+                dgvOrders.Columns[8].Width = 90;
+                //DataGridViewButtonCell c = (DataGridViewButtonCell)dgvPayment.Rows[e.RowIndex].Cells[0];
                 dgvOrders.Refresh();
                 loading.Close();
+            }
+        }
+
+        private async void dgvOrders_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                DataGridViewRow row = this.dgvOrders.Rows[e.RowIndex];
+                if (e.ColumnIndex == dgvOrders.Columns["Email"].Index)
+                {
+                    loading = new Loading();
+                    loading.Show(this);
+                    var folio = row.Cells["Folio"].FormattedValue.ToString();
+                    var results = await Requests.SendURIAsync(String.Format("/api/Payments/TaxReceipt/{0}",folio), HttpMethod.Get, Variables.LoginModel.Token);
+                    if (results.Contains("error"))
+                    {
+                        try
+                        {
+                            mensaje = new MessageBoxForm("Error", JsonConvert.DeserializeObject<Error>(results).error, TypeIcon.Icon.Cancel);
+                            result = mensaje.ShowDialog();
+                            loading.Close();
+                        }
+                        catch (Exception)
+                        {
+                            mensaje = new MessageBoxForm("Error", "Servicio no disponible favor de comunicarse con el administrador", TypeIcon.Icon.Cancel);
+                            result = mensaje.ShowDialog();
+                            loading.Close();
+                        }
+                    }
+                    else
+                    {
+                        loading.Close();
+                        Payment payment = JsonConvert.DeserializeObject<Payment>(results);
+                        if (payment.HaveTaxReceipt)
+                        {
+                            var xml = payment.TaxReceipts.FirstOrDefault();
+                            var account = payment.Account;
+                            if (xml != null)
+                            {
+                                SendEmail email = new SendEmail((xml.Xml.StartsWith("ï»¿") ? xml.Xml.Replace("ï»¿", "") : xml.Xml), account, row.Cells["Contribuyente"].FormattedValue.ToString());
+                                email.ShowDialog();
+                            }
+                            else
+                            {
+                                mensaje = new MessageBoxForm(Variables.titleprincipal, "Xml no disponible, posiblemente este pago no este facturado para mayor información contactarse con el administrador del sistema.", TypeIcon.Icon.Cancel);
+                                result = mensaje.ShowDialog();
+                            }
+                        }
+                    }
+                }
+            }
+               
+        }
+
+        private void DgvOrders_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
+        {
+            if (e.ColumnIndex >= 0 && this.dgvOrders.Columns[e.ColumnIndex].Name == "Email" && e.RowIndex >= 0)
+            {
+                DataGridViewButtonCell c = (DataGridViewButtonCell)dgvOrders.Rows[e.RowIndex].Cells[8];
+                DataGridViewRow row = this.dgvOrders.Rows[e.RowIndex];
+                c.Value = "Enviar CFDI";
             }
         }
 
@@ -142,6 +215,30 @@ namespace SOAPAP.UI
         private void btnClose_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void ExportGridToXML(string xml)
+        {
+            SaveFileDialog SaveXMLFileDialog = new SaveFileDialog();
+            SaveXMLFileDialog.Filter = "Xml files (*.xml)|*.xml";
+            SaveXMLFileDialog.FilterIndex = 2;
+            SaveXMLFileDialog.RestoreDirectory = true;
+            SaveXMLFileDialog.Title = "Exportar XML de Factura";
+            if (SaveXMLFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    XmlDocument xdoc = new XmlDocument();
+                    xdoc.LoadXml(xml);
+                    xdoc.Save(System.IO.File.OpenWrite(SaveXMLFileDialog.FileName));
+                }
+                catch (Exception)
+                {
+                    mensaje = new MessageBoxForm(Variables.titleprincipal, "Por el momento no se puede descargar el xml", TypeIcon.Icon.Cancel);
+                    result = mensaje.ShowDialog();
+                }
+
+            }
         }
     }
     public partial class SearchOrders

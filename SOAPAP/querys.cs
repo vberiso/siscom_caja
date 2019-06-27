@@ -1293,24 +1293,24 @@ namespace SOAPAP
                             Variables.redondeop = m.transaction.rounding;
                             Variables.totalp = m.transaction.total;
                             Variables.metododepagop = m.transaction.payMethod.name;
-                            Variables.idagrement = m.payment.agreementId.ToString();
+                            Variables.idagrement = m.payment.AgreementId.ToString();
 
                             
-                                    foreach (var item in m.payment.paymentDetails)
+                                    foreach (var item in m.payment.PaymentDetails)
                                     {
                                         DataRow row = dt.NewRow();
-                                        row["Id"] = item.id;
-                                        row["amount"] = item.amount;
-                                        row["onAccount"] = item.amount;
+                                        row["Id"] = item.Id;
+                                        row["amount"] = item.Amount;
+                                        row["onAccount"] = item.Amount;
                                         row["have_tax"] = true;
-                                        row["code_concept"] = item.codeConcept;
-                                        row["name_concept"] = item.description;
-                                        row["debtId"] = item.debtId.ToString();
-                                        row["deuda"] = item.amount;
+                                        row["code_concept"] = item.CodeConcept;
+                                        row["name_concept"] = item.Description;
+                                        row["debtId"] = item.DebtId.ToString();
+                                        row["deuda"] = item.Amount;
                 try
                 {
-                    row["Year"] = item.debt.year;
-                    row["Debperiod"] = Convert.ToDateTime(item.debt.fromDate).ToString("dd-MM-yyyy") + " a " + Convert.ToDateTime(item.debt.untilDate).ToString("dd-MM-yyyy");
+                    row["Year"] = item.Debt.Year;
+                    row["Debperiod"] = Convert.ToDateTime(item.Debt.FromDate).ToString("dd-MM-yyyy") + " a " + Convert.ToDateTime(item.Debt.UntilDate).ToString("dd-MM-yyyy");
                 }
                 
                 catch (Exception)
@@ -1520,11 +1520,11 @@ namespace SOAPAP
                             m.transaction.sign = false;
                             m.transaction.cancellationFolio = folio;
                             m.transaction.typeTransactionId = 4;
-                            m.transaction.agreementId = m.payment.agreementId;
+                            m.transaction.agreementId = m.payment.AgreementId;
                             m.transaction.cancellation=folio;
                             string check = string.Empty;
                             string[] separadas;
-                            cadena = m.payment.paymentDetails.FirstOrDefault().codeConcept;
+                            cadena = m.payment.PaymentDetails.FirstOrDefault().CodeConcept;
                             
                             if (cadena == "ANT01")
                             {

@@ -491,21 +491,26 @@ namespace SOAPAP.UI
                                     else
                                     {
                                         descuentosToolStripMenuItem.Enabled = false;
-                                        mensaje = new MessageBoxForm("Sin Deuda", "Puede ingresar un pago anticipado", TypeIcon.Icon.Success , true);
-                                        result = mensaje.ShowDialog();
-                                        if(result == DialogResult.OK)
-                                        {
-                                            Form Anticipo = new Anticipo();
-                                            //Anticipo.ShowDialog(this);
-                                            if (Anticipo.ShowDialog() == DialogResult.OK)
-                                                AddPrepaid();
-                                            //else
-                                                //anua
-                                        }
-                                        //if (result == DialogResult.OK)
-                                        //{
                                        
-                                        //}
+                                        if (!Variables.Configuration.IsMunicipal)
+                                        {
+                                            mensaje = new MessageBoxForm("Sin Deuda", "La cuenta proporcionada no tiene adeudo, puede ingresar un pago anticipado", TypeIcon.Icon.Success, true);
+                                            result = mensaje.ShowDialog();
+                                            if (result == DialogResult.OK)
+                                            {
+                                                Form Anticipo = new Anticipo();
+                                                if (Anticipo.ShowDialog() == DialogResult.OK)
+                                                    AddPrepaid();
+                                                //else
+                                                //anua
+                                            }
+                                        }
+                                        else
+                                        {
+                                            mensaje = new MessageBoxForm(Variables.titleprincipal, "La cuenta proporcionada no tiene adeudo", TypeIcon.Icon.Success);
+                                            result = mensaje.ShowDialog();
+                                        }
+
                                     }
                                     
                                 }
