@@ -39,8 +39,6 @@
             this.label2 = new System.Windows.Forms.Label();
             this.dtpFechaIni = new System.Windows.Forms.DateTimePicker();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.label4 = new System.Windows.Forms.Label();
-            this.cbxArea = new System.Windows.Forms.ComboBox();
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.chcbxOperador = new DevExpress.XtraEditors.CheckedComboBoxEdit();
@@ -57,6 +55,7 @@
             this.lblTitulo = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.pgcIFB = new DevExpress.XtraPivotGrid.PivotGridControl();
+            this.dataIncomeFromBoxBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.pgfFolio = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfCuenta = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfNombre = new DevExpress.XtraPivotGrid.PivotGridField();
@@ -74,7 +73,6 @@
             this.pgfFormaPago = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfBanco = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfTipoNombre = new DevExpress.XtraPivotGrid.PivotGridField();
-            this.dataIncomeFromBoxBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.pnlHeader.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
@@ -209,47 +207,26 @@
             // 
             this.tableLayoutPanel1.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.tableLayoutPanel1.BackColor = System.Drawing.Color.White;
-            this.tableLayoutPanel1.ColumnCount = 3;
+            this.tableLayoutPanel1.ColumnCount = 2;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel1.Controls.Add(this.label4, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.cbxArea, 0, 1);
-            this.tableLayoutPanel1.Controls.Add(this.label6, 2, 0);
-            this.tableLayoutPanel1.Controls.Add(this.label7, 1, 0);
-            this.tableLayoutPanel1.Controls.Add(this.chcbxOperador, 2, 1);
-            this.tableLayoutPanel1.Controls.Add(this.chcbxOficina, 1, 1);
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(249, 8);
+            this.tableLayoutPanel1.Controls.Add(this.label7, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.chcbxOficina, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.label6, 1, 0);
+            this.tableLayoutPanel1.Controls.Add(this.chcbxOperador, 1, 1);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(332, 8);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 2;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 29F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(554, 45);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(395, 45);
             this.tableLayoutPanel1.TabIndex = 49;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(3, 3);
-            this.label4.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(98, 13);
-            this.label4.TabIndex = 51;
-            this.label4.Text = "Seleccione el área:";
-            // 
-            // cbxArea
-            // 
-            this.cbxArea.FormattingEnabled = true;
-            this.cbxArea.Location = new System.Drawing.Point(3, 19);
-            this.cbxArea.Name = "cbxArea";
-            this.cbxArea.Size = new System.Drawing.Size(178, 21);
-            this.cbxArea.TabIndex = 53;
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(371, 3);
+            this.label6.Location = new System.Drawing.Point(200, 3);
             this.label6.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(111, 13);
@@ -259,7 +236,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(187, 3);
+            this.label7.Location = new System.Drawing.Point(3, 3);
             this.label7.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(108, 13);
@@ -271,11 +248,11 @@
             this.chcbxOperador.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.chcbxOperador.EditValue = "";
-            this.chcbxOperador.Location = new System.Drawing.Point(371, 19);
+            this.chcbxOperador.Location = new System.Drawing.Point(200, 19);
             this.chcbxOperador.Name = "chcbxOperador";
             this.chcbxOperador.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.chcbxOperador.Size = new System.Drawing.Size(180, 20);
+            this.chcbxOperador.Size = new System.Drawing.Size(192, 20);
             this.chcbxOperador.TabIndex = 57;
             // 
             // chcbxOficina
@@ -283,11 +260,11 @@
             this.chcbxOficina.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.chcbxOficina.EditValue = "";
-            this.chcbxOficina.Location = new System.Drawing.Point(187, 19);
+            this.chcbxOficina.Location = new System.Drawing.Point(3, 19);
             this.chcbxOficina.Name = "chcbxOficina";
             this.chcbxOficina.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.chcbxOficina.Size = new System.Drawing.Size(178, 20);
+            this.chcbxOficina.Size = new System.Drawing.Size(191, 20);
             this.chcbxOficina.TabIndex = 58;
             // 
             // pcbIncomeByConcept
@@ -309,9 +286,9 @@
             this.pbBG.BackColor = System.Drawing.Color.Transparent;
             this.pbBG.Image = global::SOAPAP.Properties.Resources.bg;
             this.pbBG.InitialImage = global::SOAPAP.Properties.Resources.bg;
-            this.pbBG.Location = new System.Drawing.Point(217, 7);
+            this.pbBG.Location = new System.Drawing.Point(301, 7);
             this.pbBG.Name = "pbBG";
-            this.pbBG.Size = new System.Drawing.Size(623, 50);
+            this.pbBG.Size = new System.Drawing.Size(451, 50);
             this.pbBG.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pbBG.TabIndex = 41;
             this.pbBG.TabStop = false;
@@ -458,6 +435,10 @@
             this.pgcIFB.Size = new System.Drawing.Size(1027, 277);
             this.pgcIFB.TabIndex = 49;
             // 
+            // dataIncomeFromBoxBindingSource
+            // 
+            this.dataIncomeFromBoxBindingSource.DataSource = typeof(SOAPAP.Reportes.DataIncomeFromBox);
+            // 
             // pgfFolio
             // 
             this.pgfFolio.AreaIndex = 1;
@@ -588,10 +569,6 @@
             this.pgfTipoNombre.FieldName = "TipoNombre";
             this.pgfTipoNombre.Name = "pgfTipoNombre";
             // 
-            // dataIncomeFromBoxBindingSource
-            // 
-            this.dataIncomeFromBoxBindingSource.DataSource = typeof(SOAPAP.Reportes.DataIncomeFromBox);
-            // 
             // RepIFB
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -637,8 +614,6 @@
         private System.Windows.Forms.DateTimePicker dtpFechaIni;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.ComboBox cbxArea;
         private System.Windows.Forms.PictureBox pcbIncomeByConcept;
         private System.Windows.Forms.PictureBox pbBG;
         private System.Windows.Forms.Panel pnlHRigth;

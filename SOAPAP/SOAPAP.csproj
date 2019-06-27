@@ -236,6 +236,11 @@
       <DependentUpon>Anticipo.cs</DependentUpon>
     </Compile>
     <Compile Include="Anticipos.cs" />
+    <Compile Include="Connected Services\WSCFDI33\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
     <Compile Include="Connected Services\WsIntegral33Pruebas\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -936,6 +941,49 @@
     <EmbeddedResource Include="viewdetails.resx">
       <DependentUpon>viewdetails.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="Connected Services\WSCFDI33\SOAPAP.WSCFDI33.RespuestaAceptacionRechazo.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\WSCFDI33\SOAPAP.WSCFDI33.RespuestaCancelacion.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\WSCFDI33\SOAPAP.WSCFDI33.RespuestaCancelacionAsincrona.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\WSCFDI33\SOAPAP.WSCFDI33.RespuestaCreditos.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\WSCFDI33\SOAPAP.WSCFDI33.RespuestaEstatusCancelacionAsincrona.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\WSCFDI33\SOAPAP.WSCFDI33.RespuestaPeticionesPendientes.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\WSCFDI33\SOAPAP.WSCFDI33.RespuestaRelacionados.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\WSCFDI33\SOAPAP.WSCFDI33.RespuestaReporte.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\WSCFDI33\SOAPAP.WSCFDI33.RespuestaTFD33.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\WSCFDI33\SOAPAP.WSCFDI33.RespuestaValidacionRFC.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\WSCFDI33\WSCFDI33.wsdl" />
+    <None Include="Connected Services\WSCFDI33\WSCFDI33.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\WSCFDI33\WSCFDI331.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\WSCFDI33\WSCFDI332.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\WSCFDI33\WSCFDI333.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Connected Services\WsIntegral33Pruebas\SOAPAP.WsIntegral33Pruebas.ObtenerPDFPakmailResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
@@ -1024,10 +1072,16 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\xmlBCO.png" />
-    <None Include="Connected Services\WsIntegral33Pruebas\WsCFDI33.disco" />
     <None Include="Connected Services\WsIntegral33Pruebas\configuration91.svcinfo" />
     <None Include="Connected Services\WsIntegral33Pruebas\configuration.svcinfo" />
     <None Include="Connected Services\WsIntegral33Pruebas\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Connected Services\WsIntegral33Pruebas\WsCFDI33.disco" />
+    <None Include="Connected Services\WSCFDI33\configuration91.svcinfo" />
+    <None Include="Connected Services\WSCFDI33\configuration.svcinfo" />
+    <None Include="Connected Services\WSCFDI33\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
@@ -1295,6 +1349,7 @@
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <ItemGroup>
+    <WCFMetadataStorage Include="Connected Services\WSCFDI33\" />
     <WCFMetadataStorage Include="Connected Services\WsIntegral33Pruebas\" />
   </ItemGroup>
   <ItemGroup />

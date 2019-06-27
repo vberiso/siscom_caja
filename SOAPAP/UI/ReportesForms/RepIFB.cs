@@ -44,16 +44,13 @@ namespace SOAPAP.UI.ReportesForms
 
         private async Task CargarCombos()
         {
-            //Combo Areas o Concepto de pago
-            List<DataComboBox> lstAreas = new List<DataComboBox>();
-            lstAreas.Add(new DataComboBox() { keyInt = 1, value = "Agua" });
-            //lstAreas.Add(new DataComboBox() { keyInt = 1, value = "Limpia" });
-            //lstAreas.Add(new DataComboBox() { keyInt = 1, value = "Predial" });
-            //lstAreas.Add(new DataComboBox() { keyInt = 1, value = "Tesorería" });
-            cbxArea.ValueMember = "keyInt";
-            cbxArea.DisplayMember = "value";
-            cbxArea.DataSource = lstAreas;
-            cbxArea.SelectedIndex = 0;
+            ////Combo Areas o Concepto de pago
+            //List<DataComboBox> lstAreas = new List<DataComboBox>();
+            //lstAreas.Add(new DataComboBox() { keyInt = 1, value = "Agua" });           
+            //cbxArea.ValueMember = "keyInt";
+            //cbxArea.DisplayMember = "value";
+            //cbxArea.DataSource = lstAreas;
+            //cbxArea.SelectedIndex = 0;
 
             //Obtengo las relaciones de Usuarios y terminales.
             List<Model.UsersByTerminal> lstUT = new List<Model.UsersByTerminal>();
