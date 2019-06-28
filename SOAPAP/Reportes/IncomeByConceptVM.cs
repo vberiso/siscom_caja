@@ -8,6 +8,7 @@ namespace SOAPAP.Reportes
 {
     class IncomeByConceptVM
     {
+        //Agua
         public string FOLIO { get; set; }
         public string CUENTA { get; set; }
         public string NOMBRE { get; set; }
@@ -30,5 +31,11 @@ namespace SOAPAP.Reportes
         public string FECHA { get; set; }
         public string CAJERO { get; set; }
         public string BANCO { get; set; }
+
+        //AYUNTAMIENTO
+        public decimal PREDIAL { get; set; }
+        public decimal LIMPIA { get; set; }
+        public decimal MULTAS { get; set; }
+
     }
 }

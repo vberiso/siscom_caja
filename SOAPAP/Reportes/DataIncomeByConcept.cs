@@ -25,5 +25,8 @@ namespace SOAPAP.Reportes
         public string origen_pago { get; set; }
         public string banco { get; set; }
         public string cajero { get; set; }
+        public string type { get; set; }
+        public string status { get; set; }
+        public int code_concept { get; set; }
     }
 }
