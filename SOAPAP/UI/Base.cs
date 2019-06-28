@@ -246,6 +246,9 @@ namespace SOAPAP
             CargaInformacion();
             //notificacionesToolStripMenuItem.Enabled = false;
             notificacionesToolStripMenuItem.DropDownItems.Clear();
+
+            if (Variables.Configuration.IsMunicipal)
+                ingresosPorConceptoToolStripMenuItem.Visible = false;
         }           
         private void AddFormInPanel(Form fh)
         {
