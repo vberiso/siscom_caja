@@ -247,8 +247,8 @@ namespace SOAPAP
             //notificacionesToolStripMenuItem.Enabled = false;
             notificacionesToolStripMenuItem.DropDownItems.Clear();
 
-            if (Variables.Configuration.IsMunicipal)
-                ingresosPorConceptoToolStripMenuItem.Visible = false;
+            ////if (Variables.Configuration.IsMunicipal)
+            ////    ingresosPorConceptoToolStripMenuItem.Visible = false;
         }           
         private void AddFormInPanel(Form fh)
         {
@@ -847,7 +847,11 @@ namespace SOAPAP
 
         private void ingresosPorConceptoToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ShowForm("SOAPAP", "UI.ReportesForms.RepIA");
+            if (Variables.Configuration.IsMunicipal)
+                ShowForm("SOAPAP", "UI.ReportesForms.RepIAAyunt");
+            else
+                ShowForm("SOAPAP", "UI.ReportesForms.RepIA");
+
         }
 
         private void padrónToolStripMenuItem_Click(object sender, EventArgs e)

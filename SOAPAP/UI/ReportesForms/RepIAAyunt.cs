@@ -277,36 +277,34 @@ namespace SOAPAP.UI.ReportesForms
                         decimal IVA = elem.lst.Sum(y => y.iva);
                         decimal DESCUENTO = elem.lst.Sum(y => y.Descuento);
 
-                        decimal AGUA = elem.lst.Where(x => !x.description.Contains("RECARGO") && x.description.Contains("AGUA") && x.tipo_movimiento == "TIP01").Sum(y => y.importe);
-                        foreach (var SubElem in elem.lst.Where(x => !x.description.Contains("RECARGO") && x.description.Contains("AGUA") && x.tipo_movimiento == "TIP01").ToList())
-                            elem.lst.Remove(SubElem);
 
-                        decimal DRENAJE = elem.lst.Where(x => !x.description.Contains("RECARGO") && x.description.Contains("DRENAJE") && x.tipo_movimiento == "TIP01").Sum(y => y.importe);
-                        foreach (var SubElem in elem.lst.Where(x => !x.description.Contains("RECARGO") && x.description.Contains("DRENAJE") && x.tipo_movimiento == "TIP01").ToList())
-                            elem.lst.Remove(SubElem);
 
-                        decimal SAN = elem.lst.Where(x => !x.description.Contains("RECARGO") && x.description.Contains("SANEAMIENTO") && x.tipo_movimiento == "TIP01").Sum(y => y.importe);
-                        foreach (var SubElem in elem.lst.Where(x => !x.description.Contains("RECARGO") && x.description.Contains("SANEAMIENTO") && x.tipo_movimiento == "TIP01").ToList())
-                            elem.lst.Remove(SubElem);
+                        //Predial
+                        decimal pPred = elem.lst.Where(x => x.code_concept == 1).Sum(y => y.importe);
+                        foreach (var subElem in elem.lst.Where(x => x.code_concept == 1).ToList())
+                            elem.lst.Remove(subElem);
 
-                        decimal REC = elem.lst.Where(x => x.description.Contains("RECARGO") && x.tipo_movimiento == "TIP01").Sum(y => y.importe);
-                        foreach (var SubElem in elem.lst.Where(x => x.description.Contains("RECARGO") && x.tipo_movimiento == "TIP01").ToList())
-                            elem.lst.Remove(SubElem);
+                        //Limpia
+                        decimal pLimp = elem.lst.Where(x => x.code_concept == 2).Sum(y => y.importe);
+                        foreach (var subElem in elem.lst.Where(x => x.code_concept == 2).ToList())
+                            elem.lst.Remove(subElem);
 
-                        decimal NOTIF = elem.lst.Where(x => x.description.Contains("Notifica") && x.tipo_movimiento == "TIP03").Sum(y => y.importe);
-                        foreach (var SubElem in elem.lst.Where(x => x.description.Contains("Notifica") && x.tipo_movimiento == "TIP03").ToList())
-                            elem.lst.Remove(SubElem);
+                        //Recargos
+                        decimal pReca = elem.lst.Where(x => x.code_concept == 3 || x.code_concept == 5).Sum(y => y.importe);
+                        foreach (var subElem in elem.lst.Where(x => x.code_concept == 3 || x.code_concept == 5).ToList())
+                            elem.lst.Remove(subElem);
 
-                        decimal ANTI = elem.lst.Where(x => x.tipo_movimiento == "TIP05").Sum(y => y.importe);
-                        foreach (var SubElem in elem.lst.Where(x => x.tipo_movimiento == "TIP05").ToList())
-                            elem.lst.Remove(SubElem);
-
+                        //Multas
+                        decimal pMult = elem.lst.Where(x => x.code_concept == 4 ).Sum(y => y.importe);
+                        foreach (var subElem in elem.lst.Where(x => x.code_concept == 4).ToList())
+                            elem.lst.Remove(subElem);
+                        
                         //decimal OTROS = elem.lst.Where(x => x.tipo_movimiento == "S/T" || x.tipo_movimiento == "TIP02").Sum(y => y.importe);
                         decimal OTROS = elem.lst.Sum(y => y.importe);
 
-                        decimal Monto = AGUA + DRENAJE + SAN + REC + NOTIF + ANTI + OTROS + DESCUENTO;
-                        decimal Subtotal = AGUA + DRENAJE + SAN + REC + NOTIF + ANTI + OTROS;
-                        decimal TOTAL = AGUA + DRENAJE + SAN + REC + NOTIF + ANTI + OTROS + IVA;
+                        decimal Monto = pPred + pLimp + pReca + OTROS + DESCUENTO;
+                        decimal Subtotal = pPred + pLimp + pReca + OTROS;
+                        decimal TOTAL = pPred + pLimp + pReca + OTROS + IVA;
                         string ESTA = "ACT";
 
                         IncomeByConceptVM ibcTemp = new IncomeByConceptVM()
@@ -319,15 +317,18 @@ namespace SOAPAP.UI.ReportesForms
                             CAJERO = CAJERO,
                             FECHA = FECHA,
                             MONTO = Monto,
-                            AGUA = AGUA,
-                            DRENAJE = DRENAJE,
-                            SAN = SAN,
-                            REC = REC,
-                            NOTIF = NOTIF,
+                            AGUA = 0,
+                            DRENAJE = 0,
+                            SAN = 0,
+                            PREDIAL = pPred,
+                            LIMPIA = pLimp,
+                            MULTAS = pMult,
+                            REC = pReca,
+                            NOTIF = 0,
                             IVA = IVA,
                             OTROS = OTROS,
                             DCTO = DESCUENTO,
-                            ANTI = ANTI,
+                            ANTI = 0,
                             SUBTOTAL = Subtotal,
                             TOTAL = TOTAL,
                             ESTA = ESTA,
