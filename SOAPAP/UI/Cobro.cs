@@ -44,11 +44,21 @@ namespace SOAPAP.UI
         bool orderSale;
         decimal porcentaje = 0;
         public readonly FirebaseClient firebase = new FirebaseClient("https://siscom-notifications.firebaseio.com/");
+        CashBoxAccess.Access accessParam = CashBoxAccess.Access.Cobro;
 
         public Cobro()
         {
             Requests = new RequestsAPI(UrlBase);
             InitializeComponent();
+            if (Variables.LoginModel.RolName.ToList().Find(x => x.Contains("GenerarOrden")) != null)
+            {
+                accessParam = CashBoxAccess.Access.GenerarOrden;
+                gbxCampaign.Visible = false;
+                txtTotal.Visible = false;
+                lblTxtPagar.Visible = false;
+                btnCobrar.Visible = false;
+            }
+
             if (!String.IsNullOrWhiteSpace(Variables.cuenta))
             {
                 txtCuenta.Text = Variables.cuenta;
@@ -328,8 +338,8 @@ namespace SOAPAP.UI
 
         private async void ObtenerInformacion()
         {
-            LimpiaDatos();
-            if (txtCuenta.Text.Trim().Length != 0)
+            LimpiaDatos();           
+                if (txtCuenta.Text.Trim().Length != 0)
             {
                 string _cuenta = txtCuenta.Text.Trim();
                 txtCuenta.Text = _cuenta;
@@ -417,7 +427,7 @@ namespace SOAPAP.UI
                 {
                     if (Variables.Configuration.DiscountCampaigns.Count > 0)
                     {
-                        gbxCampaign.Visible = true;
+                        gbxCampaign.Visible = accessParam == CashBoxAccess.Access.GenerarOrden? false: true;
                         lblTitleCampaign.Text = Variables.Configuration.DiscountCampaigns.First().Name;
                     }
                     orderSale = false;

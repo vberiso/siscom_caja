@@ -10,6 +10,7 @@ namespace SOAPAP.Enums
     {
         public enum Access
         {
+            GenerarOrden = -2,
             Admin = -1,
             SinAcceso = 0,  
             Abierta = 1,
@@ -18,7 +19,7 @@ namespace SOAPAP.Enums
             Cierre= 5,
             Liquidada = 7,
             SinCierreAnterior = 8,
-            SinApertura = 9
+            SinApertura = 9            
         }
     }
 }

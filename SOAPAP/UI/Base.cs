@@ -669,27 +669,57 @@ namespace SOAPAP
             if (accessParam == CashBoxAccess.Access.Admin)
                 btnApertura.Text = "Alta de Terminal";
 
+            #region Visible
+            btnApertura.Visible =    accessParam == CashBoxAccess.Access.SinAcceso ||
+                                     accessParam== CashBoxAccess.Access.GenerarOrden ? false : true;
 
-            btnApertura.Visible = accessParam == CashBoxAccess.Access.SinAcceso ? false : true;
-            btnCobro.Visible = accessParam == CashBoxAccess.Access.SinAcceso || accessParam == CashBoxAccess.Access.Admin ? false : true;
-            btnBuscar.Visible = accessParam == CashBoxAccess.Access.SinAcceso || accessParam == CashBoxAccess.Access.Admin ? false : true;
-            btnMovimientos.Visible = accessParam == CashBoxAccess.Access.SinAcceso || accessParam == CashBoxAccess.Access.Admin ? false : true;
-            //btnReportes.Visible = accessParam == CashBoxAccess.Access.SinAcceso || accessParam == CashBoxAccess.Access.Admin ? false : true;
-            btnReportes.Visible = false;
-            btnProductos.Visible = accessParam == CashBoxAccess.Access.SinAcceso || accessParam == CashBoxAccess.Access.Admin ? false : true;
+            btnCobro.Visible =       accessParam == CashBoxAccess.Access.SinAcceso ||
+                                     accessParam == CashBoxAccess.Access.Admin ? false : true;
+
+            btnBuscar.Visible =      accessParam == CashBoxAccess.Access.SinAcceso ||
+                                     accessParam == CashBoxAccess.Access.Admin ? false : true;
+
+            btnMovimientos.Visible = accessParam == CashBoxAccess.Access.SinAcceso || 
+                                     accessParam == CashBoxAccess.Access.Admin ||
+                                     accessParam == CashBoxAccess.Access.GenerarOrden ? false : true;
+
+            btnHistorial.Visible =   accessParam == CashBoxAccess.Access.GenerarOrden ? false : btnHistorial.Visible;
            
-            //btnHistorial.Visible = accessParam == CashBoxAccess.Access.SinAcceso || accessParam == CashBoxAccess.Access.Admin ? false : true;
-            reportesToolStripMenuItem.Visible = accessParam == CashBoxAccess.Access.SinAcceso || accessParam == CashBoxAccess.Access.Admin ? false : true;
+            
+            btnProductos.Visible =   accessParam == CashBoxAccess.Access.SinAcceso ||
+                                     accessParam == CashBoxAccess.Access.Admin ? false : true;
 
-            btnApertura.Enabled = accessParam == CashBoxAccess.Access.SinCierreAnterior ? false : true;
-            btnCobro.Enabled = accessParam != CashBoxAccess.Access.Cobro ? false : true;
-            btnBuscar.Enabled = accessParam != CashBoxAccess.Access.Cobro ? false : true;
+            tsmPadron.Visible =      accessParam == CashBoxAccess.Access.GenerarOrden ? false : tsmPadron.Visible;
+
+            reportesToolStripMenuItem.Visible = accessParam == CashBoxAccess.Access.SinAcceso ||
+                                                accessParam == CashBoxAccess.Access.Admin ? false : true;
+
+            ingresosToolStripMenuItem.Visible = accessParam == CashBoxAccess.Access.GenerarOrden ? false : ingresosToolStripMenuItem.Visible;
+            
+
+            btnProductos.Visible =   accessParam == CashBoxAccess.Access.GenerarOrden ? true : btnProductos.Visible;
+
+            btnReportes.Visible = false;
+
+            #endregion
+
+            #region Enabled
+            btnApertura.Enabled =    accessParam == CashBoxAccess.Access.SinCierreAnterior ? false : true;
+
+            btnCobro.Enabled =       accessParam != CashBoxAccess.Access.Cobro &&
+                                     accessParam != CashBoxAccess.Access.GenerarOrden ? false : true;
+
+            btnBuscar.Enabled =      accessParam != CashBoxAccess.Access.Cobro &&
+                                     accessParam != CashBoxAccess.Access.GenerarOrden ? false : true;
+
             btnMovimientos.Enabled = accessParam != CashBoxAccess.Access.Cobro ? false : true;
-            //btnReportes.Enabled = accessParam != CashBoxAccess.Access.Cobro ? false : true;
-            btnProductos.Enabled = accessParam != CashBoxAccess.Access.Cobro ? false : true;
-            //btnHistorial.Enabled = accessParam != CashBoxAccess.Access.Cobro ? false : true;
-            reportesToolStripMenuItem.Enabled = accessParam != CashBoxAccess.Access.Cobro ? false : true;
 
+            btnProductos.Enabled =   accessParam != CashBoxAccess.Access.Cobro &&
+                                     accessParam != CashBoxAccess.Access.GenerarOrden ? false : true;
+
+            reportesToolStripMenuItem.Enabled = accessParam != CashBoxAccess.Access.Cobro &&
+                                                accessParam != CashBoxAccess.Access.GenerarOrden? false : true; 
+            #endregion
             btnApertura.Image = accessParam == CashBoxAccess.Access.Cobro ? Properties.Resources.abrir_caja : Properties.Resources.cerrar_caja;
         }
 
@@ -710,6 +740,7 @@ namespace SOAPAP
 
             if (Variables.LoginModel.RolName.ToList().Find(x => x.Contains("User")) != null)
             {
+                btnCobro.Text = "Cobro";
                 if (Variables.Configuration.Terminal != null)
                 {
                     if (Variables.Configuration.Terminal.TerminalUsers.Count > 0)
@@ -796,8 +827,16 @@ namespace SOAPAP
                 lblTitulo.Text = "Bienvenido(a)";
                 lblTerminal.Text = String.Empty;
                 lblEstadoCaja.Text = String.Empty;
-                btnApertura.Text = "Alta de Caja";
+                btnApertura.Text = "   Alta de Caja";
                 CargaMenu(CashBoxAccess.Access.Admin);
+            }
+            if (Variables.LoginModel.RolName.ToList().Find(x => x.Contains("GenerarOrden")) != null)
+            {
+                lblTitulo.Text = "Bienvenido(a)";
+                lblTerminal.Text = String.Empty;
+                lblEstadoCaja.Text = String.Empty;
+                btnCobro.Text = "   Adeudo";
+                CargaMenu(CashBoxAccess.Access.GenerarOrden);
             }
             if (Variables.LoginModel.RolName.ToList().Find(x => x.Contains("Supervisor")) != null)
             {
