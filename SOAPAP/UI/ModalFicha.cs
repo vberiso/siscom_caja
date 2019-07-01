@@ -571,12 +571,12 @@ namespace SOAPAP.UI
                 if(e.ColumnIndex == dgvPayment.Columns["Email"].Index && e.RowIndex >= 0)
                 {
                     var idPayment = Convert.ToInt32(row.Cells["ID"].FormattedValue.ToString());
-                    var payment = _payments.Where(x => x.Id == idPayment).FirstOrDefault().TaxReceipts;
-                    var xml = payment.FirstOrDefault();
+                    var payment = _payments.Where(x => x.Id == idPayment).FirstOrDefault();
+                    var xml = payment.TaxReceipts.FirstOrDefault();
                     var account = _payments.FirstOrDefault().Account;
                     if(xml != null)
                     {
-                        SendEmail email = new SendEmail((xml.Xml.StartsWith("ï»¿") ? xml.Xml.Replace("ï»¿", "") : xml.Xml), account, lblCliente.Text);
+                        SendEmail email = new SendEmail((xml.Xml.StartsWith("ï»¿") ? xml.Xml.Replace("ï»¿", "") : xml.Xml), account, lblCliente.Text, payment.HaveTaxReceipt);
                         email.ShowDialog();
                     }
                     else

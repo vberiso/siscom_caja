@@ -16,7 +16,7 @@
     <TargetFrameworkProfile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
-    <PublishUrl>\\installer.cuautlancingo.gob.mx\caja\</PublishUrl>
+    <PublishUrl>\\installer.sosapac.gob.mx\caja\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Unc</InstallFrom>
     <UpdateEnabled>true</UpdateEnabled>
@@ -26,12 +26,12 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>true</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <UpdateUrl>\\installer.cuautlancingo.gob.mx\caja\</UpdateUrl>
+    <UpdateUrl>\\installer.sosapac.gob.mx\caja\</UpdateUrl>
     <MinimumRequiredVersion>1.1.1.1</MinimumRequiredVersion>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
     <AutorunEnabled>true</AutorunEnabled>
-    <ApplicationRevision>100</ApplicationRevision>
+    <ApplicationRevision>101</ApplicationRevision>
     <ApplicationVersion>1.1.1.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -1111,6 +1111,7 @@
     <None Include="Resources\back.png" />
     <None Include="Resources\bares.png" />
     <None Include="Resources\Banner.png" />
+    <None Include="Resources\ayuntamiento-sistema.png" />
     <Content Include="Resources\buscar.png" />
     <None Include="Resources\cancelado.png" />
     <None Include="Resources\cerrada.png" />
@@ -1154,6 +1155,7 @@
     <Content Include="Resources\retiros.png" />
     <None Include="Resources\spinner.gif" />
     <None Include="Resources\sin-estado.png" />
+    <None Include="Resources\sosapac-sistema.png" />
     <Content Include="Resources\splash-sd.png" />
     <None Include="Resources\success.png" />
     <None Include="Resources\store.png" />

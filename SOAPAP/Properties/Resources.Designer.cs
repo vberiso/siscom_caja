@@ -83,6 +83,16 @@ namespace SOAPAP.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap ayuntamiento_sistema {
+            get {
+                object obj = ResourceManager.GetObject("ayuntamiento_sistema", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap back {
             get {
                 object obj = ResourceManager.GetObject("back", resourceCulture);
@@ -716,6 +726,16 @@ namespace SOAPAP.Properties {
         internal static System.Drawing.Bitmap sin_estado {
             get {
                 object obj = ResourceManager.GetObject("sin-estado", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap sosapac_sistema {
+            get {
+                object obj = ResourceManager.GetObject("sosapac_sistema", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

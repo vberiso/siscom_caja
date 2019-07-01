@@ -21,6 +21,7 @@ namespace SOAPAP.UI.Email
         public string Xml { get; set; }
         public string Account { get; set; }
         public string Taxpayer { get; set; }
+        public bool SiscomBill { get; set; }
         Form loading;
         Form mensaje;
         DialogResult result = new DialogResult();
@@ -28,12 +29,13 @@ namespace SOAPAP.UI.Email
         {
             InitializeComponent();
         }
-        public SendEmail(string Xml, string Account, string Taxpayer)
+        public SendEmail(string Xml, string Account, string Taxpayer, bool SiscomBill)
         {
             InitializeComponent();
             this.Xml = Xml;
             this.Account = Account;
             this.Taxpayer = Taxpayer;
+            this.SiscomBill = SiscomBill;
         }
 
         private void PbxClose_Click(object sender, EventArgs e)
@@ -65,9 +67,14 @@ namespace SOAPAP.UI.Email
                     mail.Subject = "Envió de comprobante fiscal CFDI";
                     mail.AlternateViews.Add(getEmbeddedImage());
 
-                    WsIntegral33Pruebas.WsCFDI33Client n = new WsIntegral33Pruebas.WsCFDI33Client();
-                    var rest = n.ObtenerPDF("CFDI010233001", "Pruebas1a$", Xml, "", "", "", 1, ref test);
-                    Stream streamPDF = new MemoryStream(rest);
+                    if (SiscomBill)
+                    {
+                        WsIntegral33Pruebas.WsCFDI33Client n = new WsIntegral33Pruebas.WsCFDI33Client();
+                        var rest = n.ObtenerPDF("CFDI010233001", "Pruebas1a$", Xml, "", "", "", 1, ref test);
+                        Stream streamPDF = new MemoryStream(rest);
+                        Attachment attachmentPDF = new Attachment(streamPDF, string.Format("Comprobante_{0}.pdf", Account), "application/pdf");
+                        mail.Attachments.Add(attachmentPDF);
+                    }
                     MemoryStream memoryStream = new MemoryStream();
                     XmlDocument xDocument = new XmlDocument();
                     xDocument.LoadXml(Xml);
@@ -76,15 +83,14 @@ namespace SOAPAP.UI.Email
                     memoryStream.Position = 0;
                     Stream stream = memoryStream;
                     Attachment attachment = new Attachment(stream, string.Format("Comprobante_{0}.xml", Account), "application/xml");
-                    Attachment attachmentPDF = new Attachment(streamPDF, string.Format("Comprobante_{0}.pdf", Account), "application/pdf");
                     mail.Attachments.Add(attachment);
-                    mail.Attachments.Add(attachmentPDF);
                     SmtpServer.Port = 25;
                     SmtpServer.Credentials = new System.Net.NetworkCredential("facturacion@sosapac.gob.mx", "e0P?k0k8");
                     SmtpServer.Send(mail);
                     loading.Close();
                     mensaje = new MessageBoxForm("Envio Exitoso", "El correo electrónico se ha enviado exitosamente", TypeIcon.Icon.Success);
                     result = mensaje.ShowDialog();
+                    this.Close();
                 }
                
             }

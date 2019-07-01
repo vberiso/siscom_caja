@@ -93,38 +93,48 @@ namespace SOAPAP
                 }
                 else
                 {
-                    var terminal = await Requests.SendURIAsync(string.Format("/api/ValueParameters/{0}", Requests.GETMacAddress()), HttpMethod.Get);
-                    if (terminal.Contains("error"))
+                    if(Variables.LoginModel.Divition == 9 || Variables.LoginModel.Divition == 10)
                     {
-                        mensaje = new MessageBoxForm("Error", terminal.Split(':')[1].Replace("}", ""), TypeIcon.Icon.Cancel);
+                        loading.Close();
+                        mensaje = new MessageBoxForm("Error", "El usuario pertenece a un área que no permite el uso de esta aplicación, disculpe las molestias", TypeIcon.Icon.Cancel);
                         result = mensaje.ShowDialog();
                     }
                     else
                     {
-                        Variables.Configuration.Terminal= JsonConvert.DeserializeObject<SOAPAP.Model.Terminal>(terminal);
-                        if (Variables.Configuration.Terminal == null)
+                        var terminal = await Requests.SendURIAsync(string.Format("/api/ValueParameters/{0}", Requests.GETMacAddress()), HttpMethod.Get);
+                        if (terminal.Contains("error"))
                         {
-                            if (Variables.LoginModel.RolName.ToList().Find(x => x.Contains("Admin")) != null)
+                            mensaje = new MessageBoxForm("Error", terminal.Split(':')[1].Replace("}", ""), TypeIcon.Icon.Cancel);
+                            result = mensaje.ShowDialog();
+                        }
+                        else
+                        {
+                            Variables.Configuration.Terminal = JsonConvert.DeserializeObject<SOAPAP.Model.Terminal>(terminal);
+                            if (Variables.Configuration.Terminal == null)
+                            {
+                                if (Variables.LoginModel.RolName.ToList().Find(x => x.Contains("Admin")) != null)
+                                {
+                                    Thread t = new Thread(new ThreadStart(ThreadProc));
+                                    t.SetApartmentState(ApartmentState.STA);
+                                    t.Start();
+                                    this.Close();
+                                }
+                                else
+                                {
+                                    mensaje = new MessageBoxForm("Error", "La terminal no se encuentra registrada en el sistema y no cuenta con el perfil para realizar esa acción", TypeIcon.Icon.Cancel);
+                                    result = mensaje.ShowDialog();
+                                }
+                            }
+                            else
                             {
                                 Thread t = new Thread(new ThreadStart(ThreadProc));
                                 t.SetApartmentState(ApartmentState.STA);
                                 t.Start();
                                 this.Close();
                             }
-                            else
-                            {
-                                mensaje = new MessageBoxForm("Error", "La terminal no se encuentra registrada en el sistema y no cuenta con el perfil para realizar esa acción", TypeIcon.Icon.Cancel);
-                                result = mensaje.ShowDialog();
-                            }
-                        }
-                        else
-                        {
-                            Thread t = new Thread(new ThreadStart(ThreadProc));
-                            t.SetApartmentState(ApartmentState.STA);
-                            t.Start();
-                            this.Close();
                         }
                     }
+                   
                 }
                 loading.Close();
             }

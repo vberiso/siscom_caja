@@ -47,6 +47,14 @@ namespace SOAPAP.UI
         {
             Requests = new RequestsAPI(UrlBase);
             InitializeComponent();
+            if (Variables.LoginModel.RolName.ToList().Find(x => x.Contains("GenerarOrden")) != null)
+            {
+                pbBG.Visible = false;
+                pictureBox1.Visible = false;
+                txtCuenta.Visible = false;
+                checkBox1.Checked = true;
+                checkBox1.Visible = false;
+            }
         }
 
         querys q = new querys();
@@ -470,36 +478,52 @@ namespace SOAPAP.UI
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
-            if (checkBox1.Checked == true)
+            if (Variables.LoginModel.RolName.ToList().Find(x => x.Contains("GenerarOrden")) != null)
             {
+                pbBG.Visible = false;
+                pictureBox1.Visible = false;
+                txtCuenta.Visible = false;
+                checkBox1.Checked = true;
+                checkBox1.Visible = false;
                 tableLayoutPanel2.Enabled = true;
                 tableLayoutPanel6.Enabled = true;
-                pbBG.Enabled = false;
-                pictureBox1.Enabled = false;
-                txtCuenta.Enabled = false;
-                txtCuenta.Text = "";
-                label3.Text = "";
-                label4.Text = "";
-                dts1.Rows.Clear();
-                Total();
-                tarifagrid();
-                cuenta = "";
+                pbxIcon.Location = new Point(13, 43);
+                lblTitulo.Location = new Point(36, 41);
             }
             else
             {
-                pbBG.Enabled = true;
-                pictureBox1.Enabled = true;
-                txtCuenta.Enabled = true;
-                tableLayoutPanel2.Enabled = false;
-                tableLayoutPanel6.Enabled = false;
-                txtCuenta.Text = "";
-                label3.Text = "";
-                label4.Text = "";
-                dts1.Rows.Clear();
-                Total();
-                tarifagrid();
-                cuenta = "";
+                if (checkBox1.Checked == true)
+                {
+                    tableLayoutPanel2.Enabled = true;
+                    tableLayoutPanel6.Enabled = true;
+                    pbBG.Enabled = false;
+                    pictureBox1.Enabled = false;
+                    txtCuenta.Enabled = false;
+                    txtCuenta.Text = "";
+                    label3.Text = "";
+                    label4.Text = "";
+                    dts1.Rows.Clear();
+                    Total();
+                    tarifagrid();
+                    cuenta = "";
+                }
+                else
+                {
+                    pbBG.Enabled = true;
+                    pictureBox1.Enabled = true;
+                    txtCuenta.Enabled = true;
+                    tableLayoutPanel2.Enabled = false;
+                    tableLayoutPanel6.Enabled = false;
+                    txtCuenta.Text = "";
+                    label3.Text = "";
+                    label4.Text = "";
+                    dts1.Rows.Clear();
+                    Total();
+                    tarifagrid();
+                    cuenta = "";
+                }
             }
+            
         }
 
         void impresionhoja()

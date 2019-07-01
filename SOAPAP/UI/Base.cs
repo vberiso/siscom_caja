@@ -52,15 +52,22 @@ namespace SOAPAP
             Requests = new RequestsAPI(UrlBase);
             InitializeComponent();
             LoadDivition();
+            Task taskA = new Task(() => FirebaseService());
+            taskA.Start();
+            //taskA.Wait();
+        }
+
+        public void FirebaseService()
+        {
             var observable = firebase
                              .Child("DiscountAuthorization")
                              .AsObservable<PushNotification>()
                              .Subscribe(d =>
                              {
-                                 if(d.Object != null)
+                                 if (d.Object != null)
                                      if (d.Object.UserRequestId == Variables.LoginModel.User)
                                      {
-                                         if(d.Object.IsReply == true && !d.Object.IsView)
+                                         if (d.Object.IsReply == true && !d.Object.IsView)
                                          {
                                              if (!Variables.keys.Contains(d.Key))
                                              {
@@ -78,16 +85,18 @@ namespace SOAPAP
                                                  };
                                                  try
                                                  {
-                                                     Invoke(new MethodInvoker(() => {
-                                                             notificacionesToolStripMenuItem.Enabled = true;
-                                                             notificacionesToolStripMenuItem.DropDownItems.Add(newDropDownItem);
+                                                     Invoke(new MethodInvoker(() =>
+                                                     {
+                                                         notificacionesToolStripMenuItem.Enabled = true;
+                                                         notificacionesToolStripMenuItem.DropDownItems.Add(newDropDownItem);
                                                      }));
                                                  }
                                                  catch (Exception)
                                                  {
                                                      if (!this.IsDisposed)
                                                      {
-                                                         Invoke(new MethodInvoker(() => {
+                                                         Invoke(new MethodInvoker(() =>
+                                                         {
                                                              if (!this.IsDisposed)
                                                              {
                                                                  notificacionesToolStripMenuItem.Enabled = true;
@@ -96,7 +105,7 @@ namespace SOAPAP
                                                          }));
                                                      }
                                                  }
-                                               
+
                                                  Variables.keys.Add(d.Key);
                                                  keystemp.Add(d.Key);
                                              }
@@ -111,10 +120,11 @@ namespace SOAPAP
                                                      {
                                                          if (item.Text.Contains(d.Object.Account))
                                                          {
-                                                             //notificacionesToolStripMenuItem.DropDown.Items.Remove(item);
+                                                             notificacionesToolStripMenuItem.DropDown.Items.Remove(item);
                                                              try
                                                              {
-                                                                 Invoke(new MethodInvoker(() => {
+                                                                 Invoke(new MethodInvoker(() =>
+                                                                 {
                                                                      item.Text = $"Se ha cancelado el descuento para la cuenta: {d.Object.Account}";
                                                                      item.Image = Resources.cancel;
                                                                      item.ImageAlign = ContentAlignment.MiddleCenter;
@@ -125,7 +135,8 @@ namespace SOAPAP
 
                                                                  if (!this.IsDisposed)
                                                                  {
-                                                                     Invoke(new MethodInvoker(() => {
+                                                                     Invoke(new MethodInvoker(() =>
+                                                                     {
                                                                          if (!this.IsDisposed)
                                                                          {
                                                                              item.Text = $"Se ha cancelado el descuento para la cuenta: {d.Object.Account}";
@@ -144,10 +155,11 @@ namespace SOAPAP
                                                      {
                                                          if (item.Text.Contains(d.Object.Account))
                                                          {
-                                                             //notificacionesToolStripMenuItem.DropDown.Items.Remove(item);
+                                                             notificacionesToolStripMenuItem.DropDown.Items.Remove(item);
                                                              try
                                                              {
-                                                                 Invoke(new MethodInvoker(() => {
+                                                                 Invoke(new MethodInvoker(() =>
+                                                                 {
                                                                      item.Text = $"El descuento ha sido autorizado {Environment.NewLine} para la cuenta: {d.Object.Account} ";
                                                                      item.Image = Resources.comprobado;
                                                                      item.ImageAlign = ContentAlignment.MiddleCenter;
@@ -158,7 +170,8 @@ namespace SOAPAP
 
                                                                  if (!this.IsDisposed)
                                                                  {
-                                                                     Invoke(new MethodInvoker(() => {
+                                                                     Invoke(new MethodInvoker(() =>
+                                                                     {
                                                                          if (!this.IsDisposed)
                                                                          {
                                                                              item.Text = $"El descuento ha sido autorizado {Environment.NewLine} para la cuenta: {d.Object.Account} ";
@@ -664,7 +677,7 @@ namespace SOAPAP
             btnSeleccionado = btnSelect;
         }
 
-        private async void CargaMenu(CashBoxAccess.Access accessParam)
+        private void CargaMenu(CashBoxAccess.Access accessParam)
         {
             if (accessParam == CashBoxAccess.Access.Admin)
                 btnApertura.Text = "Alta de Terminal";
@@ -729,7 +742,15 @@ namespace SOAPAP
             tslUsuario.Text = "Usuario: " + Variables.LoginModel.User;
             try
             {
-                pbxLogoEmpresa.Image = Bitmap.FromStream(WebRequest.Create(Variables.Configuration.Image).GetResponse().GetResponseStream());
+                if (Variables.Configuration.IsMunicipal)
+                {
+                    pbxLogoEmpresa.Image = Resources.ayuntamiento_sistema;
+                }
+                else
+                {
+                    pbxLogoEmpresa.Image = Resources.sosapac_sistema;
+                }
+                //pbxLogoEmpresa.Image = Bitmap.FromStream(WebRequest.Create(Variables.Configuration.Image).GetResponse().GetResponseStream());
             }
             catch (Exception)
             {

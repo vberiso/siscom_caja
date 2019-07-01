@@ -158,21 +158,30 @@ namespace SOAPAP.UI
                     {
                         loading.Close();
                         Payment payment = JsonConvert.DeserializeObject<Payment>(results);
-                        if (payment.HaveTaxReceipt)
+                        if(payment != null)
                         {
-                            var xml = payment.TaxReceipts.FirstOrDefault();
-                            var account = payment.Account;
-                            if (xml != null)
+                            if (payment.HaveTaxReceipt)
                             {
-                                SendEmail email = new SendEmail((xml.Xml.StartsWith("ï»¿") ? xml.Xml.Replace("ï»¿", "") : xml.Xml), account, row.Cells["Contribuyente"].FormattedValue.ToString());
-                                email.ShowDialog();
-                            }
-                            else
-                            {
-                                mensaje = new MessageBoxForm(Variables.titleprincipal, "Xml no disponible, posiblemente este pago no este facturado para mayor información contactarse con el administrador del sistema.", TypeIcon.Icon.Cancel);
-                                result = mensaje.ShowDialog();
+                                var xml = payment.TaxReceipts.FirstOrDefault();
+                                var account = payment.Account;
+                                if (xml != null)
+                                {
+                                    SendEmail email = new SendEmail((xml.Xml.StartsWith("ï»¿") ? xml.Xml.Replace("ï»¿", "") : xml.Xml), account, row.Cells["Contribuyente"].FormattedValue.ToString(), payment.HaveTaxReceipt);
+                                    email.ShowDialog();
+                                }
+                                else
+                                {
+                                    mensaje = new MessageBoxForm(Variables.titleprincipal, "Xml no disponible, posiblemente este pago no este facturado para mayor información contactarse con el administrador del sistema.", TypeIcon.Icon.Cancel);
+                                    result = mensaje.ShowDialog();
+                                }
                             }
                         }
+                        else
+                        {
+                            mensaje = new MessageBoxForm(Variables.titleprincipal, "Errro al enviar el CFDI, posiblemente este pago no este facturado para mayor información contactarse con el administrador del sistema.", TypeIcon.Icon.Cancel);
+                            result = mensaje.ShowDialog();
+                        }
+                        
                     }
                 }
             }
