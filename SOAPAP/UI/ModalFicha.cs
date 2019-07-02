@@ -585,9 +585,49 @@ namespace SOAPAP.UI
                         result = mensaje.ShowDialog();
                     }
                 }
+                if (e.ColumnIndex == dgvPayment.Columns["Email"].Index && e.RowIndex >= 0)
+                {
+                    var idPayment = Convert.ToInt32(row.Cells["ID"].FormattedValue.ToString());
+                    var payment = _payments.Where(x => x.Id == idPayment).FirstOrDefault();
+                    var xml = payment.TaxReceipts.FirstOrDefault();
+                    var account = _payments.FirstOrDefault().Account;
+                    WsIntegral33Pruebas.WsCFDI33Client n = new WsIntegral33Pruebas.WsCFDI33Client();
+                    string test = "before passing";
+                    if (xml != null)
+                    {
+                        if (payment.HaveTaxReceipt)
+                        {
+                            var rest = n.ObtenerPDF("CFDI010233001", "Pruebas1a$", xml.FielXML, "", "", "", 1, ref test);
+                            ExportGridToPDF(rest);
+                        }
+                        else
+                        {
+                            mensaje = new MessageBoxForm(Variables.titleprincipal, "Descarga no disponible, posiblemente este pago no este facturado por este sistema para mas información contactarse con el administrador del sistema.", TypeIcon.Icon.Cancel);
+                            result = mensaje.ShowDialog();
+                        }
+                        
+                    }
+                    else
+                    {
+                        mensaje = new MessageBoxForm(Variables.titleprincipal, "Xml no disponible, posiblemente este pago no este facturado para mayor información contactarse con el administrador del sistema.", TypeIcon.Icon.Cancel);
+                        result = mensaje.ShowDialog();
+                    }
+                }
             }
         }
 
+        private void ExportGridToPDF(byte[] pdf)
+        {
+            SaveFileDialog SaveXMLFileDialog = new SaveFileDialog();
+            SaveXMLFileDialog.Filter = "PDF files (*.pdf)|*.pdf";
+            SaveXMLFileDialog.FilterIndex = 2;
+            SaveXMLFileDialog.RestoreDirectory = true;
+            SaveXMLFileDialog.Title = "Exportar PDF de Factura";
+            if (SaveXMLFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                System.IO.File.WriteAllBytes(SaveXMLFileDialog.FileName, pdf);
+            }
+        }
         private void ExportGridToXML(string xml)
         {
             SaveFileDialog SaveXMLFileDialog = new SaveFileDialog();
