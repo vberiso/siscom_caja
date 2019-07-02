@@ -471,7 +471,7 @@ namespace SOAPAP.UI
             {
                 int _idetail = _agreement.AgreementDetails.Max(x => x.Id);
                 var _detail = _agreement.AgreementDetails.SingleOrDefault(x => x.Id == _idetail);
-                lblDetalle.SetPropertyValue(a => a.Text, "Base:" + _detail.TaxableBase.ToString() + "Construcción:" + _detail.Ground.ToString() + "Terreno:" + _detail.Built + "Actualización:" + _detail.LastUpdate.ToString());
+                lblDetalle.SetPropertyValue(a => a.Text, string.Format("Base Grabable: " + _detail.TaxableBase.ToString() +  "m2{0}Construcción:" + _detail.Ground.ToString() + "m2{0}Terreno:" + _detail.Built + "m2{0}Última Actualización:" + _detail.LastUpdate.ToString(),Environment.NewLine));
             }
 
             if (_agreement != null && _agreement.AgreementLogs != null && _agreement.AgreementLogs.Count > 0)
