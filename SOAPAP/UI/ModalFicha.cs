@@ -466,9 +466,17 @@ namespace SOAPAP.UI
         {
             var source = new BindingSource();
             List<CollectObservationSumary> lCollectObservation = null;
+            String _txtdetail = String.Empty;
 
-            if (_agreement != null && _agreement.AgreementLogs!=null && _agreement.AgreementLogs.Count > 0)
-            {                
+            if (_agreement != null && _agreement.AgreementDetails != null)
+            {
+                int _idetail = _agreement.AgreementDetails.Max(x => x.Id);
+                var _detail = _agreement.AgreementDetails.SingleOrDefault(x => x.Id == _idetail);
+                _txtdetail = "Base:" + _detail.TaxableBase.ToString() + "Construcción:" + _detail.Ground.ToString() + "Terreno:" + _detail.Built + "Actualización:" + _detail.LastUpdate.ToString() + " ";
+            }
+
+            if (_agreement != null && _agreement.AgreementLogs != null && _agreement.AgreementLogs.Count > 0)
+            {
                 lCollectObservation = _agreement.AgreementLogs
                                                 .OrderByDescending(x => x.AgreementLogDate)
                                                 .Select(x => new CollectObservationSumary
@@ -477,15 +485,10 @@ namespace SOAPAP.UI
                                                     Observation = x.Observation
                                                 }).ToList();
 
-                int _idetail = _agreement.AgreementDetails.Max(x => x.Id);
-                var _detail = _agreement.AgreementDetails.SingleOrDefault(x => x.Id == _idetail);
-                var _txtdetail = "Base:"+ _detail.TaxableBase.ToString() + "Construcción:" +_detail.Ground.ToString() + "Terreno:" + _detail.Built + "Actualización:" + _detail.LastUpdate.ToString() +" ";
-
-                lblObservaciones.SetPropertyValue(a => a.Text, !String.IsNullOrWhiteSpace(lCollectObservation.First().Observation) ? _txtdetail + lCollectObservation.First().Observation : _txtdetail+"-");
+                lblObservaciones.SetPropertyValue(a => a.Text, !String.IsNullOrWhiteSpace(lCollectObservation.First().Observation) ? _txtdetail + lCollectObservation.First().Observation : _txtdetail + "-");
             }
             else
-                lblObservaciones.SetPropertyValue(a => a.Text, "-");
-
+                lblObservaciones.SetPropertyValue(a => a.Text, _txtdetail + "-");
 
             source.DataSource = lCollectObservation ?? new List<CollectObservationSumary>();
             dgvObservaciones.DataSource = source;
