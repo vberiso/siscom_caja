@@ -72,10 +72,11 @@
             this.pnlTerminal = new System.Windows.Forms.Panel();
             this.lblTerminal = new System.Windows.Forms.Label();
             this.pnlEstadoOperacion = new System.Windows.Forms.Panel();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.lblDivition = new System.Windows.Forms.Label();
             this.btnProductos = new System.Windows.Forms.Button();
             this.pbxLogoEmpresa = new System.Windows.Forms.PictureBox();
             this.pictureBox6 = new System.Windows.Forms.PictureBox();
-            this.btnReportes = new System.Windows.Forms.Button();
             this.btnMovimientos = new System.Windows.Forms.Button();
             this.pictureBox4 = new System.Windows.Forms.PictureBox();
             this.btnCobro = new System.Windows.Forms.Button();
@@ -85,8 +86,6 @@
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.xxxToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.lblDivition = new System.Windows.Forms.Label();
             this.pnlContenido.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.pnlBottom.SuspendLayout();
@@ -97,12 +96,12 @@
             this.pnlTitulo.SuspendLayout();
             this.pnlTerminal.SuspendLayout();
             this.pnlEstadoOperacion.SuspendLayout();
+            this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbxLogoEmpresa)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
-            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -463,7 +462,6 @@
             this.pnlLeft.Controls.Add(this.pbxLogoEmpresa);
             this.pnlLeft.Controls.Add(this.label4);
             this.pnlLeft.Controls.Add(this.pictureBox6);
-            this.pnlLeft.Controls.Add(this.btnReportes);
             this.pnlLeft.Controls.Add(this.btnMovimientos);
             this.pnlLeft.Controls.Add(this.pictureBox4);
             this.pnlLeft.Controls.Add(this.btnCobro);
@@ -488,7 +486,7 @@
             this.btnHistorial.ForeColor = System.Drawing.Color.White;
             this.btnHistorial.Image = global::SOAPAP.Properties.Resources.Historial;
             this.btnHistorial.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnHistorial.Location = new System.Drawing.Point(8, 400);
+            this.btnHistorial.Location = new System.Drawing.Point(8, 381);
             this.btnHistorial.Name = "btnHistorial";
             this.btnHistorial.Size = new System.Drawing.Size(210, 56);
             this.btnHistorial.TabIndex = 41;
@@ -505,7 +503,7 @@
             this.label2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(50)))), ((int)(((byte)(62)))));
             this.label2.Font = new System.Drawing.Font("Arial", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.Color.Gray;
-            this.label2.Location = new System.Drawing.Point(8, 442);
+            this.label2.Location = new System.Drawing.Point(9, 369);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(79, 14);
             this.label2.TabIndex = 47;
@@ -564,6 +562,29 @@
             this.pnlEstadoOperacion.Size = new System.Drawing.Size(233, 25);
             this.pnlEstadoOperacion.TabIndex = 44;
             // 
+            // panel1
+            // 
+            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(33)))), ((int)(((byte)(41)))));
+            this.panel1.Controls.Add(this.lblDivition);
+            this.panel1.Location = new System.Drawing.Point(3, 135);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(230, 25);
+            this.panel1.TabIndex = 45;
+            // 
+            // lblDivition
+            // 
+            this.lblDivition.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(33)))), ((int)(((byte)(41)))));
+            this.lblDivition.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblDivition.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblDivition.ForeColor = System.Drawing.Color.DarkGray;
+            this.lblDivition.Location = new System.Drawing.Point(0, 0);
+            this.lblDivition.MaximumSize = new System.Drawing.Size(233, 0);
+            this.lblDivition.Name = "lblDivition";
+            this.lblDivition.Size = new System.Drawing.Size(230, 25);
+            this.lblDivition.TabIndex = 1;
+            this.lblDivition.Text = "Caja";
+            this.lblDivition.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // btnProductos
             // 
             this.btnProductos.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(50)))), ((int)(((byte)(62)))));
@@ -574,7 +595,7 @@
             this.btnProductos.ForeColor = System.Drawing.Color.White;
             this.btnProductos.Image = global::SOAPAP.Properties.Resources.productos;
             this.btnProductos.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnProductos.Location = new System.Drawing.Point(8, 540);
+            this.btnProductos.Location = new System.Drawing.Point(8, 519);
             this.btnProductos.Name = "btnProductos";
             this.btnProductos.Size = new System.Drawing.Size(210, 38);
             this.btnProductos.TabIndex = 43;
@@ -583,7 +604,6 @@
             this.btnProductos.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnProductos.UseVisualStyleBackColor = false;
             this.btnProductos.Click += new System.EventHandler(this.btnProductos_Click);
-            this.btnProductos.MouseLeave += new System.EventHandler(this.btnProductos_MouseLeave);
             // 
             // pbxLogoEmpresa
             // 
@@ -603,27 +623,6 @@
             this.pictureBox6.Size = new System.Drawing.Size(100, 100);
             this.pictureBox6.TabIndex = 41;
             this.pictureBox6.TabStop = false;
-            // 
-            // btnReportes
-            // 
-            this.btnReportes.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(50)))), ((int)(((byte)(62)))));
-            this.btnReportes.FlatAppearance.BorderSize = 0;
-            this.btnReportes.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(3)))), ((int)(((byte)(138)))), ((int)(((byte)(255)))));
-            this.btnReportes.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnReportes.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnReportes.ForeColor = System.Drawing.Color.White;
-            this.btnReportes.Image = global::SOAPAP.Properties.Resources.reportes;
-            this.btnReportes.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnReportes.Location = new System.Drawing.Point(8, 362);
-            this.btnReportes.Name = "btnReportes";
-            this.btnReportes.Size = new System.Drawing.Size(210, 38);
-            this.btnReportes.TabIndex = 40;
-            this.btnReportes.Text = "   Reportes";
-            this.btnReportes.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnReportes.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.btnReportes.UseVisualStyleBackColor = false;
-            this.btnReportes.Click += new System.EventHandler(this.btnReportes_Click);
-            this.btnReportes.MouseLeave += new System.EventHandler(this.btnReportes_MouseLeave);
             // 
             // btnMovimientos
             // 
@@ -668,7 +667,7 @@
             this.btnCobro.ForeColor = System.Drawing.Color.White;
             this.btnCobro.Image = global::SOAPAP.Properties.Resources.cobro;
             this.btnCobro.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnCobro.Location = new System.Drawing.Point(8, 501);
+            this.btnCobro.Location = new System.Drawing.Point(8, 478);
             this.btnCobro.Name = "btnCobro";
             this.btnCobro.Size = new System.Drawing.Size(210, 38);
             this.btnCobro.TabIndex = 5;
@@ -721,7 +720,7 @@
             this.btnBuscar.ForeColor = System.Drawing.Color.White;
             this.btnBuscar.Image = global::SOAPAP.Properties.Resources.buscar;
             this.btnBuscar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnBuscar.Location = new System.Drawing.Point(8, 462);
+            this.btnBuscar.Location = new System.Drawing.Point(8, 436);
             this.btnBuscar.Name = "btnBuscar";
             this.btnBuscar.Size = new System.Drawing.Size(210, 38);
             this.btnBuscar.TabIndex = 33;
@@ -751,29 +750,6 @@
             // 
             this.xxxToolStripMenuItem.Name = "xxxToolStripMenuItem";
             this.xxxToolStripMenuItem.Size = new System.Drawing.Size(32, 19);
-            // 
-            // panel1
-            // 
-            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(33)))), ((int)(((byte)(41)))));
-            this.panel1.Controls.Add(this.lblDivition);
-            this.panel1.Location = new System.Drawing.Point(3, 135);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(230, 25);
-            this.panel1.TabIndex = 45;
-            // 
-            // lblDivition
-            // 
-            this.lblDivition.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(33)))), ((int)(((byte)(41)))));
-            this.lblDivition.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblDivition.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblDivition.ForeColor = System.Drawing.Color.DarkGray;
-            this.lblDivition.Location = new System.Drawing.Point(0, 0);
-            this.lblDivition.MaximumSize = new System.Drawing.Size(233, 0);
-            this.lblDivition.Name = "lblDivition";
-            this.lblDivition.Size = new System.Drawing.Size(230, 25);
-            this.lblDivition.TabIndex = 1;
-            this.lblDivition.Text = "Caja";
-            this.lblDivition.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // Base
             // 
@@ -807,12 +783,12 @@
             this.pnlTitulo.ResumeLayout(false);
             this.pnlTerminal.ResumeLayout(false);
             this.pnlEstadoOperacion.ResumeLayout(false);
+            this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pbxLogoEmpresa)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
-            this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -836,7 +812,6 @@
         private System.Windows.Forms.Button btnMovimientos;
         private System.Windows.Forms.PictureBox pbxLogoEmpresa;
         private System.Windows.Forms.ToolStripStatusLabel tslVersion;
-        private System.Windows.Forms.Button btnReportes;
         private System.Windows.Forms.Panel pnlMenu;
         private System.Windows.Forms.MenuStrip msPrincipal;
         private System.Windows.Forms.ToolStripMenuItem usuarioToolStripMenuItem;

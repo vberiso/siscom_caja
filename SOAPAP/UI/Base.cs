@@ -302,63 +302,53 @@ namespace SOAPAP
             if (Variables.LoginModel.RolName.ToList().Find(x => x.Contains("Admin"))!=null)
                 ShowForm("SOAPAP", "TerminalFront");
 
+            if (Variables.LoginModel.RolName.ToList().Find(x => x.Contains("Supervisor")) != null)
+            {
+                if (Variables.Configuration.StateOperation == 7)
+                    Variables.Configuration.StateOperation = 0;
+                OpenTerminal();
+            }
+
             if (Variables.LoginModel.RolName.ToList().Find(x => x.Contains("User"))!=null)
             {
-                SOAPAP.Model.TerminalUser terminalUser;
+                //if (Variables.Configuration.StateOperation == 7)
+                //    Variables.Configuration.StateOperation = 0;
+                OpenTerminal();
+            }
+            
+            SelectOption(btnApertura);
+        }      
+        
+        private async void OpenTerminal()
+        {
+            SOAPAP.Model.TerminalUser terminalUser;
 
-                switch (_typeTransaction)
-                {
-                    case 0:
+            switch (Variables.Configuration.StateOperation)
+            {
+                case 0:
 
-                        loading = new Loading();
-                        loading.Show(this);
-                        //En caso de no existir en TerminalUser
-                        if (Variables.Configuration.Terminal.TerminalUsers.Count == 0)
+                    loading = new Loading();
+                    loading.Show(this);
+                    //En caso de no existir en TerminalUser
+                    if (Variables.Configuration.Terminal.TerminalUsers.Count == 0)
+                    {
+                        terminalUser = new SOAPAP.Model.TerminalUser();
+                        terminalUser.InOperation = true;
+                        terminalUser.TerminalId = Variables.Configuration.Terminal.Id;
+                        terminalUser.UserId = Variables.LoginModel.User;
+
+                        string _terminalUser = JsonConvert.SerializeObject(terminalUser);
+                        content = new StringContent(_terminalUser, Encoding.UTF8, "application/json");
+                        var _resulTerminalUser = await Requests.SendURIAsync("/api/TerminalUser", HttpMethod.Post, Variables.LoginModel.Token, content);
+                        if (_resulTerminalUser.Contains("error"))
                         {
-                            terminalUser = new SOAPAP.Model.TerminalUser();
-                            terminalUser.InOperation = true;
-                            terminalUser.TerminalId = Variables.Configuration.Terminal.Id;
-                            terminalUser.UserId = Variables.LoginModel.User;
-
-                            string _terminalUser = JsonConvert.SerializeObject(terminalUser);
-                            content = new StringContent(_terminalUser, Encoding.UTF8, "application/json");
-                            var _resulTerminalUser = await Requests.SendURIAsync("/api/TerminalUser", HttpMethod.Post, Variables.LoginModel.Token, content);
-                            if (_resulTerminalUser.Contains("error"))
-                            {
-                                mensaje = new MessageBoxForm("Error", _resulTerminalUser.Split(':')[1].Replace("}", ""), TypeIcon.Icon.Cancel);
-                                result = mensaje.ShowDialog();
-                            }
-                            else
-                            {
-                                Variables.Configuration.Terminal.TerminalUsers.Add(JsonConvert.DeserializeObject<SOAPAP.Model.TerminalUser>(_resulTerminalUser));
-
-                                SOAPAP.Model.Transaction transactionAterura = new SOAPAP.Model.Transaction();
-                                transactionAterura.Sign = true;
-                                transactionAterura.Amount = 0;
-                                transactionAterura.Aplication = "SISCOMCAJA";
-                                transactionAterura.TypeTransactionId = 1;
-                                transactionAterura.PayMethodId = 1;
-                                transactionAterura.TerminalUserId = Variables.Configuration.Terminal.TerminalUsers.First().Id;
-
-                                string valoresApertura = JsonConvert.SerializeObject(transactionAterura);
-                                content = new StringContent(valoresApertura, Encoding.UTF8, "application/json");
-                                var resultadoApertura = await Requests.SendURIAsync(string.Format("/api/Transaction/{0}", Variables.Configuration.Terminal.TerminalUsers.First().Id), HttpMethod.Post, Variables.LoginModel.Token, content);
-                                if (resultadoApertura.Contains("error"))
-                                {
-                                    mensaje = new MessageBoxForm("Error", resultadoApertura.Split(':')[1].Replace("}", ""), TypeIcon.Icon.Cancel);
-                                    result = mensaje.ShowDialog();
-                                }
-                                else
-                                {
-                                    Variables.Configuration.StateOperation = Convert.ToInt16(transactionAterura.TypeTransactionId);
-                                    CargaMenu(CashBoxAccess.Access.SinApertura);
-                                    mensaje = new MessageBoxForm("Transacción Exitosa", "Caja aperturada con éxito", TypeIcon.Icon.Success);
-                                    result = mensaje.ShowDialog();
-                                }
-                            }
+                            mensaje = new MessageBoxForm("Error", _resulTerminalUser.Split(':')[1].Replace("}", ""), TypeIcon.Icon.Cancel);
+                            result = mensaje.ShowDialog();
                         }
                         else
                         {
+                            Variables.Configuration.Terminal.TerminalUsers.Add(JsonConvert.DeserializeObject<SOAPAP.Model.TerminalUser>(_resulTerminalUser));
+
                             SOAPAP.Model.Transaction transactionAterura = new SOAPAP.Model.Transaction();
                             transactionAterura.Sign = true;
                             transactionAterura.Amount = 0;
@@ -383,192 +373,220 @@ namespace SOAPAP
                                 result = mensaje.ShowDialog();
                             }
                         }
-                        CargaInformacion();
-                        loading.Close();
-                        break;
-                    case 1: //Aperturar                         
-                        mensaje = new ModalFondoCaja(Variables.Configuration.Terminal.CashBox);
-                        result = mensaje.ShowDialog();
-                        if (result == DialogResult.OK)
+                    }
+                    else
+                    {
+                        SOAPAP.Model.Transaction transactionAterura = new SOAPAP.Model.Transaction();
+                        transactionAterura.Sign = true;
+                        transactionAterura.Amount = 0;
+                        transactionAterura.Aplication = "SISCOMCAJA";
+                        transactionAterura.TypeTransactionId = 1;
+                        transactionAterura.PayMethodId = 1;
+                        transactionAterura.TerminalUserId = Variables.Configuration.Terminal.TerminalUsers.First().Id;
+
+                        string valoresApertura = JsonConvert.SerializeObject(transactionAterura);
+                        content = new StringContent(valoresApertura, Encoding.UTF8, "application/json");
+                        var resultadoApertura = await Requests.SendURIAsync(string.Format("/api/Transaction/{0}", Variables.Configuration.Terminal.TerminalUsers.First().Id), HttpMethod.Post, Variables.LoginModel.Token, content);
+                        if (resultadoApertura.Contains("error"))
                         {
-                            Variables.Configuration.StateOperation = 2;
-                            CargaInformacion();
-                        }
-                        break;
-                    case 2: //Para liquidar  
-                        mensaje = new MessageBoxForm("¿Está seguro de liquidar la caja?", "Esta acción bloqueará la caja y no podrá hacer movimientos", TypeIcon.Icon.Warning, true);
-                        result = mensaje.ShowDialog();
-                        if (result == DialogResult.OK)
-                        {
-                            loading = new Loading();
-                            loading.Show(this);
-                            var resultTransaction = await Requests.SendURIAsync(string.Format("/api/Transaction/{0}/{1}", DateTime.Now.ToString("yyyy-MM-dd"), Variables.Configuration.Terminal.TerminalUsers.First().Id), HttpMethod.Get, Variables.LoginModel.Token);
-                            loading.Close();
-                            if (resultTransaction.Contains("error"))
-                            {
-                                mensaje = new MessageBoxForm("Error", resultTransaction.Split(':')[1].Replace("}", ""), TypeIcon.Icon.Cancel);
-                                result = mensaje.ShowDialog();
-                            }
-                            else
-                            {
-                                loading = new Loading();
-                                loading.Show(this);
-
-                                KeyValuePair<int, decimal> _fondoCaja = new KeyValuePair<int, decimal>(0, 0);
-                                KeyValuePair<int, decimal> _retirado = new KeyValuePair<int, decimal>(0, 0);
-                                KeyValuePair<int, decimal> _cobrado = new KeyValuePair<int, decimal>(0, 0);
-                                KeyValuePair<int, decimal> _cancelado = new KeyValuePair<int, decimal>(0, 0);
-                                decimal _saldo = 0;
-
-                                List<SOAPAP.Model.Transaction> transactions = JsonConvert.DeserializeObject<List<SOAPAP.Model.Transaction>>(resultTransaction);
-
-                                transactions.ForEach(x =>
-                                {
-
-                                    switch (x.TypeTransactionId)
-                                    {
-                                        case 1://apertura                                          
-                                            break;
-                                        case 2://Fondo                                          
-                                            _fondoCaja = new KeyValuePair<int, decimal>(_fondoCaja.Key + 1, x.Total);
-                                            break;
-                                        case 3://Cobrado                       
-                                            _cobrado = new KeyValuePair<int, decimal>(_cobrado.Key + 1, _cobrado.Value + x.Total);
-                                            break;
-                                        case 4://Cancelado                        
-                                            _cancelado = new KeyValuePair<int, decimal>(_cancelado.Key + 1, _cancelado.Value + x.Total);
-                                            break;
-                                        case 5://Cierre    
-                                            break;
-                                        case 6: //Retiro
-                                            _retirado = new KeyValuePair<int, decimal>(_retirado.Key + 1, _retirado.Value + x.Total);
-                                            break;
-                                        case 7: //Liquidada                                          
-                                            break;
-                                    }
-
-                                });
-
-                                _saldo = (_fondoCaja.Value + _cobrado.Value) - _cancelado.Value - _retirado.Value;
-                                loading.Close();
-
-                                mensaje = new MessageBoxForm(string.Format("La caja se liquidará: ${0}", _saldo), string.Format("COBROS: ({0}) -> ${1}.{2}    CANCELACIONES: ({3}) -> ${4}.{5}    RETIROS: ({6}) -> ${7}",
-                                                                                                    _cobrado.Key,
-                                                                                                    _cobrado.Value,
-                                                                                                     Environment.NewLine,
-                                                                                                    _cancelado.Key,
-                                                                                                    _cancelado.Value,
-                                                                                                     Environment.NewLine,
-                                                                                                    _retirado.Key,
-                                                                                                    _retirado.Value), TypeIcon.Icon.Warning, true);
-                                result = mensaje.ShowDialog();
-                                if (result == DialogResult.OK)
-                                {
-                                    loading = new Loading();
-                                    loading.Show(this);
-
-                                    SOAPAP.Model.Transaction transactionLiquidacion = new SOAPAP.Model.Transaction();
-                                    transactionLiquidacion.Sign = false;
-                                    transactionLiquidacion.Amount = _saldo;
-                                    transactionLiquidacion.Aplication = "SISCOMCAJA";
-                                    transactionLiquidacion.TypeTransactionId = 7;
-                                    transactionLiquidacion.PayMethodId = 1;
-                                    transactionLiquidacion.TerminalUserId = Variables.Configuration.Terminal.TerminalUsers.First().Id;
-
-                                    string valoresLiquidacion = JsonConvert.SerializeObject(transactionLiquidacion);
-                                    content = new StringContent(valoresLiquidacion, Encoding.UTF8, "application/json");
-                                    var resultadoLiquidacion = await Requests.SendURIAsync(string.Format("/api/Transaction/{0}", Variables.Configuration.Terminal.TerminalUsers.First().Id), HttpMethod.Post, Variables.LoginModel.Token, content);
-                                    if (resultadoLiquidacion.Contains("error"))
-                                    {
-                                        mensaje = new MessageBoxForm("Error", resultadoLiquidacion.Split(':')[1].Replace("}", ""), TypeIcon.Icon.Cancel);
-                                        result = mensaje.ShowDialog();
-                                    }
-                                    else
-                                    {
-                                        Variables.Configuration.StateOperation = Convert.ToInt16(transactionLiquidacion.TypeTransactionId);
-                                        CargaMenu(CashBoxAccess.Access.Liquidada);
-                                        mensaje = new MessageBoxForm("Transacción Exitosa", string.Format("Caja liquidada con éxito. Puede retirar el efectivo de fondo: ${0}", _fondoCaja.Value), TypeIcon.Icon.Success);
-                                        result = mensaje.ShowDialog();
-                                        CargaInformacion();
-                                    }
-                                    loading.Close();
-                                }
-                            }
-                        }
-                        break;
-                    case 5://Cerrada  
-
-                        loading = new Loading();
-                        loading.Show(this);
-
-                        SOAPAP.Model.Transaction transaction = new SOAPAP.Model.Transaction();
-                        transaction.Sign = true;
-                        transaction.Amount = 0;
-                        transaction.Aplication = "SISCOMCAJA";
-                        transaction.TypeTransactionId = 1;
-                        transaction.PayMethodId = 1;
-                        transaction.TerminalUserId = Variables.Configuration.Terminal.TerminalUsers.First().Id;
-
-                        string valores = JsonConvert.SerializeObject(transaction);
-                        content = new StringContent(valores, Encoding.UTF8, "application/json");
-                        var resultado = await Requests.SendURIAsync(string.Format("/api/Transaction/{0}", Variables.Configuration.Terminal.TerminalUsers.First().Id), HttpMethod.Post, Variables.LoginModel.Token, content);
-                        if (resultado.Contains("error"))
-                        {
-                            mensaje = new MessageBoxForm("Error", resultado.Split(':')[1].Replace("}", ""), TypeIcon.Icon.Cancel);
+                            mensaje = new MessageBoxForm("Error", resultadoApertura.Split(':')[1].Replace("}", ""), TypeIcon.Icon.Cancel);
                             result = mensaje.ShowDialog();
                         }
                         else
                         {
-                            Variables.Configuration.StateOperation = Convert.ToInt16(transaction.TypeTransactionId);
+                            Variables.Configuration.StateOperation = Convert.ToInt16(transactionAterura.TypeTransactionId);
                             CargaMenu(CashBoxAccess.Access.SinApertura);
                             mensaje = new MessageBoxForm("Transacción Exitosa", "Caja aperturada con éxito", TypeIcon.Icon.Success);
                             result = mensaje.ShowDialog();
                         }
+                    }
+                    CargaInformacion();
+                    loading.Close();
+                    break;
+                case 1: //Aperturar                         
+                    mensaje = new ModalFondoCaja(Variables.Configuration.Terminal.CashBox);
+                    result = mensaje.ShowDialog();
+                    if (result == DialogResult.OK)
+                    {
+                        Variables.Configuration.StateOperation = 2;
+                        CargaInformacion();
+                    }
+                    break;
+                case 2: //Para liquidar  
+                    mensaje = new MessageBoxForm("¿Está seguro de liquidar la caja?", "Esta acción bloqueará la caja y no podrá hacer movimientos", TypeIcon.Icon.Warning, true);
+                    result = mensaje.ShowDialog();
+                    if (result == DialogResult.OK)
+                    {
+                        loading = new Loading();
+                        loading.Show(this);
+                        var resultTransaction = await Requests.SendURIAsync(string.Format("/api/Transaction/{0}/{1}", DateTime.Now.ToString("yyyy-MM-dd"), Variables.Configuration.Terminal.TerminalUsers.First().Id), HttpMethod.Get, Variables.LoginModel.Token);
                         loading.Close();
-                        break;
-                    case 7://Liquidada   
-                        mensaje = new MessageBoxForm("¿Está seguro de cerrar la caja?", "Verifique sus movimientos de caja con su tira auditora", TypeIcon.Icon.Warning, true);
-                        result = mensaje.ShowDialog();
-                        if (result == DialogResult.OK)
+                        if (resultTransaction.Contains("error"))
+                        {
+                            mensaje = new MessageBoxForm("Error", resultTransaction.Split(':')[1].Replace("}", ""), TypeIcon.Icon.Cancel);
+                            result = mensaje.ShowDialog();
+                        }
+                        else
                         {
                             loading = new Loading();
                             loading.Show(this);
 
-                            SOAPAP.Model.Transaction transactionCierre = new SOAPAP.Model.Transaction();
-                            transactionCierre.Sign = true;
-                            transactionCierre.Amount = 0;
-                            transactionCierre.Aplication = "SISCOMCAJA";
-                            transactionCierre.TypeTransactionId = 5;
-                            transactionCierre.PayMethodId = 1;
-                            transactionCierre.TerminalUserId = Variables.Configuration.Terminal.TerminalUsers.First().Id;
+                            KeyValuePair<int, decimal> _fondoCaja = new KeyValuePair<int, decimal>(0, 0);
+                            KeyValuePair<int, decimal> _retirado = new KeyValuePair<int, decimal>(0, 0);
+                            KeyValuePair<int, decimal> _cobrado = new KeyValuePair<int, decimal>(0, 0);
+                            KeyValuePair<int, decimal> _cancelado = new KeyValuePair<int, decimal>(0, 0);
+                            decimal _saldo = 0;
 
-                            string valoresCierre = JsonConvert.SerializeObject(transactionCierre);
-                            content = new StringContent(valoresCierre, Encoding.UTF8, "application/json");
-                            var resultadoCierre = await Requests.SendURIAsync(string.Format("/api/Transaction/{0}", Variables.Configuration.Terminal.TerminalUsers.First().Id), HttpMethod.Post, Variables.LoginModel.Token, content);
-                            if (resultadoCierre.Contains("error"))
+                            List<SOAPAP.Model.Transaction> transactions = JsonConvert.DeserializeObject<List<SOAPAP.Model.Transaction>>(resultTransaction);
+
+                            transactions.ForEach(x =>
                             {
-                                mensaje = new MessageBoxForm("Error", resultadoCierre.Split(':')[1].Replace("}", ""), TypeIcon.Icon.Cancel);
-                                result = mensaje.ShowDialog();
-                            }
-                            else
-                            {
-                                Variables.Configuration.StateOperation = Convert.ToInt16(transactionCierre.TypeTransactionId);
-                                CargaMenu(CashBoxAccess.Access.Liquidada);
-                                mensaje = new MessageBoxForm("Transacción Exitosa", "Caja cerrada con éxito.", TypeIcon.Icon.Success);
-                                result = mensaje.ShowDialog();
-                                CargaInformacion();
-                            }
+
+                                switch (x.TypeTransactionId)
+                                {
+                                    case 1://apertura                                          
+                                        break;
+                                    case 2://Fondo                                          
+                                        _fondoCaja = new KeyValuePair<int, decimal>(_fondoCaja.Key + 1, x.Total);
+                                        break;
+                                    case 3://Cobrado                       
+                                        _cobrado = new KeyValuePair<int, decimal>(_cobrado.Key + 1, _cobrado.Value + x.Total);
+                                        break;
+                                    case 4://Cancelado                        
+                                        _cancelado = new KeyValuePair<int, decimal>(_cancelado.Key + 1, _cancelado.Value + x.Total);
+                                        break;
+                                    case 5://Cierre    
+                                        break;
+                                    case 6: //Retiro
+                                        _retirado = new KeyValuePair<int, decimal>(_retirado.Key + 1, _retirado.Value + x.Total);
+                                        break;
+                                    case 7: //Liquidada                                          
+                                        break;
+                                }
+
+                            });
+
+                            _saldo = (_fondoCaja.Value + _cobrado.Value) - _cancelado.Value - _retirado.Value;
                             loading.Close();
+
+                            mensaje = new MessageBoxForm(string.Format("La caja se liquidará: ${0}", _saldo), string.Format("COBROS: ({0}) -> ${1}.{2}    CANCELACIONES: ({3}) -> ${4}.{5}    RETIROS: ({6}) -> ${7}",
+                                                                                                _cobrado.Key,
+                                                                                                _cobrado.Value,
+                                                                                                 Environment.NewLine,
+                                                                                                _cancelado.Key,
+                                                                                                _cancelado.Value,
+                                                                                                 Environment.NewLine,
+                                                                                                _retirado.Key,
+                                                                                                _retirado.Value), TypeIcon.Icon.Warning, true);
+                            result = mensaje.ShowDialog();
+                            if (result == DialogResult.OK)
+                            {
+                                loading = new Loading();
+                                loading.Show(this);
+
+                                SOAPAP.Model.Transaction transactionLiquidacion = new SOAPAP.Model.Transaction();
+                                transactionLiquidacion.Sign = false;
+                                transactionLiquidacion.Amount = _saldo;
+                                transactionLiquidacion.Aplication = "SISCOMCAJA";
+                                transactionLiquidacion.TypeTransactionId = 7;
+                                transactionLiquidacion.PayMethodId = 1;
+                                transactionLiquidacion.TerminalUserId = Variables.Configuration.Terminal.TerminalUsers.First().Id;
+
+                                string valoresLiquidacion = JsonConvert.SerializeObject(transactionLiquidacion);
+                                content = new StringContent(valoresLiquidacion, Encoding.UTF8, "application/json");
+                                var resultadoLiquidacion = await Requests.SendURIAsync(string.Format("/api/Transaction/{0}", Variables.Configuration.Terminal.TerminalUsers.First().Id), HttpMethod.Post, Variables.LoginModel.Token, content);
+                                if (resultadoLiquidacion.Contains("error"))
+                                {
+                                    mensaje = new MessageBoxForm("Error", resultadoLiquidacion.Split(':')[1].Replace("}", ""), TypeIcon.Icon.Cancel);
+                                    result = mensaje.ShowDialog();
+                                }
+                                else
+                                {
+                                    Variables.Configuration.StateOperation = Convert.ToInt16(transactionLiquidacion.TypeTransactionId);
+                                    CargaMenu(CashBoxAccess.Access.Liquidada);
+                                    mensaje = new MessageBoxForm("Transacción Exitosa", string.Format("Caja liquidada con éxito. Puede retirar el efectivo de fondo: ${0}", _fondoCaja.Value), TypeIcon.Icon.Success);
+                                    result = mensaje.ShowDialog();
+                                    CargaInformacion();
+                                }
+                                loading.Close();
+                            }
                         }
-                        break;
-                    default:
-                        break;
-                }
+                    }
+                    break;
+                case 5://Cerrada  
 
+                    loading = new Loading();
+                    loading.Show(this);
 
+                    SOAPAP.Model.Transaction transaction = new SOAPAP.Model.Transaction();
+                    transaction.Sign = true;
+                    transaction.Amount = 0;
+                    transaction.Aplication = "SISCOMCAJA";
+                    transaction.TypeTransactionId = 1;
+                    transaction.PayMethodId = 1;
+                    transaction.TerminalUserId = Variables.Configuration.Terminal.TerminalUsers.First().Id;
+
+                    string valores = JsonConvert.SerializeObject(transaction);
+                    content = new StringContent(valores, Encoding.UTF8, "application/json");
+                    var resultado = await Requests.SendURIAsync(string.Format("/api/Transaction/{0}", Variables.Configuration.Terminal.TerminalUsers.First().Id), HttpMethod.Post, Variables.LoginModel.Token, content);
+                    if (resultado.Contains("error"))
+                    {
+                        mensaje = new MessageBoxForm("Error", resultado.Split(':')[1].Replace("}", ""), TypeIcon.Icon.Cancel);
+                        result = mensaje.ShowDialog();
+                    }
+                    else
+                    {
+                        Variables.Configuration.StateOperation = Convert.ToInt16(transaction.TypeTransactionId);
+                        CargaMenu(CashBoxAccess.Access.SinApertura);
+                        mensaje = new MessageBoxForm("Transacción Exitosa", "Caja aperturada con éxito", TypeIcon.Icon.Success);
+                        result = mensaje.ShowDialog();
+                    }
+                    loading.Close();
+                    break;
+                case 7://Liquidada   
+                    mensaje = new MessageBoxForm("¿Está seguro de cerrar la caja?", "Verifique sus movimientos de caja con su tira auditora", TypeIcon.Icon.Warning, true);
+                    result = mensaje.ShowDialog();
+                    if (result == DialogResult.OK)
+                    {
+                        loading = new Loading();
+                        loading.Show(this);
+
+                        SOAPAP.Model.Transaction transactionCierre = new SOAPAP.Model.Transaction();
+                        transactionCierre.Sign = true;
+                        transactionCierre.Amount = 0;
+                        transactionCierre.Aplication = "SISCOMCAJA";
+                        transactionCierre.TypeTransactionId = 5;
+                        transactionCierre.PayMethodId = 1;
+                        transactionCierre.TerminalUserId = Variables.Configuration.Terminal.TerminalUsers.First().Id;
+
+                        string valoresCierre = JsonConvert.SerializeObject(transactionCierre);
+                        content = new StringContent(valoresCierre, Encoding.UTF8, "application/json");
+                        var resultadoCierre = await Requests.SendURIAsync(string.Format("/api/Transaction/{0}", Variables.Configuration.Terminal.TerminalUsers.First().Id), HttpMethod.Post, Variables.LoginModel.Token, content);
+                        if (resultadoCierre.Contains("error"))
+                        {
+                            mensaje = new MessageBoxForm("Error", resultadoCierre.Split(':')[1].Replace("}", ""), TypeIcon.Icon.Cancel);
+                            result = mensaje.ShowDialog();
+                        }
+                        else
+                        {
+                            Variables.Configuration.StateOperation = Convert.ToInt16(transactionCierre.TypeTransactionId);
+                            CargaMenu(CashBoxAccess.Access.Liquidada);
+                            mensaje = new MessageBoxForm("Transacción Exitosa", "Caja cerrada con éxito.", TypeIcon.Icon.Success);
+                            result = mensaje.ShowDialog();
+                            CargaInformacion();
+                        }
+                        loading.Close();
+                        Variables.Configuration.StateOperation = 0;
+                        Thread t = new Thread(new ThreadStart(ThreadProc));
+                        t.SetApartmentState(ApartmentState.STA);
+                        t.Start();
+                        this.Close();
+                    }
+                    break;
+                default:
+                    break;
             }
-            SelectOption(btnApertura);
-        }                
+        }
         private void btnApertura_MouseLeave(object sender, EventArgs e)
         {
             if (btnSeleccionado!=btnApertura)
@@ -624,21 +642,6 @@ namespace SOAPAP
         /// <summary>
         /// REPORTES DE CAJA
         /// </summary>
-        private void btnReportes_Click(object sender, EventArgs e)
-        {
-
-            ShowForm("SOAPAP", "UI.ReportesMenu");
-            SelectOption(btnReportes);
-        }        
-        private void btnReportes_MouseLeave(object sender, EventArgs e)
-        {
-            if (btnSeleccionado != btnReportes)
-                btnReportes.BackColor = System.Drawing.Color.FromArgb(45, 50, 62);
-        }
-
-        /// <summary>
-        /// REPORTES DE CAJA
-        /// </summary>
         private void btnHistorial_Click(object sender, EventArgs e)
         {
             ShowForm("SOAPAP", "UI.HistorialTransacciones.Historial");
@@ -658,11 +661,6 @@ namespace SOAPAP
         {
             ShowForm("SOAPAP.UI", "Productos");
             SelectOption(btnProductos);
-        }
-        private void btnProductos_MouseLeave(object sender, EventArgs e)
-        {
-            if (btnSeleccionado != btnProductos)
-                btnReportes.BackColor = System.Drawing.Color.FromArgb(45, 50, 62);
         }
 
         #region PrivateMethod
@@ -712,8 +710,6 @@ namespace SOAPAP
 
             btnProductos.Visible =   accessParam == CashBoxAccess.Access.GenerarOrden ? true : btnProductos.Visible;
 
-            btnReportes.Visible = false;
-
             #endregion
 
             #region Enabled
@@ -761,7 +757,7 @@ namespace SOAPAP
 
             if (Variables.LoginModel.RolName.ToList().Find(x => x.Contains("User")) != null)
             {
-                btnCobro.Text = "Cobro";
+                btnCobro.Text = "  Cobro";
                 if (Variables.Configuration.Terminal != null)
                 {
                     if (Variables.Configuration.Terminal.TerminalUsers.Count > 0)
@@ -785,7 +781,7 @@ namespace SOAPAP
                             }
                             else
                             {
-                                if (Variables.LoginModel.RolName.ToList().Find(x => x.Contains("User")) != null)
+                                if (Variables.LoginModel.RolName.ToList().Find(x => x.Contains("User") || x.Contains("Supervisor")) != null)
                                 {
                                     _typeTransaction = Variables.Configuration.StateOperation;
 
@@ -862,6 +858,80 @@ namespace SOAPAP
             if (Variables.LoginModel.RolName.ToList().Find(x => x.Contains("Supervisor")) != null)
             {
                 opcionesToolStripMenuItem.Visible = true;
+                if (Variables.Configuration.Terminal != null)
+                {
+                    if (Variables.Configuration.Terminal.TerminalUsers.Count > 0)
+                    {
+                        if (Variables.Configuration.Terminal.TerminalUsers.First().UserId != Variables.LoginModel.User)
+                        {
+                            CargaMenu(CashBoxAccess.Access.SinAcceso);
+                            mensaje = new MessageBoxForm("Error", "Otro usuario está usando esta termial.", TypeIcon.Icon.Warning);
+                            result = mensaje.ShowDialog();
+                        }
+                        else
+                        {
+                            OpenTerminal();
+                        }
+                        
+                    }
+                    else
+                    {
+                        CargaMenu(CashBoxAccess.Access.SinApertura);
+                        lblEstadoCaja.Text = "Sin Apertura";
+                        lblTerminal.Text = "-";
+                        btnBuscar.Enabled = true;
+                        btnCobro.Enabled = true;
+                        btnProductos.Enabled = true;
+                        facturacionAgrupadaToolStripMenuItem.Available = false;
+                        facturacionAgrupadaCanceladasToolStripMenuItem.Available = false;
+                        reportesToolStripMenuItem.Enabled = true;
+                        ingresosToolStripMenuItem.Visible = true;
+                        tsmPadron.Visible = true;
+                    }
+                    tslMac.Text = "ID:" + Variables.Configuration.Terminal.MacAdress;
+                    tslFechaApertura.Text = "Abierta:" + (Variables.Configuration.Terminal.TerminalUsers.Count > 0 ? Variables.Configuration.Terminal.TerminalUsers.First().OpenDate.ToShortDateString() : "-");
+                    tslTerminal.Text = "Terminal:" + (Variables.Configuration.Terminal.TerminalUsers.Count > 0 ? Variables.Configuration.Terminal.TerminalUsers.First().Id.ToString() : "-");
+                }
+            }
+            if (Variables.LoginModel.RolName.ToList().Find(x => x.Contains("Super")) != null)
+            {
+                opcionesToolStripMenuItem.Visible = true;
+                if (Variables.Configuration.Terminal != null)
+                {
+                    if (Variables.Configuration.Terminal.TerminalUsers.Count > 0)
+                    {
+                        if (Variables.Configuration.Terminal.TerminalUsers.First().UserId != Variables.LoginModel.User)
+                        {
+                            CargaMenu(CashBoxAccess.Access.SinAcceso);
+                            mensaje = new MessageBoxForm("Error", "Otro usuario está usando esta termial.", TypeIcon.Icon.Warning);
+                            result = mensaje.ShowDialog();
+                        }
+                        else
+                        {
+                            OpenTerminal();
+                        }
+
+                    }
+                    else
+                    {
+                        CargaMenu(CashBoxAccess.Access.SinApertura);
+                        lblEstadoCaja.Text = "Sin Apertura";
+                        lblTerminal.Text = "-";
+                        btnBuscar.Enabled = true;
+                        btnCobro.Enabled = true;
+                        btnProductos.Enabled = true;
+                        facturacionAgrupadaToolStripMenuItem.Available = false;
+                        facturacionAgrupadaCanceladasToolStripMenuItem.Available = false;
+                        reportesToolStripMenuItem.Enabled = true;
+                        ingresosToolStripMenuItem.Visible = true;
+                        btnApertura.Visible = false;
+                        btnMovimientos.Visible = false;
+                        ingresosToolStripMenuItem.Available = false;
+                    }
+                    tslMac.Text = "ID:" + Variables.Configuration.Terminal.MacAdress;
+                    tslFechaApertura.Text = "Abierta:" + (Variables.Configuration.Terminal.TerminalUsers.Count > 0 ? Variables.Configuration.Terminal.TerminalUsers.First().OpenDate.ToShortDateString() : "-");
+                    tslTerminal.Text = "Terminal:" + (Variables.Configuration.Terminal.TerminalUsers.Count > 0 ? Variables.Configuration.Terminal.TerminalUsers.First().Id.ToString() : "-");
+                }
             }
         }
 

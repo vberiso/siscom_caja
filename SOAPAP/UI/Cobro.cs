@@ -58,7 +58,10 @@ namespace SOAPAP.UI
                 lblTxtPagar.Visible = false;
                 btnCobrar.Visible = false;
             }
-
+            if (Variables.Configuration.StateOperation == 0)
+            {
+                btnCobrar.Visible = false;
+            }
             if (!String.IsNullOrWhiteSpace(Variables.cuenta))
             {
                 txtCuenta.Text = Variables.cuenta;
