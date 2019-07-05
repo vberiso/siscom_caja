@@ -467,7 +467,7 @@ namespace SOAPAP.UI
             var source = new BindingSource();
             List<CollectObservationSumary> lCollectObservation = null;
 
-            if (_agreement != null && _agreement.AgreementDetails != null && Variables.Configuration.IsMunicipal)
+            if (_agreement != null && _agreement.AgreementDetails.Count > 0 && Variables.Configuration.IsMunicipal)
             {
                 int _idetail = _agreement.AgreementDetails.Max(x => x.Id);
                 var _detail = _agreement.AgreementDetails.SingleOrDefault(x => x.Id == _idetail);

@@ -36,6 +36,7 @@
             this.pbxIcon = new System.Windows.Forms.PictureBox();
             this.lblTitulo = new System.Windows.Forms.Label();
             this.dgvDiscounts = new System.Windows.Forms.DataGridView();
+            this.btnClose = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.pnlHeaderBuscar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbBG)).BeginInit();
@@ -57,6 +58,7 @@
             // 
             // pnlHeaderBuscar
             // 
+            this.pnlHeaderBuscar.Controls.Add(this.btnClose);
             this.pnlHeaderBuscar.Controls.Add(this.dateTimePicker1);
             this.pnlHeaderBuscar.Controls.Add(this.pbBG);
             this.pnlHeaderBuscar.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -141,6 +143,23 @@
             this.dgvDiscounts.TabIndex = 1;
             this.dgvDiscounts.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DgvDiscounts_CellMouseDoubleClick);
             // 
+            // btnClose
+            // 
+            this.btnClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnClose.BackColor = System.Drawing.Color.White;
+            this.btnClose.FlatAppearance.BorderSize = 0;
+            this.btnClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnClose.Font = new System.Drawing.Font("Microsoft YaHei UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnClose.ForeColor = System.Drawing.Color.Black;
+            this.btnClose.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.btnClose.Location = new System.Drawing.Point(580, 15);
+            this.btnClose.Name = "btnClose";
+            this.btnClose.Size = new System.Drawing.Size(129, 28);
+            this.btnClose.TabIndex = 57;
+            this.btnClose.Text = "Cerrar";
+            this.btnClose.UseVisualStyleBackColor = false;
+            this.btnClose.Click += new System.EventHandler(this.BtnClose_Click);
+            // 
             // DetalleDescuentos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -175,5 +194,6 @@
         private System.Windows.Forms.DataGridView dgvDiscounts;
         private System.Windows.Forms.PictureBox pbBG;
         private System.Windows.Forms.DateTimePicker dateTimePicker1;
+        private System.Windows.Forms.Button btnClose;
     }
 }

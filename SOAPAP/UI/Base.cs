@@ -55,6 +55,7 @@ namespace SOAPAP
             LoadDivition();
             Task taskA = new Task(() => FirebaseService());
             taskA.Start();
+            //this.tslVersion.Text = "Siscom Ver. " + Variables.Configuration.VersionApp.Version;
             //taskA.Wait();
         }
 

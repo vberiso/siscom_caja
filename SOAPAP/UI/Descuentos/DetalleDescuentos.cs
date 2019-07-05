@@ -359,6 +359,11 @@ namespace SOAPAP.UI.Descuentos
                 }
             }
         }
+
+        private void BtnClose_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
     public partial class DiscountAuthorizationVM
     {

@@ -94,11 +94,15 @@ namespace SOAPAP.Services
                         case System.Net.HttpStatusCode.OK:
                             return await httpResponse.Content.ReadAsStringAsync();
                         case System.Net.HttpStatusCode.InternalServerError:
-                            return "{\"error\": \"Servicio temporalmente no disponible contacte al Administrador, disculpe las molestias\"}";
+                            return "{\"error\": \"Servicio temporalmente no disponible contacte al Administrador, disculpe las molestias: x000500\"}";
                         case System.Net.HttpStatusCode.ServiceUnavailable:
-                            return "{\"error\": \"Servicio temporalmente no disponible contacte al Administrador, disculpe las molestias\"}";
+                            return "{\"error\": \"Servicio temporalmente no disponible contacte al Administrador, disculpe las molestias: x000503\"}";
+                        case System.Net.HttpStatusCode.Forbidden:
+                            return "{\"error\": \"Servicio temporalmente no disponible contacte al Administrador, disculpe las molestias: x000503\"}";
+                        case System.Net.HttpStatusCode.GatewayTimeout:
+                            return "{\"error\": \"Servicio temporalmente no disponible contacte al Administrador, disculpe las molestias: x000504\"}";
                         case System.Net.HttpStatusCode.Unauthorized:
-                            return "{\"error\": \"Sesión expírada o no cuenta con la autorización \"}";
+                            return "{\"error\": \"Sesión expírada o no cuenta con la autorización: x000401 \"}";
                         default:
                             return await httpResponse.Content.ReadAsStringAsync();
                     }
@@ -159,11 +163,15 @@ namespace SOAPAP.Services
                         case System.Net.HttpStatusCode.OK:
                             return await httpResponse.Content.ReadAsStringAsync();
                         case System.Net.HttpStatusCode.InternalServerError:
-                            return "{\"error\": \"Servicio temporalmente no disponible contacte al Administrador, disculpe las molestias\"}";
+                            return "{\"error\": \"Servicio temporalmente no disponible contacte al Administrador, disculpe las molestias: x000500\"}";
                         case System.Net.HttpStatusCode.ServiceUnavailable:
-                            return "{\"error\": \"Servicio temporalmente no disponible contacte al Administrador, disculpe las molestias\"}";
+                            return "{\"error\": \"Servicio temporalmente no disponible contacte al Administrador, disculpe las molestias: x000503\"}";
+                        case System.Net.HttpStatusCode.Forbidden:
+                            return "{\"error\": \"Servicio temporalmente no disponible contacte al Administrador, disculpe las molestias: x000503\"}";
+                        case System.Net.HttpStatusCode.GatewayTimeout:
+                            return "{\"error\": \"Servicio temporalmente no disponible contacte al Administrador, disculpe las molestias: x000504\"}";
                         case System.Net.HttpStatusCode.Unauthorized:
-                            return "{\"error\": \"Sesión expírada o no cuenta con la autorización \"}";
+                            return "{\"error\": \"Sesión expírada o no cuenta con la autorización: x000401 \"}";
                         default:
                             return await httpResponse.Content.ReadAsStringAsync();
                     }
@@ -190,6 +198,12 @@ namespace SOAPAP.Services
                 try
                 {
                     var method = new MultipartFormDataContent();
+                    if (string.IsNullOrEmpty(filePath))
+                    {
+                        string RunningPath = AppDomain.CurrentDomain.BaseDirectory;
+                        filePath = string.Format("{0}Resources\\pdfF.png", Path.GetFullPath(Path.Combine(RunningPath, @"..\..\")));
+                    }
+
                     FileStream fs = File.OpenRead(filePath);
                     var streamContent = new StreamContent(fs);
                     var imageContent = new ByteArrayContent(streamContent.ReadAsByteArrayAsync().Result);

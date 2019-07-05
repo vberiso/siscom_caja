@@ -12,7 +12,7 @@ namespace SOAPAP.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "15.9.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "16.1.0.0")]
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -37,13 +37,25 @@ namespace SOAPAP.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://api-siscom.cuautlancingo.gob.mx/")]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://localhost:51053/")]
         public string URL {
             get {
                 return ((string)(this["URL"]));
             }
             set {
                 this["URL"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("XRU0DA05-OxE0Py88-LyRsbXNt-fWx9bH1o-bmp9bmxz-bG9zZGRk-ZA==")]
+        public string SerialNumber {
+            get {
+                return ((string)(this["SerialNumber"]));
+            }
+            set {
+                this["SerialNumber"] = value;
             }
         }
     }

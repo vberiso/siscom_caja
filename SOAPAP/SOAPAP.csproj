@@ -31,7 +31,7 @@
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
     <AutorunEnabled>true</AutorunEnabled>
-    <ApplicationRevision>101</ApplicationRevision>
+    <ApplicationRevision>103</ApplicationRevision>
     <ApplicationVersion>1.1.1.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -120,6 +120,9 @@
     <Reference Include="FlashControlV71, Version=1.0.3187.32366, Culture=neutral, PublicKeyToken=692fbea5521e1304" />
     <Reference Include="Gma.QrCodeNet.Encoding, Version=0.4.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\QrCode.Net.0.4.0.0\lib\net45\Gma.QrCodeNet.Encoding.dll</HintPath>
+    </Reference>
+    <Reference Include="HiQPdf">
+      <HintPath>..\..\..\..\Downloads\HiQPdf_10.17_x64\HiQPdf.dll</HintPath>
     </Reference>
     <Reference Include="Humanizer, Version=2.5.0.0, Culture=neutral, PublicKeyToken=979442b78dfc278e, processorArchitecture=MSIL">
       <HintPath>..\packages\Humanizer.Core.2.5.16\lib\netstandard2.0\Humanizer.dll</HintPath>
@@ -329,6 +332,7 @@
     <Compile Include="Model\TransactionVM.cs" />
     <Compile Include="Model\Users.cs" />
     <Compile Include="Model\UsersByTerminal.cs" />
+    <Compile Include="Model\VersionApp.cs" />
     <Compile Include="Model\Warranty.cs" />
     <Compile Include="Model\TaxReceipt.cs" />
     <Compile Include="ModFac\Cfdi.cs" />
@@ -336,6 +340,7 @@
     <Compile Include="ModFac\Issuer.cs" />
     <Compile Include="notificationDetails.cs" />
     <Compile Include="Notify.cs" />
+    <Compile Include="PDFManager\CreatePDF.cs" />
     <Compile Include="PopAnticipo.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -386,6 +391,7 @@
     <Compile Include="results.Designer.cs">
       <DependentUpon>results.cs</DependentUpon>
     </Compile>
+    <Compile Include="Services\UpdateApplication\InstallUpdateSyncWithInfo.cs" />
     <Compile Include="Tariff.cs" />
     <Compile Include="TiketProductos.cs" />
     <Compile Include="Tools\Numalet.cs" />

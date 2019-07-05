@@ -127,12 +127,12 @@ namespace SOAPAP.UI.Descuentos
                 loading.Close();
                 return;
             }
-            if (!SelectImage)
-            {
-                loading.Close();
-                mensaje = new MessageBoxForm(Variables.titleprincipal, "Debe seleccionar el archivo de justificación del descuento para poder continuar", TypeIcon.Icon.Cancel);
-                result = mensaje.ShowDialog();
-            }
+            //if (!SelectImage)
+            //{
+            //    loading.Close();
+            //    mensaje = new MessageBoxForm(Variables.titleprincipal, "Debe seleccionar el archivo de justificación del descuento para poder continuar", TypeIcon.Icon.Cancel);
+            //    result = mensaje.ShowDialog();
+            //}
             else
             {
                 discountAuthorization = new DiscountAuthorization()

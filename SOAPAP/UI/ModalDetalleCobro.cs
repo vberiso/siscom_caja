@@ -101,11 +101,21 @@ namespace SOAPAP.UI
            
             if (getPaymentMethods.Contains("error"))
             {
-                loading.Close();
                 pnlEfectivo.Visible = true;
                 groupBox1.Visible = true;
-                mensaje = new MessageBoxForm("Error", getPaymentMethods.Split(':')[1].Replace("}", ""), TypeIcon.Icon.Cancel);
-                result = mensaje.ShowDialog();
+                loading.Close();
+                try
+                {
+                    mensaje = new MessageBoxForm("Error", JsonConvert.DeserializeObject<Error>(getPaymentMethods).error, TypeIcon.Icon.Cancel);
+                    result = mensaje.ShowDialog();
+                    this.Close();
+                }
+                catch (Exception)
+                {
+                    mensaje = new MessageBoxForm("Error", "Servicio no disponible favor de comunicarse con el administrador: -conexion interrumpida-", TypeIcon.Icon.Cancel);
+                    result = mensaje.ShowDialog();
+                    this.Close();
+                }
                 txtEntregado.Focus();
             }
             else
@@ -184,15 +194,25 @@ namespace SOAPAP.UI
                 var getBanks = await Requests.SendURIAsync("/api/ExternalOriginPayments", HttpMethod.Get, Variables.LoginModel.Token);
                 if (getBanks.Contains("error"))
                 {
-                    loading.Close();
                     pnlOtros.Visible = true;
                     txtTarjetaCheque.Visible = false;
                     txtCheque.Visible = true;
                     panel2.Visible = false;
                     lblTCheque.Text = "No. Cheque:";
                     lblAuth.Text = "    No. Cuenta:";
-                    mensaje = new MessageBoxForm("Error", getBanks.Split(':')[1].Replace("}", ""), TypeIcon.Icon.Cancel);
-                    result = mensaje.ShowDialog();
+                    loading.Close();
+                    try
+                    {
+                        mensaje = new MessageBoxForm("Error", JsonConvert.DeserializeObject<Error>(getBanks).error, TypeIcon.Icon.Cancel);
+                        result = mensaje.ShowDialog();
+                        this.Close();
+                    }
+                    catch (Exception)
+                    {
+                        mensaje = new MessageBoxForm("Error", "Servicio no disponible favor de comunicarse con el administrador: -conexion interrumpida-", TypeIcon.Icon.Cancel);
+                        result = mensaje.ShowDialog();
+                        this.Close();
+                    }
                 }
                 else
                 {
@@ -236,15 +256,24 @@ namespace SOAPAP.UI
                 var getBanks = await Requests.SendURIAsync("/api/ExternalOriginPayments", HttpMethod.Get, Variables.LoginModel.Token);
                 if (getBanks.Contains("error"))
                 {
-                    loading.Close();
                     pnlOtros.Visible = true;
                     txtTarjetaCheque.Visible = true;
                     panel2.Visible = true;
                     txtCheque.Visible = false;
                     lblTCheque.Text = "No. Tarjeta:";
                     lblAuth.Text = "Autorización:";
-                    mensaje = new MessageBoxForm("Error", getBanks.Split(':')[1].Replace("}", ""), TypeIcon.Icon.Cancel);
-                    result = mensaje.ShowDialog();
+                    loading.Close();
+                    try
+                    {
+                        mensaje = new MessageBoxForm("Error", JsonConvert.DeserializeObject<Error>(getBanks).error, TypeIcon.Icon.Cancel);
+                        result = mensaje.ShowDialog();
+                        this.Close();
+                    }
+                    catch (Exception)
+                    {
+                        mensaje = new MessageBoxForm("Error", "Servicio no disponible favor de comunicarse con el administrador: -conexion interrumpida-", TypeIcon.Icon.Cancel);
+                        result = mensaje.ShowDialog();
+                    }
                 }
                 else
                 {
@@ -283,8 +312,17 @@ namespace SOAPAP.UI
                 if (getBanks.Contains("error"))
                 {
                     loading.Close();
-                    mensaje = new MessageBoxForm("Error", getBanks.Split(':')[1].Replace("}", ""), TypeIcon.Icon.Cancel);
-                    result = mensaje.ShowDialog();
+                    try
+                    {
+                        mensaje = new MessageBoxForm("Error", JsonConvert.DeserializeObject<Error>(getBanks).error, TypeIcon.Icon.Cancel);
+                        result = mensaje.ShowDialog();
+                        this.Close();
+                    }
+                    catch (Exception)
+                    {
+                        mensaje = new MessageBoxForm("Error", "Servicio no disponible favor de comunicarse con el administrador: -conexion interrumpida-", TypeIcon.Icon.Cancel);
+                        result = mensaje.ShowDialog();
+                    }
                 }
                 else
                 {
@@ -538,7 +576,7 @@ namespace SOAPAP.UI
                     break;
                 case 5:
                     decimal resta = Convert.ToDecimal((Regex.Replace(lblMixedAmountEfectivo.Text, @"[^\d.]", "")));
-                    ChangeTabMixed();
+                    //ChangeTabMixed();
                     if (resta > 0 || resta < 0)
                     {
                         mensaje = new MessageBoxForm("Error", "Error al intentar realizar el cobro, los montos son incorrectos, favor de verificar", TypeIcon.Icon.Cancel);
@@ -648,8 +686,18 @@ namespace SOAPAP.UI
                     if (resultados.Contains("error"))
                     {
                         loading.Close();
-                        mensaje = new MessageBoxForm("Error", JsonConvert.DeserializeObject<Error>(resultados).error, TypeIcon.Icon.Cancel);
-                        result = mensaje.ShowDialog();
+                        try
+                        {
+                            mensaje = new MessageBoxForm("Error", JsonConvert.DeserializeObject<Error>(resultados).error, TypeIcon.Icon.Cancel);
+                            result = mensaje.ShowDialog();
+                            this.Close();
+                        }
+                        catch (Exception)
+                        {
+                            mensaje = new MessageBoxForm("Error", "Servicio no disponible favor de comunicarse con el administrador: -conexion interrumpida-", TypeIcon.Icon.Cancel);
+                            result = mensaje.ShowDialog();
+                            this.Close();
+                        }
                     }
                     else
                     {
@@ -677,8 +725,18 @@ namespace SOAPAP.UI
                     if (resultados.Contains("error"))
                     {
                         loading.Close();
-                        mensaje = new MessageBoxForm("Error", JsonConvert.DeserializeObject<Error>(resultados).error, TypeIcon.Icon.Cancel);
-                        result = mensaje.ShowDialog();
+                        try
+                        {
+                            mensaje = new MessageBoxForm("Error", JsonConvert.DeserializeObject<Error>(resultados).error, TypeIcon.Icon.Cancel);
+                            result = mensaje.ShowDialog();
+                            this.Close();
+                        }
+                        catch (Exception)
+                        {
+                            mensaje = new MessageBoxForm("Error", "Servicio no disponible favor de comunicarse con el administrador: -conexion interrumpida-", TypeIcon.Icon.Cancel);
+                            result = mensaje.ShowDialog();
+                            this.Close();
+                        }
                     }
                     else
                     {
@@ -694,9 +752,18 @@ namespace SOAPAP.UI
                     if (resultados.Contains("error"))
                     {
                         loading.Close();
-                        mensaje = new MessageBoxForm("Error", JsonConvert.DeserializeObject<Error>(resultados).error, TypeIcon.Icon.Cancel);
-                        result = mensaje.ShowDialog();
-                        throw new Exception();
+                        try
+                        {
+                            mensaje = new MessageBoxForm("Error", JsonConvert.DeserializeObject<Error>(resultados).error, TypeIcon.Icon.Cancel);
+                            result = mensaje.ShowDialog();
+                            this.Close();
+                        }
+                        catch (Exception)
+                        {
+                            mensaje = new MessageBoxForm("Error", "Servicio no disponible favor de comunicarse con el administrador: -conexion interrumpida-", TypeIcon.Icon.Cancel);
+                            result = mensaje.ShowDialog();
+                            this.Close();
+                        }
                     }
                     else
                     {
@@ -725,9 +792,18 @@ namespace SOAPAP.UI
                                 if (resultados.Contains("error"))
                                 {
                                     loading.Close();
-                                    mensaje = new MessageBoxForm("Error", JsonConvert.DeserializeObject<Error>(resultados).error, TypeIcon.Icon.Cancel);
-                                    result = mensaje.ShowDialog();
-                                    throw new Exception();
+                                    try
+                                    {
+                                        mensaje = new MessageBoxForm("Error", JsonConvert.DeserializeObject<Error>(resultados).error, TypeIcon.Icon.Cancel);
+                                        result = mensaje.ShowDialog();
+                                        this.Close();
+                                    }
+                                    catch (Exception)
+                                    {
+                                        mensaje = new MessageBoxForm("Error", "Servicio no disponible favor de comunicarse con el administrador: -conexion interrumpida-", TypeIcon.Icon.Cancel);
+                                        result = mensaje.ShowDialog();
+                                        this.Close();
+                                    }
                                 }
                             }
                         }
@@ -999,8 +1075,18 @@ namespace SOAPAP.UI
                     if (resultados.Contains("error"))
                     {
                         loading.Close();
-                        mensaje = new MessageBoxForm("Error", JsonConvert.DeserializeObject<Error>(resultados).error, TypeIcon.Icon.Cancel);
-                        result = mensaje.ShowDialog();
+                        try
+                        {
+                            mensaje = new MessageBoxForm("Error", JsonConvert.DeserializeObject<Error>(resultados).error, TypeIcon.Icon.Cancel);
+                            result = mensaje.ShowDialog();
+                            this.Close();
+                        }
+                        catch (Exception)
+                        {
+                            mensaje = new MessageBoxForm("Error", "Servicio no disponible favor de comunicarse con el administrador: -conexion interrumpida-", TypeIcon.Icon.Cancel);
+                            result = mensaje.ShowDialog();
+                            this.Close();
+                        }
                     }
                     else
                     {
@@ -1018,7 +1104,6 @@ namespace SOAPAP.UI
 
                     if (Requests.EstaEnLineaLaImpresora(Requests.ImpresoraPredeterminada()))
                     {
-                        loading.Close();
                         if (Properties.Settings.Default.Printer == true)
                         {
                             if (Variables.Configuration.CFDI == "Verdadero")
@@ -1028,20 +1113,22 @@ namespace SOAPAP.UI
                                 Facturaelectronica fs = new Facturaelectronica();
                                 //xmltimbrado = await fs.facturar(resultados, "ET001", "");                               
                                 xmltimbrado = await fs.generaFactura(Variables.idtransaction.ToString(), Debts.First().Id, "ET001");
-                                loadings.Close();
                                 if (xmltimbrado.Contains("error"))
                                 {
+                                    loading.Close();
                                     mensaje = new MessageBoxForm(Variables.titleprincipal, xmltimbrado.Split('/')[1].ToString(), TypeIcon.Icon.Cancel);
                                     mensaje.ShowDialog();
                                 }
                                 else
                                 {
+
                                     PdfDocument pdfdocument = new PdfDocument();
                                     pdfdocument.LoadFromFile(xmltimbrado);
                                     pdfdocument.PrinterName = Requests.ImpresoraPredeterminada();
                                     pdfdocument.PrintDocument.PrinterSettings.Copies = 1;
                                     pdfdocument.PrintDocument.Print();
                                     pdfdocument.Dispose();
+                                    loading.Close();
                                 }
                             }
                             else
@@ -1076,10 +1163,10 @@ namespace SOAPAP.UI
                                 Facturaelectronica fs = new Facturaelectronica();
                                 //xmltimbrado = await fs.facturar(Variables.idtransaction.ToString(), "ET001", "");                                
                                 xmltimbrado = await fs.generaFactura(Variables.idtransaction.ToString(), Debts.First().Id, "ET001");
-                                loadings.Close();
                                 //separadas = xmltimbrado.Split('/');
                                 if (xmltimbrado.Contains("error"))
                                 {
+                                    loadings.Close();
                                     mensaje = new MessageBoxForm(Variables.titleprincipal, xmltimbrado.Split('/')[1].ToString(), TypeIcon.Icon.Cancel);
                                     mensaje.ShowDialog();
                                 }
@@ -1092,14 +1179,18 @@ namespace SOAPAP.UI
                                     pdfdocument.PrintDocument.PrinterSettings.Copies = 1;
                                     pdfdocument.PrintDocument.Print();
                                     pdfdocument.Dispose();
+                                    loadings.Close();
                                     // Directory.Delete(xmltimbrado, true);
                                 }
 
                             }
                             else
                             {
+                                Form loadings = new Loading();
+                                loadings.Show(this);
                                 Variables.optionvistaimpresion = 1;
                                 impresionhoja();
+                                loadings.Close();
                             }
                         }
                     }
@@ -1379,8 +1470,18 @@ namespace SOAPAP.UI
             if (resultados.Contains("error"))
             {
                 loading.Close();
-                mensaje = new MessageBoxForm("Error", JsonConvert.DeserializeObject<Error>(resultados).error, TypeIcon.Icon.Cancel);
-                result = mensaje.ShowDialog();
+                try
+                {
+                    mensaje = new MessageBoxForm("Error", JsonConvert.DeserializeObject<Error>(resultados).error, TypeIcon.Icon.Cancel);
+                    result = mensaje.ShowDialog();
+                    this.Close();
+                }
+                catch (Exception)
+                {
+                    mensaje = new MessageBoxForm("Error", "Servicio no disponible favor de comunicarse con el administrador: -conexion interrumpida-", TypeIcon.Icon.Cancel);
+                    result = mensaje.ShowDialog();
+                    this.Close();
+                }
             }
             else
             {
@@ -1398,9 +1499,9 @@ namespace SOAPAP.UI
                             loadings.Show(this);
                             Facturaelectronica fs = new Facturaelectronica();
                             xmltimbrado = await fs.facturar(resultados, "ET001", "");
-                            loadings.Close();
                             if (xmltimbrado.Contains("error"))
                             {
+                                loadings.Close();
                                 mensaje = new MessageBoxForm(Variables.titleprincipal, xmltimbrado.Split('/')[1].ToString(), TypeIcon.Icon.Cancel);
                                 mensaje.ShowDialog();
                             }
@@ -1412,6 +1513,7 @@ namespace SOAPAP.UI
                                 pdfdocument.PrintDocument.PrinterSettings.Copies = 1;
                                 pdfdocument.PrintDocument.Print();
                                 pdfdocument.Dispose();
+                                loadings.Close();
                             }
                         }
                         else
@@ -1471,10 +1573,11 @@ namespace SOAPAP.UI
                             Facturaelectronica fs = new Facturaelectronica();
                             //xmltimbrado = await fs.facturar(Variables.idtransaction.ToString(), "ET001", "");                            
                             xmltimbrado = await fs.generaFactura(Variables.idtransaction.ToString(), 0, "ET001");
-                            loadings.Close();
+                            
                             //separadas = xmltimbrado.Split('/');
                             if (xmltimbrado.Contains("error"))
                             {
+                                loadings.Close();
                                 mensaje = new MessageBoxForm(Variables.titleprincipal, xmltimbrado.Split('/')[1].ToString(), TypeIcon.Icon.Cancel);
                                 mensaje.ShowDialog();
                             }
@@ -1487,14 +1590,18 @@ namespace SOAPAP.UI
                                 pdfdocument.PrintDocument.PrinterSettings.Copies = 1;
                                 pdfdocument.PrintDocument.Print();
                                 pdfdocument.Dispose();
+                                loadings.Close();
                                 // Directory.Delete(xmltimbrado, true);
                             }
 
                         }
                         else
                         {
+                            Form loadings = new Loading();
+                            loadings.Show(this);
                             Variables.optionvistaimpresion = 1;
                             impresionhoja();
+                            loadings.Close();
                         }
                     }
                 }

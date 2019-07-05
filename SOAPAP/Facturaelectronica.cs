@@ -793,7 +793,7 @@ namespace SOAPAP
         }
 
 
-        //con Facturama
+        //con Facturama PRODUCTIVO
         public async Task<string> generaFactura(string idTransaction, int idDebt, string status)
         {
             try
