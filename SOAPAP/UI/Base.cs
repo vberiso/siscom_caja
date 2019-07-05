@@ -20,6 +20,7 @@ using Firebase.Database;
 using SOAPAP.Properties;
 using SOAPAP.UI.Descuentos;
 using Firebase.Database.Query;
+using SOAPAP.Facturado;
 
 namespace SOAPAP
 {
@@ -260,9 +261,9 @@ namespace SOAPAP
             //notificacionesToolStripMenuItem.Enabled = false;
             notificacionesToolStripMenuItem.DropDownItems.Clear();
 
-            ////if (Variables.Configuration.IsMunicipal)
-            ////    ingresosPorConceptoToolStripMenuItem.Visible = false;
-        }           
+            //if (Variables.Configuration.IsMunicipal)
+            //    ingresosPorConceptoToolStripMenuItem.Visible = false;
+        }
         private void AddFormInPanel(Form fh)
         {
             if (this.pnlContenido.Controls.Count > 0)

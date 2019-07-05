@@ -419,9 +419,9 @@
             this.label7.Location = new System.Drawing.Point(696, 3);
             this.label7.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(72, 12);
+            this.label7.Size = new System.Drawing.Size(31, 12);
             this.label7.TabIndex = 52;
-            this.label7.Text = "Tipo de toma:";
+            this.label7.Text = "Tipo:";
             // 
             // srchRuta
             // 

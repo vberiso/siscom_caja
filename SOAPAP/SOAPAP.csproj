@@ -111,6 +111,9 @@
     <Reference Include="DevExpress.XtraScheduler.v17.1, Version=17.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraScheduler.v17.1.Core, Version=17.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.XtraTreeList.v17.1, Version=17.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="Facturama, Version=1.0.0.3, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Facturama.1.0.0.3\lib\net45\Facturama.dll</HintPath>
+    </Reference>
     <Reference Include="Firebase, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\FirebaseDatabase.net.4.0.1\lib\netstandard2.0\Firebase.dll</HintPath>
     </Reference>
@@ -151,6 +154,9 @@
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.12.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="RestSharp, Version=105.2.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\RestSharp.105.2.3\lib\net46\RestSharp.dll</HintPath>
+    </Reference>
     <Reference Include="Spire.License, Version=1.3.7.46, Culture=neutral, PublicKeyToken=b1144360237c8b3f, processorArchitecture=MSIL">
       <HintPath>..\packages\Spire.PDF.5.2.15\lib\net46\Spire.License.dll</HintPath>
     </Reference>
@@ -160,6 +166,7 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data.OracleClient" />
     <Reference Include="System.EnterpriseServices" />
     <Reference Include="System.IO.Compression, Version=4.1.2.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\System.IO.Compression.4.3.0\lib\net46\System.IO.Compression.dll</HintPath>
@@ -168,6 +175,7 @@
     </Reference>
     <Reference Include="System.Management" />
     <Reference Include="System.Management.Instrumentation" />
+    <Reference Include="System.Net" />
     <Reference Include="System.Net.Http, Version=4.1.1.3, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Net.Http.4.3.4\lib\net46\System.Net.Http.dll</HintPath>
       <Private>True</Private>
@@ -183,6 +191,10 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Security.AccessControl, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.AccessControl.4.5.0\lib\net461\System.Security.AccessControl.dll</HintPath>
+    </Reference>
     <Reference Include="System.Security.Cryptography.Algorithms, Version=4.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Security.Cryptography.Algorithms.4.3.0\lib\net461\System.Security.Cryptography.Algorithms.dll</HintPath>
       <Private>True</Private>
@@ -203,7 +215,23 @@
       <Private>True</Private>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.Security.Cryptography.Xml, Version=4.0.1.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.Xml.4.5.0\lib\net461\System.Security.Cryptography.Xml.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Permissions, Version=4.0.1.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Permissions.4.5.0\lib\net461\System.Security.Permissions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Principal.Windows, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Principal.Windows.4.5.0\lib\net461\System.Security.Principal.Windows.dll</HintPath>
+    </Reference>
     <Reference Include="System.ServiceModel" />
+    <Reference Include="System.ServiceProcess" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.ValueTuple, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.4.0\lib\net461\System.ValueTuple.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.Windows" />
@@ -253,6 +281,10 @@
     <Compile Include="Enums\TypeIcon.cs" />
     <Compile Include="Enums\TypeStatus.cs" />
     <Compile Include="Facturacionagrupada.cs" />
+    <Compile Include="Facturado\Encoder.cs" />
+    <Compile Include="Facturado\FIELCertificadeReader.cs" />
+    <Compile Include="Facturado\opensslkey.cs" />
+    <Compile Include="Facturado\Signer.cs" />
     <Compile Include="Facturaelectronica.cs" />
     <Compile Include="Getdata.cs" />
     <Compile Include="Model\AdressVM.cs" />
@@ -265,6 +297,7 @@
     <Compile Include="Model\BreachWarranty.cs" />
     <Compile Include="Model\CancelPaymentVM.cs" />
     <Compile Include="Model\CancelProduct.cs" />
+    <Compile Include="Model\ClavesProductoServicioSAT.cs" />
     <Compile Include="Model\ClientFinding.cs" />
     <Compile Include="Model\ClientVM.cs" />
     <Compile Include="Model\Comprobante.cs" />
@@ -298,6 +331,9 @@
     <Compile Include="Model\UsersByTerminal.cs" />
     <Compile Include="Model\Warranty.cs" />
     <Compile Include="Model\TaxReceipt.cs" />
+    <Compile Include="ModFac\Cfdi.cs" />
+    <Compile Include="ModFac\Csd.cs" />
+    <Compile Include="ModFac\Issuer.cs" />
     <Compile Include="notificationDetails.cs" />
     <Compile Include="Notify.cs" />
     <Compile Include="PopAnticipo.cs">
@@ -980,17 +1016,17 @@
     <None Include="Connected Services\WSCFDI33\SOAPAP.WSCFDI33.RespuestaValidacionRFC.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\WSCFDI33\WSCFDI33.wsdl" />
-    <None Include="Connected Services\WSCFDI33\WSCFDI33.xsd">
+    <None Include="Connected Services\WSCFDI33\WSCFDI331.wsdl" />
+    <None Include="Connected Services\WSCFDI33\WSCFDI334.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Connected Services\WSCFDI33\WSCFDI331.xsd">
+    <None Include="Connected Services\WSCFDI33\WSCFDI3341.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Connected Services\WSCFDI33\WSCFDI332.xsd">
+    <None Include="Connected Services\WSCFDI33\WSCFDI3342.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Connected Services\WSCFDI33\WSCFDI333.xsd">
+    <None Include="Connected Services\WSCFDI33\WSCFDI3343.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Connected Services\WsIntegral33Pruebas\SOAPAP.WsIntegral33Pruebas.ObtenerPDFPakmailResponse.datasource">
@@ -1041,7 +1077,9 @@
     <None Include="DataSet1.xss">
       <DependentUpon>DataSet1.xsd</DependentUpon>
     </None>
-    <None Include="packages.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Properties\app.manifest" />
     <None Include="Properties\DataSources\SOAPAP.Model.DebtDetail.datasource" />
     <None Include="Properties\DataSources\SOAPAP.Model.Prepaid.datasource" />
@@ -1094,6 +1132,43 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
+    <Content Include="Conversion\cadenaoriginal_3_3\AcreditamientoIEPS10.xslt" />
+    <Content Include="Conversion\cadenaoriginal_3_3\aerolineas.xslt" />
+    <Content Include="Conversion\cadenaoriginal_3_3\cadenaoriginal_3_3.xslt" />
+    <Content Include="Conversion\cadenaoriginal_3_3\certificadodedestruccion.xslt" />
+    <Content Include="Conversion\cadenaoriginal_3_3\cfdiregistrofiscal.xslt" />
+    <Content Include="Conversion\cadenaoriginal_3_3\ComercioExterior10.xslt" />
+    <Content Include="Conversion\cadenaoriginal_3_3\ComercioExterior11.xslt" />
+    <Content Include="Conversion\cadenaoriginal_3_3\consumodecombustibles.xslt" />
+    <Content Include="Conversion\cadenaoriginal_3_3\consumodeCombustibles11.xslt" />
+    <Content Include="Conversion\cadenaoriginal_3_3\detallista.xslt" />
+    <Content Include="Conversion\cadenaoriginal_3_3\divisas.xslt" />
+    <Content Include="Conversion\cadenaoriginal_3_3\donat11.xslt" />
+    <Content Include="Conversion\cadenaoriginal_3_3\ecb.xslt" />
+    <Content Include="Conversion\cadenaoriginal_3_3\ecc.xslt" />
+    <Content Include="Conversion\cadenaoriginal_3_3\ecc11.xslt" />
+    <Content Include="Conversion\cadenaoriginal_3_3\ecc12.xslt" />
+    <Content Include="Conversion\cadenaoriginal_3_3\iedu.xslt" />
+    <Content Include="Conversion\cadenaoriginal_3_3\implocal.xslt" />
+    <Content Include="Conversion\cadenaoriginal_3_3\ine11.xslt" />
+    <Content Include="Conversion\cadenaoriginal_3_3\leyendasFisc.xslt" />
+    <Content Include="Conversion\cadenaoriginal_3_3\nomina11.xslt" />
+    <Content Include="Conversion\cadenaoriginal_3_3\nomina12.xslt" />
+    <Content Include="Conversion\cadenaoriginal_3_3\notariospublicos.xslt" />
+    <Content Include="Conversion\cadenaoriginal_3_3\obrasarteantiguedades.xslt" />
+    <Content Include="Conversion\cadenaoriginal_3_3\pagoenespecie.xslt" />
+    <Content Include="Conversion\cadenaoriginal_3_3\Pagos10.xslt" />
+    <Content Include="Conversion\cadenaoriginal_3_3\pfic.xslt" />
+    <Content Include="Conversion\cadenaoriginal_3_3\psgecfd.xslt" />
+    <Content Include="Conversion\cadenaoriginal_3_3\renovacionysustitucionvehiculos.xslt" />
+    <Content Include="Conversion\cadenaoriginal_3_3\servicioparcialconstruccion.xslt" />
+    <Content Include="Conversion\cadenaoriginal_3_3\spei.xslt" />
+    <Content Include="Conversion\cadenaoriginal_3_3\terceros11.xslt" />
+    <Content Include="Conversion\cadenaoriginal_3_3\TuristaPasajeroExtranjero.xslt" />
+    <Content Include="Conversion\cadenaoriginal_3_3\utilerias.xslt" />
+    <Content Include="Conversion\cadenaoriginal_3_3\valesdedespensa.xslt" />
+    <Content Include="Conversion\cadenaoriginal_3_3\vehiculousado.xslt" />
+    <Content Include="Conversion\cadenaoriginal_3_3\ventavehiculos11.xslt" />
     <Content Include="cubo-ConvertImage %282%29.ico" />
     <None Include="Resources\warnning.png" />
     <None Include="Resources\cerrar-over.png" />

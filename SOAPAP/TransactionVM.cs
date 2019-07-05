@@ -10,5 +10,7 @@ namespace SOAPAP
     {
         public Transaction transaction { get; set; }
         public SOAPAP.Model.Payment payment { get; set; }
+        public SOAPAP.Model.OrderSale orderSale { get; set; }
+        public List<SOAPAP.Model.ClavesProductoServicioSAT> ClavesProdServ { get; set;}
     }
 }

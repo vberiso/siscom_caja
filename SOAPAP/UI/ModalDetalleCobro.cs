@@ -734,10 +734,10 @@ namespace SOAPAP.UI
                     }
 
                     //------------------------------------- Validacion de Productos en cuenta ---------------------------------------
-                    //if (Debts.Any(x => x.Type.Contains("TIP02")))
-                    //{
-                    //    haveProduct = true;
-                    //}
+                    if (Debts.Any(x => x.Type.Contains("TIP02")))
+                    {
+                        haveProduct = true;
+                    }
                     //---------------------------------------------------------------------------------------------------------------
 
                     if (Debts.Any(x => x.Type == "TIP01") && Debts.Any(x => x.Type == "TIP03") && Debts.Any(x => x.Type == "TIP02"))
@@ -1026,7 +1026,8 @@ namespace SOAPAP.UI
                                 Form loadings = new Loading();
                                 loadings.Show(this);
                                 Facturaelectronica fs = new Facturaelectronica();
-                                xmltimbrado = await fs.facturar(resultados, "ET001", "");
+                                //xmltimbrado = await fs.facturar(resultados, "ET001", "");                               
+                                xmltimbrado = await fs.generaFactura(Variables.idtransaction.ToString(), Debts.First().Id, "ET001");
                                 loadings.Close();
                                 if (xmltimbrado.Contains("error"))
                                 {
@@ -1073,7 +1074,8 @@ namespace SOAPAP.UI
                                 Form loadings = new Loading();
                                 loadings.Show(this);
                                 Facturaelectronica fs = new Facturaelectronica();
-                                xmltimbrado = await fs.facturar(Variables.idtransaction.ToString(), "ET001", "");
+                                //xmltimbrado = await fs.facturar(Variables.idtransaction.ToString(), "ET001", "");                                
+                                xmltimbrado = await fs.generaFactura(Variables.idtransaction.ToString(), Debts.First().Id, "ET001");
                                 loadings.Close();
                                 //separadas = xmltimbrado.Split('/');
                                 if (xmltimbrado.Contains("error"))
@@ -1467,7 +1469,8 @@ namespace SOAPAP.UI
                             Form loadings = new Loading();
                             loadings.Show(this);
                             Facturaelectronica fs = new Facturaelectronica();
-                            xmltimbrado = await fs.facturar(Variables.idtransaction.ToString(), "ET001", "");
+                            //xmltimbrado = await fs.facturar(Variables.idtransaction.ToString(), "ET001", "");                            
+                            xmltimbrado = await fs.generaFactura(Variables.idtransaction.ToString(), 0, "ET001");
                             loadings.Close();
                             //separadas = xmltimbrado.Split('/');
                             if (xmltimbrado.Contains("error"))
@@ -1698,7 +1701,7 @@ namespace SOAPAP.UI
             columnts.ColumnName = "Imagen2";
             Variables.ImagenData.Columns.Add(columnts);
 
-            Image img = q.Imagen();
+            System.Drawing.Image img = q.Imagen();
             byte[] arr;
             ImageConverter converter = new ImageConverter();
             arr = (byte[])converter.ConvertTo(img, typeof(byte[]));
@@ -1711,7 +1714,7 @@ namespace SOAPAP.UI
             MemoryStream ms = new MemoryStream();
             renderer.WriteToStream(qrCode.Matrix, ImageFormat.Png, ms);
             var imageTemp = new Bitmap(ms);
-            Image image = new Bitmap(imageTemp, new Size(new Point(200, 200)));
+            System.Drawing.Image image = new Bitmap(imageTemp, new Size(new Point(200, 200)));
             byte[] arrs;
             ImageConverter converters = new ImageConverter();
             arrs = (byte[])converters.ConvertTo(image, typeof(byte[]));

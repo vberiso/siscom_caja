@@ -19,14 +19,14 @@
     <ServiceContractMappings />
   </ClientOptions>
   <MetadataSources>
-    <MetadataSource Address="https://www.appfacturainteligente.com/WSTimbrado33Test/WSCFDI33.svc?WSDL" Protocol="http" SourceId="1" />
+    <MetadataSource Address="https://www.appfacturainteligente.com/WSTimbrado33/WSCFDI33.svc?WSDL" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="WSCFDI33.xsd" MetadataType="Schema" ID="be48a563-ea48-4044-9ba4-3c3a8a493507" SourceId="1" SourceUrl="http://www.appfacturainteligente.com/WSTimbrado33Test/WSCFDI33.svc?xsd=xsd3" />
-    <MetadataFile FileName="WSCFDI33.wsdl" MetadataType="Wsdl" ID="d86e09fa-7324-4ba2-97a7-85a573e793b7" SourceId="1" SourceUrl="https://www.appfacturainteligente.com/WSTimbrado33Test/WSCFDI33.svc?WSDL" />
-    <MetadataFile FileName="WSCFDI331.xsd" MetadataType="Schema" ID="f65eebe1-093e-4275-a810-555c364ca8a3" SourceId="1" SourceUrl="http://www.appfacturainteligente.com/WSTimbrado33Test/WSCFDI33.svc?xsd=xsd1" />
-    <MetadataFile FileName="WSCFDI332.xsd" MetadataType="Schema" ID="7a72caf6-85fa-4b5a-a653-19dfcc35090c" SourceId="1" SourceUrl="http://www.appfacturainteligente.com/WSTimbrado33Test/WSCFDI33.svc?xsd=xsd0" />
-    <MetadataFile FileName="WSCFDI333.xsd" MetadataType="Schema" ID="1c150dce-7283-48a8-a9c2-006b5ccb7d08" SourceId="1" SourceUrl="http://www.appfacturainteligente.com/WSTimbrado33Test/WSCFDI33.svc?xsd=xsd2" />
+    <MetadataFile FileName="WSCFDI334.xsd" MetadataType="Schema" ID="64a3605d-4ae5-4cdd-82f4-9cac806e3162" SourceId="1" SourceUrl="http://www.appfacturainteligente.com/WSTimbrado33/WSCFDI33.svc?xsd=xsd1" />
+    <MetadataFile FileName="WSCFDI3341.xsd" MetadataType="Schema" ID="719b7d6b-4a26-47ba-ac32-3c938ee67f3a" SourceId="1" SourceUrl="http://www.appfacturainteligente.com/WSTimbrado33/WSCFDI33.svc?xsd=xsd0" />
+    <MetadataFile FileName="WSCFDI3342.xsd" MetadataType="Schema" ID="a1175e53-4c8b-4010-a6fb-d4421fbff21b" SourceId="1" SourceUrl="http://www.appfacturainteligente.com/WSTimbrado33/WSCFDI33.svc?xsd=xsd2" />
+    <MetadataFile FileName="WSCFDI3343.xsd" MetadataType="Schema" ID="09b0cf74-a36f-4226-be6c-91c96e46294e" SourceId="1" SourceUrl="http://www.appfacturainteligente.com/WSTimbrado33/WSCFDI33.svc?xsd=xsd3" />
+    <MetadataFile FileName="WSCFDI331.wsdl" MetadataType="Wsdl" ID="35a0e272-62dd-41ae-9116-fd1aa3a32900" SourceId="1" SourceUrl="https://www.appfacturainteligente.com/WSTimbrado33/WSCFDI33.svc?WSDL" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

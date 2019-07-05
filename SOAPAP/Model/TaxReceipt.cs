@@ -17,5 +17,6 @@ namespace SOAPAP.Model
         public string Status { get; set; }
         public string UserId { get; set; }
         public int PaymentId { get; set; }
+        public string IdXmlFacturama { get; set; }
     }
 }
