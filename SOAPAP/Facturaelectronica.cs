@@ -34,7 +34,7 @@ namespace SOAPAP
         public Facturaelectronica()
         {
             Requests = new RequestsAPI(UrlBase);
-            facturama = new FacturamaApiMultiemisor("gfdsystems", "gfds1st95", false);
+            facturama = new FacturamaApiMultiemisor("gfdsystems", "gfds1st95");
             //facturama = new FacturamaApiMultiemisor("pruebas", "pruebas2011");
         }
         //Metodo del Vic (con calmita...)
@@ -805,7 +805,7 @@ namespace SOAPAP
                 var resultado = await Requests.SendURIAsync(string.Format("/api/Transaction/{0}", idTransaction), HttpMethod.Get, Variables.LoginModel.Token);
                 TransactionVM TraVM = JsonConvert.DeserializeObject<TransactionVM>(resultado);
 
-                var resultados = await Requests.SendURIAsync(string.Format("/api/Agreements/AgreementByAccount/{0}", TraVM.payment.AgreementId), HttpMethod.Get, Variables.LoginModel.Token);
+                var resultados = await Requests.SendURIAsync(string.Format("/api/Agreements/{0}", TraVM.payment.AgreementId), HttpMethod.Get, Variables.LoginModel.Token);
                 Agreement ms = JsonConvert.DeserializeObject<Agreement>(resultados);
                 
                 string registro = RegitraEmisor();
@@ -817,27 +817,32 @@ namespace SOAPAP
                 
                 //Se Obtienen los descuentos
                 decimal Descuento = 0;
+                string CondicionPago = "";
                 if (TraVM.payment.OrderSaleId == 0) //Servicio
                 {
                     Descuento = TraVM.payment.PaymentDetails.Sum(x => x.Debt.DebtDiscounts.Where(y => y.CodeConcept == x.CodeConcept).Select(yy => yy.DiscountAmount).FirstOrDefault());
+                    //Anexo el periodo de pago (Services)
+                    CondicionPago = "Periodo de: " + TraVM.payment.PaymentDetails.Min(p => p.Debt.FromDate).ToString("yyyy-MM-dd") + " hasta: " + TraVM.payment.PaymentDetails.Max(p => p.Debt.UntilDate).ToString("yyyy-MM-dd");
                 }
                 else                    //Producto
                 {
                     Descuento = TraVM.orderSale.OrderSaleDiscounts.Sum(x => x.DiscountAmount);
+                    //Anexo el año y periodo (Orders)
+                    CondicionPago = "Año :" + TraVM.orderSale.Year + " Perido: " + TraVM.orderSale.Year;
                 }
 
                 //se obtiene el metodo de pago
                 string MetodoPago = "PUE"; //PUE(Pago en una sola exhibición), PPD(Pago en parcialidades o diferido)
-                if (TraVM.payment.OrderSaleId == 0) //Servicio
-                {
-                    decimal tmpTotalPagado = TraVM.payment.PaymentDetails.Sum(x => x.Amount);
-                    decimal tmpTotalDebt = TraVM.payment.PaymentDetails.First().Debt.Amount;
-                    MetodoPago = (tmpTotalPagado == tmpTotalDebt ? "PUE" : "PPD");
-                }
-                else                    //Producto
-                {
-                    MetodoPago = "PUE";
-                }
+                //if (TraVM.payment.OrderSaleId == 0) //Servicio
+                //{
+                //    decimal tmpTotalPagado = TraVM.payment.PaymentDetails.Sum(x => x.Amount);
+                //    decimal tmpTotalDebt = TraVM.payment.PaymentDetails.First().Debt.Amount;
+                //    MetodoPago = (tmpTotalPagado == tmpTotalDebt ? "PUE" : "PPD");
+                //}
+                //else                    //Producto
+                //{
+                //    MetodoPago = "PUE";
+                //}
                 
                 string fecha = DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ss");
                 
@@ -850,8 +855,13 @@ namespace SOAPAP
                     Currency = "MXN",
                     CfdiType = CfdiType.Ingreso,
                     PaymentMethod = MetodoPago,
-                    ExpeditionPlace = "72700"                    
+                    ExpeditionPlace = "72700",
+                    PaymentConditions = CondicionPago
                 };
+
+
+                //Anexo el periodo de pago (Services) o La fecha de espedicion (Orders)
+                
                                
                 ////Obtengo el primer pago relacionado con factura si lo hay, para relacionarlo a esta pago.
                 //if (MetodoPago == "PPD")
@@ -913,13 +923,14 @@ namespace SOAPAP
 
 
                 //NODO: Receptor
+                Client client = ms.Clients.FirstOrDefault(x => x.typeUser == "CLI01");
                 Receiver receptor;
-                if (ms.Clients != null)
-                {                   
+                if (client != null)
+                {                    
                     receptor = new Receiver
                     {
-                        Rfc = ms.Clients.FirstOrDefault().rfc,
-                        Name = ms.Clients.FirstOrDefault().name + " " + ms.Clients.FirstOrDefault().lastName + " " + ms.Clients.FirstOrDefault().secondLastName,
+                        Rfc = client.rfc,
+                        Name = client.name + " " + client.lastName + " " + client.secondLastName,
                         CfdiUse = "P01"
                     };
                 }
@@ -950,12 +961,12 @@ namespace SOAPAP
                             IdentificationNumber = "S" + pay.CodeConcept,                            
                             UnitCode = pay.UnitMeasurement,
                             Unit = "NO APLICA",
-                            Description = pay.Description,
+                            Description = pay.Description + " Periodo de:" + pay.Debt.FromDate.ToString("yyyy-MM-dd") + " hasta: " + pay.Debt.UntilDate.ToString("yyyy-MM-dd"),
                             UnitPrice = pay.Debt.DebtDetails.Where(x => x.CodeConcept == pay.CodeConcept).Select(y => y.Amount).FirstOrDefault(),
                             Quantity = pay.Debt.DebtDetails.Where(x => x.CodeConcept == pay.CodeConcept).Select(y => y.quantity).FirstOrDefault(),
                             Subtotal = pay.Debt.DebtDetails.Where(x => x.CodeConcept == pay.CodeConcept).Select(y => y.OnAccount).FirstOrDefault(),
                             Discount = pay.Debt.DebtDiscounts.Where(x => x.CodeConcept == pay.CodeConcept).Select(y => y.DiscountAmount).FirstOrDefault(),
-                            Total = pay.Amount + pay.Tax
+                            Total = pay.Amount + pay.Tax                            
                         };
                         if (pay.HaveTax == true)
                         {
