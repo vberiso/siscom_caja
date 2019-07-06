@@ -490,7 +490,7 @@ namespace SOAPAP.UI
                                     int _idetail = Variables.Agreement.AgreementDetails.Max(x => x.Id);
                                     var _detail = Variables.Agreement.AgreementDetails.SingleOrDefault(x => x.Id == _idetail);
                                     var _fechaActualizacion = _detail.LastUpdate;
-                                    if (DateTime.UtcNow.ToLocalTime().AddYears(-4) < _detail.LastUpdate)
+                                    if (_detail.LastUpdate< DateTime.UtcNow.ToLocalTime().AddYears(-4))
                                     {
                                         mensaje = new MessageBoxForm("Actualización", "Debe Actualizar Avalúo", TypeIcon.Icon.Warning);
                                         result = mensaje.ShowDialog();
