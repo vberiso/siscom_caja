@@ -485,11 +485,17 @@ namespace SOAPAP.UI
                             //Avalúo
                             if (Variables.Configuration.IsMunicipal)
                             {
-                                int _idetail = Variables.Agreement.AgreementDetails.Max(x => x.Id);
-                                var _detail = Variables.Agreement.AgreementDetails.SingleOrDefault(x => x.Id == _idetail);
-
-                                //if(_detail.LastUpdate)
-                                
+                                if (Variables.Agreement.AgreementDetails != null && Variables.Agreement.AgreementDetails.Count>0)
+                                {
+                                    int _idetail = Variables.Agreement.AgreementDetails.Max(x => x.Id);
+                                    var _detail = Variables.Agreement.AgreementDetails.SingleOrDefault(x => x.Id == _idetail);
+                                    var _fechaActualizacion = _detail.LastUpdate;
+                                    if (DateTime.UtcNow.ToLocalTime().AddYears(-4) < _detail.LastUpdate)
+                                    {
+                                        mensaje = new MessageBoxForm("Actualización", "Debe Actualizar Avalúo", TypeIcon.Icon.Warning);
+                                        result = mensaje.ShowDialog();
+                                    }
+                                }
                             }
 
 
