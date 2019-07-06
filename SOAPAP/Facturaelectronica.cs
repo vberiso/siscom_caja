@@ -20,6 +20,7 @@ using Facturama;
 using Facturama.Models;
 using Facturama.Models.Request;
 using Facturama.Services;
+using SOAPAP.PDFManager;
 
 namespace SOAPAP
 {
@@ -35,7 +36,7 @@ namespace SOAPAP
         public Facturaelectronica()
         {
             Requests = new RequestsAPI(UrlBase);
-            facturama = new FacturamaApiMultiemisor("gfdsystems", "gfds1st95");
+            facturama = new FacturamaApiMultiemisor("gfdsystems", "gfds1st95", false);
             //facturama = new FacturamaApiMultiemisor("pruebas", "pruebas2011");
         }
         //Metodo del Vic (con calmita...)
@@ -1033,8 +1034,9 @@ namespace SOAPAP
                 string XML = LeerXML(path + nombreXML);
                 string resGuardado = await guardarXMLenBD(XML, cfdiFacturama.Complement.TaxStamp.Uuid, receptor.Rfc, TipoFactura, status, TraVM.payment.Id, cfdiFacturama.Id);
                 string resActPay = await actualizarPaymentConFactura(TraVM.payment);
-                                
-                return XML;
+                CreatePDF pDF = new CreatePDF(cfdi, cfdiFacturama, ms.account);
+                pDF.Create();
+                return "Success -"+ cfdiFacturama.Complement.TaxStamp.Uuid;
             }
             catch (Exception ex)
             {
@@ -1101,6 +1103,7 @@ namespace SOAPAP
                                
                 //Descarga de XML
                 facturama.Cfdis.SaveXml(path, cfdiCreated.Id);
+                //facturama.Cfdis.Retrieve(cfdiCreated.Id);
 
                 ////Consultar facturas creadas
                 //facturama.Cfdis.List("Expresion en Software");

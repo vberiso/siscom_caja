@@ -1170,18 +1170,23 @@ namespace SOAPAP.UI
                                     mensaje = new MessageBoxForm(Variables.titleprincipal, xmltimbrado.Split('/')[1].ToString(), TypeIcon.Icon.Cancel);
                                     mensaje.ShowDialog();
                                 }
-
-                                else
+                                if (xmltimbrado.Contains("Success"))
                                 {
-                                    PdfDocument pdfdocument = new PdfDocument();
-                                    pdfdocument.LoadFromFile(xmltimbrado);
-                                    pdfdocument.PrinterName = q.ImpresoraPredeterminada();
-                                    pdfdocument.PrintDocument.PrinterSettings.Copies = 1;
-                                    pdfdocument.PrintDocument.Print();
-                                    pdfdocument.Dispose();
-                                    loadings.Close();
-                                    // Directory.Delete(xmltimbrado, true);
+                                    mensaje = new MessageBoxForm(Variables.titleprincipal, "Pago se ha timbtado correctamente - UUid"+ xmltimbrado.Split('-')[1], TypeIcon.Icon.Success);
+                                    mensaje.ShowDialog();
                                 }
+                                //else
+                                //{
+                                //    loadings.Close();
+                                //    PdfDocument pdfdocument = new PdfDocument();
+                                //    pdfdocument.LoadFromFile(xmltimbrado);
+                                //    pdfdocument.PrinterName = q.ImpresoraPredeterminada();
+                                //    pdfdocument.PrintDocument.PrinterSettings.Copies = 1;
+                                //    pdfdocument.PrintDocument.Print();
+                                //    pdfdocument.Dispose();
+                                    
+                                //    // Directory.Delete(xmltimbrado, true);
+                                //}
 
                             }
                             else
@@ -1585,13 +1590,14 @@ namespace SOAPAP.UI
 
                             else
                             {
+                                loadings.Close();
                                 PdfDocument pdfdocument = new PdfDocument();
                                 pdfdocument.LoadFromFile(xmltimbrado);
                                 pdfdocument.PrinterName = q.ImpresoraPredeterminada();
                                 pdfdocument.PrintDocument.PrinterSettings.Copies = 1;
                                 pdfdocument.PrintDocument.Print();
                                 pdfdocument.Dispose();
-                                loadings.Close();
+                                
                                 // Directory.Delete(xmltimbrado, true);
                             }
 

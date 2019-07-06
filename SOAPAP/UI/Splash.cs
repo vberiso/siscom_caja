@@ -40,8 +40,8 @@ namespace SOAPAP.UI
         {
             var getKey = System.Guid.NewGuid().ToString().Substring(0, 20).ToUpper();
 
-            CreatePDF pDF = new CreatePDF();
-            pDF.Create();
+            //CreatePDF pDF = new CreatePDF();
+            //pDF.Create();
             Configuration configuration = new Configuration();
             Variables.Configuration = configuration;
 

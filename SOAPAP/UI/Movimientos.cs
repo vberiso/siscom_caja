@@ -1183,24 +1183,34 @@ namespace SOAPAP
                                 fs.msgObservacionFactura = textoObservacion;
                                 fs.msgUsos = textoUsos;
                                 xmltimbrado = await fs.generaFactura(transactionSelect.Transaction.Id.ToString(), "ET001");
-                                separadas = xmltimbrado.Split('/');
-                                if (separadas[0].ToString() == "error")
+                                if (xmltimbrado.Contains("Success"))
                                 {
-                                    mensaje = new MessageBoxForm(Variables.titleprincipal, separadas[1].ToString(), TypeIcon.Icon.Cancel);
+                                    mensaje = new MessageBoxForm(Variables.titleprincipal, "Pago se ha timbtado correctamente - UUid" + xmltimbrado.Split('-')[1], TypeIcon.Icon.Success);
                                     mensaje.ShowDialog();
                                 }
                                 else
                                 {
-                                    PdfDocument pdfdocument = new PdfDocument();
-                                    pdfdocument.LoadFromFile(xmltimbrado);
-                                    pdfdocument.PrinterName = q.ImpresoraPredeterminada();
-                                    pdfdocument.PrintDocument.PrinterSettings.Copies = 1;
-                                    pdfdocument.PrintDocument.Print();
-                                    pdfdocument.Dispose();
-                                   
-                                }
-                                
+                                mensaje = new MessageBoxForm(Variables.titleprincipal, "Error al realizar el timbrado" + xmltimbrado.Split('-')[1], TypeIcon.Icon.Success);
+                                mensaje.ShowDialog();
                             }
+                            //separadas = xmltimbrado.Split('/');
+                            //if (separadas[0].ToString() == "error")
+                            //{
+                            //    mensaje = new MessageBoxForm(Variables.titleprincipal, separadas[1].ToString(), TypeIcon.Icon.Cancel);
+                            //    mensaje.ShowDialog();
+                            //}
+                            //else
+                            //{
+                            //    PdfDocument pdfdocument = new PdfDocument();
+                            //    pdfdocument.LoadFromFile(xmltimbrado);
+                            //    pdfdocument.PrinterName = q.ImpresoraPredeterminada();
+                            //    pdfdocument.PrintDocument.PrinterSettings.Copies = 1;
+                            //    pdfdocument.PrintDocument.Print();
+                            //    pdfdocument.Dispose();
+
+                            //}
+
+                        }
 
                             }
 

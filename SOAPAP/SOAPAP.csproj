@@ -19,7 +19,7 @@
     <PublishUrl>\\installer.sosapac.gob.mx\caja\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Unc</InstallFrom>
-    <UpdateEnabled>true</UpdateEnabled>
+    <UpdateEnabled>false</UpdateEnabled>
     <UpdateMode>Foreground</UpdateMode>
     <UpdateInterval>7</UpdateInterval>
     <UpdateIntervalUnits>Days</UpdateIntervalUnits>
@@ -28,10 +28,8 @@
     <MapFileExtensions>true</MapFileExtensions>
     <UpdateUrl>\\installer.sosapac.gob.mx\caja\</UpdateUrl>
     <MinimumRequiredVersion>1.1.1.1</MinimumRequiredVersion>
-    <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <AutorunEnabled>true</AutorunEnabled>
-    <ApplicationRevision>103</ApplicationRevision>
+    <ApplicationRevision>106</ApplicationRevision>
     <ApplicationVersion>1.1.1.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -1208,7 +1206,7 @@
     <None Include="Resources\bares.png" />
     <None Include="Resources\Banner.png" />
     <None Include="Resources\ayuntamiento-sistema.png" />
-    <None Include="Resources\ayuntamiento.jpg" />
+    <Content Include="Resources\ayuntamiento.jpg" />
     <Content Include="Resources\buscar.png" />
     <None Include="Resources\cancelado.png" />
     <None Include="Resources\cerrada.png" />
@@ -1253,6 +1251,7 @@
     <None Include="Resources\spinner.gif" />
     <None Include="Resources\sin-estado.png" />
     <None Include="Resources\sosapac-sistema.png" />
+    <Content Include="Resources\sosapac.png" />
     <Content Include="Resources\splash-sd.png" />
     <None Include="Resources\success.png" />
     <None Include="Resources\store.png" />
