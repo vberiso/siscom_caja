@@ -24,7 +24,7 @@ namespace SOAPAP.PDFManager
                 //htmlToPdfConverter.SerialNumber = Properties.Settings.Default.SerialNumber;
                 //htmlToPdfConverter.ConvertedHtmlElementSelector = HtmlToPdf();
                 //htmlToPdfConverter.WaitBeforeConvert = 2;
-                //htmlToPdfConverter.ConvertUrlToFile()
+                //htmlToPdfConverter.ConvertUrlToFile();
                 //htmlToPdfConverter.Document.PageSize = PdfPageSize.Letter;
                 //htmlToPdfConverter.Document.PageOrientation = PdfPageOrientation.Portrait;
                 //htmlToPdfConverter.Document.PdfStandard = PdfStandard.Pdf;
@@ -51,102 +51,102 @@ namespace SOAPAP.PDFManager
                 //}
 
 
-                //PdfDocument document = new PdfDocument();
-                //document.SerialNumber = Properties.Settings.Default.SerialNumber;
-                //PdfPage page1 = document.AddPage(PdfPageSize.Letter, new PdfDocumentMargins(5), PdfPageOrientation.Portrait);
-                //PdfHtml html = new PdfHtml(HtmlToPdf(), null);
-                //html.WaitBeforeConvert = 2;
-                //PdfLayoutInfo layoutInfo = page1.Layout(html);
-                //byte[] pdfBuffer = document.WriteToMemory();
-                //ExportGridToPDF(pdfBuffer);
-
                 PdfDocument document = new PdfDocument();
                 document.SerialNumber = Properties.Settings.Default.SerialNumber;
-                PdfPage page1 = document.AddPage();
+                PdfPage page1 = document.AddPage(PdfPageSize.Letter, new PdfDocumentMargins(5), PdfPageOrientation.Portrait);
+                PdfHtml html = new PdfHtml(HtmlToPdf(), null);
+                html.WaitBeforeConvert = 2;
+                PdfLayoutInfo layoutInfo = page1.Layout(html);
+                byte[] pdfBuffer = document.WriteToMemory();
+                ExportGridToPDF(pdfBuffer);
 
-                PdfLayoutInfo textLayoutInfo = null;
+                //PdfDocument document = new PdfDocument();
+                //document.SerialNumber = Properties.Settings.Default.SerialNumber;
+                //PdfPage page1 = document.AddPage();
 
-                //PdfRectangle backgroundRectangle = new PdfRectangle(page1.DrawableRectangle);
-                //backgroundRectangle.BackColor = Color.WhiteSmoke;
-                //page1.Layout(backgroundRectangle);
+                //PdfLayoutInfo textLayoutInfo = null;
 
-                PrivateFontCollection collection = new PrivateFontCollection();
-                collection.AddFontFile(@"C:\fonts\Montserrat\Montserrat-Regular.ttf");
-                collection.AddFontFile(@"C:\fonts\Roboto\Roboto-Light.ttf");
-                collection.AddFontFile(@"C:\fonts\Roboto\Roboto-Bold.ttf");
+                ////PdfRectangle backgroundRectangle = new PdfRectangle(page1.DrawableRectangle);
+                ////backgroundRectangle.BackColor = Color.WhiteSmoke;
+                ////page1.Layout(backgroundRectangle);
 
-                //Title Principal Roboto-Bold
-                Font sysFontTitleBold = new Font(collection.Families[1], 9, System.Drawing.GraphicsUnit.Point);
-                PdfFont pdfFontTitleBold = document.CreateFont(sysFontTitleBold);
-                PdfFont pdfFontEmbedTitleBold = document.CreateFont(sysFontTitleBold, true);
+                //PrivateFontCollection collection = new PrivateFontCollection();
+                //collection.AddFontFile(@"C:\fonts\Montserrat\Montserrat-Regular.ttf");
+                //collection.AddFontFile(@"C:\fonts\Roboto\Roboto-Light.ttf");
+                //collection.AddFontFile(@"C:\fonts\Roboto\Roboto-Bold.ttf");
 
-                Font sysFontTitleRegular = new Font(collection.Families[2], 8, System.Drawing.GraphicsUnit.Point);
-                PdfFont pdfFontTitleRegular = document.CreateFont(sysFontTitleRegular);
-                PdfFont pdfFontEmbedTitleRegular = document.CreateFont(sysFontTitleRegular, true);
+                ////Title Principal Roboto-Bold
+                //Font sysFontTitleBold = new Font(collection.Families[1], 9, System.Drawing.GraphicsUnit.Point);
+                //PdfFont pdfFontTitleBold = document.CreateFont(sysFontTitleBold);
+                //PdfFont pdfFontEmbedTitleBold = document.CreateFont(sysFontTitleBold, true);
 
-
-                //Text from Data Montserrat-Regular
-                Font sysFontText = new Font(collection.Families[0], 6, System.Drawing.GraphicsUnit.Point);
-                PdfFont pdfFont = document.CreateFont(sysFontText);
-                PdfFont pdfFontEmbed = document.CreateFont(sysFontText, true);
-
-                //Text accentuate Roboto-Bold
-                Font sysFontTextData = new Font(collection.Families[1], 6, System.Drawing.GraphicsUnit.Point);
-                PdfFont pdfFontData = document.CreateFont(sysFontText);
-                PdfFont pdfFontEmbedData = document.CreateFont(sysFontText, true);
+                //Font sysFontTitleRegular = new Font(collection.Families[2], 8, System.Drawing.GraphicsUnit.Point);
+                //PdfFont pdfFontTitleRegular = document.CreateFont(sysFontTitleRegular);
+                //PdfFont pdfFontEmbedTitleRegular = document.CreateFont(sysFontTitleRegular, true);
 
 
-                float crtYPos = 10;
-                float crtXPos = 10;
+                ////Text from Data Montserrat-Regular
+                //Font sysFontText = new Font(collection.Families[0], 6, System.Drawing.GraphicsUnit.Point);
+                //PdfFont pdfFont = document.CreateFont(sysFontText);
+                //PdfFont pdfFontEmbed = document.CreateFont(sysFontText, true);
 
-                //TextCenter
-                float crtYPosCenter = 31;
-                float crtXPosCenter = 170;
-
-                PdfImage transparentPdfImage = new PdfImage(crtXPos, crtYPos, 120, Resources.ayuntamiento);
-                PdfLayoutInfo imageLayoutInfo = page1.Layout(transparentPdfImage);
-                crtYPos += imageLayoutInfo.LastPageRectangle.Height + 10;
-
-                PdfText titleTextAtLocation = new PdfText(crtXPosCenter, crtYPosCenter, "MUNICIPIO DE CUAUTLANCINGO, PUEBLA 2018-2021", pdfFontEmbedTitleBold);
-                titleTextAtLocation.ForeColor = Color.Black;
-                textLayoutInfo = page1.Layout(titleTextAtLocation);
-
-                titleTextAtLocation = new PdfText(crtXPosCenter + 60, crtYPosCenter += 12, "RFC: MCP850101944", pdfFontEmbedTitleBold);
-                titleTextAtLocation.ForeColor = Color.Black;
-                textLayoutInfo = page1.Layout(titleTextAtLocation);
+                ////Text accentuate Roboto-Bold
+                //Font sysFontTextData = new Font(collection.Families[1], 6, System.Drawing.GraphicsUnit.Point);
+                //PdfFont pdfFontData = document.CreateFont(sysFontText);
+                //PdfFont pdfFontEmbedData = document.CreateFont(sysFontText, true);
 
 
-                PdfText AddressT = new PdfText(crtXPosCenter - 28, crtYPosCenter += 20, "PALACIO MUNICIPAL S/N Centro CUAUTLANCINGO CUAUTLANCINGO 72700", pdfFontEmbedTitleRegular);
-                titleTextAtLocation.ForeColor = Color.Black;
-                textLayoutInfo = page1.Layout(AddressT);
+                //float crtYPos = 10;
+                //float crtXPos = 10;
 
-                AddressT = new PdfText(crtXPosCenter + 80, crtYPosCenter += 12, "PUEBLA MEXICO", pdfFontEmbedTitleRegular);
-                titleTextAtLocation.ForeColor = Color.Black;
-                textLayoutInfo = page1.Layout(AddressT);
+                ////TextCenter
+                //float crtYPosCenter = 31;
+                //float crtXPosCenter = 170;
 
-                AddressT = new PdfText(crtXPosCenter, crtYPosCenter += 20, "Régimen Fiscal: 603 - Personas Morales con Fines no Lucrativos", pdfFontEmbedTitleRegular);
-                titleTextAtLocation.ForeColor = Color.Black;
-                textLayoutInfo = page1.Layout(AddressT);
+                //PdfImage transparentPdfImage = new PdfImage(crtXPos, crtYPos, 120, Resources.ayuntamiento);
+                //PdfLayoutInfo imageLayoutInfo = page1.Layout(transparentPdfImage);
+                //crtYPos += imageLayoutInfo.LastPageRectangle.Height + 10;
 
-                AddressT = new PdfText(crtXPosCenter + 45, crtYPosCenter += 12, "Expedido en: 72700, CUAUTLANCINGO", pdfFontEmbedTitleRegular);
-                titleTextAtLocation.ForeColor = Color.Black;
-                textLayoutInfo = page1.Layout(AddressT);
+                //PdfText titleTextAtLocation = new PdfText(crtXPosCenter, crtYPosCenter, "MUNICIPIO DE CUAUTLANCINGO, PUEBLA 2018-2021", pdfFontEmbedTitleBold);
+                //titleTextAtLocation.ForeColor = Color.Black;
+                //textLayoutInfo = page1.Layout(titleTextAtLocation);
 
-                //PdfRectangle borderPdfRectangle = new PdfRectangle(crtXPosCenter, crtYPosCenter += 16, 230, 15);
-                //borderPdfRectangle.LineStyle.LineWidth = 0.1f;
-                //page1.Layout(borderPdfRectangle);
-
-                PdfText divition = new PdfText(crtXPosCenter + 50, crtYPosCenter +=12 , "TESORERIA MUNICIPAL", pdfFontEmbedTitleBold);
-                titleTextAtLocation.ForeColor = Color.Black;
-                page1.Layout(divition);
-
-                divition = new PdfText(crtXPosCenter, crtYPosCenter +=12, "ÁREA: TESORERIA MUNICIPAL", pdfFontEmbedTitleBold);
-                titleTextAtLocation.ForeColor = Color.Black;
-                page1.Layout(divition);
+                //titleTextAtLocation = new PdfText(crtXPosCenter + 60, crtYPosCenter += 12, "RFC: MCP850101944", pdfFontEmbedTitleBold);
+                //titleTextAtLocation.ForeColor = Color.Black;
+                //textLayoutInfo = page1.Layout(titleTextAtLocation);
 
 
+                //PdfText AddressT = new PdfText(crtXPosCenter - 28, crtYPosCenter += 20, "PALACIO MUNICIPAL S/N Centro CUAUTLANCINGO CUAUTLANCINGO 72700", pdfFontEmbedTitleRegular);
+                //titleTextAtLocation.ForeColor = Color.Black;
+                //textLayoutInfo = page1.Layout(AddressT);
 
-                ExportGridToPDF(document.WriteToMemory());
+                //AddressT = new PdfText(crtXPosCenter + 80, crtYPosCenter += 12, "PUEBLA MEXICO", pdfFontEmbedTitleRegular);
+                //titleTextAtLocation.ForeColor = Color.Black;
+                //textLayoutInfo = page1.Layout(AddressT);
+
+                //AddressT = new PdfText(crtXPosCenter, crtYPosCenter += 20, "Régimen Fiscal: 603 - Personas Morales con Fines no Lucrativos", pdfFontEmbedTitleRegular);
+                //titleTextAtLocation.ForeColor = Color.Black;
+                //textLayoutInfo = page1.Layout(AddressT);
+
+                //AddressT = new PdfText(crtXPosCenter + 45, crtYPosCenter += 12, "Expedido en: 72700, CUAUTLANCINGO", pdfFontEmbedTitleRegular);
+                //titleTextAtLocation.ForeColor = Color.Black;
+                //textLayoutInfo = page1.Layout(AddressT);
+
+                ////PdfRectangle borderPdfRectangle = new PdfRectangle(crtXPosCenter, crtYPosCenter += 16, 230, 15);
+                ////borderPdfRectangle.LineStyle.LineWidth = 0.1f;
+                ////page1.Layout(borderPdfRectangle);
+
+                //PdfText divition = new PdfText(crtXPosCenter + 50, crtYPosCenter +=12 , "TESORERIA MUNICIPAL", pdfFontEmbedTitleBold);
+                //titleTextAtLocation.ForeColor = Color.Black;
+                //page1.Layout(divition);
+
+                //divition = new PdfText(crtXPosCenter, crtYPosCenter +=12, "ÁREA: TESORERIA MUNICIPAL", pdfFontEmbedTitleBold);
+                //titleTextAtLocation.ForeColor = Color.Black;
+                //page1.Layout(divition);
+
+
+
+                //ExportGridToPDF(document.WriteToMemory());
 
 
             }
@@ -163,16 +163,16 @@ namespace SOAPAP.PDFManager
             StringBuilder builder = new StringBuilder();
             //var a = Path.Combine(System.Windows.Forms.Application.StartupPath, "Resources");
            
-            string appPath = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "OutputTem", "IMG");
-            CopyResource(nameof(Properties.Resources.ayuntamiento), appPath);
-            if (!Directory.Exists(appPath))
-            {
-                Directory.CreateDirectory(appPath);
-                Bitmap bitmap = new Bitmap(Resources.ayuntamiento);
-                Graphics gBmp = Graphics.FromImage(bitmap);
-                CopyResource("Ayuntamiento.jpg", appPath);
-                //File.WriteAllBytes(appPath,image);
-            }
+            //string appPath = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "OutputTem", "IMG");
+            //CopyResource(nameof(Properties.Resources.ayuntamiento), appPath);
+            //if (!Directory.Exists(appPath))
+            //{
+            //    Directory.CreateDirectory(appPath);
+            //    Bitmap bitmap = new Bitmap(Resources.ayuntamiento);
+            //    Graphics gBmp = Graphics.FromImage(bitmap);
+            //    CopyResource("Ayuntamiento.jpg", appPath);
+            //    //File.WriteAllBytes(appPath,image);
+            //}
             builder.Append(@"<html>");
             builder.Append(@"<html lang='es'><head>");
             builder.Append(@"<meta charset='UTF-8'>");
@@ -183,8 +183,8 @@ namespace SOAPAP.PDFManager
             builder.Append(@"<body style='margin: 40px;'>");
             builder.Append(@"<div style='font-family: \""Roboto\"", sans-serif; height: 100px;'>");
             builder.Append(@"<div class='cabecera_principal' style='margin-bottom: 60px;'>");
-            builder.Append(@"<div style='text-align: center; display: inline-block; width: 15%; vertical-align: top;'>");
-            builder.Append(@"<img src='"+ Directory.GetCurrentDirectory() + "\\Resources\\ayuntamiento.jpg" + "' alt='Logo-Ayuntamiento' width='100' height='100'>");
+            builder.Append(@"<div style='text-align: center; display: inline-block; width: 15%; vertical-align: top;'>");           
+            builder.Append(@"<img src='" + AppDomain.CurrentDomain.BaseDirectory + @"Resources\ayuntamiento.jpg" + "' alt='Logo-Ayuntamiento' width='100' height='100'>");
             builder.Append(@"</div>");
             builder.Append(@"<div style='text-align: center; display: inline-block; width: 55%;'>");
             builder.Append(@"<p> <b>MUNICIPIO DE CUAUTLANCINGO, PUEBLA 2018-2021</b></p>");
