@@ -205,7 +205,7 @@ namespace SOAPAP.UI
             dgvConceptosCobro.DataSource = source;
 
             //Valida si se puede mostrar el boton para cancelar Productos
-            if(TipoCobro == "Productos")
+            if(TipoCobro == "Productos" || TipoCobro == "Predial" || TipoCobro == "Limpia")
             {
                 btnSolicCancel.Text = "Solicitar Cancelación";
                 if (enEstadoDeDeuda == true)
@@ -222,7 +222,7 @@ namespace SOAPAP.UI
                     btnSolicCancel.Visible = false;
             }
             //btnSolicCancel.Visible = TipoCobro == "Productos" ? true : false;
-
+            
 
         }
 
@@ -242,7 +242,7 @@ namespace SOAPAP.UI
                 {                    
                     tmpDebt = JsonConvert.DeserializeObject<SOAPAP.Model.Debt>(resultDebt);
 
-                    if(TipoCobro == "Productos")
+                    if(TipoCobro == "Productos" || TipoCobro == "Predial" || TipoCobro == "Limpia")
                     {
                         if (tmpDebt.Status == "ED001")
                             CumpleEstado = true;

@@ -22,6 +22,7 @@ using System.Windows.Forms.VisualStyles;
 using System.Xml;
 using System.Runtime.InteropServices;
 using System.Globalization;
+using SOAPAP.UI.Messages;
 
 namespace SOAPAP
 {
@@ -78,7 +79,6 @@ namespace SOAPAP
 
         private async void consultadecobros_Load(object sender, EventArgs e)
         {
-
             loading = new Loading();
             loading.Show(this);
             alzheimer();
@@ -87,7 +87,6 @@ namespace SOAPAP
             await cargar();
             label1.Text = "FECHA:" + DateTime.Now.ToString("dd-MM-yyyy");
             loading.Close();
-
         }
 
         public static void DataGridViewCellVisibility(DataGridViewCell cell, bool visible)
@@ -220,6 +219,34 @@ namespace SOAPAP
             loading.Close();
         }
 
+        //Se selecciona una nueva fecha
+        private async void dtpFechaBusqueda_ValueChanged(object sender, EventArgs e)
+        {
+            loading = new Loading();
+            loading.Show(this);
+            alzheimer();
+            await cargaCombos();
+            await Total();
+            await cargar();
+            label1.Text = "FECHA:" + DateTime.Now.ToString("dd-MM-yyyy");
+            loading.Close();
+        }
+
+        //Clic switch
+        private void tswSeleccionDia_Toggled(object sender, EventArgs e)
+        {
+            if (tswSeleccionDia.IsOn)
+            {
+                pbxFondoFechaBusqueda.Visible = true;
+                dtpFechaBusqueda.Visible = true;
+            }
+            else
+            {
+                pbxFondoFechaBusqueda.Visible = false;
+                dtpFechaBusqueda.Visible = false;
+            }
+        }
+
         private async void prevvisualizarToolStripMenuItem_Click(object sender, EventArgs e)
         {
             await ObtenerCorte();
@@ -264,8 +291,12 @@ namespace SOAPAP
             centraX(pnlHeader, cmbTypeTransaction);
             centraX(pnlHeader, pnlSearch);
 
-
-            var _resulTransaction = await Requests.SendURIAsync(string.Format("/api/Transaction/{0}/{1}", DateTime.Now.ToString("yyyy-MM-dd"), Variables.Configuration.Terminal.TerminalUsers.FirstOrDefault().Id.ToString()), HttpMethod.Get, Variables.LoginModel.Token);
+            string _resulTransaction;
+            if (tswSeleccionDia.IsOn)            
+                _resulTransaction = await Requests.SendURIAsync(string.Format("/api/Transaction/FromUserInDay/{0}/{1}", dtpFechaBusqueda.Value.ToString("yyyy-MM-dd") , Variables.LoginModel.User), HttpMethod.Get, Variables.LoginModel.Token);            
+            else            
+                _resulTransaction = await Requests.SendURIAsync(string.Format("/api/Transaction/{0}/{1}", DateTime.Now.ToString("yyyy-MM-dd") , Variables.Configuration.Terminal.TerminalUsers.FirstOrDefault().Id.ToString()), HttpMethod.Get, Variables.LoginModel.Token);
+            
 
             if (_resulTransaction.Contains("error"))
             {
@@ -364,6 +395,17 @@ namespace SOAPAP
                 cmbTypeTransaction.DisplayMember = "name";
                 cmbTypeTransaction.DataSource = Types;
                 cmbTypeTransaction.SelectedIndex = cmbTypeTransaction.FindString("Todos");
+            }
+
+            if (tswSeleccionDia.IsOn)
+            {
+                pbxFondoFechaBusqueda.Visible = true;
+                dtpFechaBusqueda.Visible = true;
+            }
+            else
+            {
+                pbxFondoFechaBusqueda.Visible = false;
+                dtpFechaBusqueda.Visible = false;
             }
         }
 
@@ -1095,7 +1137,11 @@ namespace SOAPAP
                 if (e.ColumnIndex == dgvMovimientos.Columns["TIMBRAR"].Index && e.RowIndex >= 0)
                 {
                         string xmltimbrado = string.Empty;
-                        
+
+                    //msgObservacionFactura msgObs = new msgObservacionFactura();
+                    //msgObs.Show();
+                    //string texto = msgObs.TextoObservacion;
+                    
                         loading = new Loading();
                         loading.Show(this);
                         
@@ -1127,7 +1173,8 @@ namespace SOAPAP
                             {
 
                                 Facturaelectronica fs = new Facturaelectronica();
-                                xmltimbrado = await fs.facturar(transactionSelect.Transaction.Id.ToString(), "ET001","");
+                                //xmltimbrado = await fs.facturar(transactionSelect.Transaction.Id.ToString(), "ET001","");
+                                xmltimbrado = await fs.generaFactura(transactionSelect.Transaction.Id.ToString(), "ET001");
                                 separadas = xmltimbrado.Split('/');
                                 if (separadas[0].ToString() == "error")
                                 {
@@ -1414,5 +1461,7 @@ namespace SOAPAP
             dgvMovimientos.Refresh();
             await Total();
         }
+
+        
     }
 }

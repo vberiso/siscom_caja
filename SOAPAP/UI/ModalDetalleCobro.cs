@@ -1112,7 +1112,7 @@ namespace SOAPAP.UI
                                 loadings.Show(this);
                                 Facturaelectronica fs = new Facturaelectronica();
                                 //xmltimbrado = await fs.facturar(resultados, "ET001", "");                               
-                                xmltimbrado = await fs.generaFactura(Variables.idtransaction.ToString(), Debts.First().Id, "ET001");
+                                xmltimbrado = await fs.generaFactura(Variables.idtransaction.ToString(), "ET001");
                                 if (xmltimbrado.Contains("error"))
                                 {
                                     loading.Close();
@@ -1162,7 +1162,7 @@ namespace SOAPAP.UI
                                 loadings.Show(this);
                                 Facturaelectronica fs = new Facturaelectronica();
                                 //xmltimbrado = await fs.facturar(Variables.idtransaction.ToString(), "ET001", "");                                
-                                xmltimbrado = await fs.generaFactura(Variables.idtransaction.ToString(), Debts.First().Id, "ET001");
+                                xmltimbrado = await fs.generaFactura(Variables.idtransaction.ToString(), "ET001");
                                 //separadas = xmltimbrado.Split('/');
                                 if (xmltimbrado.Contains("error"))
                                 {
@@ -1498,7 +1498,8 @@ namespace SOAPAP.UI
                             Form loadings = new Loading();
                             loadings.Show(this);
                             Facturaelectronica fs = new Facturaelectronica();
-                            xmltimbrado = await fs.facturar(resultados, "ET001", "");
+                            //xmltimbrado = await fs.facturar(resultados, "ET001", "");
+                            xmltimbrado = await fs.generaFactura(resultados, "ET001" );
                             if (xmltimbrado.Contains("error"))
                             {
                                 loadings.Close();
@@ -1572,7 +1573,7 @@ namespace SOAPAP.UI
                             loadings.Show(this);
                             Facturaelectronica fs = new Facturaelectronica();
                             //xmltimbrado = await fs.facturar(Variables.idtransaction.ToString(), "ET001", "");                            
-                            xmltimbrado = await fs.generaFactura(Variables.idtransaction.ToString(), 0, "ET001");
+                            xmltimbrado = await fs.generaFactura(Variables.idtransaction.ToString(), "ET001");
                             
                             //separadas = xmltimbrado.Split('/');
                             if (xmltimbrado.Contains("error"))

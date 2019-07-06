@@ -137,8 +137,8 @@ namespace SOAPAP.UI
 
                 if (e.ColumnIndex == dgvConceptosCobro.Columns["detail"].Index && e.RowIndex >= 0)
                 {
-                    CollectConcepts temp = (CollectConcepts)((System.Windows.Forms.BindingSource)((System.Windows.Forms.DataGridView)sender).DataSource).Current;
-
+                    CollectConcepts temp = (CollectConcepts)((System.Windows.Forms.BindingSource)((System.Windows.Forms.DataGridView)sender).DataSource).Current;                    
+                    
                     mensaje = new ModalDetalleCaja("Detalle Conceptos", "", TypeIcon.Icon.Warning, this.dgvConceptosCobro.Rows[e.RowIndex].Cells["Id"].Value.ToString(), TypeSearchSelect, txtCuenta.Text.Trim(), temp.Type);
                     result = mensaje.ShowDialog();
                 }

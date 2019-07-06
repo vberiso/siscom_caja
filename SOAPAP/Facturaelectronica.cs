@@ -530,7 +530,7 @@ namespace SOAPAP
             }
         }
         
-        public string GeneradorCadenas()
+        private string GeneradorCadenas()
         {
             //Cargar el XML
             StreamReader reader = new StreamReader(@"C:/Pruebas/XmlPrevio.xml");
@@ -552,7 +552,7 @@ namespace SOAPAP
             return result;
         }
 
-        public async void armaXmlParaCadenaOriginal(TransactionVM TrVM, Agreement Ag, int idDebt, Dictionary<string, string> dataCer)
+        private async void armaXmlParaCadenaOriginal(TransactionVM TrVM, Agreement Ag, int idDebt, Dictionary<string, string> dataCer)
         {            
             string seriefolio = TrVM.transaction.transactionFolios.FirstOrDefault().folio.ToString();
             string serie = seriefolio.Substring(0, 1);
@@ -677,7 +677,7 @@ namespace SOAPAP
 
         }
 
-        public async Task<string> armaXML(TransactionVM TrVM, Agreement Ag, int idDebt, Dictionary<string, string> dataCer, string origenKey, string OrigenCER, string origenPass, string CadenaOriginal)
+        private async Task<string> armaXML(TransactionVM TrVM, Agreement Ag, int idDebt, Dictionary<string, string> dataCer, string origenKey, string OrigenCER, string origenPass, string CadenaOriginal)
         {
             string seriefolio = TrVM.transaction.transactionFolios.FirstOrDefault().folio.ToString();
             string serie = seriefolio.Substring(0, 1);
@@ -794,7 +794,7 @@ namespace SOAPAP
 
 
         //con Facturama PRODUCTIVO
-        public async Task<string> generaFactura(string idTransaction, int idDebt, string status)
+        public async Task<string> generaFactura(string idTransaction, string status)
         {
             try
             {
@@ -865,7 +865,7 @@ namespace SOAPAP
                                
                 ////Obtengo el primer pago relacionado con factura si lo hay, para relacionarlo a esta pago.
                 //if (MetodoPago == "PPD")
-                //{
+                //{                                                                                                        //Recordar que se elimino el compo idDebt
                 //    var tmplstPayments = await Requests.SendURIAsync(string.Format("api/Payments/fromDebt/{0}", idDebt), HttpMethod.Get, Variables.LoginModel.Token);
                 //    List<Model.Payment> lstPayments = JsonConvert.DeserializeObject<List<Model.Payment>>(tmplstPayments);
 
