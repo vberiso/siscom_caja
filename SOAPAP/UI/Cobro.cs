@@ -481,6 +481,18 @@ namespace SOAPAP.UI
                                 result = mensaje.ShowDialog();
                             }
 
+
+                            //Avalúo
+                            if (Variables.Configuration.IsMunicipal)
+                            {
+                                int _idetail = Variables.Agreement.AgreementDetails.Max(x => x.Id);
+                                var _detail = Variables.Agreement.AgreementDetails.SingleOrDefault(x => x.Id == _idetail);
+
+                                //if(_detail.LastUpdate)
+                                
+                            }
+
+
                             if (Variables.Agreement.TypeStateServiceId == 1)
                             {
                                 //Deuda

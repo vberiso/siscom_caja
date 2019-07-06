@@ -769,7 +769,7 @@ namespace SOAPAP
                         if (Variables.Configuration.Terminal.TerminalUsers.First().UserId != Variables.LoginModel.User)
                         {
                             CargaMenu(CashBoxAccess.Access.SinAcceso);
-                            mensaje = new MessageBoxForm("Error", "Otro usuario está usando esta termial.", TypeIcon.Icon.Warning);
+                            mensaje = new MessageBoxForm("Error", "Otro usuario está usando esta terminal.", TypeIcon.Icon.Warning);
                             result = mensaje.ShowDialog();
                         }
                         else

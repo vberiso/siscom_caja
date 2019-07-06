@@ -279,7 +279,12 @@ namespace SOAPAP.UI
 
                 lblCuenta.SetPropertyValue(a => a.Text, _agreement.Account);
                 lblCliente.SetPropertyValue(a => a.Text, _propietario + System.Environment.NewLine + _usuario);
-                lblTipo.SetPropertyValue(a => a.Text, _agreement.TypeIntake.Name.ToUpper());
+
+                if (Variables.Configuration.IsMunicipal)
+                    lblTipo.SetPropertyValue(a => a.Text, _agreement.TypeIntake.Name.ToUpper());
+                else {
+                    lblTipo.SetPropertyValue(a => a.Text, _agreement.TypeIntake.Name.ToUpper() + "-" + _agreement.TypeConsume.Name.ToUpper());
+                }
                 lblEstado.SetPropertyValue(a => a.Text, _agreement.TypeStateService.Name);
 
                 if (_agreement.Addresses.Count > 0)
@@ -471,7 +476,7 @@ namespace SOAPAP.UI
             {
                 int _idetail = _agreement.AgreementDetails.Max(x => x.Id);
                 var _detail = _agreement.AgreementDetails.SingleOrDefault(x => x.Id == _idetail);
-                lblDetalle.SetPropertyValue(a => a.Text, string.Format("Base Grabable: " + _detail.TaxableBase.ToString() +  "m2{0}Construcción:" + _detail.Ground.ToString() + "m2{0}Terreno:" + _detail.Built + "m2{0}Última Actualización:" + _detail.LastUpdate.ToString(),Environment.NewLine));
+                lblDetalle.SetPropertyValue(a => a.Text, string.Format("Base Gravable: " + _detail.TaxableBase.ToString() +  "{0}Construcción: " + _detail.Ground.ToString() + "m2.{0}Terreno: " + _detail.Built + "m2{0}Última Actualización: " + _detail.LastUpdate.ToShortDateString(),Environment.NewLine));
             }
 
             if (_agreement != null && _agreement.AgreementLogs != null && _agreement.AgreementLogs.Count > 0)
