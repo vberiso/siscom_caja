@@ -958,6 +958,8 @@ namespace SOAPAP
 
         private async void dgvMovimientos_CellClick_1(object sender, DataGridViewCellEventArgs e)
         {
+            string textoObservacion = "";
+            string textoUsos = "";
             string[] separadas;
             DataTable dt1 = new DataTable();
             Model.TransactionPaymentVM transactionSelect = new Model.TransactionPaymentVM();
@@ -1138,11 +1140,15 @@ namespace SOAPAP
                 {
                         string xmltimbrado = string.Empty;
 
-                    //msgObservacionFactura msgObs = new msgObservacionFactura();
-                    //msgObs.Show();
-                    //string texto = msgObs.TextoObservacion;
+                    using (msgObservacionFactura msgObs = new msgObservacionFactura())
+                    {
+                        msgObs.ShowDialog(this);
+                        textoObservacion = msgObs.TextoObservacion;
+                        textoUsos = msgObs.Usos;
+                    }                        
                     
-                        loading = new Loading();
+
+                    loading = new Loading();
                         loading.Show(this);
                         
                       
@@ -1174,6 +1180,8 @@ namespace SOAPAP
 
                                 Facturaelectronica fs = new Facturaelectronica();
                                 //xmltimbrado = await fs.facturar(transactionSelect.Transaction.Id.ToString(), "ET001","");
+                                fs.msgObservacionFactura = textoObservacion;
+                                fs.msgUsos = textoUsos;
                                 xmltimbrado = await fs.generaFactura(transactionSelect.Transaction.Id.ToString(), "ET001");
                                 separadas = xmltimbrado.Split('/');
                                 if (separadas[0].ToString() == "error")

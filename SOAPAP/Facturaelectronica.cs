@@ -25,11 +25,12 @@ namespace SOAPAP
 {
     class Facturaelectronica
     {
-
         private RequestsAPI Requests = null;
         private string UrlBase = Properties.Settings.Default.URL;
         querys q = new querys();
         FacturamaApiMultiemisor facturama;
+        public string msgObservacionFactura { get; set; }
+        public string msgUsos { get; set; }
 
         public Facturaelectronica()
         {
@@ -1204,6 +1205,7 @@ namespace SOAPAP
                 xMLS.PaymentId = pIdPayment;                
                 xMLS.UserId = Variables.Configuration.Terminal.TerminalUsers.FirstOrDefault().UserId;
                 xMLS.IdXmlFacturama = idCFDI;
+                xMLS.UsoCFDI = string.IsNullOrEmpty(msgUsos) ? "P01 - Por definir" : msgUsos;
 
                 HttpContent content;
                 json = JsonConvert.SerializeObject(xMLS);
@@ -1223,6 +1225,7 @@ namespace SOAPAP
             try
             {
                 pPay.HaveTaxReceipt = true;
+                pPay.ObservationInvoice = string.IsNullOrEmpty(msgObservacionFactura) ? "Sin Observación" : msgObservacionFactura;
                 content = new StringContent(JsonConvert.SerializeObject(pPay), Encoding.UTF8, "application/json");
                 var updatePayment = await Requests.SendURIAsync(string.Format("/api/Payments/{0}", pPay.Id), HttpMethod.Put, Variables.LoginModel.Token, content);
                 return "ok";

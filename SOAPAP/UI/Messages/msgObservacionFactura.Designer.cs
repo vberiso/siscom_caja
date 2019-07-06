@@ -33,6 +33,8 @@
             this.label1 = new System.Windows.Forms.Label();
             this.tbxMensage = new System.Windows.Forms.TextBox();
             this.btnAceptar = new System.Windows.Forms.Button();
+            this.cbxUsoCFDI = new System.Windows.Forms.ComboBox();
+            this.label2 = new System.Windows.Forms.Label();
             this.pnlHeader.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -45,6 +47,7 @@
             this.pnlHeader.Name = "pnlHeader";
             this.pnlHeader.Size = new System.Drawing.Size(652, 44);
             this.pnlHeader.TabIndex = 44;
+            this.pnlHeader.Paint += new System.Windows.Forms.PaintEventHandler(this.pnlHeader_Paint);
             // 
             // lblTitulo
             // 
@@ -62,7 +65,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(14, 63);
+            this.label1.Location = new System.Drawing.Point(14, 146);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(198, 13);
             this.label1.TabIndex = 45;
@@ -70,7 +73,7 @@
             // 
             // tbxMensage
             // 
-            this.tbxMensage.Location = new System.Drawing.Point(12, 92);
+            this.tbxMensage.Location = new System.Drawing.Point(12, 165);
             this.tbxMensage.Multiline = true;
             this.tbxMensage.Name = "tbxMensage";
             this.tbxMensage.Size = new System.Drawing.Size(628, 111);
@@ -78,7 +81,7 @@
             // 
             // btnAceptar
             // 
-            this.btnAceptar.Location = new System.Drawing.Point(565, 222);
+            this.btnAceptar.Location = new System.Drawing.Point(565, 282);
             this.btnAceptar.Name = "btnAceptar";
             this.btnAceptar.Size = new System.Drawing.Size(75, 23);
             this.btnAceptar.TabIndex = 47;
@@ -86,16 +89,39 @@
             this.btnAceptar.UseVisualStyleBackColor = true;
             this.btnAceptar.Click += new System.EventHandler(this.btnAceptar_Click);
             // 
+            // cbxUsoCFDI
+            // 
+            this.cbxUsoCFDI.FormattingEnabled = true;
+            this.cbxUsoCFDI.Location = new System.Drawing.Point(17, 84);
+            this.cbxUsoCFDI.Name = "cbxUsoCFDI";
+            this.cbxUsoCFDI.Size = new System.Drawing.Size(184, 21);
+            this.cbxUsoCFDI.TabIndex = 48;
+            this.cbxUsoCFDI.SelectedIndexChanged += new System.EventHandler(this.cbxUsoCFDI_SelectedIndexChanged);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(17, 65);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(93, 13);
+            this.label2.TabIndex = 49;
+            this.label2.Text = "Tipo de uso CFDI:";
+            // 
             // msgObservacionFactura
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(652, 257);
+            this.ClientSize = new System.Drawing.Size(652, 317);
+            this.ControlBox = false;
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.cbxUsoCFDI);
             this.Controls.Add(this.btnAceptar);
             this.Controls.Add(this.tbxMensage);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.pnlHeader);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "msgObservacionFactura";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "msgObservacionFactura";
             this.pnlHeader.ResumeLayout(false);
             this.pnlHeader.PerformLayout();
@@ -111,5 +137,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox tbxMensage;
         private System.Windows.Forms.Button btnAceptar;
+        private System.Windows.Forms.ComboBox cbxUsoCFDI;
+        private System.Windows.Forms.Label label2;
     }
 }

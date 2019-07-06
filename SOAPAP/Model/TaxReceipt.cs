@@ -18,5 +18,6 @@ namespace SOAPAP.Model
         public string UserId { get; set; }
         public int PaymentId { get; set; }
         public string IdXmlFacturama { get; set; }
+        public string UsoCFDI { get; set; }
     }
 }

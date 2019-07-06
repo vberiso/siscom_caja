@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
@@ -76,6 +75,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.pbBG = new System.Windows.Forms.PictureBox();
             this.pnlHRigth = new System.Windows.Forms.Panel();
+            this.pdfViewer1 = new DevExpress.XtraPdfViewer.PdfViewer();
             this.label2 = new System.Windows.Forms.Label();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
@@ -93,7 +93,6 @@
             this.dataGridViewButtonColumn3 = new System.Windows.Forms.DataGridViewButtonColumn();
             this.dataGridViewButtonColumn4 = new System.Windows.Forms.DataGridViewButtonColumn();
             this.dataGridViewButtonColumn5 = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.pdfViewer1 = new DevExpress.XtraPdfViewer.PdfViewer();
             ((System.ComponentModel.ISupportInitialize)(this.dgvMovimientos)).BeginInit();
             this.tableLayoutPanel4.SuspendLayout();
             this.pnlHeader.SuspendLayout();
@@ -183,7 +182,7 @@
             this.dgvMovimientos.RowHeadersVisible = false;
             this.dgvMovimientos.RowTemplate.Height = 25;
             this.dgvMovimientos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvMovimientos.Size = new System.Drawing.Size(811, 366);
+            this.dgvMovimientos.Size = new System.Drawing.Size(811, 369);
             this.dgvMovimientos.TabIndex = 0;
             this.dgvMovimientos.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvMovimientos_CellClick_1);
             this.dgvMovimientos.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvMovimientos_CellDoubleClick);
@@ -440,7 +439,7 @@
             this.tableLayoutPanel4.RowCount = 1;
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel4.Size = new System.Drawing.Size(817, 372);
+            this.tableLayoutPanel4.Size = new System.Drawing.Size(817, 375);
             this.tableLayoutPanel4.TabIndex = 39;
             // 
             // lblTitulo
@@ -449,7 +448,7 @@
             this.lblTitulo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(3)))), ((int)(((byte)(155)))), ((int)(((byte)(229)))));
             this.lblTitulo.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTitulo.ForeColor = System.Drawing.Color.White;
-            this.lblTitulo.Location = new System.Drawing.Point(32, 7);
+            this.lblTitulo.Location = new System.Drawing.Point(32, 3);
             this.lblTitulo.Name = "lblTitulo";
             this.lblTitulo.Size = new System.Drawing.Size(128, 25);
             this.lblTitulo.TabIndex = 36;
@@ -571,6 +570,13 @@
             this.pnlHRigth.Size = new System.Drawing.Size(216, 169);
             this.pnlHRigth.TabIndex = 44;
             // 
+            // pdfViewer1
+            // 
+            this.pdfViewer1.Location = new System.Drawing.Point(48, 74);
+            this.pdfViewer1.Name = "pdfViewer1";
+            this.pdfViewer1.Size = new System.Drawing.Size(150, 150);
+            this.pdfViewer1.TabIndex = 47;
+            // 
             // label2
             // 
             this.label2.AutoSize = true;
@@ -642,7 +648,7 @@
             // dtpFechaBusqueda
             // 
             this.dtpFechaBusqueda.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpFechaBusqueda.Location = new System.Drawing.Point(30, 101);
+            this.dtpFechaBusqueda.Location = new System.Drawing.Point(30, 89);
             this.dtpFechaBusqueda.Name = "dtpFechaBusqueda";
             this.dtpFechaBusqueda.Size = new System.Drawing.Size(166, 20);
             this.dtpFechaBusqueda.TabIndex = 53;
@@ -653,7 +659,7 @@
             this.pbxFondoFechaBusqueda.BackColor = System.Drawing.Color.Transparent;
             this.pbxFondoFechaBusqueda.Image = global::SOAPAP.Properties.Resources.bg;
             this.pbxFondoFechaBusqueda.InitialImage = global::SOAPAP.Properties.Resources.bg;
-            this.pbxFondoFechaBusqueda.Location = new System.Drawing.Point(20, 93);
+            this.pbxFondoFechaBusqueda.Location = new System.Drawing.Point(20, 81);
             this.pbxFondoFechaBusqueda.Name = "pbxFondoFechaBusqueda";
             this.pbxFondoFechaBusqueda.Size = new System.Drawing.Size(188, 35);
             this.pbxFondoFechaBusqueda.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -662,7 +668,7 @@
             // 
             // tswSeleccionDia
             // 
-            this.tswSeleccionDia.Location = new System.Drawing.Point(37, 68);
+            this.tswSeleccionDia.Location = new System.Drawing.Point(37, 55);
             this.tswSeleccionDia.Name = "tswSeleccionDia";
             this.tswSeleccionDia.Properties.OffText = "Hoy";
             this.tswSeleccionDia.Properties.OnText = "Fecha libre";
@@ -676,7 +682,7 @@
             this.label1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(3)))), ((int)(((byte)(155)))), ((int)(((byte)(229)))));
             this.label1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(10, 41);
+            this.label1.Location = new System.Drawing.Point(34, 31);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(0, 21);
             this.label1.TabIndex = 44;
@@ -687,7 +693,7 @@
             this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
             this.pictureBox1.Image = global::SOAPAP.Properties.Resources.movimientos;
             this.pictureBox1.InitialImage = global::SOAPAP.Properties.Resources.movimientos;
-            this.pictureBox1.Location = new System.Drawing.Point(9, 9);
+            this.pictureBox1.Location = new System.Drawing.Point(9, 5);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(20, 20);
             this.pictureBox1.TabIndex = 37;
@@ -749,19 +755,12 @@
             this.dataGridViewButtonColumn5.ToolTipText = "TIMBRAR";
             this.dataGridViewButtonColumn5.Width = 81;
             // 
-            // pdfViewer1
-            // 
-            this.pdfViewer1.Location = new System.Drawing.Point(48, 74);
-            this.pdfViewer1.Name = "pdfViewer1";
-            this.pdfViewer1.Size = new System.Drawing.Size(150, 150);
-            this.pdfViewer1.TabIndex = 47;
-            // 
             // Movimientos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(851, 502);
+            this.ClientSize = new System.Drawing.Size(851, 505);
             this.Controls.Add(this.tableLayoutPanel4);
             this.Controls.Add(this.pnlHeader);
             this.MainMenuStrip = this.menuStrip1;
