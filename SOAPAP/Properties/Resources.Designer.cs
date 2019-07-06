@@ -83,6 +83,16 @@ namespace SOAPAP.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap ayuntamiento {
+            get {
+                object obj = ResourceManager.GetObject("ayuntamiento", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap ayuntamiento_sistema {
             get {
                 object obj = ResourceManager.GetObject("ayuntamiento_sistema", resourceCulture);

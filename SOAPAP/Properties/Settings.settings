@@ -6,7 +6,7 @@
       <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="URL" Type="System.String" Scope="User">
-      <Value Profile="(Default)">http://localhost:51053/</Value>
+      <Value Profile="(Default)">http://api-siscom.sosapac.gob.mx/</Value>
     </Setting>
     <Setting Name="SerialNumber" Type="System.String" Scope="User">
       <Value Profile="(Default)">XRU0DA05-OxE0Py88-LyRsbXNt-fWx9bH1o-bmp9bmxz-bG9zZGRk-ZA==</Value>

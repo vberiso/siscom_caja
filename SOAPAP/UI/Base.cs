@@ -757,7 +757,7 @@ namespace SOAPAP
             }
             
 
-            if (Variables.LoginModel.RolName.ToList().Find(x => x.Contains("User")) != null)
+            if (Variables.LoginModel.RolName.ToList().Find(x => x == "User") != null)
             {
                 btnCobro.Text = "  Cobro";
                 if (Variables.Configuration.Terminal != null)
@@ -841,7 +841,7 @@ namespace SOAPAP
                     this.Close();
                 }
             }
-            if (Variables.LoginModel.RolName.ToList().Find(x => x.Contains("Admin")) != null)
+            if (Variables.LoginModel.RolName.ToList().Find(x => x == "Admin") != null)
             {
                 lblTitulo.Text = "Bienvenido(a)";
                 lblTerminal.Text = String.Empty;
@@ -849,7 +849,7 @@ namespace SOAPAP
                 btnApertura.Text = "   Alta de Caja";
                 CargaMenu(CashBoxAccess.Access.Admin);
             }
-            if (Variables.LoginModel.RolName.ToList().Find(x => x.Contains("GenerarOrden")) != null)
+            if (Variables.LoginModel.RolName.ToList().Find(x => x == "GenerarOrden") != null)
             {
                 lblTitulo.Text = "Bienvenido(a)";
                 lblTerminal.Text = String.Empty;
@@ -857,7 +857,7 @@ namespace SOAPAP
                 btnCobro.Text = "   Adeudo";
                 CargaMenu(CashBoxAccess.Access.GenerarOrden);
             }
-            if (Variables.LoginModel.RolName.ToList().Find(x => x.Contains("Supervisor")) != null)
+            if (Variables.LoginModel.RolName.ToList().Find(x => x == "Supervisor") != null)
             {
                 opcionesToolStripMenuItem.Visible = true;
                 if (Variables.Configuration.Terminal != null)
@@ -895,7 +895,7 @@ namespace SOAPAP
                     tslTerminal.Text = "Terminal:" + (Variables.Configuration.Terminal.TerminalUsers.Count > 0 ? Variables.Configuration.Terminal.TerminalUsers.First().Id.ToString() : "-");
                 }
             }
-            if (Variables.LoginModel.RolName.ToList().Find(x => x.Contains("Super")) != null)
+            if (Variables.LoginModel.RolName.ToList().Find(x => x == "Super") != null)
             {
                 opcionesToolStripMenuItem.Visible = true;
                 if (Variables.Configuration.Terminal != null)

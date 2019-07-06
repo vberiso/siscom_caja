@@ -2,6 +2,7 @@
 using Newtonsoft.Json.Linq;
 using SOAPAP.Enums;
 using SOAPAP.Model;
+using SOAPAP.PDFManager;
 using SOAPAP.Services;
 using SOAPAP.Services.UpdateApplication;
 using System;
@@ -39,6 +40,8 @@ namespace SOAPAP.UI
         {
             var getKey = System.Guid.NewGuid().ToString().Substring(0, 20).ToUpper();
 
+            CreatePDF pDF = new CreatePDF();
+            pDF.Create();
             Configuration configuration = new Configuration();
             Variables.Configuration = configuration;
 
