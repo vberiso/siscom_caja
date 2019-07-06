@@ -129,11 +129,11 @@ namespace SOAPAP.UI
                 }
                 else
                 {
-                   _agreement = JsonConvert.DeserializeObject<Model.Agreement>(resultAgreement);
+                    _agreement = JsonConvert.DeserializeObject<Model.Agreement>(resultAgreement);
 
                     if (_agreement != null)
                     {
-                        ObtenerInformacion(_agreement);                        
+                        ObtenerInformacion(_agreement);
                     }
                     else
                     {
