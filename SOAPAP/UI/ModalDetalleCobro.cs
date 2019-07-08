@@ -1166,28 +1166,32 @@ namespace SOAPAP.UI
                                 //separadas = xmltimbrado.Split('/');
                                 if (xmltimbrado.Contains("error"))
                                 {
-                                    loadings.Close();
-                                    mensaje = new MessageBoxForm(Variables.titleprincipal, xmltimbrado.Split('/')[1].ToString(), TypeIcon.Icon.Cancel);
-                                    mensaje.ShowDialog();
+                                    loading.Close();
+                                    try
+                                    {
+                                        mensaje = new MessageBoxForm("Error", JsonConvert.DeserializeObject<Error>(resultados).error, TypeIcon.Icon.Cancel);
+                                        result = mensaje.ShowDialog();
+                                        this.Close();
+                                    }
+                                    catch (Exception)
+                                    {
+                                        mensaje = new MessageBoxForm("Error", "Servicio no disponible favor de comunicarse con el administrador: -conexion interrumpida-", TypeIcon.Icon.Cancel);
+                                        result = mensaje.ShowDialog();
+                                        this.Close();
+                                    }
                                 }
-                                if (xmltimbrado.Contains("Success"))
-                                {
-                                    mensaje = new MessageBoxForm(Variables.titleprincipal, "Pago timbrado correctamente - UUid"+ xmltimbrado.Split('-')[1], TypeIcon.Icon.Success);
-                                    mensaje.ShowDialog();
-                                }
+                                //if (xmltimbrado.Contains("Success"))
                                 else
                                 {
-                                    loadings.Close();
                                     PdfDocument pdfdocument = new PdfDocument();
                                     pdfdocument.LoadFromFile(xmltimbrado);
                                     pdfdocument.PrinterName = q.ImpresoraPredeterminada();
                                     pdfdocument.PrintDocument.PrinterSettings.Copies = 1;
                                     pdfdocument.PrintDocument.Print();
                                     pdfdocument.Dispose();
-
-                                    // Directory.Delete(xmltimbrado, true);
+                                    loadings.Close();
                                 }
-
+                               
                             }
                             else
                             {

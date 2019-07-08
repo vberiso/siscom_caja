@@ -166,7 +166,7 @@ namespace SOAPAP.UI
                                 var account = payment.Account;
                                 if (xml != null)
                                 {
-                                    SendEmail email = new SendEmail((xml.Xml.StartsWith("ï»¿") ? xml.Xml.Replace("ï»¿", "") : xml.Xml), account, row.Cells["Contribuyente"].FormattedValue.ToString(), payment.HaveTaxReceipt);
+                                    SendEmail email = new SendEmail((xml.Xml.StartsWith("ï»¿") ? xml.Xml.Replace("ï»¿", "") : xml.Xml), account, row.Cells["Contribuyente"].FormattedValue.ToString(), payment.HaveTaxReceipt, xml.PDFInvoce);
                                     email.ShowDialog();
                                 }
                                 else

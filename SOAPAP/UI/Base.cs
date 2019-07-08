@@ -306,8 +306,10 @@ namespace SOAPAP
 
             if (Variables.LoginModel.RolName.ToList().Find(x => x.Contains("Supervisor")) != null)
             {
-                if (Variables.Configuration.StateOperation == 7)
+                if (Variables.Configuration.Terminal.TerminalUsers.Count == 0 && Variables.Configuration.StateOperation == 7)
+                {
                     Variables.Configuration.StateOperation = 0;
+                }
                 OpenTerminal();
             }
 
@@ -315,6 +317,10 @@ namespace SOAPAP
             {
                 //if (Variables.Configuration.StateOperation == 7)
                 //    Variables.Configuration.StateOperation = 0;
+                if(Variables.Configuration.Terminal.TerminalUsers.Count == 0 && Variables.Configuration.StateOperation == 7 )
+                {
+                    Variables.Configuration.StateOperation = 0;
+                }
                 OpenTerminal();
             }
             

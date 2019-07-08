@@ -513,31 +513,6 @@ namespace SOAPAP.UI
                 e.Paint(e.CellBounds, DataGridViewPaintParts.All);
                 c.Value = "XML";
                 e.Handled = true;
-                //    var idPayment = Convert.ToInt32(row.Cells["ID"].FormattedValue.ToString());
-                //    if (_payments[e.RowIndex].BranchOffice.Contains("Migracion") && _payments.Where(x => x.Id == idPayment).FirstOrDefault().TaxReceipts.Count > 0)
-                //    {
-
-                //        c.FlatStyle = FlatStyle.Popup;
-                //        c.Style.BackColor = Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(133)))), ((int)(((byte)(214)))));
-                //        c.Style.ForeColor = Color.White;
-                //        e.Paint(e.CellBounds, DataGridViewPaintParts.All);
-                //        c.Value = "XML";
-                //        e.Handled = true;
-                //    }
-                //}
-
-                //if (e.ColumnIndex >= 0 && this.dgvPayment.Columns[e.ColumnIndex].Name == "PDF" && e.RowIndex >= 0)
-                //{
-                //    DataGridViewButtonCell c = (DataGridViewButtonCell)dgvPayment.Rows[e.RowIndex].Cells[1];
-                //    if (!_payments[e.RowIndex].BranchOffice.Contains("Migracion"))
-                //    {
-                //        c.FlatStyle = FlatStyle.Popup;
-                //        c.Style.BackColor = Color.FromArgb(((int)(((byte)(221)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
-                //        c.Style.ForeColor = Color.White;
-                //        e.Paint(e.CellBounds, DataGridViewPaintParts.All);
-                //        c.Value = "PDF";
-                //        e.Handled = true;
-                //    }  
             }
             else if (e.ColumnIndex >= 0 && this.dgvPayment.Columns[e.ColumnIndex].Name == "PDF" && e.RowIndex >= 0)
             {
@@ -579,16 +554,22 @@ namespace SOAPAP.UI
                         result = mensaje.ShowDialog();
                     }
                 }
-                if(e.ColumnIndex == dgvPayment.Columns["Email"].Index && e.RowIndex >= 0)
+                if(e.ColumnIndex == dgvPayment.Columns["PDF"].Index && e.RowIndex >= 0)
                 {
                     var idPayment = Convert.ToInt32(row.Cells["ID"].FormattedValue.ToString());
                     var payment = _payments.Where(x => x.Id == idPayment).FirstOrDefault();
                     var xml = payment.TaxReceipts.FirstOrDefault();
-                    var account = _payments.FirstOrDefault().Account;
-                    if(xml != null)
+                    if (xml != null)
                     {
-                        SendEmail email = new SendEmail((xml.Xml.StartsWith("ï»¿") ? xml.Xml.Replace("ï»¿", "") : xml.Xml), account, lblCliente.Text, payment.HaveTaxReceipt);
-                        email.ShowDialog();
+                        if (payment.HaveTaxReceipt)
+                        {
+                            ExportGridToPDF(xml.PDFInvoce);
+                        }
+                        else
+                        {
+                            mensaje = new MessageBoxForm(Variables.titleprincipal, "Descarga no disponible, posiblemente este pago no este facturado por este sistema para mas información contactarse con el administrador del sistema.", TypeIcon.Icon.Cancel);
+                            result = mensaje.ShowDialog();
+                        }
                     }
                     else
                     {
@@ -602,21 +583,10 @@ namespace SOAPAP.UI
                     var payment = _payments.Where(x => x.Id == idPayment).FirstOrDefault();
                     var xml = payment.TaxReceipts.FirstOrDefault();
                     var account = _payments.FirstOrDefault().Account;
-                    WsIntegral33Pruebas.WsCFDI33Client n = new WsIntegral33Pruebas.WsCFDI33Client();
-                    string test = "before passing";
                     if (xml != null)
                     {
-                        if (payment.HaveTaxReceipt)
-                        {
-                            var rest = n.ObtenerPDF("CFDI010233001", "Pruebas1a$", xml.FielXML, "", "", "", 1, ref test);
-                            ExportGridToPDF(rest);
-                        }
-                        else
-                        {
-                            mensaje = new MessageBoxForm(Variables.titleprincipal, "Descarga no disponible, posiblemente este pago no este facturado por este sistema para mas información contactarse con el administrador del sistema.", TypeIcon.Icon.Cancel);
-                            result = mensaje.ShowDialog();
-                        }
-                        
+                        SendEmail email = new SendEmail((xml.Xml.StartsWith("ï»¿") ? xml.Xml.Replace("ï»¿", "") : xml.Xml), account, lblCliente.Text, payment.HaveTaxReceipt, xml.PDFInvoce);
+                        email.ShowDialog();
                     }
                     else
                     {

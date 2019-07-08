@@ -22,6 +22,7 @@ using Facturama.Models.Request;
 using Facturama.Services;
 using SOAPAP.PDFManager;
 using SOAPAP.UI.Messages;
+using SOAPAP.Model;
 
 namespace SOAPAP
 {
@@ -1080,10 +1081,10 @@ namespace SOAPAP
 
                 Facturama.Models.Response.Cfdi cfdiFacturama = TimbrarAnteFacturama(cfdi, path + nombreXML);
                 string XML = LeerXML(path + nombreXML);
-                string resGuardado = await guardarXMLenBD(XML, cfdiFacturama.Complement.TaxStamp.Uuid, receptor.Rfc, TipoFactura, status, TraVM.payment.Id, cfdiFacturama.Id);
+                TaxReceipt resGuardado = await guardarXMLenBD(XML, cfdiFacturama.Complement.TaxStamp.Uuid, receptor.Rfc, TipoFactura, status, TraVM.payment.Id, cfdiFacturama.Id);
                 string resActPay = await actualizarPaymentConFactura(TraVM.payment);
                 
-                CreatePDF pDF = new CreatePDF(cfdi, cfdiFacturama, ms.account);
+                CreatePDF pDF = new CreatePDF(cfdi, cfdiFacturama, ms.account, resGuardado);
                 pDF.UsoCFDI = string.IsNullOrEmpty(msgUsos) ? "P01 - Por definir" : msgUsos;
                 if(TraVM.payment.OrderSaleId == 0)
                     pDF.ObservacionCFDI =  (string.IsNullOrEmpty(msgObservacionFactura) ? "" : msgObservacionFactura) ;
@@ -1105,7 +1106,7 @@ namespace SOAPAP
             }
             catch (Exception ex)
             {
-                return "error: " + ex.Message;
+                return "{\"error\": \"Error al intentar realizar el timbrado, favor de comunicarse con el administrador del sistema\"}";
             }            
         }
 
@@ -1169,6 +1170,7 @@ namespace SOAPAP
                 //Descarga de XML
                 facturama.Cfdis.SaveXml(path, cfdiCreated.Id);
                 //facturama.Cfdis.Retrieve(cfdiCreated.Id);
+                //facturama.Cfdis.SaveXml()
 
                 ////Consultar facturas creadas
                 //facturama.Cfdis.List("Expresion en Software");
@@ -1257,7 +1259,7 @@ namespace SOAPAP
             }
         }
 
-        private async Task<string> guardarXMLenBD(string pXML, string pUuid, string pRfcReceptor, string pTipo, string status, int pIdPayment, string idCFDI)
+        private async Task<TaxReceipt> guardarXMLenBD(string pXML, string pUuid, string pRfcReceptor, string pTipo, string status, int pIdPayment, string idCFDI)
         {
             string json = string.Empty;
 
@@ -1279,12 +1281,13 @@ namespace SOAPAP
                 json = JsonConvert.SerializeObject(xMLS);
                 content = new StringContent(json, Encoding.UTF8, "application/json");
                 var jsonResponse = await Requests.SendURIAsync("/api/TaxReceipt/", HttpMethod.Post, Variables.LoginModel.Token, content);
+                TaxReceipt tax = JsonConvert.DeserializeObject<TaxReceipt>(jsonResponse);
 
-                return "ok";                
+                return tax;                
             }
             catch (Exception ex)
             {
-                return "error: No se pudo registrar en BD la Factura.";
+                return null;
             }
         }
         private async Task<string> actualizarPaymentConFactura(Model.Payment pPay)
@@ -1304,6 +1307,28 @@ namespace SOAPAP
             }
         }
         
+        public async Task<string> CancelaFactura(string IdXmlFacturama)
+        {
+            try
+            {
+                Facturama.Models.Response.Cfdi cfdiCancel = facturama.Cfdis.Remove(IdXmlFacturama);
+                if(cfdiCancel.Complement != null)
+                {
+                    facturama.Cfdis.SaveXml(@"C:\Pruebas", cfdiCancel.Id);
+                    return "Success - Se cancelo exitosamente el cfdi con el folio fiscal: " + cfdiCancel.Complement.TaxStamp.Uuid;
+                }
+                else
+                {
+                    return "{\"error\": \"No se ha podido realizar la cancelación, favor de comunicarse con el administrador del sistema\"}";
+                }
+                
+            }
+            catch (Exception e)
+            {
+
+                return "{\"error\": " + e.Message + "}";
+            }
+        }
     }
 
 }

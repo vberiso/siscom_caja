@@ -19,5 +19,6 @@ namespace SOAPAP.Model
         public int PaymentId { get; set; }
         public string IdXmlFacturama { get; set; }
         public string UsoCFDI { get; set; }
+        public byte[] PDFInvoce { get; set; }
     }
 }

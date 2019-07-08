@@ -4,6 +4,7 @@ using Gma.QrCodeNet.Encoding.Windows.Render;
 using HiQPdf;
 using Newtonsoft.Json;
 using SOAPAP.Enums;
+using SOAPAP.Model;
 using SOAPAP.Properties;
 using SOAPAP.Services;
 using SOAPAP.Tools;
@@ -40,12 +41,14 @@ namespace SOAPAP.PDFManager
         public string Account { get; set; }
         public string UsoCFDI { get; set; }
         public string ObservacionCFDI { get; set; }
+        public TaxReceipt TaxReceipt { get; set; }
 
-        public CreatePDF(CfdiMulti CfdiMulti, Facturama.Models.Response.Cfdi Cfdi, string Account)
+        public CreatePDF(CfdiMulti CfdiMulti, Facturama.Models.Response.Cfdi Cfdi, string Account, TaxReceipt TaxReceipt)
         {
             this.CfdiMulti = CfdiMulti;
             this.Cfdi = Cfdi;
             this.Account = Account;
+            this.TaxReceipt = TaxReceipt;
             Requests = new RequestsAPI(UrlBase);
         }
 
@@ -101,6 +104,21 @@ namespace SOAPAP.PDFManager
                 byte[] pdfBuffer = document.WriteToMemory();
                 //ExportGridToPDF(pdfBuffer);
                 System.IO.File.WriteAllBytes(PathNombrePdf, pdfBuffer);
+                StringContent @string = new StringContent(JsonConvert.SerializeObject(TaxReceipt), Encoding.UTF8, "application/json");
+                var UploadPDF = await Requests.UploadImageToServer("/api/TaxReceipt/AddPDF", Variables.LoginModel.Token, PathNombrePdf, @string);
+                if (UploadPDF.Contains("error"))
+                {
+                    try
+                    {
+                        mensaje = new MessageBoxForm("Error", JsonConvert.DeserializeObject<Error>(UploadPDF).error, TypeIcon.Icon.Cancel);
+                        result = mensaje.ShowDialog();
+                    }
+                    catch (Exception)
+                    {
+                        mensaje = new MessageBoxForm("Error", "Servicio no disponible favor de comunicarse con el administrador: -conexion interrumpida-", TypeIcon.Icon.Cancel);
+                        result = mensaje.ShowDialog();
+                    }
+                }
                 return PathNombrePdf;                
             }
             catch (Exception e)
@@ -229,31 +247,31 @@ namespace SOAPAP.PDFManager
             builder.Append(@"<div style='text-align: center; display: inline-block; width: 55%; font-size: 14px;'>");
             if (Variables.Configuration.IsMunicipal)
             {
-                builder.Append(@"<p style='margin-top: 0px;margin-bottom: 0px;'><b>" + CfdiMulti.Issuer.Name+"</b></p>");
-                builder.Append(@"<p style='margin-top: 0px;margin-bottom: 0px;'><b>RFC: " + CfdiMulti.Issuer.Rfc+"</b></p><br>");
-                builder.Append(@"<p style='margin-top: 0px;margin-bottom: 0px;'> PALACIO MUNICIPAL  S/N Centro CUAUTLANCINGO CUAUTLANCINGO 72700<br>PUEBLA MEXICO </p>");
-                builder.Append(@"<p style='margin-top: 0px;margin-bottom: 0px;'>Teléfono: (222) 2-85-13-62</p><br>");
-                builder.Append(@"<p style='margin-top: 0px;margin-bottom: 0px;'>Régimen Fiscal: " + CfdiMulti.Issuer.FiscalRegime + " - Personas Morales con Fines no Lucrativos</p>");
-                builder.Append(@"<p style='margin-top: 0px;margin-bottom: 0px;'>Expedido en: 72700, CUAUTLANCINGO</p>");
-                builder.Append(@"<p><b>TESORERIA MUNICIPAL</b></p>");
-                builder.Append(@"<p><b>" + tmpDivision + "</b></p></div>");
+                builder.Append(@"<p style='margin-top: 0px;margin-bottom: 0px; font-size: 16px;'><b>" + CfdiMulti.Issuer.Name+"</b></p>");
+                builder.Append(@"<p style='margin-top: 0px;margin-bottom: 0px; font-size: 16px;'><b>RFC: " + CfdiMulti.Issuer.Rfc+"</b></p><br>");
+                builder.Append(@"<p style='margin-top: 0px;margin-bottom: 0px; font-size: 16px;'> PALACIO MUNICIPAL  S/N Centro CUAUTLANCINGO CUAUTLANCINGO 72700<br>PUEBLA MEXICO </p>");
+                builder.Append(@"<p style='margin-top: 0px;margin-bottom: 0px; font-size: 16px;'>Teléfono: (222) 2-85-13-62</p><br>");
+                builder.Append(@"<p style='margin-top: 0px;margin-bottom: 0px; font-size: 16px;'>Régimen Fiscal: " + CfdiMulti.Issuer.FiscalRegime + " - Personas Morales con Fines no Lucrativos</p>");
+                builder.Append(@"<p style='margin-top: 0px;margin-bottom: 0px; font-size: 16px;'>Expedido en: 72700, CUAUTLANCINGO</p>");
+                builder.Append(@"<p style='font-size: 16px;'><b>TESORERIA MUNICIPAL</b></p>");
+                builder.Append(@"<p style='font-size: 16px;'><b>" + tmpDivision + "</b></p></div>");
             }
             else
             {
-                builder.Append(@"<p style='margin-top: 0px;margin-bottom: 0px;'> <b>" + CfdiMulti.Issuer.Name + "</b></p>");
-                builder.Append(@"<p style='margin-top: 0px;margin-bottom: 0px;'><b>RFC: " + CfdiMulti.Issuer.Rfc + "</b></p><br>");
-                builder.Append(@"<p style='margin-top: 0px;margin-bottom: 0px;'> SAN LORENZO 84  A CENTRO CUAUTLANCINGO 72700 <br>PUEBLA MEXICO </p>");
-                builder.Append(@"<p style='margin-top: 0px;margin-bottom: 0px;'>Teléfono: (222) 2269761</p>");
-                builder.Append(@"<p style='margin-top: 0px;margin-bottom: 0px;'>Email: contacto@sosapac.gob.mx </p>");
-                builder.Append(@"<p style='margin-top: 0px;margin-bottom: 0px;'><b>COMPROBANTE DE PAGO</b></p></div>");
+                builder.Append(@"<p style='margin-top: 0px;margin-bottom: 0px; font-size: 16px;'> <b>" + CfdiMulti.Issuer.Name + "</b></p>");
+                builder.Append(@"<p style='margin-top: 0px;margin-bottom: 0px; font-size: 16px;'><b>RFC: " + CfdiMulti.Issuer.Rfc + "</b></p><br>");
+                builder.Append(@"<p style='margin-top: 0px;margin-bottom: 0px; font-size: 16px;'> SAN LORENZO 84  A CENTRO CUAUTLANCINGO 72700 <br>PUEBLA MEXICO </p>");
+                builder.Append(@"<p style='margin-top: 0px;margin-bottom: 0px; font-size: 16px;'>Teléfono: (222) 2269761</p>");
+                builder.Append(@"<p style='margin-top: 0px;margin-bottom: 0px; font-size: 16px;'>Email: contacto@sosapac.gob.mx </p>");
+                builder.Append(@"<p style='margin-top: 0px;margin-bottom: 0px; font-size: 16px;'><b>COMPROBANTE DE PAGO</b></p></div>");
             }
            
             builder.Append(@" <div id='datFact' style='display: inline-block; width: 20%; font-size: 12px; text-align: center; vertical-align: top;'>");
-            builder.Append(@"<table style='text-align: center;'>");
+            builder.Append(@"<table style='text-align: center; font-size: 14px;'>");
             builder.Append(@"<tr><td><b>COMPROBANTE</b></td></tr>");
             builder.Append(@"<tr><td style='font-family:\""Montserrat\"", sans-serif;'><b>"+ CfdiMulti.Folio+"</b></td></tr>"); //Folio
             builder.Append(@"<tr><td><b>FOLIO FISCAL</b></td></tr>");
-            builder.Append(@"<tr><td style='font-family:\""Montserrat\"", sans-serif;'>"+ Cfdi.Complement.TaxStamp.Uuid +"</td></tr>"); //UUID
+            builder.Append(@"<tr><td style='font-family:\""Montserrat\"", sans-serif; font-size:11px;'>"+ Cfdi.Complement.TaxStamp.Uuid +"</td></tr>"); //UUID
             builder.Append(@"<tr><td><b>CERTIFICADO SAT</b></td></tr>");
             builder.Append(@"<tr><td style='font-family:\""Montserrat\"", sans-serif;'>"+Cfdi.Complement.TaxStamp.SatCertNumber+"</td></tr>");// certificado sat
             builder.Append(@"<tr><td><b>FECHA AUTORIZACIÓN SAT</b></td></tr>");
@@ -263,7 +281,7 @@ namespace SOAPAP.PDFManager
             builder.Append(@"</table>");
             builder.Append(@"</div></div>");
             builder.Append(@"<div class='datos_contribuyente' style='margin-bottom: 15px;'>");
-            builder.Append(@"<table>");
+            builder.Append(@"<table style='font-size: 14px;'>");
             builder.Append(@"<tr>");
             builder.Append(@"<td style='width: 120px;'><b>No. de cuenta:</b></td>");
             builder.Append(@"<td style='width: 100px; font-family:\""Montserrat\"", sans-serif;'>"+Account+"</td>"); //Cuenta
@@ -285,7 +303,7 @@ namespace SOAPAP.PDFManager
           
             builder.Append(@"</tr>");
             builder.Append(@"</table>");
-            builder.Append(@"<table>");
+            builder.Append(@"<table style='font-size: 14px;>");
             builder.Append(@"<tr>");
             builder.Append(@"<td style='width: 120px;'><b>Periodo:</b></td>");
             builder.Append(@"<td style='font-family:\""Montserrat\"", sans-serif;'>"+CfdiMulti.PaymentConditions+"</td>"); //Periodo
@@ -302,7 +320,7 @@ namespace SOAPAP.PDFManager
 
             if (Variables.Configuration.IsMunicipal && Variables.LoginModel.Divition == 6)
             {
-                builder.Append(@"<br><table style='width: 100%;'>");
+                builder.Append(@"<br><table style='width: 100%; style='font-size: 14px;'>");
                 builder.Append(@"<th>Terreno: " + _agreement.AgreementDetails.FirstOrDefault().Ground + "</th>");
                 builder.Append(@"<th>Construcción: " + _agreement.AgreementDetails.FirstOrDefault().Built + "</th>");
                 builder.Append(@"<th>Base: " + string.Format(new CultureInfo("es-MX"), "{0:C2}", _agreement.AgreementDetails.FirstOrDefault().TaxableBase) + "</th>");
@@ -312,7 +330,7 @@ namespace SOAPAP.PDFManager
 
             builder.Append(@"</div>");
             builder.Append(@"<div class='datos_conceptos' style='margin-bottom: 10px;'>");
-            builder.Append(@"<table style='width: 100%;'>");
+            builder.Append(@"<table style='width: 100%; font-size:13px;'>");
             builder.Append(@"<tr style='background-color: black; color: white;'>");
             builder.Append(@"<th>CLAVEPROD. SERV.</th>");
             builder.Append(@"<th>UNIDAD DE MEDIDA</th>");
@@ -351,48 +369,48 @@ namespace SOAPAP.PDFManager
             });
             if(!havtax)
             {
-                builder.Append(@"<p style='margin-top: 0px;margin-bottom: 0px;'>" + let.ToCustomCardinal(CfdiMulti.Items.Sum(x => x.Total)).ToUpperInvariant() + "</p></div>"); //Numero a letras
+                builder.Append(@"<p style='margin-top: 0px;margin-bottom: 0px; font-size:14px;'>" + let.ToCustomCardinal(CfdiMulti.Items.Sum(x => x.Total)).ToUpperInvariant() + "</p></div>"); //Numero a letras
             }
             else
             {
-                builder.Append(@"<p>" + let.ToCustomCardinal((CfdiMulti.Items.Sum(x => x.Total) + CfdiMulti.Items.Sum(x => x.Taxes.Sum(c => c.Total)))).ToUpperInvariant() + "</p></div>"); //Numero a letras
+                builder.Append(@"<p style='margin-top: 0px;margin-bottom: 0px; font-size:14px;'>" + let.ToCustomCardinal((CfdiMulti.Items.Sum(x => x.Total) + CfdiMulti.Items.Sum(x => x.Taxes.Sum(c => c.Total)))).ToUpperInvariant() + "</p></div>"); //Numero a letras
             }
             builder.Append(@"<div style='text-align: right; display: inline-block; width: 20%; font-size: 14px; font-family:\""Montserrat\"", sans-serif;'>");
-            builder.Append(@"<p style='margin-top: 0px;margin-bottom: 0px;'>SubTotal: </p></div>");
-            builder.Append(@"<div style='text-align: right; display: inline-block; width: 5%; font-family:\""Montserrat\"", sans-serif;'>");
-            builder.Append(@"<p style='margin-top: 20px;margin-bottom: 0px;'>" + string.Format(new CultureInfo("es-MX"), "{0:C2}", CfdiMulti.Items.Sum(x => x.Total)) + "</p></div></div>"); //subtotal
-            builder.Append(@"<div style='text-align: right; display: inline-block; width: 90%;'>");
-            builder.Append(@"<p style='margin-top: 0px;margin-bottom: 0px;'>IVA:</p></div>");
-            builder.Append(@"<div style='text-align: right; display: inline-block; width: 4.3%;'>");
+            builder.Append(@"<p style='margin-top: 0px;margin-bottom: 0px; font-size: 14px;'>SubTotal: </p></div>");
+            builder.Append(@"<div style='text-align: right; display: inline-block; width: 5%; font-size: 14px; font-family:\""Montserrat\"", sans-serif;'>");
+            builder.Append(@"<p style='margin-top: 20px;margin-bottom: 0px; font-size: 14px;'>" + string.Format(new CultureInfo("es-MX"), "{0:C2}", CfdiMulti.Items.Sum(x => x.Total)) + "</p></div></div>"); //subtotal
+            builder.Append(@"<div style='text-align: right; display: inline-block; width: 90%; font-size: 14px;'>");
+            builder.Append(@"<p style='margin-top: 0px;margin-bottom: 0px; font-size: 14px;'>IVA:</p></div>");
+            builder.Append(@"<div style='text-align: right; display: inline-block; width: 4.3%; font-size: 14px;'>");
             if (havtax)
             {
-                builder.Append(@"<p style='margin-top: 0px;margin-bottom: 0px;'>" + string.Format(new CultureInfo("es-MX"), "{0:C2}", CfdiMulti.Items.Sum(x => x.Taxes.Sum(c => c.Total))) + "</p></div>");
+                builder.Append(@"<p style='margin-top: 0px;margin-bottom: 0px; font-size: 14px;'>" + string.Format(new CultureInfo("es-MX"), "{0:C2}", CfdiMulti.Items.Sum(x => x.Taxes.Sum(c => c.Total))) + "</p></div>");
             }
             else
             {
-                builder.Append(@"<p style='margin-top: 0px;margin-bottom: 0px;'>" + string.Format(new CultureInfo("es-MX"), "{0:C2}", 0) + "</p></div>");
+                builder.Append(@"<p style='margin-top: 0px;margin-bottom: 0px; font-size: 14px;'>" + string.Format(new CultureInfo("es-MX"), "{0:C2}", 0) + "</p></div>");
             }
             
             builder.Append(@"<div class='datos_moneda' style='margin-bottom: 10px;'>");
-            builder.Append(@"<div style='text-align: left; display: inline-block; width:10%;'>");
+            builder.Append(@"<div style='text-align: left; display: inline-block; width:10%; font-size: 14px;'>");
             builder.Append(@"<p style='margin-top: 0px;margin-bottom: 0px;'><b>Mondeda:</b></p></div>");
-            builder.Append(@"<div style='text-align: left; display: inline-block; width:60%; font-family:\""Montserrat\"", sans-serif;'>");
+            builder.Append(@"<div style='text-align: left; display: inline-block; width:60%; font-size: 14px; font-family:\""Montserrat\"", sans-serif;'>");
             builder.Append(@"<p style='margin-top: 0px;margin-bottom: 0px;'>MXN</p></div>"); //tipo Moneda
-            builder.Append(@"<div style='text-align: right; display: inline-block; width: 19.6%; font-family:\""Montserrat\"", sans-serif;'>");
+            builder.Append(@"<div style='text-align: right; display: inline-block; width: 19.6%; font-size: 14px; font-family:\""Montserrat\"", sans-serif;'>");
             builder.Append(@"<p style='margin-top: 0px;margin-bottom: 0px;'>Total:</p></div>");
-            builder.Append(@"<div style='text-align: right; display: inline-block; width: 5.1%; font-family:\""Montserrat\"", sans-serif;'>");
+            builder.Append(@"<div style='text-align: right; display: inline-block; width: 5.1%; font-size: 14px; font-family:\""Montserrat\"", sans-serif;'>");
             if (havtax)
             {
-                builder.Append(@"<p style='margin-top: 3px;margin-bottom: 7px;'>" + string.Format(new CultureInfo("es-MX"), "{0:C2}", (CfdiMulti.Items.Sum(x => x.Total) + CfdiMulti.Items.Sum(x => x.Taxes.Sum(c => c.Total)))) + "</p></div>"); //Total
+                builder.Append(@"<p style='margin-top: 3px;margin-bottom: 7px; font-size: 14px;'>" + string.Format(new CultureInfo("es-MX"), "{0:C2}", (CfdiMulti.Items.Sum(x => x.Total) + CfdiMulti.Items.Sum(x => x.Taxes.Sum(c => c.Total)))) + "</p></div>"); //Total
             }
             else
             {
-                builder.Append(@"<p style='margin-top: 3px;margin-bottom: 7px;'>" + string.Format(new CultureInfo("es-MX"), "{0:C2}", CfdiMulti.Items.Sum(x => x.Total)) + "</p></div>"); //Total
+                builder.Append(@"<p style='margin-top: 3px;margin-bottom: 7px; font-size: 14px;'>" + string.Format(new CultureInfo("es-MX"), "{0:C2}", CfdiMulti.Items.Sum(x => x.Total)) + "</p></div>"); //Total
             }
             
             builder.Append(@"</div>");
             builder.Append(@"<div class='datos_comprobante' style='margin-bottom: 30px;'><br>");
-            builder.Append(@"<table>");
+            builder.Append(@"<table style='font-size:14px;'>");
             builder.Append(@"<tr>");
             builder.Append(@"<td style='width: 180px;'><b>Tipo de comprobante:</b></td>");
             builder.Append(@"<td style='font-family:\""Montserrat\"", sans-serif;'>I-INGRESO</td></tr>"); //tipo de comprobante
@@ -411,19 +429,19 @@ namespace SOAPAP.PDFManager
             builder.Append(@"</table>");
             builder.Append(@"</div>");
             builder.Append(@"<div class='sello_digital' style='margin-bottom: 30px;'>");
-            builder.Append(@"<div style='text-align: center; display: inline-block; width: 15%; vertical-align: top;'>");
+            builder.Append(@"<div style='text-align: center; display: inline-block; width: 15%; vertical-align: top; margin-top: 29px; margin-right: 19px;'>");
             //QR image 
-            builder.Append(@"<img src='" + AppDomain.CurrentDomain.BaseDirectory + @"QR\"+QrFileName + ".png' alt='Logo-Ayuntamiento' width='160' height='160'>");
+            builder.Append(@"<img src='" + AppDomain.CurrentDomain.BaseDirectory + @"QR\"+QrFileName + ".png' alt='Logo-Ayuntamiento' width='180' height='180'>");
             //end QR
             builder.Append(@"</div>");
-            builder.Append(@"<div style='text-align: left; display: inline-block; width: 80%;'>");
+            builder.Append(@"<div style='text-align: left; display: inline-block; width: 76%;'>");
             builder.Append(@"<div style='text-align: left;'>");
             builder.Append(@"<p><b>RFCProvCert: ESO1202108R2</b></p></div>");
             builder.Append(@"<div style='text-align: left;'>");
             builder.Append(@"<p style='margin-bottom: 0px;'><b>Sello del SAT</b></p>");
             builder.Append(@"</div>");
             builder.Append(@"<div style='text-align: left; width:100%;'>");
-            builder.Append(@"<p style='font-family:\""Montserrat\"", sans-serif; width: 100%;overflow-wrap: break-word; margin-top: 0px; font-size:8px;'>");
+            builder.Append(@"<p style='font-family:\""Montserrat\"", sans-serif; width: 100%;overflow-wrap: break-word; margin-top: 0px; font-size:10px; text-align: justify;'>");
             //Cetificado RFCProvCert
             builder.Append(Cfdi.Complement.TaxStamp.SatSign.ToString());
             // end RFCProvCert
@@ -431,7 +449,7 @@ namespace SOAPAP.PDFManager
             builder.Append(@"<div style='text-align: left;'>");
             builder.Append(@"<p style='margin-bottom: 0px;'><b>Sello Digital del CFDI:</b></p></div>");
             builder.Append(@"<div style='text-align: left; width:100%;'>");
-            builder.Append(@"<p style='font-family:\""Montserrat\"", sans-serif; width: 100%;overflow-wrap: break-word; margin-top: 0px; font-size:8px;'>");
+            builder.Append(@"<p style='font-family:\""Montserrat\"", sans-serif; width: 100%;overflow-wrap: break-word; margin-top: 0px; font-size:10px; text-align: justify'>");
             // Sello SAT
             builder.Append(Cfdi.Complement.TaxStamp.CfdiSign);
             //end Sello SAT
@@ -439,9 +457,11 @@ namespace SOAPAP.PDFManager
             builder.Append(@"<div style='text-align: left;'>");
             builder.Append(@"<p style='margin-bottom: 0px;'><b>Cadena Original del Complemento de Certificación del SAT:</b></p></div>");
             builder.Append(@"<div style='text-align: left; width:100%;'>");
-            builder.Append(@"<p style='font-family:\""Montserrat\"", sans-serif; width: 100%;overflow-wrap: break-word; margin-top: 0px; font-size:8px;'>");
+            builder.Append(@"<p style='font-family:\""Montserrat\"", sans-serif; width: 100%;overflow-wrap: break-word; margin-top: 0px; font-size:10px; text-align: justify'>");
             //Cadena Original
-            builder.Append("||1|"+Cfdi.Complement.TaxStamp.Uuid+"|"+Cfdi.Complement.TaxStamp.SatSign+"|"+Cfdi.Date+"|ESO1202108R2|"+Cfdi.Complement.TaxStamp.SatSign+"|"+Cfdi.Complement.TaxStamp.SatCertNumber+"||");
+            var cadenaOriginal = string.Format("||1|{0}|{1}|{2}|ESO1202108R2|{3}|{4}||", Cfdi.Complement.TaxStamp.Uuid.ToString().Trim(), Cfdi.Complement.TaxStamp.SatSign.ToString().Trim(), Cfdi.Date.ToString().Trim(), Cfdi.Complement.TaxStamp.SatSign.ToString().Trim(), Cfdi.Complement.TaxStamp.SatCertNumber.ToString().Trim());
+            //builder.Append("||1|"+Cfdi.Complement.TaxStamp.Uuid+"|"+Cfdi.Complement.TaxStamp.SatSign+"|"+Cfdi.Date+"|ESO1202108R2|"+Cfdi.Complement.TaxStamp.SatSign+"|"+Cfdi.Complement.TaxStamp.SatCertNumber+"||");
+            builder.Append(cadenaOriginal);
             // end Cadena Original
             builder.Append(@"</p></div>");
             builder.Append(@"</div></div>");
@@ -536,31 +556,31 @@ namespace SOAPAP.PDFManager
             builder.Append(@"<div style='text-align: center; display: inline-block; width: 55%; font-size: 14px;'>");
             if (Variables.Configuration.IsMunicipal)
             {
-                builder.Append(@"<p style='margin-top: 0px;margin-bottom: 0px;'><b>" + CfdiMulti.Issuer.Name + "</b></p>");
-                builder.Append(@"<p style='margin-top: 0px;margin-bottom: 0px;'><b>RFC: " + CfdiMulti.Issuer.Rfc + "</b></p><br>");
-                builder.Append(@"<p style='margin-top: 0px;margin-bottom: 0px;'> PALACIO MUNICIPAL  S/N Centro CUAUTLANCINGO CUAUTLANCINGO 72700<br>PUEBLA MEXICO </p>");
-                builder.Append(@"<p style='margin-top: 0px;margin-bottom: 0px;'>Teléfono: (222) 2-85-13-62</p><br>");
-                builder.Append(@"<p style='margin-top: 0px;margin-bottom: 0px;'>Régimen Fiscal: " + CfdiMulti.Issuer.FiscalRegime + " - Personas Morales con Fines no Lucrativos</p>");
-                builder.Append(@"<p style='margin-top: 0px;margin-bottom: 0px;'>Expedido en: 72700, CUAUTLANCINGO</p>");
-                builder.Append(@"<p><b>TESORERIA MUNICIPAL</b></p>");
-                builder.Append(@"<p><b>" + tmpDivision + "</b></p></div>");
+                builder.Append(@"<p style='margin-top: 0px;margin-bottom: 0px; font-size: 16px;'><b>" + CfdiMulti.Issuer.Name + "</b></p>");
+                builder.Append(@"<p style='margin-top: 0px;margin-bottom: 0px; font-size: 16px;'><b>RFC: " + CfdiMulti.Issuer.Rfc + "</b></p><br>");
+                builder.Append(@"<p style='margin-top: 0px;margin-bottom: 0px; font-size: 16px;'> PALACIO MUNICIPAL  S/N Centro CUAUTLANCINGO CUAUTLANCINGO 72700<br>PUEBLA MEXICO </p>");
+                builder.Append(@"<p style='margin-top: 0px;margin-bottom: 0px; font-size: 16px;'>Teléfono: (222) 2-85-13-62</p><br>");
+                builder.Append(@"<p style='margin-top: 0px;margin-bottom: 0px; font-size: 16px;'>Régimen Fiscal: " + CfdiMulti.Issuer.FiscalRegime + " - Personas Morales con Fines no Lucrativos</p>");
+                builder.Append(@"<p style='margin-top: 0px;margin-bottom: 0px; font-size: 16px;'>Expedido en: 72700, CUAUTLANCINGO</p>");
+                builder.Append(@"<p style='font-size: 16px;'><b>TESORERIA MUNICIPAL</b></p>");
+                builder.Append(@"<p style='font-size: 16px;'><b>" + tmpDivision + "</b></p></div>");
             }
             else
             {
-                builder.Append(@"<p style='margin-top: 0px;margin-bottom: 0px;'> <b>" + CfdiMulti.Issuer.Name + "</b></p>");
-                builder.Append(@"<p style='margin-top: 0px;margin-bottom: 0px;'><b>RFC: " + CfdiMulti.Issuer.Rfc + "</b></p><br>");
-                builder.Append(@"<p style='margin-top: 0px;margin-bottom: 0px;'> SAN LORENZO 84  A CENTRO CUAUTLANCINGO 72700 <br>PUEBLA MEXICO </p>");
-                builder.Append(@"<p style='margin-top: 0px;margin-bottom: 0px;'>Teléfono: (222) 2269761</p>");
-                builder.Append(@"<p style='margin-top: 0px;margin-bottom: 0px;'>Email: contacto@sosapac.gob.mx </p>");
-                builder.Append(@"<p style='margin-top: 0px;margin-bottom: 0px;'><b>COMPROBANTE DE PAGO</b></p></div>");
+                builder.Append(@"<p style='margin-top: 0px;margin-bottom: 0px; font-size: 16px;'> <b>" + CfdiMulti.Issuer.Name + "</b></p>");
+                builder.Append(@"<p style='margin-top: 0px;margin-bottom: 0px; font-size: 16px;'><b>RFC: " + CfdiMulti.Issuer.Rfc + "</b></p><br>");
+                builder.Append(@"<p style='margin-top: 0px;margin-bottom: 0px; font-size: 16px;'> SAN LORENZO 84  A CENTRO CUAUTLANCINGO 72700 <br>PUEBLA MEXICO </p>");
+                builder.Append(@"<p style='margin-top: 0px;margin-bottom: 0px; font-size: 16px;'>Teléfono: (222) 2269761</p>");
+                builder.Append(@"<p style='margin-top: 0px;margin-bottom: 0px; font-size: 16px;'>Email: contacto@sosapac.gob.mx </p>");
+                builder.Append(@"<p style='margin-top: 0px;margin-bottom: 0px; font-size: 16px;'><b>COMPROBANTE DE PAGO</b></p></div>");
             }
 
             builder.Append(@" <div id='datFact' style='display: inline-block; width: 20%; font-size: 11px; text-align: center; vertical-align: top;'>");
-            builder.Append(@"<table style='text-align: center;'>");
+            builder.Append(@"<table style='text-align: center; font-size: 14px;'>");
             builder.Append(@"<tr><td><b>COMPROBANTE</b></td></tr>");
             builder.Append(@"<tr><td style='font-family:\""Montserrat\"", sans-serif;'><b>" + CfdiMulti.Folio + "</b></td></tr>"); //Folio
             builder.Append(@"<tr><td><b>FOLIO FISCAL</b></td></tr>");
-            builder.Append(@"<tr><td style='font-family:\""Montserrat\"", sans-serif;'>" + Cfdi.Complement.TaxStamp.Uuid + "</td></tr>"); //UUID
+            builder.Append(@"<tr><td style='font-family:\""Montserrat\"", sans-serif; font-size:11px;'>" + Cfdi.Complement.TaxStamp.Uuid + "</td></tr>"); //UUID
             builder.Append(@"<tr><td><b>CERTIFICADO SAT</b></td></tr>");
             builder.Append(@"<tr><td style='font-family:\""Montserrat\"", sans-serif;'>" + Cfdi.Complement.TaxStamp.SatCertNumber + "</td></tr>");// certificado sat
             builder.Append(@"<tr><td><b>FECHA AUTORIZACIÓN SAT</b></td></tr>");
@@ -570,7 +590,7 @@ namespace SOAPAP.PDFManager
             builder.Append(@"</table>");
             builder.Append(@"</div></div>");
             builder.Append(@"<div class='datos_contribuyente' style='margin-bottom: 15px;'>");
-            builder.Append(@"<table>");
+            builder.Append(@"<table style='font-size: 14px;>");
             builder.Append(@"<tr>");
             builder.Append(@"<td style='width: 120px;'><b>No. de cuenta:</b></td>");
             builder.Append(@"<td style='width: 100px; font-family:\""Montserrat\"", sans-serif;'>" + _orderSale.Folio + "</td>"); //Cuenta
@@ -601,7 +621,7 @@ namespace SOAPAP.PDFManager
 
             builder.Append(@"</tr>");
             builder.Append(@"</table>");
-            builder.Append(@"<table>");
+            builder.Append(@"<table style='font-size: 14px;'>");
             builder.Append(@"<tr>");
             builder.Append(@"<td style='width: 120px;'><b>Periodo:</b></td>");
             builder.Append(@"<td style='font-family:\""Montserrat\"", sans-serif;'>" + CfdiMulti.PaymentConditions + "</td>"); //Periodo
@@ -628,7 +648,7 @@ namespace SOAPAP.PDFManager
 
             builder.Append(@"</div>");
             builder.Append(@"<div class='datos_conceptos' style='margin-bottom: 10px;'>");
-            builder.Append(@"<table style='width: 100%;'>");
+            builder.Append(@"<table style='width: 100%; font-size:13px;'>");
             builder.Append(@"<tr style='background-color: black; color: white;'>");
             builder.Append(@"<th>CLAVEPROD. SERV.</th>");
             builder.Append(@"<th>UNIDAD DE MEDIDA</th>");
@@ -667,48 +687,48 @@ namespace SOAPAP.PDFManager
             });
             if (!havtax)
             {
-                builder.Append(@"<p style='margin-top: 0px;margin-bottom: 0px;'>" + let.ToCustomCardinal(CfdiMulti.Items.Sum(x => x.Total)).ToUpperInvariant() + "</p></div>"); //Numero a letras
+                builder.Append(@"<p style='margin-top: 0px;margin-bottom: 0px; font-size:14px;'>" + let.ToCustomCardinal(CfdiMulti.Items.Sum(x => x.Total)).ToUpperInvariant() + "</p></div>"); //Numero a letras
             }
             else
             {
-                builder.Append(@"<p>" + let.ToCustomCardinal((CfdiMulti.Items.Sum(x => x.Total) + CfdiMulti.Items.Sum(x => x.Taxes.Sum(c => c.Total)))).ToUpperInvariant() + "</p></div>"); //Numero a letras
+                builder.Append(@"<p style='margin-top: 0px;margin-bottom: 0px; font-size:14px;'>" + let.ToCustomCardinal((CfdiMulti.Items.Sum(x => x.Total) + CfdiMulti.Items.Sum(x => x.Taxes.Sum(c => c.Total)))).ToUpperInvariant() + "</p></div>"); //Numero a letras
             }
             builder.Append(@"<div style='text-align: right; display: inline-block; width: 20%; font-size: 14px; font-family:\""Montserrat\"", sans-serif;'>");
             builder.Append(@"<p style='margin-top: 0px;margin-bottom: 0px;'>SubTotal: </p></div>");
-            builder.Append(@"<div style='text-align: right; display: inline-block; width: 5%; font-family:\""Montserrat\"", sans-serif;'>");
-            builder.Append(@"<p style='margin-top: 20px;margin-bottom: 0px;'>" + string.Format(new CultureInfo("es-MX"), "{0:C2}", CfdiMulti.Items.Sum(x => x.Total)) + "</p></div></div>"); //subtotal
-            builder.Append(@"<div style='text-align: right; display: inline-block; width: 90%;'>");
-            builder.Append(@"<p style='margin-top: 0px;margin-bottom: 0px;'>IVA:</p></div>");
-            builder.Append(@"<div style='text-align: right; display: inline-block; width: 4.3%;'>");
+            builder.Append(@"<div style='text-align: right; display: inline-block; width: 5%; font-size: 14px; font-family:\""Montserrat\"", sans-serif;'>");
+            builder.Append(@"<p style='margin-top: 20px;margin-bottom: 0px; font-size: 14px;'>" + string.Format(new CultureInfo("es-MX"), "{0:C2}", CfdiMulti.Items.Sum(x => x.Total)) + "</p></div></div>"); //subtotal
+            builder.Append(@"<div style='text-align: right; display: inline-block; width: 90%; font-size: 14px;'>");
+            builder.Append(@"<p style='margin-top: 0px;margin-bottom: 0px; font-size: 14px;'>IVA:</p></div>");
+            builder.Append(@"<div style='text-align: right; display: inline-block; width: 4.3%; font-size: 14px;'>");
             if (havtax)
             {
-                builder.Append(@"<p style='margin-top: 0px;margin-bottom: 0px;'>" + string.Format(new CultureInfo("es-MX"), "{0:C2}", CfdiMulti.Items.Sum(x => x.Taxes.Sum(c => c.Total))) + "</p></div>");
+                builder.Append(@"<p style='margin-top: 0px;margin-bottom: 0px; font-size: 14px;'>" + string.Format(new CultureInfo("es-MX"), "{0:C2}", CfdiMulti.Items.Sum(x => x.Taxes.Sum(c => c.Total))) + "</p></div>");
             }
             else
             {
-                builder.Append(@"<p style='margin-top: 0px;margin-bottom: 0px;'>" + string.Format(new CultureInfo("es-MX"), "{0:C2}", 0) + "</p></div>");
+                builder.Append(@"<p style='margin-top: 0px;margin-bottom: 0px; font-size: 14px;'>" + string.Format(new CultureInfo("es-MX"), "{0:C2}", 0) + "</p></div>");
             }
 
             builder.Append(@"<div class='datos_moneda' style='margin-bottom: 10px;'>");
-            builder.Append(@"<div style='text-align: left; display: inline-block; width:10%;'>");
+            builder.Append(@"<div style='text-align: left; display: inline-block; width:10%; font-size: 14px;'>");
             builder.Append(@"<p style='margin-top: 0px;margin-bottom: 0px;'><b>Mondeda:</b></p></div>");
-            builder.Append(@"<div style='text-align: left; display: inline-block; width:60%; font-family:\""Montserrat\"", sans-serif;'>");
+            builder.Append(@"<div style='text-align: left; display: inline-block; width:60%; font-size: 14px; font-family:\""Montserrat\"", sans-serif;'>");
             builder.Append(@"<p style='margin-top: 0px;margin-bottom: 0px;'>MXN</p></div>"); //tipo Moneda
-            builder.Append(@"<div style='text-align: right; display: inline-block; width: 19.6%; font-family:\""Montserrat\"", sans-serif;'>");
+            builder.Append(@"<div style='text-align: right; display: inline-block; width: 19.6%; font-size: 14px; font-family:\""Montserrat\"", sans-serif;'>");
             builder.Append(@"<p style='margin-top: 0px;margin-bottom: 0px;'>Total:</p></div>");
-            builder.Append(@"<div style='text-align: right; display: inline-block; width: 5.1%; font-family:\""Montserrat\"", sans-serif;'>");
+            builder.Append(@"<div style='text-align: right; display: inline-block; width: 5.1%; font-size: 14px; font-family:\""Montserrat\"", sans-serif;'>");
             if (havtax)
             {
-                builder.Append(@"<p style='margin-top: 3px;margin-bottom: 7px;'>" + string.Format(new CultureInfo("es-MX"), "{0:C2}", (CfdiMulti.Items.Sum(x => x.Total) + CfdiMulti.Items.Sum(x => x.Taxes.Sum(c => c.Total)))) + "</p></div>"); //Total
+                builder.Append(@"<p style='margin-top: 3px;margin-bottom: 7px; font-size: 14px;'>" + string.Format(new CultureInfo("es-MX"), "{0:C2}", (CfdiMulti.Items.Sum(x => x.Total) + CfdiMulti.Items.Sum(x => x.Taxes.Sum(c => c.Total)))) + "</p></div>"); //Total
             }
             else
             {
-                builder.Append(@"<p style='margin-top: 3px;margin-bottom: 7px;'>" + string.Format(new CultureInfo("es-MX"), "{0:C2}", CfdiMulti.Items.Sum(x => x.Total)) + "</p></div>"); //Total
+                builder.Append(@"<p style='margin-top: 3px;margin-bottom: 7px; font-size: 14px;'>" + string.Format(new CultureInfo("es-MX"), "{0:C2}", CfdiMulti.Items.Sum(x => x.Total)) + "</p></div>"); //Total
             }
 
             builder.Append(@"</div>");
             builder.Append(@"<div class='datos_comprobante' style='margin-bottom: 30px;'><br>");
-            builder.Append(@"<table>");
+            builder.Append(@"<table style='font-size:14px;'>");
             builder.Append(@"<tr>");
             builder.Append(@"<td style='width: 180px;'><b>Tipo de comprobante:</b></td>");
             builder.Append(@"<td style='font-family:\""Montserrat\"", sans-serif;'>I-INGRESO</td></tr>"); //tipo de comprobante
@@ -727,19 +747,19 @@ namespace SOAPAP.PDFManager
             builder.Append(@"</table>");
             builder.Append(@"</div>");
             builder.Append(@"<div class='sello_digital' style='margin-bottom: 30px;'>");
-            builder.Append(@"<div style='text-align: center; display: inline-block; width: 15%; vertical-align: top;'>");
+            builder.Append(@"<div style='text-align: center; display: inline-block; width: 15%; vertical-align: top; margin-top: 29px; margin-right: 19px;'>");
             //QR image 
-            builder.Append(@"<img src='" + AppDomain.CurrentDomain.BaseDirectory + @"QR\" + QrFileName + ".png' alt='Logo-Ayuntamiento' width='160' height='160'>");
+            builder.Append(@"<img src='" + AppDomain.CurrentDomain.BaseDirectory + @"QR\" + QrFileName + ".png' alt='Logo-Ayuntamiento' width='180' height='180'>");
             //end QR
             builder.Append(@"</div>");
-            builder.Append(@"<div style='text-align: left; display: inline-block; width: 80%;'>");
+            builder.Append(@"<div style='text-align: left; display: inline-block; width: 76%;'>");
             builder.Append(@"<div style='text-align: left;'>");
             builder.Append(@"<p><b>RFCProvCert: ESO1202108R2</b></p></div>");
             builder.Append(@"<div style='text-align: left;'>");
             builder.Append(@"<p style='margin-bottom: 0px;'><b>Sello del SAT</b></p>");
             builder.Append(@"</div>");
             builder.Append(@"<div style='text-align: left; width:100%;'>");
-            builder.Append(@"<p style='font-family:\""Montserrat\"", sans-serif; width: 100%;overflow-wrap: break-word; margin-top: 0px; font-size:8px;'>");
+            builder.Append(@"<p style='font-family:\""Montserrat\"", sans-serif; width: 100%;overflow-wrap: break-word; margin-top: 0px; font-size:10px; text-align: justify;'>");
             //Cetificado RFCProvCert
             builder.Append(Cfdi.Complement.TaxStamp.SatSign.ToString());
             // end RFCProvCert
@@ -747,7 +767,7 @@ namespace SOAPAP.PDFManager
             builder.Append(@"<div style='text-align: left;'>");
             builder.Append(@"<p style='margin-bottom: 0px;'><b>Sello Digital del CFDI:</b></p></div>");
             builder.Append(@"<div style='text-align: left; width:100%;'>");
-            builder.Append(@"<p style='font-family:\""Montserrat\"", sans-serif; width: 100%;overflow-wrap: break-word; margin-top: 0px; font-size:8px;'>");
+            builder.Append(@"<p style='font-family:\""Montserrat\"", sans-serif; width: 100%;overflow-wrap: break-word; margin-top: 0px; font-size:10px; text-align: justify'>");
             // Sello SAT
             builder.Append(Cfdi.Complement.TaxStamp.CfdiSign);
             //end Sello SAT
@@ -755,7 +775,7 @@ namespace SOAPAP.PDFManager
             builder.Append(@"<div style='text-align: left;'>");
             builder.Append(@"<p style='margin-bottom: 0px;'><b>Cadena Original del Complemento de Certificación del SAT:</b></p></div>");
             builder.Append(@"<div style='text-align: left; width:100%;'>");
-            builder.Append(@"<p style='font-family:\""Montserrat\"", sans-serif; width: 100%;overflow-wrap: break-word; margin-top: 0px; font-size:8px;'>");
+            builder.Append(@"<p style='font-family:\""Montserrat\"", sans-serif; width: 100%;overflow-wrap: break-word; margin-top: 0px; font-size:10px; text-align: justify'>");
             //Cadena Original
             builder.Append("||1|" + Cfdi.Complement.TaxStamp.Uuid + "|" + Cfdi.Complement.TaxStamp.SatSign + "|" + Cfdi.Date + "|ESO1202108R2|" + Cfdi.Complement.TaxStamp.SatSign + "|" + Cfdi.Complement.TaxStamp.SatCertNumber + "||");
             // end Cadena Original
