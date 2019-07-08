@@ -22,7 +22,6 @@ using System.Windows.Forms.VisualStyles;
 using System.Xml;
 using System.Runtime.InteropServices;
 using System.Globalization;
-using SOAPAP.UI.Messages;
 
 namespace SOAPAP
 {
@@ -79,6 +78,7 @@ namespace SOAPAP
 
         private async void consultadecobros_Load(object sender, EventArgs e)
         {
+
             loading = new Loading();
             loading.Show(this);
             alzheimer();
@@ -87,6 +87,7 @@ namespace SOAPAP
             await cargar();
             label1.Text = "FECHA:" + DateTime.Now.ToString("dd-MM-yyyy");
             loading.Close();
+
         }
 
         public static void DataGridViewCellVisibility(DataGridViewCell cell, bool visible)
@@ -219,34 +220,6 @@ namespace SOAPAP
             loading.Close();
         }
 
-        //Se selecciona una nueva fecha
-        private async void dtpFechaBusqueda_ValueChanged(object sender, EventArgs e)
-        {
-            loading = new Loading();
-            loading.Show(this);
-            alzheimer();
-            await cargaCombos();
-            await Total();
-            await cargar();
-            label1.Text = "FECHA:" + DateTime.Now.ToString("dd-MM-yyyy");
-            loading.Close();
-        }
-
-        //Clic switch
-        private void tswSeleccionDia_Toggled(object sender, EventArgs e)
-        {
-            if (tswSeleccionDia.IsOn)
-            {
-                pbxFondoFechaBusqueda.Visible = true;
-                dtpFechaBusqueda.Visible = true;
-            }
-            else
-            {
-                pbxFondoFechaBusqueda.Visible = false;
-                dtpFechaBusqueda.Visible = false;
-            }
-        }
-
         private async void prevvisualizarToolStripMenuItem_Click(object sender, EventArgs e)
         {
             await ObtenerCorte();
@@ -291,12 +264,8 @@ namespace SOAPAP
             centraX(pnlHeader, cmbTypeTransaction);
             centraX(pnlHeader, pnlSearch);
 
-            string _resulTransaction;
-            if (tswSeleccionDia.IsOn)            
-                _resulTransaction = await Requests.SendURIAsync(string.Format("/api/Transaction/FromUserInDay/{0}/{1}", dtpFechaBusqueda.Value.ToString("yyyy-MM-dd") , Variables.LoginModel.User), HttpMethod.Get, Variables.LoginModel.Token);            
-            else            
-                _resulTransaction = await Requests.SendURIAsync(string.Format("/api/Transaction/{0}/{1}", DateTime.Now.ToString("yyyy-MM-dd") , Variables.Configuration.Terminal.TerminalUsers.FirstOrDefault().Id.ToString()), HttpMethod.Get, Variables.LoginModel.Token);
-            
+
+            var _resulTransaction = await Requests.SendURIAsync(string.Format("/api/Transaction/{0}/{1}", DateTime.Now.ToString("yyyy-MM-dd"), Variables.Configuration.Terminal.TerminalUsers.FirstOrDefault().Id.ToString()), HttpMethod.Get, Variables.LoginModel.Token);
 
             if (_resulTransaction.Contains("error"))
             {
@@ -395,17 +364,6 @@ namespace SOAPAP
                 cmbTypeTransaction.DisplayMember = "name";
                 cmbTypeTransaction.DataSource = Types;
                 cmbTypeTransaction.SelectedIndex = cmbTypeTransaction.FindString("Todos");
-            }
-
-            if (tswSeleccionDia.IsOn)
-            {
-                pbxFondoFechaBusqueda.Visible = true;
-                dtpFechaBusqueda.Visible = true;
-            }
-            else
-            {
-                pbxFondoFechaBusqueda.Visible = false;
-                dtpFechaBusqueda.Visible = false;
             }
         }
 
@@ -958,8 +916,6 @@ namespace SOAPAP
 
         private async void dgvMovimientos_CellClick_1(object sender, DataGridViewCellEventArgs e)
         {
-            string textoObservacion = "";
-            string textoUsos = "";
             string[] separadas;
             DataTable dt1 = new DataTable();
             Model.TransactionPaymentVM transactionSelect = new Model.TransactionPaymentVM();
@@ -1116,40 +1072,13 @@ namespace SOAPAP
                         transactionSelect = JsonConvert.DeserializeObject<Model.TransactionPaymentVM>(resultTransaction);
                         var resultTransactions = await Requests.SendURIAsync(string.Format("/api/Payments/{0}", transactionSelect.Payment.Id), HttpMethod.Get, Variables.LoginModel.Token);
                         Model.Payment payment = JsonConvert.DeserializeObject<Model.Payment>(resultTransactions);
-                        var xml = payment.TaxReceipts.FirstOrDefault();
-                        //WsIntegral33Pruebas.WsCFDI33Client n = new WsIntegral33Pruebas.WsCFDI33Client();
-                        //string test = "before passing";
-
+                        WsIntegral33Pruebas.WsCFDI33Client n = new WsIntegral33Pruebas.WsCFDI33Client();
+                        string test = "before passing";
+                        
                         try
                         {
-                            //var rest = n.ObtenerPDF("CFDI010233001", "Pruebas1a$", payment.TaxReceipts.FirstOrDefault(x=>x.Status== "ET001").Xml, "", "", "", 1, ref test);
-                            //ExportGridToPDF(rest);
-                            if (xml != null)
-                            {
-                                if (payment.HaveTaxReceipt)
-                                {
-                                    //ExportGridToPDF(xml.PDFInvoce);
-                                    if(xml.PDFInvoce == null)
-                                    {
-                                        mensaje = new MessageBoxForm(Variables.titleprincipal, "Este cobro no cuenta con timbrado, para poder descargar el pdf primero debe realizar el timbrado", TypeIcon.Icon.Cancel);
-                                        mensaje.ShowDialog();
-                                    }
-                                    else
-                                    {
-                                        ExportGridToPDF(xml.PDFInvoce);
-                                    }
-                                }
-                                else
-                                {
-                                    mensaje = new MessageBoxForm(Variables.titleprincipal, "Descarga no disponible, posiblemente este pago no este facturado por este sistema para mas información contactarse con el administrador del sistema.", TypeIcon.Icon.Cancel);
-                                    result = mensaje.ShowDialog();
-                                }
-                            }
-                            else
-                            {
-                                mensaje = new MessageBoxForm(Variables.titleprincipal, "Xml no disponible, posiblemente este pago no este facturado para mayor información contactarse con el administrador del sistema.", TypeIcon.Icon.Cancel);
-                                result = mensaje.ShowDialog();
-                            }
+                            var rest = n.ObtenerPDF("CFDI010233001", "Pruebas1a$", payment.TaxReceipts.FirstOrDefault(x=>x.Status== "ET001").Xml, "", "", "", 1, ref test);
+                            ExportGridToPDF(rest);
                         }
                         catch (Exception)
                         {
@@ -1165,116 +1094,104 @@ namespace SOAPAP
 
                 if (e.ColumnIndex == dgvMovimientos.Columns["TIMBRAR"].Index && e.RowIndex >= 0)
                 {
-                    string xmltimbrado = string.Empty;
-
-                    loading = new Loading();
-                    loading.Show(this);
-
-                    if (row.Cells["typeTransactionId"].Value.ToString() == "3")
-                    {
-
-                        var resultTransaction = await Requests.SendURIAsync(string.Format("/api/Transaction/{0}", transactionSelect.Transaction.Id), HttpMethod.Get, Variables.LoginModel.Token);
-                        transactionSelect = JsonConvert.DeserializeObject<Model.TransactionPaymentVM>(resultTransaction);
-
-
-                        var resultTransactions = await Requests.SendURIAsync(string.Format("/api/Payments/{0}", transactionSelect.Payment.Id), HttpMethod.Get, Variables.LoginModel.Token);
-                        Model.Payment payment = JsonConvert.DeserializeObject<Model.Payment>(resultTransactions);
-
-                        try
-                        {
-
-                            if (payment.TaxReceipts.FirstOrDefault(x => x.Status == "ET001").Xml != null)
+                        string xmltimbrado = string.Empty;
+                        
+                        loading = new Loading();
+                        loading.Show(this);
+                        
+                      
+                   
+                            if(row.Cells["typeTransactionId"].Value.ToString() == "3")
                             {
-                                mensaje = new MessageBoxForm(Variables.titleprincipal, "Esta trasaccion esta timbrada", TypeIcon.Icon.Cancel);
-                                mensaje.ShowDialog();
+
+                            var resultTransaction = await Requests.SendURIAsync(string.Format("/api/Transaction/{0}", transactionSelect.Transaction.Id), HttpMethod.Get, Variables.LoginModel.Token);
+                            transactionSelect = JsonConvert.DeserializeObject<Model.TransactionPaymentVM>(resultTransaction);
+
+
+                            var resultTransactions = await Requests.SendURIAsync(string.Format("/api/Payments/{0}", transactionSelect.Payment.Id), HttpMethod.Get, Variables.LoginModel.Token);
+                            Model.Payment payment = JsonConvert.DeserializeObject<Model.Payment>(resultTransactions);
+
+
+                            try
+                            {
+
+                                if (payment.TaxReceipts.FirstOrDefault(x => x.Status == "ET001").Xml != null)
+                                {
+                                    mensaje = new MessageBoxForm(Variables.titleprincipal, "Esta trasaccion esta timbrada", TypeIcon.Icon.Cancel);
+                                    mensaje.ShowDialog();
+                                }
+
+
+                            }
+                            catch (Exception)
+                            {
+
+                                Facturaelectronica fs = new Facturaelectronica();
+                                xmltimbrado = await fs.facturar(transactionSelect.Transaction.Id.ToString(), "ET001","");
+                                separadas = xmltimbrado.Split('/');
+                                if (separadas[0].ToString() == "error")
+                                {
+                                    mensaje = new MessageBoxForm(Variables.titleprincipal, separadas[1].ToString(), TypeIcon.Icon.Cancel);
+                                    mensaje.ShowDialog();
+                                }
+                                else
+                                {
+                                    PdfDocument pdfdocument = new PdfDocument();
+                                    pdfdocument.LoadFromFile(xmltimbrado);
+                                    pdfdocument.PrinterName = q.ImpresoraPredeterminada();
+                                    pdfdocument.PrintDocument.PrinterSettings.Copies = 1;
+                                    pdfdocument.PrintDocument.Print();
+                                    pdfdocument.Dispose();
+                                   
+                                }
+                                
                             }
 
-                        }
-                        catch (Exception)
-                        {
+                            }
 
-                            Facturaelectronica fs = new Facturaelectronica();
-                            xmltimbrado = await fs.generaFactura(transactionSelect.Transaction.Id.ToString(), "ET001");
-                            if (xmltimbrado.Contains("error"))
+                            if(row.Cells["typeTransactionId"].Value.ToString() == "4")
                             {
-                                loading.Close();
-                                try
+
+                            var resultTransaction = await Requests.SendURIAsync(string.Format("/api/Transaction/{0}", transactionSelect.Transaction.Id), HttpMethod.Get, Variables.LoginModel.Token);
+                            transactionSelect = JsonConvert.DeserializeObject<Model.TransactionPaymentVM>(resultTransaction);
+
+
+                            var resultTransactions = await Requests.SendURIAsync(string.Format("/api/Payments/{0}", transactionSelect.Payment.Id), HttpMethod.Get, Variables.LoginModel.Token);
+                            Model.Payment payment = JsonConvert.DeserializeObject<Model.Payment>(resultTransactions);
+                            try
                                 {
-                                    mensaje = new MessageBoxForm("Error", JsonConvert.DeserializeObject<Error>(xmltimbrado).error, TypeIcon.Icon.Cancel);
-                                    result = mensaje.ShowDialog();
-                                    this.Close();
+
+                                    if (payment.TaxReceipts.FirstOrDefault(x => x.Status== "ET002").Xml != null)
+                                    {
+                                        mensaje = new MessageBoxForm(Variables.titleprincipal, "Esta trasaccion esta timbrada", TypeIcon.Icon.Cancel);
+                                        mensaje.ShowDialog();
+                                    }
+
+
                                 }
                                 catch (Exception)
                                 {
-                                    mensaje = new MessageBoxForm("Error", "Servicio no disponible favor de comunicarse con el administrador: -conexion interrumpida-", TypeIcon.Icon.Cancel);
-                                    result = mensaje.ShowDialog();
-                                    this.Close();
+
+                                    Facturaelectronica fs = new Facturaelectronica();
+                                    xmltimbrado = await fs.facturar(transactionSelect.Transaction.Id.ToString(), "ET002", payment.TaxReceipts.FirstOrDefault().FielXML);
+                                    separadas = xmltimbrado.Split('/');
+                                    if (separadas[0].ToString() == "error")
+                                    {
+                                        mensaje = new MessageBoxForm(Variables.titleprincipal, separadas[1].ToString(), TypeIcon.Icon.Cancel);
+                                        mensaje.ShowDialog();
+                                    }
+                                    else
+                                    {
+                                    
+                                    var resultTransactionss = await Requests.SendURIAsync(string.Format("/api/Payments/{0}", transactionSelect.Payment.Id), HttpMethod.Get, Variables.LoginModel.Token);
+                                    Model.Payment payments = JsonConvert.DeserializeObject<Model.Payment>(resultTransactionss);
+                                    ExportGridToXML(payments.TaxReceipts.FirstOrDefault(x => x.Status == "ET002").Xml);
+                                   }
                                 }
                             }
-                            else
-                            {
-                                PdfDocument pdfdocument = new PdfDocument();
-                                pdfdocument.LoadFromFile(xmltimbrado);
-                                pdfdocument.PrinterName = q.ImpresoraPredeterminada();
-                                pdfdocument.PrintDocument.PrinterSettings.Copies = 1;
-                                pdfdocument.PrintDocument.Print();
-                                pdfdocument.Dispose();
-                                loading.Close();
-                                mensaje = new MessageBoxForm(Variables.titleprincipal, "Pago se ha timbtado correctamente", TypeIcon.Icon.Success);
-                                mensaje.ShowDialog();
-                            }
-                        }
-
-                    }
-                    if (row.Cells["typeTransactionId"].Value.ToString() == "4")
-                    {
-                        mensaje = new MessageBoxForm("Error", "No se puede realizar un timbrado a un pago cancelado, favor de verificar", TypeIcon.Icon.Cancel);
-                        result = mensaje.ShowDialog();
-                    }
-                        #region cancelacion
-                        //if(row.Cells["typeTransactionId"].Value.ToString() == "4")
-                        //{
-
-                        //var resultTransaction = await Requests.SendURIAsync(string.Format("/api/Transaction/{0}", transactionSelect.Transaction.Id), HttpMethod.Get, Variables.LoginModel.Token);
-                        //transactionSelect = JsonConvert.DeserializeObject<Model.TransactionPaymentVM>(resultTransaction);
-
-
-                        //var resultTransactions = await Requests.SendURIAsync(string.Format("/api/Payments/{0}", transactionSelect.Payment.Id), HttpMethod.Get, Variables.LoginModel.Token);
-                        //Model.Payment payment = JsonConvert.DeserializeObject<Model.Payment>(resultTransactions);
-                        //try
-                        //    {
-
-                        //        if (payment.TaxReceipts.FirstOrDefault(x => x.Status== "ET002").Xml != null)
-                        //        {
-                        //            mensaje = new MessageBoxForm(Variables.titleprincipal, "Esta trasaccion esta timbrada", TypeIcon.Icon.Cancel);
-                        //            mensaje.ShowDialog();
-                        //        }
-
-
-                        //    }
-                        //    catch (Exception)
-                        //    {
-
-                        //        Facturaelectronica fs = new Facturaelectronica();
-                        //        xmltimbrado = await fs.facturar(transactionSelect.Transaction.Id.ToString(), "ET002", payment.TaxReceipts.FirstOrDefault().FielXML);
-                        //        separadas = xmltimbrado.Split('/');
-                        //        if (separadas[0].ToString() == "error")
-                        //        {
-                        //            mensaje = new MessageBoxForm(Variables.titleprincipal, separadas[1].ToString(), TypeIcon.Icon.Cancel);
-                        //            mensaje.ShowDialog();
-                        //        }
-                        //        else
-                        //        {
-
-                        //        var resultTransactionss = await Requests.SendURIAsync(string.Format("/api/Payments/{0}", transactionSelect.Payment.Id), HttpMethod.Get, Variables.LoginModel.Token);
-                        //        Model.Payment payments = JsonConvert.DeserializeObject<Model.Payment>(resultTransactionss);
-                        //        ExportGridToXML(payments.TaxReceipts.FirstOrDefault(x => x.Status == "ET002").Xml);
-                        //       }
-                        //    }
-                        //}
-                        #endregion
+                      
                         loading.Close();
-
+                    
                 }
 
                 if (e.ColumnIndex == dgvMovimientos.Columns["Cancelar"].Index && e.RowIndex >= 0)
@@ -1352,7 +1269,7 @@ namespace SOAPAP
 
                                         if (payment.TaxReceipts.FirstOrDefault(x => x.Status == "ET002").Xml != null)
                                         {
-                                            mensaje = new MessageBoxForm(Variables.titleprincipal, "Esta transaccion esta timbrada", TypeIcon.Icon.Cancel);
+                                            mensaje = new MessageBoxForm(Variables.titleprincipal, "Esta trasaccion esta timbrada", TypeIcon.Icon.Cancel);
                                             mensaje.ShowDialog();
                                         }
                                         
@@ -1361,44 +1278,20 @@ namespace SOAPAP
                                     {
                                         if(payment.TaxReceipts.Count() > 0)
                                         {
-                                            //Facturaelectronica fst = new Facturaelectronica();
-                                            //xmltimbrado = await fst.facturar(transactionSelect.Transaction.Id.ToString(), "ET002", payment.TaxReceipts.FirstOrDefault().FielXML);
-                                            //separadas = xmltimbrado.Split('/');
-                                            //if (separadas[0].ToString() == "error")
-                                            //{
-                                            //    mensaje = new MessageBoxForm(Variables.titleprincipal, separadas[1].ToString(), TypeIcon.Icon.Cancel);
-                                            //    mensaje.ShowDialog();
-                                            //}
-                                            //else
-                                            //{
-
-                                            //    var resultTransactionss = await Requests.SendURIAsync(string.Format("/api/Payments/{0}", transactionSelect.Payment.Id), HttpMethod.Get, Variables.LoginModel.Token);
-                                            //    Model.Payment payments = JsonConvert.DeserializeObject<Model.Payment>(resultTransactionss);
-                                            //    ExportGridToXML(payments.TaxReceipts.FirstOrDefault(x => x.Status == "ET002").Xml);
-                                            //}
-
                                             Facturaelectronica fst = new Facturaelectronica();
-                                            var response = await fst.CancelaFactura(payment.TaxReceipts.Where(c => c.Status == "ET001").FirstOrDefault().IdXmlFacturama);
-                                            if (xmltimbrado.Contains("Success"))
+                                            xmltimbrado = await fst.facturar(transactionSelect.Transaction.Id.ToString(), "ET002", payment.TaxReceipts.FirstOrDefault().FielXML);
+                                            separadas = xmltimbrado.Split('/');
+                                            if (separadas[0].ToString() == "error")
                                             {
-                                                loading.Close();
-                                                mensaje = new MessageBoxForm(Variables.titleprincipal, "Pago se ha timbtado correctamente - UUid" + xmltimbrado.Split('-')[1], TypeIcon.Icon.Success);
+                                                mensaje = new MessageBoxForm(Variables.titleprincipal, separadas[1].ToString(), TypeIcon.Icon.Cancel);
                                                 mensaje.ShowDialog();
                                             }
                                             else
                                             {
-                                                try
-                                                {
-                                                    mensaje = new MessageBoxForm("Error", JsonConvert.DeserializeObject<Error>(response).error, TypeIcon.Icon.Cancel);
-                                                    result = mensaje.ShowDialog();
-                                                    this.Close();
-                                                }
-                                                catch (Exception)
-                                                {
-                                                    mensaje = new MessageBoxForm("Error", "Servicio no disponible favor de comunicarse con el administrador: -conexion interrumpida-", TypeIcon.Icon.Cancel);
-                                                    result = mensaje.ShowDialog();
-                                                    this.Close();
-                                                }
+
+                                                var resultTransactionss = await Requests.SendURIAsync(string.Format("/api/Payments/{0}", transactionSelect.Payment.Id), HttpMethod.Get, Variables.LoginModel.Token);
+                                                Model.Payment payments = JsonConvert.DeserializeObject<Model.Payment>(resultTransactionss);
+                                                ExportGridToXML(payments.TaxReceipts.FirstOrDefault(x => x.Status == "ET002").Xml);
                                             }
                                         }
                                       
@@ -1521,7 +1414,5 @@ namespace SOAPAP
             dgvMovimientos.Refresh();
             await Total();
         }
-
-        
     }
 }
