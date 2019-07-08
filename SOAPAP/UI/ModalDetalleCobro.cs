@@ -1172,21 +1172,21 @@ namespace SOAPAP.UI
                                 }
                                 if (xmltimbrado.Contains("Success"))
                                 {
-                                    mensaje = new MessageBoxForm(Variables.titleprincipal, "Pago se ha timbtado correctamente - UUid"+ xmltimbrado.Split('-')[1], TypeIcon.Icon.Success);
+                                    mensaje = new MessageBoxForm(Variables.titleprincipal, "Pago timbrado correctamente - UUid"+ xmltimbrado.Split('-')[1], TypeIcon.Icon.Success);
                                     mensaje.ShowDialog();
                                 }
-                                //else
-                                //{
-                                //    loadings.Close();
-                                //    PdfDocument pdfdocument = new PdfDocument();
-                                //    pdfdocument.LoadFromFile(xmltimbrado);
-                                //    pdfdocument.PrinterName = q.ImpresoraPredeterminada();
-                                //    pdfdocument.PrintDocument.PrinterSettings.Copies = 1;
-                                //    pdfdocument.PrintDocument.Print();
-                                //    pdfdocument.Dispose();
-                                    
-                                //    // Directory.Delete(xmltimbrado, true);
-                                //}
+                                else
+                                {
+                                    loadings.Close();
+                                    PdfDocument pdfdocument = new PdfDocument();
+                                    pdfdocument.LoadFromFile(xmltimbrado);
+                                    pdfdocument.PrinterName = q.ImpresoraPredeterminada();
+                                    pdfdocument.PrintDocument.PrinterSettings.Copies = 1;
+                                    pdfdocument.PrintDocument.Print();
+                                    pdfdocument.Dispose();
+
+                                    // Directory.Delete(xmltimbrado, true);
+                                }
 
                             }
                             else

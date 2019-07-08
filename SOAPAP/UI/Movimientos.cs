@@ -1140,12 +1140,12 @@ namespace SOAPAP
                 {
                         string xmltimbrado = string.Empty;
 
-                    using (msgObservacionFactura msgObs = new msgObservacionFactura())
-                    {
-                        msgObs.ShowDialog(this);
-                        textoObservacion = msgObs.TextoObservacion;
-                        textoUsos = msgObs.Usos;
-                    }                        
+                    //using (msgObservacionFactura msgObs = new msgObservacionFactura())
+                    //{
+                    //    msgObs.ShowDialog(this);
+                    //    textoObservacion = msgObs.TextoObservacion;
+                    //    textoUsos = msgObs.Usos;
+                    //}                        
                     
 
                     loading = new Loading();
@@ -1180,8 +1180,8 @@ namespace SOAPAP
 
                                 Facturaelectronica fs = new Facturaelectronica();
                                 //xmltimbrado = await fs.facturar(transactionSelect.Transaction.Id.ToString(), "ET001","");
-                                fs.msgObservacionFactura = textoObservacion;
-                                fs.msgUsos = textoUsos;
+                                //fs.msgObservacionFactura = textoObservacion;
+                                //fs.msgUsos = textoUsos;
                                 xmltimbrado = await fs.generaFactura(transactionSelect.Transaction.Id.ToString(), "ET001");
                                 if (xmltimbrado.Contains("Success"))
                                 {

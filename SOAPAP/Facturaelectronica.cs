@@ -21,6 +21,7 @@ using Facturama.Models;
 using Facturama.Models.Request;
 using Facturama.Services;
 using SOAPAP.PDFManager;
+using SOAPAP.UI.Messages;
 
 namespace SOAPAP
 {
@@ -36,7 +37,7 @@ namespace SOAPAP
         public Facturaelectronica()
         {
             Requests = new RequestsAPI(UrlBase);
-            facturama = new FacturamaApiMultiemisor("gfdsystems", "gfds1st95", false);
+            facturama = new FacturamaApiMultiemisor("gfdsystems", "gfds1st95");
             //facturama = new FacturamaApiMultiemisor("pruebas", "pruebas2011");
         }
         //Metodo del Vic (con calmita...)
@@ -807,8 +808,21 @@ namespace SOAPAP
                 var resultado = await Requests.SendURIAsync(string.Format("/api/Transaction/{0}", idTransaction), HttpMethod.Get, Variables.LoginModel.Token);
                 TransactionVM TraVM = JsonConvert.DeserializeObject<TransactionVM>(resultado);
 
-                var resultados = await Requests.SendURIAsync(string.Format("/api/Agreements/{0}", TraVM.payment.AgreementId), HttpMethod.Get, Variables.LoginModel.Token);
-                Agreement ms = JsonConvert.DeserializeObject<Agreement>(resultados);
+                Agreement ms = null;
+                Model.TaxUser tu = null;
+                if (TraVM.payment.OrderSaleId == 0)
+                {
+                    var resultados = await Requests.SendURIAsync(string.Format("/api/Agreements/{0}", TraVM.payment.AgreementId), HttpMethod.Get, Variables.LoginModel.Token);
+                    ms = JsonConvert.DeserializeObject<Agreement>(resultados);
+                }
+                else
+                {
+                    var resultados = await Requests.SendURIAsync(string.Format("/api/Agreements/{0}", TraVM.payment.AgreementId), HttpMethod.Get, Variables.LoginModel.Token);
+                    ms = JsonConvert.DeserializeObject<Agreement>(resultados);
+                    var resulTaxUs = await Requests.SendURIAsync(string.Format("/api/TaxUsers/{0}", TraVM.orderSale.TaxUserId), HttpMethod.Get, Variables.LoginModel.Token);
+                    tu = JsonConvert.DeserializeObject<Model.TaxUser>(resulTaxUs);
+                }
+                                
                 
                 string registro = RegitraEmisor();
 
@@ -925,26 +939,51 @@ namespace SOAPAP
 
 
                 //NODO: Receptor
-                Client client = ms.Clients.FirstOrDefault(x => x.typeUser == "CLI01");
                 Receiver receptor;
-                if (client != null)
-                {                    
-                    receptor = new Receiver
+                if (TraVM.payment.OrderSaleId == 0)
+                {
+                    Client client = ms.Clients?.FirstOrDefault(x => x.typeUser == "CLI01");                    
+                    if (client != null)
                     {
-                        Rfc = client.rfc,
-                        Name = client.name + " " + client.lastName + " " + client.secondLastName,
-                        CfdiUse = "P01"
-                    };
+                        receptor = new Receiver
+                        {
+                            Rfc = client.rfc,
+                            Name = client.name + " " + client.lastName + " " + client.secondLastName,
+                            CfdiUse = "P01"
+                        };
+                    }
+                    else
+                    {
+                        receptor = new Receiver
+                        {
+                            Rfc = "XAXX010101000",
+                            Name = "Público en General",
+                            CfdiUse = "P01"
+                        };
+                    }
                 }
                 else
                 {                    
-                    receptor = new Receiver
+                    if (tu != null)
                     {
-                        Rfc = "XAXX010101000",
-                        Name = "Público en General",
-                        CfdiUse = "P01"
-                    };
+                        receptor = new Receiver
+                        {
+                            Rfc = tu.RFC,
+                            Name = tu.Name,
+                            CfdiUse = "P01"
+                        };
+                    }
+                    else
+                    {
+                        receptor = new Receiver
+                        {
+                            Rfc = "XAXX010101000",
+                            Name = "Público en General",
+                            CfdiUse = "P01"
+                        };
+                    }
                 }
+                
                 cfdi.Receiver = receptor;
 
 
@@ -1027,16 +1066,42 @@ namespace SOAPAP
 
                 //FIN DEL ARMADO DEL XML
 
+                //Se solicita una obsevacion para cada factura.
+                using (msgObservacionFactura msgObs = new msgObservacionFactura())
+                {
+                    msgObs.ShowDialog();
+                    msgObservacionFactura = msgObs.TextoObservacion;
+                    msgUsos = msgObs.Usos;
+                }
+                
                 string path = GeneraCarpetaDescagasXML();
-                string nombreXML = string.Format("\\{0}_{1}.xml", issuer.Rfc, seriefolio);
+                string nombreXML = string.Format("\\{0}_{1}_{2}.xml", issuer.Rfc, receptor.Rfc , seriefolio);
+                string nombrePDF = string.Format("\\{0}_{1}_{2}.pdf", issuer.Rfc, receptor.Rfc, seriefolio);
 
                 Facturama.Models.Response.Cfdi cfdiFacturama = TimbrarAnteFacturama(cfdi, path + nombreXML);
                 string XML = LeerXML(path + nombreXML);
                 string resGuardado = await guardarXMLenBD(XML, cfdiFacturama.Complement.TaxStamp.Uuid, receptor.Rfc, TipoFactura, status, TraVM.payment.Id, cfdiFacturama.Id);
                 string resActPay = await actualizarPaymentConFactura(TraVM.payment);
+                
                 CreatePDF pDF = new CreatePDF(cfdi, cfdiFacturama, ms.account);
-                pDF.Create();
-                return "Success -"+ cfdiFacturama.Complement.TaxStamp.Uuid;
+                pDF.UsoCFDI = string.IsNullOrEmpty(msgUsos) ? "P01 - Por definir" : msgUsos;
+                if(TraVM.payment.OrderSaleId == 0)
+                    pDF.ObservacionCFDI =  (string.IsNullOrEmpty(msgObservacionFactura) ? "" : msgObservacionFactura) ;
+                else
+                {
+                    pDF.ObservacionCFDI = (string.IsNullOrEmpty(TraVM.orderSale.Observation) ? "" : TraVM.orderSale.Observation + " - ") + (string.IsNullOrEmpty(msgObservacionFactura) ? "" : msgObservacionFactura);
+                }
+                string resPdf;
+                if (TraVM.payment.OrderSaleId == 0) //Servicio
+                    resPdf = await pDF.Create(path + nombrePDF);
+                else
+                {
+                    TraVM.orderSale.TaxUser = tu;
+                    resPdf = await pDF.CreateForOrder(TraVM.orderSale, path + nombrePDF);
+                }
+                
+                //return "Success -"+ cfdiFacturama.Complement.TaxStamp.Uuid;
+                return resPdf;
             }
             catch (Exception ex)
             {
@@ -1157,7 +1222,7 @@ namespace SOAPAP
 
         private string GeneraCarpetaDescagasXML()
         {
-            string path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\DownloadXML";
+            string path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Facturas";
 
             try
             {
@@ -1238,7 +1303,7 @@ namespace SOAPAP
                 return "error: No se pudo actualizar Payment";
             }
         }
-
+        
     }
 
 }
