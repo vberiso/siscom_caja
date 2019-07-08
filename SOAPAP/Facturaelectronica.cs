@@ -38,7 +38,7 @@ namespace SOAPAP
         public Facturaelectronica()
         {
             Requests = new RequestsAPI(UrlBase);
-            facturama = new FacturamaApiMultiemisor("gfdsystems", "gfds1st95");
+            facturama = new FacturamaApiMultiemisor("gfdsystems", "gfds1st95", false);
             //facturama = new FacturamaApiMultiemisor("pruebas", "pruebas2011");
         }
         //Metodo del Vic (con calmita...)
@@ -867,7 +867,7 @@ namespace SOAPAP
                 {
                     Serie = serie,
                     Folio = folio,
-                    Date = DateTime.Now,
+                    //Date = DateTime.Now.AddMinutes(-5),
                     PaymentForm = TraVM.transaction.payMethod.code,
                     Currency = "MXN",
                     CfdiType = CfdiType.Ingreso,
@@ -1080,29 +1080,37 @@ namespace SOAPAP
                 string nombrePDF = string.Format("\\{0}_{1}_{2}.pdf", issuer.Rfc, receptor.Rfc, seriefolio);
 
                 Facturama.Models.Response.Cfdi cfdiFacturama = TimbrarAnteFacturama(cfdi, path + nombreXML);
-                string XML = LeerXML(path + nombreXML);
-                TaxReceipt resGuardado = await guardarXMLenBD(XML, cfdiFacturama.Complement.TaxStamp.Uuid, receptor.Rfc, TipoFactura, status, TraVM.payment.Id, cfdiFacturama.Id);
-                string resActPay = await actualizarPaymentConFactura(TraVM.payment);
-                
-                CreatePDF pDF = new CreatePDF(cfdi, cfdiFacturama, ms.account, resGuardado);
-                pDF.UsoCFDI = string.IsNullOrEmpty(msgUsos) ? "P01 - Por definir" : msgUsos;
-                if(TraVM.payment.OrderSaleId == 0)
-                    pDF.ObservacionCFDI =  (string.IsNullOrEmpty(msgObservacionFactura) ? "" : msgObservacionFactura) ;
+
+                if(cfdiFacturama != null)
+                {
+                    string XML = LeerXML(path + nombreXML);
+                    TaxReceipt resGuardado = await guardarXMLenBD(XML, cfdiFacturama.Complement.TaxStamp.Uuid, receptor.Rfc, TipoFactura, status, TraVM.payment.Id, cfdiFacturama.Id);
+                    string resActPay = await actualizarPaymentConFactura(TraVM.payment);
+
+                    CreatePDF pDF = new CreatePDF(cfdi, cfdiFacturama, ms.account, resGuardado);
+                    pDF.UsoCFDI = string.IsNullOrEmpty(msgUsos) ? "P01 - Por definir" : msgUsos;
+                    if (TraVM.payment.OrderSaleId == 0)
+                        pDF.ObservacionCFDI = (string.IsNullOrEmpty(msgObservacionFactura) ? "" : msgObservacionFactura);
+                    else
+                    {
+                        pDF.ObservacionCFDI = (string.IsNullOrEmpty(TraVM.orderSale.Observation) ? "" : TraVM.orderSale.Observation + " - ") + (string.IsNullOrEmpty(msgObservacionFactura) ? "" : msgObservacionFactura);
+                    }
+                    string resPdf;
+                    if (TraVM.payment.OrderSaleId == 0) //Servicio
+                        resPdf = await pDF.Create(path + nombrePDF);
+                    else
+                    {
+                        TraVM.orderSale.TaxUser = tu;
+                        resPdf = await pDF.CreateForOrder(TraVM.orderSale, path + nombrePDF);
+                    }
+
+                    //return "Success -"+ cfdiFacturama.Complement.TaxStamp.Uuid;
+                    return resPdf;
+                }
                 else
                 {
-                    pDF.ObservacionCFDI = (string.IsNullOrEmpty(TraVM.orderSale.Observation) ? "" : TraVM.orderSale.Observation + " - ") + (string.IsNullOrEmpty(msgObservacionFactura) ? "" : msgObservacionFactura);
-                }
-                string resPdf;
-                if (TraVM.payment.OrderSaleId == 0) //Servicio
-                    resPdf = await pDF.Create(path + nombrePDF);
-                else
-                {
-                    TraVM.orderSale.TaxUser = tu;
-                    resPdf = await pDF.CreateForOrder(TraVM.orderSale, path + nombrePDF);
-                }
-                
-                //return "Success -"+ cfdiFacturama.Complement.TaxStamp.Uuid;
-                return resPdf;
+                    return "error: El cobro fue registrado en BD, pero no pudo generarse la factura, consulte al administrador.";
+                }                
             }
             catch (Exception ex)
             {

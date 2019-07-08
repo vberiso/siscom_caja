@@ -162,6 +162,22 @@ namespace SOAPAP.PDFManager
                 //ExportGridToPDF(pdfBuffer);
                 //Se guarda en memoria el Pdf
                 System.IO.File.WriteAllBytes(PathNombrePdf, pdfBuffer);
+
+                StringContent @string = new StringContent(JsonConvert.SerializeObject(TaxReceipt), Encoding.UTF8, "application/json");
+                var UploadPDF = await Requests.UploadImageToServer("/api/TaxReceipt/AddPDF", Variables.LoginModel.Token, PathNombrePdf, @string);
+                if (UploadPDF.Contains("error"))
+                {
+                    try
+                    {
+                        mensaje = new MessageBoxForm("Error", JsonConvert.DeserializeObject<Error>(UploadPDF).error, TypeIcon.Icon.Cancel);
+                        result = mensaje.ShowDialog();
+                    }
+                    catch (Exception)
+                    {
+                        mensaje = new MessageBoxForm("Error", "Servicio no disponible favor de comunicarse con el administrador: -conexion interrumpida-", TypeIcon.Icon.Cancel);
+                        result = mensaje.ShowDialog();
+                    }
+                }
                 return PathNombrePdf;
             }
             catch (Exception e)
