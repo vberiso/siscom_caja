@@ -105,7 +105,7 @@ namespace SOAPAP.PDFManager
             }
             catch (Exception e)
             {
-                return "No pudo crearse Pdf.";
+                return "error: No pudo crearse Pdf.";
             }
         }
 
@@ -148,7 +148,7 @@ namespace SOAPAP.PDFManager
             }
             catch (Exception e)
             {
-                return "No pudo guardarse el archivo Pdf.";
+                return "error: No pudo guardarse el archivo Pdf.";
             }
         }
 
