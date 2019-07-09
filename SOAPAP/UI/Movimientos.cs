@@ -918,12 +918,13 @@ namespace SOAPAP
         {
             string[] separadas;
             DataTable dt1 = new DataTable();
-            Model.TransactionPaymentVM transactionSelect = new Model.TransactionPaymentVM();
-            transactionSelect.Transaction = new Model.Transaction();
-            transactionSelect.Payment = new Model.Payment();
+            
 
             if (e.RowIndex >= 0)
             {
+                Model.TransactionPaymentVM transactionSelect = new Model.TransactionPaymentVM();
+                transactionSelect.Transaction = new Model.Transaction();
+                transactionSelect.Payment = new Model.Payment();
                 DataGridViewRow row = this.dgvMovimientos.Rows[e.RowIndex];
                 transactionSelect.Transaction.Id = !String.IsNullOrEmpty(row.Cells["Id"].Value.ToString()) ? Convert.ToInt32(row.Cells["Id"].Value) : 0;
 
@@ -1297,7 +1298,14 @@ namespace SOAPAP
                                       
                                     }
 
+                                    //loading = new Loading();
+                                    //loading.Show(this);
+                                    //alzheimer();
+                                    //await cargaCombos();
+                                    await Total();
                                     await cargar();
+                                    //label1.Text = "FECHA:" + DateTime.Now.ToString("dd-MM-yyyy");
+                                    //loading.Close();
                                 }
                                 loading.Close();
                             }

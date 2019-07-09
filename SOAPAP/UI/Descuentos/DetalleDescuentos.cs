@@ -144,7 +144,7 @@ namespace SOAPAP.UI.Descuentos
                         {
                             EnsureVisibleRow(dgvDiscounts, item.Index);
                             dgvDiscounts.Refresh();
-                            account = item.Cells[2].FormattedValue.ToString();
+                            account = item.Cells["Ajuste_Cuenta"].FormattedValue.ToString();
                             dgvDiscounts.Rows[item.Index].Selected = true;
                         }
                     }

@@ -42,38 +42,39 @@ namespace SOAPAP.UI
 
             //CreatePDF pDF = new CreatePDF();
             //pDF.Create();
+            //var printQueue = System.Printing.LocalPrintServer.GetDefaultPrintQueue();
             Configuration configuration = new Configuration();
             Variables.Configuration = configuration;
 
-            //InstallUpdateSyncWithInfo.InstallUpdateSyncWithInfoApplication();
-            //var version = await Requests.SendURIAsync("/api/VersionApps", HttpMethod.Get);
-            //if (version.Contains("error"))
-            //{
-            //    try
-            //    {
-            //        DialogResult result = new DialogResult();
-            //        Form mensaje = new MessageBoxForm("Error", JsonConvert.DeserializeObject<Error>(version).error, TypeIcon.Icon.Cancel);
-            //        result = mensaje.ShowDialog();
-            //        this.Close();
-            //    }
-            //    catch (Exception)
-            //    {
-            //        DialogResult result = new DialogResult();
-            //        Form mensaje = new MessageBoxForm("Error", "Servicio no disponible favor de comunicarse con el administrador: -conexion interrumpida-", TypeIcon.Icon.Cancel);
-            //        result = mensaje.ShowDialog();
-            //        this.Close();
-            //    }
-            //}
-            //List<VersionApp> versionApp = JsonConvert.DeserializeObject<List<VersionApp>>(version);
+            InstallUpdateSyncWithInfo.InstallUpdateSyncWithInfoApplication();
+            var version = await Requests.SendURIAsync("/api/VersionApps", HttpMethod.Get);
+            if (version.Contains("error"))
+            {
+                try
+                {
+                    DialogResult result = new DialogResult();
+                    Form mensaje = new MessageBoxForm("Error", JsonConvert.DeserializeObject<Error>(version).error, TypeIcon.Icon.Cancel);
+                    result = mensaje.ShowDialog();
+                    this.Close();
+                }
+                catch (Exception)
+                {
+                    DialogResult result = new DialogResult();
+                    Form mensaje = new MessageBoxForm("Error", "Servicio no disponible favor de comunicarse con el administrador: -conexion interrumpida-", TypeIcon.Icon.Cancel);
+                    result = mensaje.ShowDialog();
+                    this.Close();
+                }
+            }
+            List<VersionApp> versionApp = JsonConvert.DeserializeObject<List<VersionApp>>(version);
 
-            //configuration.VersionApp = versionApp.FirstOrDefault();
-            //if(configuration.VersionApp == null)
-            //{
-            //    DialogResult result = new DialogResult();
-            //    Form mensaje = new MessageBoxForm("Error", "La aplicación no está disponible por el momento estamos trabajando para mejorar el producto, disculpe las molestias", TypeIcon.Icon.Cancel);
-            //    result = mensaje.ShowDialog();
-            //    this.Close();
-            //}
+            configuration.VersionApp = versionApp.FirstOrDefault();
+            if (configuration.VersionApp == null)
+            {
+                DialogResult result = new DialogResult();
+                Form mensaje = new MessageBoxForm("Error", "La aplicación no está disponible por el momento estamos trabajando para mejorar el producto, disculpe las molestias", TypeIcon.Icon.Cancel);
+                result = mensaje.ShowDialog();
+                this.Close();
+            }
 
             lblProgress.Text = "Conectando.....";
             var data = ValidResponse(await Requests.SendURIAsync("/api/ValueParameters?value=RFC", HttpMethod.Get));

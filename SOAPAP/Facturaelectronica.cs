@@ -39,6 +39,7 @@ namespace SOAPAP
         {
             Requests = new RequestsAPI(UrlBase);
             facturama = new FacturamaApiMultiemisor("gfdsystems", "gfds1st95", false);
+            //facturama = new FacturamaApiMultiemisor("gfdsystems", "gfds1st95");
             //facturama = new FacturamaApiMultiemisor("pruebas", "pruebas2011");
         }
         //Metodo del Vic (con calmita...)
@@ -1000,19 +1001,20 @@ namespace SOAPAP
                         Item item = new Item()
                         {
                             ProductCode = TraVM.ClavesProdServ.Where(x => x.CodeConcep == pay.CodeConcept && x.Tipo == pay.Type).Select(y => y.ClaveProdServ).FirstOrDefault(),
-                            IdentificationNumber = "S" + pay.CodeConcept,                            
                             UnitCode = pay.UnitMeasurement,
                             Unit = "NO APLICA",
                             Description = pay.Description + " Periodo de:" + pay.Debt.FromDate.ToString("yyyy-MM-dd") + " hasta: " + pay.Debt.UntilDate.ToString("yyyy-MM-dd"),
+
                             UnitPrice = pay.Debt.DebtDetails.Where(x => x.CodeConcept == pay.CodeConcept).Select(y => y.Amount).FirstOrDefault() + pay.Debt.DebtDiscounts.Where(x => x.CodeConcept == pay.CodeConcept).Select(y => y.DiscountAmount).FirstOrDefault(),
                             Quantity = pay.Debt.DebtDetails.Where(x => x.CodeConcept == pay.CodeConcept).Select(y => y.quantity).FirstOrDefault(),
+
                             Subtotal = pay.Debt.DebtDetails.Where(x => x.CodeConcept == pay.CodeConcept).Select(y => y.Amount).FirstOrDefault() + pay.Debt.DebtDiscounts.Where(x => x.CodeConcept == pay.CodeConcept).Select(y => y.DiscountAmount).FirstOrDefault(),  
                             Discount = pay.Debt.DebtDiscounts.Where(x => x.CodeConcept == pay.CodeConcept).Select(y => y.DiscountAmount).FirstOrDefault(),
-                            Total = pay.Amount + pay.Tax
+                            Total = pay.Amount + pay.Tax                            
                         };
                         if (pay.HaveTax == true)
                         {
-                            List<Tax> lstTaxs = new List<Tax>() { 
+                            List<Tax> lstTaxs = new List<Tax>() {
                                 new Tax()
                                 {
                                     Base = pay.Amount,
@@ -1021,8 +1023,8 @@ namespace SOAPAP
                                     Total = pay.Tax,
                                     IsRetention = false
                                 }
-                            };
-                            item.Taxes = lstTaxs;                                             
+                            };                                    
+                            item.Taxes = lstTaxs;
                         }
                         lstItems.Add(item);
                     }
@@ -1041,6 +1043,7 @@ namespace SOAPAP
                             Description = Or.Description,
                             UnitPrice = Or.UnitPrice,
                             Quantity = Or.Quantity,
+                           
                             Subtotal = Or.OnAccount + TraVM.orderSale.OrderSaleDiscounts.Where(x => x.CodeConcept == Or.CodeConcept).Select(y => y.DiscountAmount).FirstOrDefault(),
                             Discount = TraVM.orderSale.OrderSaleDiscounts.Where(x => x.CodeConcept == Or.CodeConcept).Select(y => y.DiscountAmount).FirstOrDefault() ,
                             Total = Or.Amount + TraVM.payment.PaymentDetails.Where(x => x.CodeConcept == Or.CodeConcept && x.Amount == Or.Amount).FirstOrDefault().Tax

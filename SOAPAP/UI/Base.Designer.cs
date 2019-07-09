@@ -110,7 +110,8 @@
             this.label1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(33)))), ((int)(((byte)(41)))));
             this.label1.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(28, 6);
+            this.label1.Location = new System.Drawing.Point(42, 9);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(61, 16);
             this.label1.TabIndex = 25;
@@ -122,7 +123,8 @@
             this.label4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(50)))), ((int)(((byte)(62)))));
             this.label4.Font = new System.Drawing.Font("Arial", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.ForeColor = System.Drawing.Color.Gray;
-            this.label4.Location = new System.Drawing.Point(8, 274);
+            this.label4.Location = new System.Drawing.Point(12, 422);
+            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(115, 14);
             this.label4.TabIndex = 28;
@@ -132,18 +134,20 @@
             // 
             this.pnlContenido.Controls.Add(this.pictureBox2);
             this.pnlContenido.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlContenido.Location = new System.Drawing.Point(233, 49);
+            this.pnlContenido.Location = new System.Drawing.Point(350, 75);
+            this.pnlContenido.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.pnlContenido.Name = "pnlContenido";
-            this.pnlContenido.Size = new System.Drawing.Size(842, 660);
+            this.pnlContenido.Size = new System.Drawing.Size(1262, 988);
             this.pnlContenido.TabIndex = 31;
             // 
             // pictureBox2
             // 
             this.pictureBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureBox2.Image = global::SOAPAP.Properties.Resources.cubo;
-            this.pictureBox2.Location = new System.Drawing.Point(697, 477);
+            this.pictureBox2.Location = new System.Drawing.Point(1045, 707);
+            this.pictureBox2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(142, 158);
+            this.pictureBox2.Size = new System.Drawing.Size(213, 243);
             this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox2.TabIndex = 0;
             this.pictureBox2.TabStop = false;
@@ -152,9 +156,10 @@
             // 
             this.pnlBottom.Controls.Add(this.statusStrip1);
             this.pnlBottom.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.pnlBottom.Location = new System.Drawing.Point(233, 685);
+            this.pnlBottom.Location = new System.Drawing.Point(350, 1026);
+            this.pnlBottom.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.pnlBottom.Name = "pnlBottom";
-            this.pnlBottom.Size = new System.Drawing.Size(842, 24);
+            this.pnlBottom.Size = new System.Drawing.Size(1262, 37);
             this.pnlBottom.TabIndex = 1;
             // 
             // statusStrip1
@@ -165,10 +170,11 @@
             this.tslTerminal,
             this.tslMac,
             this.tslVersion});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 2);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 15);
             this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Padding = new System.Windows.Forms.Padding(21, 0, 2, 0);
             this.statusStrip1.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.statusStrip1.Size = new System.Drawing.Size(842, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(1262, 22);
             this.statusStrip1.TabIndex = 37;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -206,9 +212,10 @@
             // 
             this.pnlMenu.Controls.Add(this.msPrincipal);
             this.pnlMenu.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pnlMenu.Location = new System.Drawing.Point(233, 0);
+            this.pnlMenu.Location = new System.Drawing.Point(350, 0);
+            this.pnlMenu.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.pnlMenu.Name = "pnlMenu";
-            this.pnlMenu.Size = new System.Drawing.Size(842, 49);
+            this.pnlMenu.Size = new System.Drawing.Size(1262, 75);
             this.pnlMenu.TabIndex = 41;
             this.pnlMenu.Paint += new System.Windows.Forms.PaintEventHandler(this.pnlMenu_Paint);
             // 
@@ -224,9 +231,9 @@
             this.notificacionesToolStripMenuItem});
             this.msPrincipal.Location = new System.Drawing.Point(0, 0);
             this.msPrincipal.Name = "msPrincipal";
-            this.msPrincipal.Padding = new System.Windows.Forms.Padding(6, 2, 20, 2);
+            this.msPrincipal.Padding = new System.Windows.Forms.Padding(9, 3, 30, 3);
             this.msPrincipal.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.msPrincipal.Size = new System.Drawing.Size(842, 49);
+            this.msPrincipal.Size = new System.Drawing.Size(1262, 75);
             this.msPrincipal.TabIndex = 0;
             this.msPrincipal.Text = "menuStrip1";
             // 
@@ -241,7 +248,7 @@
             this.usuarioToolStripMenuItem.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.usuarioToolStripMenuItem.Name = "usuarioToolStripMenuItem";
             this.usuarioToolStripMenuItem.Padding = new System.Windows.Forms.Padding(4, 0, 19, 0);
-            this.usuarioToolStripMenuItem.Size = new System.Drawing.Size(123, 45);
+            this.usuarioToolStripMenuItem.Size = new System.Drawing.Size(123, 69);
             this.usuarioToolStripMenuItem.Text = "   Usuario";
             this.usuarioToolStripMenuItem.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.usuarioToolStripMenuItem.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
@@ -280,7 +287,7 @@
             this.reportesToolStripMenuItem.Image = global::SOAPAP.Properties.Resources.file;
             this.reportesToolStripMenuItem.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.reportesToolStripMenuItem.Name = "reportesToolStripMenuItem";
-            this.reportesToolStripMenuItem.Size = new System.Drawing.Size(104, 45);
+            this.reportesToolStripMenuItem.Size = new System.Drawing.Size(104, 69);
             this.reportesToolStripMenuItem.Text = "Reportes";
             this.reportesToolStripMenuItem.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.reportesToolStripMenuItem.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
@@ -397,7 +404,7 @@
             this.opcionesToolStripMenuItem.ForeColor = System.Drawing.Color.DimGray;
             this.opcionesToolStripMenuItem.Name = "opcionesToolStripMenuItem";
             this.opcionesToolStripMenuItem.Padding = new System.Windows.Forms.Padding(4, 0, 19, 0);
-            this.opcionesToolStripMenuItem.Size = new System.Drawing.Size(102, 45);
+            this.opcionesToolStripMenuItem.Size = new System.Drawing.Size(102, 69);
             this.opcionesToolStripMenuItem.Text = "Opciones";
             this.opcionesToolStripMenuItem.Visible = false;
             // 
@@ -432,7 +439,7 @@
             this.notificacionesToolStripMenuItem.ForeColor = System.Drawing.Color.DimGray;
             this.notificacionesToolStripMenuItem.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.notificacionesToolStripMenuItem.Name = "notificacionesToolStripMenuItem";
-            this.notificacionesToolStripMenuItem.Size = new System.Drawing.Size(120, 45);
+            this.notificacionesToolStripMenuItem.Size = new System.Drawing.Size(120, 69);
             this.notificacionesToolStripMenuItem.Text = "Notificaciones";
             // 
             // lblEstadoCaja
@@ -442,9 +449,10 @@
             this.lblEstadoCaja.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblEstadoCaja.ForeColor = System.Drawing.Color.DarkGray;
             this.lblEstadoCaja.Location = new System.Drawing.Point(0, 0);
-            this.lblEstadoCaja.MaximumSize = new System.Drawing.Size(233, 0);
+            this.lblEstadoCaja.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblEstadoCaja.MaximumSize = new System.Drawing.Size(350, 0);
             this.lblEstadoCaja.Name = "lblEstadoCaja";
-            this.lblEstadoCaja.Size = new System.Drawing.Size(233, 25);
+            this.lblEstadoCaja.Size = new System.Drawing.Size(350, 38);
             this.lblEstadoCaja.TabIndex = 1;
             this.lblEstadoCaja.Text = "Abierta";
             this.lblEstadoCaja.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -472,8 +480,9 @@
             this.pnlLeft.Controls.Add(this.pictureBox3);
             this.pnlLeft.Dock = System.Windows.Forms.DockStyle.Left;
             this.pnlLeft.Location = new System.Drawing.Point(0, 0);
+            this.pnlLeft.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.pnlLeft.Name = "pnlLeft";
-            this.pnlLeft.Size = new System.Drawing.Size(233, 709);
+            this.pnlLeft.Size = new System.Drawing.Size(350, 1063);
             this.pnlLeft.TabIndex = 42;
             // 
             // btnHistorial
@@ -486,9 +495,10 @@
             this.btnHistorial.ForeColor = System.Drawing.Color.White;
             this.btnHistorial.Image = global::SOAPAP.Properties.Resources.Historial;
             this.btnHistorial.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnHistorial.Location = new System.Drawing.Point(8, 381);
+            this.btnHistorial.Location = new System.Drawing.Point(12, 586);
+            this.btnHistorial.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnHistorial.Name = "btnHistorial";
-            this.btnHistorial.Size = new System.Drawing.Size(210, 56);
+            this.btnHistorial.Size = new System.Drawing.Size(315, 86);
             this.btnHistorial.TabIndex = 41;
             this.btnHistorial.Text = "   Operación de caja             historico";
             this.btnHistorial.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -503,7 +513,8 @@
             this.label2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(50)))), ((int)(((byte)(62)))));
             this.label2.Font = new System.Drawing.Font("Arial", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.Color.Gray;
-            this.label2.Location = new System.Drawing.Point(9, 369);
+            this.label2.Location = new System.Drawing.Point(14, 568);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(79, 14);
             this.label2.TabIndex = 47;
@@ -513,9 +524,10 @@
             // 
             this.pnlTitulo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(33)))), ((int)(((byte)(41)))));
             this.pnlTitulo.Controls.Add(this.lblTitulo);
-            this.pnlTitulo.Location = new System.Drawing.Point(0, 43);
+            this.pnlTitulo.Location = new System.Drawing.Point(0, 66);
+            this.pnlTitulo.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.pnlTitulo.Name = "pnlTitulo";
-            this.pnlTitulo.Size = new System.Drawing.Size(233, 30);
+            this.pnlTitulo.Size = new System.Drawing.Size(350, 46);
             this.pnlTitulo.TabIndex = 46;
             // 
             // lblTitulo
@@ -525,8 +537,9 @@
             this.lblTitulo.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTitulo.ForeColor = System.Drawing.Color.White;
             this.lblTitulo.Location = new System.Drawing.Point(0, 0);
+            this.lblTitulo.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblTitulo.Name = "lblTitulo";
-            this.lblTitulo.Size = new System.Drawing.Size(233, 30);
+            this.lblTitulo.Size = new System.Drawing.Size(350, 46);
             this.lblTitulo.TabIndex = 42;
             this.lblTitulo.Text = "Terminal";
             this.lblTitulo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -535,9 +548,10 @@
             // 
             this.pnlTerminal.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(33)))), ((int)(((byte)(41)))));
             this.pnlTerminal.Controls.Add(this.lblTerminal);
-            this.pnlTerminal.Location = new System.Drawing.Point(0, 66);
+            this.pnlTerminal.Location = new System.Drawing.Point(0, 102);
+            this.pnlTerminal.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.pnlTerminal.Name = "pnlTerminal";
-            this.pnlTerminal.Size = new System.Drawing.Size(233, 40);
+            this.pnlTerminal.Size = new System.Drawing.Size(350, 62);
             this.pnlTerminal.TabIndex = 45;
             // 
             // lblTerminal
@@ -547,8 +561,9 @@
             this.lblTerminal.Font = new System.Drawing.Font("Segoe UI", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTerminal.ForeColor = System.Drawing.Color.White;
             this.lblTerminal.Location = new System.Drawing.Point(0, 0);
+            this.lblTerminal.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblTerminal.Name = "lblTerminal";
-            this.lblTerminal.Size = new System.Drawing.Size(233, 40);
+            this.lblTerminal.Size = new System.Drawing.Size(350, 62);
             this.lblTerminal.TabIndex = 14;
             this.lblTerminal.Text = "0";
             this.lblTerminal.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -557,18 +572,20 @@
             // 
             this.pnlEstadoOperacion.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(33)))), ((int)(((byte)(41)))));
             this.pnlEstadoOperacion.Controls.Add(this.lblEstadoCaja);
-            this.pnlEstadoOperacion.Location = new System.Drawing.Point(0, 108);
+            this.pnlEstadoOperacion.Location = new System.Drawing.Point(0, 166);
+            this.pnlEstadoOperacion.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.pnlEstadoOperacion.Name = "pnlEstadoOperacion";
-            this.pnlEstadoOperacion.Size = new System.Drawing.Size(233, 25);
+            this.pnlEstadoOperacion.Size = new System.Drawing.Size(350, 38);
             this.pnlEstadoOperacion.TabIndex = 44;
             // 
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(33)))), ((int)(((byte)(41)))));
             this.panel1.Controls.Add(this.lblDivition);
-            this.panel1.Location = new System.Drawing.Point(3, 135);
+            this.panel1.Location = new System.Drawing.Point(4, 208);
+            this.panel1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(230, 25);
+            this.panel1.Size = new System.Drawing.Size(345, 38);
             this.panel1.TabIndex = 45;
             // 
             // lblDivition
@@ -578,9 +595,10 @@
             this.lblDivition.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblDivition.ForeColor = System.Drawing.Color.DarkGray;
             this.lblDivition.Location = new System.Drawing.Point(0, 0);
-            this.lblDivition.MaximumSize = new System.Drawing.Size(233, 0);
+            this.lblDivition.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblDivition.MaximumSize = new System.Drawing.Size(350, 0);
             this.lblDivition.Name = "lblDivition";
-            this.lblDivition.Size = new System.Drawing.Size(230, 25);
+            this.lblDivition.Size = new System.Drawing.Size(345, 38);
             this.lblDivition.TabIndex = 1;
             this.lblDivition.Text = "Caja";
             this.lblDivition.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -595,9 +613,10 @@
             this.btnProductos.ForeColor = System.Drawing.Color.White;
             this.btnProductos.Image = global::SOAPAP.Properties.Resources.productos;
             this.btnProductos.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnProductos.Location = new System.Drawing.Point(8, 519);
+            this.btnProductos.Location = new System.Drawing.Point(12, 798);
+            this.btnProductos.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnProductos.Name = "btnProductos";
-            this.btnProductos.Size = new System.Drawing.Size(210, 38);
+            this.btnProductos.Size = new System.Drawing.Size(315, 58);
             this.btnProductos.TabIndex = 43;
             this.btnProductos.Text = "   Ordenes";
             this.btnProductos.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -608,9 +627,10 @@
             // pbxLogoEmpresa
             // 
             this.pbxLogoEmpresa.BackColor = System.Drawing.Color.White;
-            this.pbxLogoEmpresa.Location = new System.Drawing.Point(91, 193);
+            this.pbxLogoEmpresa.Location = new System.Drawing.Point(136, 297);
+            this.pbxLogoEmpresa.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.pbxLogoEmpresa.Name = "pbxLogoEmpresa";
-            this.pbxLogoEmpresa.Size = new System.Drawing.Size(50, 50);
+            this.pbxLogoEmpresa.Size = new System.Drawing.Size(75, 77);
             this.pbxLogoEmpresa.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pbxLogoEmpresa.TabIndex = 29;
             this.pbxLogoEmpresa.TabStop = false;
@@ -618,9 +638,10 @@
             // pictureBox6
             // 
             this.pictureBox6.Image = global::SOAPAP.Properties.Resources.fondo_logo;
-            this.pictureBox6.Location = new System.Drawing.Point(66, 171);
+            this.pictureBox6.Location = new System.Drawing.Point(99, 263);
+            this.pictureBox6.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.pictureBox6.Name = "pictureBox6";
-            this.pictureBox6.Size = new System.Drawing.Size(100, 100);
+            this.pictureBox6.Size = new System.Drawing.Size(150, 154);
             this.pictureBox6.TabIndex = 41;
             this.pictureBox6.TabStop = false;
             // 
@@ -634,9 +655,10 @@
             this.btnMovimientos.ForeColor = System.Drawing.Color.White;
             this.btnMovimientos.Image = global::SOAPAP.Properties.Resources.movimientos;
             this.btnMovimientos.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnMovimientos.Location = new System.Drawing.Point(8, 325);
+            this.btnMovimientos.Location = new System.Drawing.Point(12, 500);
+            this.btnMovimientos.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnMovimientos.Name = "btnMovimientos";
-            this.btnMovimientos.Size = new System.Drawing.Size(210, 38);
+            this.btnMovimientos.Size = new System.Drawing.Size(315, 58);
             this.btnMovimientos.TabIndex = 39;
             this.btnMovimientos.Text = "   Movimientos";
             this.btnMovimientos.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -649,9 +671,10 @@
             // 
             this.pictureBox4.BackColor = System.Drawing.Color.Transparent;
             this.pictureBox4.Image = global::SOAPAP.Properties.Resources.cubo;
-            this.pictureBox4.Location = new System.Drawing.Point(3, 2);
+            this.pictureBox4.Location = new System.Drawing.Point(4, 3);
+            this.pictureBox4.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.pictureBox4.Name = "pictureBox4";
-            this.pictureBox4.Size = new System.Drawing.Size(25, 25);
+            this.pictureBox4.Size = new System.Drawing.Size(38, 38);
             this.pictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox4.TabIndex = 24;
             this.pictureBox4.TabStop = false;
@@ -667,9 +690,10 @@
             this.btnCobro.ForeColor = System.Drawing.Color.White;
             this.btnCobro.Image = global::SOAPAP.Properties.Resources.cobro;
             this.btnCobro.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnCobro.Location = new System.Drawing.Point(8, 478);
+            this.btnCobro.Location = new System.Drawing.Point(12, 735);
+            this.btnCobro.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnCobro.Name = "btnCobro";
-            this.btnCobro.Size = new System.Drawing.Size(210, 38);
+            this.btnCobro.Size = new System.Drawing.Size(315, 58);
             this.btnCobro.TabIndex = 5;
             this.btnCobro.Text = "   Cobro";
             this.btnCobro.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -682,8 +706,9 @@
             // 
             this.pictureBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(33)))), ((int)(((byte)(41)))));
             this.pictureBox1.Location = new System.Drawing.Point(0, 0);
+            this.pictureBox1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(233, 222);
+            this.pictureBox1.Size = new System.Drawing.Size(350, 342);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 22;
             this.pictureBox1.TabStop = false;
@@ -698,10 +723,11 @@
             this.btnApertura.ForeColor = System.Drawing.Color.White;
             this.btnApertura.Image = global::SOAPAP.Properties.Resources.cerrar_caja;
             this.btnApertura.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnApertura.Location = new System.Drawing.Point(8, 289);
+            this.btnApertura.Location = new System.Drawing.Point(12, 445);
+            this.btnApertura.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnApertura.Name = "btnApertura";
             this.btnApertura.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.btnApertura.Size = new System.Drawing.Size(210, 38);
+            this.btnApertura.Size = new System.Drawing.Size(315, 58);
             this.btnApertura.TabIndex = 3;
             this.btnApertura.Text = "   Aperturar de Caja";
             this.btnApertura.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -720,9 +746,10 @@
             this.btnBuscar.ForeColor = System.Drawing.Color.White;
             this.btnBuscar.Image = global::SOAPAP.Properties.Resources.buscar;
             this.btnBuscar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnBuscar.Location = new System.Drawing.Point(8, 436);
+            this.btnBuscar.Location = new System.Drawing.Point(12, 671);
+            this.btnBuscar.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnBuscar.Name = "btnBuscar";
-            this.btnBuscar.Size = new System.Drawing.Size(210, 38);
+            this.btnBuscar.Size = new System.Drawing.Size(315, 58);
             this.btnBuscar.TabIndex = 33;
             this.btnBuscar.Text = "   Buscar";
             this.btnBuscar.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -735,9 +762,10 @@
             // 
             this.pictureBox3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
-            this.pictureBox3.Location = new System.Drawing.Point(0, 221);
+            this.pictureBox3.Location = new System.Drawing.Point(0, 340);
+            this.pictureBox3.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.pictureBox3.Name = "pictureBox3";
-            this.pictureBox3.Size = new System.Drawing.Size(233, 488);
+            this.pictureBox3.Size = new System.Drawing.Size(350, 723);
             this.pictureBox3.TabIndex = 23;
             this.pictureBox3.TabStop = false;
             // 
@@ -753,20 +781,20 @@
             // 
             // Base
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(1075, 709);
+            this.ClientSize = new System.Drawing.Size(1612, 1091);
             this.Controls.Add(this.pnlBottom);
             this.Controls.Add(this.pnlContenido);
             this.Controls.Add(this.pnlMenu);
             this.Controls.Add(this.pnlLeft);
             this.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "Base";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "c";
+            this.Text = "SISCOM";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.Base_Load);
             this.pnlContenido.ResumeLayout(false);
