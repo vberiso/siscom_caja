@@ -23,6 +23,7 @@ using Facturama.Services;
 using SOAPAP.PDFManager;
 using SOAPAP.UI.Messages;
 using SOAPAP.Model;
+using System.Globalization;
 
 namespace SOAPAP
 {
@@ -38,8 +39,8 @@ namespace SOAPAP
         public Facturaelectronica()
         {
             Requests = new RequestsAPI(UrlBase);
-            facturama = new FacturamaApiMultiemisor("gfdsystems", "gfds1st95", false);
-            //facturama = new FacturamaApiMultiemisor("gfdsystems", "gfds1st95");
+            //facturama = new FacturamaApiMultiemisor("gfdsystems", "gfds1st95", false);
+            facturama = new FacturamaApiMultiemisor("gfdsystems", "gfds1st95");
             //facturama = new FacturamaApiMultiemisor("pruebas", "pruebas2011");
         }
         //Metodo del Vic (con calmita...)
@@ -851,19 +852,21 @@ namespace SOAPAP
 
                 //se obtiene el metodo de pago
                 string MetodoPago = "PUE"; //PUE(Pago en una sola exhibición), PPD(Pago en parcialidades o diferido)
-                //if (TraVM.payment.OrderSaleId == 0) //Servicio
-                //{
-                //    decimal tmpTotalPagado = TraVM.payment.PaymentDetails.Sum(x => x.Amount);
-                //    decimal tmpTotalDebt = TraVM.payment.PaymentDetails.First().Debt.Amount;
-                //    MetodoPago = (tmpTotalPagado == tmpTotalDebt ? "PUE" : "PPD");
-                //}
-                //else                    //Producto
-                //{
-                //    MetodoPago = "PUE";
-                //}
-                
-                string fecha = DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ss");
-                
+                                           //if (TraVM.payment.OrderSaleId == 0) //Servicio
+                                           //{
+                                           //    decimal tmpTotalPagado = TraVM.payment.PaymentDetails.Sum(x => x.Amount);
+                                           //    decimal tmpTotalDebt = TraVM.payment.PaymentDetails.First().Debt.Amount;
+                                           //    MetodoPago = (tmpTotalPagado == tmpTotalDebt ? "PUE" : "PPD");
+                                           //}
+                                           //else                    //Producto
+                                           //{
+                                           //    MetodoPago = "PUE";
+                                           //}
+
+                //string fecha = DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ss");
+                string fecha = DateTime.Now.ToString("G", CultureInfo.CreateSpecificCulture("es-MX"));
+
+
                 var cfdi = new CfdiMulti
                 {
                     Serie = serie,
@@ -1001,13 +1004,12 @@ namespace SOAPAP
                         Item item = new Item()
                         {
                             ProductCode = TraVM.ClavesProdServ.Where(x => x.CodeConcep == pay.CodeConcept && x.Tipo == pay.Type).Select(y => y.ClaveProdServ).FirstOrDefault(),
+                            IdentificationNumber = "S" + pay.CodeConcept,
                             UnitCode = pay.UnitMeasurement,
                             Unit = "NO APLICA",
                             Description = pay.Description + " Periodo de:" + pay.Debt.FromDate.ToString("yyyy-MM-dd") + " hasta: " + pay.Debt.UntilDate.ToString("yyyy-MM-dd"),
-
                             UnitPrice = pay.Debt.DebtDetails.Where(x => x.CodeConcept == pay.CodeConcept).Select(y => y.Amount).FirstOrDefault() + pay.Debt.DebtDiscounts.Where(x => x.CodeConcept == pay.CodeConcept).Select(y => y.DiscountAmount).FirstOrDefault(),
                             Quantity = pay.Debt.DebtDetails.Where(x => x.CodeConcept == pay.CodeConcept).Select(y => y.quantity).FirstOrDefault(),
-
                             Subtotal = pay.Debt.DebtDetails.Where(x => x.CodeConcept == pay.CodeConcept).Select(y => y.Amount).FirstOrDefault() + pay.Debt.DebtDiscounts.Where(x => x.CodeConcept == pay.CodeConcept).Select(y => y.DiscountAmount).FirstOrDefault(),  
                             Discount = pay.Debt.DebtDiscounts.Where(x => x.CodeConcept == pay.CodeConcept).Select(y => y.DiscountAmount).FirstOrDefault(),
                             Total = pay.Amount + pay.Tax                            
@@ -1038,15 +1040,14 @@ namespace SOAPAP
                         {
                             ProductCode = TraVM.ClavesProdServ.Where(x => x.CodeConcep == Or.CodeConcept).FirstOrDefault().ClaveProdServ,
                             IdentificationNumber = "P" + Or.CodeConcept,
-                            UnitCode = TraVM.payment.PaymentDetails.Where(x => x.CodeConcept == Or.CodeConcept && x.Amount == Or.Amount).FirstOrDefault().UnitMeasurement,
+                            UnitCode = TraVM.payment.PaymentDetails.Where(x => x.CodeConcept == Or.CodeConcept).FirstOrDefault().UnitMeasurement,
                             Unit = "NO APLICA",
                             Description = Or.Description,
                             UnitPrice = Or.UnitPrice,
                             Quantity = Or.Quantity,
-                           
                             Subtotal = Or.OnAccount + TraVM.orderSale.OrderSaleDiscounts.Where(x => x.CodeConcept == Or.CodeConcept).Select(y => y.DiscountAmount).FirstOrDefault(),
                             Discount = TraVM.orderSale.OrderSaleDiscounts.Where(x => x.CodeConcept == Or.CodeConcept).Select(y => y.DiscountAmount).FirstOrDefault() ,
-                            Total = Or.Amount + TraVM.payment.PaymentDetails.Where(x => x.CodeConcept == Or.CodeConcept && x.Amount == Or.Amount).FirstOrDefault().Tax
+                            Total = Or.Amount + TraVM.payment.PaymentDetails.Where(x => x.CodeConcept == Or.CodeConcept).FirstOrDefault().Tax
                         };
 
                         if (Or.HaveTax == true)
@@ -1054,10 +1055,10 @@ namespace SOAPAP
                             List<Tax> lstTaxs = new List<Tax>() {
                                 new Tax()
                                 {
-                                    Base = Or.Amount - TraVM.orderSale.OrderSaleDiscounts.Where(x => x.CodeConcept == Or.CodeConcept && x.OriginalAmount == Or.Amount).Select(y => y.DiscountAmount).FirstOrDefault(),
+                                    Base = Or.Amount - TraVM.orderSale.OrderSaleDiscounts.Where(x => x.CodeConcept == Or.CodeConcept).Select(y => y.DiscountAmount).FirstOrDefault(),
                                     Rate = decimal.Parse(TraVM.payment.PercentageTax)/100,
                                     Name = "IVA",
-                                    Total = TraVM.payment.PaymentDetails.Where(x => x.CodeConcept == Or.CodeConcept && x.Amount == Or.Amount).FirstOrDefault().Tax,
+                                    Total = TraVM.payment.PaymentDetails.Where(x => x.CodeConcept == Or.CodeConcept).FirstOrDefault().Tax,
                                     IsRetention = false
                                 }
                             };
@@ -1090,7 +1091,7 @@ namespace SOAPAP
                     TaxReceipt resGuardado = await guardarXMLenBD(XML, cfdiFacturama.Complement.TaxStamp.Uuid, receptor.Rfc, TipoFactura, status, TraVM.payment.Id, cfdiFacturama.Id);
                     string resActPay = await actualizarPaymentConFactura(TraVM.payment);
 
-                    CreatePDF pDF = new CreatePDF(cfdi, cfdiFacturama, ms.account, resGuardado);
+                    CreatePDF pDF = new CreatePDF(cfdi, cfdiFacturama, ms.account, resGuardado, fecha, (TraVM.payment.PayMethod.code + ", " + TraVM.payment.PayMethod.Name));
                     pDF.UsoCFDI = string.IsNullOrEmpty(msgUsos) ? "P01 - Por definir" : msgUsos;
                     if (TraVM.payment.OrderSaleId == 0)
                         pDF.ObservacionCFDI = (string.IsNullOrEmpty(msgObservacionFactura) ? "" : msgObservacionFactura);
@@ -1112,12 +1113,12 @@ namespace SOAPAP
                 }
                 else
                 {
-                    return "error: El cobro fue registrado en BD, pero no pudo generarse la factura, consulte al administrador.";
+                    return "{\"error\": \"El cobro fue registrado en BD, pero no pudo generarse la factura, consulte al administrador.\"}";
                 }                
             }
             catch (Exception ex)
             {
-                return "{\"error\": \"Error al intentar realizar el timbrado, favor de comunicarse con el administrador del sistema\"}";
+                return "{\"error\": \"Error al intentar realizar el timbrado, favor de comunicarse con el administrador del sistema: "+ex.Message+"\"}";
             }            
         }
 
@@ -1125,56 +1126,6 @@ namespace SOAPAP
         {            
             try
             {
-                //var cfdi = new CfdiMulti
-                //{
-                //    Folio = "101",
-                //    Serie = "R",
-                //    Currency = "MXN",
-                //    ExpeditionPlace = "78116",
-                //    PaymentConditions = "CREDITO A SIETE DIAS",
-                //    CfdiType = CfdiType.Ingreso,
-                //    PaymentForm = "03",
-                //    PaymentMethod = "PUE",
-                //    Issuer = new Issuer
-                //    {
-                //        FiscalRegime = "601",
-                //        Name = "Ayuntamiento",
-                //        Rfc = "MCP850101944"
-                //    },
-                //    Receiver = new Receiver
-                //    {
-                //        Rfc = "XAXX010101000",
-                //        Name = "GFD SYSTEMS",
-                //        CfdiUse = "P01"
-                //    },
-                //    Items = new List<Item>
-                //{
-                //    new Item
-                //    {
-                //        ProductCode = "10101504",
-                //        IdentificationNumber = "EDL",
-                //        Description = "Estudios de viabilidad",
-                //        Unit = "NO APLICA",
-                //        UnitCode = "MTS",
-                //        UnitPrice = 50.00m,
-                //        Quantity = 2.00m,
-                //        Subtotal = 100.00m,
-                //        Taxes = new List<Tax>
-                //        {
-                //            new Tax
-                //            {
-                //                Total = 16.00m,
-                //                Name = "IVA",
-                //                Base = 100.00m,
-                //                Rate = 0.160000m,
-                //                IsRetention = false
-                //            }
-                //        },
-                //        Total = 116.0m
-                //    }
-                //}
-                //};
-
 
                 Facturama.Models.Response.Cfdi cfdiCreated = facturama.Cfdis.Create(cfdi);
                                

@@ -613,7 +613,7 @@ namespace SOAPAP.UI
         private async void PostTransaction()
         {
             List<Model.DebtDetail> DebtDetailCollection = new List<Model.DebtDetail>();
-            Model.PaymentConceptsVM paymentVM = new Model.PaymentConceptsVM();      
+            Model.PaymentConceptsVM paymentVM = new Model.PaymentConceptsVM();
 
             decimal PorPagar = 0;
             decimal TotalIva = 0;
@@ -633,7 +633,7 @@ namespace SOAPAP.UI
 
             loading = new Loading();
             loading.Show(this);
-          
+
             transaction.Sign = true;
             transaction.Amount = PaidUp;
             transaction.PercentageTax = Variables.Configuration.IVA;
@@ -646,7 +646,7 @@ namespace SOAPAP.UI
             transaction.Cancellation = "";
             transaction.OriginPaymentId = 1;
             transaction.ExternalOriginPaymentId = cmbBank.SelectedValue == null ? 1 : Convert.ToInt32(cmbBank.SelectedValue.ToString());
-            
+
             transaction.AgreementId = Variables.Agreement.Id;
             transaction.Account = Variables.Agreement.Account;
             transaction.NumberBank = (string.IsNullOrEmpty(txtCheque.Text) ? txtTarjetaCheque.Text : txtCheque.Text);
@@ -658,7 +658,7 @@ namespace SOAPAP.UI
             //    {
             //        if (mixEfectivo)
             //        {
-                       
+
             //        }
             //    }
             //}
@@ -711,7 +711,7 @@ namespace SOAPAP.UI
                     }
                     typeOfPay = 1;
                 }
-                else if(Prepaid)
+                else if (Prepaid)
                 {
                     transaction.Percentage = 0;
                     transaction.Type = "PAY04";
@@ -748,7 +748,7 @@ namespace SOAPAP.UI
                     {
                         validResponse = true;
                     }
-                   
+
                     typeOfPay = 2;
                 }
                 else
@@ -774,14 +774,14 @@ namespace SOAPAP.UI
                     else
                     {
                         List<DiscountAuthorizationVM> discounts = JsonConvert.DeserializeObject<List<DiscountAuthorizationVM>>(resultados);
-                        if(discounts.Count > 0)
+                        if (discounts.Count > 0)
                         {
                             loading.Close();
                             mensaje = new MessageBoxForm(Variables.titleprincipal, "La cuenta que intenta cobrar tiene una solicitud de descuento pendiente de autorización, de proceder con el cobro la solicitud quedara anulada, ¿Deseas proceder con el cobro de todas formas?", TypeIcon.Icon.Info, true);
                             result = mensaje.ShowDialog();
-                            if(result == DialogResult.Cancel)
+                            if (result == DialogResult.Cancel)
                                 throw new Exception();
-                            if(result == DialogResult.OK)
+                            if (result == DialogResult.OK)
                             {
                                 loading = new Loading();
                                 loading.Show(this);
@@ -852,11 +852,11 @@ namespace SOAPAP.UI
 
                             });
                             PorPagar = x.DebtDetails.Sum(z => ((z.Amount - z.OnAccount))) + TotalIva;
-                            if(PorPagar > totalDisponible)
+                            if (PorPagar > totalDisponible)
                             {
                                 var textIva = (TotalIva > 0) ? "IVA incluido" : "";
                                 mensaje = new MessageBoxForm("Error", "El Monto proporcionado no cubre el producto, " +
-                                                                      "el monto minimo para pagar es de: "+ string.Format(new CultureInfo("es-MX"), "{0:C2}", PorPagar) + " " + textIva +
+                                                                      "el monto minimo para pagar es de: " + string.Format(new CultureInfo("es-MX"), "{0:C2}", PorPagar) + " " + textIva +
                                                                       ", y no se puede generar un pago parcial a la deuda, favor de verificar ", TypeIcon.Icon.Cancel);
                                 result = mensaje.ShowDialog();
                                 throw new Exception();
@@ -1101,128 +1101,65 @@ namespace SOAPAP.UI
                     typeOfPay = 3;
                 }
 
-              
-                if(validResponse)
+
+                if (validResponse)
                 {
                     dt = await q.GETTransactionID("/api/Transaction/" + resultados);
                     Variables.idtransaction = Convert.ToInt32(resultados);
-
-
-                    //if (Requests.EstaEnLineaLaImpresora(Requests.ImpresoraPredeterminada()))
-                    //{
-
-                    //}
-
-                    if (Properties.Settings.Default.Printer == true)
+                    loading.Close();
+                    if (Variables.Configuration.CFDI == "Verdadero")
                     {
-                        if (Variables.Configuration.CFDI == "Verdadero")
+                        Form loadings = new Loading();
+                        loadings.Show(this);
+                        Facturaelectronica fs = new Facturaelectronica();
+                        xmltimbrado = await fs.generaFactura(Variables.idtransaction.ToString(), "ET001");
+                        if (xmltimbrado.Contains("error"))
                         {
-                            Form loadings = new Loading();
-                            loadings.Show(this);
-                            Facturaelectronica fs = new Facturaelectronica();
-                            //xmltimbrado = await fs.facturar(resultados, "ET001", "");                               
-                            xmltimbrado = await fs.generaFactura(Variables.idtransaction.ToString(), "ET001");
-                            if (xmltimbrado.Contains("error"))
+                            loadings.Close();
+                            try
                             {
-                                loading.Close();
-                                mensaje = new MessageBoxForm(Variables.titleprincipal, xmltimbrado.Split('/')[1].ToString(), TypeIcon.Icon.Cancel);
-                                mensaje.ShowDialog();
+                                mensaje = new MessageBoxForm("Error", JsonConvert.DeserializeObject<Error>(resultados).error, TypeIcon.Icon.Cancel);
+                                result = mensaje.ShowDialog();
+                                this.Close();
                             }
-                            else
+                            catch (Exception)
                             {
-
-                                PdfDocument pdfdocument = new PdfDocument();
-                                pdfdocument.LoadFromFile(xmltimbrado);
-                                pdfdocument.PrinterName = Requests.ImpresoraPredeterminada();
-                                pdfdocument.PrintDocument.PrinterSettings.Copies = 1;
-                                pdfdocument.PrintDocument.Print();
-                                pdfdocument.Dispose();
-                                loading.Close();
+                                mensaje = new MessageBoxForm("Error", "Servicio no disponible favor de comunicarse con el administrador: -conexion interrumpida-", TypeIcon.Icon.Cancel);
+                                result = mensaje.ShowDialog();
+                                this.Close();
                             }
                         }
                         else
                         {
-                            Tiket imp = new Tiket();
-                            imp.Imprime(dt, 2, (PaidUp - (IVA + Math.Round(ivaTotal, 2))).ToString()
-                                             , (IVA + Math.Round(ivaTotal, 2)).ToString()
-                                             , Rounding.ToString()
-                                             , (PaidUp).ToString()
-                                             , cmbPaymentMethod.Text
-                                             , Padron
-                                             , Variables.foliocaja
-                                             , ""//TODO
-                                             , Variables.Agreement.Account
-                                             , Variables.Agreement.Clients.First().RFC
-                                             , Variables.foliotransaccion
-                                             , (Variables.Agreement.Addresses.First().Street
-                                                  + " NO." + Variables.Agreement.Addresses.First().Outdoor
-                                                  + " INT." + Variables.Agreement.Addresses.First().Indoor
-                                                  + ", COL." + Variables.Agreement.Addresses.First().Suburbs.Name
-                                                  + ". " + Variables.Agreement.Addresses.First().Suburbs.Towns.Name
-                                                  + ". " + Variables.Agreement.Addresses.First().Suburbs.Towns.States.Name));
-                            q.sacarcaja(Requests.ImpresoraPredeterminada(), Variables.Configuration.ANSII);
+                            PdfPrint.IsContentCentered = true;
+                            PdfPrint.Scale = PdfPrint.ScaleTypes.None;
+                            PdfPrint.Status result = PdfPrint.Status.OK;
+                            PrintDialog printDialog = new PrintDialog();
+                            if (printDialog.ShowDialog() == DialogResult.OK)
+                            {
+                                try
+                                {
+                                    result = PdfPrint.Print(xmltimbrado, printDialog.PrinterSettings);
+                                }
+                                catch (Exception ex)
+                                {
+                                    result = PdfPrint.Status.UNKNOWN_ERROR;
+                                    mensaje = new MessageBoxForm("Error", ex.Message, TypeIcon.Icon.Cancel);
+                                    mensaje.ShowDialog();
+                                }
+                            }
+                            loadings.Close();
                         }
                     }
                     else
                     {
-                        if (Variables.Configuration.CFDI == "Verdadero")
-                        {
-                            Form loadings = new Loading();
-                            loadings.Show(this);
-                            Facturaelectronica fs = new Facturaelectronica();
-                            //xmltimbrado = await fs.facturar(Variables.idtransaction.ToString(), "ET001", "");                                
-                            xmltimbrado = await fs.generaFactura(Variables.idtransaction.ToString(), "ET001");
-                            //separadas = xmltimbrado.Split('/');
-                            if (xmltimbrado.Contains("error"))
-                            {
-                                loading.Close();
-                                try
-                                {
-                                    mensaje = new MessageBoxForm("Error", JsonConvert.DeserializeObject<Error>(resultados).error, TypeIcon.Icon.Cancel);
-                                    result = mensaje.ShowDialog();
-                                    this.Close();
-                                }
-                                catch (Exception)
-                                {
-                                    mensaje = new MessageBoxForm("Error", "Servicio no disponible favor de comunicarse con el administrador: -conexion interrumpida-", TypeIcon.Icon.Cancel);
-                                    result = mensaje.ShowDialog();
-                                    this.Close();
-                                }
-                            }
-                            //if (xmltimbrado.Contains("Success"))
-                            else
-                            {
-                                PdfPrint.IsContentCentered = true;
-                                PdfPrint.Scale = PdfPrint.ScaleTypes.None;
-                                PdfPrint.Status result = PdfPrint.Status.OK;
-                                PrintDialog printDialog = new PrintDialog();
-                                if(printDialog.ShowDialog() == DialogResult.OK)
-                                {
-                                    try
-                                    {
-                                        result = PdfPrint.Print(xmltimbrado, printDialog.PrinterSettings);
-                                    }
-                                    catch (Exception ex)
-                                    {
-                                        result = PdfPrint.Status.UNKNOWN_ERROR;
-                                        //MessageBox.Show("Error." + ex.Message);
-                                        mensaje = new MessageBoxForm("Error", ex.Message, TypeIcon.Icon.Cancel);
-                                        mensaje.ShowDialog();
-                                    }
-                                }
-                                loadings.Close();
-                            }
-
-                        }
-                        else
-                        {
-                            Form loadings = new Loading();
-                            loadings.Show(this);
-                            Variables.optionvistaimpresion = 1;
-                            impresionhoja();
-                            loadings.Close();
-                        }
+                        Form loadings = new Loading();
+                        loadings.Show(this);
+                        Variables.optionvistaimpresion = 1;
+                        impresionhoja();
+                        loadings.Close();
                     }
+
                     switch (typeOfPay)
                     {
                         case 1:
@@ -1237,7 +1174,7 @@ namespace SOAPAP.UI
                         default:
                             break;
                     }
-                   
+
                     if (mensaje.ShowDialog() == DialogResult.OK)
                     {
                         this.Close();
@@ -1246,7 +1183,7 @@ namespace SOAPAP.UI
                 }
             }
             catch (Exception e) { loading.Close(); }
-           
+
         }
 
         private async void PostTransactionOrder()
@@ -1333,7 +1270,7 @@ namespace SOAPAP.UI
             transaction.Total = PaidUp;
             transaction.Amount = PaidUp - Math.Round(transaction.Tax, 2);
             Variables.OrderSale.Status = "EOS02";
-            
+
             #region Cobro Parcial Productos
             //--------------------------------------------------------------------------------------------------------------------------------------------
             //Variables.OrderSale.OrderSaleDetails.ToList().ForEach(x =>
@@ -1516,137 +1453,63 @@ namespace SOAPAP.UI
             {
                 Variables.idtransaction = Convert.ToInt32(resultados);
                 dt = await q.GETTransactionID("/api/Transaction/" + resultados);
-
-                //if (Requests.EstaEnLineaLaImpresora(Requests.ImpresoraPredeterminada()))
-                //{
-
-                //}
                 loading.Close();
-                if (Properties.Settings.Default.Printer == true)
+
+                if (Variables.Configuration.CFDI == "Verdadero")
                 {
-                    if (Variables.Configuration.CFDI == "Verdadero")
+                    Form loadings = new Loading();
+                    loadings.Show(this);
+                    Facturaelectronica fs = new Facturaelectronica();
+                    xmltimbrado = await fs.generaFactura(Variables.idtransaction.ToString(), "ET001");
+                    if (xmltimbrado.Contains("error"))
                     {
-                        Form loadings = new Loading();
-                        loadings.Show(this);
-                        Facturaelectronica fs = new Facturaelectronica();
-                        //xmltimbrado = await fs.facturar(resultados, "ET001", "");
-                        xmltimbrado = await fs.generaFactura(resultados, "ET001");
-                        if (xmltimbrado.Contains("error"))
+                        loadings.Close();
+                        try
                         {
-                            loadings.Close();
-                            mensaje = new MessageBoxForm(Variables.titleprincipal, xmltimbrado.Split('/')[1].ToString(), TypeIcon.Icon.Cancel);
-                            mensaje.ShowDialog();
+                            mensaje = new MessageBoxForm("Error", JsonConvert.DeserializeObject<Error>(resultados).error, TypeIcon.Icon.Cancel);
+                            result = mensaje.ShowDialog();
+                            this.Close();
                         }
-                        else
+                        catch (Exception)
                         {
-                            PdfDocument pdfdocument = new PdfDocument();
-                            pdfdocument.LoadFromFile(xmltimbrado);
-                            pdfdocument.PrinterName = Requests.ImpresoraPredeterminada();
-                            pdfdocument.PrintDocument.PrinterSettings.Copies = 1;
-                            pdfdocument.PrintDocument.Print();
-                            pdfdocument.Dispose();
-                            loadings.Close();
+                            mensaje = new MessageBoxForm("Error", "Servicio no disponible favor de comunicarse con el administrador: -conexion interrumpida-", TypeIcon.Icon.Cancel);
+                            result = mensaje.ShowDialog();
+                            this.Close();
                         }
                     }
+
                     else
-                    {//////////////
-                        Tiket imp = new Tiket();
-                        if (Variables.Agreement != null)
+                    {
+                        PdfPrint.IsContentCentered = true;
+                        PdfPrint.Scale = PdfPrint.ScaleTypes.None;
+                        PdfPrint.Status result = PdfPrint.Status.OK;
+                        PrintDialog printDialog = new PrintDialog();
+                        if (printDialog.ShowDialog() == DialogResult.OK)
                         {
-                            imp.Imprime(dt, 2, (PaidUp - (IVA + Math.Round(ivaTotal, 2))).ToString()
-                                         , (IVA + Math.Round(ivaTotal, 2)).ToString()
-                                         , Rounding.ToString()
-                                         , (PaidUp).ToString()
-                                         , cmbPaymentMethod.Text
-                                         , Padron
-                                         , Variables.foliocaja
-                                         , ""//TODO
-                                         , Variables.Agreement.Account
-                                         , Variables.Agreement.Clients.First().RFC
-                                         , Variables.foliotransaccion
-                                         , (Variables.Agreement.Addresses.First().Street
-                                              + " NO." + Variables.Agreement.Addresses.First().Outdoor
-                                              + " INT." + Variables.Agreement.Addresses.First().Indoor
-                                              + ", COL." + Variables.Agreement.Addresses.First().Suburbs.Name
-                                              + ". " + Variables.Agreement.Addresses.First().Suburbs.Towns.Name
-                                              + ". " + Variables.Agreement.Addresses.First().Suburbs.Towns.States.Name));
+                            try
+                            {
+                                result = PdfPrint.Print(xmltimbrado, printDialog.PrinterSettings);
+                            }
+                            catch (Exception ex)
+                            {
+                                result = PdfPrint.Status.UNKNOWN_ERROR;
+                                mensaje = new MessageBoxForm("Error", ex.Message, TypeIcon.Icon.Cancel);
+                                mensaje.ShowDialog();
+                            }
                         }
-                        else
-                        {
-                            imp.Imprime(dt, 2, (PaidUp - (IVA + Math.Round(ivaTotal, 2))).ToString()
-                                         , (IVA + Math.Round(ivaTotal, 2)).ToString()
-                                         , Rounding.ToString()
-                                         , (PaidUp).ToString()
-                                         , cmbPaymentMethod.Text
-                                         , Padron
-                                         , Variables.foliocaja
-                                         , ""//TODO
-                                         , Variables.OrderSale.Folio
-                                         , Variables.OrderSale.TaxUser.RFC
-                                         , Variables.foliotransaccion
-                                         , (Variables.Agreement.Addresses.First().Street
-                                              + " NO." + Variables.OrderSale.TaxUser.TaxAddresses.First().Outdoor
-                                              + " INT." + Variables.OrderSale.TaxUser.TaxAddresses.First().Indoor
-                                              + ", COL." + Variables.OrderSale.TaxUser.TaxAddresses.First().Suburb
-                                              + ". " + Variables.OrderSale.TaxUser.TaxAddresses.First().Town
-                                              + ". " + Variables.OrderSale.TaxUser.TaxAddresses.First().State));
-                        }
-
-
-                        q.sacarcaja(Requests.ImpresoraPredeterminada(), Variables.Configuration.ANSII);
+                        loadings.Close();
                     }
                 }
                 else
                 {
-                    if (Variables.Configuration.CFDI == "Verdadero")
-                    {
-                        Form loadings = new Loading();
-                        loadings.Show(this);
-                        Facturaelectronica fs = new Facturaelectronica();
-                        //xmltimbrado = await fs.facturar(Variables.idtransaction.ToString(), "ET001", "");                            
-                        xmltimbrado = await fs.generaFactura(Variables.idtransaction.ToString(), "ET001");
-
-                        //separadas = xmltimbrado.Split('/');
-                        if (xmltimbrado.Contains("error"))
-                        {
-                            loadings.Close();
-                            mensaje = new MessageBoxForm(Variables.titleprincipal, xmltimbrado.Split('/')[1].ToString(), TypeIcon.Icon.Cancel);
-                            mensaje.ShowDialog();
-                        }
-
-                        else
-                        {
-                            PdfPrint.IsContentCentered = true;
-                            PdfPrint.Scale = PdfPrint.ScaleTypes.None;
-                            PdfPrint.Status result = PdfPrint.Status.OK;
-                            PrintDialog printDialog = new PrintDialog();
-                            if (printDialog.ShowDialog() == DialogResult.OK)
-                            {
-                                try
-                                {
-                                    result = PdfPrint.Print(xmltimbrado, printDialog.PrinterSettings);
-                                }
-                                catch (Exception ex)
-                                {
-                                    result = PdfPrint.Status.UNKNOWN_ERROR;
-                                    //MessageBox.Show("Error." + ex.Message);
-                                    mensaje = new MessageBoxForm("Error", ex.Message, TypeIcon.Icon.Cancel);
-                                    mensaje.ShowDialog();
-                                }
-                            }
-                            loading.Close();
-                        }
-
-                    }
-                    else
-                    {
-                        Form loadings = new Loading();
-                        loadings.Show(this);
-                        Variables.optionvistaimpresion = 1;
-                        impresionhoja();
-                        loadings.Close();
-                    }
+                    Form loadings = new Loading();
+                    loadings.Show(this);
+                    Variables.optionvistaimpresion = 1;
+                    impresionhoja();
+                    loadings.Close();
                 }
+
+
                 mensaje = new MessageBoxForm("Detalle de Cobro", "El cobro se realizo con exito", TypeIcon.Icon.Success);
                 if (mensaje.ShowDialog() == DialogResult.OK)
                 {

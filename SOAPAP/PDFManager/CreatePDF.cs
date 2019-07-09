@@ -42,13 +42,17 @@ namespace SOAPAP.PDFManager
         public string UsoCFDI { get; set; }
         public string ObservacionCFDI { get; set; }
         public TaxReceipt TaxReceipt { get; set; }
+        public string Date { get; set; }
+        public string Paymethod { get; set; }
 
-        public CreatePDF(CfdiMulti CfdiMulti, Facturama.Models.Response.Cfdi Cfdi, string Account, TaxReceipt TaxReceipt)
+        public CreatePDF(CfdiMulti CfdiMulti, Facturama.Models.Response.Cfdi Cfdi, string Account, TaxReceipt TaxReceipt, string Date, string Paymethod)
         {
             this.CfdiMulti = CfdiMulti;
             this.Cfdi = Cfdi;
             this.Account = Account;
             this.TaxReceipt = TaxReceipt;
+            this.Date = Date;
+            this.Paymethod = Paymethod;
             Requests = new RequestsAPI(UrlBase);
         }
 
@@ -271,7 +275,8 @@ namespace SOAPAP.PDFManager
                 builder.Append(@"<p style='margin-top: 0px;margin-bottom: 0px; font-size: 16px;'>Régimen Fiscal: " + CfdiMulti.Issuer.FiscalRegime + " - Personas Morales con Fines no Lucrativos</p>");
                 builder.Append(@"<p style='margin-top: 0px;margin-bottom: 0px; font-size: 16px;'>Expedido en: 72700, CUAUTLANCINGO</p>");
                 builder.Append(@"<p style='font-size: 16px;'><b>TESORERIA MUNICIPAL</b></p>");
-                builder.Append(@"<p style='font-size: 16px;'><b>" + tmpDivision + "</b></p></div>");
+                //builder.Append(@"<p style='font-size: 16px;'><b>" + tmpDivision + "</b></p></div>");
+                builder.Append(@"<p style='font-size: 16px;'><b>PREDIAL</b></p></div>");
             }
             else
             {
@@ -294,7 +299,7 @@ namespace SOAPAP.PDFManager
             builder.Append(@"<tr><td><b>FECHA AUTORIZACIÓN SAT</b></td></tr>");
             builder.Append(@"<tr><td style='font-family:\""Montserrat\"", sans-serif;'>"+Cfdi.Date+"</td></tr>");//fecha autorización
             builder.Append(@"<tr><td><b>FECHA EMISION</b></td></tr>");
-            builder.Append(@"<tr><td style='font-family:\""Montserrat\"", sans-serif;'>"+CfdiMulti.Date+"</td></tr>");//Fecha Emision
+            builder.Append(@"<tr><td style='font-family:\""Montserrat\"", sans-serif;'>"+Date+"</td></tr>");//Fecha Emision
             builder.Append(@"</table>");
             builder.Append(@"</div></div>");
             builder.Append(@"<div class='datos_contribuyente' style='margin-bottom: 15px;'>");
@@ -410,7 +415,7 @@ namespace SOAPAP.PDFManager
             
             builder.Append(@"<div class='datos_moneda' style='margin-bottom: 10px;'>");
             builder.Append(@"<div style='text-align: left; display: inline-block; width:10%; font-size: 14px;'>");
-            builder.Append(@"<p style='margin-top: 0px;margin-bottom: 0px;'><b>Mondeda:</b></p></div>");
+            builder.Append(@"<p style='margin-top: 0px;margin-bottom: 0px;'><b>Moneda:</b></p></div>");
             builder.Append(@"<div style='text-align: left; display: inline-block; width:60%; font-size: 14px; font-family:\""Montserrat\"", sans-serif;'>");
             builder.Append(@"<p style='margin-top: 0px;margin-bottom: 0px;'>MXN</p></div>"); //tipo Moneda
             builder.Append(@"<div style='text-align: right; display: inline-block; width: 19.6%; font-size: 14px; font-family:\""Montserrat\"", sans-serif;'>");
@@ -432,8 +437,8 @@ namespace SOAPAP.PDFManager
             builder.Append(@"<td style='width: 180px;'><b>Tipo de comprobante:</b></td>");
             builder.Append(@"<td style='font-family:\""Montserrat\"", sans-serif;'>I-INGRESO</td></tr>"); //tipo de comprobante
             builder.Append(@"<tr>");
-            builder.Append(@"<td style='width: 180px;'><b>Forma de pago:</b></td>");
-            builder.Append(@"<td style='font-family:\""Montserrat\"", sans-serif;'>01, EFECTIVO</td></tr>"); //Forma de Pago
+            builder.Append(@"<td style='width: 180px;'><b>Forma de pago:</b></td>"); 
+            builder.Append(@"<td style='font-family:\""Montserrat\"", sans-serif;'>"+ Paymethod + "</td></tr>"); //Forma de Pago
             builder.Append(@"<tr>");
             builder.Append(@"<td style='width: 180px;'><b>Método de pago:</b></td>");
             builder.Append(@"<td style='font-family:\""Montserrat\"", sans-serif;'>PUE, Pago en una sola exhibición</td></tr>"); //Como se realizo el pago
@@ -484,7 +489,7 @@ namespace SOAPAP.PDFManager
             builder.Append(@"</div></div>");
             builder.Append(@"<div class='firma_y_sello' style='margin-bottom:50px; margin-top: 100px;'>");
             builder.Append(@"<div style='text-align: left; display: inline-block; width:60%;'>");
-            builder.Append(@"<p style='font-size:11px;'><b>ESTE DOCUMENTO ES UNA REPRESENTACION IMPRESA DE UN CFDI. V 3.3EL PAGO DE ESTE RECIBO NO LO LIBERA DE ADEUDOS ANTERIORES.");
+            builder.Append(@"<p style='font-size:11px;'><b>ESTE DOCUMENTO ES UNA REPRESENTACION IMPRESA DE UN CFDI. V 3.3 EL PAGO DE ESTE RECIBO NO LO LIBERA DE ADEUDOS ANTERIORES.");
             builder.Append(@"CUALQUIER ACLARACION SOBRE ESTE RECIBO ES VALIDA SOLO EN LOS SIGUIENTES CINCO DIAS DE QUE FUE EXPEDIDO.</b></p></div>");
             builder.Append(@"<div style='text-align: right; display: inline-block; width: 30%;'>");
             builder.Append(@"<p style='text-align: center; padding-top: 10px;border-top-style: solid;border-top-color: black;'>");
@@ -538,7 +543,7 @@ namespace SOAPAP.PDFManager
             //{
 
             //}
-            Model.Division Div = _lstDivision.Where(x => x.Id == Variables.LoginModel.Divition).FirstOrDefault();
+            Model.Division Div = _lstDivision.Where(x => x.Id == _orderSale.DivisionId).FirstOrDefault();
             string tmpDivision = Div == null ? "" : Div.Name;
 
             GeneraCodigoQR(Cfdi.Complement.TaxStamp.Uuid,
@@ -603,13 +608,13 @@ namespace SOAPAP.PDFManager
             builder.Append(@"<tr><td><b>FECHA AUTORIZACIÓN SAT</b></td></tr>");
             builder.Append(@"<tr><td style='font-family:\""Montserrat\"", sans-serif;'>" + Cfdi.Date + "</td></tr>");//fecha autorización
             builder.Append(@"<tr><td><b>FECHA EMISION</b></td></tr>");
-            builder.Append(@"<tr><td style='font-family:\""Montserrat\"", sans-serif;'>" + CfdiMulti.Date + "</td></tr>");//Fecha Emision
+            builder.Append(@"<tr><td style='font-family:\""Montserrat\"", sans-serif;'>" + Date + "</td></tr>");//Fecha Emision
             builder.Append(@"</table>");
             builder.Append(@"</div></div>");
             builder.Append(@"<div class='datos_contribuyente' style='margin-bottom: 15px;'>");
             builder.Append(@"<table style='font-size: 14px;>");
             builder.Append(@"<tr>");
-            builder.Append(@"<td style='width: 120px;'><b>No. de cuenta:</b></td>");
+            builder.Append(@"<td style='width: 120px;'><b>No. de orden:</b></td>");
             builder.Append(@"<td style='width: 100px; font-family:\""Montserrat\"", sans-serif;'>" + _orderSale.Folio + "</td>"); //Cuenta
 
             //if (Variables.Configuration.IsMunicipal)
@@ -728,7 +733,7 @@ namespace SOAPAP.PDFManager
 
             builder.Append(@"<div class='datos_moneda' style='margin-bottom: 10px;'>");
             builder.Append(@"<div style='text-align: left; display: inline-block; width:10%; font-size: 14px;'>");
-            builder.Append(@"<p style='margin-top: 0px;margin-bottom: 0px;'><b>Mondeda:</b></p></div>");
+            builder.Append(@"<p style='margin-top: 0px;margin-bottom: 0px;'><b>Moneda:</b></p></div>");
             builder.Append(@"<div style='text-align: left; display: inline-block; width:60%; font-size: 14px; font-family:\""Montserrat\"", sans-serif;'>");
             builder.Append(@"<p style='margin-top: 0px;margin-bottom: 0px;'>MXN</p></div>"); //tipo Moneda
             builder.Append(@"<div style='text-align: right; display: inline-block; width: 19.6%; font-size: 14px; font-family:\""Montserrat\"", sans-serif;'>");
@@ -751,7 +756,7 @@ namespace SOAPAP.PDFManager
             builder.Append(@"<td style='font-family:\""Montserrat\"", sans-serif;'>I-INGRESO</td></tr>"); //tipo de comprobante
             builder.Append(@"<tr>");
             builder.Append(@"<td style='width: 180px;'><b>Forma de pago:</b></td>");
-            builder.Append(@"<td style='font-family:\""Montserrat\"", sans-serif;'>01, EFECTIVO</td></tr>"); //Forma de Pago
+            builder.Append(@"<td style='font-family:\""Montserrat\"", sans-serif;'>"+ Paymethod + "</td></tr>"); //Forma de Pago
             builder.Append(@"<tr>");
             builder.Append(@"<td style='width: 180px;'><b>Método de pago:</b></td>");
             builder.Append(@"<td style='font-family:\""Montserrat\"", sans-serif;'>PUE, Pago en una sola exhibición</td></tr>"); //Como se realizo el pago
@@ -800,7 +805,7 @@ namespace SOAPAP.PDFManager
             builder.Append(@"</div></div>");
             builder.Append(@"<div class='firma_y_sello' style='margin-bottom:50px; margin-top: 100px;'>");
             builder.Append(@"<div style='text-align: left; display: inline-block; width:60%;'>");
-            builder.Append(@"<p style='font-size:11px;'><b>ESTE DOCUMENTO ES UNA REPRESENTACION IMPRESA DE UN CFDI. V 3.3EL PAGO DE ESTE RECIBO NO LO LIBERA DE ADEUDOS ANTERIORES.");
+            builder.Append(@"<p style='font-size:11px;'><b>ESTE DOCUMENTO ES UNA REPRESENTACION IMPRESA DE UN CFDI. V 3.3 EL PAGO DE ESTE RECIBO NO LO LIBERA DE ADEUDOS ANTERIORES.");
             builder.Append(@"CUALQUIER ACLARACION SOBRE ESTE RECIBO ES VALIDA SOLO EN LOS SIGUIENTES CINCO DIAS DE QUE FUE EXPEDIDO.</b></p></div>");
             builder.Append(@"<div style='text-align: right; display: inline-block; width: 30%;'>");
             builder.Append(@"<p style='text-align: center; padding-top: 10px;border-top-style: solid;border-top-color: black;'>");

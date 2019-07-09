@@ -18,6 +18,8 @@ namespace SOAPAP.Model
         public DateTime LastUpdate { get; set; }
         public Int16 Sector { get; set; }
         public string Observation { get; set; }
+        public Boolean Manifest { get; set; }
+        public string CatastralKey { get; set; }
         public int AgreementId { get; set; }
         public Agreement Agreement { get; set; }
     }

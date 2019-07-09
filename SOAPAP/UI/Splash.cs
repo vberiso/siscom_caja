@@ -46,7 +46,7 @@ namespace SOAPAP.UI
             Configuration configuration = new Configuration();
             Variables.Configuration = configuration;
 
-            InstallUpdateSyncWithInfo.InstallUpdateSyncWithInfoApplication();
+            //InstallUpdateSyncWithInfo.InstallUpdateSyncWithInfoApplication();
             var version = await Requests.SendURIAsync("/api/VersionApps", HttpMethod.Get);
             if (version.Contains("error"))
             {
