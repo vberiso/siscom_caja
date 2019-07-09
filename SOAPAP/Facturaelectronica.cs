@@ -1004,11 +1004,11 @@ namespace SOAPAP
                             UnitCode = pay.UnitMeasurement,
                             Unit = "NO APLICA",
                             Description = pay.Description + " Periodo de:" + pay.Debt.FromDate.ToString("yyyy-MM-dd") + " hasta: " + pay.Debt.UntilDate.ToString("yyyy-MM-dd"),
-                            UnitPrice = pay.Debt.DebtDetails.Where(x => x.CodeConcept == pay.CodeConcept).Select(y => y.Amount).FirstOrDefault(),
+                            UnitPrice = pay.Debt.DebtDetails.Where(x => x.CodeConcept == pay.CodeConcept).Select(y => y.Amount).FirstOrDefault() + pay.Debt.DebtDiscounts.Where(x => x.CodeConcept == pay.CodeConcept).Select(y => y.DiscountAmount).FirstOrDefault(),
                             Quantity = pay.Debt.DebtDetails.Where(x => x.CodeConcept == pay.CodeConcept).Select(y => y.quantity).FirstOrDefault(),
-                            Subtotal = pay.Debt.DebtDetails.Where(x => x.CodeConcept == pay.CodeConcept).Select(y => y.OnAccount).FirstOrDefault(),
+                            Subtotal = pay.Debt.DebtDetails.Where(x => x.CodeConcept == pay.CodeConcept).Select(y => y.Amount).FirstOrDefault() + pay.Debt.DebtDiscounts.Where(x => x.CodeConcept == pay.CodeConcept).Select(y => y.DiscountAmount).FirstOrDefault(),  
                             Discount = pay.Debt.DebtDiscounts.Where(x => x.CodeConcept == pay.CodeConcept).Select(y => y.DiscountAmount).FirstOrDefault(),
-                            Total = pay.Amount + pay.Tax                            
+                            Total = pay.Amount + pay.Tax
                         };
                         if (pay.HaveTax == true)
                         {
@@ -1041,8 +1041,8 @@ namespace SOAPAP
                             Description = Or.Description,
                             UnitPrice = Or.UnitPrice,
                             Quantity = Or.Quantity,
-                            Subtotal = Or.OnAccount,
-                            Discount = TraVM.orderSale.OrderSaleDiscounts.Where(x => x.CodeConcept == Or.CodeConcept && x.OriginalAmount == Or.Amount).Select(y => y.DiscountAmount).FirstOrDefault() , //Or.Debt.DebtDiscounts.Where(x => x.CodeConcept == Or.CodeConcept).Select(y => y.DiscountAmount).FirstOrDefault(),
+                            Subtotal = Or.OnAccount + TraVM.orderSale.OrderSaleDiscounts.Where(x => x.CodeConcept == Or.CodeConcept).Select(y => y.DiscountAmount).FirstOrDefault(),
+                            Discount = TraVM.orderSale.OrderSaleDiscounts.Where(x => x.CodeConcept == Or.CodeConcept).Select(y => y.DiscountAmount).FirstOrDefault() ,
                             Total = Or.Amount + TraVM.payment.PaymentDetails.Where(x => x.CodeConcept == Or.CodeConcept && x.Amount == Or.Amount).FirstOrDefault().Tax
                         };
 
@@ -1051,7 +1051,7 @@ namespace SOAPAP
                             List<Tax> lstTaxs = new List<Tax>() {
                                 new Tax()
                                 {
-                                    Base = Or.Amount,
+                                    Base = Or.Amount - TraVM.orderSale.OrderSaleDiscounts.Where(x => x.CodeConcept == Or.CodeConcept && x.OriginalAmount == Or.Amount).Select(y => y.DiscountAmount).FirstOrDefault(),
                                     Rate = decimal.Parse(TraVM.payment.PercentageTax)/100,
                                     Name = "IVA",
                                     Total = TraVM.payment.PaymentDetails.Where(x => x.CodeConcept == Or.CodeConcept && x.Amount == Or.Amount).FirstOrDefault().Tax,
