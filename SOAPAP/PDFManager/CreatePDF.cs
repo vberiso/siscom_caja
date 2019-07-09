@@ -389,7 +389,7 @@ namespace SOAPAP.PDFManager
             }
             else
             {
-                builder.Append(@"<p style='margin-top: 0px;margin-bottom: 0px; font-size:14px;'>" + let.ToCustomCardinal((CfdiMulti.Items.Sum(x => x.Total) + CfdiMulti.Items.Sum(x => x.Taxes.Sum(c => c.Total)))).ToUpperInvariant() + "</p></div>"); //Numero a letras
+                builder.Append(@"<p style='margin-top: 0px;margin-bottom: 0px; font-size:14px;'>" + let.ToCustomCardinal(((double)CfdiMulti.Items.Sum(x => x.Subtotal) + (double)CfdiMulti.Items.Sum(x => x.Taxes?.Sum(y => y.Total)))).ToUpperInvariant() + "</p></div>"); //Numero a letras
             }
             builder.Append(@"<div style='text-align: right; display: inline-block; width: 20%; font-size: 14px; font-family:\""Montserrat\"", sans-serif;'>");
             builder.Append(@"<p style='margin-top: 0px;margin-bottom: 0px; font-size: 14px;'>SubTotal: </p></div>");
@@ -400,7 +400,7 @@ namespace SOAPAP.PDFManager
             builder.Append(@"<div style='text-align: right; display: inline-block; width: 4.3%; font-size: 14px;'>");
             if (havtax)
             {
-                builder.Append(@"<p style='margin-top: 0px;margin-bottom: 0px; font-size: 14px;'>" + string.Format(new CultureInfo("es-MX"), "{0:C2}", CfdiMulti.Items.Sum(x => x.Taxes.Sum(c => c.Total))) + "</p></div>");
+                builder.Append(@"<p style='margin-top: 0px;margin-bottom: 0px; font-size: 14px;'>" + string.Format(new CultureInfo("es-MX"), "{0:C2}", CfdiMulti.Items.Sum(x => x.Taxes?.Sum(c => c.Total))) + "</p></div>");
             }
             else
             {
@@ -417,7 +417,7 @@ namespace SOAPAP.PDFManager
             builder.Append(@"<div style='text-align: right; display: inline-block; width: 5.1%; font-size: 14px; font-family:\""Montserrat\"", sans-serif;'>");
             if (havtax)
             {
-                builder.Append(@"<p style='margin-top: 3px;margin-bottom: 7px; font-size: 14px;'>" + string.Format(new CultureInfo("es-MX"), "{0:C2}", (CfdiMulti.Items.Sum(x => x.Total) + CfdiMulti.Items.Sum(x => x.Taxes.Sum(c => c.Total)))) + "</p></div>"); //Total
+                builder.Append(@"<p style='margin-top: 3px;margin-bottom: 7px; font-size: 14px;'>" + string.Format(new CultureInfo("es-MX"), "{0:C2}", (CfdiMulti.Items.Sum(x => x.Total) + CfdiMulti.Items.Sum(x => x.Taxes?.Sum(c => c.Total)))) + "</p></div>"); //Total
             }
             else
             {
@@ -707,7 +707,7 @@ namespace SOAPAP.PDFManager
             }
             else
             {
-                builder.Append(@"<p style='margin-top: 0px;margin-bottom: 0px; font-size:14px;'>" + let.ToCustomCardinal((CfdiMulti.Items.Sum(x => x.Total) + CfdiMulti.Items.Sum(x => x.Taxes.Sum(c => c.Total)))).ToUpperInvariant() + "</p></div>"); //Numero a letras
+                builder.Append(@"<p style='margin-top: 0px;margin-bottom: 0px; font-size:14px;'>" + let.ToCustomCardinal(((double)CfdiMulti.Items.Sum(x => x.Total) + (double)CfdiMulti.Items.Sum(x => x.Taxes?.Sum(c => c.Total)))).ToUpperInvariant() + "</p></div>"); //Numero a letras
             }
             builder.Append(@"<div style='text-align: right; display: inline-block; width: 20%; font-size: 14px; font-family:\""Montserrat\"", sans-serif;'>");
             builder.Append(@"<p style='margin-top: 0px;margin-bottom: 0px;'>SubTotal: </p></div>");
@@ -718,7 +718,7 @@ namespace SOAPAP.PDFManager
             builder.Append(@"<div style='text-align: right; display: inline-block; width: 4.3%; font-size: 14px;'>");
             if (havtax)
             {
-                builder.Append(@"<p style='margin-top: 0px;margin-bottom: 0px; font-size: 14px;'>" + string.Format(new CultureInfo("es-MX"), "{0:C2}", CfdiMulti.Items.Sum(x => x.Taxes.Sum(c => c.Total))) + "</p></div>");
+                builder.Append(@"<p style='margin-top: 0px;margin-bottom: 0px; font-size: 14px;'>" + string.Format(new CultureInfo("es-MX"), "{0:C2}", CfdiMulti.Items.Sum(x => x.Taxes?.Sum(c => c.Total))) + "</p></div>");
             }
             else
             {
@@ -735,7 +735,7 @@ namespace SOAPAP.PDFManager
             builder.Append(@"<div style='text-align: right; display: inline-block; width: 5.1%; font-size: 14px; font-family:\""Montserrat\"", sans-serif;'>");
             if (havtax)
             {
-                builder.Append(@"<p style='margin-top: 3px;margin-bottom: 7px; font-size: 14px;'>" + string.Format(new CultureInfo("es-MX"), "{0:C2}", (CfdiMulti.Items.Sum(x => x.Total) + CfdiMulti.Items.Sum(x => x.Taxes.Sum(c => c.Total)))) + "</p></div>"); //Total
+                builder.Append(@"<p style='margin-top: 3px;margin-bottom: 7px; font-size: 14px;'>" + string.Format(new CultureInfo("es-MX"), "{0:C2}", (CfdiMulti.Items.Sum(x => x.Total) + CfdiMulti.Items.Sum(x => x.Taxes?.Sum(c => c.Total)))) + "</p></div>"); //Total
             }
             else
             {
