@@ -16,7 +16,7 @@
     <TargetFrameworkProfile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
-    <PublishUrl>C:\Users\OEM\Documents\caja2\</PublishUrl>
+    <PublishUrl>C:\Users\OEM\Documents\Caja2\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
     <UpdateEnabled>false</UpdateEnabled>
@@ -29,7 +29,7 @@
     <UpdateUrl>\\installer.cuautlancingo.gob.mx\caja\</UpdateUrl>
     <MinimumRequiredVersion>1.1.1.1</MinimumRequiredVersion>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>130</ApplicationRevision>
+    <ApplicationRevision>131</ApplicationRevision>
     <ApplicationVersion>1.1.1.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -155,8 +155,8 @@
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.12.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="PdfPrintingNet, Version=4.8.12.0, Culture=neutral, PublicKeyToken=ded90f87675288f3, processorArchitecture=MSIL">
-      <HintPath>..\packages\PdfPrintingNet.4.8.12\lib\net20\PdfPrintingNet.dll</HintPath>
+    <Reference Include="PdfPrintingNet, Version=4.8.13.0, Culture=neutral, PublicKeyToken=ded90f87675288f3, processorArchitecture=MSIL">
+      <HintPath>..\packages\PdfPrintingNet.4.8.13\lib\net20\PdfPrintingNet.dll</HintPath>
     </Reference>
     <Reference Include="RestSharp, Version=105.2.3.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\RestSharp.105.2.3\lib\net46\RestSharp.dll</HintPath>

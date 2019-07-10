@@ -529,7 +529,7 @@ namespace SOAPAP.PDFManager
             let.SeparadorDecimalSalida = "pesos";
             let.LetraCapital = true;
             let.ApocoparUnoParteEntera = true;
-            string QrFileName = Account + Cfdi.Complement.TaxStamp.SatCertNumber;
+            string QrFileName = Account?? "Orden" + Cfdi.Complement.TaxStamp.SatCertNumber;
             decimal total = CfdiMulti.Items.Sum(x => x.Total);
             string last = Cfdi.Complement.TaxStamp.CfdiSign.Substring(Cfdi.Complement.TaxStamp.CfdiSign.Length - 8);
             CfdiMulti.Items.ForEach(x =>
@@ -672,7 +672,7 @@ namespace SOAPAP.PDFManager
             builder.Append(@"<div class='datos_conceptos' style='margin-bottom: 10px;'>");
             builder.Append(@"<table style='width: 100%; font-size:13px;'>");
             builder.Append(@"<tr style='background-color: black; color: white;'>");
-            builder.Append(@"<th>CLAVEPROD. SERV.</th>");
+            builder.Append(@"<th>CLAVE PROD. SERV.</th>");
             builder.Append(@"<th>UNIDAD DE MEDIDA</th>");
             builder.Append(@"<th>DESCRIPCION</th>");
             builder.Append(@"<th>CANTIDAD</th>");
