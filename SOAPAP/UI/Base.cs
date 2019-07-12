@@ -56,7 +56,9 @@ namespace SOAPAP
             LoadDivition();
             Task taskA = new Task(() => FirebaseService());
             taskA.Start();
+            #if !DEBUG
             this.tslVersion.Text = "Siscom Ver. " + ApplicationDeployment.CurrentDeployment.CurrentVersion.ToString(4);
+            #endif
             //taskA.Wait();
         }
 
@@ -670,7 +672,7 @@ namespace SOAPAP
             SelectOption(btnProductos);
         }
 
-        #region PrivateMethod
+#region PrivateMethod
         /// <summary>
         /// Cambia el background dinamicamente segun la selección
         /// </summary>
@@ -687,7 +689,7 @@ namespace SOAPAP
             if (accessParam == CashBoxAccess.Access.Admin)
                 btnApertura.Text = "Alta de Terminal";
 
-            #region Visible
+#region Visible
             btnApertura.Visible =    accessParam == CashBoxAccess.Access.SinAcceso ||
                                      accessParam== CashBoxAccess.Access.GenerarOrden ? false : true;
 
@@ -717,9 +719,9 @@ namespace SOAPAP
 
             btnProductos.Visible =   accessParam == CashBoxAccess.Access.GenerarOrden ? true : btnProductos.Visible;
 
-            #endregion
+#endregion
 
-            #region Enabled
+#region Enabled
             btnApertura.Enabled =    accessParam == CashBoxAccess.Access.SinCierreAnterior ? false : true;
 
             btnCobro.Enabled =       accessParam != CashBoxAccess.Access.Cobro &&
@@ -735,7 +737,7 @@ namespace SOAPAP
 
             reportesToolStripMenuItem.Enabled = accessParam != CashBoxAccess.Access.Cobro &&
                                                 accessParam != CashBoxAccess.Access.GenerarOrden? false : true; 
-            #endregion
+#endregion
             btnApertura.Image = accessParam == CashBoxAccess.Access.Cobro ? Properties.Resources.abrir_caja : Properties.Resources.cerrar_caja;
         }
 
@@ -947,7 +949,7 @@ namespace SOAPAP
         {
             Application.Run(new Login());
         }
-        #endregion
+#endregion
 
         private void pnlMenu_Paint(object sender, PaintEventArgs e)
         {

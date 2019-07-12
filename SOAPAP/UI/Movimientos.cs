@@ -23,6 +23,8 @@ using System.Xml;
 using System.Runtime.InteropServices;
 using System.Globalization;
 using PdfPrintingNet;
+using System.Xml.Serialization;
+using SOAPAP.Facturado;
 
 namespace SOAPAP
 {
@@ -932,88 +934,9 @@ namespace SOAPAP
 
                 if (e.ColumnIndex == dgvMovimientos.Columns["Imprimir"].Index && e.RowIndex >= 0)
                 {
-                    if (row.Cells["typeTransactionId"].Value.ToString() == "3" || row.Cells["typeTransactionId"].Value.ToString() == "6")
+                    if (row.Cells["typeTransactionId"].Value.ToString() == "3")
                     {
-                        mensaje = new MessageBoxForm("¿Imprimir operación?", "Verifique que la impresora se encuentre lista para imprimir", TypeIcon.Icon.Warning, true);
-                        result = mensaje.ShowDialog();
-                        if (result == DialogResult.OK)
-                        {
-                            loading = new Loading();
-                            loading.Show(this);
-
-                            if (row.Cells["typeTransactionId"].Value.ToString() == "6")
-                            {
-                                dt2 = await q.GETTransactionIDCR("/api/Transaction/" + row.Cells["ID"].Value.ToString(), "RETIRO");
-
-                                if (Properties.Settings.Default.Printer == true)
-                                {
-                                    Tiket imp = new Tiket();
-                                    imp.Imprime(dt2, 2, Variables.subtotalp.ToString(), Variables.ivap.ToString(), Variables.redondeop.ToString(), Variables.totalp.ToString(), Variables.metododepagop, namesp, Variables.foliocaja, "", cuentap, rfcp, Variables.foliotransaccion, direccionp);
-                                    loading.Close();
-                                }
-
-                                else
-                                {
-                                    Variables.optionvistaimpresion = 4;
-                                    impresionhojas();
-                                }
-                            }
-                            else
-                            {
-                                dt2 = await q.GETTransactionID("/api/Transaction/" + row.Cells["ID"].Value.ToString());
-                                dt1 = await q.GETAgreementsbyaccount("/api/Agreements/" + Variables.idagrement + "");
-                                if (dt1 != null)
-                                {
-                                    foreach (DataRow rows in dt1.Rows)
-                                    {
-                                        separadas = rows[0].ToString().Split('/');
-                                        if (separadas[0].ToString() == "error")
-                                        {
-                                            mensaje = new MessageBoxForm(Variables.titleprincipal, separadas[1].ToString(), TypeIcon.Icon.Cancel);
-                                            mensaje.ShowDialog();
-                                            dt1.Rows.Clear();
-                                            break;
-                                        }
-                                    }
-                                }
-                                else
-                                {
-                                    mensaje = new MessageBoxForm(Variables.titleprincipal, "No se encontraron datos.", TypeIcon.Icon.Cancel);
-                                    mensaje.ShowDialog();
-                                }
-
-                                foreach (DataRow rows in dt1.Rows)
-                                {
-                                    idp = rows[0].ToString();
-                                    cuentap = rows[1].ToString();
-                                    namesp = rows[2].ToString();
-                                    rfcp = rows[3].ToString();
-                                    direccionp = rows[4].ToString();
-                                    numDerivatives = rows[5].ToString();
-                                    typeService = rows[6].ToString();
-                                    typeConsume = rows[7].ToString();
-                                    typeRegime = rows[8].ToString();
-                                    typePeriod = rows[9].ToString();
-                                    typeStateService = rows[10].ToString();
-                                    typeIntake = rows[11].ToString();
-                                }
-
-                                if (Properties.Settings.Default.Printer == true)
-                                {
-                                    Tiket imp = new Tiket();
-                                    imp.Imprime(dt2, 2, Variables.subtotalp.ToString(), Variables.ivap.ToString(), Variables.redondeop.ToString(), Variables.totalp.ToString(), Variables.metododepagop, namesp, Variables.foliocaja, "", cuentap, rfcp, Variables.foliotransaccion, direccionp);
-                                    loading.Close();
-                                }
-                                else
-                                {
-                                    Variables.optionvistaimpresion = 1;
-                                    impresionhojas();
-                                }
-                            }
-
-                            loading.Close();
-
-                        }
+                       
                     }
                 }
                 //if (e.ColumnIndex == dgvMovimientos.Columns["XML"].Index && e.RowIndex >= 0)
@@ -1412,6 +1335,13 @@ namespace SOAPAP
             dgvMovimientos.DataSource = dataView;
             dgvMovimientos.Refresh();
             await Total();
+        }
+
+        public void DeserializerXML(string xmlString)
+        {
+            XmlSerializer serializer = new XmlSerializer(typeof(Comprobante), new XmlRootAttribute("Comprobante"));
+            StringReader stringReader = new StringReader(xmlString);
+            Comprobante comprobante = (Comprobante)serializer.Deserialize(stringReader);
         }
     }
 }

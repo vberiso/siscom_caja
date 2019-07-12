@@ -685,15 +685,17 @@ namespace SOAPAP.PDFManager
             builder.Append(@"<div style='text-align: right; display: inline-block; width: 90%; font-size: 14px;'>");
             if (!Variables.Configuration.IsMunicipal)
             {
-                builder.Append(@"<p style='margin-top: 0px;margin-bottom: 0px; font-size: 14px;'>IVA:</p></div>");
+                builder.Append(@"<p style='margin-top: 0px;margin-bottom: 0px; font-size: 14px;'>IVA:</p>");
             }
+            builder.Append("</div>");
             builder.Append(@"<div style='text-align: right; display: inline-block; width: 4.3%; font-size: 14px;'>");
             if (havtax)
             {
                 if (!Variables.Configuration.IsMunicipal)
                 {
-                    builder.Append(@"<p style='margin-top: 0px;margin-bottom: 0px; font-size: 14px;'>" + string.Format(new CultureInfo("es-MX"), "{0:C2}", CfdiMulti.Items.Sum(x => x.Taxes?.Sum(c => c.Total))) + "</p></div>");
+                    builder.Append(@"<p style='margin-top: 0px;margin-bottom: 0px; font-size: 14px;'>" + string.Format(new CultureInfo("es-MX"), "{0:C2}", CfdiMulti.Items.Sum(x => x.Taxes?.Sum(c => c.Total))) + "</p>");
                 }
+                builder.Append("</div>");
             }
             else
             {
@@ -701,6 +703,7 @@ namespace SOAPAP.PDFManager
                 {
                     builder.Append(@"<p style='margin-top: 0px;margin-bottom: 0px; font-size: 14px;'>" + string.Format(new CultureInfo("es-MX"), "{0:C2}", 0) + "</p></div>");
                 }
+                builder.Append("</div>");
             }
 
             builder.Append(@"<div class='datos_moneda' style='margin-bottom: 10px;'>");
