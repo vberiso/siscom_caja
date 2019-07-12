@@ -121,7 +121,7 @@ namespace SOAPAP.UI
                         row["ID"] = m.productId;
                         row["NOMBRE"] = namesconcept == "" ? GetPath(treeList1.FindNodeByID(treeList1.FocusedNode.Id), "") : namesconcept;
                         //row["TOTAL"] = ModalProduct.Quatity
-                        row["TOTAL"] = Variables.LoginModel.Divition == 2 ? Math.Round((ModalProduct.Quatity * ((Variables.Configuration.Percentage / 100) + 1)), 2) : ModalProduct.Quatity;
+                        row["TOTAL"] =  ModalProduct.Quatity;
                         row["IVA"] = m.haveTax;
                         if (m.haveTax)
                             row["AMOUNTIVA"] = Math.Round((((decimal)row["TOTAL"] * Convert.ToDecimal(Variables.Configuration.IVA)) / 100), 2);
@@ -150,7 +150,7 @@ namespace SOAPAP.UI
                         row["ID"] = m.productId;
                         row["NOMBRE"] = namesconcept == "" ? GetPath(treeList1.FindNodeByID(treeList1.FocusedNode.Id), "") : namesconcept;
                         //row["TOTAL"] = (ModalProduct.Quatity * m.percentage) / 100;
-                        row["TOTAL"] = Variables.LoginModel.Divition == 2 ? Math.Round((Math.Round(((ModalProduct.Quatity * m.percentage) / 100), 2 ) * ((Variables.Configuration.Percentage / 100) + 1)), 2) : (ModalProduct.Quatity * m.percentage) / 100;
+                        row["TOTAL"] = (ModalProduct.Quatity * m.percentage) / 100;
                         row["IVA"] = m.haveTax;
                         if (m.haveTax)
                             row["AMOUNTIVA"] = Math.Round((((decimal)row["TOTAL"] * Convert.ToDecimal(Variables.Configuration.IVA)) / 100), 2);
@@ -178,7 +178,7 @@ namespace SOAPAP.UI
                         row["ID"] = m.productId;
                         row["NOMBRE"] = namesconcept == "" ? GetPath(treeList1.FindNodeByID(treeList1.FocusedNode.Id), "") : namesconcept;
                         //row["TOTAL"] = ModalProduct.Quatity * Convert.ToDecimal(m.amount);
-                        row["TOTAL"] = Variables.LoginModel.Divition == 2 ? Math.Round(((ModalProduct.Quatity * Convert.ToDecimal(m.amount)) * ((Variables.Configuration.Percentage / 100) + 1)), 2) : ModalProduct.Quatity * Convert.ToDecimal(m.amount);
+                        row["TOTAL"] = ModalProduct.Quatity * Convert.ToDecimal(m.amount);
                         row["IVA"] = m.haveTax;
                         if (m.haveTax)
                             row["AMOUNTIVA"] = Math.Round((((decimal)row["TOTAL"] * Convert.ToDecimal(Variables.Configuration.IVA)) / 100), 2);
@@ -206,7 +206,7 @@ namespace SOAPAP.UI
                         row["ID"] = m.productId;
                         row["NOMBRE"] = namesconcept == "" ? GetPath(treeList1.FindNodeByID(treeList1.FocusedNode.Id), "") : namesconcept;
                         //row["TOTAL"] = Convert.ToDecimal(Variables.Configuration.minimumsalary) * ModalProduct.Quatity;
-                        row["TOTAL"] = Variables.LoginModel.Divition == 2 ? Math.Round(((Convert.ToDecimal(Variables.Configuration.minimumsalary) * ModalProduct.Quatity) * ((Variables.Configuration.Percentage / 100) + 1)), 2) : Convert.ToDecimal(Variables.Configuration.minimumsalary) * ModalProduct.Quatity;
+                        row["TOTAL"] = Convert.ToDecimal(Variables.Configuration.minimumsalary) * ModalProduct.Quatity;
                         row["IVA"] = m.haveTax;
                         decimal amount = Convert.ToDecimal(Variables.Configuration.minimumsalary) * ModalProduct.Quatity;
                         if (m.haveTax)
@@ -240,7 +240,7 @@ namespace SOAPAP.UI
                                 row["ID"] = m.productId;
                                 row["NOMBRE"] = name;
                                 //row["TOTAL"] = (decimal)m.amount * ModalProduct.Quatity;
-                                row["TOTAL"] = Variables.LoginModel.Divition == 2 ? Math.Round((((decimal)m.amount * ModalProduct.Quatity) * ((Variables.Configuration.Percentage / 100) + 1)), 2) : (decimal)m.amount * ModalProduct.Quatity;
+                                row["TOTAL"] = (decimal)m.amount * ModalProduct.Quatity;
                                 row["IVA"] = m.haveTax;
                                 row["CANTIDAD"] = ModalProduct.Quatity;
                                 if (m.haveTax)
@@ -839,6 +839,7 @@ namespace SOAPAP.UI
                     List<Model.OrderSaleDetails> lista = new List<Model.OrderSaleDetails>();
                     foreach (DataGridViewRow row in dgvMovimientos.Rows)
                     {
+
                         lista.Add(new Model.OrderSaleDetails
                         {
                             Amount = Convert.ToDecimal(row.Cells[3].Value),
@@ -1010,7 +1011,7 @@ namespace SOAPAP.UI
             if (node.ParentNode != null)
                 return GetPath(node.ParentNode, node.GetDisplayText("Description") + " - " + path);
             string s = node.GetDisplayText("Description") + " - " + path;
-            return s.Substring(0, s.Length - 4);
+            return s.Substring(0, s.Length - 3);
         }
 
         private void btnSearch_Click(object sender, EventArgs e)

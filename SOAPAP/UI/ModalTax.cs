@@ -38,7 +38,8 @@ namespace SOAPAP.UI
         TaxUser TaxUser = new TaxUser();
         public int idUser { get; set; } = 0;
 
-        public ModalTax(Model.OrderSale orderSale,DataTable dt,String total, decimal Subtotal, decimal IVA)
+        public ModalTax
+            (Model.OrderSale orderSale,DataTable dt,String total, decimal Subtotal, decimal IVA)
         {
             InitializeComponent();
             Requests = new RequestsAPI(UrlBase);
@@ -296,14 +297,9 @@ namespace SOAPAP.UI
             loading = new Loading();
             loading.Show(this);
             
-            Tax.IsActive = true;
-            Tax.Name = txtName.Text;
-            Tax.RFC = string.IsNullOrEmpty(txtRFC.Text) ? "XAXX010101000" : txtRFC.Text;
-            Tax.CURP = txtCURP.Text;
-            Tax.PhoneNumber = txtPhone.Text == "" ? "0" : txtPhone.Text;
-            Tax.EMail = txtEmail.Text;
             if(idUser != 0)
             {
+                //Tax
                 orderSales.TaxUserId = idUser;
             }
             else if (txtName.Text=="")
@@ -314,11 +310,18 @@ namespace SOAPAP.UI
             else
             {
                 orderSales.TaxUserId = 0;
+                Tax.IsActive = true;
+                Tax.Name = txtName.Text;
+                Tax.RFC = string.IsNullOrEmpty(txtRFC.Text) ? "XAXX010101000" : txtRFC.Text;
+                Tax.CURP = txtCURP.Text;
+                Tax.PhoneNumber = txtPhone.Text == "" ? "0" : txtPhone.Text;
+                Tax.EMail = txtEmail.Text;
                 List<Model.TaxAddress> taxAddresses = new List<Model.TaxAddress>();
 
                 Model.TaxAddress taxs = new Model.TaxAddress
                 {
                     Street = txtAddress.Text,
+                    //Street = string.IsNullOrEmpty(txtAddress.Text) ? "",
                     Outdoor = string.IsNullOrEmpty(txtOutdoor.Text) ? "0" : txtOutdoor.Text,
                     Indoor = txtIndoor.Text,
                     Zip = txtCP.Text,
@@ -507,6 +510,7 @@ namespace SOAPAP.UI
                         TaxUser.CURP = users.FirstOrDefault().CURP;
                         TaxUser.PhoneNumber = users.FirstOrDefault().PhoneNumber;
                         TaxUser.EMail = users.FirstOrDefault().EMail;
+                        TaxUser.Id = users.FirstOrDefault().Id;
                         TaxUser.TaxAddresses.Add(address);
                     }
                   

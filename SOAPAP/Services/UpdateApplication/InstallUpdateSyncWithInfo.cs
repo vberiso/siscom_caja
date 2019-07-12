@@ -51,7 +51,11 @@ namespace SOAPAP.Services.UpdateApplication
                     if (!info.IsUpdateRequired)
                     {
                         Form mensaje = new MessageBoxForm("Actualización disponible", "Hay disponible una actualización. ¿Desea actualizar la aplicación ahora?", TypeIcon.Icon.Info);
-                        if (!(DialogResult.OK == mensaje.ShowDialog()))
+                        if (DialogResult.OK == mensaje.ShowDialog())
+                        {
+                            doUpdate = true;
+                        }
+                        else
                         {
                             doUpdate = false;
                         }

@@ -22,7 +22,7 @@ namespace SOAPAP.Tools
 
         private const Char sub = (Char)26;
         //Cambiar acá si se quiere otro comportamiento en los métodos de clase
-        public const String SeparadorDecimalSalidaDefault = "con";
+        public const String SeparadorDecimalSalidaDefault = "Pesos";
         public const String MascaraSalidaDecimalDefault = "00'/100.-'";
         public const Int32 DecimalesDefault = 2;
         public const Boolean LetraCapitalDefault = false;

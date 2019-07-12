@@ -39,6 +39,7 @@ namespace SOAPAP
         {
             Requests = new RequestsAPI(UrlBase);
             facturama = new FacturamaApiMultiemisor("gfdsystems", "gfds1st95", false);
+            //facturama = new FacturamaApiMultiemisor("gfdsystems", "gfds1st95");
             //facturama = new FacturamaApiMultiemisor("pruebas", "pruebas2011");
         }
         //Metodo del Vic (con calmita...)
@@ -805,7 +806,9 @@ namespace SOAPAP
                 string respuesta = string.Empty;
                 string rutas = string.Empty;
                 string json = string.Empty;
-                
+                Facturama.Models.Response.Cfdi cfdiFacturama = null;
+
+
                 var resultado = await Requests.SendURIAsync(string.Format("/api/Transaction/{0}", idTransaction), HttpMethod.Get, Variables.LoginModel.Token);
                 TransactionVM TraVM = JsonConvert.DeserializeObject<TransactionVM>(resultado);
 
@@ -922,7 +925,7 @@ namespace SOAPAP
                 {                   
                     issuer = new Issuer
                     {
-                        FiscalRegime = "601",
+                        FiscalRegime = "603",
                         Name = "MUNICIPIO DE CUAUTLANCINGO PUEBLA",
                         Rfc = "MCP850101944"
                     };
@@ -1007,12 +1010,13 @@ namespace SOAPAP
                             IdentificationNumber = "S" + pay.CodeConcept,
                             UnitCode = pay.UnitMeasurement,
                             Unit = "NO APLICA",
-                            Description = pay.Description + " Periodo de:" + pay.Debt.FromDate.ToString("yyyy-MM-dd") + " hasta: " + pay.Debt.UntilDate.ToString("yyyy-MM-dd"),
+                            Description = pay.Description + " Periodo de: " + pay.Debt.FromDate.ToString("yyyy-MM-dd") + " hasta: " + pay.Debt.UntilDate.ToString("yyyy-MM-dd"),
+                           
                             //UnitPrice = (pay.Debt.DebtDetails.Where(x => x.CodeConcept == pay.CodeConcept).Select(y => y.Amount).FirstOrDefault() + pay.Debt.DebtDiscounts.Where(x => x.CodeConcept == pay.CodeConcept).Select(y => y.DiscountAmount).FirstOrDefault()),
                             UnitPrice = tmpValorUnitario,
                             Quantity = pay.Debt.DebtDetails.Where(x => x.CodeConcept == pay.CodeConcept).Select(y => y.quantity).FirstOrDefault(),
                             Subtotal = pay.Debt.DebtDetails.Where(x => x.CodeConcept == pay.CodeConcept).Select(y => y.Amount).FirstOrDefault() + pay.Debt.DebtDiscounts.Where(x => x.CodeConcept == pay.CodeConcept).Select(y => y.DiscountAmount).FirstOrDefault(),
-                            Discount = pay.Debt.DebtDiscounts.Where(x => x.CodeConcept == pay.CodeConcept).Select(y => y.DiscountAmount).FirstOrDefault(),
+                            Discount = pay.Debt.DebtDiscounts.Where(x => x.CodeConcept == pay.CodeConcept).Select(y => y.DiscountAmount).FirstOrDefault(),                      
                             Total = pay.Amount + pay.Tax
                         };
                         if (pay.HaveTax == true)
@@ -1025,7 +1029,7 @@ namespace SOAPAP
                                     Name = "IVA",
                                     Total = pay.Tax,
                                     IsRetention = false
-                                }
+                                }                     
                             };
                             item.Taxes = lstTaxs;
                         }
@@ -1093,10 +1097,10 @@ namespace SOAPAP
                 string nombreXML = string.Format("\\{0}_{1}_{2}.xml", issuer.Rfc, receptor.Rfc , seriefolio);
                 string nombrePDF = string.Format("\\{0}_{1}_{2}.pdf", issuer.Rfc, receptor.Rfc, seriefolio);
 
-                Facturama.Models.Response.Cfdi cfdiFacturama = TimbrarAnteFacturama(cfdi, path + nombreXML);
-
-                if(cfdiFacturama != null)
+                object[] vs = TimbrarAnteFacturama(cfdi, path + nombreXML);
+                if(vs[0] != null)
                 {
+                    cfdiFacturama = (Facturama.Models.Response.Cfdi)vs[0];
                     string XML = LeerXML(path + nombreXML);
                     TaxReceipt resGuardado = await guardarXMLenBD(XML, cfdiFacturama.Complement.TaxStamp.Uuid, receptor.Rfc, TipoFactura, status, TraVM.payment.Id, cfdiFacturama.Id);
                     string resActPay = await actualizarPaymentConFactura(TraVM.payment);
@@ -1124,7 +1128,8 @@ namespace SOAPAP
                 }
                 else
                 {                    
-                    return "{\"error\": \"El cobro fue registrado en BD, pero no pudo generarse la factura, consulte al administrador.\"}";
+                    string error = (string)vs[1];
+                    return "{\"error\": \"El cobro fue registrado, pero no se genero el CFDI. Detalles: "+error+"\"}";
                 }                
             }
             catch (Exception ex)
@@ -1134,60 +1139,11 @@ namespace SOAPAP
             }            
         }
 
-        public Facturama.Models.Response.Cfdi TimbrarAnteFacturama(CfdiMulti cfdi, string path)
-        {            
+        public object[] TimbrarAnteFacturama(CfdiMulti cfdi, string path)
+        {
+            object[] cfdistatus = new object[2];
             try
             {
-                //var cfdi = new CfdiMulti
-                //{
-                //    Folio = "101",
-                //    Serie = "R",
-                //    Currency = "MXN",
-                //    ExpeditionPlace = "78116",
-                //    PaymentConditions = "CREDITO A SIETE DIAS",
-                //    CfdiType = CfdiType.Ingreso,
-                //    PaymentForm = "03",
-                //    PaymentMethod = "PUE",
-                //    Issuer = new Issuer
-                //    {
-                //        FiscalRegime = "601",
-                //        Name = "Ayuntamiento",
-                //        Rfc = "MCP850101944"
-                //    },
-                //    Receiver = new Receiver
-                //    {
-                //        Rfc = "XAXX010101000",
-                //        Name = "GFD SYSTEMS",
-                //        CfdiUse = "P01"
-                //    },
-                //    Items = new List<Item>
-                //{
-                //    new Item
-                //    {
-                //        ProductCode = "10101504",
-                //        IdentificationNumber = "EDL",
-                //        Description = "Estudios de viabilidad",
-                //        Unit = "NO APLICA",
-                //        UnitCode = "MTS",
-                //        UnitPrice = 50.00m,
-                //        Quantity = 2.00m,
-                //        Subtotal = 100.00m,
-                //        Taxes = new List<Tax>
-                //        {
-                //            new Tax
-                //            {
-                //                Total = 16.00m,
-                //                Name = "IVA",
-                //                Base = 100.00m,
-                //                Rate = 0.160000m,
-                //                IsRetention = false
-                //            }
-                //        },
-                //        Total = 116.0m
-                //    }
-                //}
-                //};
-
 
                 Facturama.Models.Response.Cfdi cfdiCreated = facturama.Cfdis.Create(cfdi);
                                
@@ -1202,13 +1158,27 @@ namespace SOAPAP
                 ////Cancelación
                 //facturama.Cfdis.Remove(cfdiCreated.Id);
 
-                return cfdiCreated;
+                cfdistatus[0] = cfdiCreated;
+                cfdistatus[1] = null;
+                return cfdistatus;
+            }
+            catch (FacturamaException ex)
+            {
+                string error = string.Empty;
+                foreach (var messageDetail in ex.Model.Details)
+                {
+                    error = $"{messageDetail.Key}: {string.Join(",", messageDetail.Value)}";
+                }
+                cfdistatus[0] = null;
+                cfdistatus[1] = "{\"error\": " + ex.Message + ": " + error + "}";
+                return cfdistatus;
             }
             catch (Exception ex)
-            {
-                var text = ex.Message;
-                return null;
-            }            
+            {      
+                cfdistatus[0] = null;
+                cfdistatus[1] = "{\"error\": " + ex.Message + "}";
+                return cfdistatus;
+            }
         }
 
         private string RegitraEmisor()
@@ -1335,6 +1305,8 @@ namespace SOAPAP
         {
             try
             {
+                var list = facturama.Cfdis.List();
+
                 Facturama.Models.Response.Cfdi cfdiCancel = facturama.Cfdis.Remove(IdXmlFacturama);
                 if(cfdiCancel.Complement != null)
                 {
@@ -1347,10 +1319,20 @@ namespace SOAPAP
                 }
                 
             }
-            catch (Exception e)
+            catch (FacturamaException ex)
+            {
+                string error = string.Empty;
+                foreach (var messageDetail in ex.Model.Details)
+                {
+                    error = $"{messageDetail.Key}: {string.Join(",", messageDetail.Value)}";
+                }
+                    return "{\"error\": " + ex.Message + ": " +error+ "}";
+            }
+            catch (Exception ex)
             {
 
-                return "{\"error\": " + e.Message + "}";
+                return "{\"error\": " + ex.Message + "}";
+
             }
         }
     }

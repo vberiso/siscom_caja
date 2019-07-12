@@ -1107,7 +1107,7 @@ namespace SOAPAP.UI
                     dt = await q.GETTransactionID("/api/Transaction/" + resultados);
                     Variables.idtransaction = Convert.ToInt32(resultados);
                     loading.Close();
-                    if (Variables.Configuration.CFDI == "Verdadero")
+                    if (Variables.Configuration.CFDI == "Verdadero" || Variables.LoginModel.CanStamp)
                     {
                         Form loadings = new Loading();
                         loadings.Show(this);
@@ -1455,7 +1455,7 @@ namespace SOAPAP.UI
                 dt = await q.GETTransactionID("/api/Transaction/" + resultados);
                 loading.Close();
 
-                if (Variables.Configuration.CFDI == "Verdadero")
+                if (Variables.Configuration.CFDI == "Verdadero" || Variables.LoginModel.CanStamp)
                 {
                     Form loadings = new Loading();
                     loadings.Show(this);

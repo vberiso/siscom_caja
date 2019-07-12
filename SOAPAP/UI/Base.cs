@@ -21,6 +21,7 @@ using SOAPAP.Properties;
 using SOAPAP.UI.Descuentos;
 using Firebase.Database.Query;
 using SOAPAP.Facturado;
+using System.Deployment.Application;
 
 namespace SOAPAP
 {
@@ -55,7 +56,7 @@ namespace SOAPAP
             LoadDivition();
             Task taskA = new Task(() => FirebaseService());
             taskA.Start();
-            //this.tslVersion.Text = "Siscom Ver. " + Variables.Configuration.VersionApp.Version;
+            this.tslVersion.Text = "Siscom Ver. " + ApplicationDeployment.CurrentDeployment.CurrentVersion.ToString(4);
             //taskA.Wait();
         }
 
@@ -315,8 +316,6 @@ namespace SOAPAP
 
             if (Variables.LoginModel.RolName.ToList().Find(x => x.Contains("User"))!=null)
             {
-                //if (Variables.Configuration.StateOperation == 7)
-                //    Variables.Configuration.StateOperation = 0;
                 if(Variables.Configuration.Terminal.TerminalUsers.Count == 0 && Variables.Configuration.StateOperation == 7 )
                 {
                     Variables.Configuration.StateOperation = 0;
@@ -824,6 +823,7 @@ namespace SOAPAP
                                             break;
                                     }
                                 }
+                                ingresosToolStripMenuItem.Visible = true;
                             }
                         }
                     }

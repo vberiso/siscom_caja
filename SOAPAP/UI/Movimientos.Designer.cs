@@ -31,9 +31,9 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.dgvMovimientos = new System.Windows.Forms.DataGridView();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
             this.lblTitulo = new System.Windows.Forms.Label();
@@ -56,32 +56,35 @@
             this.label1 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.dataGridViewImageColumn1 = new System.Windows.Forms.DataGridViewImageColumn();
-            this.TIMBRAR = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.PDF = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.XML = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.Cancelar = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.Imprimir = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.Estado = new System.Windows.Forms.DataGridViewImageColumn();
-            this.typeTransactionId = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Folio = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.externalOriginpayment = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.originpayment = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.namepaymethod = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.idpaymethod = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.nameterminaluser = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ideterminaluser = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.terminaluser = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.authorizationoriginpayment = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cancellation = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.aplication = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.rounding = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tax = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.amount = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.sing = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.datetransaction = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.FolioImpresion = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TypeTransaction = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewButtonColumn1 = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.dataGridViewButtonColumn2 = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.dataGridViewButtonColumn3 = new System.Windows.Forms.DataGridViewButtonColumn();
             this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TypeTransaction = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.FolioImpresion = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.datetransaction = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tot = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.sing = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.amount = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tax = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.rounding = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.aplication = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cancellation = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.authorizationoriginpayment = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.terminaluser = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ideterminaluser = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.nameterminaluser = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.idpaymethod = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.namepaymethod = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.originpayment = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.externalOriginpayment = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Folio = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.typeTransactionId = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Estado = new System.Windows.Forms.DataGridViewImageColumn();
+            this.Imprimir = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.Cancelar = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.TIMBRAR = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.CFDI = new System.Windows.Forms.DataGridViewImageColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgvMovimientos)).BeginInit();
             this.tableLayoutPanel4.SuspendLayout();
             this.pnlHeader.SuspendLayout();
@@ -120,6 +123,7 @@
             this.TypeTransaction,
             this.FolioImpresion,
             this.datetransaction,
+            this.tot,
             this.sing,
             this.amount,
             this.tax,
@@ -139,9 +143,8 @@
             this.Estado,
             this.Imprimir,
             this.Cancelar,
-            this.XML,
-            this.PDF,
-            this.TIMBRAR});
+            this.TIMBRAR,
+            this.CFDI});
             dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle5.BackColor = System.Drawing.Color.White;
             dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -413,180 +416,87 @@
             this.dataGridViewImageColumn1.Name = "dataGridViewImageColumn1";
             this.dataGridViewImageColumn1.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             // 
-            // TIMBRAR
+            // dataGridViewButtonColumn1
             // 
-            this.TIMBRAR.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.TIMBRAR.HeaderText = "";
-            this.TIMBRAR.Name = "TIMBRAR";
-            this.TIMBRAR.ReadOnly = true;
-            this.TIMBRAR.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.TIMBRAR.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.TIMBRAR.ToolTipText = "TIMBRAR";
+            this.dataGridViewButtonColumn1.DataPropertyName = "Imprimir";
+            this.dataGridViewButtonColumn1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.dataGridViewButtonColumn1.HeaderText = "";
+            this.dataGridViewButtonColumn1.Name = "dataGridViewButtonColumn1";
+            this.dataGridViewButtonColumn1.ReadOnly = true;
+            this.dataGridViewButtonColumn1.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewButtonColumn1.ToolTipText = "Imprimir";
+            this.dataGridViewButtonColumn1.Width = 102;
             // 
-            // PDF
+            // dataGridViewButtonColumn2
             // 
-            this.PDF.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.PDF.HeaderText = "";
-            this.PDF.Name = "PDF";
-            this.PDF.ReadOnly = true;
-            this.PDF.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.PDF.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.PDF.ToolTipText = "PDF";
+            this.dataGridViewButtonColumn2.DataPropertyName = "Cancelar";
+            this.dataGridViewButtonColumn2.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.dataGridViewButtonColumn2.HeaderText = "";
+            this.dataGridViewButtonColumn2.Name = "dataGridViewButtonColumn2";
+            this.dataGridViewButtonColumn2.ReadOnly = true;
+            this.dataGridViewButtonColumn2.ToolTipText = "Cancelar";
+            this.dataGridViewButtonColumn2.Width = 101;
             // 
-            // XML
+            // dataGridViewButtonColumn3
             // 
-            this.XML.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.XML.HeaderText = "";
-            this.XML.Name = "XML";
-            this.XML.ReadOnly = true;
-            this.XML.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.XML.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.XML.ToolTipText = "XML";
+            this.dataGridViewButtonColumn3.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.dataGridViewButtonColumn3.HeaderText = "";
+            this.dataGridViewButtonColumn3.Name = "dataGridViewButtonColumn3";
+            this.dataGridViewButtonColumn3.ReadOnly = true;
+            this.dataGridViewButtonColumn3.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewButtonColumn3.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.dataGridViewButtonColumn3.ToolTipText = "TIMBRAR";
+            this.dataGridViewButtonColumn3.Width = 101;
             // 
-            // Cancelar
+            // ID
             // 
-            this.Cancelar.DataPropertyName = "Cancelar";
-            this.Cancelar.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.Cancelar.HeaderText = "";
-            this.Cancelar.Name = "Cancelar";
-            this.Cancelar.ReadOnly = true;
-            this.Cancelar.ToolTipText = "Cancelar";
+            this.ID.DataPropertyName = "Id";
+            this.ID.HeaderText = "ID";
+            this.ID.Name = "ID";
+            this.ID.ReadOnly = true;
+            this.ID.Visible = false;
             // 
-            // Imprimir
+            // TypeTransaction
             // 
-            this.Imprimir.DataPropertyName = "Imprimir";
-            this.Imprimir.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.Imprimir.HeaderText = "";
-            this.Imprimir.Name = "Imprimir";
-            this.Imprimir.ReadOnly = true;
-            this.Imprimir.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.Imprimir.ToolTipText = "Imprimir";
+            this.TypeTransaction.DataPropertyName = "TypeTransaction";
+            this.TypeTransaction.FillWeight = 45.90965F;
+            this.TypeTransaction.HeaderText = "OPERACION";
+            this.TypeTransaction.Name = "TypeTransaction";
+            this.TypeTransaction.ReadOnly = true;
             // 
-            // Estado
+            // FolioImpresion
             // 
-            this.Estado.HeaderText = "";
-            this.Estado.Name = "Estado";
-            this.Estado.ReadOnly = true;
+            this.FolioImpresion.DataPropertyName = "FolioImpresion";
+            this.FolioImpresion.FillWeight = 45.90965F;
+            this.FolioImpresion.HeaderText = "FOLIO";
+            this.FolioImpresion.Name = "FolioImpresion";
+            this.FolioImpresion.ReadOnly = true;
             // 
-            // typeTransactionId
+            // datetransaction
             // 
-            this.typeTransactionId.DataPropertyName = "typeTransactionId";
-            this.typeTransactionId.HeaderText = "typeTransactionId";
-            this.typeTransactionId.Name = "typeTransactionId";
-            this.typeTransactionId.ReadOnly = true;
-            this.typeTransactionId.Visible = false;
+            this.datetransaction.DataPropertyName = "dateTransaction";
+            this.datetransaction.FillWeight = 45.90965F;
+            this.datetransaction.HeaderText = "HORA";
+            this.datetransaction.Name = "datetransaction";
+            this.datetransaction.ReadOnly = true;
             // 
-            // Folio
+            // tot
             // 
-            this.Folio.DataPropertyName = "Folio";
-            this.Folio.HeaderText = "Folio";
-            this.Folio.Name = "Folio";
-            this.Folio.ReadOnly = true;
-            this.Folio.Visible = false;
+            this.tot.DataPropertyName = "total";
+            this.tot.FillWeight = 45.90965F;
+            this.tot.HeaderText = "TOTAL";
+            this.tot.Name = "tot";
+            this.tot.ReadOnly = true;
             // 
-            // externalOriginpayment
+            // sing
             // 
-            this.externalOriginpayment.DataPropertyName = "externalOriginPayment";
-            this.externalOriginpayment.HeaderText = "ORIGEN DE PAGO EXTERNO";
-            this.externalOriginpayment.Name = "externalOriginpayment";
-            this.externalOriginpayment.ReadOnly = true;
-            this.externalOriginpayment.Visible = false;
-            // 
-            // originpayment
-            // 
-            this.originpayment.DataPropertyName = "originPayment";
-            this.originpayment.HeaderText = "ORIGEN DE PAGO";
-            this.originpayment.Name = "originpayment";
-            this.originpayment.ReadOnly = true;
-            this.originpayment.Visible = false;
-            // 
-            // namepaymethod
-            // 
-            this.namepaymethod.DataPropertyName = "namepayMethod";
-            this.namepaymethod.HeaderText = "METODO DE PAGO";
-            this.namepaymethod.Name = "namepaymethod";
-            this.namepaymethod.ReadOnly = true;
-            this.namepaymethod.Visible = false;
-            // 
-            // idpaymethod
-            // 
-            this.idpaymethod.DataPropertyName = "idpayMethod";
-            this.idpaymethod.HeaderText = "IDMETODODEPAGO";
-            this.idpaymethod.Name = "idpaymethod";
-            this.idpaymethod.ReadOnly = true;
-            this.idpaymethod.Visible = false;
-            // 
-            // nameterminaluser
-            // 
-            this.nameterminaluser.DataPropertyName = "nameterminalUser";
-            this.nameterminaluser.HeaderText = "NOMBRE DE TERMINAL";
-            this.nameterminaluser.Name = "nameterminaluser";
-            this.nameterminaluser.ReadOnly = true;
-            this.nameterminaluser.Visible = false;
-            // 
-            // ideterminaluser
-            // 
-            this.ideterminaluser.DataPropertyName = "idterminalUser";
-            this.ideterminaluser.HeaderText = "IDTERMINAL";
-            this.ideterminaluser.Name = "ideterminaluser";
-            this.ideterminaluser.ReadOnly = true;
-            this.ideterminaluser.Visible = false;
-            // 
-            // terminaluser
-            // 
-            this.terminaluser.DataPropertyName = "terminalUser";
-            this.terminaluser.HeaderText = "CAJA";
-            this.terminaluser.Name = "terminaluser";
-            this.terminaluser.ReadOnly = true;
-            this.terminaluser.Visible = false;
-            // 
-            // authorizationoriginpayment
-            // 
-            this.authorizationoriginpayment.DataPropertyName = "authorizationOriginPayment";
-            this.authorizationoriginpayment.HeaderText = "AUTORIZACION DE PAGO";
-            this.authorizationoriginpayment.Name = "authorizationoriginpayment";
-            this.authorizationoriginpayment.ReadOnly = true;
-            this.authorizationoriginpayment.Visible = false;
-            // 
-            // cancellation
-            // 
-            this.cancellation.DataPropertyName = "cancellationFolio";
-            this.cancellation.HeaderText = "CANCELACION";
-            this.cancellation.Name = "cancellation";
-            this.cancellation.ReadOnly = true;
-            this.cancellation.Visible = false;
-            // 
-            // aplication
-            // 
-            this.aplication.DataPropertyName = "aplication";
-            this.aplication.HeaderText = "APLICACION";
-            this.aplication.Name = "aplication";
-            this.aplication.ReadOnly = true;
-            this.aplication.Visible = false;
-            // 
-            // rounding
-            // 
-            this.rounding.DataPropertyName = "rounding";
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle4.Format = "N2";
-            dataGridViewCellStyle4.NullValue = null;
-            this.rounding.DefaultCellStyle = dataGridViewCellStyle4;
-            this.rounding.HeaderText = "RED";
-            this.rounding.Name = "rounding";
-            this.rounding.ReadOnly = true;
-            this.rounding.Visible = false;
-            // 
-            // tax
-            // 
-            this.tax.DataPropertyName = "tax";
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle3.Format = "N2";
-            dataGridViewCellStyle3.NullValue = null;
-            this.tax.DefaultCellStyle = dataGridViewCellStyle3;
-            this.tax.HeaderText = "IVA";
-            this.tax.Name = "tax";
-            this.tax.ReadOnly = true;
-            this.tax.Visible = false;
+            this.sing.DataPropertyName = "sign";
+            this.sing.HeaderText = "SIGNO";
+            this.sing.Name = "sing";
+            this.sing.ReadOnly = true;
+            this.sing.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.sing.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.sing.Visible = false;
             // 
             // amount
             // 
@@ -600,44 +510,178 @@
             this.amount.ReadOnly = true;
             this.amount.Visible = false;
             // 
-            // sing
+            // tax
             // 
-            this.sing.DataPropertyName = "sign";
-            this.sing.HeaderText = "SIGNO";
-            this.sing.Name = "sing";
-            this.sing.ReadOnly = true;
-            this.sing.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.sing.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.sing.Visible = false;
+            this.tax.DataPropertyName = "tax";
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle3.Format = "N2";
+            dataGridViewCellStyle3.NullValue = null;
+            this.tax.DefaultCellStyle = dataGridViewCellStyle3;
+            this.tax.HeaderText = "IVA";
+            this.tax.Name = "tax";
+            this.tax.ReadOnly = true;
+            this.tax.Visible = false;
             // 
-            // datetransaction
+            // rounding
             // 
-            this.datetransaction.DataPropertyName = "dateTransaction";
-            this.datetransaction.HeaderText = "FECHA";
-            this.datetransaction.Name = "datetransaction";
-            this.datetransaction.ReadOnly = true;
+            this.rounding.DataPropertyName = "rounding";
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle4.Format = "N2";
+            dataGridViewCellStyle4.NullValue = null;
+            this.rounding.DefaultCellStyle = dataGridViewCellStyle4;
+            this.rounding.HeaderText = "RED";
+            this.rounding.Name = "rounding";
+            this.rounding.ReadOnly = true;
+            this.rounding.Visible = false;
             // 
-            // FolioImpresion
+            // aplication
             // 
-            this.FolioImpresion.DataPropertyName = "FolioImpresion";
-            this.FolioImpresion.HeaderText = "FOLIO";
-            this.FolioImpresion.Name = "FolioImpresion";
-            this.FolioImpresion.ReadOnly = true;
+            this.aplication.DataPropertyName = "aplication";
+            this.aplication.HeaderText = "APLICACION";
+            this.aplication.Name = "aplication";
+            this.aplication.ReadOnly = true;
+            this.aplication.Visible = false;
             // 
-            // TypeTransaction
+            // cancellation
             // 
-            this.TypeTransaction.DataPropertyName = "TypeTransaction";
-            this.TypeTransaction.HeaderText = "OPERACION";
-            this.TypeTransaction.Name = "TypeTransaction";
-            this.TypeTransaction.ReadOnly = true;
+            this.cancellation.DataPropertyName = "cancellationFolio";
+            this.cancellation.HeaderText = "CANCELACION";
+            this.cancellation.Name = "cancellation";
+            this.cancellation.ReadOnly = true;
+            this.cancellation.Visible = false;
             // 
-            // ID
+            // authorizationoriginpayment
             // 
-            this.ID.DataPropertyName = "Id";
-            this.ID.HeaderText = "ID";
-            this.ID.Name = "ID";
-            this.ID.ReadOnly = true;
-            this.ID.Visible = false;
+            this.authorizationoriginpayment.DataPropertyName = "authorizationOriginPayment";
+            this.authorizationoriginpayment.HeaderText = "AUTORIZACION DE PAGO";
+            this.authorizationoriginpayment.Name = "authorizationoriginpayment";
+            this.authorizationoriginpayment.ReadOnly = true;
+            this.authorizationoriginpayment.Visible = false;
+            // 
+            // terminaluser
+            // 
+            this.terminaluser.DataPropertyName = "terminalUser";
+            this.terminaluser.HeaderText = "CAJA";
+            this.terminaluser.Name = "terminaluser";
+            this.terminaluser.ReadOnly = true;
+            this.terminaluser.Visible = false;
+            // 
+            // ideterminaluser
+            // 
+            this.ideterminaluser.DataPropertyName = "idterminalUser";
+            this.ideterminaluser.HeaderText = "IDTERMINAL";
+            this.ideterminaluser.Name = "ideterminaluser";
+            this.ideterminaluser.ReadOnly = true;
+            this.ideterminaluser.Visible = false;
+            // 
+            // nameterminaluser
+            // 
+            this.nameterminaluser.DataPropertyName = "nameterminalUser";
+            this.nameterminaluser.HeaderText = "NOMBRE DE TERMINAL";
+            this.nameterminaluser.Name = "nameterminaluser";
+            this.nameterminaluser.ReadOnly = true;
+            this.nameterminaluser.Visible = false;
+            // 
+            // idpaymethod
+            // 
+            this.idpaymethod.DataPropertyName = "idpayMethod";
+            this.idpaymethod.HeaderText = "IDMETODODEPAGO";
+            this.idpaymethod.Name = "idpaymethod";
+            this.idpaymethod.ReadOnly = true;
+            this.idpaymethod.Visible = false;
+            // 
+            // namepaymethod
+            // 
+            this.namepaymethod.DataPropertyName = "namepayMethod";
+            this.namepaymethod.HeaderText = "METODO DE PAGO";
+            this.namepaymethod.Name = "namepaymethod";
+            this.namepaymethod.ReadOnly = true;
+            this.namepaymethod.Visible = false;
+            // 
+            // originpayment
+            // 
+            this.originpayment.DataPropertyName = "originPayment";
+            this.originpayment.HeaderText = "ORIGEN DE PAGO";
+            this.originpayment.Name = "originpayment";
+            this.originpayment.ReadOnly = true;
+            this.originpayment.Visible = false;
+            // 
+            // externalOriginpayment
+            // 
+            this.externalOriginpayment.DataPropertyName = "externalOriginPayment";
+            this.externalOriginpayment.HeaderText = "ORIGEN DE PAGO EXTERNO";
+            this.externalOriginpayment.Name = "externalOriginpayment";
+            this.externalOriginpayment.ReadOnly = true;
+            this.externalOriginpayment.Visible = false;
+            // 
+            // Folio
+            // 
+            this.Folio.DataPropertyName = "Folio";
+            this.Folio.HeaderText = "Folio";
+            this.Folio.Name = "Folio";
+            this.Folio.ReadOnly = true;
+            this.Folio.Visible = false;
+            // 
+            // typeTransactionId
+            // 
+            this.typeTransactionId.DataPropertyName = "typeTransactionId";
+            this.typeTransactionId.HeaderText = "typeTransactionId";
+            this.typeTransactionId.Name = "typeTransactionId";
+            this.typeTransactionId.ReadOnly = true;
+            this.typeTransactionId.Visible = false;
+            // 
+            // Estado
+            // 
+            this.Estado.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.Estado.FillWeight = 478.6325F;
+            this.Estado.HeaderText = "";
+            this.Estado.Name = "Estado";
+            this.Estado.ReadOnly = true;
+            this.Estado.Width = 50;
+            // 
+            // Imprimir
+            // 
+            this.Imprimir.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.Imprimir.DataPropertyName = "Imprimir";
+            this.Imprimir.FillWeight = 45.90965F;
+            this.Imprimir.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.Imprimir.HeaderText = "";
+            this.Imprimir.Name = "Imprimir";
+            this.Imprimir.ReadOnly = true;
+            this.Imprimir.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.Imprimir.ToolTipText = "Imprimir";
+            // 
+            // Cancelar
+            // 
+            this.Cancelar.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.Cancelar.DataPropertyName = "Cancelar";
+            this.Cancelar.FillWeight = 45.90965F;
+            this.Cancelar.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.Cancelar.HeaderText = "";
+            this.Cancelar.Name = "Cancelar";
+            this.Cancelar.ReadOnly = true;
+            this.Cancelar.ToolTipText = "Cancelar";
+            // 
+            // TIMBRAR
+            // 
+            this.TIMBRAR.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.TIMBRAR.FillWeight = 45.90965F;
+            this.TIMBRAR.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.TIMBRAR.HeaderText = "";
+            this.TIMBRAR.Name = "TIMBRAR";
+            this.TIMBRAR.ReadOnly = true;
+            this.TIMBRAR.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.TIMBRAR.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.TIMBRAR.ToolTipText = "TIMBRAR";
+            // 
+            // CFDI
+            // 
+            this.CFDI.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.CFDI.HeaderText = "";
+            this.CFDI.Name = "CFDI";
+            this.CFDI.ReadOnly = true;
+            this.CFDI.Visible = false;
+            this.CFDI.Width = 70;
             // 
             // Movimientos
             // 
@@ -695,10 +739,14 @@
         private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.DataGridViewButtonColumn dataGridViewButtonColumn1;
+        private System.Windows.Forms.DataGridViewButtonColumn dataGridViewButtonColumn2;
+        private System.Windows.Forms.DataGridViewButtonColumn dataGridViewButtonColumn3;
         private System.Windows.Forms.DataGridViewTextBoxColumn ID;
         private System.Windows.Forms.DataGridViewTextBoxColumn TypeTransaction;
         private System.Windows.Forms.DataGridViewTextBoxColumn FolioImpresion;
         private System.Windows.Forms.DataGridViewTextBoxColumn datetransaction;
+        private System.Windows.Forms.DataGridViewTextBoxColumn tot;
         private System.Windows.Forms.DataGridViewCheckBoxColumn sing;
         private System.Windows.Forms.DataGridViewTextBoxColumn amount;
         private System.Windows.Forms.DataGridViewTextBoxColumn tax;
@@ -718,8 +766,7 @@
         private System.Windows.Forms.DataGridViewImageColumn Estado;
         private System.Windows.Forms.DataGridViewButtonColumn Imprimir;
         private System.Windows.Forms.DataGridViewButtonColumn Cancelar;
-        private System.Windows.Forms.DataGridViewButtonColumn XML;
-        private System.Windows.Forms.DataGridViewButtonColumn PDF;
         private System.Windows.Forms.DataGridViewButtonColumn TIMBRAR;
+        private System.Windows.Forms.DataGridViewImageColumn CFDI;
     }
 }

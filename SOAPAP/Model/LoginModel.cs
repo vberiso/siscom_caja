@@ -14,5 +14,6 @@ namespace SOAPAP.Model
         public DateTime Expiration { get; set; }
         public List<string> RolName { get; set; }
         public int Divition { get; set; }
+        public bool CanStamp { get; set; }
     }
 }
