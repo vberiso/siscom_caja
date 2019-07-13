@@ -719,9 +719,9 @@ namespace SOAPAP
 
             btnProductos.Visible =   accessParam == CashBoxAccess.Access.GenerarOrden ? true : btnProductos.Visible;
 
-#endregion
 
-#region Enabled
+
+
             btnApertura.Enabled =    accessParam == CashBoxAccess.Access.SinCierreAnterior ? false : true;
 
             btnCobro.Enabled =       accessParam != CashBoxAccess.Access.Cobro &&
@@ -737,7 +737,7 @@ namespace SOAPAP
 
             reportesToolStripMenuItem.Enabled = accessParam != CashBoxAccess.Access.Cobro &&
                                                 accessParam != CashBoxAccess.Access.GenerarOrden? false : true; 
-#endregion
+
             btnApertura.Image = accessParam == CashBoxAccess.Access.Cobro ? Properties.Resources.abrir_caja : Properties.Resources.cerrar_caja;
         }
 
@@ -949,7 +949,7 @@ namespace SOAPAP
         {
             Application.Run(new Login());
         }
-#endregion
+
 
         private void pnlMenu_Paint(object sender, PaintEventArgs e)
         {
@@ -1037,3 +1037,5 @@ namespace SOAPAP
         }
     }
 }
+#endregion
+#endregion

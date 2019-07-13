@@ -13,6 +13,7 @@ namespace SOAPAP.Model
         public string NameConcept { get; set; }
         public decimal OriginalAmount { get; set; }
         public decimal DiscountAmount { get; set; }
+        public int DebtDetailId { get; set; }
         public int DebtId { get; set; }
         public Debt Debt { get; set; }
     }

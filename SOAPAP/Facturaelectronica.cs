@@ -1042,27 +1042,49 @@ namespace SOAPAP
                     foreach (var Or in TraVM.orderSale.OrderSaleDetails)
                     {
                         //Calculo del unit price.
-                        decimal tmpSubtotal = Or.Amount + TraVM.orderSale.OrderSaleDiscounts.Where(x => x.CodeConcept == Or.CodeConcept).Select(y => y.DiscountAmount).FirstOrDefault();
+                        decimal tmpSubtotal = Or.Amount + TraVM.orderSale.OrderSaleDiscounts.Where(x => x.CodeConcept == Or.CodeConcept && x.DiscountAmount == Or.Amount).Select(y => y.DiscountAmount).FirstOrDefault();
                         decimal tmpUnitPrice = 0;
-                        if (Math.Round(Or.UnitPrice * Or.Quantity, 2) == tmpSubtotal)
-                            tmpUnitPrice = Or.UnitPrice;
-                        else if(Math.Round(Math.Round(Or.UnitPrice / Or.Quantity, 2) * Or.Quantity, 2) == tmpSubtotal)                  
-                            tmpUnitPrice = Math.Round(Or.UnitPrice / Or.Quantity, 2);
-                        
-                        Item item = new Item()
-                        {
-                            ProductCode = TraVM.ClavesProdServ.Where(x => x.CodeConcep == Or.CodeConcept).FirstOrDefault().ClaveProdServ,
-                            IdentificationNumber = "P" + Or.CodeConcept,
-                            UnitCode = TraVM.payment.PaymentDetails.Where(x => x.CodeConcept == Or.CodeConcept && x.Amount == Or.Amount).FirstOrDefault().UnitMeasurement,
-                            Unit = "NO APLICA",
-                            Description = Or.Description,
-                            UnitPrice = tmpUnitPrice,
-                            Quantity = Or.Quantity,
-                            Subtotal = Or.Amount + TraVM.orderSale.OrderSaleDiscounts.Where(x => x.CodeConcept == Or.CodeConcept).Select(y => y.DiscountAmount).FirstOrDefault(),
-                            Discount = TraVM.orderSale.OrderSaleDiscounts.Where(x => x.CodeConcept == Or.CodeConcept).Select(y => y.DiscountAmount).FirstOrDefault(),
-                            Total = Or.Amount + TraVM.payment.PaymentDetails.Where(x => x.CodeConcept == Or.CodeConcept && x.Amount == Or.Amount).FirstOrDefault().Tax
-                        };
+                        Item item;
 
+                        //Este codigo quedara parchado con este If, hasta corroborar que todos los order vengan con su calculo correcto en BD.
+                        //Pero ya deberia poderse identificar el descuento con el OrderSaleDetailId.
+                        if (TraVM.orderSale.OrderSaleDiscounts != null && Or.CodeConcept == "3109")
+                        {
+                            item = new Item()
+                            {
+                                ProductCode = TraVM.ClavesProdServ.Where(x => x.CodeConcep == Or.CodeConcept).FirstOrDefault().ClaveProdServ,
+                                IdentificationNumber = "P" + Or.CodeConcept,
+                                UnitCode = TraVM.payment.PaymentDetails.Where(x => x.CodeConcept == Or.CodeConcept && x.Amount == Or.Amount).FirstOrDefault().UnitMeasurement,
+                                Unit = "NO APLICA",
+                                Description = Or.Description,
+                                UnitPrice = Or.UnitPrice,
+                                Quantity = Or.Quantity,
+                                Subtotal = TraVM.orderSale.OrderSaleDiscounts.Where(x => x.OrderSaleDetailId == Or.Id).Select(y => y.OriginalAmount).FirstOrDefault(),
+                                Discount = TraVM.orderSale.OrderSaleDiscounts.Where(x => x.OrderSaleDetailId == Or.Id).Select(y => y.DiscountAmount).FirstOrDefault(),
+                                Total = Or.Amount + TraVM.payment.PaymentDetails.Where(x => x.CodeConcept == Or.CodeConcept && x.Amount == Or.Amount).FirstOrDefault().Tax
+                            };
+                        }
+                        else
+                        {
+                            if (Math.Round(Or.UnitPrice * Or.Quantity, 2) == tmpSubtotal)
+                                tmpUnitPrice = Or.UnitPrice;
+                            else if (Math.Round(Math.Round(Or.UnitPrice / Or.Quantity, 2) * Or.Quantity, 2) == tmpSubtotal)
+                                tmpUnitPrice = Math.Round(Or.UnitPrice / Or.Quantity, 2);
+
+                            item = new Item()
+                            {
+                                ProductCode = TraVM.ClavesProdServ.Where(x => x.CodeConcep == Or.CodeConcept).FirstOrDefault().ClaveProdServ,
+                                IdentificationNumber = "P" + Or.CodeConcept,
+                                UnitCode = TraVM.payment.PaymentDetails.Where(x => x.CodeConcept == Or.CodeConcept && x.Amount == Or.Amount).FirstOrDefault().UnitMeasurement,
+                                Unit = "NO APLICA",
+                                Description = Or.Description,
+                                UnitPrice = tmpUnitPrice,
+                                Quantity = Or.Quantity,
+                                Subtotal = Or.Amount + TraVM.orderSale.OrderSaleDiscounts.Where(x => x.CodeConcept == Or.CodeConcept).Select(y => y.DiscountAmount).FirstOrDefault(),
+                                Discount = TraVM.orderSale.OrderSaleDiscounts.Where(x => x.CodeConcept == Or.CodeConcept).Select(y => y.DiscountAmount).FirstOrDefault(),
+                                Total = Or.Amount + TraVM.payment.PaymentDetails.Where(x => x.CodeConcept == Or.CodeConcept && x.Amount == Or.Amount).FirstOrDefault().Tax
+                            };
+                        } 
                         if (Or.HaveTax == true)
                         {
                             List<Tax> lstTaxs = new List<Tax>() {
@@ -1219,13 +1241,19 @@ namespace SOAPAP
         private string GeneraCarpetaDescagasXML()
         {
             string path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Facturas";
-
             try
             {
                 DirectoryInfo di;
                 if (!Directory.Exists(path))
                 {
                     di = Directory.CreateDirectory(path);
+
+                    //Se crea la una nueva carpeta por fecha
+                    path = path + "\\Facturas" + DateTime.Now.ToString("yyyy-MM-dd");
+                    if (!Directory.Exists(path))
+                    {
+                        di = Directory.CreateDirectory(path);
+                    }
                     return path;
                 }
                 return path;

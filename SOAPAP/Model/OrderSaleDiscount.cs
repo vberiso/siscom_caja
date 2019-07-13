@@ -14,6 +14,7 @@ namespace SOAPAP.Model
         public decimal OriginalAmount { get; set; }
         public decimal DiscountAmount { get; set; }
         public Int16 DiscountPercentage { get; set; }
+        public int OrderSaleDetailId { get; set; }
 
         public int OrderSaleId { get; set; }
         public OrderSale OrderSale { get; set; }

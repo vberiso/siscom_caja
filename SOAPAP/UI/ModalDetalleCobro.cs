@@ -1107,7 +1107,7 @@ namespace SOAPAP.UI
                     dt = await q.GETTransactionID("/api/Transaction/" + resultados);
                     Variables.idtransaction = Convert.ToInt32(resultados);
                     loading.Close();
-                    if (Variables.Configuration.CFDI == "Verdadero" || Variables.LoginModel.CanStamp)
+                    if ((Variables.Configuration.CFDI == "Verdadero" || Variables.LoginModel.CanStamp) && !Prepaid )
                     {
                         Form loadings = new Loading();
                         loadings.Show(this);
@@ -1637,19 +1637,27 @@ namespace SOAPAP.UI
             row["Cuenta"] = Variables.Agreement == null ? Variables.OrderSale.Folio : Variables.Agreement.Account;
             row["Contribuyente"] = Padron;
             row["Rfc"] = Variables.Agreement == null ? Variables.OrderSale.TaxUser.RFC : Variables.Agreement.Clients.First().RFC;
-            row["Domicilio"] = Variables.Agreement == null ? Variables.OrderSale.TaxUser.TaxAddresses.First().Street
-                                                              + " NO." + Variables.OrderSale.TaxUser.TaxAddresses.First().Outdoor
-                                                              + " INT." + Variables.OrderSale.TaxUser.TaxAddresses.First().Indoor
-                                                              + ", COL." + Variables.OrderSale.TaxUser.TaxAddresses.First().Suburb
-                                                              + ". " + Variables.OrderSale.TaxUser.TaxAddresses.First().Town
-                                                              + ". " + Variables.OrderSale.TaxUser.TaxAddresses.First().State 
+            if (Variables.OrderSale.TaxUser.TaxAddresses.Count != 0)
+            {
+                row["Domicilio"] = Variables.Agreement == null ? Variables.OrderSale.TaxUser.TaxAddresses.First()?.Street
+                                                              + " NO." + Variables.OrderSale.TaxUser.TaxAddresses.First()?.Outdoor
+                                                              + " INT." + Variables.OrderSale.TaxUser.TaxAddresses.First()?.Indoor
+                                                              + ", COL." + Variables.OrderSale.TaxUser.TaxAddresses.First()?.Suburb
+                                                              + ". " + Variables.OrderSale.TaxUser.TaxAddresses.First()?.Town
+                                                              + ". " + Variables.OrderSale.TaxUser.TaxAddresses.First()?.State
                                                               :
-                                                    (Variables.Agreement.Addresses.First().Street
-                                                  + " NO." + Variables.Agreement.Addresses.First().Outdoor
-                                                  + " INT." + Variables.Agreement.Addresses.First().Indoor
-                                                  + ", COL." + Variables.Agreement.Addresses.First().Suburbs.Name
-                                                  + ". " + Variables.Agreement.Addresses.First().Suburbs.Towns.Name
-                                                  + ". " + Variables.Agreement.Addresses.First().Suburbs.Towns.States.Name);
+                                                    (Variables.Agreement.Addresses.First()?.Street
+                                                  + " NO." + Variables.Agreement.Addresses.First()?.Outdoor
+                                                  + " INT." + Variables.Agreement.Addresses.First()?.Indoor
+                                                  + ", COL." + Variables.Agreement.Addresses.First()?.Suburbs.Name
+                                                  + ". " + Variables.Agreement.Addresses.First()?.Suburbs.Towns.Name
+                                                  + ". " + Variables.Agreement.Addresses.First()?.Suburbs.Towns.States.Name);
+            }
+            else
+            {
+                row["Domicilio"] = "Sin dirección";
+            }
+            
 
             row["Caja"] = Variables.Configuration.Terminal.TerminalUsers.FirstOrDefault().Id;
             row["Sucursal"] = Variables.Configuration.Terminal.BranchOffice.Name;
