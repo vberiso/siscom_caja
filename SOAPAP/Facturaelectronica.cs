@@ -992,36 +992,38 @@ namespace SOAPAP
                 
                 //NODO: Conceptos
                 //xml = xml + "<cfdi:Conceptos>";
-                string TipoFactura = "";
+                string TipoFactura = "", msgPagoParcial = "";
                 List<Item> lstItems = new List<Item>();
                 if (TraVM.payment.OrderSaleId == 0) //Servicio
                 {
                     TipoFactura = "CAT01";
-                    foreach (var pay in TraVM.payment.PaymentDetails)
+                    decimal AdeudoTotal = TraVM.payment.PaymentDetails.FirstOrDefault().Debt.Amount + TraVM.payment.PaymentDetails.Sum(x => x.Tax);
+
+                    if (AdeudoTotal == TraVM.payment.Total) //Pago total
                     {
-                        //Calculo del unit price.
-                        decimal tmpSubtotal = pay.Debt.DebtDetails.Where(x => x.CodeConcept == pay.CodeConcept).Select(y => y.Amount).FirstOrDefault() + pay.Debt.DebtDiscounts.Where(x => x.CodeConcept == pay.CodeConcept).Select(y => y.DiscountAmount).FirstOrDefault();
-                        decimal tmpQuantity = pay.Debt.DebtDetails.Where(x => x.CodeConcept == pay.CodeConcept).Select(y => y.quantity).FirstOrDefault();
-                        decimal tmpValorUnitario = Math.Round(tmpSubtotal / tmpQuantity, 2);                        
-                        
-                        Item item = new Item()
+                        foreach (var pay in TraVM.payment.PaymentDetails)
                         {
-                            ProductCode = TraVM.ClavesProdServ.Where(x => x.CodeConcep == pay.CodeConcept && x.Tipo == pay.Type).Select(y => y.ClaveProdServ).FirstOrDefault(),
-                            IdentificationNumber = "S" + pay.CodeConcept,
-                            UnitCode = pay.UnitMeasurement,
-                            Unit = "NO APLICA",
-                            Description = pay.Description + " Periodo de: " + pay.Debt.FromDate.ToString("yyyy-MM-dd") + " hasta: " + pay.Debt.UntilDate.ToString("yyyy-MM-dd"),
-                           
-                            //UnitPrice = (pay.Debt.DebtDetails.Where(x => x.CodeConcept == pay.CodeConcept).Select(y => y.Amount).FirstOrDefault() + pay.Debt.DebtDiscounts.Where(x => x.CodeConcept == pay.CodeConcept).Select(y => y.DiscountAmount).FirstOrDefault()),
-                            UnitPrice = tmpValorUnitario,
-                            Quantity = pay.Debt.DebtDetails.Where(x => x.CodeConcept == pay.CodeConcept).Select(y => y.quantity).FirstOrDefault(),
-                            Subtotal = pay.Debt.DebtDetails.Where(x => x.CodeConcept == pay.CodeConcept).Select(y => y.Amount).FirstOrDefault() + pay.Debt.DebtDiscounts.Where(x => x.CodeConcept == pay.CodeConcept).Select(y => y.DiscountAmount).FirstOrDefault(),
-                            Discount = pay.Debt.DebtDiscounts.Where(x => x.CodeConcept == pay.CodeConcept).Select(y => y.DiscountAmount).FirstOrDefault(),                      
-                            Total = pay.Amount + pay.Tax
-                        };
-                        if (pay.HaveTax == true)
-                        {
-                            List<Tax> lstTaxs = new List<Tax>() {
+                            //Calculo del unit price.
+                            decimal tmpSubtotal = pay.Debt.DebtDetails.Where(x => x.CodeConcept == pay.CodeConcept).Select(y => y.Amount).FirstOrDefault() + pay.Debt.DebtDiscounts.Where(x => x.CodeConcept == pay.CodeConcept).Select(y => y.DiscountAmount).FirstOrDefault();
+                            decimal tmpQuantity = pay.Debt.DebtDetails.Where(x => x.CodeConcept == pay.CodeConcept).Select(y => y.quantity).FirstOrDefault();
+                            decimal tmpValorUnitario = Math.Round(tmpSubtotal / tmpQuantity, 2);
+
+                            Item item = new Item()
+                            {
+                                ProductCode = TraVM.ClavesProdServ.Where(x => x.CodeConcep == pay.CodeConcept && x.Tipo == pay.Type).Select(y => y.ClaveProdServ).FirstOrDefault(),
+                                IdentificationNumber = "S" + pay.CodeConcept,
+                                UnitCode = pay.UnitMeasurement,
+                                Unit = "NO APLICA",
+                                Description = pay.Description + " Periodo de: " + pay.Debt.FromDate.ToString("yyyy-MM-dd") + " hasta: " + pay.Debt.UntilDate.ToString("yyyy-MM-dd"),
+                                UnitPrice = tmpValorUnitario,
+                                Quantity = pay.Debt.DebtDetails.Where(x => x.CodeConcept == pay.CodeConcept).Select(y => y.quantity).FirstOrDefault(),
+                                Subtotal = pay.Debt.DebtDetails.Where(x => x.CodeConcept == pay.CodeConcept).Select(y => y.Amount).FirstOrDefault() + pay.Debt.DebtDiscounts.Where(x => x.CodeConcept == pay.CodeConcept).Select(y => y.DiscountAmount).FirstOrDefault(),
+                                Discount = pay.Debt.DebtDiscounts.Where(x => x.CodeConcept == pay.CodeConcept).Select(y => y.DiscountAmount).FirstOrDefault(),
+                                Total = pay.Amount + pay.Tax
+                            };
+                            if (pay.HaveTax == true)
+                            {
+                                List<Tax> lstTaxs = new List<Tax>() {
                                 new Tax()
                                 {
                                     Base = pay.Amount,
@@ -1029,12 +1031,54 @@ namespace SOAPAP
                                     Name = "IVA",
                                     Total = pay.Tax,
                                     IsRetention = false
-                                }                     
+                                }
                             };
-                            item.Taxes = lstTaxs;
+                                item.Taxes = lstTaxs;
+                            }
+                            lstItems.Add(item);
                         }
-                        lstItems.Add(item);
                     }
+                    else                                                                                 //Pago parcial
+                    {
+                        msgPagoParcial = "Esta factura es comprobante de un pago pacial";
+                        foreach (var pay in TraVM.payment.PaymentDetails)
+                        {
+                            //Calculo del unit price.
+                            decimal tmpSubtotal = pay.Amount;
+                            decimal tmpQuantity = 1;
+                            decimal tmpValorUnitario = pay.Amount;
+
+                            Item item = new Item()
+                            {
+                                ProductCode = TraVM.ClavesProdServ.Where(x => x.CodeConcep == pay.CodeConcept && x.Tipo == pay.Type).Select(y => y.ClaveProdServ).FirstOrDefault(),
+                                IdentificationNumber = "S" + pay.CodeConcept,
+                                UnitCode = pay.UnitMeasurement,
+                                Unit = "NO APLICA",
+                                Description = pay.Description + " Periodo de: " + pay.Debt.FromDate.ToString("yyyy-MM-dd") + " hasta: " + pay.Debt.UntilDate.ToString("yyyy-MM-dd"),
+                                UnitPrice = tmpValorUnitario,
+                                Quantity = tmpQuantity,
+                                Subtotal = tmpSubtotal,
+                                Discount = 0,
+                                Total = pay.Amount + pay.Tax
+                            };
+                            if (pay.HaveTax == true)
+                            {
+                                List<Tax> lstTaxs = new List<Tax>() {
+                                new Tax()
+                                {
+                                    Base = pay.Amount,
+                                    Rate = decimal.Parse(TraVM.payment.PercentageTax)/100,
+                                    Name = "IVA",
+                                    Total = pay.Tax,
+                                    IsRetention = false
+                                }
+                            };
+                                item.Taxes = lstTaxs;
+                            }
+                            lstItems.Add(item);
+                        }
+                    }
+                    
                 }
                 else                    //Producto
                 {
@@ -1118,6 +1162,7 @@ namespace SOAPAP
                 string path = GeneraCarpetaDescagasXML();
                 string nombreXML = string.Format("\\{0}_{1}_{2}.xml", issuer.Rfc, receptor.Rfc , seriefolio);
                 string nombrePDF = string.Format("\\{0}_{1}_{2}.pdf", issuer.Rfc, receptor.Rfc, seriefolio);
+                msgObservacionFactura += string.IsNullOrEmpty(msgPagoParcial) ? "" : msgPagoParcial;
 
                 object[] vs = TimbrarAnteFacturama(cfdi, path + nombreXML);
                 if(vs[0] != null)
@@ -1151,7 +1196,8 @@ namespace SOAPAP
                 else
                 {                    
                     string error = (string)vs[1];
-                    return "{\"error\": \"El cobro fue registrado, pero no se genero el CFDI. Detalles: "+error+"\"}";
+                    //return "{\"error\": \"El cobro fue registrado, pero no se genero el CFDI. Detalles: "+error+"\"}";
+                    return "error: El cobro fue registrado, pero no se genero el CFDI. (" + error + ")";
                 }                
             }
             catch (Exception ex)
@@ -1186,19 +1232,22 @@ namespace SOAPAP
             }
             catch (FacturamaException ex)
             {
-                string error = string.Empty;
+                string error = "Detalle: ";
                 foreach (var messageDetail in ex.Model.Details)
                 {
-                    error = $"{messageDetail.Key}: {string.Join(",", messageDetail.Value)}";
-                }
+                    //error = $"{messageDetail.Key}: {string.Join(",", messageDetail.Value)}";
+                    error += "(" + messageDetail.Value.Aggregate("", (current, next) => current + ", " + next).Substring(2) + ") ";
+                }                
                 cfdistatus[0] = null;
-                cfdistatus[1] = "{\"error\": " + ex.Message + ": " + error + "}";
+                //cfdistatus[1] = "{\"error\": \"" + ex.Message + "\", " + error + "}";
+                cfdistatus[1] = error;
                 return cfdistatus;
             }
             catch (Exception ex)
             {      
                 cfdistatus[0] = null;
-                cfdistatus[1] = "{\"error\": " + ex.Message + "}";
+                //cfdistatus[1] = "{\"error\": " + ex.Message + "}";
+                cfdistatus[1] = "error: " + ex.Message ;
                 return cfdistatus;
             }
         }
@@ -1246,15 +1295,14 @@ namespace SOAPAP
                 DirectoryInfo di;
                 if (!Directory.Exists(path))
                 {
-                    di = Directory.CreateDirectory(path);
+                    di = Directory.CreateDirectory(path);                    
+                }
 
-                    //Se crea la una nueva carpeta por fecha
-                    path = path + "\\Facturas" + DateTime.Now.ToString("yyyy-MM-dd");
-                    if (!Directory.Exists(path))
-                    {
-                        di = Directory.CreateDirectory(path);
-                    }
-                    return path;
+                //Se crea la una nueva carpeta por fecha
+                path = path + "\\Facturas" + DateTime.Now.ToString("yyyy-MM-dd");
+                if (!Directory.Exists(path))
+                {
+                    di = Directory.CreateDirectory(path);
                 }
                 return path;
             }

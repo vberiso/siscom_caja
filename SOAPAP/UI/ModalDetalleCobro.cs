@@ -1118,7 +1118,9 @@ namespace SOAPAP.UI
                             loadings.Close();
                             try
                             {
-                                mensaje = new MessageBoxForm("Error", JsonConvert.DeserializeObject<Error>(resultados).error, TypeIcon.Icon.Cancel);
+                                //mensaje = new MessageBoxForm("Error", JsonConvert.DeserializeObject<Error>(xmltimbrado).error, TypeIcon.Icon.Cancel);
+                                mensaje = new MessageBoxForm("Error", xmltimbrado, TypeIcon.Icon.Cancel);
+                                mensaje.AutoSize = true;
                                 result = mensaje.ShowDialog();
                                 this.Close();
                             }
@@ -1466,7 +1468,8 @@ namespace SOAPAP.UI
                         loadings.Close();
                         try
                         {
-                            mensaje = new MessageBoxForm("Error", JsonConvert.DeserializeObject<Error>(resultados).error, TypeIcon.Icon.Cancel);
+                            //mensaje = new MessageBoxForm("Error", JsonConvert.DeserializeObject<Error>(resultados).error, TypeIcon.Icon.Cancel);
+                            mensaje = new MessageBoxForm("Error", JsonConvert.DeserializeObject<Error>(xmltimbrado).error, TypeIcon.Icon.Cancel);
                             result = mensaje.ShowDialog();
                             this.Close();
                         }
