@@ -1470,8 +1470,7 @@ namespace SOAPAP.UI
                         {
                             //mensaje = new MessageBoxForm("Error", JsonConvert.DeserializeObject<Error>(resultados).error, TypeIcon.Icon.Cancel);
                             mensaje = new MessageBoxForm("Error", xmltimbrado, TypeIcon.Icon.Cancel);
-                            mensaje.AutoSize = true;
-                            mensaje.Height = 
+                            mensaje.AutoSize = true;                           
                             result = mensaje.ShowDialog();
                             this.Close();
                         }
