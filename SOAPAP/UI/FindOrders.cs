@@ -122,9 +122,76 @@ namespace SOAPAP.UI
                 dgvOrders.CellClick += dgvOrders_CellClick;
                 dgvOrders.Columns[8].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
                 dgvOrders.Columns[8].Width = 90;
+
+                DataGridViewButtonColumn descragaPDF = new DataGridViewButtonColumn();
+                descragaPDF.Name = "PDF";
+                descragaPDF.Text = "Descargar";
+                if (dgvOrders.Columns["PDF"] == null)
+                {
+                    dgvOrders.Columns.Insert(9, descragaPDF);
+                }
+                dgvOrders.CellClick += dgvOrders_CellClickPDF;
+                dgvOrders.Columns[9].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+                dgvOrders.Columns[9].Width = 120;
+
                 //DataGridViewButtonCell c = (DataGridViewButtonCell)dgvPayment.Rows[e.RowIndex].Cells[0];
                 dgvOrders.Refresh();
                 loading.Close();
+            }
+        }
+
+        private async void dgvOrders_CellClickPDF(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                DataGridViewRow row = this.dgvOrders.Rows[e.RowIndex];
+                if (e.ColumnIndex == dgvOrders.Columns["PDF"].Index && e.RowIndex >= 0)
+                {
+                    loading = new Loading();
+                    loading.Show(this);
+                    var folio = row.Cells["Folio"].FormattedValue.ToString();
+                    var results = await Requests.SendURIAsync(String.Format("/api/Payments/TaxReceipt/{0}", folio), HttpMethod.Get, Variables.LoginModel.Token);
+                    if (results.Contains("error"))
+                    {
+                        try
+                        {
+                            mensaje = new MessageBoxForm("Error", JsonConvert.DeserializeObject<Error>(results).error, TypeIcon.Icon.Cancel);
+                            result = mensaje.ShowDialog();
+                            loading.Close();
+                        }
+                        catch (Exception)
+                        {
+                            mensaje = new MessageBoxForm("Error", "Servicio no disponible favor de comunicarse con el administrador", TypeIcon.Icon.Cancel);
+                            result = mensaje.ShowDialog();
+                            loading.Close();
+                        }
+                    }
+                    else
+                    {
+                        loading.Close();
+                        Payment paymentt = JsonConvert.DeserializeObject<Payment>(results);
+                        if (paymentt != null)
+                        {
+                            if (paymentt.HaveTaxReceipt)
+                            {
+                                var xmll = paymentt.TaxReceipts.FirstOrDefault();
+                                var account = paymentt.Account;
+                                if (xmll != null)
+                                {
+                                    if (xmll.PDFInvoce != null)
+                                    {
+                                        ExportGridToPDF(xmll.PDFInvoce);
+                                    }
+                                    else
+                                    {
+                                        mensaje = new MessageBoxForm(Variables.titleprincipal, "Descarga no disponible, posiblemente este pago no este facturado, para mas información contactarse con el administrador del sistema.", TypeIcon.Icon.Cancel);
+                                        result = mensaje.ShowDialog();
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
             }
         }
 
@@ -133,7 +200,7 @@ namespace SOAPAP.UI
             if (e.RowIndex >= 0)
             {
                 DataGridViewRow row = this.dgvOrders.Rows[e.RowIndex];
-                if (e.ColumnIndex == dgvOrders.Columns["Email"].Index)
+                if (e.ColumnIndex == dgvOrders.Columns["Email"].Index && e.RowIndex >= 0)
                 {
                     loading = new Loading();
                     loading.Show(this);
@@ -171,7 +238,7 @@ namespace SOAPAP.UI
                                 }
                                 else
                                 {
-                                    mensaje = new MessageBoxForm(Variables.titleprincipal, "Xml no disponible, posiblemente este pago no este facturado para mayor información contactarse con el administrador del sistema.", TypeIcon.Icon.Cancel);
+                                    mensaje = new MessageBoxForm(Variables.titleprincipal, "Xml no disponible, posiblemente este pago no este facturado, para mayor información contactarse con el administrador del sistema.", TypeIcon.Icon.Cancel);
                                     result = mensaje.ShowDialog();
                                 }
                             }
@@ -188,6 +255,18 @@ namespace SOAPAP.UI
                
         }
 
+        private void ExportGridToPDF(byte[] pdf)
+        {
+            SaveFileDialog SaveXMLFileDialog = new SaveFileDialog();
+            SaveXMLFileDialog.Filter = "PDF files (*.pdf)|*.pdf";
+            SaveXMLFileDialog.FilterIndex = 2;
+            SaveXMLFileDialog.RestoreDirectory = true;
+            SaveXMLFileDialog.Title = "Exportar PDF de Factura";
+            if (SaveXMLFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                System.IO.File.WriteAllBytes(SaveXMLFileDialog.FileName, pdf);
+            }
+        }
         private void DgvOrders_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
         {
             if (e.ColumnIndex >= 0 && this.dgvOrders.Columns[e.ColumnIndex].Name == "Email" && e.RowIndex >= 0)
@@ -195,6 +274,12 @@ namespace SOAPAP.UI
                 DataGridViewButtonCell c = (DataGridViewButtonCell)dgvOrders.Rows[e.RowIndex].Cells[8];
                 DataGridViewRow row = this.dgvOrders.Rows[e.RowIndex];
                 c.Value = "Enviar CFDI";
+            }
+            if (e.ColumnIndex >= 0 && this.dgvOrders.Columns[e.ColumnIndex].Name == "PDF" && e.RowIndex >= 0)
+            {
+                DataGridViewButtonCell c = (DataGridViewButtonCell)dgvOrders.Rows[e.RowIndex].Cells[9];
+                DataGridViewRow row = this.dgvOrders.Rows[e.RowIndex];
+                c.Value = "Descargar CFDI";
             }
         }
 

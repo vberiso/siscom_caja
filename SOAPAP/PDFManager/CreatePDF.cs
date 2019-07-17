@@ -701,7 +701,7 @@ namespace SOAPAP.PDFManager
             {
                 if (!Variables.Configuration.IsMunicipal)
                 {
-                    builder.Append(@"<p style='margin-top: 0px;margin-bottom: 0px; font-size: 14px;'>" + string.Format(new CultureInfo("es-MX"), "{0:C2}", 0) + "</p></div>");
+                    builder.Append(@"<p style='margin-top: 0px;margin-bottom: 0px; font-size: 14px;'>" + string.Format(new CultureInfo("es-MX"), "{0:C2}", 0) + "</p>");
                 }
                 builder.Append("</div>");
             }

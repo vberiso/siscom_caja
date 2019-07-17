@@ -82,6 +82,9 @@ namespace SOAPAP.UI
             dgvConceptosCobro.Columns["Importe"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
             dgvConceptosCobro.Columns["Type"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
             Variables.cuenta = string.Empty;
+            tableLayoutPanel3.RowStyles[0] = new RowStyle(SizeType.Percent, 0);
+            tableLayoutPanel3.RowStyles[tableLayoutPanel3.RowCount - 1] = new RowStyle(SizeType.Percent, 0);
+            tableLayoutPanel3.Size = new Size(344, 350);
         }
 
         private void pbBuscar_Click(object sender, EventArgs e)
@@ -337,6 +340,11 @@ namespace SOAPAP.UI
             anual = false;
             prepaid = false;
             orderSale = false;
+            lblBaseGravable.Text = string.Empty;
+            lblMetrosConstruidos.Text = string.Empty;
+            lblMetrosTerreno.Text = string.Empty;
+            lblUtimoAvaluo.Text = string.Empty;
+            lblTipoPredio.Text = string.Empty;
         }
 
         private async void ObtenerInformacion()
@@ -431,6 +439,11 @@ namespace SOAPAP.UI
                     if (Variables.Configuration.DiscountCampaigns.Count > 0)
                     {
                         gbxCampaign.Visible = accessParam == CashBoxAccess.Access.GenerarOrden? false: true;
+                        //if (!gbxCampaign.Visible)
+                        //{
+                        //    tableLayoutPanel3.RowStyles[0] = new RowStyle(SizeType.Percent, 0);
+                        //}
+                        tableLayoutPanel3.RowStyles[0] = new RowStyle(SizeType.AutoSize);
                         lblTitleCampaign.Text = Variables.Configuration.DiscountCampaigns.First().Name;
                     }
                     orderSale = false;
@@ -447,6 +460,15 @@ namespace SOAPAP.UI
                     else
                     {
                         Variables.Agreement = JsonConvert.DeserializeObject<Model.Agreement>(resultAgreement);
+                        if (Variables.Configuration.IsMunicipal)
+                        {
+                            tableLayoutPanel3.Size = new Size(344, 478);
+                            tableLayoutPanel3.RowStyles[tableLayoutPanel3.RowCount - 1] = new RowStyle(SizeType.Percent, 31.03f);
+                            lblBaseGravable.Text = Variables.Agreement.AgreementDetails.FirstOrDefault().TaxableBase.ToString();
+                            lblMetrosConstruidos.Text = Variables.Agreement.AgreementDetails.FirstOrDefault().Built.ToString();
+                            lblMetrosTerreno.Text = Variables.Agreement.AgreementDetails.FirstOrDefault().Ground.ToString();
+                            lblUtimoAvaluo.Text = Variables.Agreement.AgreementDetails.FirstOrDefault().LastUpdate.ToString("dd/MM/yyyy");
+                        }
                         if (!string.IsNullOrWhiteSpace(resultAgreement))
                         {                           
                             //Cliente
@@ -1043,6 +1065,12 @@ namespace SOAPAP.UI
         }
         //Button Campaign Recharges
         private async void BtnAcept_Click(object sender, EventArgs e)
+        {
+            
+            
+        }
+
+        private async void BtnAcept_Click_1(object sender, EventArgs e)
         {
             loading = new Loading();
             loading.Show(this);

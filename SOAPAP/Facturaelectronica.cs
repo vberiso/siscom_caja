@@ -38,8 +38,8 @@ namespace SOAPAP
         public Facturaelectronica()
         {
             Requests = new RequestsAPI(UrlBase);
-            //facturama = new FacturamaApiMultiemisor("gfdsystems", "gfds1st95", false);
-            facturama = new FacturamaApiMultiemisor("gfdsystems", "gfds1st95");
+            facturama = new FacturamaApiMultiemisor("gfdsystems", "gfds1st95", false);
+            //facturama = new FacturamaApiMultiemisor("gfdsystems", "gfds1st95");
             //facturama = new FacturamaApiMultiemisor("pruebas", "pruebas2011");
         }
         //Metodo del Vic (con calmita...)
@@ -1386,8 +1386,8 @@ namespace SOAPAP
                 Facturama.Models.Response.Cfdi cfdiCancel = facturama.Cfdis.Remove(IdXmlFacturama);
                 if(cfdiCancel.Complement != null)
                 {
-                    facturama.Cfdis.SaveXml(@"C:\Pruebas", cfdiCancel.Id);
-                    return "Success - Se cancelo exitosamente el cfdi con el folio fiscal: " + cfdiCancel.Complement.TaxStamp.Uuid;
+                    //facturama.Cfdis.SaveXml(@"C:\Pruebas", cfdiCancel.Id);
+                    return "Se cancelo exitosamente el cfdi con el folio fiscal: " + cfdiCancel.Complement.TaxStamp.Uuid;
                 }
                 else
                 {
@@ -1402,12 +1402,12 @@ namespace SOAPAP
                 {
                     error = $"{messageDetail.Key}: {string.Join(",", messageDetail.Value)}";
                 }
-                    return "{\"error\": " + ex.Message + ": " +error+ "}";
+                    return "{\"error\": " + ex.Message.Replace("\\", "").Replace("{", "").Replace("}", "").Split(':')[1] + " - " +error+ "}";
             }
             catch (Exception ex)
             {
-
-                return "{\"error\": " + ex.Message + "}";
+                
+                return "{\"error\": " + ex.Message.Replace("\\","").Replace("{","").Replace("}","").Split(':')[1] + "}";
 
             }
         }

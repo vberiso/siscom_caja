@@ -56,9 +56,7 @@ namespace SOAPAP
             LoadDivition();
             Task taskA = new Task(() => FirebaseService());
             taskA.Start();
-            #if !DEBUG
-            this.tslVersion.Text = "Siscom Ver. " + ApplicationDeployment.CurrentDeployment.CurrentVersion.ToString(4);
-            #endif
+            //this.tslVersion.Text = "Siscom Ver. " + ApplicationDeployment.CurrentDeployment.CurrentVersion.ToString(4);
             //taskA.Wait();
         }
 
@@ -262,11 +260,8 @@ namespace SOAPAP
         {            
             pictureBox4.Parent = pictureBox1;
             CargaInformacion();
-            //notificacionesToolStripMenuItem.Enabled = false;
-            notificacionesToolStripMenuItem.DropDownItems.Clear();
 
-            //if (Variables.Configuration.IsMunicipal)
-            //    ingresosPorConceptoToolStripMenuItem.Visible = false;
+            notificacionesToolStripMenuItem.DropDownItems.Clear();
         }
         private void AddFormInPanel(Form fh)
         {

@@ -453,6 +453,16 @@ namespace SOAPAP.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap edificios {
+            get {
+                object obj = ResourceManager.GetObject("edificios", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap file {
             get {
                 object obj = ResourceManager.GetObject("file", resourceCulture);
@@ -626,6 +636,16 @@ namespace SOAPAP.Properties {
         internal static System.Drawing.Bitmap notificacion {
             get {
                 object obj = ResourceManager.GetObject("notificacion", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap notificacion_ {
+            get {
+                object obj = ResourceManager.GetObject("notificacion_", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

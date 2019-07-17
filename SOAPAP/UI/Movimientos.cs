@@ -25,6 +25,8 @@ using System.Globalization;
 using PdfPrintingNet;
 using System.Xml.Serialization;
 using SOAPAP.Facturado;
+using SOAPAP.Model;
+using Comprobante = SOAPAP.Facturado.Comprobante;
 
 namespace SOAPAP
 {
@@ -92,6 +94,7 @@ namespace SOAPAP
             label1.Text = "FECHA:" + DateTime.Now.ToString("dd-MM-yyyy");
             loading.Close();
             PdfPrint = new PdfPrint("irDevelopers", "g/4JFMjn6KvKuhWIxC2f7pv7SMPZhNDCiF/m+DtiJywU4rE0KKwoH+XQtyGxBiLg");
+            this.dgvMovimientos.Columns["CFDI"].DefaultCellStyle.NullValue = null;
         }
 
         public static void DataGridViewCellVisibility(DataGridViewCell cell, bool visible)
@@ -192,7 +195,23 @@ namespace SOAPAP
                     DataGridViewCellVisibility(dgvMovimientos.Rows[e.RowIndex].Cells["TIMBRAR"], false);
                 }
             }
-
+            
+            if (e.ColumnIndex >= 0 && this.dgvMovimientos.Columns[e.ColumnIndex].Name == "CFDI" && e.RowIndex >= 0)
+            {
+                if (this.dgvMovimientos.Rows[e.RowIndex].Cells["typeTransactionId"].Value.ToString() == "3" || this.dgvMovimientos.Rows[e.RowIndex].Cells["typeTransactionId"].Value.ToString() == "4")
+                {
+                    var image = Properties.Resources.notificacion_;
+                    e.Paint(e.CellBounds, DataGridViewPaintParts.All);
+                    var x = e.CellBounds.Left + (e.CellBounds.Width - image.Width) / 2;
+                    var y = e.CellBounds.Top + 5;
+                    e.Graphics.DrawImage(image, x, y, 15, 15);
+                    e.Handled = true;
+                }
+                else
+                {
+                    DataGridViewCellVisibility(dgvMovimientos.Rows[e.RowIndex].Cells["CFDI"], false);
+                }
+            }
             if (e.ColumnIndex >= 0 && this.dgvMovimientos.Columns[e.ColumnIndex].Name == "Estado" && e.RowIndex >= 0)
             {
                 var image = Properties.Resources.sin_estado;
@@ -269,7 +288,8 @@ namespace SOAPAP
             centraX(pnlHeader, pnlSearch);
 
 
-            var _resulTransaction = await Requests.SendURIAsync(string.Format("/api/Transaction/{0}/{1}", DateTime.Now.ToString("yyyy-MM-dd"), Variables.Configuration.Terminal.TerminalUsers.FirstOrDefault().Id.ToString()), HttpMethod.Get, Variables.LoginModel.Token);
+            var _resulTransaction = await Requests.SendURIAsync(string.Format("/api/Transaction/Find/{0}/{1}", DateTime.Now.ToString("yyyy-MM-dd"), Variables.Configuration.Terminal.TerminalUsers.FirstOrDefault().Id.ToString()), HttpMethod.Get, Variables.LoginModel.Token);
+            //var _resulTransaction = await Requests.SendURIAsync(string.Format("/api/Transaction/Find/{0}/{1}", DateTime.Now.ToString("yyyy-MM-dd"), 139), HttpMethod.Get, Variables.LoginModel.Token);
 
             if (_resulTransaction.Contains("error"))
             {
@@ -289,60 +309,69 @@ namespace SOAPAP
 
                 SOAPAP.Model.TypeTransaction typeTransaction = new SOAPAP.Model.TypeTransaction();
                 typeTransaction = cmbTypeTransaction.SelectedValue as SOAPAP.Model.TypeTransaction;
-
-                if (cmbTypeTransaction.Items.Count > 0 && typeTransaction.Id != 0)
+                try
                 {
-                    var transactionsFilter = transactions.Where(x => x.TypeTransactionId == typeTransaction.Id)
-                                                       .Select(s => new
-                                                       {
-                                                           id = s.Id,
-                                                           TypeTransaction = s.TypeTransaction.Name,
-                                                           FolioImpresion = s.TransactionFolios.Count > 0 ? s.TransactionFolios.First().Folio.ToString() : String.Empty,
-                                                           dateTransaction = s.DateTransaction.ToString("HH:mm"),
-                                                           sign = s.Sign,
-                                                           amount = s.Amount,
-                                                           tax = s.Tax,
-                                                           rounding = s.Rounding,
-                                                           total = s.Total,
-                                                           aplication = s.Aplication,
-                                                           cancellationFolio = s.CancellationFolio,
-                                                           authorizationOriginPayment = s.AuthorizationOriginPayment,
-                                                           nameterminalUser = s.TypeTransaction.Name,
-                                                           idpayMethod = s.PayMethodId,
-                                                           namepayMethod = s.PayMethod.Name,
-                                                           Folio = s.Folio,
-                                                           typeTransactionId = s.TypeTransactionId,
-
-                                                       }).ToList();
-                    source.DataSource = transactionsFilter;
-                }
-                else
-                {
-                    var transactionsFilter = transactions.Select(s => new
+                    if (cmbTypeTransaction.Items.Count > 0 && typeTransaction.Id != 0)
                     {
-                        id = s.Id,
-                        TypeTransaction = s.TypeTransaction.Name,
-                        FolioImpresion = s.TransactionFolios.Count > 0 ? s.TransactionFolios.First().Folio.ToString() : String.Empty,
-                        dateTransaction = s.DateTransaction.ToString("HH:mm"),
-                        sign = s.Sign,
-                        amount = s.Amount,
-                        tax = s.Tax,
-                        rounding = s.Rounding,
-                        total = s.Total,
-                        aplication = s.Aplication,
-                        cancellationFolio = s.CancellationFolio,
-                        authorizationOriginPayment = s.AuthorizationOriginPayment,
-                        nameterminalUser = s.TypeTransaction.Name,
-                        idpayMethod = s.PayMethodId,
-                        namepayMethod = s.PayMethod.Name,
-                        Folio = s.Folio,
-                        typeTransactionId = s.TypeTransactionId
-                    }).ToList();
-                    source.DataSource = transactionsFilter;
+                        var transactionsFilter = transactions.Where(x => x.TypeTransactionId == typeTransaction.Id)
+                                                           .Select(s => new
+                                                           {
+                                                               id = s.Id,
+                                                               TypeTransaction = s.TypeTransaction.Name,
+                                                               FolioImpresion = s.TransactionFolios.Count > 0 ? s.TransactionFolios.First().Folio.ToString() : String.Empty,
+                                                               dateTransaction = s.DateTransaction.ToString("HH:mm"),
+                                                               sign = s.Sign,
+                                                               amount = s.Amount,
+                                                               tax = s.Tax,
+                                                               rounding = s.Rounding,
+                                                               total = s.Total,
+                                                               aplication = s.Aplication,
+                                                               cancellationFolio = s.CancellationFolio,
+                                                               authorizationOriginPayment = s.AuthorizationOriginPayment,
+                                                               nameterminalUser = s.TypeTransaction.Name,
+                                                               idpayMethod = s.PayMethodId,
+                                                               namepayMethod = s.PayMethod.Name,
+                                                               Folio = s.Folio,
+                                                               typeTransactionId = s.TypeTransactionId,
+
+                                                           }).ToList();
+                        source.DataSource = transactionsFilter;
+                    }
+                    else
+                    {
+                        var transactionsFilter = transactions.Select(s => new
+                        {
+                            id = s.Id,
+                            TypeTransaction = s.TypeTransaction.Name,
+                            FolioImpresion = s.TransactionFolios.Count > 0 ? s.TransactionFolios.First().Folio.ToString() : String.Empty,
+                            dateTransaction = s.DateTransaction.ToString("HH:mm"),
+                            sign = s.Sign,
+                            amount = s.Amount,
+                            tax = s.Tax,
+                            rounding = s.Rounding,
+                            total = s.Total,
+                            aplication = s.Aplication,
+                            cancellationFolio = s.CancellationFolio,
+                            authorizationOriginPayment = s.AuthorizationOriginPayment,
+                            nameterminalUser = s.TypeTransaction.Name,
+                            idpayMethod = s.PayMethodId,
+                            namepayMethod = s.PayMethod.Name,
+                            Folio = s.Folio,
+                            typeTransactionId = s.TypeTransactionId,
+                            //Payment = s.Payment
+                        }).ToList();
+                        source.DataSource = transactionsFilter;
+                    }
+                    dgvMovimientos.DataSource = source;
+                    dgvMovimientos.Refresh();
+                    await Total();
                 }
-                dgvMovimientos.DataSource = source;
-                dgvMovimientos.Refresh();
-                await Total();
+                catch (Exception e)
+                {
+
+                    throw;
+                }
+               
             }
         }
         #endregion
@@ -936,106 +965,63 @@ namespace SOAPAP
                 {
                     if (row.Cells["typeTransactionId"].Value.ToString() == "3")
                     {
-                       
+                        mensaje = new MessageBoxForm("¿Imprimir operación?", "Verifique que la impresora se encuentre lista para imprimir", TypeIcon.Icon.Warning, true);
+                        result = mensaje.ShowDialog();
+                        if (result == DialogResult.OK)
+                        {
+                            loading = new Loading();
+                            loading.Show(this);
+                            var folio = row.Cells[24].FormattedValue.ToString();
+                            var results = await Requests.SendURIAsync(String.Format("/api/Payments/folio/{0}", folio), HttpMethod.Get, Variables.LoginModel.Token);
+                            if (results.Contains("error"))
+                            {
+                                try
+                                {
+                                    mensaje = new MessageBoxForm("Error", JsonConvert.DeserializeObject<Error>(results).error, TypeIcon.Icon.Cancel);
+                                    result = mensaje.ShowDialog();
+                                    loading.Close();
+                                }
+                                catch (Exception)
+                                {
+                                    mensaje = new MessageBoxForm("Error", "Servicio no disponible favor de comunicarse con el administrador", TypeIcon.Icon.Cancel);
+                                    result = mensaje.ShowDialog();
+                                    loading.Close();
+                                }
+                            }
+                            else
+                            {
+                                loading.Close();
+                                Payment paymentt = JsonConvert.DeserializeObject<Payment>(results);
+                                if (paymentt != null)
+                                {
+                                    if (paymentt.HaveTaxReceipt)
+                                    {
+                                        var xmll = paymentt.TaxReceipts.FirstOrDefault();
+                                        var account = paymentt.Account;
+                                        if (xmll != null)
+                                        {
+                                            if (xmll.PDFInvoce != null)
+                                            {
+                                                ExportGridToPDF(xmll.PDFInvoce, xmll.RFC+"_"+xmll.Id);
+                                            }
+                                            else
+                                            {
+                                                mensaje = new MessageBoxForm(Variables.titleprincipal, $"Descarga no disponible, posiblemente este pago no este facturado o no se genero correctamente el PDF, para mas información contactarse con el administrador del sistema proporcionando el codigo - T-{transactionSelect.Transaction.Id}.", TypeIcon.Icon.Cancel);
+                                                result = mensaje.ShowDialog();
+                                            }
+                                        }
+                                    }
+                                    else
+                                    {
+                                        mensaje = new MessageBoxForm(Variables.titleprincipal, $"Descarga no disponible, posiblemente este pago no este facturado, para mas información contactarse con el administrador del sistema proporcionando el codigo - T-{transactionSelect.Transaction.Id}.", TypeIcon.Icon.Cancel);
+                                        result = mensaje.ShowDialog();
+                                    }
+                                }
+                            }
+                            //loading.Close();
+                        }
                     }
                 }
-                //if (e.ColumnIndex == dgvMovimientos.Columns["XML"].Index && e.RowIndex >= 0)
-                //{
-                //    if (row.Cells["typeTransactionId"].Value.ToString() == "3" || row.Cells["typeTransactionId"].Value.ToString() == "4")
-                //    {
-                //        loading = new Loading();
-                //        loading.Show(this);
-
-                //        var resultTransaction = await Requests.SendURIAsync(string.Format("/api/Transaction/{0}", transactionSelect.Transaction.Id), HttpMethod.Get, Variables.LoginModel.Token);
-                //        transactionSelect = JsonConvert.DeserializeObject<Model.TransactionPaymentVM>(resultTransaction);
-                //        var resultTransactions = await Requests.SendURIAsync(string.Format("/api/Payments/{0}", transactionSelect.Payment.Id), HttpMethod.Get, Variables.LoginModel.Token);
-                //        Model.Payment payment = JsonConvert.DeserializeObject<Model.Payment>(resultTransactions);
-
-                //        if (row.Cells["typeTransactionId"].Value.ToString() == "3")
-                //        {
-
-                //            try
-                //            {
-                //                ExportGridToXML(payment.TaxReceipts.FirstOrDefault(x => x.Status == "ET001").Xml);
-                //            }
-                //            catch (Exception)
-                //            {
-
-                //                mensaje = new MessageBoxForm(Variables.titleprincipal, "Este cobro no cuenta con timbrado favor de contactar al Administrador", TypeIcon.Icon.Cancel);
-                //                mensaje.ShowDialog();
-                //            }
-                //        }
-
-                //        else if (row.Cells["typeTransactionId"].Value.ToString() == "4")
-                //        {
-                //            try
-                //            {
-                //                ExportGridToXML(payment.TaxReceipts.FirstOrDefault(x => x.Status == "ET002").Xml);
-                //            }
-                //            catch (Exception)
-                //            {
-
-                //                mensaje = new MessageBoxForm(Variables.titleprincipal, "Este cobro no cuenta con timbrado favor de contactar al Administrador", TypeIcon.Icon.Cancel);
-                //                mensaje.ShowDialog();
-                //            }
-                //        }
-
-
-
-                //        loading.Close();
-
-                //    }
-                //}
-                //if (e.ColumnIndex == dgvMovimientos.Columns["PDF"].Index && e.RowIndex >= 0)
-                //{
-                //    if (row.Cells["typeTransactionId"].Value.ToString() == "3" || row.Cells["typeTransactionId"].Value.ToString() == "6")
-                //    {
-                //        loading = new Loading();
-                //        loading.Show(this);
-                //        var resultTransaction = await Requests.SendURIAsync(string.Format("/api/Transaction/{0}", transactionSelect.Transaction.Id), HttpMethod.Get, Variables.LoginModel.Token);
-                //        transactionSelect = JsonConvert.DeserializeObject<Model.TransactionPaymentVM>(resultTransaction);
-                //        var resultTransactions = await Requests.SendURIAsync(string.Format("/api/Payments/{0}", transactionSelect.Payment.Id), HttpMethod.Get, Variables.LoginModel.Token);
-                //        Model.Payment payment = JsonConvert.DeserializeObject<Model.Payment>(resultTransactions);
-                //        var xml = payment.TaxReceipts.FirstOrDefault();
-                //        try
-                //        {
-                //            if (xml != null)
-                //            {
-                //                if (payment.HaveTaxReceipt)
-                //                {
-                //                    //ExportGridToPDF(xml.PDFInvoce);
-                //                    if (xml.PDFInvoce == null)
-                //                    {
-                //                        mensaje = new MessageBoxForm(Variables.titleprincipal, "Este cobro no cuenta con timbrado, para poder descargar el pdf primero debe realizar el timbrado", TypeIcon.Icon.Cancel);
-                //                        mensaje.ShowDialog();
-                //                    }
-                //                    else
-                //                    {
-                //                        ExportGridToPDF(xml.PDFInvoce);
-                //                    }
-                //                }
-                //                else
-                //                {
-                //                    mensaje = new MessageBoxForm(Variables.titleprincipal, "Descarga no disponible, posiblemente este pago no este facturado por este sistema para mas información contactarse con el administrador del sistema.", TypeIcon.Icon.Cancel);
-                //                    result = mensaje.ShowDialog();
-                //                }
-                //            }
-                //            else
-                //            {
-                //                mensaje = new MessageBoxForm(Variables.titleprincipal, "Xml no disponible, posiblemente este pago no este facturado para mayor información contactarse con el administrador del sistema.", TypeIcon.Icon.Cancel);
-                //                result = mensaje.ShowDialog();
-                //            }
-                //        }
-                //        catch (Exception)
-                //        {
-                //            mensaje = new MessageBoxForm(Variables.titleprincipal, "Este cobro no cuenta con timbrado", TypeIcon.Icon.Cancel);
-                //            mensaje.ShowDialog();
-
-                //        }
-
-                //        loading.Close();
-                //    }
-                //}
                 if (e.ColumnIndex == dgvMovimientos.Columns["TIMBRAR"].Index && e.RowIndex >= 0)
                 {
                     string xmltimbrado = string.Empty;
@@ -1056,7 +1042,7 @@ namespace SOAPAP
 
                             if (payment.TaxReceipts.FirstOrDefault(x => x.Status == "ET001").Xml != null)
                             {
-                                mensaje = new MessageBoxForm(Variables.titleprincipal, "Esta trasaccion esta timbrada", TypeIcon.Icon.Cancel);
+                                mensaje = new MessageBoxForm(Variables.titleprincipal, "Esta trasaccion esta timbrada, favor de verificar", TypeIcon.Icon.Success);
                                 mensaje.ShowDialog();
                             }
 
@@ -1189,14 +1175,24 @@ namespace SOAPAP
                                     catch (Exception)
                                     {
 
-                                        mensaje = new MessageBoxForm(Variables.titleprincipal, "No se ha podido cancelar el CFDI del pago, pero se ha registrado en base de datos, para mayor información contactar al administrador", TypeIcon.Icon.Cancel);
-                                        mensaje.ShowDialog();
+                                        //mensaje = new MessageBoxForm(Variables.titleprincipal, "No se ha podido cancelar el CFDI del pago, pero se ha registrado en base de datos, para mayor información contactar al administrador", TypeIcon.Icon.Cancel);
+                                        //mensaje.ShowDialog();
                                         if (payment.HaveTaxReceipt)
                                         {
                                             Facturaelectronica fst = new Facturaelectronica();
-                                            //string key = payment.TaxReceipts.Where(x => x.Status == "ET001").FirstOrDefault().IdXmlFacturama;
-                                            string key = "lP1ZvBR87h-Gy9DNUpfLdw2";
-                                            await fst.CancelaFactura(key);
+                                            string key = payment.TaxReceipts.Where(x => x.Status == "ET001").FirstOrDefault().IdXmlFacturama;
+                                            //string key = "lP1ZvBR87h-Gy9DNUpfLdw2";
+                                            var response = await fst.CancelaFactura(key);
+                                            if (resultado.Contains("error"))
+                                            {
+                                                mensaje = new MessageBoxForm("Error", response, TypeIcon.Icon.Cancel);
+                                                result = mensaje.ShowDialog();
+                                            }
+                                            else
+                                            {
+                                                mensaje = new MessageBoxForm(Variables.titleprincipal, response, TypeIcon.Icon.Success);
+                                                result = mensaje.ShowDialog();
+                                            }
                                         }
                                         //if (payment.TaxReceipts.Count() > 0)
                                         //{
@@ -1229,7 +1225,7 @@ namespace SOAPAP
             }
         }
 
-        private async void dgvMovimientos_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        private void dgvMovimientos_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0)
             {
@@ -1245,7 +1241,7 @@ namespace SOAPAP
                     dgvMovimientos.SelectedRows[0].Cells["Folio"].Value.ToString(),
                     dgvMovimientos.SelectedRows[0].Cells["tax"].Value.ToString(),
                     dgvMovimientos.SelectedRows[0].Cells["rounding"].Value.ToString(),
-                    dgvMovimientos.SelectedRows[0].Cells["total"].Value.ToString(),
+                    dgvMovimientos.SelectedRows[0].Cells["tot"].Value.ToString(),
                     dgvMovimientos.SelectedRows[0].Cells["amount"].Value.ToString()
                     );
 
@@ -1288,10 +1284,11 @@ namespace SOAPAP
             }
         }
 
-        private void ExportGridToPDF(byte[] pdf)
+        private void ExportGridToPDF(byte[] pdf, string FileName)
         {
             SaveFileDialog SaveXMLFileDialog = new SaveFileDialog();
             SaveXMLFileDialog.Filter = "PDF files (*.pdf)|*.pdf";
+            SaveXMLFileDialog.FileName = FileName;
             SaveXMLFileDialog.FilterIndex = 2;
             SaveXMLFileDialog.RestoreDirectory = true;
             SaveXMLFileDialog.Title = "Exportar PDF de Factura";

@@ -7,6 +7,9 @@ using SOAPAP.Enums;
 using System.Net.Http;
 using Newtonsoft.Json;
 using System.Linq;
+using SOAPAP.Model;
+using System.Deployment.Application;
+using System.Text;
 
 namespace SOAPAP
 {
@@ -127,6 +130,32 @@ namespace SOAPAP
                             }
                             else
                             {
+                                LogginLog log = new LogginLog
+                                {
+                                    //VersionSiscom = ApplicationDeployment.CurrentDeployment.CurrentVersion.ToString(4),
+                                    BranchOffice = Variables.Configuration.Terminal.BranchOffice.Name,
+                                    User = Variables.LoginModel.User,
+                                    UserName = Variables.LoginModel.FullName,
+                                    Fecha = DateTime.Now,
+                                    Terminal = Variables.Configuration.Terminal.MacAdress
+                                };
+                                StringContent content = new StringContent(JsonConvert.SerializeObject(log), Encoding.UTF8, "application/json");
+                                var request = await Requests.SendURIAsync("/api/Auth/Logger", HttpMethod.Post, content);
+                                if (request.Contains("error"))
+                                {
+                                    try
+                                    {
+                                        mensaje = new MessageBoxForm("Error", JsonConvert.DeserializeObject<Error>(request).error, TypeIcon.Icon.Cancel);
+                                        result = mensaje.ShowDialog();
+                                        loading.Close();
+                                    }
+                                    catch (Exception)
+                                    {
+                                        mensaje = new MessageBoxForm("Error", "Servicio no disponible favor de comunicarse con el administrador", TypeIcon.Icon.Cancel);
+                                        result = mensaje.ShowDialog();
+                                        loading.Close();
+                                    }
+                                }
                                 Thread t = new Thread(new ThreadStart(ThreadProc));
                                 t.SetApartmentState(ApartmentState.STA);
                                 t.Start();

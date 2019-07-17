@@ -16,7 +16,7 @@
     <TargetFrameworkProfile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
-    <PublishUrl>D:\caja2\</PublishUrl>
+    <PublishUrl>\\installer.cuautlancingo.gob.mx\caja\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
     <UpdateEnabled>false</UpdateEnabled>
@@ -26,10 +26,10 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>true</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <UpdateUrl>\\installer.sosapac.gob.mx\caja\</UpdateUrl>
-    <MinimumRequiredVersion>1.1.1.1</MinimumRequiredVersion>
+    <UpdateUrl>\\installer.cuautlancingo.gob.mx\caja\</UpdateUrl>
+    <MinimumRequiredVersion>1.1.1.143</MinimumRequiredVersion>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>141</ApplicationRevision>
+    <ApplicationRevision>144</ApplicationRevision>
     <ApplicationVersion>1.1.1.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -321,6 +321,7 @@
     <Compile Include="Model\DiscountAuthorizationVM.cs" />
     <Compile Include="Model\DiscountCampaign.cs" />
     <Compile Include="Model\Division.cs" />
+    <Compile Include="Model\LogginLog.cs" />
     <Compile Include="Model\OrderSale.cs" />
     <Compile Include="Model\OrderSaleDetails.cs" />
     <Compile Include="Model\OrderSaleDiscount.cs" />
@@ -1222,8 +1223,8 @@
     <None Include="Resources\cancelado.png" />
     <None Include="Resources\cerrada.png" />
     <None Include="Resources\cancel.png" />
-    <None Include="Resources\cancel_1.png" />
     <None Include="Resources\cancel_40x40.png" />
+    <None Include="Resources\cancel_1.png" />
     <Content Include="Resources\cerrar-caja.png" />
     <None Include="Resources\confirm.png" />
     <None Include="Resources\config-blanco.png" />
@@ -1238,6 +1239,7 @@
     <None Include="Resources\folder.png" />
     <None Include="Resources\file.ico" />
     <None Include="Resources\file.png" />
+    <None Include="Resources\edificios.png" />
     <Content Include="Resources\fondo-logo.png" />
     <None Include="Resources\info.png" />
     <None Include="Resources\imprimir.png" />
@@ -1256,6 +1258,7 @@
     <None Include="Resources\pdfBCO.png" />
     <None Include="Resources\mail.png" />
     <None Include="Resources\percentage.png" />
+    <None Include="Resources\notificacion-.png" />
     <Content Include="Resources\perfil.jpg" />
     <Content Include="Resources\productos.png" />
     <Content Include="Resources\reportes.png" />
@@ -1269,8 +1272,8 @@
     <None Include="Resources\success.png" />
     <None Include="Resources\store.png" />
     <None Include="Resources\Timbre.png" />
-    <None Include="Resources\timbre-amarillo-.png" />
     <None Include="Resources\sucess_40x40.png" />
+    <None Include="Resources\timbre-amarillo-.png" />
     <Content Include="Resources\usuario.png" />
     <None Include="Resources\icono1.png" />
     <None Include="Resources\movimientos.png" />
