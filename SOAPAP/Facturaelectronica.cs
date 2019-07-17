@@ -1094,19 +1094,40 @@ namespace SOAPAP
                         //Pero ya deberia poderse identificar el descuento con el OrderSaleDetailId.
                         if (TraVM.orderSale.OrderSaleDiscounts != null && Or.CodeConcept == "3109")
                         {
-                            item = new Item()
+
+                            if ((Or.UnitPrice * Or.Quantity) == tmpSubtotal)
                             {
-                                ProductCode = TraVM.ClavesProdServ.Where(x => x.CodeConcep == Or.CodeConcept).FirstOrDefault().ClaveProdServ,
-                                IdentificationNumber = "P" + Or.CodeConcept,
-                                UnitCode = TraVM.payment.PaymentDetails.Where(x => x.CodeConcept == Or.CodeConcept && x.Amount == Or.Amount).FirstOrDefault().UnitMeasurement,
-                                Unit = "NO APLICA",
-                                Description = Or.Description,
-                                UnitPrice = Or.UnitPrice,
-                                Quantity = Or.Quantity,
-                                Subtotal = TraVM.orderSale.OrderSaleDiscounts.Count == 0 ? Or.Amount : TraVM.orderSale.OrderSaleDiscounts.Where(x => x.OrderSaleDetailId == Or.Id).Select(y => y.OriginalAmount).FirstOrDefault(),
-                                Discount = TraVM.orderSale.OrderSaleDiscounts.Where(x => x.OrderSaleDetailId == Or.Id).Select(y => y.DiscountAmount).FirstOrDefault(),
-                                Total = Or.Amount + TraVM.payment.PaymentDetails.Where(x => x.CodeConcept == Or.CodeConcept && x.Amount == Or.Amount).FirstOrDefault().Tax
-                            };
+                                item = new Item()
+                                {
+                                    ProductCode = TraVM.ClavesProdServ.Where(x => x.CodeConcep == Or.CodeConcept).FirstOrDefault().ClaveProdServ,
+                                    IdentificationNumber = "P" + Or.CodeConcept,
+                                    UnitCode = TraVM.payment.PaymentDetails.Where(x => x.CodeConcept == Or.CodeConcept && x.Amount == Or.Amount).FirstOrDefault().UnitMeasurement,
+                                    Unit = "NO APLICA",
+                                    Description = Or.Description,
+                                    UnitPrice = Or.UnitPrice,
+                                    Quantity = Or.Quantity,
+                                    Subtotal = TraVM.orderSale.OrderSaleDiscounts.Count == 0 ? Or.Amount : TraVM.orderSale.OrderSaleDiscounts.Where(x => x.OrderSaleDetailId == Or.Id).Select(y => y.OriginalAmount).FirstOrDefault(),
+                                    Discount = TraVM.orderSale.OrderSaleDiscounts.Where(x => x.OrderSaleDetailId == Or.Id).Select(y => y.DiscountAmount).FirstOrDefault(),
+                                    Total = Or.Amount + TraVM.payment.PaymentDetails.Where(x => x.CodeConcept == Or.CodeConcept && x.Amount == Or.Amount).FirstOrDefault().Tax
+                                };
+                            }
+                            else //para los dobles descuentos.
+                            {
+                                decimal tmpDescuentoAjustado = (Or.Quantity * Or.UnitPrice) - Or.Amount;
+                                item = new Item()
+                                {
+                                    ProductCode = TraVM.ClavesProdServ.Where(x => x.CodeConcep == Or.CodeConcept).FirstOrDefault().ClaveProdServ,
+                                    IdentificationNumber = "P" + Or.CodeConcept,
+                                    UnitCode = TraVM.payment.PaymentDetails.Where(x => x.CodeConcept == Or.CodeConcept && x.Amount == Or.Amount).FirstOrDefault().UnitMeasurement,
+                                    Unit = "NO APLICA",
+                                    Description = Or.Description,
+                                    UnitPrice = Or.UnitPrice,
+                                    Quantity = Or.Quantity,
+                                    Subtotal = (Or.Quantity * Or.UnitPrice),
+                                    Discount = tmpDescuentoAjustado,
+                                    Total = Or.Amount + TraVM.payment.PaymentDetails.Where(x => x.CodeConcept == Or.CodeConcept && x.Amount == Or.Amount).FirstOrDefault().Tax
+                                };
+                            }                            
                         }
                         else
                         {
@@ -1147,7 +1168,15 @@ namespace SOAPAP
                                     Total = Or.Amount + TraVM.payment.PaymentDetails.Where(x => x.CodeConcept == Or.CodeConcept && x.Amount == Or.Amount).FirstOrDefault().Tax
                                 };
                             }
-                            
+
+                            //Si mandan el concepto en ceros.
+                            if (item.UnitPrice == 0 && item.Subtotal == 0 && item.Total == 0)
+                            {
+                                item.UnitPrice = 0.01M;
+                                item.Subtotal = 0.01M;
+                                item.Total = 0.01M;
+                            }
+
                         } 
                         if (Or.HaveTax == true)
                         {
