@@ -1103,7 +1103,7 @@ namespace SOAPAP
                                 Description = Or.Description,
                                 UnitPrice = Or.UnitPrice,
                                 Quantity = Or.Quantity,
-                                Subtotal = TraVM.orderSale.OrderSaleDiscounts.Where(x => x.OrderSaleDetailId == Or.Id).Select(y => y.OriginalAmount).FirstOrDefault(),
+                                Subtotal = TraVM.orderSale.OrderSaleDiscounts.Count == 0 ? Or.Amount : TraVM.orderSale.OrderSaleDiscounts.Where(x => x.OrderSaleDetailId == Or.Id).Select(y => y.OriginalAmount).FirstOrDefault(),
                                 Discount = TraVM.orderSale.OrderSaleDiscounts.Where(x => x.OrderSaleDetailId == Or.Id).Select(y => y.DiscountAmount).FirstOrDefault(),
                                 Total = Or.Amount + TraVM.payment.PaymentDetails.Where(x => x.CodeConcept == Or.CodeConcept && x.Amount == Or.Amount).FirstOrDefault().Tax
                             };
@@ -1115,19 +1115,39 @@ namespace SOAPAP
                             else if (Math.Round(Math.Round(Or.UnitPrice / Or.Quantity, 2) * Or.Quantity, 2) == tmpSubtotal)
                                 tmpUnitPrice = Math.Round(Or.UnitPrice / Or.Quantity, 2);
 
-                            item = new Item()
+                            if(tmpUnitPrice != 0)
                             {
-                                ProductCode = TraVM.ClavesProdServ.Where(x => x.CodeConcep == Or.CodeConcept).FirstOrDefault().ClaveProdServ,
-                                IdentificationNumber = "P" + Or.CodeConcept,
-                                UnitCode = TraVM.payment.PaymentDetails.Where(x => x.CodeConcept == Or.CodeConcept && x.Amount == Or.Amount).FirstOrDefault().UnitMeasurement,
-                                Unit = "NO APLICA",
-                                Description = Or.Description,
-                                UnitPrice = tmpUnitPrice,
-                                Quantity = Or.Quantity,
-                                Subtotal = Or.Amount + TraVM.orderSale.OrderSaleDiscounts.Where(x => x.CodeConcept == Or.CodeConcept).Select(y => y.DiscountAmount).FirstOrDefault(),
-                                Discount = TraVM.orderSale.OrderSaleDiscounts.Where(x => x.CodeConcept == Or.CodeConcept).Select(y => y.DiscountAmount).FirstOrDefault(),
-                                Total = Or.Amount + TraVM.payment.PaymentDetails.Where(x => x.CodeConcept == Or.CodeConcept && x.Amount == Or.Amount).FirstOrDefault().Tax
-                            };
+                                item = new Item()
+                                {
+                                    ProductCode = TraVM.ClavesProdServ.Where(x => x.CodeConcep == Or.CodeConcept).FirstOrDefault().ClaveProdServ,
+                                    IdentificationNumber = "P" + Or.CodeConcept,
+                                    UnitCode = TraVM.payment.PaymentDetails.Where(x => x.CodeConcept == Or.CodeConcept && x.Amount == Or.Amount).FirstOrDefault().UnitMeasurement,
+                                    Unit = "NO APLICA",
+                                    Description = Or.Description,
+                                    UnitPrice = tmpUnitPrice,
+                                    Quantity = Or.Quantity,
+                                    Subtotal = Or.Amount + TraVM.orderSale.OrderSaleDiscounts.Where(x => x.CodeConcept == Or.CodeConcept).Select(y => y.DiscountAmount).FirstOrDefault(),
+                                    Discount = TraVM.orderSale.OrderSaleDiscounts.Where(x => x.CodeConcept == Or.CodeConcept).Select(y => y.DiscountAmount).FirstOrDefault(),
+                                    Total = Or.Amount + TraVM.payment.PaymentDetails.Where(x => x.CodeConcept == Or.CodeConcept && x.Amount == Or.Amount).FirstOrDefault().Tax
+                                };
+                            }
+                            else              //Este metodo lo aumente porque comenzaron a mandar bien la info en BD y por tanto ya puedo tomar los datos directos de BD.
+                            {
+                                item = new Item()
+                                {
+                                    ProductCode = TraVM.ClavesProdServ.Where(x => x.CodeConcep == Or.CodeConcept).FirstOrDefault().ClaveProdServ,
+                                    IdentificationNumber = "P" + Or.CodeConcept,
+                                    UnitCode = TraVM.payment.PaymentDetails.Where(x => x.CodeConcept == Or.CodeConcept && x.Amount == Or.Amount).FirstOrDefault().UnitMeasurement,
+                                    Unit = "NO APLICA",
+                                    Description = Or.Description,
+                                    UnitPrice = Or.UnitPrice,
+                                    Quantity = Or.Quantity,
+                                    Subtotal = Or.Amount + TraVM.orderSale.OrderSaleDiscounts.Where(x => x.CodeConcept == Or.CodeConcept).Select(y => y.DiscountAmount).FirstOrDefault(),
+                                    Discount = TraVM.orderSale.OrderSaleDiscounts.Where(x => x.CodeConcept == Or.CodeConcept).Select(y => y.DiscountAmount).FirstOrDefault(),
+                                    Total = Or.Amount + TraVM.payment.PaymentDetails.Where(x => x.CodeConcept == Or.CodeConcept && x.Amount == Or.Amount).FirstOrDefault().Tax
+                                };
+                            }
+                            
                         } 
                         if (Or.HaveTax == true)
                         {
