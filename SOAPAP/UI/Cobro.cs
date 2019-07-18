@@ -460,7 +460,7 @@ namespace SOAPAP.UI
                     else
                     {
                         Variables.Agreement = JsonConvert.DeserializeObject<Model.Agreement>(resultAgreement);
-                        if (Variables.Configuration.IsMunicipal)
+                        if (Variables.Configuration.IsMunicipal && Variables.Agreement.AgreementDetails != null)
                         {
                             tableLayoutPanel3.Size = new Size(344, 478);
                             tableLayoutPanel3.RowStyles[tableLayoutPanel3.RowCount - 1] = new RowStyle(SizeType.Percent, 31.03f);
@@ -468,6 +468,7 @@ namespace SOAPAP.UI
                             lblMetrosConstruidos.Text = Variables.Agreement.AgreementDetails.FirstOrDefault().Built.ToString();
                             lblMetrosTerreno.Text = Variables.Agreement.AgreementDetails.FirstOrDefault().Ground.ToString();
                             lblUtimoAvaluo.Text = Variables.Agreement.AgreementDetails.FirstOrDefault().LastUpdate.ToString("dd/MM/yyyy");
+                            //lblTipoPredio.Text = Variables.Agreement.TypeIntake.Name;
                         }
                         if (!string.IsNullOrWhiteSpace(resultAgreement))
                         {                           
