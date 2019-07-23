@@ -85,8 +85,10 @@
             // 
             // pnlText
             // 
+            this.pnlText.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.pnlText.Controls.Add(this.txtMessage);
-            this.pnlText.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlText.Location = new System.Drawing.Point(0, 151);
             this.pnlText.Name = "pnlText";
             this.pnlText.Size = new System.Drawing.Size(410, 71);
@@ -94,6 +96,8 @@
             // 
             // txtMessage
             // 
+            this.txtMessage.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.txtMessage.BackColor = System.Drawing.Color.White;
             this.txtMessage.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtMessage.Cursor = System.Windows.Forms.Cursors.Default;

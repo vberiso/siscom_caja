@@ -1030,6 +1030,11 @@ namespace SOAPAP
         {
             ShowForm("SOAPAP", "UI.ReportesForms.RepOrders");
         }
+
+        private void facturacionPasadaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ShowForm("SOAPAP", "UI.FactPasada.FacturacionPasada");
+        }
     }
 }
 #endregion

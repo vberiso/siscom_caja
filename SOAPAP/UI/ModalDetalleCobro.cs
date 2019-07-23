@@ -1468,6 +1468,7 @@ namespace SOAPAP.UI
                         loadings.Close();
                         try
                         {
+                            //imprimeComprobantePago(IVA, ivaTotal);
                             //mensaje = new MessageBoxForm("Error", JsonConvert.DeserializeObject<Error>(resultados).error, TypeIcon.Icon.Cancel);
                             mensaje = new MessageBoxForm("Error", xmltimbrado, TypeIcon.Icon.Cancel);
                             mensaje.AutoSize = true;                           
@@ -2237,6 +2238,53 @@ namespace SOAPAP.UI
             }
         }
         #endregion
+
+        private void imprimeComprobantePago(decimal IVA, decimal ivaTotal)
+        {            
+            Tiket imp = new Tiket();
+            if (Variables.Agreement != null)
+            {
+                imp.Imprime(dt, 2, (PaidUp - (IVA + Math.Round(ivaTotal, 2))).ToString()
+                                , (IVA + Math.Round(ivaTotal, 2)).ToString()
+                                , Rounding.ToString()
+                                , (PaidUp).ToString()
+                                , cmbPaymentMethod.Text
+                                , Padron
+                                , Variables.foliocaja
+                                , ""//TODO
+                                , Variables.Agreement.Account
+                                , Variables.Agreement.Clients.First().RFC
+                                , Variables.foliotransaccion
+                                , (Variables.Agreement.Addresses.First().Street
+                                    + " NO." + Variables.Agreement.Addresses.First().Outdoor
+                                    + " INT." + Variables.Agreement.Addresses.First().Indoor
+                                    + ", COL." + Variables.Agreement.Addresses.First().Suburbs.Name
+                                    + ". " + Variables.Agreement.Addresses.First().Suburbs.Towns.Name
+                                    + ". " + Variables.Agreement.Addresses.First().Suburbs.Towns.States.Name));
+            }
+            else
+            {
+                imp.Imprime(dt, 2, (PaidUp - (IVA + Math.Round(ivaTotal, 2))).ToString()
+                                , (IVA + Math.Round(ivaTotal, 2)).ToString()
+                                , Rounding.ToString()
+                                , (PaidUp).ToString()
+                                , cmbPaymentMethod.Text
+                                , Padron
+                                , Variables.foliocaja
+                                , ""//TODO
+                                , Variables.OrderSale.Folio
+                                , Variables.OrderSale.TaxUser.RFC
+                                , Variables.foliotransaccion
+                                , (Variables.Agreement.Addresses.First().Street
+                                    + " NO." + Variables.OrderSale.TaxUser.TaxAddresses.First().Outdoor
+                                    + " INT." + Variables.OrderSale.TaxUser.TaxAddresses.First().Indoor
+                                    + ", COL." + Variables.OrderSale.TaxUser.TaxAddresses.First().Suburb
+                                    + ". " + Variables.OrderSale.TaxUser.TaxAddresses.First().Town
+                                    + ". " + Variables.OrderSale.TaxUser.TaxAddresses.First().State));
+            }
+            q.sacarcaja(Requests.ImpresoraPredeterminada(), Variables.Configuration.ANSII);            
+        }
+
 
         //Error pdf
         private string DecodeStatusCode(PdfPrint.Status status)

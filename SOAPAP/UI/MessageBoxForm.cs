@@ -57,7 +57,10 @@ namespace SOAPAP.UI
 
             //Por si el mensaje es muy largo.
             if (Message.Length > 150)
+            {
                 this.Height = 350;
+                
+            }                
         }
 
         public MessageBoxForm(string v1, TypeIcon.Icon warning, bool v2)
