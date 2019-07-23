@@ -10,6 +10,7 @@ using System.Linq;
 using SOAPAP.Model;
 using System.Deployment.Application;
 using System.Text;
+using SOAPAP.Services.UpdateApplication;
 
 namespace SOAPAP
 {
@@ -71,6 +72,7 @@ namespace SOAPAP
         #region PrivateMethod
         private async void Ingresar()
         {
+            InstallUpdateSyncWithInfo.InstallUpdateSyncWithInfoApplication();
             if (string.IsNullOrEmpty(txtUsuario.Text))
             {
                 mensaje = new MessageBoxForm("Error", "Ingrese el Usuario", TypeIcon.Icon.Cancel);

@@ -65,8 +65,6 @@
             this.paymentIdDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.paymentDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.paymentDetailBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.transactionMovimientosCajaBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.dataGridViewButtonColumn3 = new System.Windows.Forms.DataGridViewButtonColumn();
             this.idTransactionDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.folioTransaccionDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.operacionDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -78,6 +76,8 @@
             this.haveInvoiceDataGridViewCheckBoxColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.Facturar = new System.Windows.Forms.DataGridViewButtonColumn();
             this.ActualizaPdf = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.transactionMovimientosCajaBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.dataGridViewButtonColumn3 = new System.Windows.Forms.DataGridViewButtonColumn();
             this.pnlHeader.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pcbIncomeByConcept)).BeginInit();
@@ -247,7 +247,7 @@
             this.dgvMovimientos.Name = "dgvMovimientos";
             this.dgvMovimientos.ReadOnly = true;
             this.dgvMovimientos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvMovimientos.Size = new System.Drawing.Size(1055, 171);
+            this.dgvMovimientos.Size = new System.Drawing.Size(1055, 78);
             this.dgvMovimientos.TabIndex = 51;
             this.dgvMovimientos.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvMovimientos_CellClick);
             this.dgvMovimientos.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvMovimientos_CellContentClick);
@@ -261,9 +261,9 @@
             this.pnlDetalle.Controls.Add(this.lblSucursal);
             this.pnlDetalle.Controls.Add(this.label3);
             this.pnlDetalle.Controls.Add(this.label1);
-            this.pnlDetalle.Location = new System.Drawing.Point(0, 254);
+            this.pnlDetalle.Location = new System.Drawing.Point(0, 161);
             this.pnlDetalle.Name = "pnlDetalle";
-            this.pnlDetalle.Size = new System.Drawing.Size(1055, 141);
+            this.pnlDetalle.Size = new System.Drawing.Size(1055, 234);
             this.pnlDetalle.TabIndex = 52;
             // 
             // dgvDetallesPago
@@ -299,7 +299,7 @@
             this.dgvDetallesPago.DataSource = this.paymentDetailBindingSource;
             this.dgvDetallesPago.Location = new System.Drawing.Point(3, 68);
             this.dgvDetallesPago.Name = "dgvDetallesPago";
-            this.dgvDetallesPago.Size = new System.Drawing.Size(1049, 70);
+            this.dgvDetallesPago.Size = new System.Drawing.Size(1049, 163);
             this.dgvDetallesPago.TabIndex = 4;
             // 
             // lblSucursal
@@ -357,6 +357,7 @@
             this.dataGridViewButtonColumn2.ReadOnly = true;
             this.dataGridViewButtonColumn2.Text = "Actualiza";
             this.dataGridViewButtonColumn2.ToolTipText = "Cancelar";
+            this.dataGridViewButtonColumn2.Visible = false;
             // 
             // descriptionDataGridViewTextBoxColumn
             // 
@@ -480,21 +481,6 @@
             // 
             this.paymentDetailBindingSource.DataSource = typeof(SOAPAP.Model.PaymentDetail);
             // 
-            // transactionMovimientosCajaBindingSource
-            // 
-            this.transactionMovimientosCajaBindingSource.DataSource = typeof(SOAPAP.Model.TransactionMovimientosCaja);
-            // 
-            // dataGridViewButtonColumn3
-            // 
-            this.dataGridViewButtonColumn3.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.dataGridViewButtonColumn3.FillWeight = 45.90965F;
-            this.dataGridViewButtonColumn3.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.dataGridViewButtonColumn3.HeaderText = "";
-            this.dataGridViewButtonColumn3.Name = "dataGridViewButtonColumn3";
-            this.dataGridViewButtonColumn3.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewButtonColumn3.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.dataGridViewButtonColumn3.ToolTipText = "TIMBRAR";
-            // 
             // idTransactionDataGridViewTextBoxColumn
             // 
             this.idTransactionDataGridViewTextBoxColumn.DataPropertyName = "IdTransaction";
@@ -555,6 +541,7 @@
             this.signoDataGridViewCheckBoxColumn.HeaderText = "";
             this.signoDataGridViewCheckBoxColumn.Name = "signoDataGridViewCheckBoxColumn";
             this.signoDataGridViewCheckBoxColumn.ReadOnly = true;
+            this.signoDataGridViewCheckBoxColumn.Visible = false;
             this.signoDataGridViewCheckBoxColumn.Width = 50;
             // 
             // haveInvoiceDataGridViewCheckBoxColumn
@@ -579,6 +566,21 @@
             this.ActualizaPdf.ReadOnly = true;
             this.ActualizaPdf.Text = "Actualiza";
             this.ActualizaPdf.Visible = false;
+            // 
+            // transactionMovimientosCajaBindingSource
+            // 
+            this.transactionMovimientosCajaBindingSource.DataSource = typeof(SOAPAP.Model.TransactionMovimientosCaja);
+            // 
+            // dataGridViewButtonColumn3
+            // 
+            this.dataGridViewButtonColumn3.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.dataGridViewButtonColumn3.FillWeight = 45.90965F;
+            this.dataGridViewButtonColumn3.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.dataGridViewButtonColumn3.HeaderText = "";
+            this.dataGridViewButtonColumn3.Name = "dataGridViewButtonColumn3";
+            this.dataGridViewButtonColumn3.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewButtonColumn3.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.dataGridViewButtonColumn3.ToolTipText = "TIMBRAR";
             // 
             // FacturacionPasada
             // 

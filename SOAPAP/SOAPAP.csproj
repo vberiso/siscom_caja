@@ -27,9 +27,9 @@
     <UpdateRequired>true</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
     <UpdateUrl>\\installer.sosapac.gob.mx\caja\</UpdateUrl>
-    <MinimumRequiredVersion>1.1.1.150</MinimumRequiredVersion>
+    <MinimumRequiredVersion>1.1.1.152</MinimumRequiredVersion>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>151</ApplicationRevision>
+    <ApplicationRevision>153</ApplicationRevision>
     <ApplicationVersion>1.1.1.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -338,6 +338,7 @@
     <Compile Include="Model\TaxAddress.cs" />
     <Compile Include="Model\Taxresult.cs" />
     <Compile Include="Model\TaxUser.cs" />
+    <Compile Include="Model\TransactionMovimientosCaja.cs" />
     <Compile Include="Model\TransactionPaymentVM.cs" />
     <Compile Include="Model\TransactionVM.cs" />
     <Compile Include="Model\Users.cs" />
@@ -458,6 +459,12 @@
     </Compile>
     <Compile Include="UI\Email\SendEmail.Designer.cs">
       <DependentUpon>SendEmail.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\FactPasada\FacturacionPasada.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\FactPasada\FacturacionPasada.Designer.cs">
+      <DependentUpon>FacturacionPasada.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\FacturaAgrupada.cs">
       <SubType>Form</SubType>
@@ -878,6 +885,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Email\SendEmail.resx">
       <DependentUpon>SendEmail.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\FactPasada\FacturacionPasada.resx">
+      <DependentUpon>FacturacionPasada.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\FacturaAgrupada.resx">
       <DependentUpon>FacturaAgrupada.cs</DependentUpon>

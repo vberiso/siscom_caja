@@ -15,5 +15,6 @@ namespace SOAPAP.Model
         public List<string> RolName { get; set; }
         public int Divition { get; set; }
         public bool CanStamp { get; set; }
+        public string Serial { get; set; }
     }
 }
