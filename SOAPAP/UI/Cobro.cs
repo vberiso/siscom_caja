@@ -468,7 +468,7 @@ namespace SOAPAP.UI
                             lblMetrosConstruidos.Text = Variables.Agreement.AgreementDetails.FirstOrDefault().Built.ToString();
                             lblMetrosTerreno.Text = Variables.Agreement.AgreementDetails.FirstOrDefault().Ground.ToString();
                             lblUtimoAvaluo.Text = Variables.Agreement.AgreementDetails.FirstOrDefault().LastUpdate.ToString("dd/MM/yyyy");
-                            //lblTipoPredio.Text = Variables.Agreement.TypeIntake.Name;
+                            lblTipoPredio.Text = Variables.Agreement.TypeIntake != null ? Variables.Agreement.TypeIntake.Name : "";
                         }
                         if (!string.IsNullOrWhiteSpace(resultAgreement))
                         {                           

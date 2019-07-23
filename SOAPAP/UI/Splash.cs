@@ -44,6 +44,9 @@ namespace SOAPAP.UI
             Variables.Configuration = configuration;
 
             InstallUpdateSyncWithInfo.InstallUpdateSyncWithInfoApplication();
+            var Authentification = Convert.ToBase64String(
+            System.Text.ASCIIEncoding.ASCII.GetBytes(
+               $"{Properties.Settings.Default.FacturamaUser}:{Properties.Settings.Default.FacturamaPassword}"));
 
             var version = await Requests.SendURIAsync("/api/VersionApps", HttpMethod.Get);
             if (version.Contains("error"))
@@ -63,9 +66,12 @@ namespace SOAPAP.UI
                     this.Close();
                 }
             }
-            List<VersionApp> versionApp = JsonConvert.DeserializeObject<List<VersionApp>>(version);
-
-            configuration.VersionApp = versionApp.FirstOrDefault();
+            else
+            {
+                List<VersionApp> versionApp = JsonConvert.DeserializeObject<List<VersionApp>>(version);
+                configuration.VersionApp = versionApp.FirstOrDefault();
+            }
+            
             if (configuration.VersionApp == null)
             {
                 DialogResult result = new DialogResult();

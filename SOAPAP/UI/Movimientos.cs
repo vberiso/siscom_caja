@@ -288,8 +288,10 @@ namespace SOAPAP
             centraX(pnlHeader, pnlSearch);
 
 
-            var _resulTransaction = await Requests.SendURIAsync(string.Format("/api/Transaction/Find/{0}/{1}", DateTime.Now.ToString("yyyy-MM-dd"), Variables.Configuration.Terminal.TerminalUsers.FirstOrDefault().Id.ToString()), HttpMethod.Get, Variables.LoginModel.Token);
-            //var _resulTransaction = await Requests.SendURIAsync(string.Format("/api/Transaction/Find/{0}/{1}", DateTime.Now.ToString("yyyy-MM-dd"), 139), HttpMethod.Get, Variables.LoginModel.Token);
+            //var _resulTransaction = await Requests.SendURIAsync(string.Format("/api/Transaction/Find/{0}/{1}", DateTime.Now.ToString("yyyy-MM-dd"), Variables.Configuration.Terminal.TerminalUsers.FirstOrDefault().Id.ToString()), HttpMethod.Get, Variables.LoginModel.Token);
+            var _resulTransaction = await Requests.SendURIAsync(string.Format("/api/Transaction/{0}/{1}", DateTime.Now.ToString("yyyy-MM-dd"), Variables.Configuration.Terminal.TerminalUsers.FirstOrDefault().Id.ToString()), HttpMethod.Get, Variables.LoginModel.Token);
+            //var _resulTransaction = await Requests.SendURIAsync(string.Format("/api/Transaction/{0}/{1}", DateTime.Now.ToString("yyyy-MM-dd"), 167), HttpMethod.Get, Variables.LoginModel.Token);
+            //var _resulTransaction = await Requests.SendURIAsync(string.Format("/api/Transaction/FromUserInDay/{0}/{1}", "2019-07-17", "20aca05a-0f8e-4775-88fc-f4ec3686340d"), HttpMethod.Get, Variables.LoginModel.Token);
 
             if (_resulTransaction.Contains("error"))
             {
