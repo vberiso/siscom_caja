@@ -65,6 +65,8 @@
             this.paymentIdDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.paymentDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.paymentDetailBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.transactionMovimientosCajaBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.dataGridViewButtonColumn3 = new System.Windows.Forms.DataGridViewButtonColumn();
             this.idTransactionDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.folioTransaccionDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.operacionDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -76,8 +78,6 @@
             this.haveInvoiceDataGridViewCheckBoxColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.Facturar = new System.Windows.Forms.DataGridViewButtonColumn();
             this.ActualizaPdf = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.transactionMovimientosCajaBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.dataGridViewButtonColumn3 = new System.Windows.Forms.DataGridViewButtonColumn();
             this.pnlHeader.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pcbIncomeByConcept)).BeginInit();
@@ -480,6 +480,21 @@
             // 
             this.paymentDetailBindingSource.DataSource = typeof(SOAPAP.Model.PaymentDetail);
             // 
+            // transactionMovimientosCajaBindingSource
+            // 
+            this.transactionMovimientosCajaBindingSource.DataSource = typeof(SOAPAP.Model.TransactionMovimientosCaja);
+            // 
+            // dataGridViewButtonColumn3
+            // 
+            this.dataGridViewButtonColumn3.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.dataGridViewButtonColumn3.FillWeight = 45.90965F;
+            this.dataGridViewButtonColumn3.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.dataGridViewButtonColumn3.HeaderText = "";
+            this.dataGridViewButtonColumn3.Name = "dataGridViewButtonColumn3";
+            this.dataGridViewButtonColumn3.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewButtonColumn3.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.dataGridViewButtonColumn3.ToolTipText = "TIMBRAR";
+            // 
             // idTransactionDataGridViewTextBoxColumn
             // 
             this.idTransactionDataGridViewTextBoxColumn.DataPropertyName = "IdTransaction";
@@ -563,21 +578,7 @@
             this.ActualizaPdf.Name = "ActualizaPdf";
             this.ActualizaPdf.ReadOnly = true;
             this.ActualizaPdf.Text = "Actualiza";
-            // 
-            // transactionMovimientosCajaBindingSource
-            // 
-            this.transactionMovimientosCajaBindingSource.DataSource = typeof(SOAPAP.Model.TransactionMovimientosCaja);
-            // 
-            // dataGridViewButtonColumn3
-            // 
-            this.dataGridViewButtonColumn3.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.dataGridViewButtonColumn3.FillWeight = 45.90965F;
-            this.dataGridViewButtonColumn3.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.dataGridViewButtonColumn3.HeaderText = "";
-            this.dataGridViewButtonColumn3.Name = "dataGridViewButtonColumn3";
-            this.dataGridViewButtonColumn3.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewButtonColumn3.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.dataGridViewButtonColumn3.ToolTipText = "TIMBRAR";
+            this.ActualizaPdf.Visible = false;
             // 
             // FacturacionPasada
             // 
