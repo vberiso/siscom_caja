@@ -16,7 +16,7 @@
     <TargetFrameworkProfile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
-    <PublishUrl>\\installer.sosapac.gob.mx\caja\</PublishUrl>
+    <PublishUrl>D:\caja2\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Unc</InstallFrom>
     <UpdateEnabled>false</UpdateEnabled>
@@ -346,9 +346,7 @@
     <Compile Include="Model\VersionApp.cs" />
     <Compile Include="Model\Warranty.cs" />
     <Compile Include="Model\TaxReceipt.cs" />
-    <Compile Include="ModFac\Cfdi.cs" />
-    <Compile Include="ModFac\Csd.cs" />
-    <Compile Include="ModFac\Issuer.cs" />
+    <Compile Include="ModFac\RepuestaCancelacion.cs" />
     <Compile Include="notificationDetails.cs" />
     <Compile Include="Notify.cs" />
     <Compile Include="PDFManager\CreatePDF.cs" />
@@ -1117,7 +1115,10 @@
     </None>
     <None Include="Properties\app.manifest" />
     <None Include="Properties\DataSources\SOAPAP.Model.DebtDetail.datasource" />
+    <None Include="Properties\DataSources\SOAPAP.Model.PaymentDetail.datasource" />
     <None Include="Properties\DataSources\SOAPAP.Model.Prepaid.datasource" />
+    <None Include="Properties\DataSources\SOAPAP.Model.Transaction.datasource" />
+    <None Include="Properties\DataSources\SOAPAP.Model.TransactionMovimientosCaja.datasource" />
     <None Include="Properties\DataSources\SOAPAP.Reportes.DataCollection.datasource" />
     <None Include="Properties\DataSources\SOAPAP.Reportes.DataDebts.datasource" />
     <None Include="Properties\DataSources\SOAPAP.Reportes.DataDebtsAyunt.datasource" />

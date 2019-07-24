@@ -1207,7 +1207,11 @@ namespace SOAPAP
                     msgObservacionFactura = msgObs.TextoObservacion;
                     msgUsos = msgObs.Usos;
                 }
-                
+
+                //En caso de factura fuera de fecha
+                if (TraVM.payment.PaymentDate.ToString("yyyy-MM-dd") != DateTime.Today.ToString("yyyy-MM-dd"))
+                    msgObservacionFactura += "Pago efectuado el " + TraVM.payment.PaymentDate.ToString("yyyy-MM-dd");
+
                 string path = GeneraCarpetaDescagasXML();
                 string nombreXML = string.Format("\\{0}_{1}_{2}.xml", issuer.Rfc, receptor.Rfc , seriefolio);
                 string nombrePDF = string.Format("\\{0}_{1}_{2}.pdf", issuer.Rfc, receptor.Rfc, seriefolio);
@@ -1460,6 +1464,33 @@ namespace SOAPAP
 
             }
         }
+
+        //Volver a generar factura en PDF
+        public async Task<string> actualizaPdf(string idTransaction)
+        {
+            string respuesta = string.Empty;
+            string rutas = string.Empty;
+            string json = string.Empty;
+            Facturama.Models.Response.Cfdi cfdiFacturama = null;
+
+            var resultado = await Requests.SendURIAsync(string.Format("/api/Transaction/{0}", idTransaction), HttpMethod.Get, Variables.LoginModel.Token);
+            TransactionVM TraVM = JsonConvert.DeserializeObject<TransactionVM>(resultado);
+
+            var resultadoXML = await Requests.SendURIAsync(string.Format("/api/TaxReceipt/XmlFromPaymentId/{0}", TraVM.payment.Id), HttpMethod.Get, Variables.LoginModel.Token);
+            string tmpXML = JsonConvert.DeserializeObject<string>(resultadoXML);
+            SOAPAP.Facturado.DocumentoXML comprobante = DeserializerXML(tmpXML);
+
+            return tmpXML;
+        }
+
+        public SOAPAP.Facturado.DocumentoXML DeserializerXML(string xmlString)
+        {            
+            StringReader stringReader = new StringReader(xmlString);
+            XmlSerializer serializer = new XmlSerializer(typeof(SOAPAP.Facturado.Comprobante), new XmlRootAttribute("Comprobante"));
+            SOAPAP.Facturado.DocumentoXML comprobante = (SOAPAP.Facturado.DocumentoXML)serializer.Deserialize( stringReader);
+            return comprobante;
+        }
+
     }
 
 }

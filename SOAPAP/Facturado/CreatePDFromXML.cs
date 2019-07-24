@@ -136,5 +136,13 @@ namespace SOAPAP.Facturado
         [XmlAttribute(AttributeName = "LugarExpedicion")]
         public string LugarExpedicion { get; set; }
     }
+
+    [XmlRoot(ElementName = "DocumentoXML", Namespace = "http://www.sat.gob.mx/cfd/3")]
+    public class DocumentoXML
+    {
+        [XmlAttribute(AttributeName = "Comprobante")]
+        public Comprobante Comprobante { get; set; }
+    }
+
 }
 

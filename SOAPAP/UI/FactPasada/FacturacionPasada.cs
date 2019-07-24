@@ -125,22 +125,23 @@ namespace SOAPAP.UI.FactPasada
         //Se obtiene el campo seleccionado de la tabla.
         private void dgvMovimientos_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            if(dgvMovimientos.Columns[e.ColumnIndex].Name == "Facturar")
-            {
-                DataGridViewRow row = dgvMovimientos.Rows[e.RowIndex];
-                string Operacion = row.Cells["OperacionDataGridViewTextBoxColumn"].Value.ToString();
-                string transactionFolio = row.Cells["idTransactionDataGridViewTextBoxColumn"].Value.ToString();
-                bool EstaFacturado = (bool)row.Cells["haveInvoiceDataGridViewCheckBoxColumn"].Value;
-                FacturaPago(Operacion, transactionFolio, EstaFacturado);
+            DataGridViewRow row = dgvMovimientos.Rows[e.RowIndex];
+            string Operacion = row.Cells["OperacionDataGridViewTextBoxColumn"].Value.ToString();
+            string transactionId = row.Cells["idTransactionDataGridViewTextBoxColumn"].Value.ToString();
+            bool EstaFacturado = (bool)row.Cells["haveInvoiceDataGridViewCheckBoxColumn"].Value;
+
+            if (dgvMovimientos.Columns[e.ColumnIndex].Name == "Facturar")
+            {                
+                FacturaPago(Operacion, transactionId, EstaFacturado);
             }
             else if (dgvMovimientos.Columns[e.ColumnIndex].Name == "ActualizaPdf")
             {
-
+                ActualizaFormatoPdf(Operacion, transactionId, EstaFacturado);
             }
         }
 
         //Genera factura de pago seleccionado.
-        private async void FacturaPago(string Operacion, string transactionFolio, bool EstaFacturado)
+        private async void FacturaPago(string Operacion, string transactionId, bool EstaFacturado)
         {
             if (EstaFacturado)
             {
@@ -162,7 +163,7 @@ namespace SOAPAP.UI.FactPasada
                 Form loadings = new Loading();
                 loadings.Show(this);
                 Fac = new Facturaelectronica();
-                xmltimbrado = await Fac.generaFactura(transactionFolio, "ET001");
+                xmltimbrado = await Fac.generaFactura(transactionId, "ET001");
                 if (xmltimbrado.Contains("error"))
                 {
                     loadings.Close();
@@ -209,16 +210,30 @@ namespace SOAPAP.UI.FactPasada
         }
 
         //Actualiza el archivo pdf.
-        private void ActualizaFormatoPdf()
+        private async void ActualizaFormatoPdf(string Operacion, string transactionId, bool EstaFacturado)
         {
-
+            if (!EstaFacturado)
+            {
+                mensaje = new MessageBoxForm("Aviso", "Es necesario facturar previamente.", TypeIcon.Icon.Info);
+                result = mensaje.ShowDialog();                
+            }
+            if (Operacion != "Cobro")
+            {
+                mensaje = new MessageBoxForm("Aviso", "No se generar para este tipo de movimiento", TypeIcon.Icon.Info);
+                result = mensaje.ShowDialog();                
+            }
+            if (EstaFacturado && Operacion == "Cobro")
+            {
+                Fac = new Facturaelectronica();
+                string temp = await Fac.actualizaPdf(transactionId);
+            }
         }
 
         public void DeserializerXML(string xmlString)
         {
             XmlSerializer serializer = new XmlSerializer(typeof(Comprobante), new XmlRootAttribute("Comprobante"));
             StringReader stringReader = new StringReader(xmlString);
-            Comprobante comprobante = (Comprobante)serializer.Deserialize(stringReader);
+            DocumentoXML comprobante = (DocumentoXML)serializer.Deserialize(stringReader);
         }
     }
 }

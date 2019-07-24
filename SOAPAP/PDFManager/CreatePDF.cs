@@ -286,7 +286,7 @@ namespace SOAPAP.PDFManager
             builder.Append(@" <div id='datFact' style='display: inline-block; width: 20%; font-size: 12px; text-align: center; vertical-align: top;'>");
             builder.Append(@"<table style='text-align: center; font-size: 14px;'>");
             builder.Append(@"<tr><td><b>COMPROBANTE</b></td></tr>");
-            builder.Append(@"<tr><td style='font-family:\""Montserrat\"", sans-serif;'><b>"+ CfdiMulti.Folio+"</b></td></tr>"); //Folio
+            builder.Append(@"<tr><td style='font-family:\""Montserrat\"", sans-serif;'><b>"+ Variables.LoginModel.Serial + "-" + CfdiMulti.Folio + "</b></td></tr>"); //Folio
             builder.Append(@"<tr><td><b>FOLIO FISCAL</b></td></tr>");
             builder.Append(@"<tr><td style='font-family:\""Montserrat\"", sans-serif; font-size:11px;'>"+ Cfdi.Complement.TaxStamp.Uuid +"</td></tr>"); //UUID
             builder.Append(@"<tr><td><b>CERTIFICADO SAT</b></td></tr>");
@@ -589,7 +589,7 @@ namespace SOAPAP.PDFManager
             builder.Append(@" <div id='datFact' style='display: inline-block; width: 20%; font-size: 11px; text-align: center; vertical-align: top;'>");
             builder.Append(@"<table style='text-align: center; font-size: 14px;'>");
             builder.Append(@"<tr><td><b>COMPROBANTE</b></td></tr>");
-            builder.Append(@"<tr><td style='font-family:\""Montserrat\"", sans-serif;'><b>" + CfdiMulti.Folio + "</b></td></tr>"); //Folio
+            builder.Append(@"<tr><td style='font-family:\""Montserrat\"", sans-serif;'><b>" + Variables.LoginModel.Serial + "-" + CfdiMulti.Folio + "</b></td></tr>"); //Folio
             builder.Append(@"<tr><td><b>FOLIO FISCAL</b></td></tr>");
             builder.Append(@"<tr><td style='font-family:\""Montserrat\"", sans-serif; font-size:11px;'>" + Cfdi.Complement.TaxStamp.Uuid + "</td></tr>"); //UUID
             builder.Append(@"<tr><td><b>CERTIFICADO SAT</b></td></tr>");

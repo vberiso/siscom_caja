@@ -44,9 +44,9 @@ namespace SOAPAP.UI
             Variables.Configuration = configuration;
 
             InstallUpdateSyncWithInfo.InstallUpdateSyncWithInfoApplication();
-            var Authentification = Convert.ToBase64String(
-            System.Text.ASCIIEncoding.ASCII.GetBytes(
-               $"{Properties.Settings.Default.FacturamaUser}:{Properties.Settings.Default.FacturamaPassword}"));
+            //var Authentification = Convert.ToBase64String(
+            //System.Text.ASCIIEncoding.ASCII.GetBytes(
+            //   $"{Properties.Settings.Default.FacturamaUser}:{Properties.Settings.Default.FacturamaPassword}"));
 
             var version = await Requests.SendURIAsync("/api/VersionApps", HttpMethod.Get);
             if (version.Contains("error"))
