@@ -3,6 +3,7 @@ using PdfPrintingNet;
 using SOAPAP.Enums;
 using SOAPAP.Facturado;
 using SOAPAP.Services;
+using SOAPAP.UI.Email;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -14,6 +15,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml;
 using System.Xml.Serialization;
 
 namespace SOAPAP.UI.FactPasada
@@ -88,12 +90,13 @@ namespace SOAPAP.UI.FactPasada
                 string Operacion = row.Cells["OperacionDataGridViewTextBoxColumn"].Value.ToString();
                 string transactionFolio = row.Cells["folioTransaccionDataGridViewTextBoxColumn"].Value.ToString();
 
+
                 if (Operacion == "Cobro")
                 {
-                    loading = new Loading();
-                    loading.Show(this);
+                    Loading loadingDetalles = new Loading();
+                    loadingDetalles.Show(pnlDetalle);
                     var _resulPayment = await Requests.SendURIAsync(string.Format("/api/Payments/folio/{0}", transactionFolio), HttpMethod.Get, Variables.LoginModel.Token);
-                    loading.Close();
+                    loadingDetalles.Close();
                     if (_resulPayment.Contains("error"))
                     {
                         mensaje = new MessageBoxForm("Error", _resulPayment.Split(':')[1].Replace("}", ""), TypeIcon.Icon.Cancel);
@@ -128,8 +131,11 @@ namespace SOAPAP.UI.FactPasada
             DataGridViewRow row = dgvMovimientos.Rows[e.RowIndex];
             string Operacion = row.Cells["OperacionDataGridViewTextBoxColumn"].Value.ToString();
             string transactionId = row.Cells["idTransactionDataGridViewTextBoxColumn"].Value.ToString();
+            int paymentId = int.Parse(row.Cells["idPaymentDataGridViewTextBoxColumn"].Value.ToString());
+            string Cuenta = row.Cells["CuentaDataGridViewTextBoxColumn"].Value.ToString();
+            string Cliente = row.Cells["ClienteDataGridViewTextBoxColumn"].Value.ToString();
             bool EstaFacturado = (bool)row.Cells["haveInvoiceDataGridViewCheckBoxColumn"].Value;
-
+            
             if (dgvMovimientos.Columns[e.ColumnIndex].Name == "Facturar")
             {                
                 FacturaPago(Operacion, transactionId, EstaFacturado);
@@ -137,6 +143,14 @@ namespace SOAPAP.UI.FactPasada
             else if (dgvMovimientos.Columns[e.ColumnIndex].Name == "ActualizaPdf")
             {
                 ActualizaFormatoPdf(Operacion, transactionId, EstaFacturado);
+            }
+            else if (dgvMovimientos.Columns[e.ColumnIndex].Name == "Enviar")
+            {
+                EnviarDocumentos(Operacion, transactionId, EstaFacturado, paymentId, Cuenta, Cliente);
+            }
+            else if (dgvMovimientos.Columns[e.ColumnIndex].Name == "Descargar")
+            {
+                DescargarDocumetos(Operacion, transactionId, EstaFacturado, paymentId, Cuenta, Cliente);
             }
         }
 
@@ -219,7 +233,7 @@ namespace SOAPAP.UI.FactPasada
             }
             if (Operacion != "Cobro")
             {
-                mensaje = new MessageBoxForm("Aviso", "No se generar para este tipo de movimiento", TypeIcon.Icon.Info);
+                mensaje = new MessageBoxForm("Aviso", "No se puede generar factura para este tipo de movimiento", TypeIcon.Icon.Info);
                 result = mensaje.ShowDialog();                
             }
             if (EstaFacturado && Operacion == "Cobro")
@@ -235,5 +249,189 @@ namespace SOAPAP.UI.FactPasada
             StringReader stringReader = new StringReader(xmlString);
             DocumentoXML comprobante = (DocumentoXML)serializer.Deserialize(stringReader);
         }
+
+        //Enviar Pdf y Xml
+        private async void EnviarDocumentos(string Operacion, string transactionId, bool EstaFacturado, int PaymentId, string Cuenta, string Cliente)
+        {
+            Loading loadingMail = new Loading();
+            try
+            {                
+                if (!EstaFacturado)
+                {
+                    mensaje = new MessageBoxForm("Aviso", "Es necesario facturar previamente.", TypeIcon.Icon.Info);
+                    result = mensaje.ShowDialog();
+                }
+                if (Operacion != "Cobro")
+                {
+                    mensaje = new MessageBoxForm("Aviso", "No se puede generar factura para este tipo de movimiento", TypeIcon.Icon.Info);
+                    result = mensaje.ShowDialog();
+                }
+                if (EstaFacturado && Operacion == "Cobro")
+                {                    
+                    loadingMail.Show(this);                    
+                    var _resulTransaction = await Requests.SendURIAsync(string.Format("/api/TaxReceipt/FromPaymentId/{0}", PaymentId), HttpMethod.Get, Variables.LoginModel.Token);
+                    
+                    if (_resulTransaction.Contains("error"))
+                    {
+                        mensaje = new MessageBoxForm("Error", _resulTransaction.Split(':')[1].Replace("}", ""), TypeIcon.Icon.Cancel);
+                        result = mensaje.ShowDialog();
+                    }
+                    else
+                    {
+                        SOAPAP.Model.TaxReceipt xml = JsonConvert.DeserializeObject<SOAPAP.Model.TaxReceipt>(_resulTransaction);
+                        if (xml == null)
+                        {
+                            mensaje = new MessageBoxForm("Sin Operaciones", "No se han encontrado movimientos para esta terminal", TypeIcon.Icon.Warning);
+                            result = mensaje.ShowDialog();
+                        }
+                         
+                        if (xml != null)
+                        {
+                            SendEmail email = new SendEmail((xml.Xml.StartsWith("ï»¿") ? xml.Xml.Replace("ï»¿", "") : xml.Xml), Cuenta, Cliente, EstaFacturado, xml.PDFInvoce);
+                            email.ShowDialog();
+                        }
+                        else
+                        {
+                            mensaje = new MessageBoxForm(Variables.titleprincipal, "Xml no disponible, posiblemente este pago no este facturado para mayor información contactarse con el administrador del sistema.", TypeIcon.Icon.Cancel);
+                            result = mensaje.ShowDialog();
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                mensaje = new MessageBoxForm("Error", ex.Message, TypeIcon.Icon.Cancel);
+                result = mensaje.ShowDialog();
+            }
+            finally
+            {
+                loadingMail.Close();
+            }
+        }
+
+        //Descargar Archivos
+        private async void DescargarDocumetos(string Operacion, string transactionId, bool EstaFacturado, int PaymentId, string Cuenta, string Cliente)
+        {
+            Loading loadingMail = new Loading();
+            try
+            {
+                if (!EstaFacturado)
+                {
+                    mensaje = new MessageBoxForm("Aviso", "Es necesario facturar previamente.", TypeIcon.Icon.Info);
+                    result = mensaje.ShowDialog();
+                }
+                if (Operacion != "Cobro")
+                {
+                    mensaje = new MessageBoxForm("Aviso", "No se puede generar factura para este tipo de movimiento", TypeIcon.Icon.Info);
+                    result = mensaje.ShowDialog();
+                }
+                if (EstaFacturado && Operacion == "Cobro")
+                {
+                    loadingMail.Show(this);
+                    var _resulTransaction = await Requests.SendURIAsync(string.Format("/api/TaxReceipt/FromPaymentId/{0}", PaymentId), HttpMethod.Get, Variables.LoginModel.Token);
+
+                    if (_resulTransaction.Contains("error"))
+                    {
+                        mensaje = new MessageBoxForm("Error", _resulTransaction.Split(':')[1].Replace("}", ""), TypeIcon.Icon.Cancel);
+                        result = mensaje.ShowDialog();
+                    }
+                    else
+                    {
+                        SOAPAP.Model.TaxReceipt xml = JsonConvert.DeserializeObject<SOAPAP.Model.TaxReceipt>(_resulTransaction);
+                        if (xml == null)
+                        {
+                            mensaje = new MessageBoxForm("Sin Operaciones", "No se han encontrado movimientos para esta terminal", TypeIcon.Icon.Warning);
+                            result = mensaje.ShowDialog();
+                        }
+
+                        if (xml != null)
+                        {
+                            ExportGridToDocumumentos(xml.PDFInvoce, xml.Xml.StartsWith("ï»¿") ? xml.Xml.Replace("ï»¿", "") : xml.Xml);
+                        }
+                        else
+                        {
+                            mensaje = new MessageBoxForm(Variables.titleprincipal, "Xml no disponible, posiblemente este pago no este facturado para mayor información contactarse con el administrador del sistema.", TypeIcon.Icon.Cancel);
+                            result = mensaje.ShowDialog();
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                mensaje = new MessageBoxForm("Error", ex.Message, TypeIcon.Icon.Cancel);
+                result = mensaje.ShowDialog();
+            }
+            finally
+            {
+                loadingMail.Close();
+            }
+        }
+
+        private void ExportGridToPDF(byte[] pdf)
+        {
+            SaveFileDialog SaveXMLFileDialog = new SaveFileDialog();
+            SaveXMLFileDialog.Filter = "PDF files (*.pdf)|*.pdf";
+            SaveXMLFileDialog.FilterIndex = 2;
+            SaveXMLFileDialog.RestoreDirectory = true;
+            SaveXMLFileDialog.Title = "Exportar PDF de Factura";
+            if (SaveXMLFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                System.IO.File.WriteAllBytes(SaveXMLFileDialog.FileName, pdf);
+            }
+        }
+        private void ExportGridToXML(string xml)
+        {
+            SaveFileDialog SaveXMLFileDialog = new SaveFileDialog();
+            SaveXMLFileDialog.Filter = "Xml files (*.xml)|*.xml";
+            SaveXMLFileDialog.FilterIndex = 2;
+            SaveXMLFileDialog.RestoreDirectory = true;
+            SaveXMLFileDialog.Title = "Exportar XML de Factura";
+            if (SaveXMLFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    XmlDocument xdoc = new XmlDocument();
+                    xdoc.LoadXml(xml);
+                    xdoc.Save(System.IO.File.OpenWrite(SaveXMLFileDialog.FileName));
+                }
+                catch (Exception)
+                {
+                    mensaje = new MessageBoxForm(Variables.titleprincipal, "Por el momento no se puede descargar el xml", TypeIcon.Icon.Cancel);
+                    result = mensaje.ShowDialog();
+                }
+            }
+        }
+        private void ExportGridToDocumumentos(byte[] pdf, string xml)
+        {
+            SaveFileDialog SaveXMLFileDialog = new SaveFileDialog();
+            //SaveXMLFileDialog.Filter = "PDF files (*.pdf)|*.pdf";
+            //SaveXMLFileDialog.FilterIndex = 2;
+            SaveXMLFileDialog.RestoreDirectory = true;
+            SaveXMLFileDialog.Title = "Exportar Factura";
+            if (SaveXMLFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    System.IO.File.WriteAllBytes(SaveXMLFileDialog.FileName + ".pdf", pdf);
+                }
+                catch (Exception)
+                {
+                    mensaje = new MessageBoxForm(Variables.titleprincipal, "Por el momento no se puede descargar el pdf", TypeIcon.Icon.Cancel);
+                    result = mensaje.ShowDialog();
+                } 
+                try
+                {
+                    XmlDocument xdoc = new XmlDocument();
+                    xdoc.LoadXml(xml);
+                    xdoc.Save(System.IO.File.OpenWrite(SaveXMLFileDialog.FileName + ".xml"));
+                }
+                catch (Exception)
+                {
+                    mensaje = new MessageBoxForm(Variables.titleprincipal, "Por el momento no se puede descargar el xml", TypeIcon.Icon.Cancel);
+                    result = mensaje.ShowDialog();
+                }
+            }
+        }
+
     }
 }
