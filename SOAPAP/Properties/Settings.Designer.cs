@@ -37,7 +37,7 @@ namespace SOAPAP.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://api-siscom.sosapac.gob.mx/")]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://localhost:51053/")]
         public string URL {
             get {
                 return ((string)(this["URL"]));
@@ -56,6 +56,30 @@ namespace SOAPAP.Properties {
             }
             set {
                 this["SerialNumber"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("gfdsystems")]
+        public string FacturamaUser {
+            get {
+                return ((string)(this["FacturamaUser"]));
+            }
+            set {
+                this["FacturamaUser"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("gfds1st95")]
+        public string FacturamaPassword {
+            get {
+                return ((string)(this["FacturamaPassword"]));
+            }
+            set {
+                this["FacturamaPassword"] = value;
             }
         }
     }

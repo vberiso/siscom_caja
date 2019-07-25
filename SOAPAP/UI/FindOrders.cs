@@ -142,7 +142,7 @@ namespace SOAPAP.UI
 
         private async void dgvOrders_CellClickPDF(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex >= 0)
+            if (e.RowIndex >= 0 && e.ColumnIndex == 9)
             {
                 DataGridViewRow row = this.dgvOrders.Rows[e.RowIndex];
                 if (e.ColumnIndex == dgvOrders.Columns["PDF"].Index && e.RowIndex >= 0)
@@ -197,7 +197,7 @@ namespace SOAPAP.UI
 
         private async void dgvOrders_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex >= 0)
+            if (e.RowIndex >= 0 && e.ColumnIndex == 8)
             {
                 DataGridViewRow row = this.dgvOrders.Rows[e.RowIndex];
                 if (e.ColumnIndex == dgvOrders.Columns["Email"].Index && e.RowIndex >= 0)

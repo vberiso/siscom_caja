@@ -39,8 +39,8 @@ namespace SOAPAP
         public Facturaelectronica()
         {
             Requests = new RequestsAPI(UrlBase);
-            //facturama = new FacturamaApiMultiemisor("gfdsystems", "gfds1st95", false);
-            facturama = new FacturamaApiMultiemisor("gfdsystems", "gfds1st95");
+            facturama = new FacturamaApiMultiemisor("gfdsystems", "gfds1st95", false);
+            //facturama = new FacturamaApiMultiemisor("gfdsystems", "gfds1st95");
             //facturama = new FacturamaApiMultiemisor("pruebas", "pruebas2011");
         }
         //Metodo del Vic (con calmita...)
@@ -1472,13 +1472,13 @@ namespace SOAPAP
             try
             {
                 RequestsFacturama = new RequestsAPI("https://api.facturama.mx/");
-                var resultado = await RequestsFacturama.SendURIAsync(string.Format("api-lite/cfdis/{0}", idXmlFacturama), HttpMethod.Get, "gfdsystems", "gfds1st95");
-                var cfdiCancel = JsonConvert.DeserializeObject<Facturama.Models.Response.Cfdi>(resultado);
-
-                if (cfdiCancel != null)
+                var resultado = await RequestsFacturama.SendURIAsync(string.Format("api-lite/cfdis/{0}", idXmlFacturama), HttpMethod.Get, Properties.Settings.Default.FacturamaUser, Properties.Settings.Default.FacturamaPassword);
+                var cfdiGet = JsonConvert.DeserializeObject<Facturama.Models.Response.Cfdi>(resultado);
+                string fecha = DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ss");
+                if (cfdiGet != null)
                 {
                     //facturama.Cfdis.SaveXml(@"C:\Pruebas", cfdiCancel.Id);
-                    return "Cancelación en proceso. Estado actual: " + cfdiCancel;
+                    return "Cancelación en proceso. Estado actual: " + cfdiGet;
                 }
                 else
                 {
@@ -1531,18 +1531,18 @@ namespace SOAPAP
 
             var resultadoXML = await Requests.SendURIAsync(string.Format("/api/TaxReceipt/XmlFromPaymentId/{0}", TraVM.payment.Id), HttpMethod.Get, Variables.LoginModel.Token);
             string tmpXML = JsonConvert.DeserializeObject<string>(resultadoXML);
-            SOAPAP.Facturado.DocumentoXML comprobante = DeserializerXML(tmpXML);
+            //SOAPAP.Facturado.DocumentoXML comprobante = DeserializerXML(tmpXML);
 
             return tmpXML;
         }
 
-        public SOAPAP.Facturado.DocumentoXML DeserializerXML(string xmlString)
-        {            
-            StringReader stringReader = new StringReader(xmlString);
-            XmlSerializer serializer = new XmlSerializer(typeof(SOAPAP.Facturado.Comprobante), new XmlRootAttribute("Comprobante"));
-            SOAPAP.Facturado.DocumentoXML comprobante = (SOAPAP.Facturado.DocumentoXML)serializer.Deserialize( stringReader);
-            return comprobante;
-        }
+        //public SOAPAP.Facturado.DocumentoXML DeserializerXML(string xmlString)
+        //{            
+        //    StringReader stringReader = new StringReader(xmlString);
+        //    XmlSerializer serializer = new XmlSerializer(typeof(SOAPAP.Facturado.Comprobante), new XmlRootAttribute("Comprobante"));
+        //    SOAPAP.Facturado.DocumentoXML comprobante = (SOAPAP.Facturado.DocumentoXML)serializer.Deserialize( stringReader);
+        //    return comprobante;
+        //}
 
     }
 

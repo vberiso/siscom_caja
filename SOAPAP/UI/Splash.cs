@@ -39,11 +39,11 @@ namespace SOAPAP.UI
         private async void GetConfigurations()
         {
             var getKey = System.Guid.NewGuid().ToString().Substring(0, 20).ToUpper();
-
             Configuration configuration = new Configuration();
             Variables.Configuration = configuration;
 
             InstallUpdateSyncWithInfo.InstallUpdateSyncWithInfoApplication();
+
             //var Authentification = Convert.ToBase64String(
             //System.Text.ASCIIEncoding.ASCII.GetBytes(
             //   $"{Properties.Settings.Default.FacturamaUser}:{Properties.Settings.Default.FacturamaPassword}"));
@@ -310,6 +310,16 @@ namespace SOAPAP.UI
 
         }
 
+        public T DeserializerXML<T>(string xmlString) where T : class
+        {
+            System.Xml.Serialization.XmlSerializer serializer = new System.Xml.Serialization.XmlSerializer(typeof(SOAPAP.Facturado.Comprobante));
+            //StringReader stringReader = new StringReader(xmlString);
+            //Comprobante comprobante = (Comprobante)serializer.Deserialize(stringReader);
+            using (System.IO.TextReader reader = new System.IO.StringReader(xmlString))
+            {
+                return (T)serializer.Deserialize(reader);
+            }
+        }
 
         private void ThreadProc()
         {

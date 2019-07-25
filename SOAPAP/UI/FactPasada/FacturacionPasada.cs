@@ -247,7 +247,7 @@ namespace SOAPAP.UI.FactPasada
         {
             XmlSerializer serializer = new XmlSerializer(typeof(Comprobante), new XmlRootAttribute("Comprobante"));
             StringReader stringReader = new StringReader(xmlString);
-            DocumentoXML comprobante = (DocumentoXML)serializer.Deserialize(stringReader);
+            //DocumentoXML comprobante = (DocumentoXML)serializer.Deserialize(stringReader);
         }
 
         //Enviar Pdf y Xml

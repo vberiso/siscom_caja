@@ -1337,11 +1337,15 @@ namespace SOAPAP
             await Total();
         }
 
-        public void DeserializerXML(string xmlString)
+        public T DeserializerXML<T>(string xmlString) where T : class
         {
             XmlSerializer serializer = new XmlSerializer(typeof(Comprobante), new XmlRootAttribute("Comprobante"));
-            StringReader stringReader = new StringReader(xmlString);
-            Comprobante comprobante = (Comprobante)serializer.Deserialize(stringReader);
+            //StringReader stringReader = new StringReader(xmlString);
+            //Comprobante comprobante = (Comprobante)serializer.Deserialize(stringReader);
+            using(TextReader reader = new StringReader(xmlString))
+            {
+                return (T)serializer.Deserialize(reader);
+            }
         }
     }
 }

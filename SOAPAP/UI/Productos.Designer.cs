@@ -35,14 +35,6 @@
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
             this.dgvMovimientos = new System.Windows.Forms.DataGridView();
-            this.Eliminar = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CANTIDAD = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Nombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Totals = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.IVAS = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.AMOUNTIVA = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.UNIDAD = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
             this.label6 = new System.Windows.Forms.Label();
@@ -73,6 +65,15 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.tableLayoutPanel7 = new System.Windows.Forms.TableLayoutPanel();
+            this.Eliminar = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CANTIDAD = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.UNITPRICE = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Nombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Totals = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.IVAS = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.AMOUNTIVA = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.UNIDAD = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tableLayoutPanel3.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvMovimientos)).BeginInit();
@@ -140,6 +141,7 @@
             this.Eliminar,
             this.ID,
             this.CANTIDAD,
+            this.UNITPRICE,
             this.Nombre,
             this.Totals,
             this.IVAS,
@@ -175,70 +177,6 @@
             this.dgvMovimientos.TabIndex = 1;
             this.dgvMovimientos.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvMovimientos_CellClick);
             this.dgvMovimientos.CellPainting += new System.Windows.Forms.DataGridViewCellPaintingEventHandler(this.dgvMovimientos_CellPainting);
-            // 
-            // Eliminar
-            // 
-            this.Eliminar.HeaderText = "";
-            this.Eliminar.Name = "Eliminar";
-            this.Eliminar.ReadOnly = true;
-            this.Eliminar.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.Eliminar.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.Eliminar.Width = 25;
-            // 
-            // ID
-            // 
-            this.ID.DataPropertyName = "ID";
-            this.ID.HeaderText = "ID";
-            this.ID.Name = "ID";
-            this.ID.ReadOnly = true;
-            this.ID.Visible = false;
-            // 
-            // CANTIDAD
-            // 
-            this.CANTIDAD.DataPropertyName = "CANTIDAD";
-            this.CANTIDAD.HeaderText = "Cantidad";
-            this.CANTIDAD.Name = "CANTIDAD";
-            this.CANTIDAD.ReadOnly = true;
-            // 
-            // Nombre
-            // 
-            this.Nombre.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Nombre.DataPropertyName = "NOMBRE";
-            this.Nombre.HeaderText = "Descripción";
-            this.Nombre.Name = "Nombre";
-            this.Nombre.ReadOnly = true;
-            // 
-            // Totals
-            // 
-            this.Totals.DataPropertyName = "TOTAL";
-            this.Totals.HeaderText = "Total";
-            this.Totals.Name = "Totals";
-            this.Totals.ReadOnly = true;
-            this.Totals.Width = 150;
-            // 
-            // IVAS
-            // 
-            this.IVAS.DataPropertyName = "IVA";
-            this.IVAS.HeaderText = "IVA";
-            this.IVAS.Name = "IVAS";
-            this.IVAS.ReadOnly = true;
-            this.IVAS.Visible = false;
-            // 
-            // AMOUNTIVA
-            // 
-            this.AMOUNTIVA.DataPropertyName = "AMOUNTIVA";
-            this.AMOUNTIVA.HeaderText = "AMOUNTIVA";
-            this.AMOUNTIVA.Name = "AMOUNTIVA";
-            this.AMOUNTIVA.ReadOnly = true;
-            this.AMOUNTIVA.Visible = false;
-            // 
-            // UNIDAD
-            // 
-            this.UNIDAD.DataPropertyName = "UNIDAD";
-            this.UNIDAD.HeaderText = "UNIDAD";
-            this.UNIDAD.Name = "UNIDAD";
-            this.UNIDAD.ReadOnly = true;
-            this.UNIDAD.Visible = false;
             // 
             // tableLayoutPanel1
             // 
@@ -604,6 +542,78 @@
             this.tableLayoutPanel7.Size = new System.Drawing.Size(353, 48);
             this.tableLayoutPanel7.TabIndex = 54;
             // 
+            // Eliminar
+            // 
+            this.Eliminar.HeaderText = "";
+            this.Eliminar.Name = "Eliminar";
+            this.Eliminar.ReadOnly = true;
+            this.Eliminar.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.Eliminar.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.Eliminar.Width = 25;
+            // 
+            // ID
+            // 
+            this.ID.DataPropertyName = "ID";
+            this.ID.HeaderText = "ID";
+            this.ID.Name = "ID";
+            this.ID.ReadOnly = true;
+            this.ID.Visible = false;
+            // 
+            // CANTIDAD
+            // 
+            this.CANTIDAD.DataPropertyName = "CANTIDAD";
+            this.CANTIDAD.HeaderText = "Cantidad";
+            this.CANTIDAD.Name = "CANTIDAD";
+            this.CANTIDAD.ReadOnly = true;
+            // 
+            // UNITPRICE
+            // 
+            this.UNITPRICE.DataPropertyName = "UNITPRICE";
+            this.UNITPRICE.HeaderText = "UNITPRICE";
+            this.UNITPRICE.Name = "UNITPRICE";
+            this.UNITPRICE.ReadOnly = true;
+            this.UNITPRICE.Visible = false;
+            // 
+            // Nombre
+            // 
+            this.Nombre.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Nombre.DataPropertyName = "NOMBRE";
+            this.Nombre.HeaderText = "Descripción";
+            this.Nombre.Name = "Nombre";
+            this.Nombre.ReadOnly = true;
+            // 
+            // Totals
+            // 
+            this.Totals.DataPropertyName = "TOTAL";
+            this.Totals.HeaderText = "Total";
+            this.Totals.Name = "Totals";
+            this.Totals.ReadOnly = true;
+            this.Totals.Width = 150;
+            // 
+            // IVAS
+            // 
+            this.IVAS.DataPropertyName = "IVA";
+            this.IVAS.HeaderText = "IVA";
+            this.IVAS.Name = "IVAS";
+            this.IVAS.ReadOnly = true;
+            this.IVAS.Visible = false;
+            // 
+            // AMOUNTIVA
+            // 
+            this.AMOUNTIVA.DataPropertyName = "AMOUNTIVA";
+            this.AMOUNTIVA.HeaderText = "AMOUNTIVA";
+            this.AMOUNTIVA.Name = "AMOUNTIVA";
+            this.AMOUNTIVA.ReadOnly = true;
+            this.AMOUNTIVA.Visible = false;
+            // 
+            // UNIDAD
+            // 
+            this.UNIDAD.DataPropertyName = "UNIDAD";
+            this.UNIDAD.HeaderText = "UNIDAD";
+            this.UNIDAD.Name = "UNIDAD";
+            this.UNIDAD.ReadOnly = true;
+            this.UNIDAD.Visible = false;
+            // 
             // Productos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -668,14 +678,6 @@
         private DevExpress.Utils.Behaviors.BehaviorManager behaviorManager1;
         private DevExpress.XtraTreeList.Columns.TreeListColumn treeListColumn2;
         private System.Windows.Forms.Button btnSearch;
-        private System.Windows.Forms.DataGridViewButtonColumn Eliminar;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ID;
-        private System.Windows.Forms.DataGridViewTextBoxColumn CANTIDAD;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Nombre;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Totals;
-        private System.Windows.Forms.DataGridViewTextBoxColumn IVAS;
-        private System.Windows.Forms.DataGridViewTextBoxColumn AMOUNTIVA;
-        private System.Windows.Forms.DataGridViewTextBoxColumn UNIDAD;
         private System.Windows.Forms.MenuStrip mstMenu;
         private System.Windows.Forms.ToolStripMenuItem stmiOpciones;
         private System.Windows.Forms.ToolStripMenuItem tsmiSearOders;
@@ -690,5 +692,14 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel7;
+        private System.Windows.Forms.DataGridViewButtonColumn Eliminar;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ID;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CANTIDAD;
+        private System.Windows.Forms.DataGridViewTextBoxColumn UNITPRICE;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Nombre;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Totals;
+        private System.Windows.Forms.DataGridViewTextBoxColumn IVAS;
+        private System.Windows.Forms.DataGridViewTextBoxColumn AMOUNTIVA;
+        private System.Windows.Forms.DataGridViewTextBoxColumn UNIDAD;
     }
 }

@@ -55,6 +55,7 @@ namespace SOAPAP.UI
                 checkBox1.Checked = true;
                 checkBox1.Visible = false;
             }
+            //dgvMovimientos.Columns["UNITPRICE"].Visible = false;
         }
 
         querys q = new querys();
@@ -86,7 +87,7 @@ namespace SOAPAP.UI
             foreach (DataGridViewRow row in dgvMovimientos.Rows)
             {
                 total = total + (decimal)row.Cells[3].Value;
-                iva += (decimal)row.Cells[5].Value;
+                iva += (decimal)row.Cells[6].Value;
             }
             if (iva <= 0)
                 lblIVA.Text = "$0.00";
@@ -122,6 +123,7 @@ namespace SOAPAP.UI
                         row["NOMBRE"] = namesconcept == "" ? GetPath(treeList1.FindNodeByID(treeList1.FocusedNode.Id), "") : namesconcept;
                         //row["TOTAL"] = ModalProduct.Quatity
                         row["TOTAL"] =  ModalProduct.Quatity;
+                        row["UNITPRICE"] = ModalProduct.Quatity;
                         row["IVA"] = m.haveTax;
                         if (m.haveTax)
                             row["AMOUNTIVA"] = Math.Round((((decimal)row["TOTAL"] * Convert.ToDecimal(Variables.Configuration.IVA)) / 100), 2);
@@ -151,6 +153,7 @@ namespace SOAPAP.UI
                         row["NOMBRE"] = namesconcept == "" ? GetPath(treeList1.FindNodeByID(treeList1.FocusedNode.Id), "") : namesconcept;
                         //row["TOTAL"] = (ModalProduct.Quatity * m.percentage) / 100;
                         row["TOTAL"] = (ModalProduct.Quatity * m.percentage) / 100;
+                        row["UNITPRICE"] = (ModalProduct.Quatity * m.percentage) / 100;
                         row["IVA"] = m.haveTax;
                         if (m.haveTax)
                             row["AMOUNTIVA"] = Math.Round((((decimal)row["TOTAL"] * Convert.ToDecimal(Variables.Configuration.IVA)) / 100), 2);
@@ -179,6 +182,7 @@ namespace SOAPAP.UI
                         row["NOMBRE"] = namesconcept == "" ? GetPath(treeList1.FindNodeByID(treeList1.FocusedNode.Id), "") : namesconcept;
                         //row["TOTAL"] = ModalProduct.Quatity * Convert.ToDecimal(m.amount);
                         row["TOTAL"] = ModalProduct.Quatity * Convert.ToDecimal(m.amount);
+                        row["UNITPRICE"] = Convert.ToDecimal(m.amount);
                         row["IVA"] = m.haveTax;
                         if (m.haveTax)
                             row["AMOUNTIVA"] = Math.Round((((decimal)row["TOTAL"] * Convert.ToDecimal(Variables.Configuration.IVA)) / 100), 2);
@@ -207,6 +211,7 @@ namespace SOAPAP.UI
                         row["NOMBRE"] = namesconcept == "" ? GetPath(treeList1.FindNodeByID(treeList1.FocusedNode.Id), "") : namesconcept;
                         //row["TOTAL"] = Convert.ToDecimal(Variables.Configuration.minimumsalary) * ModalProduct.Quatity;
                         row["TOTAL"] = Convert.ToDecimal(Variables.Configuration.minimumsalary) * ModalProduct.Quatity;
+                        row["UNITPRICE"] = Convert.ToDecimal(Variables.Configuration.minimumsalary);
                         row["IVA"] = m.haveTax;
                         decimal amount = Convert.ToDecimal(Variables.Configuration.minimumsalary) * ModalProduct.Quatity;
                         if (m.haveTax)
@@ -241,6 +246,7 @@ namespace SOAPAP.UI
                                 row["NOMBRE"] = name;
                                 //row["TOTAL"] = (decimal)m.amount * ModalProduct.Quatity;
                                 row["TOTAL"] = (decimal)m.amount * ModalProduct.Quatity;
+                                row["UNITPRICE"] = (decimal)m.amount;
                                 row["IVA"] = m.haveTax;
                                 row["CANTIDAD"] = ModalProduct.Quatity;
                                 if (m.haveTax)
@@ -288,6 +294,7 @@ namespace SOAPAP.UI
             dgvMovimientos.AllowUserToAddRows = false;
             dgvMovimientos.AutoGenerateColumns = false;
             dgvMovimientos.Refresh();
+            //dgvMovimientos.Columns["UNITPRICE"].Visible = false;
         }
 
 
@@ -361,6 +368,11 @@ namespace SOAPAP.UI
             column = new DataColumn();
             column.DataType = System.Type.GetType("System.Decimal");
             column.ColumnName = "TOTAL";
+            dts1.Columns.Add(column);
+
+            column = new DataColumn();
+            column.DataType = System.Type.GetType("System.Decimal");
+            column.ColumnName = "UNITPRICE";
             dts1.Columns.Add(column);
 
             column = new DataColumn();
@@ -844,13 +856,13 @@ namespace SOAPAP.UI
                         {
                             Amount = Convert.ToDecimal(row.Cells[3].Value),
                             CodeConcept = Convert.ToString(row.Cells[1].Value),
-                            HaveTax = Convert.ToBoolean(row.Cells[4].Value),
-                            Tax = Convert.ToDecimal(row.Cells[5].Value),
+                            HaveTax = Convert.ToBoolean(row.Cells[5].Value),
+                            Tax = Convert.ToDecimal(row.Cells[6].Value),
                             OnAccount = 0,
                             NameConcept = row.Cells[2].Value.ToString().Split('-').Last(),
                             Quantity = Convert.ToInt32(row.Cells[6].Value),
                             Description = row.Cells[2].Value.ToString().Replace("\\", " - "),
-                            UnitPrice = Convert.ToDecimal(row.Cells[3].Value),
+                            UnitPrice = Convert.ToDecimal(row.Cells["UNITPRICE"].Value),
                             Unity = "Unidad de servicio"
                         });
                     }
@@ -906,10 +918,10 @@ namespace SOAPAP.UI
                                 Amount = Math.Round(Convert.ToDecimal(row.Cells[3].Value),2),
                                 OnPayment = 0,
                                 CodeConcept = Convert.ToString(row.Cells[1].Value),
-                                HaveTax = Convert.ToBoolean(row.Cells[4].Value),
+                                HaveTax = Convert.ToBoolean(row.Cells[5].Value),
                                 OnAccount = 0,
                                 NameConcept = Convert.ToString(row.Cells[2].Value),
-                                quantity = Convert.ToDecimal(row.Cells[5].Value),
+                                quantity = Convert.ToDecimal(row.Cells[7].Value),
 
                             });
                         }

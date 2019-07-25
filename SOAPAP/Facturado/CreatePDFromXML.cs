@@ -4,145 +4,1019 @@ using System.Collections.Generic;
 
 namespace SOAPAP.Facturado
 {
-    [XmlRoot(ElementName = "Emisor", Namespace = "http://www.sat.gob.mx/cfd/3")]
-    public class Emisor
+
+    // NOTA: El código generado puede requerir, como mínimo, .NET Framework 4.5 o .NET Core/Standard 2.0.
+    /// <remarks/>
+    [System.SerializableAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://www.sat.gob.mx/cfd/3")]
+    [System.Xml.Serialization.XmlRootAttribute(Namespace = "http://www.sat.gob.mx/cfd/3", IsNullable = false)]
+    public partial class Comprobante
     {
-        [XmlAttribute(AttributeName = "Rfc")]
-        public string Rfc { get; set; }
-        [XmlAttribute(AttributeName = "Nombre")]
-        public string Nombre { get; set; }
-        [XmlAttribute(AttributeName = "RegimenFiscal")]
-        public string RegimenFiscal { get; set; }
+
+        private ComprobanteEmisor emisorField;
+
+        private ComprobanteReceptor receptorField;
+
+        private ComprobanteConcepto[] conceptosField;
+
+        private ComprobanteImpuestos impuestosField;
+
+        private ComprobanteComplemento complementoField;
+
+        private decimal versionField;
+
+        private string serieField;
+
+        private uint folioField;
+
+        private System.DateTime fechaField;
+
+        private string selloField;
+
+        private byte formaPagoField;
+
+        private ulong noCertificadoField;
+
+        private string certificadoField;
+
+        private string condicionesDePagoField;
+
+        private decimal subTotalField;
+
+        private byte descuentoField;
+
+        private string monedaField;
+
+        private decimal totalField;
+
+        private string tipoDeComprobanteField;
+
+        private string metodoPagoField;
+
+        private uint lugarExpedicionField;
+
+        /// <remarks/>
+        public ComprobanteEmisor Emisor
+        {
+            get
+            {
+                return this.emisorField;
+            }
+            set
+            {
+                this.emisorField = value;
+            }
+        }
+
+        /// <remarks/>
+        public ComprobanteReceptor Receptor
+        {
+            get
+            {
+                return this.receptorField;
+            }
+            set
+            {
+                this.receptorField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlArrayItemAttribute("Concepto", IsNullable = false)]
+        public ComprobanteConcepto[] Conceptos
+        {
+            get
+            {
+                return this.conceptosField;
+            }
+            set
+            {
+                this.conceptosField = value;
+            }
+        }
+
+        /// <remarks/>
+        public ComprobanteImpuestos Impuestos
+        {
+            get
+            {
+                return this.impuestosField;
+            }
+            set
+            {
+                this.impuestosField = value;
+            }
+        }
+
+        /// <remarks/>
+        public ComprobanteComplemento Complemento
+        {
+            get
+            {
+                return this.complementoField;
+            }
+            set
+            {
+                this.complementoField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public decimal Version
+        {
+            get
+            {
+                return this.versionField;
+            }
+            set
+            {
+                this.versionField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public string Serie
+        {
+            get
+            {
+                return this.serieField;
+            }
+            set
+            {
+                this.serieField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public uint Folio
+        {
+            get
+            {
+                return this.folioField;
+            }
+            set
+            {
+                this.folioField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public System.DateTime Fecha
+        {
+            get
+            {
+                return this.fechaField;
+            }
+            set
+            {
+                this.fechaField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public string Sello
+        {
+            get
+            {
+                return this.selloField;
+            }
+            set
+            {
+                this.selloField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public byte FormaPago
+        {
+            get
+            {
+                return this.formaPagoField;
+            }
+            set
+            {
+                this.formaPagoField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public ulong NoCertificado
+        {
+            get
+            {
+                return this.noCertificadoField;
+            }
+            set
+            {
+                this.noCertificadoField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public string Certificado
+        {
+            get
+            {
+                return this.certificadoField;
+            }
+            set
+            {
+                this.certificadoField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public string CondicionesDePago
+        {
+            get
+            {
+                return this.condicionesDePagoField;
+            }
+            set
+            {
+                this.condicionesDePagoField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public decimal SubTotal
+        {
+            get
+            {
+                return this.subTotalField;
+            }
+            set
+            {
+                this.subTotalField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public byte Descuento
+        {
+            get
+            {
+                return this.descuentoField;
+            }
+            set
+            {
+                this.descuentoField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public string Moneda
+        {
+            get
+            {
+                return this.monedaField;
+            }
+            set
+            {
+                this.monedaField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public decimal Total
+        {
+            get
+            {
+                return this.totalField;
+            }
+            set
+            {
+                this.totalField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public string TipoDeComprobante
+        {
+            get
+            {
+                return this.tipoDeComprobanteField;
+            }
+            set
+            {
+                this.tipoDeComprobanteField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public string MetodoPago
+        {
+            get
+            {
+                return this.metodoPagoField;
+            }
+            set
+            {
+                this.metodoPagoField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public uint LugarExpedicion
+        {
+            get
+            {
+                return this.lugarExpedicionField;
+            }
+            set
+            {
+                this.lugarExpedicionField = value;
+            }
+        }
     }
 
-    [XmlRoot(ElementName = "Receptor", Namespace = "http://www.sat.gob.mx/cfd/3")]
-    public class Receptor
+    /// <remarks/>
+    [System.SerializableAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://www.sat.gob.mx/cfd/3")]
+    public partial class ComprobanteEmisor
     {
-        [XmlAttribute(AttributeName = "Rfc")]
-        public string Rfc { get; set; }
-        [XmlAttribute(AttributeName = "Nombre")]
-        public string Nombre { get; set; }
-        [XmlAttribute(AttributeName = "UsoCFDI")]
-        public string UsoCFDI { get; set; }
+
+        private string rfcField;
+
+        private string nombreField;
+
+        private ushort regimenFiscalField;
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public string Rfc
+        {
+            get
+            {
+                return this.rfcField;
+            }
+            set
+            {
+                this.rfcField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public string Nombre
+        {
+            get
+            {
+                return this.nombreField;
+            }
+            set
+            {
+                this.nombreField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public ushort RegimenFiscal
+        {
+            get
+            {
+                return this.regimenFiscalField;
+            }
+            set
+            {
+                this.regimenFiscalField = value;
+            }
+        }
     }
 
-    [XmlRoot(ElementName = "Concepto", Namespace = "http://www.sat.gob.mx/cfd/3")]
-    public class Concepto
+    /// <remarks/>
+    [System.SerializableAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://www.sat.gob.mx/cfd/3")]
+    public partial class ComprobanteReceptor
     {
-        [XmlAttribute(AttributeName = "ClaveProdServ")]
-        public string ClaveProdServ { get; set; }
-        [XmlAttribute(AttributeName = "NoIdentificacion")]
-        public string NoIdentificacion { get; set; }
-        [XmlAttribute(AttributeName = "Cantidad")]
-        public string Cantidad { get; set; }
-        [XmlAttribute(AttributeName = "ClaveUnidad")]
-        public string ClaveUnidad { get; set; }
-        [XmlAttribute(AttributeName = "Unidad")]
-        public string Unidad { get; set; }
-        [XmlAttribute(AttributeName = "Descripcion")]
-        public string Descripcion { get; set; }
-        [XmlAttribute(AttributeName = "ValorUnitario")]
-        public string ValorUnitario { get; set; }
-        [XmlAttribute(AttributeName = "Importe")]
-        public string Importe { get; set; }
-        [XmlAttribute(AttributeName = "Descuento")]
-        public string Descuento { get; set; }
+
+        private string rfcField;
+
+        private string nombreField;
+
+        private string usoCFDIField;
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public string Rfc
+        {
+            get
+            {
+                return this.rfcField;
+            }
+            set
+            {
+                this.rfcField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public string Nombre
+        {
+            get
+            {
+                return this.nombreField;
+            }
+            set
+            {
+                this.nombreField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public string UsoCFDI
+        {
+            get
+            {
+                return this.usoCFDIField;
+            }
+            set
+            {
+                this.usoCFDIField = value;
+            }
+        }
     }
 
-    [XmlRoot(ElementName = "Conceptos", Namespace = "http://www.sat.gob.mx/cfd/3")]
-    public class Conceptos
+    /// <remarks/>
+    [System.SerializableAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://www.sat.gob.mx/cfd/3")]
+    public partial class ComprobanteConcepto
     {
-        [XmlElement(ElementName = "Concepto", Namespace = "http://www.sat.gob.mx/cfd/3")]
-        public List<Concepto> Concepto { get; set; }
+
+        private ComprobanteConceptoImpuestos impuestosField;
+
+        private uint claveProdServField;
+
+        private string noIdentificacionField;
+
+        private byte cantidadField;
+
+        private string claveUnidadField;
+
+        private string unidadField;
+
+        private string descripcionField;
+
+        private decimal valorUnitarioField;
+
+        private decimal importeField;
+
+        private byte descuentoField;
+
+        /// <remarks/>
+        public ComprobanteConceptoImpuestos Impuestos
+        {
+            get
+            {
+                return this.impuestosField;
+            }
+            set
+            {
+                this.impuestosField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public uint ClaveProdServ
+        {
+            get
+            {
+                return this.claveProdServField;
+            }
+            set
+            {
+                this.claveProdServField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public string NoIdentificacion
+        {
+            get
+            {
+                return this.noIdentificacionField;
+            }
+            set
+            {
+                this.noIdentificacionField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public byte Cantidad
+        {
+            get
+            {
+                return this.cantidadField;
+            }
+            set
+            {
+                this.cantidadField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public string ClaveUnidad
+        {
+            get
+            {
+                return this.claveUnidadField;
+            }
+            set
+            {
+                this.claveUnidadField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public string Unidad
+        {
+            get
+            {
+                return this.unidadField;
+            }
+            set
+            {
+                this.unidadField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public string Descripcion
+        {
+            get
+            {
+                return this.descripcionField;
+            }
+            set
+            {
+                this.descripcionField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public decimal ValorUnitario
+        {
+            get
+            {
+                return this.valorUnitarioField;
+            }
+            set
+            {
+                this.valorUnitarioField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public decimal Importe
+        {
+            get
+            {
+                return this.importeField;
+            }
+            set
+            {
+                this.importeField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public byte Descuento
+        {
+            get
+            {
+                return this.descuentoField;
+            }
+            set
+            {
+                this.descuentoField = value;
+            }
+        }
     }
 
-    [XmlRoot(ElementName = "TimbreFiscalDigital", Namespace = "http://www.sat.gob.mx/TimbreFiscalDigital")]
-    public class TimbreFiscalDigital
+    /// <remarks/>
+    [System.SerializableAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://www.sat.gob.mx/cfd/3")]
+    public partial class ComprobanteConceptoImpuestos
     {
-        [XmlAttribute(AttributeName = "schemaLocation", Namespace = "http://www.w3.org/2001/XMLSchema-instance")]
-        public string SchemaLocation { get; set; }
-        [XmlAttribute(AttributeName = "Version")]
-        public string Version { get; set; }
-        [XmlAttribute(AttributeName = "UUID")]
-        public string UUID { get; set; }
-        [XmlAttribute(AttributeName = "FechaTimbrado")]
-        public string FechaTimbrado { get; set; }
-        [XmlAttribute(AttributeName = "RfcProvCertif")]
-        public string RfcProvCertif { get; set; }
-        [XmlAttribute(AttributeName = "SelloCFD")]
-        public string SelloCFD { get; set; }
-        [XmlAttribute(AttributeName = "NoCertificadoSAT")]
-        public string NoCertificadoSAT { get; set; }
-        [XmlAttribute(AttributeName = "SelloSAT")]
-        public string SelloSAT { get; set; }
+
+        private ComprobanteConceptoImpuestosTraslado[] trasladosField;
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlArrayItemAttribute("Traslado", IsNullable = false)]
+        public ComprobanteConceptoImpuestosTraslado[] Traslados
+        {
+            get
+            {
+                return this.trasladosField;
+            }
+            set
+            {
+                this.trasladosField = value;
+            }
+        }
     }
 
-    [XmlRoot(ElementName = "Complemento", Namespace = "http://www.sat.gob.mx/cfd/3")]
-    public class Complemento
+    /// <remarks/>
+    [System.SerializableAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://www.sat.gob.mx/cfd/3")]
+    public partial class ComprobanteConceptoImpuestosTraslado
     {
-        [XmlElement(ElementName = "TimbreFiscalDigital", Namespace = "http://www.sat.gob.mx/TimbreFiscalDigital")]
-        public TimbreFiscalDigital TimbreFiscalDigital { get; set; }
+
+        private decimal baseField;
+
+        private byte impuestoField;
+
+        private string tipoFactorField;
+
+        private decimal tasaOCuotaField;
+
+        private decimal importeField;
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public decimal Base
+        {
+            get
+            {
+                return this.baseField;
+            }
+            set
+            {
+                this.baseField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public byte Impuesto
+        {
+            get
+            {
+                return this.impuestoField;
+            }
+            set
+            {
+                this.impuestoField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public string TipoFactor
+        {
+            get
+            {
+                return this.tipoFactorField;
+            }
+            set
+            {
+                this.tipoFactorField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public decimal TasaOCuota
+        {
+            get
+            {
+                return this.tasaOCuotaField;
+            }
+            set
+            {
+                this.tasaOCuotaField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public decimal Importe
+        {
+            get
+            {
+                return this.importeField;
+            }
+            set
+            {
+                this.importeField = value;
+            }
+        }
     }
 
-    [XmlRoot(ElementName = "Comprobante", Namespace = "http://www.sat.gob.mx/cfd/3")]
-    public class Comprobante
+    /// <remarks/>
+    [System.SerializableAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://www.sat.gob.mx/cfd/3")]
+    public partial class ComprobanteImpuestos
     {
-        [XmlElement(ElementName = "Emisor", Namespace = "http://www.sat.gob.mx/cfd/3")]
-        public Emisor Emisor { get; set; }
-        [XmlElement(ElementName = "Receptor", Namespace = "http://www.sat.gob.mx/cfd/3")]
-        public Receptor Receptor { get; set; }
-        [XmlElement(ElementName = "Conceptos", Namespace = "http://www.sat.gob.mx/cfd/3")]
-        public Conceptos Conceptos { get; set; }
-        [XmlElement(ElementName = "Complemento", Namespace = "http://www.sat.gob.mx/cfd/3")]
-        public Complemento Complemento { get; set; }
-        [XmlAttribute(AttributeName = "xsi", Namespace = "http://www.w3.org/2000/xmlns/")]
-        public string Xsi { get; set; }
-        [XmlAttribute(AttributeName = "tfd", Namespace = "http://www.w3.org/2000/xmlns/")]
-        public string Tfd { get; set; }
-        [XmlAttribute(AttributeName = "cfdi", Namespace = "http://www.w3.org/2000/xmlns/")]
-        public string Cfdi { get; set; }
-        [XmlAttribute(AttributeName = "schemaLocation", Namespace = "http://www.w3.org/2001/XMLSchema-instance")]
-        public string SchemaLocation { get; set; }
-        [XmlAttribute(AttributeName = "Version")]
-        public string Version { get; set; }
-        [XmlAttribute(AttributeName = "Serie")]
-        public string Serie { get; set; }
-        [XmlAttribute(AttributeName = "Folio")]
-        public string Folio { get; set; }
-        [XmlAttribute(AttributeName = "Fecha")]
-        public string Fecha { get; set; }
-        [XmlAttribute(AttributeName = "Sello")]
-        public string Sello { get; set; }
-        [XmlAttribute(AttributeName = "FormaPago")]
-        public string FormaPago { get; set; }
-        [XmlAttribute(AttributeName = "NoCertificado")]
-        public string NoCertificado { get; set; }
-        [XmlAttribute(AttributeName = "Certificado")]
-        public string Certificado { get; set; }
-        [XmlAttribute(AttributeName = "CondicionesDePago")]
-        public string CondicionesDePago { get; set; }
-        [XmlAttribute(AttributeName = "SubTotal")]
-        public string SubTotal { get; set; }
-        [XmlAttribute(AttributeName = "Descuento")]
-        public string Descuento { get; set; }
-        [XmlAttribute(AttributeName = "Moneda")]
-        public string Moneda { get; set; }
-        [XmlAttribute(AttributeName = "Total")]
-        public string Total { get; set; }
-        [XmlAttribute(AttributeName = "TipoDeComprobante")]
-        public string TipoDeComprobante { get; set; }
-        [XmlAttribute(AttributeName = "MetodoPago")]
-        public string MetodoPago { get; set; }
-        [XmlAttribute(AttributeName = "LugarExpedicion")]
-        public string LugarExpedicion { get; set; }
+
+        private ComprobanteImpuestosTraslados trasladosField;
+
+        private decimal totalImpuestosTrasladadosField;
+
+        /// <remarks/>
+        public ComprobanteImpuestosTraslados Traslados
+        {
+            get
+            {
+                return this.trasladosField;
+            }
+            set
+            {
+                this.trasladosField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public decimal TotalImpuestosTrasladados
+        {
+            get
+            {
+                return this.totalImpuestosTrasladadosField;
+            }
+            set
+            {
+                this.totalImpuestosTrasladadosField = value;
+            }
+        }
     }
 
-    [XmlRoot(ElementName = "DocumentoXML", Namespace = "http://www.sat.gob.mx/cfd/3")]
-    public class DocumentoXML
+    /// <remarks/>
+    [System.SerializableAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://www.sat.gob.mx/cfd/3")]
+    public partial class ComprobanteImpuestosTraslados
     {
-        [XmlAttribute(AttributeName = "Comprobante")]
-        public Comprobante Comprobante { get; set; }
+
+        private ComprobanteImpuestosTrasladosTraslado trasladoField;
+
+        /// <remarks/>
+        public ComprobanteImpuestosTrasladosTraslado Traslado
+        {
+            get
+            {
+                return this.trasladoField;
+            }
+            set
+            {
+                this.trasladoField = value;
+            }
+        }
     }
+
+    /// <remarks/>
+    [System.SerializableAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://www.sat.gob.mx/cfd/3")]
+    public partial class ComprobanteImpuestosTrasladosTraslado
+    {
+
+        private byte impuestoField;
+
+        private string tipoFactorField;
+
+        private decimal tasaOCuotaField;
+
+        private decimal importeField;
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public byte Impuesto
+        {
+            get
+            {
+                return this.impuestoField;
+            }
+            set
+            {
+                this.impuestoField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public string TipoFactor
+        {
+            get
+            {
+                return this.tipoFactorField;
+            }
+            set
+            {
+                this.tipoFactorField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public decimal TasaOCuota
+        {
+            get
+            {
+                return this.tasaOCuotaField;
+            }
+            set
+            {
+                this.tasaOCuotaField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public decimal Importe
+        {
+            get
+            {
+                return this.importeField;
+            }
+            set
+            {
+                this.importeField = value;
+            }
+        }
+    }
+
+    /// <remarks/>
+    [System.SerializableAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://www.sat.gob.mx/cfd/3")]
+    public partial class ComprobanteComplemento
+    {
+
+        private TimbreFiscalDigital timbreFiscalDigitalField;
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Namespace = "http://www.sat.gob.mx/TimbreFiscalDigital")]
+        public TimbreFiscalDigital TimbreFiscalDigital
+        {
+            get
+            {
+                return this.timbreFiscalDigitalField;
+            }
+            set
+            {
+                this.timbreFiscalDigitalField = value;
+            }
+        }
+    }
+
+    /// <remarks/>
+    [System.SerializableAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://www.sat.gob.mx/TimbreFiscalDigital")]
+    [System.Xml.Serialization.XmlRootAttribute(Namespace = "http://www.sat.gob.mx/TimbreFiscalDigital", IsNullable = false)]
+    public partial class TimbreFiscalDigital
+    {
+
+        private decimal versionField;
+
+        private string uUIDField;
+
+        private System.DateTime fechaTimbradoField;
+
+        private string rfcProvCertifField;
+
+        private string selloCFDField;
+
+        private ulong noCertificadoSATField;
+
+        private string selloSATField;
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public decimal Version
+        {
+            get
+            {
+                return this.versionField;
+            }
+            set
+            {
+                this.versionField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public string UUID
+        {
+            get
+            {
+                return this.uUIDField;
+            }
+            set
+            {
+                this.uUIDField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public System.DateTime FechaTimbrado
+        {
+            get
+            {
+                return this.fechaTimbradoField;
+            }
+            set
+            {
+                this.fechaTimbradoField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public string RfcProvCertif
+        {
+            get
+            {
+                return this.rfcProvCertifField;
+            }
+            set
+            {
+                this.rfcProvCertifField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public string SelloCFD
+        {
+            get
+            {
+                return this.selloCFDField;
+            }
+            set
+            {
+                this.selloCFDField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public ulong NoCertificadoSAT
+        {
+            get
+            {
+                return this.noCertificadoSATField;
+            }
+            set
+            {
+                this.noCertificadoSATField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public string SelloSAT
+        {
+            get
+            {
+                return this.selloSATField;
+            }
+            set
+            {
+                this.selloSATField = value;
+            }
+        }
+    }
+
 
 }
 
