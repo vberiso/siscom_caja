@@ -837,6 +837,7 @@ namespace SOAPAP.UI
             decimal amount = Convert.ToDecimal(txtTotal.Text);
             if (orderSale)
             {
+                
                 txtTotal.Text = txtTotal.Text.Trim();
                 if (string.IsNullOrWhiteSpace(txtTotal.Text))
                 {
@@ -850,6 +851,19 @@ namespace SOAPAP.UI
                     mensaje.ShowDialog();
                     txtTotal.Text = lblTotal.Text.Replace("$", "").Replace(",", "");
                 }
+                else if (Variables.Configuration.IsMunicipal)
+                {
+                    if (total > amount)
+                    {
+                        mensaje = new MessageBoxForm(Variables.titleprincipal, "El monto capturado esta no es valido", TypeIcon.Icon.Cancel);
+                        mensaje.ShowDialog();
+                        txtTotal.Text = lblTotal.Text.Replace("$", "").Replace(",", "");
+                    }
+                    else
+                    {
+                        PaymentModal();
+                    }
+                }
                 else
                 {
                     PaymentModal();
@@ -862,6 +876,35 @@ namespace SOAPAP.UI
                 {
                     mensaje = new MessageBoxForm(Variables.titleprincipal, "El monto capturado esta no es valido", TypeIcon.Icon.Cancel);
                     mensaje.ShowDialog();
+                }
+                else if (Variables.Configuration.IsMunicipal)
+                {
+                    if (total > amount)
+                    {
+                        mensaje = new MessageBoxForm(Variables.titleprincipal, "El monto capturado esta no es valido", TypeIcon.Icon.Cancel);
+                        mensaje.ShowDialog();
+                        txtTotal.Text = lblTotal.Text.Replace("$", "").Replace(",", "");
+                    }
+                    else
+                    {
+                        if (amount < total)
+                        {
+                            if (lblIva.Text != "$0.00")
+                            {
+                                mensaje = new MessageBoxForm(Variables.titleprincipal, "El monto de cobro sera proporcional al iva", TypeIcon.Icon.Warning);
+                                mensaje.ShowDialog();
+                                PaymentModal();
+                            }
+                            else
+                            {
+                                PaymentModal();
+                            }
+                        }
+                        else
+                        {
+                            PaymentModal();
+                        }
+                    }
                 }
                 else
                 {

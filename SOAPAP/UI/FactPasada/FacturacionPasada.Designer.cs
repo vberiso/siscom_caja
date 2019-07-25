@@ -40,15 +40,9 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.lblTitulo = new System.Windows.Forms.Label();
             this.dgvMovimientos = new System.Windows.Forms.DataGridView();
+            this.transactionMovimientosCajaBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.pnlDetalle = new System.Windows.Forms.Panel();
             this.dgvDetallesPago = new System.Windows.Forms.DataGridView();
-            this.lblSucursal = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.dataGridViewButtonColumn1 = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.dataGridViewButtonColumn2 = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.dataGridViewButtonColumn3 = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.dataGridViewButtonColumn4 = new System.Windows.Forms.DataGridViewButtonColumn();
             this.descriptionDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.taxDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.amountDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -67,7 +61,13 @@
             this.paymentIdDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.paymentDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.paymentDetailBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.transactionMovimientosCajaBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.lblSucursal = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.dataGridViewButtonColumn1 = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.dataGridViewButtonColumn2 = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.dataGridViewButtonColumn3 = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.dataGridViewButtonColumn4 = new System.Windows.Forms.DataGridViewButtonColumn();
             this.idTransactionDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.folioTransaccionDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.idPaymentDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -88,10 +88,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.pcbIncomeByConcept)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvMovimientos)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.transactionMovimientosCajaBindingSource)).BeginInit();
             this.pnlDetalle.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDetallesPago)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.paymentDetailBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.transactionMovimientosCajaBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // pnlHeader
@@ -261,6 +261,10 @@
             this.dgvMovimientos.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvMovimientos_CellClick);
             this.dgvMovimientos.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvMovimientos_CellContentClick);
             // 
+            // transactionMovimientosCajaBindingSource
+            // 
+            this.transactionMovimientosCajaBindingSource.DataSource = typeof(SOAPAP.Model.TransactionMovimientosCaja);
+            // 
             // pnlDetalle
             // 
             this.pnlDetalle.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
@@ -310,83 +314,6 @@
             this.dgvDetallesPago.Name = "dgvDetallesPago";
             this.dgvDetallesPago.Size = new System.Drawing.Size(1049, 163);
             this.dgvDetallesPago.TabIndex = 4;
-            // 
-            // lblSucursal
-            // 
-            this.lblSucursal.AutoSize = true;
-            this.lblSucursal.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblSucursal.Location = new System.Drawing.Point(98, 45);
-            this.lblSucursal.Name = "lblSucursal";
-            this.lblSucursal.Size = new System.Drawing.Size(67, 17);
-            this.lblSucursal.TabIndex = 3;
-            this.lblSucursal.Text = "Sucursal:";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(24, 46);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(67, 17);
-            this.label3.TabIndex = 1;
-            this.label3.Text = "Sucursal:";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(98, 7);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(90, 18);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Detalle pago";
-            // 
-            // dataGridViewButtonColumn1
-            // 
-            this.dataGridViewButtonColumn1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.dataGridViewButtonColumn1.DataPropertyName = "Imprimir";
-            this.dataGridViewButtonColumn1.FillWeight = 45.90965F;
-            this.dataGridViewButtonColumn1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.dataGridViewButtonColumn1.HeaderText = "";
-            this.dataGridViewButtonColumn1.Name = "dataGridViewButtonColumn1";
-            this.dataGridViewButtonColumn1.ReadOnly = true;
-            this.dataGridViewButtonColumn1.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewButtonColumn1.Text = "Facturar";
-            this.dataGridViewButtonColumn1.ToolTipText = "Imprimir";
-            this.dataGridViewButtonColumn1.UseColumnTextForButtonValue = true;
-            // 
-            // dataGridViewButtonColumn2
-            // 
-            this.dataGridViewButtonColumn2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.dataGridViewButtonColumn2.DataPropertyName = "Cancelar";
-            this.dataGridViewButtonColumn2.FillWeight = 45.90965F;
-            this.dataGridViewButtonColumn2.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.dataGridViewButtonColumn2.HeaderText = "";
-            this.dataGridViewButtonColumn2.Name = "dataGridViewButtonColumn2";
-            this.dataGridViewButtonColumn2.ReadOnly = true;
-            this.dataGridViewButtonColumn2.Text = "Actualiza";
-            this.dataGridViewButtonColumn2.ToolTipText = "Cancelar";
-            this.dataGridViewButtonColumn2.Visible = false;
-            // 
-            // dataGridViewButtonColumn3
-            // 
-            this.dataGridViewButtonColumn3.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.dataGridViewButtonColumn3.FillWeight = 45.90965F;
-            this.dataGridViewButtonColumn3.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.dataGridViewButtonColumn3.HeaderText = "";
-            this.dataGridViewButtonColumn3.Name = "dataGridViewButtonColumn3";
-            this.dataGridViewButtonColumn3.ReadOnly = true;
-            this.dataGridViewButtonColumn3.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewButtonColumn3.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.dataGridViewButtonColumn3.Text = "Enviar";
-            this.dataGridViewButtonColumn3.ToolTipText = "TIMBRAR";
-            // 
-            // dataGridViewButtonColumn4
-            // 
-            this.dataGridViewButtonColumn4.HeaderText = "Descargar";
-            this.dataGridViewButtonColumn4.Name = "dataGridViewButtonColumn4";
-            this.dataGridViewButtonColumn4.ReadOnly = true;
-            this.dataGridViewButtonColumn4.Text = "Descarga";
             // 
             // descriptionDataGridViewTextBoxColumn
             // 
@@ -510,9 +437,82 @@
             // 
             this.paymentDetailBindingSource.DataSource = typeof(SOAPAP.Model.PaymentDetail);
             // 
-            // transactionMovimientosCajaBindingSource
+            // lblSucursal
             // 
-            this.transactionMovimientosCajaBindingSource.DataSource = typeof(SOAPAP.Model.TransactionMovimientosCaja);
+            this.lblSucursal.AutoSize = true;
+            this.lblSucursal.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblSucursal.Location = new System.Drawing.Point(98, 45);
+            this.lblSucursal.Name = "lblSucursal";
+            this.lblSucursal.Size = new System.Drawing.Size(67, 17);
+            this.lblSucursal.TabIndex = 3;
+            this.lblSucursal.Text = "Sucursal:";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(24, 46);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(67, 17);
+            this.label3.TabIndex = 1;
+            this.label3.Text = "Sucursal:";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(98, 7);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(90, 18);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "Detalle pago";
+            // 
+            // dataGridViewButtonColumn1
+            // 
+            this.dataGridViewButtonColumn1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.dataGridViewButtonColumn1.DataPropertyName = "Imprimir";
+            this.dataGridViewButtonColumn1.FillWeight = 45.90965F;
+            this.dataGridViewButtonColumn1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.dataGridViewButtonColumn1.HeaderText = "";
+            this.dataGridViewButtonColumn1.Name = "dataGridViewButtonColumn1";
+            this.dataGridViewButtonColumn1.ReadOnly = true;
+            this.dataGridViewButtonColumn1.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewButtonColumn1.Text = "Facturar";
+            this.dataGridViewButtonColumn1.ToolTipText = "Imprimir";
+            this.dataGridViewButtonColumn1.UseColumnTextForButtonValue = true;
+            // 
+            // dataGridViewButtonColumn2
+            // 
+            this.dataGridViewButtonColumn2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.dataGridViewButtonColumn2.DataPropertyName = "Cancelar";
+            this.dataGridViewButtonColumn2.FillWeight = 45.90965F;
+            this.dataGridViewButtonColumn2.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.dataGridViewButtonColumn2.HeaderText = "";
+            this.dataGridViewButtonColumn2.Name = "dataGridViewButtonColumn2";
+            this.dataGridViewButtonColumn2.ReadOnly = true;
+            this.dataGridViewButtonColumn2.Text = "Actualiza";
+            this.dataGridViewButtonColumn2.ToolTipText = "Cancelar";
+            this.dataGridViewButtonColumn2.Visible = false;
+            // 
+            // dataGridViewButtonColumn3
+            // 
+            this.dataGridViewButtonColumn3.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.dataGridViewButtonColumn3.FillWeight = 45.90965F;
+            this.dataGridViewButtonColumn3.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.dataGridViewButtonColumn3.HeaderText = "";
+            this.dataGridViewButtonColumn3.Name = "dataGridViewButtonColumn3";
+            this.dataGridViewButtonColumn3.ReadOnly = true;
+            this.dataGridViewButtonColumn3.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewButtonColumn3.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.dataGridViewButtonColumn3.Text = "Enviar";
+            this.dataGridViewButtonColumn3.ToolTipText = "TIMBRAR";
+            // 
+            // dataGridViewButtonColumn4
+            // 
+            this.dataGridViewButtonColumn4.HeaderText = "Descargar";
+            this.dataGridViewButtonColumn4.Name = "dataGridViewButtonColumn4";
+            this.dataGridViewButtonColumn4.ReadOnly = true;
+            this.dataGridViewButtonColumn4.Text = "Descarga";
             // 
             // idTransactionDataGridViewTextBoxColumn
             // 
@@ -611,7 +611,6 @@
             this.ActualizaPdf.ReadOnly = true;
             this.ActualizaPdf.Text = "Actualiza";
             this.ActualizaPdf.UseColumnTextForButtonValue = true;
-            this.ActualizaPdf.Visible = false;
             // 
             // Enviar
             // 
@@ -648,11 +647,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.pcbIncomeByConcept)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvMovimientos)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.transactionMovimientosCajaBindingSource)).EndInit();
             this.pnlDetalle.ResumeLayout(false);
             this.pnlDetalle.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDetallesPago)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.paymentDetailBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.transactionMovimientosCajaBindingSource)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -697,6 +696,7 @@
         private System.Windows.Forms.Label lblSucursal;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.BindingSource transactionMovimientosCajaBindingSource;
+        private System.Windows.Forms.DataGridViewButtonColumn dataGridViewButtonColumn4;
         private System.Windows.Forms.DataGridViewTextBoxColumn idTransactionDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn folioTransaccionDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn idPaymentDataGridViewTextBoxColumn;
@@ -712,6 +712,5 @@
         private System.Windows.Forms.DataGridViewButtonColumn ActualizaPdf;
         private System.Windows.Forms.DataGridViewButtonColumn Enviar;
         private System.Windows.Forms.DataGridViewButtonColumn Descargar;
-        private System.Windows.Forms.DataGridViewButtonColumn dataGridViewButtonColumn4;
     }
 }

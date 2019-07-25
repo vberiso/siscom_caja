@@ -1466,15 +1466,16 @@ namespace SOAPAP
             }
         }
 
-        public async Task<string> ObterCfdiDesdeAPI(string idXmlFacturama)
+        public async Task<string> ObterCfdiDesdeAPI(TransactionVM vM, TaxReceipt taxes)
         {
             RequestsAPI RequestsFacturama = null;
             try
             {
                 RequestsFacturama = new RequestsAPI("https://api.facturama.mx/");
-                var resultado = await RequestsFacturama.SendURIAsync(string.Format("api-lite/cfdis/{0}", idXmlFacturama), HttpMethod.Get, Properties.Settings.Default.FacturamaUser, Properties.Settings.Default.FacturamaPassword);
+                var resultado = await RequestsFacturama.SendURIAsync(string.Format("api-lite/cfdis/{0}", taxes.IdXmlFacturama), HttpMethod.Get, Properties.Settings.Default.FacturamaUser, Properties.Settings.Default.FacturamaPassword);
                 var cfdiGet = JsonConvert.DeserializeObject<Facturama.Models.Response.Cfdi>(resultado);
                 string fecha = DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ss");
+                CreatePDF pDF = new CreatePDF(cfdiGet, vM.payment.Account, taxes, fecha, (vM.payment.PayMethod.code + ", " + vM.payment.PayMethod.Name));
                 if (cfdiGet != null)
                 {
                     //facturama.Cfdis.SaveXml(@"C:\Pruebas", cfdiCancel.Id);
@@ -1529,11 +1530,11 @@ namespace SOAPAP
             var resultado = await Requests.SendURIAsync(string.Format("/api/Transaction/{0}", idTransaction), HttpMethod.Get, Variables.LoginModel.Token);
             TransactionVM TraVM = JsonConvert.DeserializeObject<TransactionVM>(resultado);
 
-            var resultadoXML = await Requests.SendURIAsync(string.Format("/api/TaxReceipt/XmlFromPaymentId/{0}", TraVM.payment.Id), HttpMethod.Get, Variables.LoginModel.Token);
-            string tmpXML = JsonConvert.DeserializeObject<string>(resultadoXML);
+            //var resultadoXML = await Requests.SendURIAsync(string.Format("/api/TaxReceipt/XmlFromPaymentId/{0}", TraVM.payment.Id), HttpMethod.Get, Variables.LoginModel.Token);
+            //string tmpXML = JsonConvert.DeserializeObject<string>(resultadoXML);
             //SOAPAP.Facturado.DocumentoXML comprobante = DeserializerXML(tmpXML);
-
-            return tmpXML;
+            await ObterCfdiDesdeAPI(TraVM, TraVM.payment.TaxReceipts.Where(x => x.Status == "ET001").FirstOrDefault());
+            return "";
         }
 
         //public SOAPAP.Facturado.DocumentoXML DeserializerXML(string xmlString)

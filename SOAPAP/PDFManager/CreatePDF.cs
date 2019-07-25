@@ -56,6 +56,16 @@ namespace SOAPAP.PDFManager
             Requests = new RequestsAPI(UrlBase);
         }
 
+        public CreatePDF(Facturama.Models.Response.Cfdi Cfdi, string Account, TaxReceipt TaxReceipt, string Date, string Paymethod)
+        {
+            this.Cfdi = Cfdi;
+            this.Account = Account;
+            this.TaxReceipt = TaxReceipt;
+            this.Date = Date;
+            this.Paymethod = Paymethod;
+            Requests = new RequestsAPI(UrlBase);
+        }
+
         //Obtiene informacion para un servicio
         public async Task<string> Create(string PathNombrePdf)
         {

@@ -228,12 +228,12 @@ namespace SOAPAP.UI.FactPasada
         {
             if (!EstaFacturado)
             {
-                mensaje = new MessageBoxForm("Aviso", "Es necesario facturar previamente.", TypeIcon.Icon.Info);
+                Form mensaje = new MessageBoxForm("Aviso", "Es necesario facturar previamente.", TypeIcon.Icon.Info);
                 result = mensaje.ShowDialog();                
             }
             if (Operacion != "Cobro")
             {
-                mensaje = new MessageBoxForm("Aviso", "No se puede generar factura para este tipo de movimiento", TypeIcon.Icon.Info);
+                Form mensaje = new MessageBoxForm("Aviso", "No se puede generar factura para este tipo de movimiento", TypeIcon.Icon.Info);
                 result = mensaje.ShowDialog();                
             }
             if (EstaFacturado && Operacion == "Cobro")
