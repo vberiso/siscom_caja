@@ -1184,7 +1184,8 @@ namespace SOAPAP
                                             Facturaelectronica fst = new Facturaelectronica();
                                             string key = payment.TaxReceipts.Where(x => x.Status == "ET001").FirstOrDefault().IdXmlFacturama;
                                             //string key = "lP1ZvBR87h-Gy9DNUpfLdw2";
-                                            var response = await fst.CancelaFactura(key);
+                                            //var response = await fst.CancelaFactura(key);
+                                            var response = await fst.CancelarFacturaDesdeAPI(key);
                                             if (resultado.Contains("error"))
                                             {
                                                 mensaje = new MessageBoxForm("Error", response, TypeIcon.Icon.Cancel);

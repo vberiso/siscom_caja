@@ -23,6 +23,7 @@ using Facturama.Services;
 using SOAPAP.PDFManager;
 using SOAPAP.UI.Messages;
 using SOAPAP.Model;
+using SOAPAP.ModFac;
 
 namespace SOAPAP
 {
@@ -1462,6 +1463,58 @@ namespace SOAPAP
                 
                 return "{\"error\": " + ex.Message.Replace("\\","").Replace("{","").Replace("}","").Split(':')[1] + "}";
 
+            }
+        }
+
+        public async Task<string> ObterCfdiDesdeAPI(string idXmlFacturama)
+        {
+            RequestsAPI RequestsFacturama = null;
+            try
+            {
+                RequestsFacturama = new RequestsAPI("https://api.facturama.mx/");
+                var resultado = await RequestsFacturama.SendURIAsync(string.Format("api-lite/cfdis/{0}", idXmlFacturama), HttpMethod.Get, "gfdsystems", "gfds1st95");
+                var cfdiCancel = JsonConvert.DeserializeObject<Facturama.Models.Response.Cfdi>(resultado);
+
+                if (cfdiCancel != null)
+                {
+                    //facturama.Cfdis.SaveXml(@"C:\Pruebas", cfdiCancel.Id);
+                    return "Cancelación en proceso. Estado actual: " + cfdiCancel;
+                }
+                else
+                {
+                    return "{\"error\": \"No se ha podido realizar la cancelación, favor de comunicarse con el administrador del sistema\"}";
+                }
+
+            }
+            catch (Exception ex)
+            {
+                return "{\"error\": " + ex.Message.Replace("\\", "").Replace("{", "").Replace("}", "").Split(':')[1] + "}";
+            }
+        }
+
+        public async Task<string> CancelarFacturaDesdeAPI(string idXmlFacturama)
+        {
+            RequestsAPI RequestsFacturama = null;
+            try
+            {
+                RequestsFacturama = new RequestsAPI("https://api.facturama.mx/");
+                var resultado = await RequestsFacturama.SendURIAsync(string.Format("api-lite/cfdis/{0}", idXmlFacturama), HttpMethod.Delete, "gfdsystems", "gfds1st95");
+                var cfdiCancel = JsonConvert.DeserializeObject<SOAPAP.ModFac.RepuestaCancelacion>(resultado);
+                               
+                if (cfdiCancel != null)
+                {
+                    //facturama.Cfdis.SaveXml(@"C:\Pruebas", cfdiCancel.Id);
+                    return "Cancelación en proceso. Estado actual: " + cfdiCancel;
+                }
+                else
+                {
+                    return "{\"error\": \"No se ha podido realizar la cancelación, favor de comunicarse con el administrador del sistema\"}";
+                }
+
+            }            
+            catch (Exception ex)
+            {
+                return "{\"error\": " + ex.Message.Replace("\\", "").Replace("{", "").Replace("}", "").Split(':')[1] + "}";
             }
         }
 
