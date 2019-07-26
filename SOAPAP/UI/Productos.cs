@@ -860,7 +860,7 @@ namespace SOAPAP.UI
                             Tax = Convert.ToDecimal(row.Cells[6].Value),
                             OnAccount = 0,
                             NameConcept = row.Cells[2].Value.ToString().Split('-').Last(),
-                            Quantity = Convert.ToInt32(row.Cells[6].Value),
+                            Quantity = Convert.ToInt32(row.Cells[7].Value),
                             Description = row.Cells[2].Value.ToString().Replace("\\", " - "),
                             UnitPrice = Convert.ToDecimal(row.Cells["UNITPRICE"].Value),
                             Unity = "Unidad de servicio"

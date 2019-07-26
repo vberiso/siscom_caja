@@ -1177,26 +1177,26 @@ namespace SOAPAP
                                     catch (Exception)
                                     {
 
-                                        //mensaje = new MessageBoxForm(Variables.titleprincipal, "No se ha podido cancelar el CFDI del pago, pero se ha registrado en base de datos, para mayor información contactar al administrador", TypeIcon.Icon.Cancel);
-                                        //mensaje.ShowDialog();
-                                        if (payment.HaveTaxReceipt)
-                                        {
-                                            Facturaelectronica fst = new Facturaelectronica();
-                                            string key = payment.TaxReceipts.Where(x => x.Status == "ET001").FirstOrDefault().IdXmlFacturama;
-                                            //string key = "lP1ZvBR87h-Gy9DNUpfLdw2";
-                                            //var response = await fst.CancelaFactura(key);
-                                            var response = await fst.CancelarFacturaDesdeAPI(key);
-                                            if (resultado.Contains("error"))
-                                            {
-                                                mensaje = new MessageBoxForm("Error", response, TypeIcon.Icon.Cancel);
-                                                result = mensaje.ShowDialog();
-                                            }
-                                            else
-                                            {
-                                                mensaje = new MessageBoxForm(Variables.titleprincipal, response, TypeIcon.Icon.Success);
-                                                result = mensaje.ShowDialog();
-                                            }
-                                        }
+                                        mensaje = new MessageBoxForm(Variables.titleprincipal, "No se ha podido cancelar el CFDI del pago, pero se ha registrado en base de datos, para mayor información contactar al administrador", TypeIcon.Icon.Cancel);
+                                        mensaje.ShowDialog();
+                                        //if (payment.HaveTaxReceipt)
+                                        //{
+                                        //    Facturaelectronica fst = new Facturaelectronica();
+                                        //    string key = payment.TaxReceipts.Where(x => x.Status == "ET001").FirstOrDefault().IdXmlFacturama;
+                                        //    //string key = "lP1ZvBR87h-Gy9DNUpfLdw2";
+                                        //    //var response = await fst.CancelaFactura(key);
+                                        //    var response = await fst.CancelarFacturaDesdeAPI(key);
+                                        //    if (resultado.Contains("error"))
+                                        //    {
+                                        //        mensaje = new MessageBoxForm("Error", response, TypeIcon.Icon.Cancel);
+                                        //        result = mensaje.ShowDialog();
+                                        //    }
+                                        //    else
+                                        //    {
+                                        //        mensaje = new MessageBoxForm(Variables.titleprincipal, response, TypeIcon.Icon.Success);
+                                        //        result = mensaje.ShowDialog();
+                                        //    }
+                                        //}
                                         //if (payment.TaxReceipts.Count() > 0)
                                         //{
                                         //    Facturaelectronica fst = new Facturaelectronica();

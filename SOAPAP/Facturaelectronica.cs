@@ -1499,7 +1499,7 @@ namespace SOAPAP
             try
             {
                 RequestsFacturama = new RequestsAPI("https://api.facturama.mx/");
-                var resultado = await RequestsFacturama.SendURIAsync(string.Format("api-lite/cfdis/{0}", idXmlFacturama), HttpMethod.Delete, "gfdsystems", "gfds1st95");
+                var resultado = await RequestsFacturama.SendURIAsync(string.Format("api-lite/cfdis/{0}", idXmlFacturama), HttpMethod.Delete, Properties.Settings.Default.FacturamaUser, Properties.Settings.Default.FacturamaPassword);
                 var cfdiCancel = JsonConvert.DeserializeObject<SOAPAP.ModFac.RepuestaCancelacion>(resultado);
                                
                 if (cfdiCancel != null)

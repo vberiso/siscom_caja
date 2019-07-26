@@ -194,7 +194,7 @@ namespace SOAPAP.UI
             {
                 DataRow rowt = Variables.Productos.NewRow();
                 rowt["id"] = rowr[0].ToString();
-                rowt["Cantidad"] = rowr[5].ToString();
+                rowt["Cantidad"] = rowr[6].ToString();
                 rowt["Descripcion"] = rowr[1].ToString();
                 rowt["Total"] = rowr[2].ToString();
                 Variables.Productos.Rows.Add(rowt);
