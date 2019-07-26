@@ -336,6 +336,7 @@
     <Compile Include="Model\ServiceParam.cs" />
     <Compile Include="Model\TariffProduct.cs" />
     <Compile Include="Model\TaxAddress.cs" />
+    <Compile Include="Model\TaxReceiptCancel.cs" />
     <Compile Include="Model\Taxresult.cs" />
     <Compile Include="Model\TaxUser.cs" />
     <Compile Include="Model\TransactionMovimientosCaja.cs" />
@@ -346,6 +347,7 @@
     <Compile Include="Model\VersionApp.cs" />
     <Compile Include="Model\Warranty.cs" />
     <Compile Include="Model\TaxReceipt.cs" />
+    <Compile Include="ModFac\CFDIMultiResponse.cs" />
     <Compile Include="ModFac\RepuestaCancelacion.cs" />
     <Compile Include="notificationDetails.cs" />
     <Compile Include="Notify.cs" />

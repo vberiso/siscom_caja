@@ -1177,45 +1177,24 @@ namespace SOAPAP
                                     catch (Exception)
                                     {
 
-                                        mensaje = new MessageBoxForm(Variables.titleprincipal, "No se ha podido cancelar el CFDI del pago, pero se ha registrado en base de datos, para mayor información contactar al administrador", TypeIcon.Icon.Cancel);
-                                        mensaje.ShowDialog();
-                                        //if (payment.HaveTaxReceipt)
-                                        //{
-                                        //    Facturaelectronica fst = new Facturaelectronica();
-                                        //    string key = payment.TaxReceipts.Where(x => x.Status == "ET001").FirstOrDefault().IdXmlFacturama;
-                                        //    //string key = "lP1ZvBR87h-Gy9DNUpfLdw2";
-                                        //    //var response = await fst.CancelaFactura(key);
-                                        //    var response = await fst.CancelarFacturaDesdeAPI(key);
-                                        //    if (resultado.Contains("error"))
-                                        //    {
-                                        //        mensaje = new MessageBoxForm("Error", response, TypeIcon.Icon.Cancel);
-                                        //        result = mensaje.ShowDialog();
-                                        //    }
-                                        //    else
-                                        //    {
-                                        //        mensaje = new MessageBoxForm(Variables.titleprincipal, response, TypeIcon.Icon.Success);
-                                        //        result = mensaje.ShowDialog();
-                                        //    }
-                                        //}
-                                        //if (payment.TaxReceipts.Count() > 0)
-                                        //{
-                                        //    Facturaelectronica fst = new Facturaelectronica();
-                                        //    xmltimbrado = await fst.facturar(transactionSelect.Transaction.Id.ToString(), "ET002", payment.TaxReceipts.FirstOrDefault().FielXML);
-                                        //    separadas = xmltimbrado.Split('/');
-                                        //    if (separadas[0].ToString() == "error")
-                                        //    {
-                                        //        mensaje = new MessageBoxForm(Variables.titleprincipal, separadas[1].ToString(), TypeIcon.Icon.Cancel);
-                                        //        mensaje.ShowDialog();
-                                        //    }
-                                        //    else
-                                        //    {
-
-                                        //        var resultTransactionss = await Requests.SendURIAsync(string.Format("/api/Payments/{0}", transactionSelect.Payment.Id), HttpMethod.Get, Variables.LoginModel.Token);
-                                        //        Model.Payment payments = JsonConvert.DeserializeObject<Model.Payment>(resultTransactionss);
-                                        //        ExportGridToXML(payments.TaxReceipts.FirstOrDefault(x => x.Status == "ET002").Xml);
-                                        //    }
-                                        //}
-
+                                        //mensaje = new MessageBoxForm(Variables.titleprincipal, "No se ha podido cancelar el CFDI del pago, pero se ha registrado en base de datos, para mayor información contactar al administrador", TypeIcon.Icon.Cancel);
+                                        //mensaje.ShowDialog();
+                                        if (payment.HaveTaxReceipt)
+                                        {
+                                            Facturaelectronica fst = new Facturaelectronica();
+                                            string key = payment.TaxReceipts.Where(x => x.Status == "ET001").FirstOrDefault().IdXmlFacturama;
+                                            var response = await fst.CancelarFacturaDesdeAPI(key);
+                                            if (resultado.Contains("error"))
+                                            {
+                                                mensaje = new MessageBoxForm("Error", response, TypeIcon.Icon.Cancel);
+                                                result = mensaje.ShowDialog();
+                                            }
+                                            else
+                                            {
+                                                mensaje = new MessageBoxForm(Variables.titleprincipal, response, TypeIcon.Icon.Success);
+                                                result = mensaje.ShowDialog();
+                                            }
+                                        }
                                     }
                                     await Total();
                                     await cargar();

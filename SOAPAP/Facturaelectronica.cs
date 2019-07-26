@@ -24,6 +24,10 @@ using SOAPAP.PDFManager;
 using SOAPAP.UI.Messages;
 using SOAPAP.Model;
 using SOAPAP.ModFac;
+using Issuer = Facturama.Models.Request.Issuer;
+using Receiver = Facturama.Models.Request.Receiver;
+using Item = Facturama.Models.Request.Item;
+using Tax = Facturama.Models.Request.Tax;
 
 namespace SOAPAP
 {
@@ -1501,11 +1505,23 @@ namespace SOAPAP
                 RequestsFacturama = new RequestsAPI("https://api.facturama.mx/");
                 var resultado = await RequestsFacturama.SendURIAsync(string.Format("api-lite/cfdis/{0}", idXmlFacturama), HttpMethod.Delete, Properties.Settings.Default.FacturamaUser, Properties.Settings.Default.FacturamaPassword);
                 var cfdiCancel = JsonConvert.DeserializeObject<SOAPAP.ModFac.RepuestaCancelacion>(resultado);
-                               
-                if (cfdiCancel != null)
+                Byte[] bytes = Convert.FromBase64String(cfdiCancel.AcuseXmlBase64);
+                TaxReceiptCancel cancel = new TaxReceiptCancel
+                {
+                    CancelationDate = cfdiCancel.CancelationDate,
+                    AcuseXml = bytes,
+                    Message = cfdiCancel.Message,
+                    Status = cfdiCancel.Status,
+                    RequestDateCancel = cfdiCancel.RequestDate
+                };
+                var a = JsonConvert.SerializeObject(cancel);
+                HttpContent content = new StringContent(a, Encoding.UTF8, "application/json");
+                var response = await Requests.SendURIAsync(string.Format("/api/TaxReceipt/TaxReceiptCancel/{0}", idXmlFacturama), HttpMethod.Post, Variables.LoginModel.Token, content);
+
+                if (!response.Contains("error") && cfdiCancel != null)
                 {
                     //facturama.Cfdis.SaveXml(@"C:\Pruebas", cfdiCancel.Id);
-                    return "Cancelación en proceso. Estado actual: " + cfdiCancel;
+                    return "Cancelación en proceso. Estado actual: " + cfdiCancel.Message;
                 }
                 else
                 {
