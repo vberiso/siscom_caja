@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SOAPAP
 {
-    class TransactionFolios
+    public class TransactionFolios
     {
         public string folio { get; set; }
         public string datePrint { get; set; }

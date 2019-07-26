@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SOAPAP
 {
-    class Transaction
+    public class Transaction
     {
        public int id { get; set; }
        public string folio { get; set; }

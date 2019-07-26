@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SOAPAP
 {
-    class PayMethod
+    public class PayMethod
     {
         public int id { get; set; }
         public string name { get; set; }

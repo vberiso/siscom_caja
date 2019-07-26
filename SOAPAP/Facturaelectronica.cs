@@ -1212,15 +1212,25 @@ namespace SOAPAP
                     msgObservacionFactura = msgObs.TextoObservacion;
                     msgUsos = msgObs.Usos;
                 }
-
                 //En caso de factura fuera de fecha
                 if (TraVM.payment.PaymentDate.ToString("yyyy-MM-dd") != DateTime.Today.ToString("yyyy-MM-dd"))
                     msgObservacionFactura += "Pago efectuado el " + TraVM.payment.PaymentDate.ToString("yyyy-MM-dd");
+                //Si es un pago parcial.
+                msgObservacionFactura += string.IsNullOrEmpty(msgPagoParcial) ? "" : msgPagoParcial;
+                //Si hay observaciones en la Orden o el debt
+                if (TraVM.payment.OrderSaleId == 0)
+                    msgObservacionFactura += (string.IsNullOrEmpty(TraVM.payment.PaymentDetails.FirstOrDefault().Debt.observations) ? "" : TraVM.payment.PaymentDetails.FirstOrDefault().Debt.observations + " - ") + (string.IsNullOrEmpty(msgObservacionFactura) ? "" : msgObservacionFactura);
+                else
+                {
+                    msgObservacionFactura += (string.IsNullOrEmpty(TraVM.orderSale.Observation) ? "" : TraVM.orderSale.Observation + " - ") + (string.IsNullOrEmpty(msgObservacionFactura) ? "" : msgObservacionFactura);
+                }
+
+                cfdi.Observations = msgObservacionFactura;
 
                 string path = GeneraCarpetaDescagasXML();
                 string nombreXML = string.Format("\\{0}_{1}_{2}.xml", issuer.Rfc, receptor.Rfc , seriefolio);
                 string nombrePDF = string.Format("\\{0}_{1}_{2}.pdf", issuer.Rfc, receptor.Rfc, seriefolio);
-                msgObservacionFactura += string.IsNullOrEmpty(msgPagoParcial) ? "" : msgPagoParcial;
+                
 
                 object[] vs = TimbrarAnteFacturama(cfdi, path + nombreXML);
                 if(vs[0] != null)
@@ -1231,13 +1241,17 @@ namespace SOAPAP
                     string resActPay = await actualizarPaymentConFactura(TraVM.payment);
 
                     
-                    CreatePDF pDF = new CreatePDF(cfdi, cfdiFacturama, ms.account, resGuardado, fecha, (TraVM.payment.PayMethod.code + ", " + TraVM.payment.PayMethod.Name));
+                    CreatePDF pDF = new CreatePDF(cfdi, cfdiFacturama, ms.account, resGuardado, fecha, (TraVM.payment.PayMethod.code + ", " + TraVM.payment.PayMethod.Name), TraVM);
                     pDF.UsoCFDI = string.IsNullOrEmpty(msgUsos) ? "P01 - Por definir" : msgUsos;
                     if (TraVM.payment.OrderSaleId == 0)
-                        pDF.ObservacionCFDI = (string.IsNullOrEmpty(msgObservacionFactura) ? "" : msgObservacionFactura);
+                    {
+                        pDF.ObservacionCFDI = msgObservacionFactura;
+                        //pDF.ObservacionCFDI = (string.IsNullOrEmpty(msgObservacionFactura) ? "" : msgObservacionFactura);
+                    }                        
                     else
                     {
-                        pDF.ObservacionCFDI = (string.IsNullOrEmpty(TraVM.orderSale.Observation) ? "" : TraVM.orderSale.Observation + " - ") + (string.IsNullOrEmpty(msgObservacionFactura) ? "" : msgObservacionFactura);
+                        pDF.ObservacionCFDI = msgObservacionFactura;
+                        //pDF.ObservacionCFDI = (string.IsNullOrEmpty(TraVM.orderSale.Observation) ? "" : TraVM.orderSale.Observation + " - ") + (string.IsNullOrEmpty(msgObservacionFactura) ? "" : msgObservacionFactura);
                     }
                     string resPdf;
                     if (TraVM.payment.OrderSaleId == 0) //Servicio
@@ -1470,7 +1484,7 @@ namespace SOAPAP
             }
         }
 
-        public async Task<string> ObterCfdiDesdeAPI(TransactionVM vM, TaxReceipt taxes)
+        public async Task<Facturama.Models.Response.Cfdi> ObterCfdiDesdeAPI(TaxReceipt taxes)
         {
             RequestsAPI RequestsFacturama = null;
             try
@@ -1478,22 +1492,39 @@ namespace SOAPAP
                 RequestsFacturama = new RequestsAPI("https://api.facturama.mx/");
                 var resultado = await RequestsFacturama.SendURIAsync(string.Format("api-lite/cfdis/{0}", taxes.IdXmlFacturama), HttpMethod.Get, Properties.Settings.Default.FacturamaUser, Properties.Settings.Default.FacturamaPassword);
                 var cfdiGet = JsonConvert.DeserializeObject<Facturama.Models.Response.Cfdi>(resultado);
-                string fecha = DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ss");
-                CreatePDF pDF = new CreatePDF(cfdiGet, vM.payment.Account, taxes, fecha, (vM.payment.PayMethod.code + ", " + vM.payment.PayMethod.Name));
-                if (cfdiGet != null)
-                {
-                    //facturama.Cfdis.SaveXml(@"C:\Pruebas", cfdiCancel.Id);
-                    return "Cancelación en proceso. Estado actual: " + cfdiGet;
-                }
-                else
-                {
-                    return "{\"error\": \"No se ha podido realizar la cancelación, favor de comunicarse con el administrador del sistema\"}";
-                }
+                return cfdiGet;
+
+
+                //string fecha = DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ss");
+                //CreatePDF pDF = new CreatePDF(cfdiGet, vM.payment.Account, taxes, fecha, (vM.payment.PayMethod.code + ", " + vM.payment.PayMethod.Name));
+
+                //string resPdf = "";
+                //if (cfdiGet != null)
+                //{
+                //    string seriefolio = vM.transaction.transactionFolios.FirstOrDefault().folio.ToString();
+                //    string path = GeneraCarpetaDescagasXML();
+                //    string nombreXML = string.Format("\\{0}_{1}_{2}.xml", cfdiGet.Issuer.Rfc, cfdiGet.Receiver.Rfc, seriefolio);
+                //    string nombrePDF = string.Format("\\{0}_{1}_{2}.pdf", cfdiGet.Issuer.Rfc, cfdiGet.Receiver.Rfc, seriefolio);
+
+                //    if (vM.payment.OrderSaleId == 0) //Servicio
+                //        resPdf = await pDF.Create(path + nombrePDF);
+                //    else
+                //    {
+                //        vM.orderSale.TaxUser = tu;
+                //        resPdf = await pDF.CreateForOrder(vM.orderSale, path + nombrePDF);
+                //    }
+                //    //facturama.Cfdis.SaveXml(@"C:\Pruebas", cfdiCancel.Id);
+                //    return "Cancelación en proceso. Estado actual: " + cfdiGet;
+                //}
+                //else
+                //{
+                //    return "{\"error\": \"No se ha podido realizar la cancelación, favor de comunicarse con el administrador del sistema\"}";
+                //}
 
             }
             catch (Exception ex)
             {
-                return "{\"error\": " + ex.Message.Replace("\\", "").Replace("{", "").Replace("}", "").Split(':')[1] + "}";
+                return null;
             }
         }
 
@@ -1546,10 +1577,51 @@ namespace SOAPAP
             var resultado = await Requests.SendURIAsync(string.Format("/api/Transaction/{0}", idTransaction), HttpMethod.Get, Variables.LoginModel.Token);
             TransactionVM TraVM = JsonConvert.DeserializeObject<TransactionVM>(resultado);
 
+            Model.TaxUser tu = null;
+            if (TraVM.payment.OrderSaleId != 0)
+            {            
+                var resulTaxUs = await Requests.SendURIAsync(string.Format("/api/TaxUsers/{0}", TraVM.orderSale.TaxUserId), HttpMethod.Get, Variables.LoginModel.Token);
+                tu = JsonConvert.DeserializeObject<Model.TaxUser>(resulTaxUs);
+            }
+
             //var resultadoXML = await Requests.SendURIAsync(string.Format("/api/TaxReceipt/XmlFromPaymentId/{0}", TraVM.payment.Id), HttpMethod.Get, Variables.LoginModel.Token);
             //string tmpXML = JsonConvert.DeserializeObject<string>(resultadoXML);
             //SOAPAP.Facturado.DocumentoXML comprobante = DeserializerXML(tmpXML);
-            await ObterCfdiDesdeAPI(TraVM, TraVM.payment.TaxReceipts.Where(x => x.Status == "ET001").FirstOrDefault());
+
+            Facturama.Models.Response.Cfdi cfdiGet = await ObterCfdiDesdeAPI(TraVM.payment.TaxReceipts.Where(x => x.Status == "ET001").FirstOrDefault());
+            
+            string fecha = DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ss");
+            CreatePDF pDF = new CreatePDF(cfdiGet, TraVM.payment.Account, TraVM.payment.TaxReceipts.Where(x => x.Status == "ET001").FirstOrDefault(), fecha, (TraVM.payment.PayMethod.code + ", " + TraVM.payment.PayMethod.Name), TraVM);
+
+            string resPdf = "";
+            if (cfdiGet != null)
+            {
+                string seriefolio = TraVM.transaction.transactionFolios.FirstOrDefault().folio.ToString();
+                string path = GeneraCarpetaDescagasXML();
+                string nombreXML = string.Format("\\{0}_{1}_{2}.xml", cfdiGet.Issuer.Rfc, cfdiGet.Receiver.Rfc, seriefolio);
+                string nombrePDF = string.Format("\\{0}_{1}_{2}.pdf", cfdiGet.Issuer.Rfc, cfdiGet.Receiver.Rfc, seriefolio);
+
+                pDF.UsoCFDI = TraVM.payment.TaxReceipts.FirstOrDefault().UsoCFDI;
+                if (TraVM.payment.OrderSaleId == 0) //Servicio
+                    resPdf = await pDF.Create(path + nombrePDF);
+                else
+                {
+                    TraVM.orderSale.TaxUser = tu;
+                    resPdf = await pDF.CreateForOrder(TraVM.orderSale, path + nombrePDF);
+                }
+                //facturama.Cfdis.SaveXml(@"C:\Pruebas", cfdiCancel.Id);
+                return "Actualizado correctamente.";
+            }
+            else
+            {
+                return "{\"error\": \"No se ha podido realizar la cancelación, favor de comunicarse con el administrador del sistema\"}";
+            }
+
+
+
+
+
+
             return "";
         }
 

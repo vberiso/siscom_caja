@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SOAPAP
 {
-    class TransactionDetail
+    public class TransactionDetail
     {
         
         public string codeConcept { get; set; }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SOAPAP
 {
-    class TransactionVM
+    public class TransactionVM
     {
         public Transaction transaction { get; set; }
         public SOAPAP.Model.Payment payment { get; set; }

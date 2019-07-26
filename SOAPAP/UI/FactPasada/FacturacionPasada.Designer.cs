@@ -614,7 +614,6 @@
             this.ActualizaPdf.ReadOnly = true;
             this.ActualizaPdf.Text = "Actualiza";
             this.ActualizaPdf.UseColumnTextForButtonValue = true;
-            this.ActualizaPdf.Visible = false;
             // 
             // Enviar
             // 
