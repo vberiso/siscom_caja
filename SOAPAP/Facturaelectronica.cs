@@ -1219,10 +1219,10 @@ namespace SOAPAP
                 msgObservacionFactura += string.IsNullOrEmpty(msgPagoParcial) ? "" : msgPagoParcial;
                 //Si hay observaciones en la Orden o el debt
                 if (TraVM.payment.OrderSaleId == 0)
-                    msgObservacionFactura += (string.IsNullOrEmpty(TraVM.payment.PaymentDetails.FirstOrDefault().Debt.observations) ? "" : TraVM.payment.PaymentDetails.FirstOrDefault().Debt.observations + " - ") + (string.IsNullOrEmpty(msgObservacionFactura) ? "" : msgObservacionFactura);
+                    msgObservacionFactura = (string.IsNullOrEmpty(TraVM.payment.PaymentDetails.FirstOrDefault().Debt.observations) ? "" : TraVM.payment.PaymentDetails.FirstOrDefault().Debt.observations + " - ") + (string.IsNullOrEmpty(msgObservacionFactura) ? "" : msgObservacionFactura);
                 else
                 {
-                    msgObservacionFactura += (string.IsNullOrEmpty(TraVM.orderSale.Observation) ? "" : TraVM.orderSale.Observation + " - ") + (string.IsNullOrEmpty(msgObservacionFactura) ? "" : msgObservacionFactura);
+                    msgObservacionFactura = (string.IsNullOrEmpty(TraVM.orderSale.Observation) ? "" : TraVM.orderSale.Observation + " - ") + (string.IsNullOrEmpty(msgObservacionFactura) ? "" : msgObservacionFactura);
                 }
 
                 cfdi.Observations = msgObservacionFactura;
@@ -1609,20 +1609,16 @@ namespace SOAPAP
                     TraVM.orderSale.TaxUser = tu;
                     resPdf = await pDF.CreateForOrder(TraVM.orderSale, path + nombrePDF);
                 }
-                //facturama.Cfdis.SaveXml(@"C:\Pruebas", cfdiCancel.Id);
-                return "Actualizado correctamente.";
+
+                if (resPdf.Contains("error"))
+                    return resPdf;
+                else
+                    return "Actualizado correctamente.";
             }
             else
             {
                 return "{\"error\": \"No se ha podido realizar la cancelación, favor de comunicarse con el administrador del sistema\"}";
-            }
-
-
-
-
-
-
-            return "";
+            }            
         }
 
         //public SOAPAP.Facturado.DocumentoXML DeserializerXML(string xmlString)

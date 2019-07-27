@@ -82,51 +82,41 @@ namespace SOAPAP.UI.FactPasada
             }            
         }
 
-        private async void dgvMovimientos_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-            if (e.RowIndex >= 0)
-            {
-                DataGridViewRow row = this.dgvMovimientos.Rows[e.RowIndex];
-                string Operacion = row.Cells["OperacionDataGridViewTextBoxColumn"].Value.ToString();
-                string transactionFolio = row.Cells["folioTransaccionDataGridViewTextBoxColumn"].Value.ToString();
-
-
-                if (Operacion == "Cobro")
-                {
-                    Loading loadingDetalles = new Loading();
-                    loadingDetalles.Show(pnlDetalle);
-                    var _resulPayment = await Requests.SendURIAsync(string.Format("/api/Payments/folio/{0}", transactionFolio), HttpMethod.Get, Variables.LoginModel.Token);
-                    loadingDetalles.Close();
-                    if (_resulPayment.Contains("error"))
-                    {
-                        mensaje = new MessageBoxForm("Error", _resulPayment.Split(':')[1].Replace("}", ""), TypeIcon.Icon.Cancel);
-                        result = mensaje.ShowDialog();
-                    }
-                    else
-                    {
-                        dgvDetallesPago.Visible = true;
-                        SOAPAP.Model.Payment payment = JsonConvert.DeserializeObject<SOAPAP.Model.Payment>(_resulPayment);
-                        if (payment == null)
-                        {
-                            mensaje = new MessageBoxForm("Sin Información", "No se entro el detalle de pago.", TypeIcon.Icon.Warning);
-                            result = mensaje.ShowDialog();
-                        }
-                        mostrarInfoPay(payment);
-                    }
-                }
-                else
-                    dgvDetallesPago.Visible = false;
-            }
-        }
-
         private void mostrarInfoPay(Model.Payment payment)
         {
             lblSucursal.Text = payment.BranchOffice;
             dgvDetallesPago.DataSource = payment.PaymentDetails.ToList();
         }
+        private void visualizaPDFActual(SOAPAP.Model.TaxReceipt tr)
+        {
+            string path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Facturas";
+            try
+            {
+                pdfVwrDetalle.CloseDocument();
+                pdfVwrDetalle.ClearSelection();                
+                DirectoryInfo di;
+                if (!Directory.Exists(path))
+                {
+                    di = Directory.CreateDirectory(path);
+                }
+
+                //Se descarga temporalmente el archivo
+                path = path + "\\tmpFile.pdf";
+                if(System.IO.File.Exists(path))
+                    System.IO.File.Delete(path);
+                System.IO.File.WriteAllBytes(path, tr.PDFInvoce);
+
+                //se visualiza el pdf
+                pdfVwrDetalle.LoadDocument(path);
+            }
+            catch (Exception ex)
+            {
+                pdfVwrDetalle.ClearSelection();
+            }
+        }
 
         //Se obtiene el campo seleccionado de la tabla.
-        private void dgvMovimientos_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private async void dgvMovimientos_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             DataGridViewRow row = dgvMovimientos.Rows[e.RowIndex];
             string Operacion = row.Cells["OperacionDataGridViewTextBoxColumn"].Value.ToString();
@@ -151,6 +141,37 @@ namespace SOAPAP.UI.FactPasada
             else if (dgvMovimientos.Columns[e.ColumnIndex].Name == "Descargar")
             {
                 DescargarDocumetos(Operacion, transactionId, EstaFacturado, paymentId, Cuenta, Cliente);
+            }
+            else  //Si da click en en cualquier otra opcion de la barra, actualiza la informacion.
+            { 
+                string transactionFolio = row.Cells["folioTransaccionDataGridViewTextBoxColumn"].Value.ToString();
+                
+                if (Operacion == "Cobro")
+                {
+                    Loading loadingDetalles = new Loading();
+                    loadingDetalles.Show(pnlDetalle);
+                    var _resulPayment = await Requests.SendURIAsync(string.Format("/api/Payments/folio/{0}", transactionFolio), HttpMethod.Get, Variables.LoginModel.Token);
+                    loadingDetalles.Close();
+                    if (_resulPayment.Contains("error"))
+                    {
+                        mensaje = new MessageBoxForm("Error", _resulPayment.Split(':')[1].Replace("}", ""), TypeIcon.Icon.Cancel);
+                        result = mensaje.ShowDialog();
+                    }
+                    else
+                    {
+                        dgvDetallesPago.Visible = true;
+                        SOAPAP.Model.Payment payment = JsonConvert.DeserializeObject<SOAPAP.Model.Payment>(_resulPayment);
+                        if (payment == null)
+                        {
+                            mensaje = new MessageBoxForm("Sin Información", "No se entro el detalle de pago.", TypeIcon.Icon.Warning);
+                            result = mensaje.ShowDialog();
+                        }
+                        mostrarInfoPay(payment);
+                        visualizaPDFActual(payment.TaxReceipts.FirstOrDefault(t => t.Status == "ET001"));
+                    }
+                }
+                else
+                    dgvDetallesPago.Visible = false;
             }
         }
 
@@ -226,6 +247,8 @@ namespace SOAPAP.UI.FactPasada
         //Actualiza el archivo pdf.
         private async void ActualizaFormatoPdf(string Operacion, string transactionId, bool EstaFacturado)
         {
+            Form loadings = new Loading();
+            loadings.Show(this);
             if (!EstaFacturado)
             {
                 Form mensaje = new MessageBoxForm("Aviso", "Es necesario facturar previamente.", TypeIcon.Icon.Info);
@@ -240,7 +263,20 @@ namespace SOAPAP.UI.FactPasada
             {
                 Fac = new Facturaelectronica();
                 string temp = await Fac.actualizaPdf(transactionId);
+
+                if (temp.Contains("error"))
+                {
+                    Form mensaje = new MessageBoxForm("Error", temp, TypeIcon.Icon.Warning);
+                    result = mensaje.ShowDialog();
+                }
+                else
+                {
+                    Form mensaje = new MessageBoxForm("Aviso", temp, TypeIcon.Icon.Info);
+                    result = mensaje.ShowDialog();
+                }
+                    
             }
+            loadings.Close();
         }
 
         public void DeserializerXML(string xmlString)
