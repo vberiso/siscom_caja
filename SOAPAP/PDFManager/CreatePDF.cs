@@ -243,7 +243,7 @@ namespace SOAPAP.PDFManager
             //        havtax = true;
             //    }
             //});
-            if (Cfdi.Taxes != null)
+            if (Cfdi.Taxes.Count() != 0)
                 havtax = true;
 
             Model.Division Div = _lstDivision.Where(x => x.Id == Variables.LoginModel.Divition).FirstOrDefault();
@@ -386,18 +386,18 @@ namespace SOAPAP.PDFManager
             int cont = 0;
             Cfdi.Items.ToList().ForEach(x =>
             {
-                var CodeConcept = TraVM.payment.PaymentDetails.Where(p => p.Description == Cfdi.Items[cont].Description).FirstOrDefault().CodeConcept;
-                string ProductCode = TraVM.ClavesProdServ.Where(c => c.CodeConcep == CodeConcept).FirstOrDefault().ClaveProdServ;
-                string UnitCode = TraVM.payment.PaymentDetails.Where(p => p.CodeConcept == CodeConcept).FirstOrDefault().UnitMeasurement;
-                decimal Descuento =  TraVM.payment.PaymentDetails.Where(p => p.CodeConcept == CodeConcept).FirstOrDefault().Debt.DebtDiscounts.Where(d => d.CodeConcept == CodeConcept).Select(y => y.DiscountAmount).FirstOrDefault();
+                //var CodeConcept = TraVM.payment.PaymentDetails.Where(p => Cfdi.Items[cont].Description.Contains(p.Description)).FirstOrDefault().CodeConcept;
+                //string ProductCode = TraVM.ClavesProdServ.Where(c => c.CodeConcep == CodeConcept).FirstOrDefault().ClaveProdServ;
+                //string UnitCode = TraVM.payment.PaymentDetails.Where(p => p.CodeConcept == CodeConcept).FirstOrDefault().UnitMeasurement;
+                //decimal Descuento =  TraVM.payment.PaymentDetails.Where(p => p.CodeConcept == CodeConcept).FirstOrDefault().Debt.DebtDiscounts.Where(d => d.CodeConcept == CodeConcept).Select(y => y.DiscountAmount).FirstOrDefault();
 
                 builder.Append(@"<tr>");
-                builder.Append(@"<td>"+ ProductCode + "</td>");
-                builder.Append(@"<td>"+ UnitCode + "</td>");
+                builder.Append(@"<td>"+ "" + "</td>");
+                builder.Append(@"<td>"+ "" + "</td>");
                 builder.Append(@"<td>"+Cfdi.Items[cont].Description+"</td>");
                 builder.Append(@"<td>"+Cfdi.Items[cont].Quantity+"</td>");
                 builder.Append(@"<td>"+ string.Format(new CultureInfo("es-MX"), "{0:C2}", Cfdi.Items[cont].UnitValue)+"</td>");
-                builder.Append(@"<td>"+ string.Format(new CultureInfo("es-MX"), "{0:C2}", Descuento) +"</td>");
+                builder.Append(@"<td>"+ string.Format(new CultureInfo("es-MX"), "{0:C2}", 0) +"</td>");
                 builder.Append(@"<td>"+ string.Format(new CultureInfo("es-MX"), "{0:C2}", Cfdi.Items[cont].Total) +"</td>");
                 builder.Append(@"</tr>");
                 cont++;
@@ -678,18 +678,18 @@ namespace SOAPAP.PDFManager
             int cont = 0;
             Cfdi.Items.ToList().ForEach(x =>
             {
-                var OSD = TraVM.orderSale.OrderSaleDetails.Where(osd => osd.Description == Cfdi.Items[cont].Description && osd.Quantity == Cfdi.Items[cont].Quantity && osd.UnitPrice == Cfdi.Items[cont].UnitValue).FirstOrDefault();                
-                var ProductCode = TraVM.ClavesProdServ.Where(c => c.CodeConcep == OSD.CodeConcept).FirstOrDefault().ClaveProdServ;
-                var UnitCode = TraVM.payment.PaymentDetails.Where(pd => pd.CodeConcept == OSD.CodeConcept).FirstOrDefault().UnitMeasurement;
-                var Discount = TraVM.orderSale.OrderSaleDiscounts.Where(osd => osd.OrderSaleDetailId == OSD.Id).Select(y => y.DiscountAmount).FirstOrDefault();
+                //var OSD = TraVM.orderSale.OrderSaleDetails.Where(osd => osd.Description == Cfdi.Items[cont].Description && osd.Quantity == Cfdi.Items[cont].Quantity && osd.UnitPrice == Cfdi.Items[cont].UnitValue).FirstOrDefault();                
+                //var ProductCode = TraVM.ClavesProdServ.Where(c => c.CodeConcep == OSD.CodeConcept).FirstOrDefault().ClaveProdServ;
+                //var UnitCode = TraVM.payment.PaymentDetails.Where(pd => pd.CodeConcept == OSD.CodeConcept).FirstOrDefault().UnitMeasurement;
+                //var Discount = TraVM.orderSale.OrderSaleDiscounts.Where(osd => osd.OrderSaleDetailId == OSD.Id).Select(y => y.DiscountAmount).FirstOrDefault();
 
                 builder.Append(@"<tr>");
-                builder.Append(@"<td>" + ProductCode + "</td>");
-                builder.Append(@"<td>" + UnitCode + "</td>");
+                builder.Append(@"<td>" + "" + "</td>");
+                builder.Append(@"<td>" + "" + "</td>");
                 builder.Append(@"<td>" + Cfdi.Items[cont].Description + "</td>");
                 builder.Append(@"<td>" + Cfdi.Items[cont].Quantity + "</td>");
                 builder.Append(@"<td>" + string.Format(new CultureInfo("es-MX"), "{0:C2}", Cfdi.Items[cont].UnitValue) + "</td>");
-                builder.Append(@"<td>" + string.Format(new CultureInfo("es-MX"), "{0:C2}", Discount) + "</td>");
+                builder.Append(@"<td>" + string.Format(new CultureInfo("es-MX"), "{0:C2}", 0) + "</td>");
                 builder.Append(@"<td>" + string.Format(new CultureInfo("es-MX"), "{0:C2}", Cfdi.Items[cont].Total) + "</td>");
                 builder.Append(@"</tr>");
                 cont++;
