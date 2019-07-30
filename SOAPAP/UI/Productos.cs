@@ -273,6 +273,35 @@ namespace SOAPAP.UI
                     }
 
                 }
+                else if (m.type == "TTP06")
+                {
+                    ModalProduct modal = new ModalProduct();
+                    ModalProduct.TypeProduct = 6;
+                    ModalProduct.Title = "Dictaminado";
+                    ModalProduct.Measure = name;
+                    modal.ShowDialog(this);
+                    if (!ModalProduct.IsCancel)
+                    {
+                        DataRow row = dts1.NewRow();
+                        row["ID"] = m.productId;
+                        row["NOMBRE"] = ModalProduct.Measure == "" ? GetPath(treeList1.FindNodeByID(treeList1.FocusedNode.Id), "") : ModalProduct.Measure;
+                        //row["TOTAL"] = ModalProduct.Quatity
+                        row["TOTAL"] = ModalProduct.Quatity;
+                        row["UNITPRICE"] = ModalProduct.Quatity;
+                        row["IVA"] = m.haveTax;
+                        if (m.haveTax)
+                            row["AMOUNTIVA"] = Math.Round((((decimal)row["TOTAL"] * Convert.ToDecimal(Variables.Configuration.IVA)) / 100), 2);
+                        else
+                            row["AMOUNTIVA"] = 0;
+                        row["CANTIDAD"] = 1;
+                        row["UNIDAD"] = m.product.ProductParams.FirstOrDefault().UnitMeasurement;
+                        dts1.Rows.Add(row);
+
+                        tarifagrid();
+                        Total();
+
+                    }
+                }
             }
             catch (Exception e)
             {

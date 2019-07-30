@@ -30,7 +30,18 @@ namespace SOAPAP.UI
         private void ModalProduct_Load(object sender, EventArgs e)
         {
             lblTitle.Text = Title;
-            lblMeasure.Text = Measure;
+            if (TypeProduct == 6)
+            {
+                txtMeasure.Text = Measure;
+                txtMeasure.Visible = true;
+                lblMeasure.Visible = false;
+
+            }
+            else
+            {
+                lblMeasure.Text = Measure;
+            }
+
             txtFactor.Text = "1";
         }
 
@@ -90,6 +101,12 @@ namespace SOAPAP.UI
                         Quatity = Convert.ToDecimal(txtFactor.Text);
                         Return.AddProductToGrid(5);
                         break;
+                    case 6:
+                        Productos.vp = 6;
+                        Quatity = Convert.ToDecimal(txtFactor.Text);
+                        Measure = txtMeasure.Text;
+                        Return.AddProductToGrid(6);
+                        break;
                 }
 
                 this.Close();
@@ -100,6 +117,11 @@ namespace SOAPAP.UI
                 result = mensaje.ShowDialog();
             }
            
+        }
+
+        private void lblMeasure_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

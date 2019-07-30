@@ -32,20 +32,22 @@
             this.txtFactor = new System.Windows.Forms.TextBox();
             this.lblMeasure = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label2 = new System.Windows.Forms.Label();
             this.btnAccept = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.txtMeasure = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // lblTitle
             // 
             this.lblTitle.AutoSize = true;
             this.lblTitle.Font = new System.Drawing.Font("Microsoft YaHei UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTitle.Location = new System.Drawing.Point(13, 72);
+            this.lblTitle.Location = new System.Drawing.Point(12, 56);
             this.lblTitle.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblTitle.Name = "lblTitle";
             this.lblTitle.Size = new System.Drawing.Size(115, 20);
@@ -54,7 +56,7 @@
             // 
             // txtFactor
             // 
-            this.txtFactor.Location = new System.Drawing.Point(17, 95);
+            this.txtFactor.Location = new System.Drawing.Point(16, 81);
             this.txtFactor.Name = "txtFactor";
             this.txtFactor.Size = new System.Drawing.Size(372, 24);
             this.txtFactor.TabIndex = 1;
@@ -65,11 +67,12 @@
             this.lblMeasure.AutoSize = true;
             this.lblMeasure.Font = new System.Drawing.Font("Microsoft YaHei UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblMeasure.ForeColor = System.Drawing.SystemColors.ControlDark;
-            this.lblMeasure.Location = new System.Drawing.Point(14, 122);
+            this.lblMeasure.Location = new System.Drawing.Point(14, 114);
             this.lblMeasure.Name = "lblMeasure";
             this.lblMeasure.Size = new System.Drawing.Size(80, 16);
             this.lblMeasure.TabIndex = 2;
             this.lblMeasure.Text = "M², M³, Hrs ...";
+            this.lblMeasure.Click += new System.EventHandler(this.lblMeasure_Click);
             // 
             // panel1
             // 
@@ -81,6 +84,16 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(405, 46);
             this.panel1.TabIndex = 3;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = global::SOAPAP.Properties.Resources.cobro;
+            this.pictureBox1.Location = new System.Drawing.Point(172, 12);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(25, 22);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox1.TabIndex = 5;
+            this.pictureBox1.TabStop = false;
             // 
             // label2
             // 
@@ -121,24 +134,27 @@
             this.btnCancel.UseVisualStyleBackColor = false;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Image = global::SOAPAP.Properties.Resources.cobro;
-            this.pictureBox1.Location = new System.Drawing.Point(172, 12);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(25, 22);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox1.TabIndex = 5;
-            this.pictureBox1.TabStop = false;
-            // 
             // panel2
             // 
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel2.Controls.Add(this.txtMeasure);
+            this.panel2.Controls.Add(this.lblTitle);
+            this.panel2.Controls.Add(this.txtFactor);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(405, 200);
             this.panel2.TabIndex = 5;
+            // 
+            // txtMeasure
+            // 
+            this.txtMeasure.Location = new System.Drawing.Point(16, 110);
+            this.txtMeasure.Multiline = true;
+            this.txtMeasure.Name = "txtMeasure";
+            this.txtMeasure.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txtMeasure.Size = new System.Drawing.Size(372, 46);
+            this.txtMeasure.TabIndex = 0;
+            this.txtMeasure.Visible = false;
             // 
             // ModalProduct
             // 
@@ -150,8 +166,6 @@
             this.Controls.Add(this.btnAccept);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.lblMeasure);
-            this.Controls.Add(this.txtFactor);
-            this.Controls.Add(this.lblTitle);
             this.Controls.Add(this.panel2);
             this.Font = new System.Drawing.Font("Microsoft YaHei UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
@@ -162,6 +176,8 @@
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -178,5 +194,6 @@
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.TextBox txtMeasure;
     }
 }

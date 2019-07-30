@@ -636,9 +636,24 @@ namespace SOAPAP.PDFManager
             builder.Append(@"<div class='datos_contribuyente' style='margin-bottom: 15px;'>");
             builder.Append(@"<table style='font-size: 14px;>");
             builder.Append(@"<tr>");
-            builder.Append(@"<td style='width: 120px;'><b>No. de orden:</b></td>");
-            builder.Append(@"<td style='width: 100px; font-family:\""Montserrat\"", sans-serif;'>" + _orderSale.Folio + "</td>"); //Cuenta
+            String[] code_concepts = { "3114", "3115", "3116", "3117", "3118", "3119", "3120", "3121", "3199" };
+            bool is_participaciones = false;
+            foreach (string code_concept in code_concepts)
+            {  
+                //var r = from od ind Model.OrderSaleDetails where od.CodeConcept == code_concept select od;
+                object result = TraVM.orderSale.OrderSaleDetails.Where(orderD => orderD.CodeConcept == code_concept).FirstOrDefault();
+                if (result != null)
+                {
+                    is_participaciones = true;
+                    break;
+                }
+            }
 
+            if (Div.Id != 12 && is_participaciones)
+            {
+                builder.Append(@"<td style='width: 120px;'><b>No. de orden:</b></td>");
+                builder.Append(@"<td style='width: 100px; font-family:\""Montserrat\"", sans-serif;'>" + _orderSale.Folio + "</td>"); //Cuenta
+            }
             //informacion del receptor
             var tmpDir = _orderSale.TaxUser.TaxAddresses?.FirstOrDefault();
             string Direccion;
@@ -650,10 +665,13 @@ namespace SOAPAP.PDFManager
             builder.Append(@"</tr>");
             builder.Append(@"</table>");
             builder.Append(@"<table style='font-size: 14px;'>");
-            builder.Append(@"<tr>");
-            builder.Append(@"<td style='width: 120px;'><b>Periodo:</b></td>");
-            builder.Append(@"<td style='font-family:\""Montserrat\"", sans-serif;'>" + Cfdi.PaymentConditions + "</td>"); //Periodo
-            builder.Append(@"</tr>");
+            if (Div.Id != 12 && is_participaciones)
+            {
+                builder.Append(@"<tr>");
+                builder.Append(@"<td style='width: 120px;'><b>Periodo:</b></td>");
+                builder.Append(@"<td style='font-family:\""Montserrat\"", sans-serif;'>" + Cfdi.PaymentConditions + "</td>"); //Periodo
+                builder.Append(@"</tr>");
+            }
             builder.Append(@"<tr><td style='width: 120px;'><b>Contribuyente:</b></td>");
             builder.Append(@"<td style='font-family:\""Montserrat\"", sans-serif;'>" + Cfdi.Receiver.Name + "</td></tr>"); //Contribuyente
             builder.Append(@"<tr><td style='width: 120px;'><b>RFC:</b></td>");
@@ -679,6 +697,7 @@ namespace SOAPAP.PDFManager
             builder.Append(@" </tr>");
             //Foreach Concepts
             int cont = 0;
+           
             Cfdi.Items.ToList().ForEach(x =>
             {
                 var OSD = TraVM.orderSale.OrderSaleDetails.Where(osd => osd.Description == Cfdi.Items[cont].Description && osd.Quantity == Cfdi.Items[cont].Quantity && osd.UnitPrice == Cfdi.Items[cont].UnitValue).FirstOrDefault();                
@@ -817,12 +836,25 @@ namespace SOAPAP.PDFManager
             builder.Append(@"</p></div>");
             builder.Append(@"</div></div>");
             builder.Append(@"<div class='firma_y_sello' style='margin-bottom:50px; margin-top: 100px;'>");
-            builder.Append(@"<div style='text-align: left; display: inline-block; width:60%;'>");
+            builder.Append(@"<div style='text-align: left; display: inline-block; width:70%;'>");
             builder.Append(@"<p style='font-size:13px;'><b>ESTE DOCUMENTO ES UNA REPRESENTACION IMPRESA DE UN CFDI. V 3.3 EL PAGO DE ESTE RECIBO NO LO LIBERA DE ADEUDOS ANTERIORES.");
             builder.Append(@"CUALQUIER ACLARACION SOBRE ESTE RECIBO ES VALIDA SOLO EN LOS SIGUIENTES CINCO DIAS DE QUE FUE EXPEDIDO.</b></p></div>");
-            builder.Append(@"<div style='text-align: right; display: inline-block; width: 30%;'>");
-            builder.Append(@"<p style='text-align: center; padding-top: 10px;border-top-style: solid;border-top-color: black;'>");
-            builder.Append(@"FIRMA Y SELLO DEL CAJERO</p>");
+            builder.Append(@"<div style='text-align: center; display: inline-block; width: 25%;'>");
+            builder.Append(@"<table style='text - align: center; width: 100 %; margin - left: 40px; text - align: center; width: 100 %; '>");
+            builder.Append(@"<tr>");
+            string perfil = "CAJERO";
+            if (Div.Id == 12 && is_participaciones)
+            {
+                perfil = "TESORERO";
+                builder.Append(@"<td>JOSE MARIA MEZA PEREZ</td>");
+            }
+            
+            builder.Append(@"</tr>");
+            builder.Append(@"<tr>");
+            builder.Append(@"<td style='border-top: 3px solid black;' > FIRMA Y SELLO DEL " + perfil + "</td>");
+            builder.Append(@"</tr>");
+            builder.Append(@"</table>");
+
             builder.Append(@"</div></div>");
             builder.Append(@"</body>");
             builder.Append(@"</html>");
