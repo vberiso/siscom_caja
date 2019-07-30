@@ -43,8 +43,8 @@ namespace SOAPAP
         public Facturaelectronica()
         {
             Requests = new RequestsAPI(UrlBase);
-            facturama = new FacturamaApiMultiemisor("gfdsystems", "gfds1st95", false);
-            //facturama = new FacturamaApiMultiemisor("gfdsystems", "gfds1st95");
+            //facturama = new FacturamaApiMultiemisor("gfdsystems", "gfds1st95", false);
+            facturama = new FacturamaApiMultiemisor("gfdsystems", "gfds1st95");
             //facturama = new FacturamaApiMultiemisor("pruebas", "pruebas2011");
         }
         //Metodo del Vic (con calmita...)
@@ -1589,6 +1589,32 @@ namespace SOAPAP
             //SOAPAP.Facturado.DocumentoXML comprobante = DeserializerXML(tmpXML);
 
             Facturama.Models.Response.Cfdi cfdiGet = await ObterCfdiDesdeAPI(TraVM.payment.TaxReceipts.Where(x => x.Status == "ET001").FirstOrDefault());
+
+            //Si esta campo viene vacio, es porque no existe el registro en facturama.
+            if(cfdiGet.Items == null)
+            {
+                //Actualiza el payment para que sea facturable.
+                SOAPAP.Model.Payment tmpPay = TraVM.payment;
+                tmpPay.HaveTaxReceipt = false;
+                HttpContent content;
+                json = JsonConvert.SerializeObject(tmpPay);
+                content = new StringContent(json, Encoding.UTF8, "application/json");
+
+                var resulTaxUs = await Requests.SendURIAsync(string.Format("/api/Payments/{0}", TraVM.payment.Id), HttpMethod.Put, Variables.LoginModel.Token, content);
+                var resActualizacionPayment = JsonConvert.DeserializeObject<string>(resulTaxUs);
+
+                //Actualizacion de tax receipt
+                SOAPAP.Model.TaxReceipt tmpTR = TraVM.payment.TaxReceipts.FirstOrDefault(t => t.Status == "ET001");
+                tmpTR.Status = "ET002";
+                HttpContent contentTR;
+                json = JsonConvert.SerializeObject(tmpTR);
+                contentTR = new StringContent(json, Encoding.UTF8, "application/json");
+
+                var resulTaxR = await Requests.SendURIAsync(string.Format("/api/TaxReceipt/{0}", TraVM.payment.TaxReceipts.FirstOrDefault(x => x.Status == "ET001")?.Id), HttpMethod.Put, Variables.LoginModel.Token, contentTR);
+                var resTax = JsonConvert.DeserializeObject<SOAPAP.Model.TaxReceipt>(resulTaxR);
+
+                return "Es necesario volver a facturar este pago.";
+            }
             
             string fecha = DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ss");
             CreatePDF pDF = new CreatePDF(cfdiGet, TraVM.payment.Account, TraVM.payment.TaxReceipts.Where(x => x.Status == "ET001").FirstOrDefault(), fecha, (TraVM.payment.PayMethod.code + ", " + TraVM.payment.PayMethod.Name), TraVM);

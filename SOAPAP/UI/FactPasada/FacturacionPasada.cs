@@ -207,13 +207,13 @@ namespace SOAPAP.UI.FactPasada
                         mensaje = new MessageBoxForm("Error", xmltimbrado, TypeIcon.Icon.Cancel);
                         mensaje.AutoSize = true;
                         result = mensaje.ShowDialog();
-                        this.Close();
+                        //this.Close();
                     }
                     catch (Exception)
                     {
                         mensaje = new MessageBoxForm("Error", "Servicio no disponible favor de comunicarse con el administrador: -conexion interrumpida-", TypeIcon.Icon.Cancel);
                         result = mensaje.ShowDialog();
-                        this.Close();
+                        //this.Close();
                     }
                 }
                 else
@@ -269,10 +269,12 @@ namespace SOAPAP.UI.FactPasada
                     Form mensaje = new MessageBoxForm("Error", temp, TypeIcon.Icon.Warning);
                     result = mensaje.ShowDialog();
                 }
-                else
+                else if(temp.Contains("aviso"))
                 {
                     Form mensaje = new MessageBoxForm("Aviso", temp, TypeIcon.Icon.Info);
                     result = mensaje.ShowDialog();
+                                        
+                    btnActualizar.PerformClick();
                 }
                     
             }

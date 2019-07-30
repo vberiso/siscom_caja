@@ -387,7 +387,7 @@ namespace SOAPAP.PDFManager
             int cont = 0;
             Cfdi.Items.ToList().ForEach(x =>
             {
-                var CodeConcept = TraVM.payment.PaymentDetails.ToList()[cont].CodeConcept;
+                var CodeConcept = TraVM.payment.PaymentDetails.ToList()[cont].CodeConcept;                
                 string ProductCode = TraVM.ClavesProdServ.Where(c => c.CodeConcep == CodeConcept).FirstOrDefault().ClaveProdServ;
                 string UnitCode = TraVM.payment.PaymentDetails.Where(p => p.CodeConcept == CodeConcept).FirstOrDefault().UnitMeasurement;
                 decimal Descuento = TraVM.payment.PaymentDetails.Where(p => p.CodeConcept == CodeConcept).FirstOrDefault().Debt.DebtDiscounts.Where(d => d.CodeConcept == CodeConcept).Select(y => y.DiscountAmount).FirstOrDefault();
@@ -711,7 +711,7 @@ namespace SOAPAP.PDFManager
                 builder.Append(@"<td>" + Cfdi.Items[cont].Description + "</td>");
                 builder.Append(@"<td>" + Cfdi.Items[cont].Quantity + "</td>");
                 builder.Append(@"<td>" + string.Format(new CultureInfo("es-MX"), "{0:C2}", Cfdi.Items[cont].UnitValue) + "</td>");
-                builder.Append(@"<td>" + string.Format(new CultureInfo("es-MX"), "{0:C2}", Discount) + "</td>");
+                builder.Append(@"<td>" + string.Format(new CultureInfo("es-MX"), "{0:C2}", 0) + "</td>");
                 builder.Append(@"<td>" + string.Format(new CultureInfo("es-MX"), "{0:C2}", Cfdi.Items[cont].Total) + "</td>");
                 builder.Append(@"</tr>");
                 cont++;
