@@ -24,6 +24,7 @@ using System.Printing;
 using System.Diagnostics;
 using System.Threading;
 using PdfPrintingNet;
+using SOAPAP.Reportes;
 
 namespace SOAPAP.UI
 {
@@ -57,6 +58,7 @@ namespace SOAPAP.UI
         querys q = new querys();
         DataTable dt = new DataTable();
         PdfPrint PdfPrint = null;
+        private string Usos { get; set; }
 
         public ModalDetalleCobro(decimal Amount, decimal Tax, decimal Rounding, decimal PaidUp, decimal Total, List<Model.Debt> Debts, string Padron, decimal Porcentaje, bool Anual, bool Prepaid)
         {
@@ -87,8 +89,20 @@ namespace SOAPAP.UI
             centraX(pnlCambio, lblCambiopnl);
             txtEntregado.Focus();
             PdfPrint = new PdfPrint("irDevelopers", "g/4JFMjn6KvKuhWIxC2f7pv7SMPZhNDCiF/m+DtiJywU4rE0KKwoH+XQtyGxBiLg");
+            load_items();
         }
+        private void load_items()
+        {
+            List<DataComboBox> lstUsos = new List<DataComboBox>();
+            lstUsos.Add(new DataComboBox() { keyString = "P01", value = "Por definir" });
+            lstUsos.Add(new DataComboBox() { keyString = "G03", value = "Gastos en general" });
+            cbxUsoCFDI.ValueMember = "keyString";
+            cbxUsoCFDI.DisplayMember = "value";
+            cbxUsoCFDI.DataSource = lstUsos;
+            cbxUsoCFDI.SelectedIndex = 0;
 
+            Usos = "P01 - Por definir";
+        }
         private void centraX(Control padre, Control hijo)
         {
             int x = 0;
@@ -1462,6 +1476,7 @@ namespace SOAPAP.UI
                     Form loadings = new Loading();
                     loadings.Show(this);
                     Facturaelectronica fs = new Facturaelectronica();
+                    fs.setMsgs(tbxMensage.Text, Usos);
                     xmltimbrado = await fs.generaFactura(Variables.idtransaction.ToString(), "ET001");
                     if (xmltimbrado.Contains("error"))
                     {
@@ -1963,7 +1978,13 @@ namespace SOAPAP.UI
                 validCheque = true;
             }
         }
-        
+
+        private void cbxUsoCFDI_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Usos = ((DataComboBox)cbxUsoCFDI.SelectedItem).keyString + " - " + ((DataComboBox)cbxUsoCFDI.SelectedItem).value;
+
+        }
+
         private void ValidAmount()
         {
             if (!string.IsNullOrEmpty(txtMixedEfectivo.Text) && !mixEfectivo)

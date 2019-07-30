@@ -129,6 +129,10 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label1 = new System.Windows.Forms.Label();
             this.cmbPaymentMethod = new System.Windows.Forms.ComboBox();
+            this.label23 = new System.Windows.Forms.Label();
+            this.cbxUsoCFDI = new System.Windows.Forms.ComboBox();
+            this.tbxMensage = new System.Windows.Forms.TextBox();
+            this.label24 = new System.Windows.Forms.Label();
             this.pnlImagen.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbxIcon)).BeginInit();
             this.pnlButtons.SuspendLayout();
@@ -171,7 +175,7 @@
             this.pnlImagen.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlImagen.Location = new System.Drawing.Point(0, 0);
             this.pnlImagen.Name = "pnlImagen";
-            this.pnlImagen.Size = new System.Drawing.Size(462, 102);
+            this.pnlImagen.Size = new System.Drawing.Size(476, 102);
             this.pnlImagen.TabIndex = 0;
             // 
             // pbxIcon
@@ -188,9 +192,9 @@
             this.pnlButtons.Controls.Add(this.btnCancelar);
             this.pnlButtons.Controls.Add(this.btnAceptar);
             this.pnlButtons.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.pnlButtons.Location = new System.Drawing.Point(0, 411);
+            this.pnlButtons.Location = new System.Drawing.Point(0, 639);
             this.pnlButtons.Name = "pnlButtons";
-            this.pnlButtons.Size = new System.Drawing.Size(462, 42);
+            this.pnlButtons.Size = new System.Drawing.Size(476, 42);
             this.pnlButtons.TabIndex = 3;
             // 
             // btnCancelar
@@ -224,6 +228,10 @@
             // pnlContent
             // 
             this.pnlContent.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pnlContent.Controls.Add(this.label23);
+            this.pnlContent.Controls.Add(this.cbxUsoCFDI);
+            this.pnlContent.Controls.Add(this.tbxMensage);
+            this.pnlContent.Controls.Add(this.label24);
             this.pnlContent.Controls.Add(this.groupBox2);
             this.pnlContent.Controls.Add(this.groupBox1);
             this.pnlContent.Controls.Add(this.pnlImagen);
@@ -231,7 +239,7 @@
             this.pnlContent.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlContent.Location = new System.Drawing.Point(0, 0);
             this.pnlContent.Name = "pnlContent";
-            this.pnlContent.Size = new System.Drawing.Size(464, 455);
+            this.pnlContent.Size = new System.Drawing.Size(478, 683);
             this.pnlContent.TabIndex = 2;
             // 
             // groupBox2
@@ -243,7 +251,7 @@
             this.groupBox2.Dock = System.Windows.Forms.DockStyle.Top;
             this.groupBox2.Location = new System.Drawing.Point(0, 157);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(462, 253);
+            this.groupBox2.Size = new System.Drawing.Size(476, 253);
             this.groupBox2.TabIndex = 5;
             this.groupBox2.TabStop = false;
             // 
@@ -254,7 +262,7 @@
             this.pnlMixto.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlMixto.Location = new System.Drawing.Point(3, 17);
             this.pnlMixto.Name = "pnlMixto";
-            this.pnlMixto.Size = new System.Drawing.Size(456, 233);
+            this.pnlMixto.Size = new System.Drawing.Size(470, 233);
             this.pnlMixto.TabIndex = 24;
             // 
             // tabMixto
@@ -269,7 +277,7 @@
             this.tabMixto.Multiline = true;
             this.tabMixto.Name = "tabMixto";
             this.tabMixto.SelectedIndex = 0;
-            this.tabMixto.Size = new System.Drawing.Size(456, 205);
+            this.tabMixto.Size = new System.Drawing.Size(470, 205);
             this.tabMixto.TabIndex = 0;
             this.tabMixto.SelectedIndexChanged += new System.EventHandler(this.TabMixto_SelectedIndexChanged);
             // 
@@ -285,7 +293,7 @@
             this.tabEfectivo.Location = new System.Drawing.Point(4, 4);
             this.tabEfectivo.Name = "tabEfectivo";
             this.tabEfectivo.Padding = new System.Windows.Forms.Padding(3);
-            this.tabEfectivo.Size = new System.Drawing.Size(448, 176);
+            this.tabEfectivo.Size = new System.Drawing.Size(462, 176);
             this.tabEfectivo.TabIndex = 0;
             this.tabEfectivo.Text = "Efectivo";
             // 
@@ -308,7 +316,7 @@
             // 
             this.panel4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(3)))), ((int)(((byte)(155)))), ((int)(((byte)(229)))));
             this.panel4.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panel4.Location = new System.Drawing.Point(295, 41);
+            this.panel4.Location = new System.Drawing.Point(309, 41);
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(150, 132);
             this.panel4.TabIndex = 5;
@@ -321,7 +329,7 @@
             this.pnlHeaderEfectivo.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlHeaderEfectivo.Location = new System.Drawing.Point(3, 3);
             this.pnlHeaderEfectivo.Name = "pnlHeaderEfectivo";
-            this.pnlHeaderEfectivo.Size = new System.Drawing.Size(442, 38);
+            this.pnlHeaderEfectivo.Size = new System.Drawing.Size(456, 38);
             this.pnlHeaderEfectivo.TabIndex = 4;
             // 
             // label3
@@ -383,7 +391,7 @@
             this.tabTarjeta.Location = new System.Drawing.Point(4, 4);
             this.tabTarjeta.Name = "tabTarjeta";
             this.tabTarjeta.Padding = new System.Windows.Forms.Padding(3);
-            this.tabTarjeta.Size = new System.Drawing.Size(448, 177);
+            this.tabTarjeta.Size = new System.Drawing.Size(527, 176);
             this.tabTarjeta.TabIndex = 1;
             this.tabTarjeta.Text = "Tarjeta";
             // 
@@ -512,7 +520,7 @@
             this.pnlHeaderTarjeta.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlHeaderTarjeta.Location = new System.Drawing.Point(3, 3);
             this.pnlHeaderTarjeta.Name = "pnlHeaderTarjeta";
-            this.pnlHeaderTarjeta.Size = new System.Drawing.Size(442, 38);
+            this.pnlHeaderTarjeta.Size = new System.Drawing.Size(521, 38);
             this.pnlHeaderTarjeta.TabIndex = 5;
             // 
             // label4
@@ -553,7 +561,7 @@
             this.tabCheque.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tabCheque.Location = new System.Drawing.Point(4, 4);
             this.tabCheque.Name = "tabCheque";
-            this.tabCheque.Size = new System.Drawing.Size(448, 177);
+            this.tabCheque.Size = new System.Drawing.Size(527, 176);
             this.tabCheque.TabIndex = 2;
             this.tabCheque.Text = "Cheque";
             // 
@@ -664,7 +672,7 @@
             this.pnlHeaderCheque.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlHeaderCheque.Location = new System.Drawing.Point(0, 0);
             this.pnlHeaderCheque.Name = "pnlHeaderCheque";
-            this.pnlHeaderCheque.Size = new System.Drawing.Size(448, 37);
+            this.pnlHeaderCheque.Size = new System.Drawing.Size(527, 37);
             this.pnlHeaderCheque.TabIndex = 6;
             // 
             // label8
@@ -703,7 +711,7 @@
             this.tabTransferencia.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tabTransferencia.Location = new System.Drawing.Point(4, 4);
             this.tabTransferencia.Name = "tabTransferencia";
-            this.tabTransferencia.Size = new System.Drawing.Size(448, 177);
+            this.tabTransferencia.Size = new System.Drawing.Size(527, 176);
             this.tabTransferencia.TabIndex = 3;
             this.tabTransferencia.Text = "Transferencia";
             // 
@@ -726,9 +734,9 @@
             // 
             this.panel7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(3)))), ((int)(((byte)(155)))), ((int)(((byte)(229)))));
             this.panel7.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panel7.Location = new System.Drawing.Point(296, 36);
+            this.panel7.Location = new System.Drawing.Point(375, 36);
             this.panel7.Name = "panel7";
-            this.panel7.Size = new System.Drawing.Size(150, 139);
+            this.panel7.Size = new System.Drawing.Size(150, 138);
             this.panel7.TabIndex = 9;
             // 
             // txtMixedMontoTransfer
@@ -776,7 +784,7 @@
             this.pnlHeaderTransfer.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlHeaderTransfer.Location = new System.Drawing.Point(0, 0);
             this.pnlHeaderTransfer.Name = "pnlHeaderTransfer";
-            this.pnlHeaderTransfer.Size = new System.Drawing.Size(446, 36);
+            this.pnlHeaderTransfer.Size = new System.Drawing.Size(525, 36);
             this.pnlHeaderTransfer.TabIndex = 6;
             // 
             // label11
@@ -807,7 +815,7 @@
             this.pnlContainerMixedAmount.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlContainerMixedAmount.Location = new System.Drawing.Point(0, 0);
             this.pnlContainerMixedAmount.Name = "pnlContainerMixedAmount";
-            this.pnlContainerMixedAmount.Size = new System.Drawing.Size(456, 28);
+            this.pnlContainerMixedAmount.Size = new System.Drawing.Size(470, 28);
             this.pnlContainerMixedAmount.TabIndex = 1;
             // 
             // lblMixedAmountEfectivo
@@ -827,7 +835,7 @@
             this.pnlEfectivo.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlEfectivo.Location = new System.Drawing.Point(3, 17);
             this.pnlEfectivo.Name = "pnlEfectivo";
-            this.pnlEfectivo.Size = new System.Drawing.Size(456, 233);
+            this.pnlEfectivo.Size = new System.Drawing.Size(470, 233);
             this.pnlEfectivo.TabIndex = 0;
             // 
             // grbEfectivo
@@ -837,7 +845,7 @@
             this.grbEfectivo.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.grbEfectivo.Location = new System.Drawing.Point(0, 0);
             this.grbEfectivo.Name = "grbEfectivo";
-            this.grbEfectivo.Size = new System.Drawing.Size(456, 233);
+            this.grbEfectivo.Size = new System.Drawing.Size(470, 233);
             this.grbEfectivo.TabIndex = 1;
             this.grbEfectivo.TabStop = false;
             // 
@@ -854,7 +862,7 @@
             this.pnlContentTotal.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlContentTotal.Location = new System.Drawing.Point(3, 19);
             this.pnlContentTotal.Name = "pnlContentTotal";
-            this.pnlContentTotal.Size = new System.Drawing.Size(450, 157);
+            this.pnlContentTotal.Size = new System.Drawing.Size(464, 157);
             this.pnlContentTotal.TabIndex = 23;
             // 
             // pnlTotal
@@ -943,7 +951,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel1.Location = new System.Drawing.Point(0, 153);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(450, 4);
+            this.panel1.Size = new System.Drawing.Size(464, 4);
             this.panel1.TabIndex = 1;
             // 
             // pnlTitleTotal
@@ -952,7 +960,7 @@
             this.pnlTitleTotal.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlTitleTotal.Location = new System.Drawing.Point(0, 0);
             this.pnlTitleTotal.Name = "pnlTitleTotal";
-            this.pnlTitleTotal.Size = new System.Drawing.Size(450, 18);
+            this.pnlTitleTotal.Size = new System.Drawing.Size(464, 18);
             this.pnlTitleTotal.TabIndex = 0;
             // 
             // lblSubtotal
@@ -971,7 +979,7 @@
             this.pnlReferencia.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlReferencia.Location = new System.Drawing.Point(3, 17);
             this.pnlReferencia.Name = "pnlReferencia";
-            this.pnlReferencia.Size = new System.Drawing.Size(456, 233);
+            this.pnlReferencia.Size = new System.Drawing.Size(470, 233);
             this.pnlReferencia.TabIndex = 1;
             // 
             // groupBox3
@@ -981,7 +989,7 @@
             this.groupBox3.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox3.Location = new System.Drawing.Point(0, 0);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(456, 233);
+            this.groupBox3.Size = new System.Drawing.Size(470, 233);
             this.groupBox3.TabIndex = 1;
             this.groupBox3.TabStop = false;
             // 
@@ -996,7 +1004,7 @@
             this.panel5.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel5.Location = new System.Drawing.Point(3, 19);
             this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(450, 157);
+            this.panel5.Size = new System.Drawing.Size(464, 157);
             this.panel5.TabIndex = 23;
             // 
             // pnlTotalTran
@@ -1052,7 +1060,7 @@
             this.panel8.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel8.Location = new System.Drawing.Point(0, 153);
             this.panel8.Name = "panel8";
-            this.panel8.Size = new System.Drawing.Size(450, 4);
+            this.panel8.Size = new System.Drawing.Size(464, 4);
             this.panel8.TabIndex = 1;
             // 
             // panel9
@@ -1061,7 +1069,7 @@
             this.panel9.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel9.Location = new System.Drawing.Point(0, 0);
             this.panel9.Name = "panel9";
-            this.panel9.Size = new System.Drawing.Size(450, 18);
+            this.panel9.Size = new System.Drawing.Size(464, 18);
             this.panel9.TabIndex = 0;
             // 
             // label7
@@ -1081,7 +1089,7 @@
             this.pnlOtros.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlOtros.Location = new System.Drawing.Point(3, 17);
             this.pnlOtros.Name = "pnlOtros";
-            this.pnlOtros.Size = new System.Drawing.Size(456, 233);
+            this.pnlOtros.Size = new System.Drawing.Size(470, 233);
             this.pnlOtros.TabIndex = 0;
             // 
             // panel3
@@ -1099,7 +1107,7 @@
             this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel3.Location = new System.Drawing.Point(0, 18);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(456, 215);
+            this.panel3.Size = new System.Drawing.Size(470, 215);
             this.panel3.TabIndex = 1;
             // 
             // panel2
@@ -1219,7 +1227,7 @@
             this.cmbBank.FormattingEnabled = true;
             this.cmbBank.Location = new System.Drawing.Point(140, 57);
             this.cmbBank.Name = "cmbBank";
-            this.cmbBank.Size = new System.Drawing.Size(266, 27);
+            this.cmbBank.Size = new System.Drawing.Size(280, 27);
             this.cmbBank.TabIndex = 2;
             // 
             // pnlTitle
@@ -1228,7 +1236,7 @@
             this.pnlTitle.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlTitle.Location = new System.Drawing.Point(0, 0);
             this.pnlTitle.Name = "pnlTitle";
-            this.pnlTitle.Size = new System.Drawing.Size(456, 18);
+            this.pnlTitle.Size = new System.Drawing.Size(470, 18);
             this.pnlTitle.TabIndex = 0;
             // 
             // lblTitle
@@ -1249,7 +1257,7 @@
             this.groupBox1.Location = new System.Drawing.Point(0, 102);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(50, 5, 50, 5);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(462, 55);
+            this.groupBox1.Size = new System.Drawing.Size(476, 55);
             this.groupBox1.TabIndex = 4;
             this.groupBox1.TabStop = false;
             // 
@@ -1272,16 +1280,51 @@
             this.cmbPaymentMethod.FormattingEnabled = true;
             this.cmbPaymentMethod.Location = new System.Drawing.Point(137, 20);
             this.cmbPaymentMethod.Name = "cmbPaymentMethod";
-            this.cmbPaymentMethod.Size = new System.Drawing.Size(289, 24);
+            this.cmbPaymentMethod.Size = new System.Drawing.Size(303, 24);
             this.cmbPaymentMethod.TabIndex = 1;
             this.cmbPaymentMethod.SelectionChangeCommitted += new System.EventHandler(this.cmbPaymentMethod_SelectionChangeCommitted);
+            // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.Location = new System.Drawing.Point(12, 422);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(99, 16);
+            this.label23.TabIndex = 53;
+            this.label23.Text = "Tipo de uso CFDI:";
+            // 
+            // cbxUsoCFDI
+            // 
+            this.cbxUsoCFDI.FormattingEnabled = true;
+            this.cbxUsoCFDI.Location = new System.Drawing.Point(12, 441);
+            this.cbxUsoCFDI.Name = "cbxUsoCFDI";
+            this.cbxUsoCFDI.Size = new System.Drawing.Size(216, 24);
+            this.cbxUsoCFDI.TabIndex = 52;
+            this.cbxUsoCFDI.SelectedIndexChanged += new System.EventHandler(this.cbxUsoCFDI_SelectedIndexChanged);
+            // 
+            // tbxMensage
+            // 
+            this.tbxMensage.Location = new System.Drawing.Point(7, 522);
+            this.tbxMensage.Multiline = true;
+            this.tbxMensage.Name = "tbxMensage";
+            this.tbxMensage.Size = new System.Drawing.Size(445, 111);
+            this.tbxMensage.TabIndex = 51;
+            // 
+            // label24
+            // 
+            this.label24.AutoSize = true;
+            this.label24.Location = new System.Drawing.Point(9, 503);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(217, 16);
+            this.label24.TabIndex = 50;
+            this.label24.Text = "Ingrese una observación para la factura:";
             // 
             // ModalDetalleCobro
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(464, 455);
+            this.ClientSize = new System.Drawing.Size(478, 683);
             this.Controls.Add(this.pnlContent);
             this.Font = new System.Drawing.Font("Microsoft YaHei UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
@@ -1295,6 +1338,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pbxIcon)).EndInit();
             this.pnlButtons.ResumeLayout(false);
             this.pnlContent.ResumeLayout(false);
+            this.pnlContent.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.pnlMixto.ResumeLayout(false);
             this.tabMixto.ResumeLayout(false);
@@ -1454,5 +1498,9 @@
         private System.Windows.Forms.Button btnCleanCard;
         private System.Windows.Forms.Button btnCleanCheque;
         private System.Windows.Forms.Button btnCleanTransfer;
+        private System.Windows.Forms.Label label23;
+        private System.Windows.Forms.ComboBox cbxUsoCFDI;
+        private System.Windows.Forms.TextBox tbxMensage;
+        private System.Windows.Forms.Label label24;
     }
 }

@@ -70,6 +70,7 @@
             this.label1.Size = new System.Drawing.Size(198, 13);
             this.label1.TabIndex = 45;
             this.label1.Text = "Ingrese una observación para la factura:";
+            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // tbxMensage
             // 
@@ -78,6 +79,7 @@
             this.tbxMensage.Name = "tbxMensage";
             this.tbxMensage.Size = new System.Drawing.Size(628, 111);
             this.tbxMensage.TabIndex = 46;
+            this.tbxMensage.TextChanged += new System.EventHandler(this.tbxMensage_TextChanged);
             // 
             // btnAceptar
             // 
@@ -106,6 +108,7 @@
             this.label2.Size = new System.Drawing.Size(93, 13);
             this.label2.TabIndex = 49;
             this.label2.Text = "Tipo de uso CFDI:";
+            this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
             // msgObservacionFactura
             // 

@@ -44,6 +44,22 @@ namespace SOAPAP.UI.Messages
         private void cbxUsoCFDI_SelectedIndexChanged(object sender, EventArgs e)
         {
             Usos = ((DataComboBox)cbxUsoCFDI.SelectedItem).keyString + " - " + ((DataComboBox)cbxUsoCFDI.SelectedItem).value;
+
+        }
+
+        private void tbxMensage_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

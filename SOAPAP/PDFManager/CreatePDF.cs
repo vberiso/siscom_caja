@@ -796,8 +796,8 @@ namespace SOAPAP.PDFManager
             builder.Append(@"<td style='width: 180px;'><b>No. serie certificado:</b></td>");
             builder.Append(@"<td style='font-family:\""Montserrat\"", sans-serif;'>00001000000410637078</td></tr>"); //No Certificado
             builder.Append(@"<tr>");
-            builder.Append(@"<td style='width: 180px;'><b>Observaciones:</b></td>");
-            builder.Append(@"<td style='font-family:\""Montserrat\"", sans-serif;'>" + ObservacionCFDI == null ? Cfdi.Observations : ObservacionCFDI + "</td></tr>"); //Oberservaciones
+            builder.Append(@"<td style='width: 180px;'><b>Observaciones:</b></td><td>");
+            builder.Append(@"<td>" + ObservacionCFDI == null ? Cfdi.Observations : ObservacionCFDI + "</td></tr>"); //Oberservaciones
             builder.Append(@"</table>");
             builder.Append(@"</div>");
             builder.Append(@"<div class='sello_digital' style='margin-bottom: 30px;'>");
@@ -846,7 +846,7 @@ namespace SOAPAP.PDFManager
             if (Div.Id == 12 && is_participaciones)
             {
                 perfil = "TESORERO";
-                builder.Append(@"<td>JOSE MARIA MEZA PEREZ</td>");
+                builder.Append(@"<td>JOSÉ MARÍA MEZA PÉREZ</td>");
             }
             
             builder.Append(@"</tr>");
