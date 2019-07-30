@@ -39,19 +39,21 @@ namespace SOAPAP
         FacturamaApiMultiemisor facturama;
         public string msgObservacionFactura { get; set; }
         public string msgUsos { get; set; }
+        public int bandera { get; set; } = 0;
 
         public Facturaelectronica()
         {
 
             Requests = new RequestsAPI(UrlBase);
-            //facturama = new FacturamaApiMultiemisor("gfdsystems", "gfds1st95", false);
-            facturama = new FacturamaApiMultiemisor("gfdsystems", "gfds1st95");
+            facturama = new FacturamaApiMultiemisor("gfdsystems", "gfds1st95", false);
+            //facturama = new FacturamaApiMultiemisor("gfdsystems", "gfds1st95");
             //facturama = new FacturamaApiMultiemisor("pruebas", "pruebas2011");
         }
         public void setMsgs(string msgObservacionFactura, string msgUsos)
         {
             this.msgObservacionFactura = msgObservacionFactura;
             this.msgUsos = msgUsos;
+            bandera = 1;
         }
         //Metodo del Vic (con calmita...)
         public async Task<string> facturar(string idtraccaction, string status, string uuid)
@@ -1212,12 +1214,13 @@ namespace SOAPAP
                 //FIN DEL ARMADO DEL XML
 
                 //Se solicita una obsevacion para cada factura.
-                //using (msgObservacionFactura msgObs = new msgObservacionFactura())
-                //{
-                //    msgObs.ShowDialog();
-                //    msgObservacionFactura = msgObs.TextoObservacion;
-                //    msgUsos = msgObs.Usos;
-                //}
+                if (bandera == 0)
+                    using (msgObservacionFactura msgObs = new msgObservacionFactura())
+                    {
+                        msgObs.ShowDialog();
+                        msgObservacionFactura = msgObs.TextoObservacion;
+                        msgUsos = msgObs.Usos;
+                    }
                 //En caso de factura fuera de fecha
                 if (TraVM.payment.PaymentDate.ToString("yyyy-MM-dd") != DateTime.Today.ToString("yyyy-MM-dd"))
                     msgObservacionFactura += "Pago efectuado el " + TraVM.payment.PaymentDate.ToString("yyyy-MM-dd");
