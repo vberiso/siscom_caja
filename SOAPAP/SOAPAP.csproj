@@ -16,7 +16,7 @@
     <TargetFrameworkProfile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
-    <PublishUrl>\\installer.sosapac.gob.mx\caja\</PublishUrl>
+    <PublishUrl>\\installer.cuautlancingo.gob.mx\caja\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Unc</InstallFrom>
     <UpdateEnabled>true</UpdateEnabled>
@@ -26,10 +26,10 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>true</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <UpdateUrl>\\installer.sosapac.gob.mx\caja\</UpdateUrl>
-    <MinimumRequiredVersion>1.1.1.168</MinimumRequiredVersion>
+    <UpdateUrl>\\installer.cuautlancingo.gob.mx\caja\</UpdateUrl>
+    <MinimumRequiredVersion>1.1.1.177</MinimumRequiredVersion>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>169</ApplicationRevision>
+    <ApplicationRevision>178</ApplicationRevision>
     <ApplicationVersion>1.1.1.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>

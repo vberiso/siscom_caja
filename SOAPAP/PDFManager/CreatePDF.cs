@@ -486,7 +486,7 @@ namespace SOAPAP.PDFManager
             builder.Append(@"<td style='width: 180px;'><b>No. serie certificado:</b></td>");
             builder.Append(@"<td style='font-family:\""Montserrat\"", sans-serif;'>00001000000410637078</td></tr>"); //No Certificado
             builder.Append(@"<tr>");
-            builder.Append(@"<td style='width: 180px;'><b>Observaciones:</b></td>");
+            builder.Append(@"<td style='width: 180px;'><b>Observaciones:</b></td><td>");
             builder.Append(@"<td style='font-family:\""Montserrat\"", sans-serif;'>" + ObservacionCFDI == null ? Cfdi.Observations : ObservacionCFDI + "</td></tr>"); //Oberservaciones
             builder.Append(@"</table>");
             builder.Append(@"</div>");

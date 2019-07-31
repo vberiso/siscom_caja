@@ -1181,19 +1181,27 @@ namespace SOAPAP
                                         //mensaje.ShowDialog();
                                         if (payment.HaveTaxReceipt)
                                         {
-                                            Facturaelectronica fst = new Facturaelectronica();
-                                            string key = payment.TaxReceipts.Where(x => x.Status == "ET001").FirstOrDefault().IdXmlFacturama;
-                                            var response = await fst.CancelarFacturaDesdeAPI(key);
-                                            if (resultado.Contains("error"))
+                                            try
                                             {
-                                                mensaje = new MessageBoxForm("Error", response, TypeIcon.Icon.Cancel);
-                                                result = mensaje.ShowDialog();
+                                                Facturaelectronica fst = new Facturaelectronica();
+                                                string key = payment.TaxReceipts.Where(x => x.Status == "ET001").FirstOrDefault().IdXmlFacturama;
+                                                var response = await fst.CancelarFacturaDesdeAPI(key);
+                                                if (response.Contains("error"))
+                                                {
+                                                    mensaje = new MessageBoxForm("Error", response, TypeIcon.Icon.Cancel);
+                                                    result = mensaje.ShowDialog();
+                                                }
+                                                else
+                                                {
+                                                    mensaje = new MessageBoxForm(Variables.titleprincipal, response, TypeIcon.Icon.Success);
+                                                    result = mensaje.ShowDialog();
+                                                }
                                             }
-                                            else
+                                            catch (Exception)
                                             {
-                                                mensaje = new MessageBoxForm(Variables.titleprincipal, response, TypeIcon.Icon.Success);
-                                                result = mensaje.ShowDialog();
+
                                             }
+                                           
                                         }
                                     }
                                     await Total();
