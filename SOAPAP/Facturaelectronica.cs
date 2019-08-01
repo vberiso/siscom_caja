@@ -46,8 +46,9 @@ namespace SOAPAP
         {
 
             Requests = new RequestsAPI(UrlBase);
-            //facturama = new FacturamaApiMultiemisor("gfdsystems", "gfds1st95", false); //producción
-            facturama = new FacturamaApiMultiemisor("gfdsystems", "gfds1st95"); //pruebas
+           
+            facturama = new FacturamaApiMultiemisor("gfdsystems", "gfds1st95", false);
+            //facturama = new FacturamaApiMultiemisor("gfdsystems", "gfds1st95");
             //facturama = new FacturamaApiMultiemisor("pruebas", "pruebas2011");
         }
         public void setMsgs(string msgObservacionFactura, string msgUsos)
@@ -1262,7 +1263,7 @@ namespace SOAPAP
                 //Si es un pago parcial.
                 msgObservacionFactura += string.IsNullOrEmpty(msgPagoParcial) ? "" : msgPagoParcial;
                 //Si hay observaciones en la Orden o el debt
-                if(TraVM.payment.Type != "PAY04")
+                if (TraVM.payment.Type != "PAY04")
                 {
                     if (TraVM.payment.OrderSaleId == 0)
                         msgObservacionFactura += (string.IsNullOrEmpty(TraVM.payment.PaymentDetails.FirstOrDefault().Debt.observations) ? "" : ", " + TraVM.payment.PaymentDetails.FirstOrDefault().Debt.observations);
@@ -1271,9 +1272,8 @@ namespace SOAPAP
                         msgObservacionFactura += (string.IsNullOrEmpty(TraVM.orderSale.Observation) ? "" : ", " + TraVM.orderSale.Observation);
                     }
                 }
-                
-
                 cfdi.Observations = msgObservacionFactura;
+                cfdi.Receiver.CfdiUse = msgUsos.Contains("P01") ? "P01" : "G03";
 
                 string path = GeneraCarpetaDescagasXML();
                 string nombreXML = string.Format("\\{0}_{1}_{2}.xml", issuer.Rfc, receptor.Rfc , seriefolio);
