@@ -853,9 +853,17 @@ namespace SOAPAP
                 string CondicionPago = "";
                 if (TraVM.payment.OrderSaleId == 0) //Servicio
                 {
-                    Descuento = TraVM.payment.PaymentDetails.Sum(x => x.Debt.DebtDiscounts.Where(y => y.CodeConcept == x.CodeConcept).Select(yy => yy.DiscountAmount).FirstOrDefault());
-                    //Anexo el periodo de pago (Services)
-                    CondicionPago = "Periodo de: " + TraVM.payment.PaymentDetails.Min(p => p.Debt.FromDate).ToString("yyyy-MM-dd") + " hasta: " + TraVM.payment.PaymentDetails.Max(p => p.Debt.UntilDate).ToString("yyyy-MM-dd");
+                    if(TraVM.payment.Type == "PAY04")
+                    {
+                        Descuento = 0;
+                        CondicionPago = "Pago Anticipado";
+                    }
+                    else
+                    {
+                        Descuento = TraVM.payment.PaymentDetails.Sum(x => x.Debt.DebtDiscounts.Where(y => y.CodeConcept == x.CodeConcept).Select(yy => yy.DiscountAmount).FirstOrDefault());
+                        //Anexo el periodo de pago (Services)
+                        CondicionPago = "Periodo de: " + TraVM.payment.PaymentDetails.Min(p => p.Debt.FromDate).ToString("yyyy-MM-dd") + " hasta: " + TraVM.payment.PaymentDetails.Max(p => p.Debt.UntilDate).ToString("yyyy-MM-dd");
+                    }                    
                 }
                 else                    //Producto
                 {
@@ -1007,7 +1015,25 @@ namespace SOAPAP
                 //xml = xml + "<cfdi:Conceptos>";
                 string TipoFactura = "", msgPagoParcial = "";
                 List<Item> lstItems = new List<Item>();
-                if (TraVM.payment.OrderSaleId == 0) //Servicio
+                if(TraVM.payment.Type == "PAY04")
+                {
+                    SOAPAP.Model.PaymentDetail PD = TraVM.payment.PaymentDetails.FirstOrDefault();
+                    Item item = new Item()
+                    {
+                        ProductCode = TraVM.ClavesProdServ.Where(x => x.CodeConcep == PD.CodeConcept && x.Tipo == PD.Type).Select(y => y.ClaveProdServ).FirstOrDefault(),
+                        IdentificationNumber = "S" + PD.CodeConcept,
+                        UnitCode = PD.UnitMeasurement,
+                        Unit = "NO APLICA",
+                        Description = PD.Description,
+                        UnitPrice = PD.Amount,
+                        Quantity = 1,
+                        Subtotal = PD.Amount,
+                        Discount = 0,
+                        Total = PD.Amount
+                    };                    
+                    lstItems.Add(item);
+                }
+                else if (TraVM.payment.OrderSaleId == 0) //Servicio
                 {
                     TipoFactura = "CAT01";
                     decimal AdeudoTotal = TraVM.payment.PaymentDetails.FirstOrDefault().Debt.Amount + TraVM.payment.PaymentDetails.Sum(x => x.Tax);
@@ -1232,12 +1258,16 @@ namespace SOAPAP
                 //Si es un pago parcial.
                 msgObservacionFactura += string.IsNullOrEmpty(msgPagoParcial) ? "" : msgPagoParcial;
                 //Si hay observaciones en la Orden o el debt
-                if (TraVM.payment.OrderSaleId == 0)
-                    msgObservacionFactura += (string.IsNullOrEmpty(TraVM.payment.PaymentDetails.FirstOrDefault().Debt.observations) ? "" : ", " + TraVM.payment.PaymentDetails.FirstOrDefault().Debt.observations);
-                else
+                if(TraVM.payment.Type != "PAY04")
                 {
-                    msgObservacionFactura += (string.IsNullOrEmpty(TraVM.orderSale.Observation) ? "" : ", " + TraVM.orderSale.Observation);
+                    if (TraVM.payment.OrderSaleId == 0)
+                        msgObservacionFactura += (string.IsNullOrEmpty(TraVM.payment.PaymentDetails.FirstOrDefault().Debt.observations) ? "" : ", " + TraVM.payment.PaymentDetails.FirstOrDefault().Debt.observations);
+                    else
+                    {
+                        msgObservacionFactura += (string.IsNullOrEmpty(TraVM.orderSale.Observation) ? "" : ", " + TraVM.orderSale.Observation);
+                    }
                 }
+                
 
                 cfdi.Observations = msgObservacionFactura;
 

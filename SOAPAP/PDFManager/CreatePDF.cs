@@ -390,7 +390,11 @@ namespace SOAPAP.PDFManager
                 var CodeConcept = TraVM.payment.PaymentDetails.ToList()[cont].CodeConcept;                
                 string ProductCode = TraVM.ClavesProdServ.Where(c => c.CodeConcep == CodeConcept).FirstOrDefault().ClaveProdServ;
                 string UnitCode = TraVM.payment.PaymentDetails.Where(p => p.CodeConcept == CodeConcept).FirstOrDefault().UnitMeasurement;
-                decimal Descuento = TraVM.payment.PaymentDetails.Where(p => p.CodeConcept == CodeConcept).FirstOrDefault().Debt.DebtDiscounts.Where(d => d.CodeConcept == CodeConcept).Select(y => y.DiscountAmount).FirstOrDefault();
+                decimal Descuento = 0;
+                if (TraVM.payment.Type != "PAY04")
+                    Descuento = TraVM.payment.PaymentDetails.Where(p => p.CodeConcept == CodeConcept).FirstOrDefault().Debt.DebtDiscounts.Where(d => d.CodeConcept == CodeConcept).Select(y => y.DiscountAmount).FirstOrDefault();
+                else
+                    Descuento = 0;
 
                 builder.Append(@"<tr>");
                 builder.Append(@"<td>" + ProductCode + "</td>");
