@@ -34,6 +34,10 @@
             this.btnCancelar = new System.Windows.Forms.Button();
             this.btnAceptar = new System.Windows.Forms.Button();
             this.pnlContent = new System.Windows.Forms.Panel();
+            this.label23 = new System.Windows.Forms.Label();
+            this.cbxUsoCFDI = new System.Windows.Forms.ComboBox();
+            this.tbxMensage = new System.Windows.Forms.TextBox();
+            this.label24 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.pnlMixto = new System.Windows.Forms.Panel();
             this.tabMixto = new System.Windows.Forms.TabControl();
@@ -129,10 +133,6 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label1 = new System.Windows.Forms.Label();
             this.cmbPaymentMethod = new System.Windows.Forms.ComboBox();
-            this.label23 = new System.Windows.Forms.Label();
-            this.cbxUsoCFDI = new System.Windows.Forms.ComboBox();
-            this.tbxMensage = new System.Windows.Forms.TextBox();
-            this.label24 = new System.Windows.Forms.Label();
             this.pnlImagen.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbxIcon)).BeginInit();
             this.pnlButtons.SuspendLayout();
@@ -241,6 +241,41 @@
             this.pnlContent.Name = "pnlContent";
             this.pnlContent.Size = new System.Drawing.Size(478, 683);
             this.pnlContent.TabIndex = 2;
+            // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.Location = new System.Drawing.Point(12, 422);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(99, 16);
+            this.label23.TabIndex = 53;
+            this.label23.Text = "Tipo de uso CFDI:";
+            // 
+            // cbxUsoCFDI
+            // 
+            this.cbxUsoCFDI.FormattingEnabled = true;
+            this.cbxUsoCFDI.Location = new System.Drawing.Point(12, 441);
+            this.cbxUsoCFDI.Name = "cbxUsoCFDI";
+            this.cbxUsoCFDI.Size = new System.Drawing.Size(216, 24);
+            this.cbxUsoCFDI.TabIndex = 52;
+            this.cbxUsoCFDI.SelectedIndexChanged += new System.EventHandler(this.cbxUsoCFDI_SelectedIndexChanged);
+            // 
+            // tbxMensage
+            // 
+            this.tbxMensage.Location = new System.Drawing.Point(7, 522);
+            this.tbxMensage.Multiline = true;
+            this.tbxMensage.Name = "tbxMensage";
+            this.tbxMensage.Size = new System.Drawing.Size(445, 111);
+            this.tbxMensage.TabIndex = 51;
+            // 
+            // label24
+            // 
+            this.label24.AutoSize = true;
+            this.label24.Location = new System.Drawing.Point(9, 503);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(217, 16);
+            this.label24.TabIndex = 50;
+            this.label24.Text = "Ingrese una observación para la factura:";
             // 
             // groupBox2
             // 
@@ -391,7 +426,7 @@
             this.tabTarjeta.Location = new System.Drawing.Point(4, 4);
             this.tabTarjeta.Name = "tabTarjeta";
             this.tabTarjeta.Padding = new System.Windows.Forms.Padding(3);
-            this.tabTarjeta.Size = new System.Drawing.Size(527, 176);
+            this.tabTarjeta.Size = new System.Drawing.Size(462, 177);
             this.tabTarjeta.TabIndex = 1;
             this.tabTarjeta.Text = "Tarjeta";
             // 
@@ -520,7 +555,7 @@
             this.pnlHeaderTarjeta.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlHeaderTarjeta.Location = new System.Drawing.Point(3, 3);
             this.pnlHeaderTarjeta.Name = "pnlHeaderTarjeta";
-            this.pnlHeaderTarjeta.Size = new System.Drawing.Size(521, 38);
+            this.pnlHeaderTarjeta.Size = new System.Drawing.Size(456, 38);
             this.pnlHeaderTarjeta.TabIndex = 5;
             // 
             // label4
@@ -561,7 +596,7 @@
             this.tabCheque.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tabCheque.Location = new System.Drawing.Point(4, 4);
             this.tabCheque.Name = "tabCheque";
-            this.tabCheque.Size = new System.Drawing.Size(527, 176);
+            this.tabCheque.Size = new System.Drawing.Size(462, 177);
             this.tabCheque.TabIndex = 2;
             this.tabCheque.Text = "Cheque";
             // 
@@ -672,7 +707,7 @@
             this.pnlHeaderCheque.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlHeaderCheque.Location = new System.Drawing.Point(0, 0);
             this.pnlHeaderCheque.Name = "pnlHeaderCheque";
-            this.pnlHeaderCheque.Size = new System.Drawing.Size(527, 37);
+            this.pnlHeaderCheque.Size = new System.Drawing.Size(462, 37);
             this.pnlHeaderCheque.TabIndex = 6;
             // 
             // label8
@@ -711,7 +746,7 @@
             this.tabTransferencia.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tabTransferencia.Location = new System.Drawing.Point(4, 4);
             this.tabTransferencia.Name = "tabTransferencia";
-            this.tabTransferencia.Size = new System.Drawing.Size(527, 176);
+            this.tabTransferencia.Size = new System.Drawing.Size(462, 177);
             this.tabTransferencia.TabIndex = 3;
             this.tabTransferencia.Text = "Transferencia";
             // 
@@ -734,9 +769,9 @@
             // 
             this.panel7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(3)))), ((int)(((byte)(155)))), ((int)(((byte)(229)))));
             this.panel7.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panel7.Location = new System.Drawing.Point(375, 36);
+            this.panel7.Location = new System.Drawing.Point(310, 36);
             this.panel7.Name = "panel7";
-            this.panel7.Size = new System.Drawing.Size(150, 138);
+            this.panel7.Size = new System.Drawing.Size(150, 139);
             this.panel7.TabIndex = 9;
             // 
             // txtMixedMontoTransfer
@@ -784,7 +819,7 @@
             this.pnlHeaderTransfer.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlHeaderTransfer.Location = new System.Drawing.Point(0, 0);
             this.pnlHeaderTransfer.Name = "pnlHeaderTransfer";
-            this.pnlHeaderTransfer.Size = new System.Drawing.Size(525, 36);
+            this.pnlHeaderTransfer.Size = new System.Drawing.Size(460, 36);
             this.pnlHeaderTransfer.TabIndex = 6;
             // 
             // label11
@@ -1283,41 +1318,6 @@
             this.cmbPaymentMethod.Size = new System.Drawing.Size(303, 24);
             this.cmbPaymentMethod.TabIndex = 1;
             this.cmbPaymentMethod.SelectionChangeCommitted += new System.EventHandler(this.cmbPaymentMethod_SelectionChangeCommitted);
-            // 
-            // label23
-            // 
-            this.label23.AutoSize = true;
-            this.label23.Location = new System.Drawing.Point(12, 422);
-            this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(99, 16);
-            this.label23.TabIndex = 53;
-            this.label23.Text = "Tipo de uso CFDI:";
-            // 
-            // cbxUsoCFDI
-            // 
-            this.cbxUsoCFDI.FormattingEnabled = true;
-            this.cbxUsoCFDI.Location = new System.Drawing.Point(12, 441);
-            this.cbxUsoCFDI.Name = "cbxUsoCFDI";
-            this.cbxUsoCFDI.Size = new System.Drawing.Size(216, 24);
-            this.cbxUsoCFDI.TabIndex = 52;
-            this.cbxUsoCFDI.SelectedIndexChanged += new System.EventHandler(this.cbxUsoCFDI_SelectedIndexChanged);
-            // 
-            // tbxMensage
-            // 
-            this.tbxMensage.Location = new System.Drawing.Point(7, 522);
-            this.tbxMensage.Multiline = true;
-            this.tbxMensage.Name = "tbxMensage";
-            this.tbxMensage.Size = new System.Drawing.Size(445, 111);
-            this.tbxMensage.TabIndex = 51;
-            // 
-            // label24
-            // 
-            this.label24.AutoSize = true;
-            this.label24.Location = new System.Drawing.Point(9, 503);
-            this.label24.Name = "label24";
-            this.label24.Size = new System.Drawing.Size(217, 16);
-            this.label24.TabIndex = 50;
-            this.label24.Text = "Ingrese una observación para la factura:";
             // 
             // ModalDetalleCobro
             // 

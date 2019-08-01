@@ -548,13 +548,17 @@ namespace SOAPAP.UI
                                        
                                         if (!Variables.Configuration.IsMunicipal)
                                         {
-                                            mensaje = new MessageBoxForm("Sin Deuda", "La cuenta proporcionada no tiene adeudo, puede ingresar un pago anticipado", TypeIcon.Icon.Success, true);
+                                            mensaje = new MessageBoxForm("Sin Deuda", "La cuenta proporcionada no tiene adeudo, puede realizar pagos anticipados", TypeIcon.Icon.Success, true);
                                             result = mensaje.ShowDialog();
                                             if (result == DialogResult.OK)
                                             {
-                                                Form Anticipo = new Anticipo();
+                                                Anticipo Anticipo = new Anticipo();
+                                                Anticipo.setAgreementID(Variables.Agreement.Id);
                                                 if (Anticipo.ShowDialog() == DialogResult.OK)
-                                                    AddPrepaid();
+                                                    ObtenerInformacion();
+
+                                                
+                                                    //AddPrepaid();
                                                 //else
                                                 //anua
                                             }

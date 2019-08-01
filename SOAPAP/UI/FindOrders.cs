@@ -51,12 +51,29 @@ namespace SOAPAP.UI
             centraX(pnpTiltle, pnlCalendar);
         }
 
-        private async void Cargar()
+        private async void Cargar(string  folio =null)
         {
             loading = new Loading();
             loading.Show(this);
-            var results = await Requests.SendURIAsync(String.Format("/api/OrderSales/FindAllOrdersByDate/{0}", dateTimePicker1.Value.ToString("yyyy-MM-dd")), HttpMethod.Get, Variables.LoginModel.Token);
-            if (results.Contains("error"))
+            string url = "";
+            if (folio == null)
+            {
+                url = String.Format("/api/OrderSales/FindAllOrdersByDate/{0}", dateTimePicker1.Value.ToString("yyyy-MM-dd"));
+            }
+            else
+            {
+                url = String.Format("/api/OrderSales/All/Folio/{0}", folio);
+
+            }
+            var results = await Requests.SendURIAsync(url, HttpMethod.Get, Variables.LoginModel.Token);
+            if (results == "")
+            {
+                mensaje = new MessageBoxForm("Error", "No se encontro resultado para el folio: "+ folio, TypeIcon.Icon.Cancel);
+                result = mensaje.ShowDialog();
+                loading.Close();
+                return;
+            }
+            else if (results.Contains("error"))
             {
                 try
                 {
@@ -73,8 +90,16 @@ namespace SOAPAP.UI
             }
             else
             {
-                
-                var orderSales = JsonConvert.DeserializeObject<List<OrderSale>>(results);
+                List<OrderSale> oList = null;
+                if (folio == null)
+                    oList = JsonConvert.DeserializeObject<List<OrderSale>>(results);
+                else
+                {
+                    oList = new List<OrderSale>();
+                    oList.Add(JsonConvert.DeserializeObject<OrderSale>(results));
+                }
+                var orderSales = oList;
+
                 var dataOrder = orderSales.Select(x => new SearchOrders
                 {
                     Id = x.Id,
@@ -331,6 +356,61 @@ namespace SOAPAP.UI
                     mensaje = new MessageBoxForm(Variables.titleprincipal, "Por el momento no se puede descargar el xml", TypeIcon.Icon.Cancel);
                     result = mensaje.ShowDialog();
                 }
+
+            }
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void radioFecha_CheckedChanged(object sender, EventArgs e)
+        {
+
+            //pbBG.Visible = true;
+            dateTimePicker1.Visible = true;
+            tableLayoutPanel1.Visible = true;
+            pbBuscar.Visible = false;
+            txtFolioSearch.Visible = false;
+            txtFolioSearch.Text = "";
+            Cargar();
+            
+        }
+
+        private void radioFolio_CheckedChanged(object sender, EventArgs e)
+        {
+            tableLayoutPanel1.Visible = false;
+            //pbBG.Visible = false;
+            dateTimePicker1.Visible = false;
+            pbBuscar.Visible = true;
+            txtFolioSearch.Visible = true;
+            
+
+        }
+
+       
+
+        private void txtFolioSearch_TextChanged_1(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void lblTitle_Click(object sender, EventArgs e)
+        {
+           
+        }
+
+        private void pbBuscar_Click(object sender, EventArgs e)
+        {
+            if (txtFolioSearch.Text != "")
+                Cargar(txtFolioSearch.Text);
+            else
+            {
+                mensaje = new MessageBoxForm("Error", "Ingrese un folio", TypeIcon.Icon.Cancel);
+                result = mensaje.ShowDialog();
+                loading.Close();
+
 
             }
         }

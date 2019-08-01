@@ -56,7 +56,7 @@ namespace SOAPAP.UI
             }
 
             //Por si el mensaje es muy largo.
-            if (Message.Length > 150)
+            if (!string.IsNullOrEmpty(Message) && Message.Length > 150)
             {
                 this.Height = 350;
                 

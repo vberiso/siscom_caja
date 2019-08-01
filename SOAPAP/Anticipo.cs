@@ -1,4 +1,5 @@
 ﻿using SOAPAP.UI;
+using SOAPAP.UI.FacturacionAnticipada;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -14,13 +15,25 @@ namespace SOAPAP
 {
     public partial class Anticipo : Form
     {
+        private int agreement_id;
+         
         public Anticipo()
         {
+            
             InitializeComponent();
         }
-        
+        public void setAgreementID(int agreement_id)
+        {
+            this.agreement_id = agreement_id;
+        }
         private void button1_Click(object sender, EventArgs e)
         {
+            PeriodosAnticipados Uiperiodos = new PeriodosAnticipados(agreement_id);
+            var result = Uiperiodos.ShowDialog(this);
+            Uiperiodos.Close();
+            
+            this.DialogResult = result;
+            this.Close();
             //Variables.anticipo = 2;
             //Variables.oprtions = true;
             //IForm formInterface = this.Owner as IForm;
@@ -34,7 +47,7 @@ namespace SOAPAP
             //Return.AddPrepaid();
 
             //Close();
-            this.DialogResult = DialogResult.OK;
+            //this.DialogResult = DialogResult.OK;
         }
 
         private void button2_Click(object sender, EventArgs e)

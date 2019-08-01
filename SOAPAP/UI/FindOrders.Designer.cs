@@ -28,19 +28,28 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FindOrders));
             this.pnpTiltle = new System.Windows.Forms.Panel();
+            this.lblTitle = new System.Windows.Forms.Label();
+            this.radioFolio = new System.Windows.Forms.RadioButton();
+            this.radioFecha = new System.Windows.Forms.RadioButton();
+            this.radioGroup1 = new DevExpress.XtraEditors.RadioGroup();
             this.btnClose = new System.Windows.Forms.Button();
             this.lblTitulo = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.pnlCalendar = new System.Windows.Forms.Panel();
+            this.pbBuscar = new System.Windows.Forms.PictureBox();
+            this.txtFolioSearch = new System.Windows.Forms.TextBox();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.pbBG = new System.Windows.Forms.PictureBox();
             this.dgvOrders = new System.Windows.Forms.DataGridView();
             this.panel1 = new System.Windows.Forms.Panel();
             this.pnpTiltle.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.radioGroup1.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.pnlCalendar.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbBuscar)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbBG)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvOrders)).BeginInit();
@@ -49,6 +58,10 @@
             // pnpTiltle
             // 
             this.pnpTiltle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(3)))), ((int)(((byte)(155)))), ((int)(((byte)(229)))));
+            this.pnpTiltle.Controls.Add(this.lblTitle);
+            this.pnpTiltle.Controls.Add(this.radioFolio);
+            this.pnpTiltle.Controls.Add(this.radioFecha);
+            this.pnpTiltle.Controls.Add(this.radioGroup1);
             this.pnpTiltle.Controls.Add(this.btnClose);
             this.pnpTiltle.Controls.Add(this.lblTitulo);
             this.pnpTiltle.Controls.Add(this.pictureBox1);
@@ -58,6 +71,55 @@
             this.pnpTiltle.Name = "pnpTiltle";
             this.pnpTiltle.Size = new System.Drawing.Size(960, 83);
             this.pnpTiltle.TabIndex = 0;
+            // 
+            // lblTitle
+            // 
+            this.lblTitle.AutoSize = true;
+            this.lblTitle.Font = new System.Drawing.Font("Microsoft YaHei UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTitle.ForeColor = System.Drawing.Color.White;
+            this.lblTitle.Location = new System.Drawing.Point(208, 1);
+            this.lblTitle.Name = "lblTitle";
+            this.lblTitle.Size = new System.Drawing.Size(75, 20);
+            this.lblTitle.TabIndex = 64;
+            this.lblTitle.Text = "Filtar por";
+            this.lblTitle.Click += new System.EventHandler(this.lblTitle_Click);
+            // 
+            // radioFolio
+            // 
+            this.radioFolio.AutoSize = true;
+            this.radioFolio.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.radioFolio.ForeColor = System.Drawing.Color.White;
+            this.radioFolio.Location = new System.Drawing.Point(211, 47);
+            this.radioFolio.Name = "radioFolio";
+            this.radioFolio.Size = new System.Drawing.Size(62, 25);
+            this.radioFolio.TabIndex = 63;
+            this.radioFolio.Text = "Folio";
+            this.radioFolio.UseVisualStyleBackColor = true;
+            this.radioFolio.CheckedChanged += new System.EventHandler(this.radioFolio_CheckedChanged);
+            // 
+            // radioFecha
+            // 
+            this.radioFecha.AutoSize = true;
+            this.radioFecha.Checked = true;
+            this.radioFecha.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.radioFecha.ForeColor = System.Drawing.Color.White;
+            this.radioFecha.Location = new System.Drawing.Point(211, 21);
+            this.radioFecha.Name = "radioFecha";
+            this.radioFecha.Size = new System.Drawing.Size(68, 25);
+            this.radioFecha.TabIndex = 62;
+            this.radioFecha.TabStop = true;
+            this.radioFecha.Text = "Fecha";
+            this.radioFecha.UseVisualStyleBackColor = true;
+            this.radioFecha.CheckedChanged += new System.EventHandler(this.radioFecha_CheckedChanged);
+            // 
+            // radioGroup1
+            // 
+            this.radioGroup1.Location = new System.Drawing.Point(193, 12);
+            this.radioGroup1.Name = "radioGroup1";
+            this.radioGroup1.Properties.Appearance.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(3)))), ((int)(((byte)(155)))), ((int)(((byte)(229)))));
+            this.radioGroup1.Properties.Appearance.Options.UseBackColor = true;
+            this.radioGroup1.Size = new System.Drawing.Size(100, 69);
+            this.radioGroup1.TabIndex = 61;
             // 
             // btnClose
             // 
@@ -101,12 +163,42 @@
             // 
             // pnlCalendar
             // 
+            this.pnlCalendar.Controls.Add(this.pbBuscar);
+            this.pnlCalendar.Controls.Add(this.txtFolioSearch);
             this.pnlCalendar.Controls.Add(this.tableLayoutPanel1);
             this.pnlCalendar.Controls.Add(this.pbBG);
-            this.pnlCalendar.Location = new System.Drawing.Point(221, 0);
+            this.pnlCalendar.Location = new System.Drawing.Point(320, 0);
             this.pnlCalendar.Name = "pnlCalendar";
-            this.pnlCalendar.Size = new System.Drawing.Size(363, 83);
+            this.pnlCalendar.Size = new System.Drawing.Size(386, 83);
             this.pnlCalendar.TabIndex = 51;
+            // 
+            // pbBuscar
+            // 
+            this.pbBuscar.BackColor = System.Drawing.Color.White;
+            this.pbBuscar.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.pbBuscar.Image = global::SOAPAP.Properties.Resources.buscar_gris;
+            this.pbBuscar.InitialImage = ((System.Drawing.Image)(resources.GetObject("pbBuscar.InitialImage")));
+            this.pbBuscar.Location = new System.Drawing.Point(324, 22);
+            this.pbBuscar.Name = "pbBuscar";
+            this.pbBuscar.Size = new System.Drawing.Size(26, 34);
+            this.pbBuscar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.pbBuscar.TabIndex = 55;
+            this.pbBuscar.TabStop = false;
+            this.pbBuscar.Visible = false;
+            this.pbBuscar.Click += new System.EventHandler(this.pbBuscar_Click);
+            // 
+            // txtFolioSearch
+            // 
+            this.txtFolioSearch.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtFolioSearch.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtFolioSearch.Location = new System.Drawing.Point(47, 25);
+            this.txtFolioSearch.Multiline = true;
+            this.txtFolioSearch.Name = "txtFolioSearch";
+            this.txtFolioSearch.Size = new System.Drawing.Size(275, 33);
+            this.txtFolioSearch.TabIndex = 53;
+            this.txtFolioSearch.Tag = "Folio";
+            this.txtFolioSearch.Visible = false;
+            this.txtFolioSearch.TextChanged += new System.EventHandler(this.txtFolioSearch_TextChanged_1);
             // 
             // tableLayoutPanel1
             // 
@@ -116,7 +208,7 @@
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel1.Controls.Add(this.dateTimePicker1, 0, 0);
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(32, 25);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(44, 25);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
@@ -139,7 +231,7 @@
             this.pbBG.BackColor = System.Drawing.Color.Transparent;
             this.pbBG.Image = global::SOAPAP.Properties.Resources.bg;
             this.pbBG.InitialImage = global::SOAPAP.Properties.Resources.bg;
-            this.pbBG.Location = new System.Drawing.Point(11, 17);
+            this.pbBG.Location = new System.Drawing.Point(23, 17);
             this.pbBG.Name = "pbBG";
             this.pbBG.Size = new System.Drawing.Size(336, 48);
             this.pbBG.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -190,8 +282,11 @@
             this.Resize += new System.EventHandler(this.FindOrders_Resize);
             this.pnpTiltle.ResumeLayout(false);
             this.pnpTiltle.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.radioGroup1.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.pnlCalendar.ResumeLayout(false);
+            this.pnlCalendar.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbBuscar)).EndInit();
             this.tableLayoutPanel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pbBG)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvOrders)).EndInit();
@@ -211,5 +306,11 @@
         private System.Windows.Forms.DataGridView dgvOrders;
         private System.Windows.Forms.Button btnClose;
         private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.RadioButton radioFolio;
+        private System.Windows.Forms.RadioButton radioFecha;
+        private DevExpress.XtraEditors.RadioGroup radioGroup1;
+        private System.Windows.Forms.TextBox txtFolioSearch;
+        private System.Windows.Forms.Label lblTitle;
+        private System.Windows.Forms.PictureBox pbBuscar;
     }
 }

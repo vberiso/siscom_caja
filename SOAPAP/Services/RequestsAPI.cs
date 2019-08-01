@@ -161,7 +161,8 @@ namespace SOAPAP.Services
                     switch (httpResponse.StatusCode)
                     {
                         case System.Net.HttpStatusCode.OK:
-                            return await httpResponse.Content.ReadAsStringAsync();
+                            var result = await httpResponse.Content.ReadAsStringAsync();
+                            return result;
                         case System.Net.HttpStatusCode.InternalServerError:
                             return "{\"error\": \"Servicio temporalmente no disponible contacte al Administrador, disculpe las molestias: x000500\"}";
                         case System.Net.HttpStatusCode.ServiceUnavailable:
