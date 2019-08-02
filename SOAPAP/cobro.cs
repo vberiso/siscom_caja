@@ -205,6 +205,7 @@ namespace SOAPAP
                 if (on == "ACTIVO")
                 {
                     Variables.cuenta = cuentas;
+                    Variables.cuentaID = Convert.ToInt32(row.Cells[1].Value.ToString()); 
                     IForm formInterface = this.Owner as IForm;
                     if (formInterface != null)
                     {
@@ -214,7 +215,7 @@ namespace SOAPAP
                 }
                 else
                 {
-                    mensaje = new MessageBoxForm(Variables.titleprincipal, "Esta cuenta no se encuentra activa", TypeIcon.Icon.Cancel);
+                    mensaje = new MessageBoxForm(Variables.titleprincipal, "La cuenta seleccionada está: " + on, TypeIcon.Icon.Cancel);
                     mensaje.ShowDialog();
                 }
             }

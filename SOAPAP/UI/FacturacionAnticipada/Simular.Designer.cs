@@ -32,13 +32,13 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.lblTotal = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
             this.lblIva = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.btnAccept = new System.Windows.Forms.Button();
             this.panel3 = new System.Windows.Forms.Panel();
             this.dataGridViewServicios = new System.Windows.Forms.DataGridView();
-            this.label3 = new System.Windows.Forms.Label();
-            this.lblTotal = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -79,11 +79,31 @@
             this.panel2.Size = new System.Drawing.Size(520, 54);
             this.panel2.TabIndex = 4;
             // 
+            // lblTotal
+            // 
+            this.lblTotal.AutoSize = true;
+            this.lblTotal.Font = new System.Drawing.Font("Verdana", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTotal.Location = new System.Drawing.Point(128, 16);
+            this.lblTotal.Name = "lblTotal";
+            this.lblTotal.Size = new System.Drawing.Size(51, 18);
+            this.lblTotal.TabIndex = 9;
+            this.lblTotal.Text = "label3";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft YaHei UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(226, 14);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(38, 22);
+            this.label3.TabIndex = 8;
+            this.label3.Text = "Iva:";
+            // 
             // lblIva
             // 
             this.lblIva.AutoSize = true;
             this.lblIva.Font = new System.Drawing.Font("Verdana", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblIva.Location = new System.Drawing.Point(279, 14);
+            this.lblIva.Location = new System.Drawing.Point(270, 16);
             this.lblIva.Name = "lblIva";
             this.lblIva.Size = new System.Drawing.Size(51, 18);
             this.lblIva.TabIndex = 7;
@@ -95,9 +115,9 @@
             this.label1.Font = new System.Drawing.Font("Microsoft YaHei UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(3, 14);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(57, 22);
+            this.label1.Size = new System.Drawing.Size(119, 22);
             this.label1.TabIndex = 6;
-            this.label1.Text = "Total:";
+            this.label1.Text = "Total con iva:";
             // 
             // btnAccept
             // 
@@ -144,26 +164,6 @@
             this.dataGridViewServicios.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridViewServicios.Size = new System.Drawing.Size(520, 229);
             this.dataGridViewServicios.TabIndex = 0;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft YaHei UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(191, 12);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(82, 22);
-            this.label3.TabIndex = 8;
-            this.label3.Text = "Iva total:";
-            // 
-            // lblTotal
-            // 
-            this.lblTotal.AutoSize = true;
-            this.lblTotal.Font = new System.Drawing.Font("Verdana", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTotal.Location = new System.Drawing.Point(74, 16);
-            this.lblTotal.Name = "lblTotal";
-            this.lblTotal.Size = new System.Drawing.Size(51, 18);
-            this.lblTotal.TabIndex = 9;
-            this.lblTotal.Text = "label3";
             // 
             // Simular
             // 

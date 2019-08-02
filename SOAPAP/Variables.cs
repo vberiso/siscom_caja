@@ -17,6 +17,7 @@ namespace SOAPAP
         public static OrderSale OrderSale { get; set; }
         public static string titleprincipal { get; set; } = "SISCOM";
         public static string cuenta { get; set; } = string.Empty;
+        public static int cuentaID { get; set; } = -1;
         public static int  metododepago { get; set; } = 0;
         public static bool sitieneiva { get; set; } = false;
         public static List<Deb> debst { get; set; } = new List<Deb>();

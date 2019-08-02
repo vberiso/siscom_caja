@@ -26,18 +26,18 @@ namespace SOAPAP.UI
         Form loading;
         private RequestsAPI Requests = null;
         private string UrlBase = Properties.Settings.Default.URL;
-        String _account = String.Empty;
+        String agrementID = String.Empty;
         List<Model.Payment> _payments = null;
         List<Model.Debt> _debts = null;
         Model.Agreement _agreement = null;
         Model.OrderSale _orderSale = null;
         Search.Type _typeSearchSelect = Search.Type.Ninguno;
 
-        public ModalFicha(string Title, string Message, TypeIcon.Icon TypeIcon, String Account, Search.Type Type)
+        public ModalFicha(string Title, string Message, TypeIcon.Icon TypeIcon, String AgreementId, Search.Type Type)
         {
             InitializeComponent();
             Requests = new RequestsAPI(UrlBase);
-            _account = Account;
+            this.agrementID = AgreementId;
             _typeSearchSelect = Type;
         }       
 
@@ -121,7 +121,7 @@ namespace SOAPAP.UI
         {            
             await Task.Factory.StartNew(() =>
             {
-                var resultAgreement = Requests.SendURIAsync(string.Format("/api/Agreements/GetSummary/{0}", _account), HttpMethod.Get, Variables.LoginModel.Token).Result;
+                var resultAgreement = Requests.SendURIAsync(string.Format("/api/Agreements/GetSummary/{0}", agrementID), HttpMethod.Get, Variables.LoginModel.Token).Result;
                 if (resultAgreement.Contains("error"))
                 {
                     mensaje = new MessageBoxForm("Error", resultAgreement.Split(':')[1].Replace("}", ""), TypeIcon.Icon.Cancel);
@@ -172,7 +172,7 @@ namespace SOAPAP.UI
         {
             loading = new Loading();
             loading.Show(this);
-            var resultOrder =await Requests.SendURIAsync(string.Format("/api/OrderSales/Folio/{0}", _account), HttpMethod.Get, Variables.LoginModel.Token);
+            var resultOrder =await Requests.SendURIAsync(string.Format("/api/OrderSales/Folio/{0}", agrementID), HttpMethod.Get, Variables.LoginModel.Token);
             loading.Close();
             if (resultOrder.Contains("error"))
             {

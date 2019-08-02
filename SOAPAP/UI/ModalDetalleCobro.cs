@@ -1126,6 +1126,7 @@ namespace SOAPAP.UI
                         Form loadings = new Loading();
                         loadings.Show(this);
                         Facturaelectronica fs = new Facturaelectronica();
+                        fs.setMsgs(tbxMensage.Text, Usos);
                         xmltimbrado = await fs.generaFactura(Variables.idtransaction.ToString(), "ET001");
                         if (xmltimbrado.Contains("error"))
                         {

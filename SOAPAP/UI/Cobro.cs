@@ -3,6 +3,7 @@ using Gma.QrCodeNet.Encoding;
 using Gma.QrCodeNet.Encoding.Windows.Render;
 using Humanizer;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using SOAPAP.Enums;
 using SOAPAP.Model;
 using SOAPAP.Services;
@@ -212,7 +213,7 @@ namespace SOAPAP.UI
                 case Search.Type.Cuenta:
                     if (Variables.Agreement != null)
                     {
-                        mensaje = new ModalFicha("Detalle Conceptos", "", TypeIcon.Icon.Warning, Variables.Agreement.Account, Search.Type.Cuenta);
+                        mensaje = new ModalFicha("Detalle Conceptos", "", TypeIcon.Icon.Warning, Variables.Agreement.Id.ToString(), Search.Type.Cuenta);
                         result = mensaje.ShowDialog();
                     }
                     break;
@@ -450,7 +451,8 @@ namespace SOAPAP.UI
                     TypeSearchSelect = Search.Type.Cuenta;
                     loading = new Loading();
                     loading.Show(this);
-                    var resultAgreement = await Requests.SendURIAsync(string.Format("/api/Agreements/AgreementByAccount/Cash/{0}", _cuenta), HttpMethod.Get, Variables.LoginModel.Token);
+                    var resultAgreement = await Requests.SendURIAsync(string.Format("/api/Agreements/AgreementByAccount/Cash/{0}/{1}", _cuenta, Variables.cuentaID == -1?"": Variables.cuentaID.ToString()), HttpMethod.Get, Variables.LoginModel.Token);
+                    Variables.cuentaID = -1;
                     loading.Close();
                     if (resultAgreement.Contains("error"))
                     {
@@ -459,8 +461,25 @@ namespace SOAPAP.UI
                     }
                     else
                     {
-                        Variables.Agreement = JsonConvert.DeserializeObject<Model.Agreement>(resultAgreement);
-                        if (Variables.Configuration.IsMunicipal && Variables.Agreement.AgreementDetails != null)
+                        var oLAgreement = JsonConvert.DeserializeObject<List<Model.Agreement>>(resultAgreement);
+                        //List < Model.Agreement > s =  JsonConvert.DeserializeObject<List<Model.Agreement>>(resultAgreement);
+                        int count = oLAgreement.Count();
+                        if (count <= 1)
+                        {
+                            
+                            Variables.Agreement = count == 1 ? oLAgreement[0] : JsonConvert.DeserializeObject<Model.Agreement>("{}");
+                        }
+                        else
+                        {
+                            
+                            var OCobroBuscarCuentaSelectOne = new CobroBuscarCuentaSelectOne(oLAgreement);
+                            OCobroBuscarCuentaSelectOne.ShowDialog();
+                            Variables.Agreement = OCobroBuscarCuentaSelectOne.getAgreement();
+
+                        }
+                     
+                        
+                        if (Variables.Configuration.IsMunicipal && Variables.Agreement.AgreementDetails.Count() >0)
                         {
                             tableLayoutPanel3.Size = new Size(344, 478);
                             tableLayoutPanel3.RowStyles[tableLayoutPanel3.RowCount - 1] = new RowStyle(SizeType.Percent, 31.03f);
@@ -576,7 +595,8 @@ namespace SOAPAP.UI
                             else
                             {
                                 descuentosToolStripMenuItem.Enabled = false;
-                                mensaje = new MessageBoxForm("Error", "La cuenta no se encuentra activa", TypeIcon.Icon.Cancel);
+                                string msg = "La cuenta proporcionada " + (Variables.Agreement.TypeStateService != null? "está: " + Variables.Agreement.TypeStateService.Name:"No existe");
+                                mensaje = new MessageBoxForm("Error", msg, TypeIcon.Icon.Cancel);
                                 result = mensaje.ShowDialog();
                             }
                         }

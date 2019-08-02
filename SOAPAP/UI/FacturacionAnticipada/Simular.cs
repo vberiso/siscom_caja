@@ -61,26 +61,33 @@ namespace SOAPAP.UI.FacturacionAnticipada
             dataGridViewServicios.Columns[4].Name = "Iva";
 
             decimal total = 0;
-            decimal taltalIva = 0;
+            decimal ivaTotal = 0;
             
             var url = string.Format("/api/StoreProcedure/runAccrualPeriod/{0}/{1}/{2}/{3}/{4}", AgreementId, MesInicio, MesIFin, Year, 1);
             var results = await Requests.SendURIAsync(url, HttpMethod.Post, Variables.LoginModel.Token);
             var data = JObject.Parse(results)["data"]["data"];
+            decimal ivaParcial = 0;
+            decimal ivat = 0;
+            decimal totalMeses = Convert.ToDecimal(MesIFin - (MesInicio - 1));
             foreach (var  rowArray in data)
             {     
-                decimal totalMeses = Convert.ToDecimal(MesIFin - (MesInicio-1));
-                decimal iva = 0;
+                  
                 if (Convert.ToBoolean(rowArray["have_tax"]))
-                     iva = Math.Round((Convert.ToDecimal(rowArray["amount"].ToString()) * totalMeses) * Convert.ToDecimal(Variables.Configuration.IVA) / 100,2);
-                dataGridViewServicios.Rows.Add(new string[] { rowArray["name_concept"].ToString(), rowArray["amount"].ToString() , totalMeses.ToString(), (totalMeses * Convert.ToDecimal(rowArray["amount"].ToString())).ToString(), iva.ToString() });
-                if (Convert.ToBoolean(rowArray["have_tax"]))
-                     taltalIva = Convert.ToDecimal(rowArray["amount"].ToString()) * totalMeses; 
+                {
+                    ivaTotal += Convert.ToDecimal(rowArray["amount"].ToString()) * totalMeses;
+                    ivaParcial = Math.Round(Convert.ToDecimal(rowArray["amount"].ToString()) * Convert.ToDecimal(Variables.Configuration.IVA) / 100, 2);
+                    ivat += ivaParcial;
+                }
                 else
-                    total +=  Convert.ToDecimal(rowArray["amount"].ToString()) * totalMeses;
+                {
+                    total += Convert.ToDecimal(rowArray["amount"].ToString()) * totalMeses;
+                }
+                dataGridViewServicios.Rows.Add(new string[] { rowArray["name_concept"].ToString(), rowArray["amount"].ToString() , totalMeses.ToString(), (totalMeses * Convert.ToDecimal(rowArray["amount"].ToString())).ToString(), ivaParcial.ToString() });
+              
             }
-            taltalIva = taltalIva - Math.Round( taltalIva * Convert.ToDecimal(Variables.Configuration.IVA) / 100,2);
-            lblTotal.Text = Math.Round(taltalIva + total).ToString();
-            lblIva.Text = Math.Round(Math.Round(taltalIva * Convert.ToDecimal(Variables.Configuration.IVA) / 100, 2)).ToString();
+            ivaTotal = ivaTotal + ivat;
+            lblTotal.Text = Math.Round(ivaTotal + total,2).ToString();
+            lblIva.Text = Math.Round(ivat, 2).ToString();
         }
     }
 }

@@ -653,7 +653,7 @@ namespace SOAPAP.PDFManager
                 }
             }
 
-            if (Div.Id != 12 && is_participaciones)
+            if (Variables.LoginModel.Divition != 12 && is_participaciones)
             {
                 builder.Append(@"<td style='width: 120px;'><b>No. de orden:</b></td>");
                 builder.Append(@"<td style='width: 100px; font-family:\""Montserrat\"", sans-serif;'>" + _orderSale.Folio + "</td>"); //Cuenta
@@ -669,7 +669,7 @@ namespace SOAPAP.PDFManager
             builder.Append(@"</tr>");
             builder.Append(@"</table>");
             builder.Append(@"<table style='font-size: 14px;'>");
-            if (Div.Id != 12 && is_participaciones)
+            if (Variables.LoginModel.Divition != 12 && is_participaciones)
             {
                 builder.Append(@"<tr>");
                 builder.Append(@"<td style='width: 120px;'><b>Periodo:</b></td>");
@@ -847,7 +847,7 @@ namespace SOAPAP.PDFManager
             builder.Append(@"<table style='text - align: center; width: 100 %; margin - left: 40px; text - align: center; width: 100 %; '>");
             builder.Append(@"<tr>");
             string perfil = "CAJERO";
-            if (Div.Id == 12 && is_participaciones)
+            if (Variables.LoginModel.Divition == 12 && is_participaciones)
             {
                 perfil = "TESORERO";
                 builder.Append(@"<td>JOSÉ MARÍA MEZA PÉREZ</td>");

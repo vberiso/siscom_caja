@@ -1258,8 +1258,15 @@ namespace SOAPAP
                     }
                 }
                 //En caso de factura fuera de fecha
-                if (TraVM.payment.PaymentDate.ToString("yyyy-MM-dd") != DateTime.Today.ToString("yyyy-MM-dd"))
-                    msgObservacionFactura += "Pago efectuado el " + TraVM.payment.PaymentDate.ToString("yyyy-MM-dd");
+                bool printFecha =  Variables.LoginModel.Divition != 12;
+                if (Variables.Configuration.IsMunicipal)
+                {
+                    if (TraVM.payment.PaymentDate.ToString("yyyy-MM-dd") != DateTime.Today.ToString("yyyy-MM-dd") && printFecha)
+                        msgObservacionFactura += " Pago efectuado el " + TraVM.payment.PaymentDate.ToString("yyyy-MM-dd");
+                }
+                else
+                     if (TraVM.payment.PaymentDate.ToString("yyyy-MM-dd") != DateTime.Today.ToString("yyyy-MM-dd"))
+                    msgObservacionFactura += " Pago efectuado el " + TraVM.payment.PaymentDate.ToString("yyyy-MM-dd");
                 //Si es un pago parcial.
                 msgObservacionFactura += string.IsNullOrEmpty(msgPagoParcial) ? "" : msgPagoParcial;
                 //Si hay observaciones en la Orden o el debt
