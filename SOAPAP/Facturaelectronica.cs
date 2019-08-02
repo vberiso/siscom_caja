@@ -1043,8 +1043,17 @@ namespace SOAPAP
 
                     if (AdeudoTotal == TraVM.payment.Total) //Pago total
                     {
-                        List<SOAPAP.Model.DebtDetail> lstDD = TraVM.payment.PaymentDetails.FirstOrDefault().Debt.DebtDetails.ToList();
-                        List<SOAPAP.Model.DebtDiscount> lstDDis = TraVM.payment.PaymentDetails.FirstOrDefault().Debt.DebtDiscounts.ToList();
+                        List<SOAPAP.Model.DebtDetail> lstDD = new List<DebtDetail>(); //TraVM.payment.PaymentDetails.FirstOrDefault().Debt.DebtDetails.ToList();
+                        foreach(var item in TraVM.payment.PaymentDetails.GroupBy(x => x.Debt.Id).Select(group => new { id = group.Key, detail = group.ToList().FirstOrDefault().Debt.DebtDetails.ToList() }).ToList())
+                        {
+                            lstDD.AddRange(item.detail);
+                        }
+                        List<SOAPAP.Model.DebtDiscount> lstDDis = new List<DebtDiscount>(); //TraVM.payment.PaymentDetails.FirstOrDefault().Debt.DebtDiscounts.ToList();
+                        foreach(var item in TraVM.payment.PaymentDetails.GroupBy(x => x.Debt.Id).Select(group => new { id = group.Key, detail = group.ToList().FirstOrDefault().Debt.DebtDiscounts.ToList() }).ToList())
+                        {
+                            lstDDis.AddRange(item.detail);
+                        }
+
                         foreach (var pay in TraVM.payment.PaymentDetails)
                         {
                             //Calculo del unit price.
