@@ -70,12 +70,12 @@ namespace SOAPAP.PDFManager
         }
 
         //Obtiene informacion para un servicio
-        public async Task<string> Create(string PathNombrePdf)
+        public async Task<string> Create(string PathNombrePdf, int AgreementId = 0)
         {
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
             try
             {
-                var resultAgreement = await Requests.SendURIAsync(string.Format("/api/Agreements/GetSummary/{0}", Account), HttpMethod.Get, Variables.LoginModel.Token);
+                var resultAgreement = await Requests.SendURIAsync(string.Format("/api/Agreements/GetSummary/{0}/1", AgreementId.ToString()), HttpMethod.Get, Variables.LoginModel.Token);
                 if (resultAgreement.Contains("error"))
                 {
                     mensaje = new MessageBoxForm("Error", resultAgreement.Split(':')[1].Replace("}", ""), TypeIcon.Icon.Cancel);

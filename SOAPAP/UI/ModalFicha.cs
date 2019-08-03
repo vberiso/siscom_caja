@@ -121,7 +121,7 @@ namespace SOAPAP.UI
         {            
             await Task.Factory.StartNew(() =>
             {
-                var resultAgreement = Requests.SendURIAsync(string.Format("/api/Agreements/GetSummary/{0}", agrementID), HttpMethod.Get, Variables.LoginModel.Token).Result;
+                var resultAgreement = Requests.SendURIAsync(string.Format("/api/Agreements/GetSummary/{0}/1", agrementID), HttpMethod.Get, Variables.LoginModel.Token).Result;
                 if (resultAgreement.Contains("error"))
                 {
                     mensaje = new MessageBoxForm("Error", resultAgreement.Split(':')[1].Replace("}", ""), TypeIcon.Icon.Cancel);
