@@ -24,12 +24,12 @@ using static System.Net.Mime.MediaTypeNames;
 
 namespace SOAPAP
 {
-    class querys 
+    class querys
     {
 
         private RequestsAPI Requests = null;
         private string UrlBase = Properties.Settings.Default.URL;
-     
+
 
         public querys()
         {
@@ -38,7 +38,7 @@ namespace SOAPAP
         ////////////////////////////////////////////ENDPOINT///////////////////////////////////////////////////////
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-        
+
         public async Task<DataTable> GETBranchOffice(string url)
         {
 
@@ -51,9 +51,9 @@ namespace SOAPAP
 
             catch (Exception)
             {
-                
+
             }
-            
+
             return dt;
         }
 
@@ -74,12 +74,12 @@ namespace SOAPAP
                 retorno = "Exito";
             }
 
-                
+
             return retorno;
 
         }
 
-        public async Task<string> POSTTransaction(string url, string folio, string sign, string amounts, string aplications, string typeTransactionId,string payMethodId,string terminalUserId,string codeConcept,string description,string amount)
+        public async Task<string> POSTTransaction(string url, string folio, string sign, string amounts, string aplications, string typeTransactionId, string payMethodId, string terminalUserId, string codeConcept, string description, string amount)
         {
             string retorno = string.Empty;
             string WEBSERVICE_URL = url;
@@ -139,8 +139,8 @@ namespace SOAPAP
             var resultado = await Requests.SendURIAsync(string.Format(url), HttpMethod.Get, Variables.LoginModel.Token);
             try
             {
-                 ms = JsonConvert.DeserializeObject<List<pyment>>(resultado);
-                 foreach (var r in ms.ToList())
+                ms = JsonConvert.DeserializeObject<List<pyment>>(resultado);
+                foreach (var r in ms.ToList())
                 {
                     DataRow row = dt.NewRow();
                     row["debitDate"] = r.debitDate;
@@ -149,13 +149,13 @@ namespace SOAPAP
                     row["typeService"] = r.typeService;
                     row["fromDate"] = r.fromDate;
                     row["status"] = r.status;
-                    
+
 
 
                     dt.Rows.Add(row);
                 }
 
-                
+
             }
             catch (Exception es)
             {
@@ -345,9 +345,9 @@ namespace SOAPAP
 
             }
 
-            return dt;  
+            return dt;
         }
-  
+
         public async Task<DataTable> GETAgreementsFindAgreement(string url)
         {
             DataTable dt = new DataTable();
@@ -365,7 +365,7 @@ namespace SOAPAP
                 dr[0] = "error/" + m.error;
                 dt.Rows.Add(dr);
             }
-            
+
             return dt;
 
         }
@@ -476,99 +476,99 @@ namespace SOAPAP
             column.DataType = System.Type.GetType("System.String");
             column.ColumnName = "typeTransactionId";
             dt.Columns.Add(column);
-            
+
             var resultado = await Requests.SendURIAsync(string.Format(url), HttpMethod.Get, Variables.LoginModel.Token);
             try
             {
-            List<Transaction> m = JsonConvert.DeserializeObject<List<Transaction>>(resultado);
+                List<Transaction> m = JsonConvert.DeserializeObject<List<Transaction>>(resultado);
 
-                            decimal postivoefec = 0;
-                            decimal negativoefec = 0;
-                            decimal postivocheques = 0;
-                            decimal negativocheques = 0;
-                            decimal postivotar = 0;
-                            decimal negativotar = 0;
-                            decimal postivootros = 0;
-                            decimal negativootros = 0;
+                decimal postivoefec = 0;
+                decimal negativoefec = 0;
+                decimal postivocheques = 0;
+                decimal negativocheques = 0;
+                decimal postivotar = 0;
+                decimal negativotar = 0;
+                decimal postivootros = 0;
+                decimal negativootros = 0;
 
 
-                            for (int i = 0; i < m.Count; i++)
-                            {
-                                
-                                if (m[i].payMethod.id==1 && m[i].sign ==true && m[i].typeTransactionId != 1 && m[i].typeTransactionId != 2 && m[i].typeTransactionId != 5 && m[i].typeTransactionId != 6 && m[i].typeTransactionId != 7)
-                                {
+                for (int i = 0; i < m.Count; i++)
+                {
 
-                                    postivoefec = postivoefec + m[i].total;
-                                }
+                    if (m[i].payMethod.id == 1 && m[i].sign == true && m[i].typeTransactionId != 1 && m[i].typeTransactionId != 2 && m[i].typeTransactionId != 5 && m[i].typeTransactionId != 6 && m[i].typeTransactionId != 7)
+                    {
 
-                                else if (m[i].payMethod.id == 1 && m[i].sign == false && m[i].typeTransactionId != 1 && m[i].typeTransactionId != 2 && m[i].typeTransactionId != 5  && m[i].typeTransactionId != 7 && m[i].typeTransactionId != 6)
-                                {
-                                    negativoefec = negativoefec + m[i].total;
-                                }
+                        postivoefec = postivoefec + m[i].total;
+                    }
 
-                                else if (m[i].payMethod.id == 2 && m[i].sign == true && m[i].typeTransactionId != 1 && m[i].typeTransactionId != 2 && m[i].typeTransactionId != 5 && m[i].typeTransactionId != 6 && m[i].typeTransactionId != 7)
-                                {
-                                    postivocheques = postivocheques + m[i].total;
-                                }
+                    else if (m[i].payMethod.id == 1 && m[i].sign == false && m[i].typeTransactionId != 1 && m[i].typeTransactionId != 2 && m[i].typeTransactionId != 5 && m[i].typeTransactionId != 7 && m[i].typeTransactionId != 6)
+                    {
+                        negativoefec = negativoefec + m[i].total;
+                    }
 
-                                else if (m[i].payMethod.id == 2 && m[i].sign == false && m[i].typeTransactionId != 1 && m[i].typeTransactionId != 2 && m[i].typeTransactionId != 5  && m[i].typeTransactionId != 7 && m[i].typeTransactionId != 6) 
-                                {
-                                    negativocheques = negativocheques + m[i].total;
-                                }
+                    else if (m[i].payMethod.id == 2 && m[i].sign == true && m[i].typeTransactionId != 1 && m[i].typeTransactionId != 2 && m[i].typeTransactionId != 5 && m[i].typeTransactionId != 6 && m[i].typeTransactionId != 7)
+                    {
+                        postivocheques = postivocheques + m[i].total;
+                    }
 
-                                else if (m[i].payMethod.id == 4 && m[i].sign == true && m[i].typeTransactionId != 1 && m[i].typeTransactionId != 2 && m[i].typeTransactionId != 5 && m[i].typeTransactionId != 6 && m[i].typeTransactionId != 7)
-                                {
-                                    postivotar = postivotar + m[i].total;
-                                }
+                    else if (m[i].payMethod.id == 2 && m[i].sign == false && m[i].typeTransactionId != 1 && m[i].typeTransactionId != 2 && m[i].typeTransactionId != 5 && m[i].typeTransactionId != 7 && m[i].typeTransactionId != 6)
+                    {
+                        negativocheques = negativocheques + m[i].total;
+                    }
 
-                                else if (m[i].payMethod.id == 4 && m[i].sign == false && m[i].typeTransactionId != 1 && m[i].typeTransactionId != 2 && m[i].typeTransactionId != 5  && m[i].typeTransactionId != 7 && m[i].typeTransactionId != 6)
-                                {
-                                    negativotar = negativotar + m[i].total;
-                                }
+                    else if (m[i].payMethod.id == 4 && m[i].sign == true && m[i].typeTransactionId != 1 && m[i].typeTransactionId != 2 && m[i].typeTransactionId != 5 && m[i].typeTransactionId != 6 && m[i].typeTransactionId != 7)
+                    {
+                        postivotar = postivotar + m[i].total;
+                    }
 
-                                else if (m[i].payMethod.id == 3 && m[i].sign == true && m[i].typeTransactionId != 1 && m[i].typeTransactionId != 2 && m[i].typeTransactionId != 5 && m[i].typeTransactionId != 6 && m[i].typeTransactionId != 7)
-                                {
-                                    postivootros = postivootros + m[i].total;
-                                }
+                    else if (m[i].payMethod.id == 4 && m[i].sign == false && m[i].typeTransactionId != 1 && m[i].typeTransactionId != 2 && m[i].typeTransactionId != 5 && m[i].typeTransactionId != 7 && m[i].typeTransactionId != 6)
+                    {
+                        negativotar = negativotar + m[i].total;
+                    }
 
-                                else if (m[i].payMethod.id == 3 && m[i].sign == false && m[i].typeTransactionId != 1 && m[i].typeTransactionId != 2 && m[i].typeTransactionId != 5  && m[i].typeTransactionId != 7 && m[i].typeTransactionId != 6)
-                                {
-                                    negativootros = negativootros + m[i].total;
-                                }
+                    else if (m[i].payMethod.id == 3 && m[i].sign == true && m[i].typeTransactionId != 1 && m[i].typeTransactionId != 2 && m[i].typeTransactionId != 5 && m[i].typeTransactionId != 6 && m[i].typeTransactionId != 7)
+                    {
+                        postivootros = postivootros + m[i].total;
+                    }
 
-                                DataRow row = dt.NewRow();
-                                row["Id"] = m[i].id.ToString();
-                                try
-                                {
-                                    row["Folio"] = m[i].transactionFolios.FirstOrDefault().folio;
-                                }
-                                catch (Exception)
-                                {
-                                    
-                                } 
-                                                                
-                            row["dateTransaction"] = m[i].dateTransaction.ToString();
-                            row["sign"] = m[i].sign.ToString();
-                            row["amount"] = m[i].amount.ToString();
-                            row["tax"] = m[i].tax.ToString();
-                            row["rounding"] = m[i].rounding;
-                            row["total"] = m[i].total;
-                            row["aplication"] = m[i].aplication;
-                            row["cancellationFolio"] = m[i].cancellationFolio;
-                            row["authorizationOriginPayment"] = m[i].authorizationOriginPayment;
-                            row["idterminalUser"] = m[i].typeTransaction.id.ToString();
-                            row["nameterminalUser"] = m[i].typeTransaction.name.ToString();
-                            row["idpayMethod"] = m[i].payMethod.id;
-                            row["namepayMethod"] = m[i].payMethod.name;
-                            row["foliotrans"] = m[i].folio;
-                            row["typeTransactionId"] = m[i].typeTransactionId;
-                            dt.Rows.Add(row);
-                            }
+                    else if (m[i].payMethod.id == 3 && m[i].sign == false && m[i].typeTransactionId != 1 && m[i].typeTransactionId != 2 && m[i].typeTransactionId != 5 && m[i].typeTransactionId != 7 && m[i].typeTransactionId != 6)
+                    {
+                        negativootros = negativootros + m[i].total;
+                    }
 
-                            Variables.efectivo = postivoefec - negativoefec;
-                            Variables.cheques = postivocheques - negativocheques;
-                            Variables.tarjetas = postivotar - negativotar;
-                            Variables.otros = postivootros - negativootros;
+                    DataRow row = dt.NewRow();
+                    row["Id"] = m[i].id.ToString();
+                    try
+                    {
+                        row["Folio"] = m[i].transactionFolios.FirstOrDefault().folio;
+                    }
+                    catch (Exception)
+                    {
+
+                    }
+
+                    row["dateTransaction"] = m[i].dateTransaction.ToString();
+                    row["sign"] = m[i].sign.ToString();
+                    row["amount"] = m[i].amount.ToString();
+                    row["tax"] = m[i].tax.ToString();
+                    row["rounding"] = m[i].rounding;
+                    row["total"] = m[i].total;
+                    row["aplication"] = m[i].aplication;
+                    row["cancellationFolio"] = m[i].cancellationFolio;
+                    row["authorizationOriginPayment"] = m[i].authorizationOriginPayment;
+                    row["idterminalUser"] = m[i].typeTransaction.id.ToString();
+                    row["nameterminalUser"] = m[i].typeTransaction.name.ToString();
+                    row["idpayMethod"] = m[i].payMethod.id;
+                    row["namepayMethod"] = m[i].payMethod.name;
+                    row["foliotrans"] = m[i].folio;
+                    row["typeTransactionId"] = m[i].typeTransactionId;
+                    dt.Rows.Add(row);
+                }
+
+                Variables.efectivo = postivoefec - negativoefec;
+                Variables.cheques = postivocheques - negativocheques;
+                Variables.tarjetas = postivotar - negativotar;
+                Variables.otros = postivootros - negativootros;
             }
             catch (Exception)
             {
@@ -685,8 +685,8 @@ namespace SOAPAP
             }
             return dt;
         }
-        
-        public async  Task<DataTable> GETPayMethod(string url)
+
+        public async Task<DataTable> GETPayMethod(string url)
         {
             DataTable dt = new DataTable();
             var resultado = await Requests.SendURIAsync(string.Format(url), HttpMethod.Get, Variables.LoginModel.Token);
@@ -715,7 +715,7 @@ namespace SOAPAP
 
             try
             {
-            dt = (DataTable)JsonConvert.DeserializeObject(resultado, (typeof(DataTable)));
+                dt = (DataTable)JsonConvert.DeserializeObject(resultado, (typeof(DataTable)));
             }
             catch (Exception)
             {
@@ -748,84 +748,85 @@ namespace SOAPAP
             decimal porcentaje = 0;
             decimal iva = 0;
 
-            
-                    json = "{\"transaction\": ";
-                    json = json + "{\"sign\": \"" + sign + "\", \"amount\": \"" + amounts + "\", \"account\": \"" + cuenta + "\", \"tax\": \"" + tax + "\", \"percentageTax\": \"" + percentageTax + "\", \"rounding\": \"" + rounding + "\",\"total\": \"" + total + "\", \"aplication\": \"" + aplications + "\", \"typeTransactionId\": \"" + typeTransactionId + "\", \"payMethodId\": \"" + payMethodId + "\", \"terminalUserId\": \"" + terminalUserId + "\", \"authorizationOriginPayment\": \"" + authorizationOriginPayment + "\", \"originPaymentId\": \"" + originPaymentId + "\", \"externalOriginPaymentId\": \"" + externalOriginPaymentId + "\", \"type\": \"" + type + "\", \"paytStatus\": \"" + debtStatus + "\", \"agreementId\": \"" + acount + "\",\"transactionDetails\": [";
-                    x1 = agrupado.Rows.Count;
 
-                    foreach (DataRow row in agrupado.Rows)
+            json = "{\"transaction\": ";
+            json = json + "{\"sign\": \"" + sign + "\", \"amount\": \"" + amounts + "\", \"account\": \"" + cuenta + "\", \"tax\": \"" + tax + "\", \"percentageTax\": \"" + percentageTax + "\", \"rounding\": \"" + rounding + "\",\"total\": \"" + total + "\", \"aplication\": \"" + aplications + "\", \"typeTransactionId\": \"" + typeTransactionId + "\", \"payMethodId\": \"" + payMethodId + "\", \"terminalUserId\": \"" + terminalUserId + "\", \"authorizationOriginPayment\": \"" + authorizationOriginPayment + "\", \"originPaymentId\": \"" + originPaymentId + "\", \"externalOriginPaymentId\": \"" + externalOriginPaymentId + "\", \"type\": \"" + type + "\", \"paytStatus\": \"" + debtStatus + "\", \"agreementId\": \"" + acount + "\",\"transactionDetails\": [";
+            x1 = agrupado.Rows.Count;
+
+            foreach (DataRow row in agrupado.Rows)
+            {
+                if (x1 != x2)
+                {
+                    json = json + "{\"codeConcept\": \"" + row[4].ToString() + "\",\"description\": \"" + row[5].ToString() + "\",\"amount\": " + row[7].ToString() + "},";
+                    x2 = x2 + 1;
+                }
+                else
+                {
+                    json = json + "{\"codeConcept\": \"" + row[4].ToString() + "\",\"description\": \"" + row[5].ToString() + "\",\"amount\": " + row[7].ToString() + "}";
+                    x2 = 1;
+                }
+            }
+
+            json = json + "]}";
+            json = json + ",\"debt\":[ ";
+
+            q1 = Variables.debst.Count;
+            redondeo = Convert.ToDecimal(rounding) / Variables.debst.Count;
+
+            for (int i = 0; i < Variables.debst.Count; i++)
+            {
+                foreach (var item in Variables.debst[i].debtdetails)
+                {
+                    if (item.haveTax == true)
                     {
-                        if (x1 != x2)
-                        {
-                            json = json + "{\"codeConcept\": \"" + row[4].ToString() + "\",\"description\": \"" + row[5].ToString() + "\",\"amount\": " + row[7].ToString() + "},";
-                            x2 = x2 + 1;
-                        }
-                        else
-                        {
-                            json = json + "{\"codeConcept\": \"" + row[4].ToString() + "\",\"description\": \"" + row[5].ToString() + "\",\"amount\": " + row[7].ToString() + "}";
-                            x2 = 1;
-                        }
+                        sitienevia = true;
+                        resultado = resultado + Convert.ToDecimal(item.amount);
                     }
 
-                    json = json + "]}";
-                    json = json + ",\"debt\":[ ";
+                    subtotal = subtotal + item.amount;
 
-                    q1 = Variables.debst.Count;
-                    redondeo = Convert.ToDecimal(rounding) / Variables.debst.Count;
+                }
 
-                    for (int i = 0; i < Variables.debst.Count; i++)
+                porcentaje = Convert.ToDecimal(Variables.Configuration.IVA);
+                iva = Convert.ToDecimal(Variables.Configuration.IVA);
+
+
+                if (sitienevia == true)
+                {
+                    json = json + "{\"id\": \"" + Variables.debst[i].id + "\", \"debitDate\": \"" + Convert.ToDateTime(Variables.debst[i].debitDate).ToString("yyyy-MM-dd HH:mm:ss") + "\", \"fromDate\": \"" + Convert.ToDateTime(Variables.debst[i].fromDate).ToString("yyyy-MM-dd HH:mm:ss") + "\", \"untilDate\": \"" + Convert.ToDateTime(Variables.debst[i].untilDate).ToString("yyyy-MM-dd HH:mm:ss") + "\", \"derivatives\": \"" + Variables.debst[i].derivatives + "\", \"typeIntake\": \"" + Variables.debst[i].typeIntake + "\", \"typeService\": \"" + Variables.debst[i].typeService + "\", \"consumption\": \"" + Variables.debst[i].consumption + "\", \"discount\": \"" + Variables.debst[i].discount + "\", \"amount\": \"" + Variables.debst[i].amount + "\", \"onAccount\": \"" + ((Convert.ToDecimal(Variables.debst[i].amount) - Convert.ToDecimal(Variables.debst[i].onAccount) * total / monto) + Convert.ToDecimal(Variables.debst[i].onAccount)) + "\", \"year\": \"" + Variables.debst[i].year + "\", \"type\": \"" + Variables.debst[i].type + "\",\"newStatus\": \"ED005\", \"status\": \"" + Variables.debst[i].status + "\", \"debtPeriodId\": \"" + Variables.debst[i].debtPeriodId + "\", \"agreementId\": \"" + Variables.debst[i].agreementId + "\", \"agreement\": \"" + Variables.debst[i].agreement + "\",\"debtDetails\":[";
+                }
+                else
+                {
+                    json = json + "{\"id\": \"" + Variables.debst[i].id + "\", \"debitDate\": \"" + Convert.ToDateTime(Variables.debst[i].debitDate).ToString("yyyy-MM-dd HH:mm:ss") + "\", \"fromDate\": \"" + Convert.ToDateTime(Variables.debst[i].fromDate).ToString("yyyy-MM-dd HH:mm:ss") + "\", \"untilDate\": \"" + Convert.ToDateTime(Variables.debst[i].untilDate).ToString("yyyy-MM-dd HH:mm:ss") + "\", \"derivatives\": \"" + Variables.debst[i].derivatives + "\", \"typeIntake\": \"" + Variables.debst[i].typeIntake + "\", \"typeService\": \"" + Variables.debst[i].typeService + "\", \"consumption\": \"" + Variables.debst[i].consumption + "\", \"discount\": \"" + Variables.debst[i].discount + "\", \"amount\": \"" + Variables.debst[i].amount + "\", \"onAccount\": \"" + (Convert.ToDecimal(Variables.debst[i].amount) - Convert.ToDecimal(Variables.debst[i].onAccount) * total / monto + Convert.ToDecimal(Variables.debst[i].onAccount)) + "\", \"year\": \"" + Variables.debst[i].year + "\", \"type\": \"" + Variables.debst[i].type + "\",\"newStatus\": \"ED005\", \"status\": \"" + Variables.debst[i].status + "\", \"debtPeriodId\": \"" + Variables.debst[i].debtPeriodId + "\", \"agreementId\": \"" + Variables.debst[i].agreementId + "\", \"agreement\": \"" + Variables.debst[i].agreement + "\",\"debtDetails\":[";
+                }
+
+                t = Variables.debst[i].debtdetails.Count;
+                foreach (var item in Variables.debst[i].debtdetails)
+                {
+                    if (t != t1)
                     {
-                        foreach (var item in Variables.debst[i].debtdetails)
-                        {
-                            if (item.haveTax == true)
-                            {
-                                sitienevia = true;
-                                resultado = resultado + Convert.ToDecimal(item.amount);
-                            }
 
-                            subtotal = subtotal + item.amount;
-
-                        }
-
-                        porcentaje = Convert.ToDecimal(Variables.Configuration.IVA);
-                        iva = Convert.ToDecimal(Variables.Configuration.IVA);
-
-
-                        if (sitienevia == true)
-                        {
-                            json = json + "{\"id\": \"" + Variables.debst[i].id + "\", \"debitDate\": \"" + Convert.ToDateTime(Variables.debst[i].debitDate).ToString("yyyy-MM-dd HH:mm:ss") + "\", \"fromDate\": \"" + Convert.ToDateTime(Variables.debst[i].fromDate).ToString("yyyy-MM-dd HH:mm:ss") + "\", \"untilDate\": \"" + Convert.ToDateTime(Variables.debst[i].untilDate).ToString("yyyy-MM-dd HH:mm:ss") + "\", \"derivatives\": \"" + Variables.debst[i].derivatives + "\", \"typeIntake\": \"" + Variables.debst[i].typeIntake + "\", \"typeService\": \"" + Variables.debst[i].typeService + "\", \"consumption\": \"" + Variables.debst[i].consumption + "\", \"discount\": \"" + Variables.debst[i].discount + "\", \"amount\": \"" + Variables.debst[i].amount + "\", \"onAccount\": \"" + ((Convert.ToDecimal(Variables.debst[i].amount) - Convert.ToDecimal(Variables.debst[i].onAccount) * total / monto) + Convert.ToDecimal(Variables.debst[i].onAccount)) + "\", \"year\": \"" + Variables.debst[i].year + "\", \"type\": \"" + Variables.debst[i].type + "\",\"newStatus\": \"ED005\", \"status\": \"" + Variables.debst[i].status + "\", \"debtPeriodId\": \"" + Variables.debst[i].debtPeriodId + "\", \"agreementId\": \"" + Variables.debst[i].agreementId + "\", \"agreement\": \"" + Variables.debst[i].agreement + "\",\"debtDetails\":[";
-                        }
-                        else
-                        {
-                            json = json + "{\"id\": \"" + Variables.debst[i].id + "\", \"debitDate\": \"" + Convert.ToDateTime(Variables.debst[i].debitDate).ToString("yyyy-MM-dd HH:mm:ss") + "\", \"fromDate\": \"" + Convert.ToDateTime(Variables.debst[i].fromDate).ToString("yyyy-MM-dd HH:mm:ss") + "\", \"untilDate\": \"" + Convert.ToDateTime(Variables.debst[i].untilDate).ToString("yyyy-MM-dd HH:mm:ss") + "\", \"derivatives\": \"" + Variables.debst[i].derivatives + "\", \"typeIntake\": \"" + Variables.debst[i].typeIntake + "\", \"typeService\": \"" + Variables.debst[i].typeService + "\", \"consumption\": \"" + Variables.debst[i].consumption + "\", \"discount\": \"" + Variables.debst[i].discount + "\", \"amount\": \"" + Variables.debst[i].amount + "\", \"onAccount\": \"" + (Convert.ToDecimal(Variables.debst[i].amount) - Convert.ToDecimal(Variables.debst[i].onAccount) * total / monto + Convert.ToDecimal(Variables.debst[i].onAccount)) + "\", \"year\": \"" + Variables.debst[i].year + "\", \"type\": \"" + Variables.debst[i].type + "\",\"newStatus\": \"ED005\", \"status\": \"" + Variables.debst[i].status + "\", \"debtPeriodId\": \"" + Variables.debst[i].debtPeriodId + "\", \"agreementId\": \"" + Variables.debst[i].agreementId + "\", \"agreement\": \"" + Variables.debst[i].agreement + "\",\"debtDetails\":[";
-                        }
-
-                        t = Variables.debst[i].debtdetails.Count;
-                        foreach (var item in Variables.debst[i].debtdetails)
-                        {
-                            if (t != t1)
-                            {
-
-                        if (item.haveTax == true)
-                        {
-                            decimal s = ((Convert.ToDecimal(item.amount) - Convert.ToDecimal(item.onAccount)) * iva / 100);  
-                            json = json + "{\"id\": \"" + item.id + "\", \"amount\": \"" + item.amount + "\", \"onAccount\": \"" + (((Convert.ToDecimal(item.amount) - Convert.ToDecimal(item.onAccount)) * total / monto) + Convert.ToDecimal(item.onAccount)) + "\",\"onPayment\": \"" + (((Convert.ToDecimal(item.amount) - Convert.ToDecimal(item.onAccount)) * total / monto)) + "\", \"haveTax\": \"" + item.haveTax + "\", \"codeConcept\": \"" + item.codeConcept + "\", \"nameConcept\": \"" + item.nameConcept + "\", \"debtId\": \"" + item.debtId + "\",\"tax\": \"" + Math.Round(((Convert.ToDecimal(item.amount) - Convert.ToDecimal(item.onAccount)) * iva / 100),2) + "\"},";
-                            t1 = t1 + 1;
-                        }
-                        else {
-                            json = json + "{\"id\": \"" + item.id + "\", \"amount\": \"" + item.amount + "\", \"onAccount\": \"" + (((Convert.ToDecimal(item.amount) - Convert.ToDecimal(item.onAccount)) * total / monto) + Convert.ToDecimal(item.onAccount)) + "\",\"onPayment\": \"" + (((Convert.ToDecimal(item.amount) - Convert.ToDecimal(item.onAccount)) * total / monto)) + "\", \"haveTax\": \"" + item.haveTax + "\", \"codeConcept\": \"" + item.codeConcept + "\", \"nameConcept\": \"" + item.nameConcept + "\", \"debtId\": \"" + item.debtId + "\"},";
-                            t1 = t1 + 1;
-                        }
-                            
-
-
-                            }
-                            else
-                            {
                         if (item.haveTax == true)
                         {
                             decimal s = ((Convert.ToDecimal(item.amount) - Convert.ToDecimal(item.onAccount)) * iva / 100);
-                            json = json + "{\"id\": \"" + item.id + "\", \"amount\": \"" + item.amount + "\", \"onAccount\": \"" + ((((Convert.ToDecimal(item.amount) - Convert.ToDecimal(item.onAccount)) * total) / monto) + Convert.ToDecimal(item.onAccount)) + "\", \"onPayment\": \"" + (((Convert.ToDecimal(item.amount) - Convert.ToDecimal(item.onAccount)) * total / monto)) + "\",\"haveTax\": \"" + item.haveTax + "\", \"codeConcept\": \"" + item.codeConcept + "\", \"nameConcept\": \"" + item.nameConcept + "\", \"debtId\": \"" + item.debtId + "\",\"tax\": \"" + Math.Round(((Convert.ToDecimal(item.amount) - Convert.ToDecimal(item.onAccount)) * iva / 100),2) + "\"}";
+                            json = json + "{\"id\": \"" + item.id + "\", \"amount\": \"" + item.amount + "\", \"onAccount\": \"" + (((Convert.ToDecimal(item.amount) - Convert.ToDecimal(item.onAccount)) * total / monto) + Convert.ToDecimal(item.onAccount)) + "\",\"onPayment\": \"" + (((Convert.ToDecimal(item.amount) - Convert.ToDecimal(item.onAccount)) * total / monto)) + "\", \"haveTax\": \"" + item.haveTax + "\", \"codeConcept\": \"" + item.codeConcept + "\", \"nameConcept\": \"" + item.nameConcept + "\", \"debtId\": \"" + item.debtId + "\",\"tax\": \"" + Math.Round(((Convert.ToDecimal(item.amount) - Convert.ToDecimal(item.onAccount)) * iva / 100), 2) + "\"},";
+                            t1 = t1 + 1;
+                        }
+                        else
+                        {
+                            json = json + "{\"id\": \"" + item.id + "\", \"amount\": \"" + item.amount + "\", \"onAccount\": \"" + (((Convert.ToDecimal(item.amount) - Convert.ToDecimal(item.onAccount)) * total / monto) + Convert.ToDecimal(item.onAccount)) + "\",\"onPayment\": \"" + (((Convert.ToDecimal(item.amount) - Convert.ToDecimal(item.onAccount)) * total / monto)) + "\", \"haveTax\": \"" + item.haveTax + "\", \"codeConcept\": \"" + item.codeConcept + "\", \"nameConcept\": \"" + item.nameConcept + "\", \"debtId\": \"" + item.debtId + "\"},";
+                            t1 = t1 + 1;
+                        }
+
+
+
+                    }
+                    else
+                    {
+                        if (item.haveTax == true)
+                        {
+                            decimal s = ((Convert.ToDecimal(item.amount) - Convert.ToDecimal(item.onAccount)) * iva / 100);
+                            json = json + "{\"id\": \"" + item.id + "\", \"amount\": \"" + item.amount + "\", \"onAccount\": \"" + ((((Convert.ToDecimal(item.amount) - Convert.ToDecimal(item.onAccount)) * total) / monto) + Convert.ToDecimal(item.onAccount)) + "\", \"onPayment\": \"" + (((Convert.ToDecimal(item.amount) - Convert.ToDecimal(item.onAccount)) * total / monto)) + "\",\"haveTax\": \"" + item.haveTax + "\", \"codeConcept\": \"" + item.codeConcept + "\", \"nameConcept\": \"" + item.nameConcept + "\", \"debtId\": \"" + item.debtId + "\",\"tax\": \"" + Math.Round(((Convert.ToDecimal(item.amount) - Convert.ToDecimal(item.onAccount)) * iva / 100), 2) + "\"}";
                             t1 = 1;
                         }
                         else
@@ -835,50 +836,50 @@ namespace SOAPAP
 
                         }
 
-                            
-                            }
-                        }
-
-                        if (q2 != q1)
-                        {
-                            json = json + "],\"debtStatuses\":[]},";
-                            q2 = q2 + 1;
-                        }
-                        else
-                        {
-                            json = json + "],\"debtStatuses\":[]}";
-                        }
-
-                        sitienevia = false;
-                        subtotal = 0;
-                        resultado = 0;
-                        porcentaje = 0;
-                        iva = 0;
 
                     }
+                }
 
-                        json = json + "]}";
+                if (q2 != q1)
+                {
+                    json = json + "],\"debtStatuses\":[]},";
+                    q2 = q2 + 1;
+                }
+                else
+                {
+                    json = json + "],\"debtStatuses\":[]}";
+                }
 
-                        content = new StringContent(json, Encoding.UTF8, "application/json");
-                        var resultados = await Requests.SendURIAsync(url, HttpMethod.Post, Variables.LoginModel.Token, content);
-                         if (resultados.Contains("error"))
-                         {
-                            Error m = JsonConvert.DeserializeObject<Error>(resultados);
-                            retorno = "error/" + m.error;
-                         }
-                            else
-                           
-                            {
-                                int res = Convert.ToInt32(resultados);
-                                Variables.idtransaction = res;
-                                //await GETTransactionID("/api/Transaction/" + res.ToString());
-                                retorno = "Exito";
-                            }
+                sitienevia = false;
+                subtotal = 0;
+                resultado = 0;
+                porcentaje = 0;
+                iva = 0;
 
-                                return retorno;
+            }
+
+            json = json + "]}";
+
+            content = new StringContent(json, Encoding.UTF8, "application/json");
+            var resultados = await Requests.SendURIAsync(url, HttpMethod.Post, Variables.LoginModel.Token, content);
+            if (resultados.Contains("error"))
+            {
+                Error m = JsonConvert.DeserializeObject<Error>(resultados);
+                retorno = "error/" + m.error;
+            }
+            else
+
+            {
+                int res = Convert.ToInt32(resultados);
+                Variables.idtransaction = res;
+                //await GETTransactionID("/api/Transaction/" + res.ToString());
+                retorno = "Exito";
+            }
+
+            return retorno;
         }
 
-        public async  Task<string> POSTTransactionDeb(string url, string sign, decimal amounts, decimal tax, string percentageTax, decimal rounding, decimal total, string aplications, string typeTransactionId, string payMethodId, string terminalUserId, string authorizationOriginPayment, string originPaymentId, string externalOriginPaymentId, string type, string paytStatus, decimal monto, string acount, DataTable agrupado,DataTable dt,int contar, string cuenta)
+        public async Task<string> POSTTransactionDeb(string url, string sign, decimal amounts, decimal tax, string percentageTax, decimal rounding, decimal total, string aplications, string typeTransactionId, string payMethodId, string terminalUserId, string authorizationOriginPayment, string originPaymentId, string externalOriginPaymentId, string type, string paytStatus, decimal monto, string acount, DataTable agrupado, DataTable dt, int contar, string cuenta)
         {
             HttpContent content;
             string retorno = string.Empty;
@@ -908,187 +909,187 @@ namespace SOAPAP
             bool start = false;
             decimal checau = 0;
             decimal checaus = 0;
-            
 
-                    json = "{\"transaction\": ";
-                    json = json + "{\"sign\": \"" + sign + "\", \"amount\": \"" + amounts + "\",\"account\": \"" + 22211 + "\", \"tax\": \"" + tax + "\", \"percentageTax\": \"" + percentageTax + "\", \"rounding\": \"" + rounding + "\",\"total\": \"" + total + "\", \"aplication\": \"" + aplications + "\", \"typeTransactionId\": \"" + typeTransactionId + "\", \"payMethodId\": \"" + payMethodId + "\", \"terminalUserId\": \"" + terminalUserId + "\", \"authorizationOriginPayment\": \"" + authorizationOriginPayment + "\", \"originPaymentId\": \"" + originPaymentId + "\", \"externalOriginPaymentId\": \"" + externalOriginPaymentId + "\", \"type\": \"" + type + "\", \"paytStatus\": \"" + paytStatus + "\", \"agreementId\": \"" + acount + "\",\"transactionDetails\": [";
 
-                    x1 = agrupado.Rows.Count;
-                    foreach (DataRow row in agrupado.Rows)
+            json = "{\"transaction\": ";
+            json = json + "{\"sign\": \"" + sign + "\", \"amount\": \"" + amounts + "\",\"account\": \"" + 22211 + "\", \"tax\": \"" + tax + "\", \"percentageTax\": \"" + percentageTax + "\", \"rounding\": \"" + rounding + "\",\"total\": \"" + total + "\", \"aplication\": \"" + aplications + "\", \"typeTransactionId\": \"" + typeTransactionId + "\", \"payMethodId\": \"" + payMethodId + "\", \"terminalUserId\": \"" + terminalUserId + "\", \"authorizationOriginPayment\": \"" + authorizationOriginPayment + "\", \"originPaymentId\": \"" + originPaymentId + "\", \"externalOriginPaymentId\": \"" + externalOriginPaymentId + "\", \"type\": \"" + type + "\", \"paytStatus\": \"" + paytStatus + "\", \"agreementId\": \"" + acount + "\",\"transactionDetails\": [";
+
+            x1 = agrupado.Rows.Count;
+            foreach (DataRow row in agrupado.Rows)
+            {
+                if (x1 != x2)
+                {
+                    json = json + "{\"codeConcept\": \"" + row[4].ToString() + "\",\"description\": \"" + row[5].ToString() + "\",\"amount\": " + (decimal)row[7] + "},";
+                    x2 = x2 + 1;
+                    checau = checau + (decimal)row[7];
+                }
+                else
+                {
+                    json = json + "{\"codeConcept\": \"" + row[4].ToString() + "\",\"description\": \"" + row[5].ToString() + "\",\"amount\": " + (decimal)row[7] + "}";
+                    x2 = 1;
+                    checau = checau + (decimal)row[7];
+                }
+            }
+
+            json = json + "]}";
+            json = json + ",\"debt\":[ ";
+
+            q1 = Variables.debst.Count;
+            redondeo = Math.Round(Convert.ToDecimal(rounding) / Variables.debst.Count, 2);
+
+            for (int i = 0; i < Variables.debst.Count; i++)
+            {
+
+                foreach (var item in Variables.debst[i].debtdetails)
+                {
+                    if (item.haveTax == true)
                     {
-                        if (x1 != x2)
+                        resultado = resultado + Convert.ToDecimal(item.amount);
+                        ivast = ivast + (Convert.ToDecimal(item.amount) - Convert.ToDecimal(item.onAccount)) * Convert.ToDecimal(Variables.Configuration.IVA) / 100;
+                    }
+
+                    subtotal = subtotal + item.amount;
+                }
+
+                resultadot = Convert.ToDecimal(Variables.debst[i].amount) - Convert.ToDecimal(Variables.debst[i].onAccount) + ivast;
+                acumulado = acumulado + resultadot;
+                //redondeo = Math.Ceiling(acumulado) - acumulado;
+                totals = acumulado + redondeo;
+                totals = acumulado;
+                montosresultantes = montosresultantes + resultadot;
+                totalx = total - totals;
+                totals2 = resultadot;
+
+                if (totalx <= 0)
+                {
+
+                    saldoaplicar = resultadot - (resultadot - saldoaplicar);
+                    totalp = saldoaplicar + acomulador2;
+                    porcentaje = Convert.ToDecimal(Variables.Configuration.IVA);
+                    iva = Convert.ToDecimal(Variables.Configuration.IVA);
+
+                    if (start == false)
+                    {
+
+                        decimal c = 0;
+                        decimal totalst = 0;
+                        saldoaplicar = resultadot - (resultadot - total);
+                        c = Convert.ToDecimal(Variables.debst[i].onAccount);
+                        totalst = saldoaplicar + c;
+                        if (totalx == 0)
                         {
-                            json = json + "{\"codeConcept\": \"" + row[4].ToString() + "\",\"description\": \"" + row[5].ToString() + "\",\"amount\": " + (decimal)row[7] + "},";
-                            x2 = x2 + 1;
-                            checau = checau + (decimal)row[7];
+
+                            json = json + "{\"id\": \"" + Variables.debst[i].id + "\", \"debitDate\": \"" + Convert.ToDateTime(Variables.debst[i].debitDate).ToString("yyyy-MM-dd HH:mm:ss") + "\", \"fromDate\": \"" + Convert.ToDateTime(Variables.debst[i].fromDate).ToString("yyyy-MM-dd HH:mm:ss") + "\", \"untilDate\": \"" + Convert.ToDateTime(Variables.debst[i].untilDate).ToString("yyyy-MM-dd HH:mm:ss") + "\", \"derivatives\": \"" + Variables.debst[i].derivatives + "\", \"typeIntake\": \"" + Variables.debst[i].typeIntake + "\", \"typeService\": \"" + Variables.debst[i].typeService + "\", \"consumption\": \"" + Variables.debst[i].consumption + "\", \"discount\": \"" + Variables.debst[i].discount + "\", \"amount\": \"" + Variables.debst[i].amount + "\", \"onAccount\": \"" + (Math.Round(totalst, 2) - tax) + "\", \"year\": \"" + Variables.debst[i].year + "\", \"type\": \"" + Variables.debst[i].type + "\", \"status\": \"" + Variables.debst[i].status + "\",\"newStatus\": \"ED005\", \"debtPeriodId\": \"" + Variables.debst[i].debtPeriodId + "\", \"agreementId\": \"" + Variables.debst[i].agreementId + "\", \"agreement\": \"" + Variables.debst[i].agreement + "\",\"debtDetails\":[";
+
                         }
                         else
                         {
-                            json = json + "{\"codeConcept\": \"" + row[4].ToString() + "\",\"description\": \"" + row[5].ToString() + "\",\"amount\": " + (decimal)row[7] + "}";
-                            x2 = 1;
-                            checau = checau + (decimal)row[7];
+                            json = json + "{\"id\": \"" + Variables.debst[i].id + "\", \"debitDate\": \"" + Convert.ToDateTime(Variables.debst[i].debitDate).ToString("yyyy-MM-dd HH:mm:ss") + "\", \"fromDate\": \"" + Convert.ToDateTime(Variables.debst[i].fromDate).ToString("yyyy-MM-dd HH:mm:ss") + "\", \"untilDate\": \"" + Convert.ToDateTime(Variables.debst[i].untilDate).ToString("yyyy-MM-dd HH:mm:ss") + "\", \"derivatives\": \"" + Variables.debst[i].derivatives + "\", \"typeIntake\": \"" + Variables.debst[i].typeIntake + "\", \"typeService\": \"" + Variables.debst[i].typeService + "\", \"consumption\": \"" + Variables.debst[i].consumption + "\", \"discount\": \"" + Variables.debst[i].discount + "\", \"amount\": \"" + Variables.debst[i].amount + "\", \"onAccount\": \"" + (Math.Round(totalst, 2) - tax) + "\", \"year\": \"" + Variables.debst[i].year + "\", \"type\": \"" + Variables.debst[i].type + "\", \"status\": \"" + Variables.debst[i].status + "\",\"newStatus\": \"ED004\", \"debtPeriodId\": \"" + Variables.debst[i].debtPeriodId + "\", \"agreementId\": \"" + Variables.debst[i].agreementId + "\", \"agreement\": \"" + Variables.debst[i].agreement + "\",\"debtDetails\":[";
+
                         }
                     }
-
-                    json = json + "]}";
-                    json = json + ",\"debt\":[ ";
-
-                    q1 = Variables.debst.Count;
-                    redondeo = Math.Round(Convert.ToDecimal(rounding) / Variables.debst.Count,2);
-
-                    for (int i = 0; i < Variables.debst.Count; i++)
+                    else
                     {
-
-                        foreach (var item in Variables.debst[i].debtdetails)
+                        if (totalx == 0)
                         {
-                            if (item.haveTax == true)
-                            {
-                                resultado = resultado + Convert.ToDecimal(item.amount);
-                                ivast = ivast + (Convert.ToDecimal(item.amount) - Convert.ToDecimal(item.onAccount)) * Convert.ToDecimal(Variables.Configuration.IVA) / 100;
-                            }
 
-                            subtotal = subtotal + item.amount;       
+                            json = json + "{\"id\": \"" + Variables.debst[i].id + "\", \"debitDate\": \"" + Convert.ToDateTime(Variables.debst[i].debitDate).ToString("yyyy-MM-dd HH:mm:ss") + "\", \"fromDate\": \"" + Convert.ToDateTime(Variables.debst[i].fromDate).ToString("yyyy-MM-dd HH:mm:ss") + "\", \"untilDate\": \"" + Convert.ToDateTime(Variables.debst[i].untilDate).ToString("yyyy-MM-dd HH:mm:ss") + "\", \"derivatives\": \"" + Variables.debst[i].derivatives + "\", \"typeIntake\": \"" + Variables.debst[i].typeIntake + "\", \"typeService\": \"" + Variables.debst[i].typeService + "\", \"consumption\": \"" + Variables.debst[i].consumption + "\", \"discount\": \"" + Variables.debst[i].discount + "\", \"amount\": \"" + Variables.debst[i].amount + "\", \"onAccount\": \"" + Math.Round(((saldoaplicar + (Convert.ToDecimal(Variables.debst[i].onAccount))) - tax), 2) + "\", \"year\": \"" + Variables.debst[i].year + "\", \"type\": \"" + Variables.debst[i].type + "\", \"status\": \"" + Variables.debst[i].status + "\",\"newStatus\": \"ED005\", \"debtPeriodId\": \"" + Variables.debst[i].debtPeriodId + "\", \"agreementId\": \"" + Variables.debst[i].agreementId + "\", \"agreement\": \"" + Variables.debst[i].agreement + "\",\"debtDetails\":[";
+                        }
+                        else
+                        {
+                            json = json + "{\"id\": \"" + Variables.debst[i].id + "\", \"debitDate\": \"" + Convert.ToDateTime(Variables.debst[i].debitDate).ToString("yyyy-MM-dd HH:mm:ss") + "\", \"fromDate\": \"" + Convert.ToDateTime(Variables.debst[i].fromDate).ToString("yyyy-MM-dd HH:mm:ss") + "\", \"untilDate\": \"" + Convert.ToDateTime(Variables.debst[i].untilDate).ToString("yyyy-MM-dd HH:mm:ss") + "\", \"derivatives\": \"" + Variables.debst[i].derivatives + "\", \"typeIntake\": \"" + Variables.debst[i].typeIntake + "\", \"typeService\": \"" + Variables.debst[i].typeService + "\", \"consumption\": \"" + Variables.debst[i].consumption + "\", \"discount\": \"" + Variables.debst[i].discount + "\", \"amount\": \"" + Variables.debst[i].amount + "\", \"onAccount\": \"" + Math.Round(((saldoaplicar + (Convert.ToDecimal(Variables.debst[i].onAccount))) - tax), 2) + "\", \"year\": \"" + Variables.debst[i].year + "\", \"type\": \"" + Variables.debst[i].type + "\", \"status\": \"" + Variables.debst[i].status + "\",\"newStatus\": \"ED004\", \"debtPeriodId\": \"" + Variables.debst[i].debtPeriodId + "\", \"agreementId\": \"" + Variables.debst[i].agreementId + "\", \"agreement\": \"" + Variables.debst[i].agreement + "\",\"debtDetails\":[";
                         }
 
-                        resultadot = Convert.ToDecimal(Variables.debst[i].amount) - Convert.ToDecimal(Variables.debst[i].onAccount) + ivast;
-                        acumulado = acumulado + resultadot;
-                        //redondeo = Math.Ceiling(acumulado) - acumulado;
-                        totals = acumulado + redondeo;
-                        totals = acumulado ;
-                        montosresultantes = montosresultantes + resultadot;
-                        totalx = total - totals;
-                        totals2 = resultadot;
 
-                        if (totalx <= 0)
+                    }
+
+                    t = Variables.debst[i].debtdetails.Count;
+                    int contador = contar;
+
+
+
+                    foreach (var item in Variables.debst[i].debtdetails)
+                    {
+
+
+                        if (start == false)
                         {
 
-                            saldoaplicar = resultadot - (resultadot - saldoaplicar);
-                            totalp = saldoaplicar + acomulador2;
-                            porcentaje = Convert.ToDecimal(Variables.Configuration.IVA);
-                            iva = Convert.ToDecimal(Variables.Configuration.IVA);
-
-                            if (start == false)
+                            if (t != t1)
                             {
 
-                                decimal c = 0;
-                                decimal totalst = 0;
-                                saldoaplicar = resultadot - (resultadot - total);
-                                c = Convert.ToDecimal(Variables.debst[i].onAccount);
-                                totalst = saldoaplicar + c;
-                                if (totalx == 0)
+
+                                if (item.haveTax == true)
                                 {
 
-                                    json = json + "{\"id\": \"" + Variables.debst[i].id + "\", \"debitDate\": \"" + Convert.ToDateTime(Variables.debst[i].debitDate).ToString("yyyy-MM-dd HH:mm:ss") + "\", \"fromDate\": \"" + Convert.ToDateTime(Variables.debst[i].fromDate).ToString("yyyy-MM-dd HH:mm:ss") + "\", \"untilDate\": \"" + Convert.ToDateTime(Variables.debst[i].untilDate).ToString("yyyy-MM-dd HH:mm:ss") + "\", \"derivatives\": \"" + Variables.debst[i].derivatives + "\", \"typeIntake\": \"" + Variables.debst[i].typeIntake + "\", \"typeService\": \"" + Variables.debst[i].typeService + "\", \"consumption\": \"" + Variables.debst[i].consumption + "\", \"discount\": \"" + Variables.debst[i].discount + "\", \"amount\": \"" + Variables.debst[i].amount + "\", \"onAccount\": \"" + (Math.Round(totalst,2) - tax) + "\", \"year\": \"" + Variables.debst[i].year + "\", \"type\": \"" + Variables.debst[i].type + "\", \"status\": \"" + Variables.debst[i].status + "\",\"newStatus\": \"ED005\", \"debtPeriodId\": \"" + Variables.debst[i].debtPeriodId + "\", \"agreementId\": \"" + Variables.debst[i].agreementId + "\", \"agreement\": \"" + Variables.debst[i].agreement + "\",\"debtDetails\":[";
+
+                                    json = json + "{\"id\": \"" + item.id + "\", \"amount\": \"" + item.amount + "\", \"onAccount\": \"" + (((decimal)dt.Rows[contador - 1][7]) + (Convert.ToDecimal(item.onAccount))) + "\", \"haveTax\": \"" + item.haveTax + "\",\"onPayment\": \"" + (decimal)dt.Rows[contador - 1][7] + "\", \"codeConcept\": \"" + item.codeConcept + "\", \"nameConcept\": \"" + item.nameConcept + "\", \"debtId\": \"" + item.debtId + "\",\"tax\": \"" + (decimal)dt.Rows[contador - 1]["TaxResult"] + "\"},";
+                                    t1 = t1 + 1;
+                                    contador = contador + 1;
 
                                 }
                                 else
                                 {
-                                    json = json + "{\"id\": \"" + Variables.debst[i].id + "\", \"debitDate\": \"" + Convert.ToDateTime(Variables.debst[i].debitDate).ToString("yyyy-MM-dd HH:mm:ss") + "\", \"fromDate\": \"" + Convert.ToDateTime(Variables.debst[i].fromDate).ToString("yyyy-MM-dd HH:mm:ss") + "\", \"untilDate\": \"" + Convert.ToDateTime(Variables.debst[i].untilDate).ToString("yyyy-MM-dd HH:mm:ss") + "\", \"derivatives\": \"" + Variables.debst[i].derivatives + "\", \"typeIntake\": \"" + Variables.debst[i].typeIntake + "\", \"typeService\": \"" + Variables.debst[i].typeService + "\", \"consumption\": \"" + Variables.debst[i].consumption + "\", \"discount\": \"" + Variables.debst[i].discount + "\", \"amount\": \"" + Variables.debst[i].amount + "\", \"onAccount\": \"" + (Math.Round(totalst,2) -tax) + "\", \"year\": \"" + Variables.debst[i].year + "\", \"type\": \"" + Variables.debst[i].type + "\", \"status\": \"" + Variables.debst[i].status + "\",\"newStatus\": \"ED004\", \"debtPeriodId\": \"" + Variables.debst[i].debtPeriodId + "\", \"agreementId\": \"" + Variables.debst[i].agreementId + "\", \"agreement\": \"" + Variables.debst[i].agreement + "\",\"debtDetails\":[";
+                                    json = json + "{\"id\": \"" + item.id + "\", \"amount\": \"" + item.amount + "\", \"onAccount\": \"" + (((decimal)dt.Rows[contador - 1][7]) + (Convert.ToDecimal(item.onAccount))) + "\", \"haveTax\": \"" + item.haveTax + "\",\"onPayment\": \"" + (decimal)dt.Rows[contador - 1][7] + "\", \"codeConcept\": \"" + item.codeConcept + "\", \"nameConcept\": \"" + item.nameConcept + "\", \"debtId\": \"" + item.debtId + "\"},";
+                                    t1 = t1 + 1;
+                                    contador = contador + 1;
+                                }
+
+
+
+
+
+
+                            }
+                            else
+                            {
+
+
+                                if (item.haveTax == true)
+                                {
+
+                                    json = json + "{\"id\": \"" + item.id + "\", \"amount\": \"" + item.amount + "\", \"onAccount\": \"" + (((decimal)dt.Rows[contador - 1][7]) + (Convert.ToDecimal(item.onAccount))) + "\", \"haveTax\": \"" + item.haveTax + "\",\"onPayment\": \"" + (decimal)dt.Rows[contador - 1][7] + "\", \"codeConcept\": \"" + item.codeConcept + "\", \"nameConcept\": \"" + item.nameConcept + "\", \"debtId\": \"" + item.debtId + "\",\"tax\": \"" + (decimal)dt.Rows[contador - 1]["TaxResult"] + "\"}";
+                                    t1 = 1;
+
+                                }
+                                else
+                                {
+
+                                    json = json + "{\"id\": \"" + item.id + "\", \"amount\": \"" + item.amount + "\", \"onAccount\": \"" + (((decimal)dt.Rows[contador - 1][7]) + (Convert.ToDecimal(item.onAccount))) + "\", \"haveTax\": \"" + item.haveTax + "\",\"onPayment\": \"" + (decimal)dt.Rows[contador - 1][7] + "\", \"codeConcept\": \"" + item.codeConcept + "\", \"nameConcept\": \"" + item.nameConcept + "\", \"debtId\": \"" + item.debtId + "\"}";
+                                    t1 = 1;
+                                    contador = 0;
+                                }
+
+                            }
+
+                        }
+                        else
+                        {
+
+                            if (t != t1)
+                            {
+
+
+
+                                if (item.haveTax == true)
+                                {
+
+                                    json = json + "{\"id\": \"" + item.id + "\", \"amount\": \"" + item.amount + "\", \"onAccount\": \"" + (((decimal)dt.Rows[contador - 1][7]) + (Convert.ToDecimal(item.onAccount))) + "\", \"haveTax\": \"" + item.haveTax + "\",\"onPayment\": \"" + (decimal)dt.Rows[contador - 1][7] + "\", \"codeConcept\": \"" + item.codeConcept + "\", \"nameConcept\": \"" + item.nameConcept + "\", \"debtId\": \"" + item.debtId + "\",\"tax\": \"" + (decimal)dt.Rows[contador - 1]["TaxResult"] + "\"},";
+                                    t1 = t1 + 1;
+                                    contador = contador + 1;
+
+                                }
+                                else
+                                {
+
+                                    json = json + "{\"id\": \"" + item.id + "\", \"amount\": \"" + item.amount + "\", \"onAccount\": \"" + (((decimal)dt.Rows[contador - 1][7]) + (Convert.ToDecimal(item.onAccount))) + "\", \"haveTax\": \"" + item.haveTax + "\",\"onPayment\": \"" + (decimal)dt.Rows[contador - 1][7] + "\", \"codeConcept\": \"" + item.codeConcept + "\", \"nameConcept\": \"" + item.nameConcept + "\", \"debtId\": \"" + item.debtId + "\"},";
+                                    t1 = t1 + 1;
+                                    contador = contador + 1;
 
                                 }
                             }
                             else
                             {
-                                if(totalx == 0)
-                                {
-
-                                    json = json + "{\"id\": \"" + Variables.debst[i].id + "\", \"debitDate\": \"" + Convert.ToDateTime(Variables.debst[i].debitDate).ToString("yyyy-MM-dd HH:mm:ss") + "\", \"fromDate\": \"" + Convert.ToDateTime(Variables.debst[i].fromDate).ToString("yyyy-MM-dd HH:mm:ss") + "\", \"untilDate\": \"" + Convert.ToDateTime(Variables.debst[i].untilDate).ToString("yyyy-MM-dd HH:mm:ss") + "\", \"derivatives\": \"" + Variables.debst[i].derivatives + "\", \"typeIntake\": \"" + Variables.debst[i].typeIntake + "\", \"typeService\": \"" + Variables.debst[i].typeService + "\", \"consumption\": \"" + Variables.debst[i].consumption + "\", \"discount\": \"" + Variables.debst[i].discount + "\", \"amount\": \"" + Variables.debst[i].amount + "\", \"onAccount\": \"" + Math.Round(((saldoaplicar + (Convert.ToDecimal(Variables.debst[i].onAccount))) - tax),2) + "\", \"year\": \"" + Variables.debst[i].year + "\", \"type\": \"" + Variables.debst[i].type + "\", \"status\": \"" + Variables.debst[i].status + "\",\"newStatus\": \"ED005\", \"debtPeriodId\": \"" + Variables.debst[i].debtPeriodId + "\", \"agreementId\": \"" + Variables.debst[i].agreementId + "\", \"agreement\": \"" + Variables.debst[i].agreement + "\",\"debtDetails\":[";
-                                }
-                                else
-                                {
-                                    json = json + "{\"id\": \"" + Variables.debst[i].id + "\", \"debitDate\": \"" + Convert.ToDateTime(Variables.debst[i].debitDate).ToString("yyyy-MM-dd HH:mm:ss") + "\", \"fromDate\": \"" + Convert.ToDateTime(Variables.debst[i].fromDate).ToString("yyyy-MM-dd HH:mm:ss") + "\", \"untilDate\": \"" + Convert.ToDateTime(Variables.debst[i].untilDate).ToString("yyyy-MM-dd HH:mm:ss") + "\", \"derivatives\": \"" + Variables.debst[i].derivatives + "\", \"typeIntake\": \"" + Variables.debst[i].typeIntake + "\", \"typeService\": \"" + Variables.debst[i].typeService + "\", \"consumption\": \"" + Variables.debst[i].consumption + "\", \"discount\": \"" + Variables.debst[i].discount + "\", \"amount\": \"" + Variables.debst[i].amount + "\", \"onAccount\": \"" + Math.Round(((saldoaplicar + (Convert.ToDecimal(Variables.debst[i].onAccount))) - tax),2) + "\", \"year\": \"" + Variables.debst[i].year + "\", \"type\": \"" + Variables.debst[i].type + "\", \"status\": \"" + Variables.debst[i].status + "\",\"newStatus\": \"ED004\", \"debtPeriodId\": \"" + Variables.debst[i].debtPeriodId + "\", \"agreementId\": \"" + Variables.debst[i].agreementId + "\", \"agreement\": \"" + Variables.debst[i].agreement + "\",\"debtDetails\":[";
-                                }
-                                
-
-                            }
-
-                            t = Variables.debst[i].debtdetails.Count;
-                            int contador = contar;
-
-                    
-
-                            foreach (var item in Variables.debst[i].debtdetails)
-                            {
-                               
-
-                                if (start == false)
-                                {
-
-                                    if (t != t1)
-                                    {
-
-
-                                if (item.haveTax == true)
-                                {
-                                   
-
-                                    json = json + "{\"id\": \"" + item.id + "\", \"amount\": \"" + item.amount + "\", \"onAccount\": \"" + (((decimal)dt.Rows[contador - 1][7]) + (Convert.ToDecimal(item.onAccount))) + "\", \"haveTax\": \"" + item.haveTax + "\",\"onPayment\": \"" + (decimal)dt.Rows[contador - 1][7] + "\", \"codeConcept\": \"" + item.codeConcept + "\", \"nameConcept\": \"" + item.nameConcept + "\", \"debtId\": \"" + item.debtId + "\",\"tax\": \"" + (decimal)dt.Rows[contador - 1]["TaxResult"] + "\"},";
-                                    t1 = t1 + 1;
-                                    contador = contador + 1;
-
-                                }
-                                else
-                                {
-                                    json = json + "{\"id\": \"" + item.id + "\", \"amount\": \"" + item.amount + "\", \"onAccount\": \"" + (((decimal)dt.Rows[contador - 1][7]) + (Convert.ToDecimal(item.onAccount))) + "\", \"haveTax\": \"" + item.haveTax + "\",\"onPayment\": \"" + (decimal)dt.Rows[contador - 1][7] + "\", \"codeConcept\": \"" + item.codeConcept + "\", \"nameConcept\": \"" + item.nameConcept + "\", \"debtId\": \"" + item.debtId + "\"},";
-                                    t1 = t1 + 1;
-                                    contador = contador + 1;
-                                }
-
-                                
-
-
-
-
-                                    }
-                                    else
-                                    {
-
-
-                                if (item.haveTax == true)
-                                {
-
-                                    json = json + "{\"id\": \"" + item.id + "\", \"amount\": \"" + item.amount + "\", \"onAccount\": \"" + (((decimal)dt.Rows[contador - 1][7]) + (Convert.ToDecimal(item.onAccount))) + "\", \"haveTax\": \"" + item.haveTax + "\",\"onPayment\": \"" + (decimal)dt.Rows[contador - 1][7] + "\", \"codeConcept\": \"" + item.codeConcept + "\", \"nameConcept\": \"" + item.nameConcept + "\", \"debtId\": \"" + item.debtId + "\",\"tax\": \"" + (decimal)dt.Rows[contador - 1]["TaxResult"] + "\"}";
-                                    t1 = 1;
-
-                                }
-                                else
-                                {
-
-                                    json = json + "{\"id\": \"" + item.id + "\", \"amount\": \"" + item.amount + "\", \"onAccount\": \"" + (((decimal)dt.Rows[contador - 1][7]) + (Convert.ToDecimal(item.onAccount))) + "\", \"haveTax\": \"" + item.haveTax + "\",\"onPayment\": \"" + (decimal)dt.Rows[contador - 1][7] + "\", \"codeConcept\": \"" + item.codeConcept + "\", \"nameConcept\": \"" + item.nameConcept + "\", \"debtId\": \"" + item.debtId + "\"}";
-                                    t1 = 1;
-                                    contador = 0;
-                                }
-
-                                }
-
-                                }
-                                else
-                                {
-                                    
-                                    if (t != t1)
-                                    {
-
-
-
-                                if (item.haveTax == true)
-                                {
-
-                                    json = json + "{\"id\": \"" + item.id + "\", \"amount\": \"" + item.amount + "\", \"onAccount\": \"" + (((decimal)dt.Rows[contador - 1][7]) + (Convert.ToDecimal(item.onAccount))) + "\", \"haveTax\": \"" + item.haveTax + "\",\"onPayment\": \"" + (decimal)dt.Rows[contador - 1][7] + "\", \"codeConcept\": \"" + item.codeConcept + "\", \"nameConcept\": \"" + item.nameConcept + "\", \"debtId\": \"" + item.debtId + "\",\"tax\": \"" + (decimal)dt.Rows[contador - 1]["TaxResult"] + "\"},";
-                                    t1 = t1 + 1;
-                                    contador = contador + 1;
-
-                                }
-                                else
-                                {
-
-                                    json = json + "{\"id\": \"" + item.id + "\", \"amount\": \"" + item.amount + "\", \"onAccount\": \"" + (((decimal)dt.Rows[contador - 1][7]) + (Convert.ToDecimal(item.onAccount))) + "\", \"haveTax\": \"" + item.haveTax + "\",\"onPayment\": \"" + (decimal)dt.Rows[contador - 1][7] + "\", \"codeConcept\": \"" + item.codeConcept + "\", \"nameConcept\": \"" + item.nameConcept + "\", \"debtId\": \"" + item.debtId + "\"},";
-                                    t1 = t1 + 1;
-                                    contador = contador + 1;
-
-                                }
-                                    }
-                                    else
-                                    {
 
 
                                 if (item.haveTax == true)
@@ -1109,32 +1110,32 @@ namespace SOAPAP
 
                                 }
 
-                                    }   
-                                }
-
                             }
-
-                            json = json + "],\"debtStatuses\":[]}";
-                            subtotal = 0;
-                            resultado = 0;
-                            porcentaje = 0;
-                            iva = 0;
-                            break;
-
                         }
-                        else
+
+                    }
+
+                    json = json + "],\"debtStatuses\":[]}";
+                    subtotal = 0;
+                    resultado = 0;
+                    porcentaje = 0;
+                    iva = 0;
+                    break;
+
+                }
+                else
+                {
+                    acomulador2 = acomulador2 + resultadot;
+                    saldoaplicar = totalx;
+                    porcentaje = Convert.ToDecimal(Variables.Configuration.IVA);
+                    iva = Convert.ToDecimal(Variables.Configuration.IVA);
+                    json = json + "{\"id\": \"" + Variables.debst[i].id + "\", \"debitDate\": \"" + Convert.ToDateTime(Variables.debst[i].debitDate).ToString("yyyy-MM-dd HH:mm:ss") + "\", \"fromDate\": \"" + Convert.ToDateTime(Variables.debst[i].fromDate).ToString("yyyy-MM-dd HH:mm:ss") + "\", \"untilDate\": \"" + Convert.ToDateTime(Variables.debst[i].untilDate).ToString("yyyy-MM-dd HH:mm:ss") + "\", \"derivatives\": \"" + Variables.debst[i].derivatives + "\", \"typeIntake\": \"" + Variables.debst[i].typeIntake + "\", \"typeService\": \"" + Variables.debst[i].typeService + "\", \"consumption\": \"" + Variables.debst[i].consumption + "\", \"discount\": \"" + Variables.debst[i].discount + "\", \"amount\": \"" + Variables.debst[i].amount + "\", \"onAccount\": \"" + Math.Round(((Convert.ToDecimal(Variables.debst[i].amount) - Convert.ToDecimal(Variables.debst[i].onAccount) * total / monto) + Convert.ToDecimal(Variables.debst[i].onAccount)), 2) + "\", \"year\": \"" + Variables.debst[i].year + "\", \"type\": \"" + Variables.debst[i].type + "\", \"status\": \"" + Variables.debst[i].status + "\",\"newStatus\": \"ED005\", \"debtPeriodId\": \"" + Variables.debst[i].debtPeriodId + "\", \"agreementId\": \"" + Variables.debst[i].agreementId + "\", \"agreement\": \"" + Variables.debst[i].agreement + "\",\"debtDetails\":[";
+                    t = Variables.debst[i].debtdetails.Count;
+
+                    foreach (var item in Variables.debst[i].debtdetails)
+                    {
+                        if (t != t1)
                         {
-                            acomulador2 = acomulador2 + resultadot;
-                            saldoaplicar = totalx;
-                            porcentaje = Convert.ToDecimal(Variables.Configuration.IVA);
-                            iva = Convert.ToDecimal(Variables.Configuration.IVA);                            
-                            json = json + "{\"id\": \"" + Variables.debst[i].id + "\", \"debitDate\": \"" + Convert.ToDateTime(Variables.debst[i].debitDate).ToString("yyyy-MM-dd HH:mm:ss") + "\", \"fromDate\": \"" + Convert.ToDateTime(Variables.debst[i].fromDate).ToString("yyyy-MM-dd HH:mm:ss") + "\", \"untilDate\": \"" + Convert.ToDateTime(Variables.debst[i].untilDate).ToString("yyyy-MM-dd HH:mm:ss") + "\", \"derivatives\": \"" + Variables.debst[i].derivatives + "\", \"typeIntake\": \"" + Variables.debst[i].typeIntake + "\", \"typeService\": \"" + Variables.debst[i].typeService + "\", \"consumption\": \"" + Variables.debst[i].consumption + "\", \"discount\": \"" + Variables.debst[i].discount + "\", \"amount\": \"" + Variables.debst[i].amount + "\", \"onAccount\": \"" + Math.Round(((Convert.ToDecimal(Variables.debst[i].amount) - Convert.ToDecimal(Variables.debst[i].onAccount) * total / monto) + Convert.ToDecimal(Variables.debst[i].onAccount)),2) + "\", \"year\": \"" + Variables.debst[i].year + "\", \"type\": \"" + Variables.debst[i].type + "\", \"status\": \"" + Variables.debst[i].status + "\",\"newStatus\": \"ED005\", \"debtPeriodId\": \"" + Variables.debst[i].debtPeriodId + "\", \"agreementId\": \"" + Variables.debst[i].agreementId + "\", \"agreement\": \"" + Variables.debst[i].agreement + "\",\"debtDetails\":[";
-                            t = Variables.debst[i].debtdetails.Count;
-              
-                            foreach (var item in Variables.debst[i].debtdetails)
-                            {
-                                if (t != t1)
-                                {
 
 
                             if (item.haveTax == true)
@@ -1151,9 +1152,9 @@ namespace SOAPAP
                                 t1 = t1 + 1;
 
                             }
-                            }
-                                else
-                                {
+                        }
+                        else
+                        {
 
                             if (item.haveTax == true)
                             {
@@ -1168,48 +1169,48 @@ namespace SOAPAP
                                 json = json + "{\"id\": \"" + item.id + "\", \"amount\": \"" + item.amount + "\", \"onAccount\": \"" + Math.Round(((((Convert.ToDecimal(item.amount) - Convert.ToDecimal(item.onAccount)) * total) / monto) + Convert.ToDecimal(item.onAccount)), 2) + "\", \"haveTax\": \"" + item.haveTax + "\",  \"onPayment\": \"" + Math.Round((((Convert.ToDecimal(item.amount) - Convert.ToDecimal(item.onAccount)) * total / monto)), 2) + "\",\"codeConcept\": \"" + item.codeConcept + "\", \"nameConcept\": \"" + item.nameConcept + "\", \"debtId\": \"" + item.debtId + "\"}";
                                 t1 = 1;
                             }
-                                }
-                            }
-
-                            if (q2 != q1)
-                            {
-                                json = json + "],\"debtStatuses\":[]},";
-                                q2 = q2 + 1;
-                            }
-                            else
-                            {
-                                json = json + "],\"debtStatuses\":[]}";
-                            }
-
-                            start = true;
-                            subtotal = 0;
-                            resultado = 0;
-                            porcentaje = 0;
-                            iva = 0;
                         }
                     }
 
-                        json = json + "]}";
-                        content = new StringContent(json, Encoding.UTF8, "application/json");
+                    if (q2 != q1)
+                    {
+                        json = json + "],\"debtStatuses\":[]},";
+                        q2 = q2 + 1;
+                    }
+                    else
+                    {
+                        json = json + "],\"debtStatuses\":[]}";
+                    }
 
-            
-                        var resultados = await Requests.SendURIAsync(url, HttpMethod.Post, Variables.LoginModel.Token, content);
+                    start = true;
+                    subtotal = 0;
+                    resultado = 0;
+                    porcentaje = 0;
+                    iva = 0;
+                }
+            }
 
-                        if (resultados.Contains("error"))
-                        {
-                            Error m = JsonConvert.DeserializeObject<Error>(resultados);
-                            retorno = "error/" + m.error;
-                        }
-                        else
-                        {
-                            int rest = Convert.ToInt32(resultados);
-                            Variables.idtransaction = rest;
-                            //await GETTransactionID("/api/Transaction/" + rest);
-                            retorno = "Exito";
-                        }
+            json = json + "]}";
+            content = new StringContent(json, Encoding.UTF8, "application/json");
 
-            
-                        return retorno;
+
+            var resultados = await Requests.SendURIAsync(url, HttpMethod.Post, Variables.LoginModel.Token, content);
+
+            if (resultados.Contains("error"))
+            {
+                Error m = JsonConvert.DeserializeObject<Error>(resultados);
+                retorno = "error/" + m.error;
+            }
+            else
+            {
+                int rest = Convert.ToInt32(resultados);
+                Variables.idtransaction = rest;
+                //await GETTransactionID("/api/Transaction/" + rest);
+                retorno = "Exito";
+            }
+
+
+            return retorno;
         }
 
 
@@ -1279,48 +1280,50 @@ namespace SOAPAP
 
             try
             {
-                            TransactionVM m = JsonConvert.DeserializeObject<TransactionVM>(resultado);
-                try {
+                TransactionVM m = JsonConvert.DeserializeObject<TransactionVM>(resultado);
+                Variables.transactionVm = JsonConvert.DeserializeObject<TransactionVM>(resultado);
+                try
+                {
                     Variables.foliocaja = m.transaction.transactionFolios.FirstOrDefault().folio.ToString();
-                }  
+                }
                 catch
                 {
 
                 }
-                            Variables.foliotransaccion = m.transaction.folio;
-                            Variables.subtotalp = m.transaction.amount;
-                            Variables.ivap = m.transaction.tax;
-                            Variables.redondeop = m.transaction.rounding;
-                            Variables.totalp = m.transaction.total;
-                            Variables.metododepagop = m.transaction.payMethod.name;
-                            Variables.idagrement = m.payment.AgreementId.ToString();
+                Variables.foliotransaccion = m.transaction.folio;
+                Variables.subtotalp = m.transaction.amount;
+                Variables.ivap = m.transaction.tax;
+                Variables.redondeop = m.transaction.rounding;
+                Variables.totalp = m.transaction.total;
+                Variables.metododepagop = m.transaction.payMethod.name;
+                Variables.idagrement = m.payment.AgreementId.ToString();
 
-                            
-                                    foreach (var item in m.payment.PaymentDetails)
-                                    {
-                                        DataRow row = dt.NewRow();
-                                        row["Id"] = item.Id;
-                                        row["amount"] = item.Amount;
-                                        row["onAccount"] = item.Amount;
-                                        row["have_tax"] = true;
-                                        row["code_concept"] = item.CodeConcept;
-                                        row["name_concept"] = item.Description;
-                                        row["debtId"] = item.DebtId.ToString();
-                                        row["deuda"] = item.Amount;
-                try
+
+                foreach (var item in m.payment.PaymentDetails)
                 {
-                    row["Year"] = item.Debt.Year;
-                    row["Debperiod"] = Convert.ToDateTime(item.Debt.FromDate).ToString("dd-MM-yyyy") + " a " + Convert.ToDateTime(item.Debt.UntilDate).ToString("dd-MM-yyyy");
-                }
-                
-                catch (Exception)
-                {
+                    DataRow row = dt.NewRow();
+                    row["Id"] = item.Id;
+                    row["amount"] = item.Amount;
+                    row["onAccount"] = item.Amount;
+                    row["have_tax"] = true;
+                    row["code_concept"] = item.CodeConcept;
+                    row["name_concept"] = item.Description;
+                    row["debtId"] = item.DebtId.ToString();
+                    row["deuda"] = item.Amount;
+                    try
+                    {
+                        row["Year"] = item.Debt.Year;
+                        row["Debperiod"] = Convert.ToDateTime(item.Debt.FromDate).ToString("dd-MM-yyyy") + " a " + Convert.ToDateTime(item.Debt.UntilDate).ToString("dd-MM-yyyy");
+                    }
 
-                 
-                }
-                dt.Rows.Add(row);
+                    catch (Exception)
+                    {
 
-            }
+
+                    }
+                    dt.Rows.Add(row);
+
+                }
             }
             catch (Exception)
             {
@@ -1333,36 +1336,36 @@ namespace SOAPAP
             return dt;
         }
 
-        public async Task<string> POSTTransactionAnt(string url, string folio, string sign, string amounts, decimal tax, string percentageTax, decimal rounding, decimal total, string aplications, string typeTransactionId, string payMethodId, string terminalUserId, string authorizationOriginPayment, string originPaymentId, string externalOriginPaymentId, string type, string debtStatus, decimal monto, string acount,  string codeConcept, string description, string amount)
+        public async Task<string> POSTTransactionAnt(string url, string folio, string sign, string amounts, decimal tax, string percentageTax, decimal rounding, decimal total, string aplications, string typeTransactionId, string payMethodId, string terminalUserId, string authorizationOriginPayment, string originPaymentId, string externalOriginPaymentId, string type, string debtStatus, decimal monto, string acount, string codeConcept, string description, string amount)
         {
-                        string retorno = string.Empty;
-                        HttpContent content;
-                        string json = string.Empty;
-                        json = "{\"sign\": \"" + sign + "\", \"amount\": \"" + amounts + "\",\"account\": \"" + acount + "\", \"tax\": \"" + tax + "\", \"percentageTax\": \"" + percentageTax + "\", \"rounding\": \"" + rounding + "\",\"total\": \"" + total + "\", \"aplication\": \"" + aplications + "\", \"typeTransactionId\": \"" + typeTransactionId + "\", \"payMethodId\": \"" + payMethodId + "\", \"terminalUserId\": \"" + terminalUserId + "\", \"authorizationOriginPayment\": \"" + authorizationOriginPayment + "\", \"originPaymentId\": \"" + originPaymentId + "\", \"externalOriginPaymentId\": \"" + externalOriginPaymentId + "\", \"type\": \"" + type + "\", \"paytStatus\": \"" + debtStatus + "\", \"agreementId\": \"" + acount + "\",\"transactionDetails\": [{\"codeConcept\": \"08\",\"description\": \"Anticipo\",\"amount\": \"" + amounts + "\"}]}";
-                        content = new StringContent(json, Encoding.UTF8, "application/json");
-                        var jsonResponse = await Requests.SendURIAsync(url, HttpMethod.Post, Variables.LoginModel.Token, content);
+            string retorno = string.Empty;
+            HttpContent content;
+            string json = string.Empty;
+            json = "{\"sign\": \"" + sign + "\", \"amount\": \"" + amounts + "\",\"account\": \"" + acount + "\", \"tax\": \"" + tax + "\", \"percentageTax\": \"" + percentageTax + "\", \"rounding\": \"" + rounding + "\",\"total\": \"" + total + "\", \"aplication\": \"" + aplications + "\", \"typeTransactionId\": \"" + typeTransactionId + "\", \"payMethodId\": \"" + payMethodId + "\", \"terminalUserId\": \"" + terminalUserId + "\", \"authorizationOriginPayment\": \"" + authorizationOriginPayment + "\", \"originPaymentId\": \"" + originPaymentId + "\", \"externalOriginPaymentId\": \"" + externalOriginPaymentId + "\", \"type\": \"" + type + "\", \"paytStatus\": \"" + debtStatus + "\", \"agreementId\": \"" + acount + "\",\"transactionDetails\": [{\"codeConcept\": \"08\",\"description\": \"Anticipo\",\"amount\": \"" + amounts + "\"}]}";
+            content = new StringContent(json, Encoding.UTF8, "application/json");
+            var jsonResponse = await Requests.SendURIAsync(url, HttpMethod.Post, Variables.LoginModel.Token, content);
 
-                        if (jsonResponse.Contains("error"))
-                        {
-                            Error ms = JsonConvert.DeserializeObject<Error>(jsonResponse);
-                            retorno = "error/" + ms.error;
-                        }
-                        else
-                        {
-                            Transaction m = JsonConvert.DeserializeObject<Transaction>(jsonResponse);
-                            int rest = m.id;
-                            Variables.idtransaction = rest;
-                            //await GETTransactionID("/api/Transaction/" + rest);
-                            retorno = "Exito";
-                        }            
+            if (jsonResponse.Contains("error"))
+            {
+                Error ms = JsonConvert.DeserializeObject<Error>(jsonResponse);
+                retorno = "error/" + ms.error;
+            }
+            else
+            {
+                Transaction m = JsonConvert.DeserializeObject<Transaction>(jsonResponse);
+                int rest = m.id;
+                Variables.idtransaction = rest;
+                //await GETTransactionID("/api/Transaction/" + rest);
+                retorno = "Exito";
+            }
 
-                        return retorno;
+            return retorno;
         }
 
         public async Task<DataTable> GETDiscountValidator(string url)
         {
             DataTable dt = new DataTable();
-           
+
             DataColumn column;
             column = new DataColumn();
             column.DataType = System.Type.GetType("System.Int32");
@@ -1405,26 +1408,26 @@ namespace SOAPAP
             dt.Columns.Add(column);
 
 
-            
+
             var resultado = await Requests.SendURIAsync(string.Format(url), HttpMethod.Get, Variables.LoginModel.Token);
 
             try
-            {            
-            List<Adeudos> m = JsonConvert.DeserializeObject<List<Adeudos>>(resultado);
+            {
+                List<Adeudos> m = JsonConvert.DeserializeObject<List<Adeudos>>(resultado);
 
-                        for(int x = 0; x < m.Count; x++)
-                            {
-                                DataRow row = dt.NewRow();
-                                row["Id"] = 1;
-                                row["amount"] = m[x].amount;
-                                row["onAccount"] = 0;
-                                row["have_tax"] = m[x].have_tax;
-                                row["code_concept"] = m[x].conde_concept;
-                                row["name_concept"] = m[x].name_concept;
-                                row["debtId"] = m[x].id_discount;
-                                row["deuda"] = m[x].amount;
-                                dt.Rows.Add(row);
-                            }
+                for (int x = 0; x < m.Count; x++)
+                {
+                    DataRow row = dt.NewRow();
+                    row["Id"] = 1;
+                    row["amount"] = m[x].amount;
+                    row["onAccount"] = 0;
+                    row["have_tax"] = m[x].have_tax;
+                    row["code_concept"] = m[x].conde_concept;
+                    row["name_concept"] = m[x].name_concept;
+                    row["debtId"] = m[x].id_discount;
+                    row["deuda"] = m[x].amount;
+                    dt.Rows.Add(row);
+                }
             }
             catch (Exception)
             {
@@ -1436,32 +1439,32 @@ namespace SOAPAP
             return dt;
         }
 
-        public async Task<string> POSTTransactionAntA(string url, string sign, decimal amounts, decimal tax, string percentageTax, decimal rounding, decimal total, string aplications, string typeTransactionId, string payMethodId, string terminalUserId, string authorizationOriginPayment, string originPaymentId, string externalOriginPaymentId, string type, string paytStatus, decimal monto, string acount, DataTable agrupado, DataTable dt,int porcentaje,string cuenta)
+        public async Task<string> POSTTransactionAntA(string url, string sign, decimal amounts, decimal tax, string percentageTax, decimal rounding, decimal total, string aplications, string typeTransactionId, string payMethodId, string terminalUserId, string authorizationOriginPayment, string originPaymentId, string externalOriginPaymentId, string type, string paytStatus, decimal monto, string acount, DataTable agrupado, DataTable dt, int porcentaje, string cuenta)
         {
-                        string retorno = string.Empty;
-                        HttpContent content;
-                        string json = string.Empty;
-                        json = "{\"sign\": \"" + sign + "\", \"amount\": \"" + amounts + "\",\"account\": \"" + cuenta + "\", \"tax\": \"" + tax + "\", \"percentageTax\": \"" + percentageTax + "\", \"rounding\": \"" + rounding + "\",\"total\": \"" + total + "\", \"aplication\": \"" + aplications + "\", \"typeTransactionId\": \"" + typeTransactionId + "\", \"payMethodId\": \"" + payMethodId + "\", \"terminalUserId\": \"" + terminalUserId + "\",\"percentage\": \"" + porcentaje + "\", \"authorizationOriginPayment\": \"" + authorizationOriginPayment + "\", \"originPaymentId\": \"" + originPaymentId + "\", \"externalOriginPaymentId\": \"" + externalOriginPaymentId + "\", \"type\": \"" + type + "\", \"paytStatus\": \"" + paytStatus + "\", \"agreementId\": \"" + acount + "\",\"transactionDetails\": [";
-                        json = json + "{\"codeConcept\": \"ANT\",\"description\": \"Pago Anticipado\",\"amount\": " + amounts + "}";
-                        json = json + "]}";
-                        content = new StringContent(json, Encoding.UTF8, "application/json");
-                        var resultados = await Requests.SendURIAsync(url, HttpMethod.Post, Variables.LoginModel.Token, content);
+            string retorno = string.Empty;
+            HttpContent content;
+            string json = string.Empty;
+            json = "{\"sign\": \"" + sign + "\", \"amount\": \"" + amounts + "\",\"account\": \"" + cuenta + "\", \"tax\": \"" + tax + "\", \"percentageTax\": \"" + percentageTax + "\", \"rounding\": \"" + rounding + "\",\"total\": \"" + total + "\", \"aplication\": \"" + aplications + "\", \"typeTransactionId\": \"" + typeTransactionId + "\", \"payMethodId\": \"" + payMethodId + "\", \"terminalUserId\": \"" + terminalUserId + "\",\"percentage\": \"" + porcentaje + "\", \"authorizationOriginPayment\": \"" + authorizationOriginPayment + "\", \"originPaymentId\": \"" + originPaymentId + "\", \"externalOriginPaymentId\": \"" + externalOriginPaymentId + "\", \"type\": \"" + type + "\", \"paytStatus\": \"" + paytStatus + "\", \"agreementId\": \"" + acount + "\",\"transactionDetails\": [";
+            json = json + "{\"codeConcept\": \"ANT\",\"description\": \"Pago Anticipado\",\"amount\": " + amounts + "}";
+            json = json + "]}";
+            content = new StringContent(json, Encoding.UTF8, "application/json");
+            var resultados = await Requests.SendURIAsync(url, HttpMethod.Post, Variables.LoginModel.Token, content);
 
-                        if (resultados.Contains("error"))
-                        {
-                            Error m = JsonConvert.DeserializeObject<Error>(resultados);
-                            retorno = "error/" + m.error;
-                        }
-                        else
-                        {
-                            Transaction m = JsonConvert.DeserializeObject<Transaction>(resultados);
-                            int rest = m.id;
-                            Variables.idtransaction = rest;
-                           // await GETTransactionID("/api/Transaction/" + rest);
-                            retorno = "Exito";
+            if (resultados.Contains("error"))
+            {
+                Error m = JsonConvert.DeserializeObject<Error>(resultados);
+                retorno = "error/" + m.error;
+            }
+            else
+            {
+                Transaction m = JsonConvert.DeserializeObject<Transaction>(resultados);
+                int rest = m.id;
+                Variables.idtransaction = rest;
+                // await GETTransactionID("/api/Transaction/" + rest);
+                retorno = "Exito";
 
-                        }
-                        return retorno;
+            }
+            return retorno;
         }
 
         public async Task<string> POSTTransactionCancel(string url, TransactionVM ms)
@@ -1489,7 +1492,7 @@ namespace SOAPAP
         {
             string retorno = string.Empty;
             HttpContent content;
-            string json = string.Empty;            
+            string json = string.Empty;
             json = JsonConvert.SerializeObject(ms);
             content = new StringContent(json, Encoding.UTF8, "application/json");
             var resultados = await Requests.SendURIAsync(url, HttpMethod.Post, Variables.LoginModel.Token, content);
@@ -1506,84 +1509,84 @@ namespace SOAPAP
             return retorno;
         }
 
-        public async Task<string> GETTransactionIDT(string url,string idcuenta,string folio)
+        public async Task<string> GETTransactionIDT(string url, string idcuenta, string folio)
         {
-                            
-                            string dt = string.Empty;
-                            string cadena = string.Empty;
-                            var resultado = await Requests.SendURIAsync(string.Format(url), HttpMethod.Get, Variables.LoginModel.Token);
+
+            string dt = string.Empty;
+            string cadena = string.Empty;
+            var resultado = await Requests.SendURIAsync(string.Format(url), HttpMethod.Get, Variables.LoginModel.Token);
             try
             {
 
-            
-                            TransactionVM m = JsonConvert.DeserializeObject<TransactionVM>(resultado);
-                            m.transaction.sign = false;
-                            m.transaction.cancellationFolio = folio;
-                            m.transaction.typeTransactionId = 4;
-                            m.transaction.agreementId = m.payment.AgreementId;
-                            m.transaction.cancellation=folio;
-                            string check = string.Empty;
-                            string[] separadas;
-                            cadena = m.payment.PaymentDetails.FirstOrDefault().CodeConcept;
-                            
-                            if (cadena == "ANT01")
-                            {
-                                
 
-                                check = await POSTTransactionCancelAnt("/api/Transaction/Prepaid/Cancel/" + idcuenta + "", m);
+                TransactionVM m = JsonConvert.DeserializeObject<TransactionVM>(resultado);
+                m.transaction.sign = false;
+                m.transaction.cancellationFolio = folio;
+                m.transaction.typeTransactionId = 4;
+                m.transaction.agreementId = m.payment.AgreementId;
+                m.transaction.cancellation = folio;
+                string check = string.Empty;
+                string[] separadas;
+                cadena = m.payment.PaymentDetails.FirstOrDefault().CodeConcept;
+
+                if (cadena == "ANT01")
+                {
 
 
-                            }
-                            else
-                            {
-                                check = await POSTTransactionCancel("/api/Transaction/Cancel/" + idcuenta + "", m);
-                            }
-                            
-                            separadas = check.Split('/');
-                            if (separadas[0].ToString() == "error")
-                            {
-                                dt = separadas[1].ToString();
-                            }
-                            else
-                            {
-                                dt = "Se  generado la cancelacion correctamente";
-                            }
+                    check = await POSTTransactionCancelAnt("/api/Transaction/Prepaid/Cancel/" + idcuenta + "", m);
+
+
+                }
+                else
+                {
+                    check = await POSTTransactionCancel("/api/Transaction/Cancel/" + idcuenta + "", m);
+                }
+
+                separadas = check.Split('/');
+                if (separadas[0].ToString() == "error")
+                {
+                    dt = separadas[1].ToString();
+                }
+                else
+                {
+                    dt = "Se  generado la cancelacion correctamente";
+                }
 
             }
             catch (Exception)
             {
-                
+
             }
             return dt;
         }
 
-        public async Task<string> POSTTransactionPL(string url,   string sign, decimal amounts, decimal tax, string percentageTax, decimal rounding, decimal total, string aplications, string typeTransactionId, string payMethodId, string terminalUserId, string authorizationOriginPayment, string originPaymentId, string externalOriginPaymentId, string type, string debtStatus, decimal monto, string acount, DataTable agrupado, Venta ms, string cuenta)
+        public async Task<string> POSTTransactionPL(string url, string sign, decimal amounts, decimal tax, string percentageTax, decimal rounding, decimal total, string aplications, string typeTransactionId, string payMethodId, string terminalUserId, string authorizationOriginPayment, string originPaymentId, string externalOriginPaymentId, string type, string debtStatus, decimal monto, string acount, DataTable agrupado, Venta ms, string cuenta)
         {
-                string retorno = string.Empty;
-                string json = string.Empty;
-                HttpContent content;
-                ms.transaction.agreementId = Convert.ToInt32(acount);
-                ms.transaction.sign = true;
-                ms.transaction.amount = amounts;
-                ms.transaction.tax = tax;
-                ms.transaction.percentageTax = percentageTax;
-                ms.transaction.rounding = rounding;
-                ms.transaction.total = total;
+            string retorno = string.Empty;
+            string json = string.Empty;
+            HttpContent content;
+            ms.transaction.agreementId = Convert.ToInt32(acount);
+            ms.transaction.sign = true;
+            ms.transaction.amount = amounts;
+            ms.transaction.tax = tax;
+            ms.transaction.percentageTax = percentageTax;
+            ms.transaction.rounding = rounding;
+            ms.transaction.total = total;
             ms.transaction.account = cuenta;
-                ms.transaction.aplication = aplications;
-                ms.transaction.typeTransactionId = Convert.ToInt32(typeTransactionId);
-                ms.transaction.payMethodId = Convert.ToInt32(payMethodId);
-                ms.transaction.terminalUserId = Convert.ToInt32(terminalUserId);
-                ms.transaction.authorizationOriginPayment = authorizationOriginPayment;
-                ms.transaction.originPaymentId = Convert.ToInt32(originPaymentId);
-                ms.transaction.externalOriginPaymentId = Convert.ToInt32(externalOriginPaymentId);
-                ms.transaction.type = type;
-                ms.transaction.paytStatus = debtStatus;
-                ms.transaction.agreementId = Convert.ToInt32(acount);
-                ms.transaction.cancellationFolio = "";
+            ms.transaction.aplication = aplications;
+            ms.transaction.typeTransactionId = Convert.ToInt32(typeTransactionId);
+            ms.transaction.payMethodId = Convert.ToInt32(payMethodId);
+            ms.transaction.terminalUserId = Convert.ToInt32(terminalUserId);
+            ms.transaction.authorizationOriginPayment = authorizationOriginPayment;
+            ms.transaction.originPaymentId = Convert.ToInt32(originPaymentId);
+            ms.transaction.externalOriginPaymentId = Convert.ToInt32(externalOriginPaymentId);
+            ms.transaction.type = type;
+            ms.transaction.paytStatus = debtStatus;
+            ms.transaction.agreementId = Convert.ToInt32(acount);
+            ms.transaction.cancellationFolio = "";
 
-                foreach (var t in ms.debt)
-                {
+            foreach (var t in ms.debt)
+            {
 
                 t.onAccount = ((Convert.ToDecimal((t.amount) - Convert.ToDecimal(t.onAccount) * total / monto) + Convert.ToDecimal(t.onAccount))).ToString();
                 t.newStatus = "ED005";
@@ -1591,32 +1594,32 @@ namespace SOAPAP
                 foreach (var t1 in t.debtdetails)
                 {
                     t1.onPayment = ((((Convert.ToDecimal(t1.amount) - Convert.ToDecimal(t1.onAccount)) * total / monto))).ToString();
-                    t1.onAccount = ((((Convert.ToDecimal(t1.amount) - Convert.ToDecimal(t1.onAccount)) * total) / monto) + Convert.ToDecimal(t1.onAccount)).ToString(); 
+                    t1.onAccount = ((((Convert.ToDecimal(t1.amount) - Convert.ToDecimal(t1.onAccount)) * total) / monto) + Convert.ToDecimal(t1.onAccount)).ToString();
                 }
 
-                }
+            }
 
-                                    json = JsonConvert.SerializeObject(ms);
-                                    content = new StringContent(json, Encoding.UTF8, "application/json");
-                                    var jsonResponse = await Requests.SendURIAsync(url, HttpMethod.Post, Variables.LoginModel.Token, content);
-            
-                                    if (jsonResponse.Contains("error"))
-                                    {
-                                        Error m = JsonConvert.DeserializeObject<Error>(jsonResponse);
-                                        retorno = "error/" + m.error;
-                                    }
-                                    else
-                                    {
-                                        var results = jsonResponse;
-                                        int res = Convert.ToInt32(results);
-                                        Variables.idtransaction = res;
-                                       // await GETTransactionID("/api/Transaction/" + res.ToString());
-                                        retorno = "Exito";
-                                    }
+            json = JsonConvert.SerializeObject(ms);
+            content = new StringContent(json, Encoding.UTF8, "application/json");
+            var jsonResponse = await Requests.SendURIAsync(url, HttpMethod.Post, Variables.LoginModel.Token, content);
 
-                                    return retorno;
+            if (jsonResponse.Contains("error"))
+            {
+                Error m = JsonConvert.DeserializeObject<Error>(jsonResponse);
+                retorno = "error/" + m.error;
+            }
+            else
+            {
+                var results = jsonResponse;
+                int res = Convert.ToInt32(results);
+                Variables.idtransaction = res;
+                // await GETTransactionID("/api/Transaction/" + res.ToString());
+                retorno = "Exito";
+            }
+
+            return retorno;
         }
-        
+
         public async Task<DataTable> GETTProdcutos(string url)
         {
             DataTable dt = new DataTable();
@@ -1634,22 +1637,22 @@ namespace SOAPAP
             column.ColumnName = "parentID";
             dt.Columns.Add(column);
 
-            
+
             string WEBSERVICE_URL = url;
             string json = string.Empty;
             string saber = string.Empty;
             var resultado = await Requests.SendURIAsync(string.Format(url), HttpMethod.Get, Variables.LoginModel.Token);
             try
             {
-            List<Producto> m = JsonConvert.DeserializeObject<List<Producto>>(resultado);
-            foreach (var item in m)
-            {
-                DataRow row = dt.NewRow();
-                row["ID"] = item.id;
-                row["Descripcion"] = item.name;
-                row["parentID"] = item.parent;        
-                dt.Rows.Add(row);
-            }
+                List<Producto> m = JsonConvert.DeserializeObject<List<Producto>>(resultado);
+                foreach (var item in m)
+                {
+                    DataRow row = dt.NewRow();
+                    row["ID"] = item.id;
+                    row["Descripcion"] = item.name;
+                    row["parentID"] = item.parent;
+                    dt.Rows.Add(row);
+                }
             }
             catch (Exception)
             {
@@ -1773,8 +1776,9 @@ namespace SOAPAP
             var resultado = await Requests.SendURIAsync(string.Format(url), HttpMethod.Get, Variables.LoginModel.Token);
             try
             {
-                List<Deb> ms  = JsonConvert.DeserializeObject<List<Deb>>(resultado);
-                for (int i = 0; i < ms.Count; i++) {
+                List<Deb> ms = JsonConvert.DeserializeObject<List<Deb>>(resultado);
+                for (int i = 0; i < ms.Count; i++)
+                {
 
                     DataRow row = dt.NewRow();
                     row["Id"] = ms[i].id.ToString();
@@ -1782,7 +1786,7 @@ namespace SOAPAP
                     row["Monto"] = ms[i].amount.ToString();
                     row["Tipodecuenta"] = ms[i].typeIntake.ToString();
                     row["Servicio"] = ms[i].typeService.ToString();
-                    row["Tipo"] = gets1.typeDebts.FirstOrDefault(x => x.idType == ms[i].type).description;                   
+                    row["Tipo"] = gets1.typeDebts.FirstOrDefault(x => x.idType == ms[i].type).description;
                     row["Emision"] = ms[i].expirationDate.ToString();
                     row["Totalapagar"] = ms[i].onAccount.ToString();
                     row["Descripciondeestado"] = ms[i].descriptionStatus.ToString();
@@ -1833,16 +1837,16 @@ namespace SOAPAP
             column = new DataColumn();
             column.DataType = System.Type.GetType("System.String");
             column.ColumnName = "Array";
-      
+
             dt.Columns.Add(column);
 
 
 
 
-           
+
             string k = string.Empty;
 
-           
+
             var resultado = await Requests.SendURIAsync(string.Format(url), HttpMethod.Get, Variables.LoginModel.Token);
             try
             {
@@ -1851,8 +1855,8 @@ namespace SOAPAP
                 {
 
                     DataRow row = dt.NewRow();
-                 
-                     
+
+
                     row["prepaidDate"] = ms[i].prepaidDate.ToString();
                     row["amount"] = ms[i].amount.ToString();
                     row["accredited"] = ms[i].accredited.ToString();
@@ -1860,7 +1864,7 @@ namespace SOAPAP
                     row["status"] = ms[i].status.ToString();
                     k = JsonConvert.SerializeObject(ms[i].prepaidDetails);
                     row["Array"] = k;
-                    
+
                     /* row["statusDescription"] = ms[i].statusDescription.ToString();
                     row["type"] =  ms[i].type.ToString();
                     row["percentage"] = ms[i].percentage.ToString();
@@ -1932,10 +1936,10 @@ namespace SOAPAP
                 {
 
                     DataRow row = dt.NewRow();
-                   // row["Id"] = ms[i].id.ToString();
-                  //  row["folio"] = ms[i].folio.ToString();
+                    // row["Id"] = ms[i].id.ToString();
+                    //  row["folio"] = ms[i].folio.ToString();
                     row["notificationDate"] = ms[i].notificationDate.ToString();
-                  //  row["fromDate"] = ms[i].fromDate.ToString();
+                    //  row["fromDate"] = ms[i].fromDate.ToString();
                     row["untilDate"] = ms[i].untilDate.ToString();
                     row["subtotal"] = ms[i].subtotal.ToString();
                     row["tax"] = ms[i].tax.ToString();
@@ -1960,7 +1964,7 @@ namespace SOAPAP
 
             return dt;
         }
-        
+
         public async Task<Getdata> GetDatas(string url)
         {
             Getdata gets = null;
@@ -2095,7 +2099,7 @@ namespace SOAPAP
             return macAddresses;
         }
 
-        public string sacarcaja(string impresora,string anssi)
+        public string sacarcaja(string impresora, string anssi)
         {
             string k = string.Empty;
             string[] separadas;
@@ -2114,12 +2118,13 @@ namespace SOAPAP
                 Marshal.FreeCoTaskMem(pUnmanagedBytes);
                 k = "Exito";
             }
-            catch {
+            catch
+            {
 
                 k = "error/El cajon de dinero no se encuentra configurada";
             }
             return k;
-            
+
         }
 
         public string ImpresoraPredeterminada()
@@ -2144,12 +2149,12 @@ namespace SOAPAP
             try
             {
 
-            
-            using (var response = request.GetResponse())
-            using (var stream = response.GetResponseStream())
-            {
-                im = Bitmap.FromStream(stream);
-            }
+
+                using (var response = request.GetResponse())
+                using (var stream = response.GetResponseStream())
+                {
+                    im = Bitmap.FromStream(stream);
+                }
             }
             catch (Exception)
             {
@@ -2159,7 +2164,7 @@ namespace SOAPAP
 
             return im;
         }
-        
+
         public bool EstaEnLineaLaImpresora(string printerName)
         {
             string str = "";
@@ -2200,6 +2205,6 @@ namespace SOAPAP
                         throw new Exception("No fueron encontradas impresoras instaladas en el equipo");
                 }
             return online;
-        }   
+        }
     }
 }

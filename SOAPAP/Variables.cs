@@ -15,6 +15,7 @@ namespace SOAPAP
         public static Configuration Configuration {get; set;}
         public static Model.Agreement Agreement { get; set; }
         public static OrderSale OrderSale { get; set; }
+        public static TransactionVM transactionVm { get; set; }
         public static string titleprincipal { get; set; } = "SISCOM";
         public static string cuenta { get; set; } = string.Empty;
         public static int cuentaID { get; set; } = -1;

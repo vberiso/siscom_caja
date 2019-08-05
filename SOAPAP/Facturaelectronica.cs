@@ -46,8 +46,7 @@ namespace SOAPAP
         {
 
             Requests = new RequestsAPI(UrlBase);
-            //facturama = new FacturamaApiMultiemisor("gfdsystems", "gfds1st95", false); //producción
-            facturama = new FacturamaApiMultiemisor("gfdsystems", "gfds1st95"); //pruebas
+            facturama = new FacturamaApiMultiemisor("gfdsystems", "gfds1st95", false);
             //facturama = new FacturamaApiMultiemisor("pruebas", "pruebas2011");
         }
         public void setMsgs(string msgObservacionFactura, string msgUsos)
@@ -1280,7 +1279,6 @@ namespace SOAPAP
                 //Si es un pago parcial.
                 msgObservacionFactura += string.IsNullOrEmpty(msgPagoParcial) ? "" : msgPagoParcial;
                 //Si hay observaciones en la Orden o el debt
-                if(TraVM.payment.Type != "PAY04")
                 {
                     if (TraVM.payment.OrderSaleId == 0)
                         msgObservacionFactura += (string.IsNullOrEmpty(TraVM.payment.PaymentDetails.FirstOrDefault().Debt.observations) ? "" : ", " + TraVM.payment.PaymentDetails.FirstOrDefault().Debt.observations);
@@ -1737,7 +1735,7 @@ namespace SOAPAP
                 }
 
                 if (TraVM.payment.OrderSaleId == 0) //Servicio
-                    resPdf = await pDF.Create(path + nombrePDF);
+                    resPdf = await pDF.Create(path + nombrePDF, TraVM.payment.AgreementId);
                 else
                 {
                     TraVM.orderSale.TaxUser = tu;

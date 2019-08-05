@@ -1501,24 +1501,25 @@ namespace SOAPAP.UI
 
                     else
                     {
-                        //aqui estuvo URI JIJIJIJIIJ XD
                         ///***************************************************** SAC ******************************************////
-                        //var resultadosSAC = await Requests.SendURIAsync(string.Format("/api/Payments/SistemaAdministracionContable/{0}", 342125), HttpMethod.Post, Variables.LoginModel.Token);
-                        //if (resultadosSAC.Contains("error"))
+                        //if (Variables.Configuration.IsMunicipal)
                         //{
-                        //    try
+                        //    var resultadosSAC = await Requests.SendURIAsync(string.Format("/api/Payments/SistemaAdministracionContable/{0}", Variables.transactionVm.payment.Id), HttpMethod.Post, Variables.LoginModel.Token);
+                        //    if (resultadosSAC.Contains("error"))
                         //    {
-                        //        mensaje = new MessageBoxForm("Error", JsonConvert.DeserializeObject<Error>(resultadosSAC).error, TypeIcon.Icon.Cancel);
-                        //        mensaje.ShowDialog();
-                        //        this.Close();
-                        //    }
-                        //    catch (Exception)
-                        //    {
-                        //        mensaje = new MessageBoxForm("Error", "Servicio no disponible favor de comunicarse con el administrador: -conexion interrumpida-", TypeIcon.Icon.Cancel);
-                        //        mensaje.ShowDialog();
-                        //        this.Close();
+                        //        try
+                        //        {
+                        //            mensaje = new MessageBoxForm("Error", JsonConvert.DeserializeObject<Error>(resultadosSAC).error, TypeIcon.Icon.Cancel);
+                        //            mensaje.ShowDialog();
+                        //        }
+                        //        catch (Exception)
+                        //        {
+                        //            mensaje = new MessageBoxForm("Error", "Servicio no disponible favor de comunicarse con el administrador: -conexion interrumpida-", TypeIcon.Icon.Cancel);
+                        //            mensaje.ShowDialog();
+                        //        }
                         //    }
                         //}
+                       
 
                         PdfPrint.IsContentCentered = true;
                         PdfPrint.Scale = PdfPrint.ScaleTypes.None;

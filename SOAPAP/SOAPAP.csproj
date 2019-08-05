@@ -27,9 +27,9 @@
     <UpdateRequired>true</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
     <UpdateUrl>\\installer.cuautlancingo.gob.mx\caja\</UpdateUrl>
-    <MinimumRequiredVersion>1.1.1.177</MinimumRequiredVersion>
+    <MinimumRequiredVersion>1.1.1.185</MinimumRequiredVersion>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>178</ApplicationRevision>
+    <ApplicationRevision>186</ApplicationRevision>
     <ApplicationVersion>1.1.1.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -120,7 +120,7 @@
       <HintPath>..\packages\QrCode.Net.0.4.0.0\lib\net45\Gma.QrCodeNet.Encoding.dll</HintPath>
     </Reference>
     <Reference Include="HiQPdf">
-      <HintPath>..\..\..\..\Downloads\HiQPdf.dll</HintPath>
+      <HintPath>..\..\..\..\Downloads\HiQPdf_10.17_x64\HiQPdf.dll</HintPath>
     </Reference>
     <Reference Include="Humanizer, Version=2.5.0.0, Culture=neutral, PublicKeyToken=979442b78dfc278e, processorArchitecture=MSIL">
       <HintPath>..\packages\Humanizer.Core.2.5.16\lib\netstandard2.0\Humanizer.dll</HintPath>
@@ -442,6 +442,12 @@
     <Compile Include="UI\Cobro.Designer.cs">
       <DependentUpon>Cobro.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\CobroBuscarCuentaSelectOne.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\CobroBuscarCuentaSelectOne.Designer.cs">
+      <DependentUpon>CobroBuscarCuentaSelectOne.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\Descuentos\DetalleDescuentos.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -477,6 +483,18 @@
     </Compile>
     <Compile Include="UI\FacturacionAgrupadaCancelacion.Designer.cs">
       <DependentUpon>FacturacionAgrupadaCancelacion.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\FacturacionAnticipada\PeriodosAnticipados.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\FacturacionAnticipada\PeriodosAnticipados.Designer.cs">
+      <DependentUpon>PeriodosAnticipados.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\FacturacionAnticipada\Simular.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\FacturacionAnticipada\Simular.Designer.cs">
+      <DependentUpon>Simular.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\FindOrders.cs">
       <SubType>Form</SubType>
@@ -877,6 +895,9 @@
     <EmbeddedResource Include="UI\Cobro.resx">
       <DependentUpon>Cobro.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UI\CobroBuscarCuentaSelectOne.resx">
+      <DependentUpon>CobroBuscarCuentaSelectOne.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\Descuentos\DetalleDescuentos.resx">
       <DependentUpon>DetalleDescuentos.cs</DependentUpon>
     </EmbeddedResource>
@@ -894,6 +915,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\FacturacionAgrupadaCancelacion.resx">
       <DependentUpon>FacturacionAgrupadaCancelacion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\FacturacionAnticipada\PeriodosAnticipados.resx">
+      <DependentUpon>PeriodosAnticipados.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\FacturacionAnticipada\Simular.resx">
+      <DependentUpon>Simular.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\FindOrders.resx">
       <DependentUpon>FindOrders.cs</DependentUpon>
