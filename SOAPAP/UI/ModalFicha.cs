@@ -381,90 +381,147 @@ namespace SOAPAP.UI
         {
             var source = new BindingSource();
             List<CollectDebSumary> lCollectDebs = null;
+            dgvRecibos.ColumnCount = 5;
+            dgvRecibos.Columns[4].Name = "ID";
+            dgvAnticipos.ScrollBars = System.Windows.Forms.ScrollBars.Horizontal;
+            
 
             if (_debts != null && _debts.Count > 0)
             {
-                lCollectDebs = _debts.ToList()
-                                    .Select(x => new CollectDebSumary
-                                    {
-                                        DebType = x.DescriptionType,
-                                        DebPeriod = x.FromDate.Date.ToString("dd-MM-yyyy") + " al " + x.UntilDate.Date.ToString("dd-MM-yyyy"),
-                                        DebStatus = x.DescriptionStatus,
-                                        DebAmount = x.Amount,
-                                        ID = x.Id
-                                    }).ToList();
+                _debts.ForEach(x =>
+                {
+                    dgvRecibos.Rows.Add(new string[] {
+                            x.DescriptionType,
+                            x.FromDate.Date.ToString("dd-MM-yyyy") + " al " + x.UntilDate.Date.ToString("dd-MM-yyyy"),
+                            x.DescriptionStatus,
+                            x.Amount.ToString(),
+                            x.Id.ToString()
+
+                    });
+                });
+                //lCollectDebs = _debts.ToList()
+                //                    .Select(x => new CollectDebSumary
+                //                    {
+                //                        DebType = x.DescriptionType,
+                //                        DebPeriod = x.FromDate.Date.ToString("dd-MM-yyyy") + " al " + x.UntilDate.Date.ToString("dd-MM-yyyy"),
+                //                        DebStatus = x.DescriptionStatus,
+                //                        DebAmount = x.Amount,
+                //                        ID = x.Id
+                //                    }).ToList();
             }
 
-            source.DataSource = lCollectDebs ?? new List<CollectDebSumary>();
-            dgvRecibos.DataSource = source;
+            //source.DataSource = lCollectDebs ?? new List<CollectDebSumary>();
+            //dgvRecibos.DataSource = source;
             dgvRecibos.Columns[4].Visible = false;
         }
 
         private void CargaDescuentos()
         {
-            var source = new BindingSource();
-            List<CollectDiscountSumary> lCollectDiscount = null;
+            //var source = new BindingSource();
+            //List<CollectDiscountSumary> lCollectDiscount = null;
 
             if (_agreement != null && _agreement.AgreementDiscounts != null && _agreement.AgreementDiscounts.Count > 0)
             {
-                lCollectDiscount = _agreement.AgreementDiscounts
-                                             .OrderBy(x => x.EndDate)
-                                             .Select(x => new CollectDiscountSumary
-                                             {
-                                                 Discount = x.Discount.Name,
-                                                 State = x.IsActive ? "Vigente" : "-",
-                                                 EndDate = String.Format("{0:dd/MM/yyyy}", x.EndDate)
-                                             }).ToList();
+                var AgreementDiscounts = _agreement.AgreementDiscounts.OrderBy(x => x.EndDate).ToList();
+                AgreementDiscounts.ForEach(x =>
+                {
+                    dgvDescuentos.Rows.Add(
+                            x.Discount.Name,
+                            x.IsActive ? "Vigente" : "-",
+                            String.Format("{0:dd/MM/yyyy}", x.EndDate)
+                        );
+                });
+                //lCollectDiscount = _agreement.AgreementDiscounts
+                //                             .OrderBy(x => x.EndDate)
+                //                             .Select(x => new CollectDiscountSumary
+                //                             {
+                //                                 Discount = x.Discount.Name,
+                //                                 State = x.IsActive ? "Vigente" : "-",
+                //                                 EndDate = String.Format("{0:dd/MM/yyyy}", x.EndDate)
+                //                             }).ToList();
             }
-            source.DataSource = lCollectDiscount ?? new List<CollectDiscountSumary>();
-            dgvDescuentos.DataSource = source;
+            //source.DataSource = lCollectDiscount ?? new List<CollectDiscountSumary>();
+            //dgvDescuentos.DataSource = source;
         }
 
         private void CargaAnticipos()
         {
-            var source = new BindingSource();
-            List<CollectPrepaidSumary> lCollectPrepaid = null;
+            //var source = new BindingSource();
+            //dgvAnticipos.ColumnCount = 5;
+            //dgvAnticipos.Columns[4].Name = "ID";
+            dgvAnticipos.ScrollBars = System.Windows.Forms.ScrollBars.Horizontal;
+            //List<CollectPrepaidSumary> lCollectPrepaid = null;
 
             if (_agreement != null && _agreement.Prepaids != null && _agreement.Prepaids.Count > 0)
             {
-                lCollectPrepaid = _agreement.Prepaids
-                                            .OrderByDescending(x => x.PrepaidDate)
-                                            .Select(x => new CollectPrepaidSumary
-                                            {
-                                                Type = x.TypeDescription,
-                                                Date = String.Format("{0:dd/MM/yyyy}", x.PrepaidDate),
-                                                Status = x.StatusDescription,
-                                                Amount = x.Amount,
-                                                Accredited = x.Accredited,
-                                                Residue = x.Amount - x.Accredited
-                                            }).ToList();
+                var p = _agreement.Prepaids.OrderByDescending(x => x.PrepaidDate).ToList();
+
+                p.ForEach(x =>
+                {
+                    dgvAnticipos.Rows.Add(new string[] {
+                            x.TypeDescription,
+                            String.Format("{0:dd/MM/yyyy}", x.PrepaidDate),
+                            x.StatusDescription,
+                            x.Amount.ToString(),
+                            x.Accredited.ToString(),
+                            (x.Amount - x.Accredited).ToString()
+
+                    });
+                });
+                //lCollectPrepaid = _agreement.Prepaids
+                //                            .OrderByDescending(x => x.PrepaidDate)
+                //                            .Select(x => new CollectPrepaidSumary
+                //                            {
+                //                                Type = x.TypeDescription,
+                //                                Date = String.Format("{0:dd/MM/yyyy}", x.PrepaidDate),
+                //                                Status = x.StatusDescription,
+                //                                Amount = x.Amount,
+                //                                Accredited = x.Accredited,
+                //                                Residue = x.Amount - x.Accredited
+                //                            }).ToList();
             }
 
-            source.DataSource = lCollectPrepaid ?? new List<CollectPrepaidSumary>();
-            dgvAnticipos.DataSource = source;
+            //source.DataSource = lCollectPrepaid ?? new List<CollectPrepaidSumary>();
+            //dgvAnticipos.DataSource = source;
         }
 
         private void CargaPagos()
         {
-            var source = new BindingSource();
-            List<CollectPaymentSumary> lCollectPayment = null;
+            //var source = new BindingSource();
+            //List<CollectPaymentSumary> lCollectPayment = null;
 
             if (_payments != null && _payments.Count>0)
             {
-                lCollectPayment = _payments.Where(x=> x.Status == "EP001")
-                                    .OrderByDescending(x => x.PaymentDate)
-                                      .Select(x => new CollectPaymentSumary
-                                      {
-                                          Id = x.Id,
-                                          DatePay = String.Format("{0:dd/MM/yyyy}", x.PaymentDate),
-                                          BranchOffice = x.BranchOffice,
-                                          PayMethod = x.PayMethod.Name,
-                                          AmountPay = x.Total
-                                      }).ToList();
-            }           
+                var payments = _payments.Where(x => x.Status == "EP001")
+                                    .OrderByDescending(x => x.PaymentDate).ToList();
+                payments.ForEach( x =>
+                {
+                    dgvPayment.Rows.Add(
+                           new string[] {
+                               x.Id.ToString(),
+                               String.Format("{0:dd/MM/yyyy}", x.PaymentDate),
+                               x.BranchOffice,
+                               x.PayMethod.Name,
+                               x.Total.ToString()
 
-            source.DataSource = lCollectPayment ?? new List<CollectPaymentSumary>();
-            dgvPayment.DataSource = source;
+                           }
+                        );
+                }
+                );
+            //    lCollectPayment = _payments.Where(x=> x.Status == "EP001")
+            //                        .OrderByDescending(x => x.PaymentDate)
+            //                          .Select(x => new CollectPaymentSumary
+            //                          {
+            //                              Id = x.Id,
+            //                              DatePay = String.Format("{0:dd/MM/yyyy}", x.PaymentDate),
+            //                              BranchOffice = x.BranchOffice,
+            //                              PayMethod = x.PayMethod.Name,
+            //                              AmountPay = x.Total
+            //                          }).ToList();
+            }
+            //dgvPayment.Columns[0].Visible = true;
+            //source.DataSource = lCollectPayment ?? new List<CollectPaymentSumary>();
+            //dgvPayment.DataSource = source;
         }
 
         private void CargaObservaciones()
@@ -503,9 +560,10 @@ namespace SOAPAP.UI
 
         private void DgvPayment_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
         {
+            //return;
             if (e.ColumnIndex >= 0 && this.dgvPayment.Columns[e.ColumnIndex].Name == "XML" && e.RowIndex >= 0)
             {
-                DataGridViewButtonCell c = (DataGridViewButtonCell)dgvPayment.Rows[e.RowIndex].Cells[0];
+                DataGridViewButtonCell c = (DataGridViewButtonCell)dgvPayment.Rows[e.RowIndex].Cells[5];
                 DataGridViewRow row = this.dgvPayment.Rows[e.RowIndex];
                 c.FlatStyle = FlatStyle.Popup;
                 c.Style.BackColor = Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(133)))), ((int)(((byte)(214)))));
@@ -516,7 +574,7 @@ namespace SOAPAP.UI
             }
             else if (e.ColumnIndex >= 0 && this.dgvPayment.Columns[e.ColumnIndex].Name == "PDF" && e.RowIndex >= 0)
             {
-                DataGridViewButtonCell c = (DataGridViewButtonCell)dgvPayment.Rows[e.RowIndex].Cells[1];
+                DataGridViewButtonCell c = (DataGridViewButtonCell)dgvPayment.Rows[e.RowIndex].Cells[6];
                 DataGridViewRow row = this.dgvPayment.Rows[e.RowIndex];
                 c.FlatStyle = FlatStyle.Popup;
                 c.Style.BackColor = Color.FromArgb(((int)(((byte)(221)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
@@ -527,7 +585,7 @@ namespace SOAPAP.UI
             }
             else if(e.ColumnIndex >= 0 && this.dgvPayment.Columns[e.ColumnIndex].Name == "Email" && e.RowIndex >= 0)
             {
-                DataGridViewButtonCell c = (DataGridViewButtonCell)dgvPayment.Rows[e.RowIndex].Cells[2];
+                DataGridViewButtonCell c = (DataGridViewButtonCell)dgvPayment.Rows[e.RowIndex].Cells[7];
                 DataGridViewRow row = this.dgvPayment.Rows[e.RowIndex];
                 c.Value = "Enviar";
             }
@@ -573,7 +631,7 @@ namespace SOAPAP.UI
                     }
                     else
                     {
-                        mensaje = new MessageBoxForm(Variables.titleprincipal, "Xml no disponible, posiblemente este pago no este facturado para mayor información contactarse con el administrador del sistema.", TypeIcon.Icon.Cancel);
+                        mensaje = new MessageBoxForm(Variables.titleprincipal, "PDF no disponible, posiblemente este pago no este facturado para mayor información contactarse con el administrador del sistema.", TypeIcon.Icon.Cancel);
                         result = mensaje.ShowDialog();
                     }
                 }
@@ -590,7 +648,7 @@ namespace SOAPAP.UI
                     }
                     else
                     {
-                        mensaje = new MessageBoxForm(Variables.titleprincipal, "Xml no disponible, posiblemente este pago no este facturado para mayor información contactarse con el administrador del sistema.", TypeIcon.Icon.Cancel);
+                        mensaje = new MessageBoxForm(Variables.titleprincipal, "No se puede enviar, posiblemente este pago no este facturado para mayor información contactarse con el administrador del sistema.", TypeIcon.Icon.Cancel);
                         result = mensaje.ShowDialog();
                     }
                 }
@@ -631,6 +689,11 @@ namespace SOAPAP.UI
                 }
                 
             }
+        }
+
+        private void dgvRecibos_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 

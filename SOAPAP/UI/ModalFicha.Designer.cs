@@ -314,7 +314,7 @@
             this.dgvRecibos.AllowUserToResizeRows = false;
             this.dgvRecibos.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvRecibos.BackgroundColor = System.Drawing.Color.White;
-            this.dgvRecibos.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.dgvRecibos.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dgvRecibos.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
             dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Control;
             dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft YaHei UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -323,7 +323,6 @@
             dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             this.dgvRecibos.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
             this.dgvRecibos.ColumnHeadersHeight = 35;
-            this.dgvRecibos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dgvRecibos.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.DebType,
             this.DebPeriod,
@@ -344,7 +343,7 @@
             this.dgvRecibos.Margin = new System.Windows.Forms.Padding(3, 3, 10, 3);
             this.dgvRecibos.MultiSelect = false;
             this.dgvRecibos.Name = "dgvRecibos";
-            this.dgvRecibos.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
+            this.dgvRecibos.ReadOnly = true;
             dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Control;
             dataGridViewCellStyle7.Font = new System.Drawing.Font("Microsoft YaHei UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -363,7 +362,7 @@
             this.dgvRecibos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvRecibos.Size = new System.Drawing.Size(889, 249);
             this.dgvRecibos.TabIndex = 92;
-            this.dgvRecibos.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvRecibos_CellContentDoubleClick);
+            this.dgvRecibos.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvRecibos_CellContentClick);
             this.dgvRecibos.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DgvRecibos_CellDoubleClick);
             // 
             // DebType
@@ -372,6 +371,7 @@
             this.DebType.FillWeight = 104.9048F;
             this.DebType.HeaderText = "Tipo";
             this.DebType.Name = "DebType";
+            this.DebType.ReadOnly = true;
             // 
             // DebPeriod
             // 
@@ -387,6 +387,7 @@
             this.DebStatus.FillWeight = 104.9048F;
             this.DebStatus.HeaderText = "Estado";
             this.DebStatus.Name = "DebStatus";
+            this.DebStatus.ReadOnly = true;
             // 
             // DebAmount
             // 
@@ -394,6 +395,7 @@
             this.DebAmount.FillWeight = 63.91935F;
             this.DebAmount.HeaderText = "Total";
             this.DebAmount.Name = "DebAmount";
+            this.DebAmount.ReadOnly = true;
             // 
             // Anticipos
             // 

@@ -57,6 +57,10 @@ namespace SOAPAP.UI
         {
             try
             {
+                if (e.RowIndex == -1)
+                {
+                    return;
+                }
                 this.Agreement = LAgreement[e.RowIndex];
                 this.Close();
             }catch(Exception ex)

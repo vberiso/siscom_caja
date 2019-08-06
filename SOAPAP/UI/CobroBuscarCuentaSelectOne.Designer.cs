@@ -32,10 +32,10 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.label1 = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
             this.panel5 = new System.Windows.Forms.Panel();
             this.dataGridViewCuentas = new System.Windows.Forms.DataGridView();
-            this.label1 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -73,6 +73,17 @@
             this.panel2.Size = new System.Drawing.Size(520, 67);
             this.panel2.TabIndex = 4;
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft YaHei UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(12, 10);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(430, 44);
+            this.label1.TabIndex = 1;
+            this.label1.Text = "Se encontró más de una cuenta, porfavor seleccione\r\nuna, dando doble click.\r\n";
+            this.label1.UseWaitCursor = true;
+            // 
             // panel3
             // 
             this.panel3.Controls.Add(this.panel5);
@@ -107,6 +118,7 @@
             this.dataGridViewCuentas.GridColor = System.Drawing.Color.White;
             this.dataGridViewCuentas.Location = new System.Drawing.Point(0, 0);
             this.dataGridViewCuentas.Margin = new System.Windows.Forms.Padding(3, 3, 10, 3);
+            this.dataGridViewCuentas.MultiSelect = false;
             this.dataGridViewCuentas.Name = "dataGridViewCuentas";
             this.dataGridViewCuentas.ReadOnly = true;
             this.dataGridViewCuentas.RowHeadersVisible = false;
@@ -114,17 +126,6 @@
             this.dataGridViewCuentas.Size = new System.Drawing.Size(520, 209);
             this.dataGridViewCuentas.TabIndex = 1;
             this.dataGridViewCuentas.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewCuentas_CellDoubleClick);
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft YaHei UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(12, 10);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(430, 44);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "Se encontró más de una cuenta, porfavor seleccione\r\nuna, dando doble click.\r\n";
-            this.label1.UseWaitCursor = true;
             // 
             // CobroBuscarCuentaSelectOne
             // 
