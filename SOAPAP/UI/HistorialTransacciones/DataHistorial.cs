@@ -9,6 +9,9 @@ namespace SOAPAP.UI.HistorialTransacciones
     class DataHistorial
     {        
         public int id_transaction { get; set; }
+        public int id_payment { get; set; }
+        public int id_DebtOrOrder { get; set; }
+        public int id_PuO_detail { get; set; }
         public string folio { get; set; }
         public string date_transaction { get; set; }        
         public Boolean sign { get; set; }

@@ -869,7 +869,7 @@ namespace SOAPAP
                 {
                     Descuento = TraVM.orderSale.OrderSaleDiscounts.Sum(x => x.DiscountAmount);
                     //Anexo el año y periodo (Orders)
-                    CondicionPago = "Año :" + TraVM.orderSale.Year + " Perido: " + TraVM.orderSale.Year;
+                    CondicionPago = "Año : " + TraVM.orderSale.Year + " Perido: " + TraVM.orderSale.Year;
                 }
 
                 //se obtiene el metodo de pago
@@ -1502,7 +1502,7 @@ namespace SOAPAP
             try
             {
                 pPay.HaveTaxReceipt = true;
-                pPay.ObservationInvoice = string.IsNullOrEmpty(msgObservacionFactura) ? "Sin Observación" : msgObservacionFactura;
+                pPay.ObservationInvoice = string.IsNullOrEmpty(msgObservacionFactura) ? "" : msgObservacionFactura;
                 content = new StringContent(JsonConvert.SerializeObject(pPay), Encoding.UTF8, "application/json");
                 var updatePayment = await Requests.SendURIAsync(string.Format("/api/Payments/{0}", pPay.Id), HttpMethod.Put, Variables.LoginModel.Token, content);
                 return "ok";
