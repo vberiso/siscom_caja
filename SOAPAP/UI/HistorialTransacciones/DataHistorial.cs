@@ -34,6 +34,10 @@ namespace SOAPAP.UI.HistorialTransacciones
         public decimal iva_dt { get; set; }
         public decimal Total_dt { get; set; }
         public string tipo_dt { get; set; }
+        public string FolioImpresion { get; set; }
+        public int IdContribuyente { get; set; }
+        public string Contribuyente { get; set; }
+        public string StatusP { get; set; }
 
         public decimal TotalConSigno
         {
