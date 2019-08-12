@@ -44,7 +44,6 @@
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.panel1 = new System.Windows.Forms.Panel();
             this.pgcHistorial = new DevExpress.XtraPivotGrid.PivotGridControl();
-            this.dataHistorialBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.pgfMetodo = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfCajero = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfType = new DevExpress.XtraPivotGrid.PivotGridField();
@@ -60,6 +59,8 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.chartControl1 = new DevExpress.XtraCharts.ChartControl();
             this.behaviorManager1 = new DevExpress.Utils.Behaviors.BehaviorManager(this.components);
+            this.btnIMP = new System.Windows.Forms.Button();
+            this.dataHistorialBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.pnlHeader.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chcbxOperador.Properties)).BeginInit();
@@ -68,11 +69,11 @@
             this.tableLayoutPanel1.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pgcHistorial)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataHistorialBindingSource)).BeginInit();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chartControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(xyDiagram1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.behaviorManager1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataHistorialBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // pnlHeader
@@ -80,6 +81,7 @@
             this.pnlHeader.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.pnlHeader.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(3)))), ((int)(((byte)(155)))), ((int)(((byte)(229)))));
+            this.pnlHeader.Controls.Add(this.btnIMP);
             this.pnlHeader.Controls.Add(this.btnExportar);
             this.pnlHeader.Controls.Add(this.tableLayoutPanel2);
             this.pnlHeader.Controls.Add(this.pcbIncomeByConcept);
@@ -97,11 +99,11 @@
             this.btnExportar.BackColor = System.Drawing.Color.White;
             this.btnExportar.FlatAppearance.BorderSize = 0;
             this.btnExportar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnExportar.Font = new System.Drawing.Font("Segoe UI Black", 12F, System.Drawing.FontStyle.Bold);
+            this.btnExportar.Font = new System.Drawing.Font("Segoe UI Black", 8F, System.Drawing.FontStyle.Bold);
             this.btnExportar.ForeColor = System.Drawing.Color.Black;
-            this.btnExportar.Location = new System.Drawing.Point(819, 50);
+            this.btnExportar.Location = new System.Drawing.Point(862, 50);
             this.btnExportar.Name = "btnExportar";
-            this.btnExportar.Size = new System.Drawing.Size(133, 39);
+            this.btnExportar.Size = new System.Drawing.Size(87, 36);
             this.btnExportar.TabIndex = 56;
             this.btnExportar.Text = "EXPORTAR";
             this.btnExportar.UseVisualStyleBackColor = false;
@@ -186,11 +188,11 @@
             this.btnCargar.BackColor = System.Drawing.Color.White;
             this.btnCargar.FlatAppearance.BorderSize = 0;
             this.btnCargar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnCargar.Font = new System.Drawing.Font("Segoe UI Black", 12F, System.Drawing.FontStyle.Bold);
+            this.btnCargar.Font = new System.Drawing.Font("Segoe UI Black", 8F, System.Drawing.FontStyle.Bold);
             this.btnCargar.ForeColor = System.Drawing.Color.Black;
-            this.btnCargar.Location = new System.Drawing.Point(819, 7);
+            this.btnCargar.Location = new System.Drawing.Point(790, 10);
             this.btnCargar.Name = "btnCargar";
-            this.btnCargar.Size = new System.Drawing.Size(133, 39);
+            this.btnCargar.Size = new System.Drawing.Size(118, 34);
             this.btnCargar.TabIndex = 18;
             this.btnCargar.Text = "CARGAR";
             this.btnCargar.UseVisualStyleBackColor = false;
@@ -273,10 +275,6 @@
             this.pgcHistorial.OptionsData.DataProcessingEngine = DevExpress.XtraPivotGrid.PivotDataProcessingEngine.LegacyOptimized;
             this.pgcHistorial.Size = new System.Drawing.Size(952, 216);
             this.pgcHistorial.TabIndex = 0;
-            // 
-            // dataHistorialBindingSource
-            // 
-            this.dataHistorialBindingSource.DataSource = typeof(SOAPAP.UI.HistorialTransacciones.DataHistorial);
             // 
             // pgfMetodo
             // 
@@ -404,6 +402,26 @@
             this.chartControl1.Size = new System.Drawing.Size(937, 200);
             this.chartControl1.TabIndex = 0;
             // 
+            // btnIMP
+            // 
+            this.btnIMP.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnIMP.BackColor = System.Drawing.Color.White;
+            this.btnIMP.FlatAppearance.BorderSize = 0;
+            this.btnIMP.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnIMP.Font = new System.Drawing.Font("Segoe UI Black", 8F, System.Drawing.FontStyle.Bold);
+            this.btnIMP.ForeColor = System.Drawing.Color.Black;
+            this.btnIMP.Location = new System.Drawing.Point(769, 50);
+            this.btnIMP.Name = "btnIMP";
+            this.btnIMP.Size = new System.Drawing.Size(87, 36);
+            this.btnIMP.TabIndex = 57;
+            this.btnIMP.Text = "IMPRIMIR";
+            this.btnIMP.UseVisualStyleBackColor = false;
+            this.btnIMP.Click += new System.EventHandler(this.btnImprimir_Click);
+            // 
+            // dataHistorialBindingSource
+            // 
+            this.dataHistorialBindingSource.DataSource = typeof(SOAPAP.UI.HistorialTransacciones.DataHistorial);
+            // 
             // Historial
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -424,11 +442,11 @@
             this.tableLayoutPanel1.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pgcHistorial)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataHistorialBindingSource)).EndInit();
             this.panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(xyDiagram1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.chartControl1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.behaviorManager1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataHistorialBindingSource)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -465,5 +483,6 @@
         private DevExpress.XtraPivotGrid.PivotGridField pgfDescuento;
         private DevExpress.XtraPivotGrid.PivotGridField pgfSubtotal;
         private DevExpress.XtraPivotGrid.PivotGridField pgfIva;
+        private System.Windows.Forms.Button btnIMP;
     }
 }

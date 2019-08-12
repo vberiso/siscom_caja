@@ -40,6 +40,8 @@ namespace SOAPAP.UI.HistorialTransacciones
         public string StatusP { get; set; }
         public int DivisionId { get; set; }
         public string NombreDivision { get; set; }
+        public string fecha { get; set; }
+        public string Serial { get; set; }
 
         public decimal TotalConSigno
         {

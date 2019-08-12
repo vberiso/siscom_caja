@@ -192,6 +192,54 @@ namespace SOAPAP.UI.HistorialTransacciones
             }
         }
 
+        private void btnImprimir_Click(object sender, EventArgs e)
+        {
+            DateTime Fecha= dtpFecha.Value;
+            var temp = chcbxOperador.Properties.Items.ToList();
+            
+            new Movimientos().GeneratePDF(Fecha.ToString("yyyy-MM-dd"), getidCajeros() );
+        }
+       
+        private string getidCajeros()
+        {
+            var temp = chcbxOperador.Properties.Items.ToList();
+            string idOperadorSeleccionado = "";
+
+            if (Variables.LoginModel.RolName[0] == "Supervisor")
+            {
+                //Cajero(s) seleccionado(s)
+                if (temp.Where(x => x.CheckState == CheckState.Checked).Count() == 0)
+                {
+                    idOperadorSeleccionado = "";
+                    mensaje = new MessageBoxForm("Advertencia: ", "Debe seleccionar un cajero.", TypeIcon.Icon.Cancel);
+                    result = mensaje.ShowDialog();
+                }
+                else
+                {
+                    foreach (var item in temp)
+                    {
+                        if (item.CheckState == CheckState.Checked)
+                            idOperadorSeleccionado = idOperadorSeleccionado + item.Value + ",";
+                    }
+                    idOperadorSeleccionado = idOperadorSeleccionado.Substring(0, idOperadorSeleccionado.Length - 1);
+                }
+            }
+            else
+            {
+                //Operador actual
+                if (temp.Where(x => x.CheckState == CheckState.Checked).Count() == 0)
+                {
+                    idOperadorSeleccionado = "";
+                    mensaje = new MessageBoxForm("Advertencia: ", "Debe seleccionar un cajero.", TypeIcon.Icon.Cancel);
+                    result = mensaje.ShowDialog();
+                }
+                else
+                {
+                    idOperadorSeleccionado = temp.First().Value.ToString();
+                }
+            }
+            return idOperadorSeleccionado;
+        }
         #endregion
 
         //private async void pgcHistorial_CellSelectionChanged(object sender, EventArgs e)

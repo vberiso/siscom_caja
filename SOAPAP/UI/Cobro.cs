@@ -9,6 +9,7 @@ using SOAPAP.Model;
 using SOAPAP.Services;
 using SOAPAP.UI;
 using SOAPAP.UI.Descuentos;
+using SOAPAP.UI.FacturacionAnticipada;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -69,7 +70,8 @@ namespace SOAPAP.UI
                 ObtenerInformacion();
             }
             anual = false;
-            prepaid = false;       
+            prepaid = false;
+            
         }
 
 
@@ -327,7 +329,8 @@ namespace SOAPAP.UI
             dgvConceptosCobro.DataSource = source;
             lblContibuyente.Text = String.Empty;
             lblRFC.Text = String.Empty;
-            lblDireccion.Text = String.Empty;
+            lblDireccionF.Text = String.Empty;
+            lblDireccionN.Text = String.Empty;
             lblSubtotal.Text = String.Empty;
             lblIva.Text = String.Empty;
             lblRedondeo.Text = String.Empty;
@@ -386,16 +389,20 @@ namespace SOAPAP.UI
                                 //Dirección
                                 if (Variables.OrderSale.TaxUser.TaxAddresses != null && Variables.OrderSale.TaxUser.TaxAddresses.Count > 0)
                                 {
-                                    lblDireccion.Text = Variables.OrderSale.TaxUser.TaxAddresses.First().Street
+
+                                    lblDireccionF.Text = Variables.OrderSale.TaxUser.TaxAddresses.First().Street
                                                       + " NO." + Variables.OrderSale.TaxUser.TaxAddresses.First().Outdoor
                                                       + " INT." + Variables.OrderSale.TaxUser.TaxAddresses.First().Indoor
                                                       + ", COL." + Variables.OrderSale.TaxUser.TaxAddresses.First().Suburb
                                                       + ". " + Variables.OrderSale.TaxUser.TaxAddresses.First().Town
                                                       + ". " + Variables.OrderSale.TaxUser.TaxAddresses.First().State;
+
+                                    
                                 }
                                 else
                                 {
-                                    lblDireccion.Text = "Sin Dato";
+                                    lblDireccionF.Text = "Sin Dato";
+                                    lblDireccionN.Text = "Sin Dato";
                                     mensaje = new MessageBoxForm("Problemas", "No hay datos de dirección", TypeIcon.Icon.Warning);
                                     result = mensaje.ShowDialog();
                                 }
@@ -462,6 +469,7 @@ namespace SOAPAP.UI
                     else
                     {
                         var oLAgreement = JsonConvert.DeserializeObject<List<Model.Agreement>>(resultAgreement);
+
                         //List < Model.Agreement > s =  JsonConvert.DeserializeObject<List<Model.Agreement>>(resultAgreement);
                         int count = oLAgreement.Count();
                         if (count <= 1)
@@ -498,6 +506,11 @@ namespace SOAPAP.UI
                                                      + ' ' + Variables.Agreement.Clients.First().LastName
                                                      + ' ' + Variables.Agreement.Clients.First().SecondLastName;
                                 lblRFC.Text = Variables.Agreement.Clients.First().RFC;
+
+                                if (!Variables.Configuration.IsMunicipal)
+                                {
+                                    registrarPeriodosToolStripMenuItem.Visible = true;
+                                }
                             }
                             else
                             {
@@ -509,16 +522,33 @@ namespace SOAPAP.UI
                             //Dirección
                             if (Variables.Agreement.Addresses != null && Variables.Agreement.Addresses.Count > 0)
                             {
-                                lblDireccion.Text = Variables.Agreement.Addresses.First().Street
-                                                  + " NO." + Variables.Agreement.Addresses.First().Outdoor
-                                                  + " INT." + Variables.Agreement.Addresses.First().Indoor
-                                                  + ", COL." + Variables.Agreement.Addresses.First().Suburbs.Name
-                                                  + ". " + Variables.Agreement.Addresses.First().Suburbs.Towns.Name
-                                                  + ". " + Variables.Agreement.Addresses.First().Suburbs.Towns.States.Name;
+                                
+                                var address = Variables.Agreement.Addresses.Where(c => c.TypeAddress == "DIR01" && c.IsActive == true).First();
+                                lblDireccionF.Text = address.Street
+                                                  + " NO." + address.Outdoor
+                                                  + " INT." + address.Indoor
+                                                  + ", COL." + address.Suburbs.Name
+                                                  + ". " + address.Suburbs.Towns.Name
+                                                  + ". " + address.Suburbs.Towns.States.Name;
+                                var direcc = Variables.Agreement.Addresses.Where(x => x.TypeAddress == "DIR03").FirstOrDefault();
+                                if (direcc != null)
+                                    lblDireccionN.Text = direcc.Street
+                                                  + " NO." + direcc.Outdoor
+                                                  + " INT." + direcc.Indoor
+                                                  + ", COL." + direcc.Suburbs.Name
+                                                  + ". " + direcc.Suburbs.Towns.Name
+                                                  + ". " + direcc.Suburbs.Towns.States.Name;
+                                else
+                                {
+                                    lblDireccionN.Text = "Sin Dato";
+                                }
+
+
                             }
                             else
                             {
-                                lblDireccion.Text = "Sin Dato";
+                                lblDireccionF.Text = "Sin Dato";
+                                lblDireccionN.Text = "Sin Dato";
                                 mensaje = new MessageBoxForm("Problemas", "No hay datos de dirección", TypeIcon.Icon.Warning);
                                 result = mensaje.ShowDialog();
                             }
@@ -556,6 +586,7 @@ namespace SOAPAP.UI
                                 else
                                 {
                                     Variables.Agreement.Debts = JsonConvert.DeserializeObject<List<Model.Debt>>(resultDeb);
+                                    draw_Observaciones(Variables.Agreement.AgreementComments.ToList());
                                     if (Variables.Agreement.Debts != null && Variables.Agreement.Debts.Count > 0)
                                     {                                        
                                         ObtenerSeleccion();
@@ -563,6 +594,7 @@ namespace SOAPAP.UI
                                     }
                                     else
                                     {
+
                                         descuentosToolStripMenuItem.Enabled = false;
                                        
                                         if (!Variables.Configuration.IsMunicipal)
@@ -1165,6 +1197,61 @@ namespace SOAPAP.UI
                 loading.Close();
                 ObtenerInformacion();
             }
+        }
+
+        private void registrarPeriodosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            PeriodosAnteriores oPeriodosAnteriores = new PeriodosAnteriores(Variables.Agreement.Id);
+            result = oPeriodosAnteriores.ShowDialog();
+            if (result == DialogResult.OK)
+                ObtenerInformacion();
+
+        }
+        private void draw_Observaciones(List<Model.AgreementComent> Observaciones)
+        {
+            if (Observaciones.Count() == 0)
+            {
+                datadescripcion.Visible = false;
+                return;
+            }
+
+            datadescripcion.Visible = true;
+            // Set the column header style.
+            DataGridViewCellStyle columnHeaderStyle = new DataGridViewCellStyle();
+
+            columnHeaderStyle.BackColor = Color.Beige;
+            columnHeaderStyle.Font = new Font("Verdana", 11, FontStyle.Bold);
+            datadescripcion.ColumnHeadersDefaultCellStyle = columnHeaderStyle;
+
+            // Set the column header names.
+
+            removeColumns(datadescripcion.Rows);
+            Observaciones.ForEach(x =>
+            {
+                datadescripcion.Rows.Add(x.DateIn.ToString(), x.Observation, x.UserName);
+               // datadescripcion.Rows[0].
+            });
+            
+        }
+        private void removeColumns(DataGridViewRowCollection  rows)
+        {
+            while (rows.Count > 1)
+            {
+
+                datadescripcion.Rows.Remove(rows[rows.Count-2]);
+            }
+            var countRows = rows.Count - 1;
+            
+           
+        }
+        private void btnCobrar_Click_1(object sender, EventArgs e)
+        {
+            SendPayment();
+        }
+
+        private void datadescripcion_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 

@@ -19,6 +19,7 @@ namespace SOAPAP.Model
             Prepaids = new HashSet<Prepaid>();
             Notifications = new HashSet<Notification>();
             AgreementDetails = new HashSet<AgreementDetail>();
+            AgreementComments = new HashSet<AgreementComent>();
         }
        
         public int Id { get; set; }
@@ -60,5 +61,7 @@ namespace SOAPAP.Model
         public ICollection<Prepaid> Prepaids { get; set; }
         public ICollection<Notification> Notifications { get; set; }
         public ICollection<AgreementDetail> AgreementDetails { get; set; }
+        public ICollection<AgreementComent> AgreementComments { get; set; }
+        
     }
 }

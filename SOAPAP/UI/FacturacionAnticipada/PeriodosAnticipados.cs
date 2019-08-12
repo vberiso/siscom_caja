@@ -98,10 +98,16 @@ namespace SOAPAP.UI.FacturacionAnticipada
             loading.Show(this);
             if (!checkMeses())
             {
-                mensaje = new MessageBoxForm("Error", "el mes fin no debe ser menor al mes inicio", TypeIcon.Icon.Cancel);
-                result = mensaje.ShowDialog();
+                mensaje = new MessageBoxForm("Validación", "el mes fin no debe ser menor al mes inicio", TypeIcon.Icon.Cancel);
+              
                 result = mensaje.ShowDialog(this);
 
+            }
+            else if (textDescripcion.Text.Length < 25)
+            {
+                mensaje = new MessageBoxForm("Validación", "La Observación tiene que ser mínimo de 25 caracteres", TypeIcon.Icon.Cancel);
+               
+                result = mensaje.ShowDialog(this);
             }
             else
             {
@@ -153,12 +159,17 @@ namespace SOAPAP.UI.FacturacionAnticipada
             int mesInicio = Convert.ToInt32(((DataComboBox)comboMesInicio.SelectedItem).keyString);
 
             var url = string.Format("/api/StoreProcedure/runAccrualPeriod/{0}/{1}/{2}/{3}/{4}", Convert.ToInt32(agreement_id), mesInicio, mesFin, Convert.ToInt32(lblYear.Text), 0);
-            var results = await Requests.SendURIAsync(url, HttpMethod.Post, Variables.LoginModel.Token);
+            var stringContent = new StringContent("{'descripcion':'" + textDescripcion.Text + "','user_id':'" + Variables.LoginModel.User + "'}", Encoding.UTF8, "application/json");
+            var results = await Requests.SendURIAsync(url, HttpMethod.Post, Variables.LoginModel.Token, stringContent);
             var jsonResult = JObject.Parse(results);
 
+            bool is_null_error = jsonResult.ContainsKey("error");
+            is_null_error = is_null_error == true ? is_null_error : !string.IsNullOrEmpty(jsonResult["data"]["paramsOut"][0]["value"].ToString().Trim());
 
-            if (jsonResult.ContainsKey("error"))
+            if (is_null_error)
             {
+                string error = JsonConvert.DeserializeObject<Error>(results).error;
+                error = !string.IsNullOrEmpty(error) ? error : jsonResult["data"]["paramsOut"][0]["value"].ToString();
                 mensaje = new MessageBoxForm("Error", JsonConvert.DeserializeObject<Error>(results).error, TypeIcon.Icon.Cancel);
             }
             else
@@ -166,10 +177,13 @@ namespace SOAPAP.UI.FacturacionAnticipada
                 mensaje = new MessageBoxForm("Éxito", jsonResult["message"].ToString(), TypeIcon.Icon.Success);
             }
             loading.Close();
-            result = mensaje.ShowDialog(this);
-            this.DialogResult = DialogResult.OK;
+            result = mensaje.ShowDialog();
             mensaje.Close();
-            this.Close();
+            if (!is_null_error)
+            {
+                this.DialogResult = DialogResult.OK;
+                this.Close();
+            }
 
 
         }

@@ -28,5 +28,6 @@ namespace SOAPAP
         public ICollection<AgreementService> AgreementServices { get; set; }
         public ICollection<AgreementDiscount> AgreementDiscounts { get; set; }
         public ICollection<AgreementDetails> agreementDetails { get; set; }
+        public ICollection<AgreementComent> AgreementComents { get; set; }
     }
 }
