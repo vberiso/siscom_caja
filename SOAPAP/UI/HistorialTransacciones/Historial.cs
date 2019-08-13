@@ -14,6 +14,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+
 namespace SOAPAP.UI.HistorialTransacciones
 {
     public partial class Historial : Form
