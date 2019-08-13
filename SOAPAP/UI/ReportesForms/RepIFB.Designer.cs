@@ -39,10 +39,10 @@
             this.label2 = new System.Windows.Forms.Label();
             this.dtpFechaIni = new System.Windows.Forms.DateTimePicker();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
-            this.chcbxOperador = new DevExpress.XtraEditors.CheckedComboBoxEdit();
             this.chcbxOficina = new DevExpress.XtraEditors.CheckedComboBoxEdit();
+            this.label6 = new System.Windows.Forms.Label();
+            this.chcbxOperador = new DevExpress.XtraEditors.CheckedComboBoxEdit();
             this.pcbIncomeByConcept = new System.Windows.Forms.PictureBox();
             this.pbBG = new System.Windows.Forms.PictureBox();
             this.pnlHRigth = new System.Windows.Forms.Panel();
@@ -55,7 +55,6 @@
             this.lblTitulo = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.pgcIFB = new DevExpress.XtraPivotGrid.PivotGridControl();
-            this.dataIncomeFromBoxBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.pgfFolio = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfCuenta = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfNombre = new DevExpress.XtraPivotGrid.PivotGridField();
@@ -73,12 +72,14 @@
             this.pgfFormaPago = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfBanco = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfTipoNombre = new DevExpress.XtraPivotGrid.PivotGridField();
+            this.button1 = new System.Windows.Forms.Button();
+            this.dataIncomeFromBoxBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.pnlHeader.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.chcbxOperador.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chcbxOficina.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chcbxOperador.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pcbIncomeByConcept)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbBG)).BeginInit();
             this.pnlHRigth.SuspendLayout();
@@ -223,16 +224,6 @@
             this.tableLayoutPanel1.Size = new System.Drawing.Size(395, 45);
             this.tableLayoutPanel1.TabIndex = 49;
             // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(200, 3);
-            this.label6.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(111, 13);
-            this.label6.TabIndex = 52;
-            this.label6.Text = "Seleccione el usuario:";
-            // 
             // label7
             // 
             this.label7.AutoSize = true;
@@ -242,18 +233,6 @@
             this.label7.Size = new System.Drawing.Size(108, 13);
             this.label7.TabIndex = 55;
             this.label7.Text = "Seleccione la oficina:";
-            // 
-            // chcbxOperador
-            // 
-            this.chcbxOperador.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.chcbxOperador.EditValue = "";
-            this.chcbxOperador.Location = new System.Drawing.Point(200, 19);
-            this.chcbxOperador.Name = "chcbxOperador";
-            this.chcbxOperador.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.chcbxOperador.Size = new System.Drawing.Size(192, 20);
-            this.chcbxOperador.TabIndex = 57;
             // 
             // chcbxOficina
             // 
@@ -266,6 +245,28 @@
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
             this.chcbxOficina.Size = new System.Drawing.Size(191, 20);
             this.chcbxOficina.TabIndex = 58;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(200, 3);
+            this.label6.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(111, 13);
+            this.label6.TabIndex = 52;
+            this.label6.Text = "Seleccione el usuario:";
+            // 
+            // chcbxOperador
+            // 
+            this.chcbxOperador.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.chcbxOperador.EditValue = "";
+            this.chcbxOperador.Location = new System.Drawing.Point(200, 19);
+            this.chcbxOperador.Name = "chcbxOperador";
+            this.chcbxOperador.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.chcbxOperador.Size = new System.Drawing.Size(192, 20);
+            this.chcbxOperador.TabIndex = 57;
             // 
             // pcbIncomeByConcept
             // 
@@ -297,19 +298,20 @@
             // 
             this.pnlHRigth.Controls.Add(this.panel1);
             this.pnlHRigth.Dock = System.Windows.Forms.DockStyle.Right;
-            this.pnlHRigth.Location = new System.Drawing.Point(846, 0);
+            this.pnlHRigth.Location = new System.Drawing.Point(799, 0);
             this.pnlHRigth.Name = "pnlHRigth";
-            this.pnlHRigth.Size = new System.Drawing.Size(181, 144);
+            this.pnlHRigth.Size = new System.Drawing.Size(228, 144);
             this.pnlHRigth.TabIndex = 44;
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.btnExportar);
+            this.panel1.Controls.Add(this.button1);
             this.panel1.Controls.Add(this.btnGenerar);
+            this.panel1.Controls.Add(this.btnExportar);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Right;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(181, 144);
+            this.panel1.Size = new System.Drawing.Size(228, 144);
             this.panel1.TabIndex = 45;
             // 
             // btnExportar
@@ -318,11 +320,11 @@
             this.btnExportar.BackColor = System.Drawing.Color.White;
             this.btnExportar.FlatAppearance.BorderSize = 0;
             this.btnExportar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnExportar.Font = new System.Drawing.Font("Segoe UI Black", 12F, System.Drawing.FontStyle.Bold);
+            this.btnExportar.Font = new System.Drawing.Font("Segoe UI Black", 10F, System.Drawing.FontStyle.Bold);
             this.btnExportar.ForeColor = System.Drawing.Color.Black;
-            this.btnExportar.Location = new System.Drawing.Point(36, 67);
+            this.btnExportar.Location = new System.Drawing.Point(23, 62);
             this.btnExportar.Name = "btnExportar";
-            this.btnExportar.Size = new System.Drawing.Size(133, 48);
+            this.btnExportar.Size = new System.Drawing.Size(146, 44);
             this.btnExportar.TabIndex = 19;
             this.btnExportar.Text = "EXPORTAR";
             this.btnExportar.UseVisualStyleBackColor = false;
@@ -334,11 +336,11 @@
             this.btnGenerar.BackColor = System.Drawing.Color.White;
             this.btnGenerar.FlatAppearance.BorderSize = 0;
             this.btnGenerar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnGenerar.Font = new System.Drawing.Font("Segoe UI Black", 12F, System.Drawing.FontStyle.Bold);
+            this.btnGenerar.Font = new System.Drawing.Font("Segoe UI Black", 10F, System.Drawing.FontStyle.Bold);
             this.btnGenerar.ForeColor = System.Drawing.Color.Black;
-            this.btnGenerar.Location = new System.Drawing.Point(36, 13);
+            this.btnGenerar.Location = new System.Drawing.Point(23, 8);
             this.btnGenerar.Name = "btnGenerar";
-            this.btnGenerar.Size = new System.Drawing.Size(133, 48);
+            this.btnGenerar.Size = new System.Drawing.Size(146, 43);
             this.btnGenerar.TabIndex = 18;
             this.btnGenerar.Text = "GENERAR";
             this.btnGenerar.UseVisualStyleBackColor = false;
@@ -434,10 +436,6 @@
             this.pgcIFB.OptionsData.DataProcessingEngine = DevExpress.XtraPivotGrid.PivotDataProcessingEngine.LegacyOptimized;
             this.pgcIFB.Size = new System.Drawing.Size(1027, 277);
             this.pgcIFB.TabIndex = 49;
-            // 
-            // dataIncomeFromBoxBindingSource
-            // 
-            this.dataIncomeFromBoxBindingSource.DataSource = typeof(SOAPAP.Reportes.DataIncomeFromBox);
             // 
             // pgfFolio
             // 
@@ -569,6 +567,27 @@
             this.pgfTipoNombre.FieldName = "TipoNombre";
             this.pgfTipoNombre.Name = "pgfTipoNombre";
             // 
+            // button1
+            // 
+            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.button1.BackColor = System.Drawing.Color.White;
+            this.button1.FlatAppearance.BorderSize = 0;
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button1.Font = new System.Drawing.Font("Segoe UI Black", 10F, System.Drawing.FontStyle.Bold);
+            this.button1.ForeColor = System.Drawing.Color.Black;
+            this.button1.Location = new System.Drawing.Point(3, 67);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(95, 39);
+            this.button1.TabIndex = 20;
+            this.button1.Text = "IMPRIMIR";
+            this.button1.UseVisualStyleBackColor = false;
+            this.button1.Visible = false;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // dataIncomeFromBoxBindingSource
+            // 
+            this.dataIncomeFromBoxBindingSource.DataSource = typeof(SOAPAP.Reportes.DataIncomeFromBox);
+            // 
             // RepIFB
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -586,8 +605,8 @@
             this.tableLayoutPanel2.PerformLayout();
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.chcbxOperador.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.chcbxOficina.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chcbxOperador.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pcbIncomeByConcept)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbBG)).EndInit();
             this.pnlHRigth.ResumeLayout(false);
@@ -647,5 +666,6 @@
         private DevExpress.XtraPivotGrid.PivotGridField pgfFormaPago;
         private DevExpress.XtraPivotGrid.PivotGridField pgfBanco;
         private DevExpress.XtraPivotGrid.PivotGridField pgfTipoNombre;
+        private System.Windows.Forms.Button button1;
     }
 }

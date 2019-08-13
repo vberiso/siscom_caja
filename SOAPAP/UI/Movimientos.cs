@@ -31,6 +31,7 @@ using Newtonsoft.Json.Linq;
 using SOAPAP.Reportes;
 using SOAPAP.UI.HistorialTransacciones;
 using System.Net;
+using HiQPdf;
 
 namespace SOAPAP
 {
@@ -1366,7 +1367,7 @@ namespace SOAPAP
             }
         }
 
-        public async Task GeneratePDF(string fecha = null, string usuario_id=null, bool is_download = false)
+        public async Task GeneratePDF(string fecha = null, string usuario_id = null, bool is_download = false)
         {
             loading = new Loading();
             loading.Show(this);
@@ -1380,17 +1381,24 @@ namespace SOAPAP
             {
 
                 HiQPdf.PdfDocument document = new HiQPdf.PdfDocument();
-                
+               
                 document.SerialNumber = Properties.Settings.Default.SerialNumber;
-                HiQPdf.PdfPage page1 = document.AddPage(HiQPdf.PdfPageSize.Letter, new HiQPdf.PdfDocumentMargins(5), HiQPdf.PdfPageOrientation.Portrait);
+                HiQPdf.PdfPage page1 = document.AddPage(HiQPdf.PdfPageSize.A4, new HiQPdf.PdfDocumentMargins(5), HiQPdf.PdfPageOrientation.Portrait);
+                SetFooter(document);
                 HiQPdf.PdfHtml html = new HiQPdf.PdfHtml(await GetHtml(fecha, usuario_id), null);
                 html.WaitBeforeConvert = 2;
                 HiQPdf.PdfLayoutInfo layoutInfo = page1.Layout(html);
+                
+                
+                
+                
+                //document.Footer.Layout(pageNumberText); // 3
                 byte[] pdfBuffer = document.WriteToMemory();
                 MemoryStream stream = new MemoryStream();
                 stream.Write(pdfBuffer, 0, pdfBuffer.Length);
                 //ExportGridToPDF(pdfBuffer);
-                if (!is_download) {
+                if (!is_download)
+                {
                     SOAPAP.UI.Visualizador.Preview oPreview = new SOAPAP.UI.Visualizador.Preview(stream);
                     oPreview.ShowDialog();
                 }
@@ -1410,6 +1418,24 @@ namespace SOAPAP
 
 
         }
+        private void SetFooter(HiQPdf.PdfDocument document)
+        {
+            
+            document.CreateFooterCanvas(50);
+
+            float footerHeight = document.Footer.Height;
+            float footerWidth = document.Footer.Width;
+
+            System.Drawing.Font pageNumberingFont = new System.Drawing.Font(new System.Drawing.FontFamily("Times New Roman"), 8, System.Drawing.GraphicsUnit.Point);
+            PdfText pageNumberingText = new PdfText(5, footerHeight - 12, "Página {CrtPage} de {PageCount}", pageNumberingFont);
+            pageNumberingText.HorizontalAlign = PdfTextHAlign.Center;
+            pageNumberingText.EmbedSystemFont = true;
+            
+            document.Footer.Layout(pageNumberingText);
+
+            
+        }
+
         private void saveFile(byte[] pdfBuffer)
         {
             SaveFileDialog saveFileDialog1 = new SaveFileDialog();
@@ -1420,15 +1446,15 @@ namespace SOAPAP
             if (fileName != "")
             {
                 System.IO.File.WriteAllBytes(fileName, pdfBuffer);
-                mensaje = new MessageBoxForm("Éxito", "Archivo guardado en: "+ fileName, TypeIcon.Icon.Success);
+                mensaje = new MessageBoxForm("Éxito", "Archivo guardado en: " + fileName, TypeIcon.Icon.Success);
                 result = mensaje.ShowDialog();
 
 
             }
         }
-        private async Task<string> GetHtml(string fecha = null, string usuario_id=null)
+        private async Task<string> GetHtml(string fecha = null, string usuario_id = null)
         {
-            fecha = fecha !=null?fecha:DateTime.Now.ToString("yyyy-MM-dd");
+            fecha = fecha != null ? fecha : DateTime.Now.ToString("yyyy-MM-dd");
 
 
             StringBuilder builder = new StringBuilder();
@@ -1485,7 +1511,10 @@ namespace SOAPAP
             builder.Append(@"<tr><td><b>FECHA</b></td></tr>");
             builder.Append(@"<tr><td style='font-family:\""Montserrat\"", sans-serif;'><b>" + DateTime.Now.ToString("yyyy-MM-dd HH:mm") + "</b></td></tr>"); //fecha
             builder.Append(@"<tr><td><b>TERMINAL</b></td></tr>");
-            builder.Append(@"<tr><td style='font-family:\""Montserrat\"", sans-serif; font-size:11px;'>" + Variables.Configuration.Terminal.TerminalUsers.FirstOrDefault().Id + "</td></tr>"); //terminal
+            if (Variables.Configuration.Terminal.TerminalUsers.Count > 0)
+            {
+                builder.Append(@"<tr><td style='font-family:\""Montserrat\"", sans-serif; font-size:11px;'>" + Variables.Configuration.Terminal.TerminalUsers.FirstOrDefault().Id + "</td></tr>"); //terminal
+            }
             builder.Append(@"<tr><td><b>SUCURSAL</b></td></tr>");
             builder.Append(@"<tr><td style='font-family:\""Montserrat\"", sans-serif;'>" + Variables.Configuration.Terminal.BranchOffice.Name + "</td></tr>");// sucursal
             builder.Append(@"<tr><td><b>USUARIO</b></td></tr>");
@@ -1498,7 +1527,7 @@ namespace SOAPAP
             DataReportes dRep = new DataReportes()
             {
                 FechaIni = fecha,
-                CajeroId = usuario_id != null? usuario_id:Variables.LoginModel.User
+                CajeroId = usuario_id != null ? usuario_id : Variables.LoginModel.User
             };
 
             HttpContent content;
@@ -1512,6 +1541,11 @@ namespace SOAPAP
             //builder.Append(@"<div class='datos_conceptos' style='margin-bottom: 10px;'>");
 
             LTransaction = LTransaction.Where(x => x.DivisionId != -1).ToList();
+
+            var LUsuarios = LTransaction.Select(x =>
+                x.Serial
+               ).Distinct().ToList();
+
             LTransaction = LTransaction.GroupBy(d => d.id_transaction)
                     .Select(
                         g => new DataHistorial
@@ -1528,64 +1562,86 @@ namespace SOAPAP
                             Serial = g.First().Serial,
                             DivisionId = g.First().DivisionId,
                             NombreDivision = g.First().NombreDivision,
+                            cajero = g.First().cajero
                         }).ToList();
 
-          
-            var Ldivisiones = LTransaction.Select(x => 
-                x.DivisionId
-               ).Distinct().ToList();
+
+           
             string nombreDivision = "";
-            Ldivisiones.ForEach(d =>
+            LUsuarios.ForEach(u =>
             {
-                 var TransactionesBydivision = LTransaction.Where(x => x.DivisionId == d).ToList();
-                
-                nombreDivision = "Agua";
-                if (Variables.Configuration.IsMunicipal)
+                builder.Append(@"<div style='margin-bottom: 10px;'>");
+                var oUsuario = LTransaction.Where(x => x.Serial == u).FirstOrDefault();
+                string usuario = oUsuario != null ? oUsuario.cajero: "";
+                builder.Append(@"<p style='font-size: 19px;text-align:center;'><b> Usuario : " + usuario + "</b></p>");
+
+                //var LDivisiones = Ldivisiones.Where(x => x == oUsuario.DivisionId).ToList();
+                var Ldivisiones = LTransaction.Where(x => x.cajero == oUsuario.cajero && x.Serial == oUsuario.Serial).Select(x =>
+                                    x.DivisionId
+                                  ).Distinct().ToList();
+
+                Ldivisiones.ForEach(d =>
                 {
-                     nombreDivision = d == 0 ? "Predial" : TransactionesBydivision.First().NombreDivision;
-                }
+                    var TransactionesBydivision = LTransaction.Where(x => x.DivisionId == d && x.Serial == oUsuario.Serial).ToList();
 
-                builder.Append(@"<div class='datos_conceptos' style='margin-bottom: 10px;'>");
-                builder.Append(@"<p style='font-size: 16px;text-align:left;'><b>Área: "+ nombreDivision + "</b></p>");
-                builder.Append(@"<table style='width: 100%; font-size:13px;  border-collapse: collapse;'>");
-                builder.Append(@"<tr style='color: black;'>");
-                builder.Append(@"<th style='border: 2px solid black;'>SERIE</th>");
-                builder.Append(@"<th style='border: 2px solid black;'>FOLIO</th>");
-                builder.Append(@"<th style='border: 2px solid black;'>NOMBRE</th>");
-                builder.Append(@"<th style='border: 2px solid black;'>FECHA</th>");
-                builder.Append(@"<th style='border: 2px solid black;'>TOTAL</th>");
-                builder.Append(@"<th style='border: 2px solid black;'>STATUS</th>");
-                builder.Append(@" </tr>");
+                    nombreDivision = "Agua";
+                    if (Variables.Configuration.IsMunicipal)
+                    {
+                        nombreDivision = d == 0 ? "Predial" : TransactionesBydivision.First().NombreDivision;
+                    }
 
-
-                TransactionesBydivision.ForEach(x =>
-                {
-                    builder.Append(@"<tr >");
-                    builder.Append(@"<th style='border: 2px solid black;'>"+x.Serial+"</th>");
-                    builder.Append(@"<th style='border: 2px solid black;'>" + x.FolioImpresion + "</th>");
-                  
-                    builder.Append(@"<th style='border: 2px solid black;'text-align: left;'>" + x.Contribuyente + "</th>");
-                    builder.Append(@"<th style='border: 2px solid black;'>" +DateTime.Parse(x.fecha).ToString("dd-MM-yyyy") + "</th>");
-                   
-                    builder.Append(@"<th style='border: 2px solid black;'>" + string.Format(new CultureInfo("es-MX"), "{0:C2}", x.Total_dt) + "</th>");
-                    builder.Append(@"<th style='border: 2px solid black;'>" + (x.StatusP =="EP001"?"Activo":"Cancelado")+ "</th>");
+                    builder.Append(@"<div class='datos_conceptos' style='margin-bottom: 10px;'>");
+                    builder.Append(@"<p style='font-size: 16px;text-align:left;'><b>Área: " + nombreDivision + "</b></p>");
+                    builder.Append(@"<table style='width: 100%; font-size:13px;  border-collapse: collapse;'>");
+                    builder.Append(@"<tr style='color: black;'>");
+                    builder.Append(@"<th style='border: 2px solid black;'>SERIE</th>");
+                    builder.Append(@"<th style='border: 2px solid black;'>FOLIO</th>");
+                    builder.Append(@"<th style='border: 2px solid black;'>NOMBRE</th>");
+                    builder.Append(@"<th style='border: 2px solid black;'>FECHA</th>");
+                    builder.Append(@"<th style='border: 2px solid black;'>TOTAL</th>");
+                    builder.Append(@"<th style='border: 2px solid black;'>STATUS</th>");
                     builder.Append(@" </tr>");
-                });
-                builder.Append(@"</table>");
-                builder.Append(@"<div style='display: inline-block; '>");
-                builder.Append(@"<p style='margin-right:150px;font-size: 16px;text-align:left;display: inline-block;'>Total operaciones: " + TransactionesBydivision.Count+ "</p>");
-                builder.Append(@"<p style='margin-right:150px;font-size: 16px;text-align:center;display: inline-block;'>Operaciones canceladas:" + (TransactionesBydivision.Where(x => x.StatusP == "EP002").ToList().Count )+"</p>");
-                builder.Append(@"<p style='font-size: 16px;text-align:center;display: inline-block;'>Total cobro: " + string.Format(new CultureInfo("es-MX"), "{0:C2}", TransactionesBydivision.Where(x => x.StatusP == "EP001").ToList().Sum(x => x.Total_dt)) + "</p>");
-                builder.Append(@"</div>");
-                builder.Append(@"</div>");
 
+
+                    TransactionesBydivision.ForEach(x =>
+                    {
+                        builder.Append(@"<tr >");
+                        builder.Append(@"<th style='border: 2px solid black;'>" + x.Serial + "</th>");
+                        builder.Append(@"<th style='border: 2px solid black;'>" + x.FolioImpresion + "</th>");
+
+                        builder.Append(@"<th style='border: 2px solid black;text-align: left;'>" + x.Contribuyente + "</th>");
+                        builder.Append(@"<th style='border: 2px solid black;'>" + DateTime.Parse(x.fecha).ToString("dd-MM-yyyy") + "</th>");
+
+                        builder.Append(@"<th style='border: 2px solid black;'>" + string.Format(new CultureInfo("es-MX"), "{0:C2}", x.Total_dt) + "</th>");
+                        builder.Append(@"<th style='border: 2px solid black;'>" + (x.StatusP == "EP001" ? "Activo" : "Cancelado") + "</th>");
+                        builder.Append(@" </tr>");
+                    });
+                    builder.Append(@"</table>");
+                    builder.Append(@"<div style='display: inline-block; '>");
+                    builder.Append(@"<p style='margin-right:150px;font-size: 16px;text-align:left;display: inline-block;'>Total operaciones: " + TransactionesBydivision.Count + "</p>");
+                    builder.Append(@"<p style='margin-right:150px;font-size: 16px;text-align:center;display: inline-block;'>Operaciones canceladas:" + (TransactionesBydivision.Where(x => x.StatusP == "EP002").ToList().Count) + "</p>");
+                    builder.Append(@"<p style='font-size: 16px;text-align:center;display: inline-block;'>Total cobro: " + string.Format(new CultureInfo("es-MX"), "{0:C2}", TransactionesBydivision.ToList().Sum(x => x.Total_dt)) + "</p>");
+                    builder.Append(@"</div>");
+                    builder.Append(@"</div>");
+
+                });
+                builder.Append(@"</div>");
+                if (LUsuarios.Count > 1)
+                {
+                    var LTransactiontotalUsuario = LTransaction.Where(x =>x.Serial == oUsuario.Serial).ToList();
+                    builder.Append(@"<div style='display: inline-block; '>");
+                    builder.Append(@"<p style='margin-right:150px;font-size: 18px;text-align:left;display: inline-block;'><b>Total operaciones: " + LTransactiontotalUsuario.Count + "</b></p>");
+                    builder.Append(@"<p style='margin-right:150px;font-size: 18px;text-align:center;display: inline-block;'><b>Operaciones canceladas:" + (LTransactiontotalUsuario.Where(x => x.StatusP == "EP002").ToList().Count) + "</b></p>");
+                    builder.Append(@"<p style='font-size: 18px;text-align:center;display: inline-block;'><b>Total cobro: " + string.Format(new CultureInfo("es-MX"), "{0:C2}", LTransactiontotalUsuario.ToList().Sum(x => x.Total_dt)) + "</b></p>");
+                    builder.Append(@"</div>");
+                }
             });
 
             builder.Append(@"<br>");
             builder.Append(@"<div style='display: inline-block; '>");
             builder.Append(@"<p style='margin-right:150px;font-size: 18px;text-align:left;display: inline-block;'><b>Total operaciones: " + LTransaction.Count + "</b></p>");
             builder.Append(@"<p style='margin-right:150px;font-size: 18px;text-align:center;display: inline-block;'><b>Operaciones canceladas:" + (LTransaction.Where(x => x.StatusP == "EP002").ToList().Count) + "</b></p>");
-            builder.Append(@"<p style='font-size: 18px;text-align:center;display: inline-block;'><b>Total cobro: " +string.Format(new CultureInfo("es-MX"),"{0:C2}", LTransaction.Where(x => x.StatusP == "EP001").ToList().Sum(x => x.Total_dt)) + "</b></p>");
+            builder.Append(@"<p style='font-size: 18px;text-align:center;display: inline-block;'><b>Total cobro: " + string.Format(new CultureInfo("es-MX"), "{0:C2}", LTransaction.ToList().Sum(x => x.Total_dt)) + "</b></p>");
             builder.Append(@"</div>");
 
             builder.Append(@"</div>");
@@ -1597,5 +1653,57 @@ namespace SOAPAP
 
             return builder.ToString();
         }
+
+        //private void drawDivisiones(List<DataHistorial> LTransaction, int divi StringBuilder builder)
+        //{
+        //    var Ldivisiones = LTransaction.Where(x => x.DivisionId == oUsuario.DivisionId && x.Serial == oUsuario.Serial).Select(x =>
+        //                           x.DivisionId
+        //                         ).Distinct().ToList();
+        //    Ldivisiones.ForEach(d =>
+        //    {
+        //        var TransactionesBydivision = LTransaction.Where(x => x.DivisionId == d).ToList();
+
+        //        nombreDivision = "Agua";
+        //        if (Variables.Configuration.IsMunicipal)
+        //        {
+        //            nombreDivision = d == 0 ? "Predial" : TransactionesBydivision.First().NombreDivision;
+        //        }
+
+        //        builder.Append(@"<div class='datos_conceptos' style='margin-bottom: 10px;'>");
+        //        builder.Append(@"<p style='font-size: 16px;text-align:left;'><b>Área: " + nombreDivision + "</b></p>");
+        //        builder.Append(@"<table style='width: 100%; font-size:13px;  border-collapse: collapse;'>");
+        //        builder.Append(@"<tr style='color: black;'>");
+        //        builder.Append(@"<th style='border: 2px solid black;'>SERIE</th>");
+        //        builder.Append(@"<th style='border: 2px solid black;'>FOLIO</th>");
+        //        builder.Append(@"<th style='border: 2px solid black;'>NOMBRE</th>");
+        //        builder.Append(@"<th style='border: 2px solid black;'>FECHA</th>");
+        //        builder.Append(@"<th style='border: 2px solid black;'>TOTAL</th>");
+        //        builder.Append(@"<th style='border: 2px solid black;'>STATUS</th>");
+        //        builder.Append(@" </tr>");
+
+
+        //        TransactionesBydivision.ForEach(x =>
+        //        {
+        //            builder.Append(@"<tr >");
+        //            builder.Append(@"<th style='border: 2px solid black;'>" + x.Serial + "</th>");
+        //            builder.Append(@"<th style='border: 2px solid black;'>" + x.FolioImpresion + "</th>");
+
+        //            builder.Append(@"<th style='border: 2px solid black;'text-align: left;'>" + x.Contribuyente + "</th>");
+        //            builder.Append(@"<th style='border: 2px solid black;'>" + DateTime.Parse(x.fecha).ToString("dd-MM-yyyy") + "</th>");
+
+        //            builder.Append(@"<th style='border: 2px solid black;'>" + string.Format(new CultureInfo("es-MX"), "{0:C2}", x.Total_dt) + "</th>");
+        //            builder.Append(@"<th style='border: 2px solid black;'>" + (x.StatusP == "EP001" ? "Activo" : "Cancelado") + "</th>");
+        //            builder.Append(@" </tr>");
+        //        });
+        //        builder.Append(@"</table>");
+        //        builder.Append(@"<div style='display: inline-block; '>");
+        //        builder.Append(@"<p style='margin-right:150px;font-size: 16px;text-align:left;display: inline-block;'>Total operaciones: " + TransactionesBydivision.Count + "</p>");
+        //        builder.Append(@"<p style='margin-right:150px;font-size: 16px;text-align:center;display: inline-block;'>Operaciones canceladas:" + (TransactionesBydivision.Where(x => x.StatusP == "EP002").ToList().Count) + "</p>");
+        //        builder.Append(@"<p style='font-size: 16px;text-align:center;display: inline-block;'>Total cobro: " + string.Format(new CultureInfo("es-MX"), "{0:C2}", TransactionesBydivision.Where(x => x.StatusP == "EP001").ToList().Sum(x => x.Total_dt)) + "</p>");
+        //        builder.Append(@"</div>");
+        //        builder.Append(@"</div>");
+
+        //    });
+        //}
     }
 }

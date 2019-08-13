@@ -45,7 +45,7 @@ namespace SOAPAP.UI.FacturacionAnticipada
         private int agreement_id;
         public PeriodosAnticipados(int agreement_id)
         {
-            loading = new Loading();
+            
             InitializeComponent();
             load_data();
             this.agreement_id = agreement_id;
@@ -127,16 +127,17 @@ namespace SOAPAP.UI.FacturacionAnticipada
 
                 mensaje = new MessageBoxForm("Error", "el mes fin no debe ser menor al mes inicio", TypeIcon.Icon.Cancel);
                 loading.Close();
-                result = mensaje.ShowDialog();
+                //result = mensaje.ShowDialog();
 
                 result = mensaje.ShowDialog(this);
 
             }
             else
             {
-                
+
                 Simular uiSimular = new Simular(agreement_id, mesInicio, mesFin, Convert.ToInt32(lblYear.Text));
                 loading.Close();
+                //uiSimular.loadDataInTable();
                 uiSimular.ShowDialog(this);
             }
         }
@@ -154,9 +155,7 @@ namespace SOAPAP.UI.FacturacionAnticipada
         private async void generarFacturaAdelantada()
         {
 
-            //loading = new Loading();
-            loading.Visible = false;
-            loading.Show(this);
+            
             int mesFin = Convert.ToInt32(((DataComboBox)comboMesFin2.SelectedItem).keyString);
             int mesInicio = Convert.ToInt32(((DataComboBox)comboMesInicio.SelectedItem).keyString);
 
@@ -172,13 +171,13 @@ namespace SOAPAP.UI.FacturacionAnticipada
             {
                 string error = JsonConvert.DeserializeObject<Error>(results).error;
                 error = !string.IsNullOrEmpty(error) ? error : jsonResult["data"]["paramsOut"][0]["value"].ToString();
-                loading.Close();
+                
                 mensaje = new MessageBoxForm("Error", error, TypeIcon.Icon.Cancel);
 
             }
             else
             {
-                loading.Close();
+                
                 mensaje = new MessageBoxForm("Éxito", jsonResult["message"].ToString(), TypeIcon.Icon.Success);
             }
             

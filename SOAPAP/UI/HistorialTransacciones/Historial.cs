@@ -192,12 +192,12 @@ namespace SOAPAP.UI.HistorialTransacciones
             }
         }
 
-        private void btnImprimir_Click(object sender, EventArgs e)
+        private async void btnImprimir_Click(object sender, EventArgs e)
         {
             DateTime Fecha= dtpFecha.Value;
             var temp = chcbxOperador.Properties.Items.ToList();
             
-            new Movimientos().GeneratePDF(Fecha.ToString("yyyy-MM-dd"), getidCajeros() );
+            await new Movimientos().GeneratePDF(Fecha.ToString("yyyy-MM-dd"), getidCajeros() );
         }
        
         private string getidCajeros()

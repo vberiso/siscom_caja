@@ -27,15 +27,16 @@ namespace SOAPAP.UI.FacturacionAnticipada
         private string UrlBase = Properties.Settings.Default.URL;
         public Simular(int AgreementId, int MesInicio, int MesFin, int Year)
         {
+            
             InitializeComponent();
             this.AgreementId = AgreementId;
             this.MesInicio = MesInicio;
             this.MesIFin = MesFin;
             this.Year = Year;
             Requests = new RequestsAPI(UrlBase);
-            loadDataInTable();
-           
-            
+           // loadDataInTable();
+
+
 
         }
 
@@ -44,10 +45,11 @@ namespace SOAPAP.UI.FacturacionAnticipada
             this.Close();
         }
 
-        private async void loadDataInTable()
+        public async void loadDataInTable()
         {
-            
-      
+            this.Enabled = true;
+            loading = new Loading();
+            loading.Show(this);
             dataGridViewServicios.ColumnCount = 5;
             dataGridViewServicios.ColumnHeadersVisible = true;
 
@@ -57,7 +59,7 @@ namespace SOAPAP.UI.FacturacionAnticipada
             columnHeaderStyle.BackColor = Color.Beige;
             columnHeaderStyle.Font = new Font("Verdana", 10, FontStyle.Bold);
             dataGridViewServicios.ColumnHeadersDefaultCellStyle = columnHeaderStyle;
-           
+
             // Set the column header names.
             dataGridViewServicios.Columns[0].Name = "Servicio";
             dataGridViewServicios.Columns[1].Name = "Precio";
@@ -67,7 +69,7 @@ namespace SOAPAP.UI.FacturacionAnticipada
 
             decimal total = 0;
             decimal ivaTotal = 0;
-            
+
             var url = string.Format("/api/StoreProcedure/runAccrualPeriod/{0}/{1}/{2}/{3}/{4}", AgreementId, MesInicio, MesIFin, Year, 1);
             var results = await Requests.SendURIAsync(url, HttpMethod.Post, Variables.LoginModel.Token);
             var jsonResult = JObject.Parse(results);
@@ -79,45 +81,54 @@ namespace SOAPAP.UI.FacturacionAnticipada
             {
                 string error = JsonConvert.DeserializeObject<Error>(results).error;
                 error = !string.IsNullOrEmpty(error) ? error : jsonResult["data"]["paramsOut"][0]["value"].ToString();
-                if (error!="") {
+                if (error != "")
+                {
                     var mensaje = new MessageBoxForm("Error", error, TypeIcon.Icon.Cancel);
                     mensaje.ShowDialog();
+                    loading.Close();
                     return;
                 }
             }
             try
             {
                 var data = JObject.Parse(results)["data"]["data"];
-           
-            decimal ivaParcial = 0;
-            decimal ivat = 0;
-            decimal totalMeses = Convert.ToDecimal(MesIFin - (MesInicio - 1));
-            foreach (var  rowArray in data)
-            {     
-                  
-                if (Convert.ToBoolean(rowArray["have_tax"]))
+
+                decimal ivaParcial = 0;
+                decimal ivat = 0;
+                decimal totalMeses = Convert.ToDecimal(MesIFin - (MesInicio - 1));
+                foreach (var rowArray in data)
                 {
-                    ivaTotal += Convert.ToDecimal(rowArray["amount"].ToString()) * totalMeses;
-                    ivaParcial = Math.Round(Convert.ToDecimal(rowArray["amount"].ToString()) * Convert.ToDecimal(Variables.Configuration.IVA) / 100, 2);
-                    ivat += ivaParcial;
+
+                    if (Convert.ToBoolean(rowArray["have_tax"]))
+                    {
+                        ivaTotal += Convert.ToDecimal(rowArray["amount"].ToString()) * totalMeses;
+                        ivaParcial = Math.Round(Convert.ToDecimal(rowArray["amount"].ToString()) * Convert.ToDecimal(Variables.Configuration.IVA) / 100, 2);
+                        ivat += ivaParcial;
+                    }
+                    else
+                    {
+                        total += Convert.ToDecimal(rowArray["amount"].ToString()) * totalMeses;
+                    }
+                    dataGridViewServicios.Rows.Add(new string[] { rowArray["name_concept"].ToString(), rowArray["amount"].ToString(), totalMeses.ToString(), (totalMeses * Convert.ToDecimal(rowArray["amount"].ToString())).ToString(), ivaParcial.ToString() });
+
                 }
-                else
-                {
-                    total += Convert.ToDecimal(rowArray["amount"].ToString()) * totalMeses;
-                }
-                dataGridViewServicios.Rows.Add(new string[] { rowArray["name_concept"].ToString(), rowArray["amount"].ToString() , totalMeses.ToString(), (totalMeses * Convert.ToDecimal(rowArray["amount"].ToString())).ToString(), ivaParcial.ToString() });
-              
-            }
-          
-            ivaTotal = ivaTotal + ivat;
-            lblTotal.Text = Math.Round(ivaTotal + total,2).ToString();
-            lblIva.Text = Math.Round(ivat, 2).ToString();
+
+                ivaTotal = ivaTotal + ivat;
+                lblTotal.Text = Math.Round(ivaTotal + total, 2).ToString();
+                lblIva.Text = Math.Round(ivat, 2).ToString();
+                loading.Close();
             }
             catch (Exception e)
             {
+                loading.Close();
                 var mensaje = new MessageBoxForm("Error", "Error interno", TypeIcon.Icon.Cancel);
                 mensaje.ShowDialog();
             }
+        }
+
+        private void Simular_Load(object sender, EventArgs e)
+        {
+            loadDataInTable();
         }
     }
 }
