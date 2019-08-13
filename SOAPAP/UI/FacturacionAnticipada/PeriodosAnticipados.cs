@@ -45,6 +45,7 @@ namespace SOAPAP.UI.FacturacionAnticipada
         private int agreement_id;
         public PeriodosAnticipados(int agreement_id)
         {
+            loading = new Loading();
             InitializeComponent();
             load_data();
             this.agreement_id = agreement_id;
@@ -153,7 +154,8 @@ namespace SOAPAP.UI.FacturacionAnticipada
         private async void generarFacturaAdelantada()
         {
 
-            loading = new Loading();
+            //loading = new Loading();
+            loading.Visible = false;
             loading.Show(this);
             int mesFin = Convert.ToInt32(((DataComboBox)comboMesFin2.SelectedItem).keyString);
             int mesInicio = Convert.ToInt32(((DataComboBox)comboMesInicio.SelectedItem).keyString);
@@ -170,13 +172,16 @@ namespace SOAPAP.UI.FacturacionAnticipada
             {
                 string error = JsonConvert.DeserializeObject<Error>(results).error;
                 error = !string.IsNullOrEmpty(error) ? error : jsonResult["data"]["paramsOut"][0]["value"].ToString();
-                mensaje = new MessageBoxForm("Error", JsonConvert.DeserializeObject<Error>(results).error, TypeIcon.Icon.Cancel);
+                loading.Close();
+                mensaje = new MessageBoxForm("Error", error, TypeIcon.Icon.Cancel);
+
             }
             else
             {
+                loading.Close();
                 mensaje = new MessageBoxForm("Éxito", jsonResult["message"].ToString(), TypeIcon.Icon.Success);
             }
-            loading.Close();
+            
             result = mensaje.ShowDialog();
             mensaje.Close();
             if (!is_null_error)
