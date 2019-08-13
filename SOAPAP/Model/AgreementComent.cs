@@ -9,7 +9,7 @@ namespace SOAPAP.Model
     public class AgreementComent
     {
 
-        public int Id { get; set; }
+        public int Id { get; set; } 
 
         public DateTime DateIn { get; set; }
 
