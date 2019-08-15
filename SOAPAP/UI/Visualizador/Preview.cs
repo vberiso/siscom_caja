@@ -28,6 +28,7 @@ namespace SOAPAP.UI.Visualizador
 
         private void Preview_Load(object sender, EventArgs e)
         {
+           
             if (StreamReader == null)
             {
                 pdfViewer1.LoadDocument(PathResource);
@@ -36,7 +37,30 @@ namespace SOAPAP.UI.Visualizador
             {
 
                 pdfViewer1.LoadDocument(StreamReader);
+              
+                pdfViewer1.NavigationPaneVisibility = DevExpress.XtraPdfViewer.PdfNavigationPaneVisibility.Visible;
+                pdfViewer1.ShowPrintStatusDialog = true;
+               
+
+
             }
+        }
+
+        private void btnCobrar_Click(object sender, EventArgs e)
+        {
+            pdfViewer1.Print();
+            pdfViewer1.Print();
+            pdfViewer1.Print();
+        }
+
+        private void btnCobrar_Click_1(object sender, EventArgs e)
+        {
+            pdfViewer1.Print();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            pdfViewer1.Print();
         }
     }
 }

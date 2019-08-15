@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Preview));
             this.pdfViewer1 = new DevExpress.XtraPdfViewer.PdfViewer();
             this.SuspendLayout();
@@ -63,6 +62,6 @@
 
         #endregion
 
-        private DevExpress.XtraPdfViewer.PdfViewer pdfViewer1;
+        public DevExpress.XtraPdfViewer.PdfViewer pdfViewer1;
     }
 }

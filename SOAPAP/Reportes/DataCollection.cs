@@ -10,6 +10,10 @@ namespace SOAPAP.Reportes
     {
         public int id_payment { get; set; }
         public string OFICINA { get; set; }
+        public string code_concept { get; set; }
+        public string Status { get; set; }
+        public string Contribuyente { get; set; }
+        public string Serie { get; set; }
         public string CAJERO { get; set; }
         public string FECHA_PAGO { get; set; }
         public string CUENTA { get; set; }
