@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using DevExpress.XtraBars.Docking2010;
+using Newtonsoft.Json;
 using SOAPAP.Enums;
 using SOAPAP.Reportes;
 using SOAPAP.Services;
@@ -36,10 +37,10 @@ namespace SOAPAP.UI.ReportesForms
         {
             loading = new Loading();
             loading.Show(this);
-            btnGenerar.Enabled = false;
+            //btnGenerar.Enabled = false;
             await CargarCombos();
             loading.Close();
-            btnGenerar.Enabled = true;            
+            //btnGenerar.Enabled = true;            
         }
 
         private async Task CargarCombos()
@@ -368,6 +369,21 @@ namespace SOAPAP.UI.ReportesForms
             else
             {
                 chlbxToma.UnCheckAll();
+            }
+        }
+
+        private void windowsUIButtonPanel1_ButtonClick(object sender, DevExpress.XtraBars.Docking2010.ButtonEventArgs e)
+        {
+            string tag = ((WindowsUIButton)e.Button).Tag.ToString();
+            switch (tag)
+            {
+                case "EX":
+                    btnExportar_Click(sender, e);
+                    break;
+                case "GE":
+                    btnGenerar_Click(sender, e);
+                    break;
+
             }
         }
     }

@@ -29,6 +29,14 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            DevExpress.XtraBars.Docking2010.WindowsUIButtonImageOptions windowsUIButtonImageOptions1 = new DevExpress.XtraBars.Docking2010.WindowsUIButtonImageOptions();
+            DevExpress.Utils.SuperToolTip superToolTip1 = new DevExpress.Utils.SuperToolTip();
+            DevExpress.Utils.ToolTipTitleItem toolTipTitleItem1 = new DevExpress.Utils.ToolTipTitleItem();
+            DevExpress.Utils.ToolTipItem toolTipItem1 = new DevExpress.Utils.ToolTipItem();
+            DevExpress.XtraBars.Docking2010.WindowsUIButtonImageOptions windowsUIButtonImageOptions2 = new DevExpress.XtraBars.Docking2010.WindowsUIButtonImageOptions();
+            DevExpress.Utils.SuperToolTip superToolTip2 = new DevExpress.Utils.SuperToolTip();
+            DevExpress.Utils.ToolTipTitleItem toolTipTitleItem2 = new DevExpress.Utils.ToolTipTitleItem();
+            DevExpress.Utils.ToolTipItem toolTipItem2 = new DevExpress.Utils.ToolTipItem();
             this.pnlHeader = new System.Windows.Forms.Panel();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.label7 = new System.Windows.Forms.Label();
@@ -42,16 +50,19 @@
             this.label8 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.chcbxOperador = new DevExpress.XtraEditors.CheckedComboBoxEdit();
+            this.pcbIncomeByConcept = new System.Windows.Forms.PictureBox();
+            this.pbBG = new System.Windows.Forms.PictureBox();
             this.pnlHRigth = new System.Windows.Forms.Panel();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.btnExportar = new System.Windows.Forms.Button();
-            this.btnGenerar = new System.Windows.Forms.Button();
+            this.windowsUIButtonPanel1 = new DevExpress.XtraBars.Docking2010.WindowsUIButtonPanel();
             this.pnlHLeft = new System.Windows.Forms.Panel();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.lblTitulo = new System.Windows.Forms.Label();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.pgcIBC = new DevExpress.XtraPivotGrid.PivotGridControl();
+            this.incomeByConceptVMBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.pgfFolio = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfCuenta = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfNombre = new DevExpress.XtraPivotGrid.PivotGridField();
@@ -74,22 +85,18 @@
             this.pgfBanco = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfMonto = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfSubtotal = new DevExpress.XtraPivotGrid.PivotGridField();
-            this.pcbIncomeByConcept = new System.Windows.Forms.PictureBox();
-            this.pbBG = new System.Windows.Forms.PictureBox();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.incomeByConceptVMBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.pnlHeader.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chcbxOficina.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chcbxOperador.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pcbIncomeByConcept)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbBG)).BeginInit();
             this.pnlHRigth.SuspendLayout();
             this.panel1.SuspendLayout();
             this.pnlHLeft.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pgcIBC)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pcbIncomeByConcept)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbBG)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pgcIBC)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.incomeByConceptVMBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
@@ -253,6 +260,32 @@
             this.chcbxOperador.Size = new System.Drawing.Size(193, 20);
             this.chcbxOperador.TabIndex = 50;
             // 
+            // pcbIncomeByConcept
+            // 
+            this.pcbIncomeByConcept.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.pcbIncomeByConcept.BackColor = System.Drawing.Color.Transparent;
+            this.pcbIncomeByConcept.Image = global::SOAPAP.Properties.Resources.bg;
+            this.pcbIncomeByConcept.InitialImage = global::SOAPAP.Properties.Resources.bg;
+            this.pcbIncomeByConcept.Location = new System.Drawing.Point(231, 62);
+            this.pcbIncomeByConcept.Name = "pcbIncomeByConcept";
+            this.pcbIncomeByConcept.Size = new System.Drawing.Size(596, 51);
+            this.pcbIncomeByConcept.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pcbIncomeByConcept.TabIndex = 52;
+            this.pcbIncomeByConcept.TabStop = false;
+            // 
+            // pbBG
+            // 
+            this.pbBG.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.pbBG.BackColor = System.Drawing.Color.Transparent;
+            this.pbBG.Image = global::SOAPAP.Properties.Resources.bg;
+            this.pbBG.InitialImage = global::SOAPAP.Properties.Resources.bg;
+            this.pbBG.Location = new System.Drawing.Point(292, 7);
+            this.pbBG.Name = "pbBG";
+            this.pbBG.Size = new System.Drawing.Size(454, 50);
+            this.pbBG.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbBG.TabIndex = 41;
+            this.pbBG.TabStop = false;
+            // 
             // pnlHRigth
             // 
             this.pnlHRigth.Controls.Add(this.panel1);
@@ -264,45 +297,40 @@
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.btnExportar);
-            this.panel1.Controls.Add(this.btnGenerar);
+            this.panel1.Controls.Add(this.windowsUIButtonPanel1);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Right;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(181, 118);
             this.panel1.TabIndex = 45;
             // 
-            // btnExportar
+            // windowsUIButtonPanel1
             // 
-            this.btnExportar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnExportar.BackColor = System.Drawing.Color.White;
-            this.btnExportar.FlatAppearance.BorderSize = 0;
-            this.btnExportar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnExportar.Font = new System.Drawing.Font("Segoe UI Black", 12F, System.Drawing.FontStyle.Bold);
-            this.btnExportar.ForeColor = System.Drawing.Color.Black;
-            this.btnExportar.Location = new System.Drawing.Point(36, 66);
-            this.btnExportar.Name = "btnExportar";
-            this.btnExportar.Size = new System.Drawing.Size(133, 39);
-            this.btnExportar.TabIndex = 19;
-            this.btnExportar.Text = "EXPORTAR";
-            this.btnExportar.UseVisualStyleBackColor = false;
-            this.btnExportar.Click += new System.EventHandler(this.btnExportar_Click);
-            // 
-            // btnGenerar
-            // 
-            this.btnGenerar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnGenerar.BackColor = System.Drawing.Color.White;
-            this.btnGenerar.FlatAppearance.BorderSize = 0;
-            this.btnGenerar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnGenerar.Font = new System.Drawing.Font("Segoe UI Black", 12F, System.Drawing.FontStyle.Bold);
-            this.btnGenerar.ForeColor = System.Drawing.Color.Black;
-            this.btnGenerar.Location = new System.Drawing.Point(36, 13);
-            this.btnGenerar.Name = "btnGenerar";
-            this.btnGenerar.Size = new System.Drawing.Size(133, 39);
-            this.btnGenerar.TabIndex = 18;
-            this.btnGenerar.Text = "GENERAR";
-            this.btnGenerar.UseVisualStyleBackColor = false;
-            this.btnGenerar.Click += new System.EventHandler(this.btnGenerar_Click);
+            this.windowsUIButtonPanel1.BackColor = System.Drawing.Color.Transparent;
+            windowsUIButtonImageOptions1.Image = global::SOAPAP.Properties.Resources.buscar;
+            toolTipTitleItem1.Text = "Generar";
+            toolTipItem1.LeftIndent = 6;
+            toolTipItem1.Text = "Carga los ingresos corespondientes a los filtros seleccionados.";
+            superToolTip1.Items.Add(toolTipTitleItem1);
+            superToolTip1.Items.Add(toolTipItem1);
+            windowsUIButtonImageOptions2.Image = global::SOAPAP.Properties.Resources.file;
+            toolTipTitleItem2.Text = "Exportar";
+            toolTipItem2.LeftIndent = 6;
+            toolTipItem2.Text = "Exporta los ingresos correspondientes a los filtros seleccionados.";
+            superToolTip2.Items.Add(toolTipTitleItem2);
+            superToolTip2.Items.Add(toolTipItem2);
+            this.windowsUIButtonPanel1.Buttons.AddRange(new DevExpress.XtraEditors.ButtonPanel.IBaseButton[] {
+            new DevExpress.XtraBars.Docking2010.WindowsUIButton("", true, windowsUIButtonImageOptions1, DevExpress.XtraBars.Docking2010.ButtonStyle.PushButton, "", -1, true, superToolTip1, true, false, true, "GE", -1, false),
+            new DevExpress.XtraBars.Docking2010.WindowsUIButton("", true, windowsUIButtonImageOptions2, DevExpress.XtraBars.Docking2010.ButtonStyle.PushButton, "Exportar", -1, true, superToolTip2, true, false, true, "EX", -1, false)});
+            this.windowsUIButtonPanel1.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.windowsUIButtonPanel1.Dock = System.Windows.Forms.DockStyle.Right;
+            this.windowsUIButtonPanel1.ForeColor = System.Drawing.SystemColors.ControlLight;
+            this.windowsUIButtonPanel1.Location = new System.Drawing.Point(0, 0);
+            this.windowsUIButtonPanel1.Name = "windowsUIButtonPanel1";
+            this.windowsUIButtonPanel1.Size = new System.Drawing.Size(181, 118);
+            this.windowsUIButtonPanel1.TabIndex = 59;
+            this.windowsUIButtonPanel1.Text = "windowsUIButtonPanel1";
+            this.windowsUIButtonPanel1.ButtonClick += new DevExpress.XtraBars.Docking2010.ButtonEventHandler(this.windowsUIButtonPanel1_ButtonClick);
             // 
             // pnlHLeft
             // 
@@ -368,6 +396,17 @@
             this.lblTitulo.Text = "Reportes";
             this.lblTitulo.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
+            // pictureBox1
+            // 
+            this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
+            this.pictureBox1.Image = global::SOAPAP.Properties.Resources.reportes;
+            this.pictureBox1.InitialImage = global::SOAPAP.Properties.Resources.reportes;
+            this.pictureBox1.Location = new System.Drawing.Point(9, 9);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(20, 20);
+            this.pictureBox1.TabIndex = 37;
+            this.pictureBox1.TabStop = false;
+            // 
             // pgcIBC
             // 
             this.pgcIBC.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -402,6 +441,10 @@
             this.pgcIBC.OptionsData.DataProcessingEngine = DevExpress.XtraPivotGrid.PivotDataProcessingEngine.LegacyOptimized;
             this.pgcIBC.Size = new System.Drawing.Size(1014, 302);
             this.pgcIBC.TabIndex = 49;
+            // 
+            // incomeByConceptVMBindingSource
+            // 
+            this.incomeByConceptVMBindingSource.DataSource = typeof(SOAPAP.Reportes.IncomeByConceptVM);
             // 
             // pgfFolio
             // 
@@ -576,47 +619,6 @@
             this.pgfSubtotal.FieldName = "SUBTOTAL";
             this.pgfSubtotal.Name = "pgfSubtotal";
             // 
-            // pcbIncomeByConcept
-            // 
-            this.pcbIncomeByConcept.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.pcbIncomeByConcept.BackColor = System.Drawing.Color.Transparent;
-            this.pcbIncomeByConcept.Image = global::SOAPAP.Properties.Resources.bg;
-            this.pcbIncomeByConcept.InitialImage = global::SOAPAP.Properties.Resources.bg;
-            this.pcbIncomeByConcept.Location = new System.Drawing.Point(231, 62);
-            this.pcbIncomeByConcept.Name = "pcbIncomeByConcept";
-            this.pcbIncomeByConcept.Size = new System.Drawing.Size(596, 51);
-            this.pcbIncomeByConcept.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pcbIncomeByConcept.TabIndex = 52;
-            this.pcbIncomeByConcept.TabStop = false;
-            // 
-            // pbBG
-            // 
-            this.pbBG.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.pbBG.BackColor = System.Drawing.Color.Transparent;
-            this.pbBG.Image = global::SOAPAP.Properties.Resources.bg;
-            this.pbBG.InitialImage = global::SOAPAP.Properties.Resources.bg;
-            this.pbBG.Location = new System.Drawing.Point(292, 7);
-            this.pbBG.Name = "pbBG";
-            this.pbBG.Size = new System.Drawing.Size(454, 50);
-            this.pbBG.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pbBG.TabIndex = 41;
-            this.pbBG.TabStop = false;
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
-            this.pictureBox1.Image = global::SOAPAP.Properties.Resources.reportes;
-            this.pictureBox1.InitialImage = global::SOAPAP.Properties.Resources.reportes;
-            this.pictureBox1.Location = new System.Drawing.Point(9, 9);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(20, 20);
-            this.pictureBox1.TabIndex = 37;
-            this.pictureBox1.TabStop = false;
-            // 
-            // incomeByConceptVMBindingSource
-            // 
-            this.incomeByConceptVMBindingSource.DataSource = typeof(SOAPAP.Reportes.IncomeByConceptVM);
-            // 
             // RepIA
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -634,14 +636,14 @@
             this.tableLayoutPanel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chcbxOficina.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.chcbxOperador.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pcbIncomeByConcept)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbBG)).EndInit();
             this.pnlHRigth.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.pnlHLeft.ResumeLayout(false);
             this.pnlHLeft.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pgcIBC)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pcbIncomeByConcept)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbBG)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pgcIBC)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.incomeByConceptVMBindingSource)).EndInit();
             this.ResumeLayout(false);
 
@@ -661,7 +663,6 @@
         private System.Windows.Forms.PictureBox pbBG;
         private System.Windows.Forms.Panel pnlHRigth;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Button btnGenerar;
         private System.Windows.Forms.Panel pnlHLeft;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label4;
@@ -685,7 +686,6 @@
         private DevExpress.XtraPivotGrid.PivotGridField pgfTOTAL;
         private DevExpress.XtraPivotGrid.PivotGridField pgfESTA;
         private DevExpress.XtraPivotGrid.PivotGridField pgfMP;
-        private System.Windows.Forms.Button btnExportar;
         private DevExpress.XtraPivotGrid.PivotGridField pgfAnticipos;
         private DevExpress.XtraPivotGrid.PivotGridField pgfFechaPago;
         private DevExpress.XtraPivotGrid.PivotGridField pgfOficina;
@@ -698,5 +698,6 @@
         private DevExpress.XtraPivotGrid.PivotGridField pgfBanco;
         private DevExpress.XtraPivotGrid.PivotGridField pgfMonto;
         private DevExpress.XtraPivotGrid.PivotGridField pgfSubtotal;
+        private DevExpress.XtraBars.Docking2010.WindowsUIButtonPanel windowsUIButtonPanel1;
     }
 }

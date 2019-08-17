@@ -28,7 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
+            DevExpress.XtraBars.Docking2010.WindowsUIButtonImageOptions windowsUIButtonImageOptions1 = new DevExpress.XtraBars.Docking2010.WindowsUIButtonImageOptions();
+            DevExpress.Utils.SuperToolTip superToolTip1 = new DevExpress.Utils.SuperToolTip();
+            DevExpress.Utils.ToolTipTitleItem toolTipTitleItem1 = new DevExpress.Utils.ToolTipTitleItem();
+            DevExpress.Utils.ToolTipItem toolTipItem1 = new DevExpress.Utils.ToolTipItem();
             this.pnlHeader = new System.Windows.Forms.Panel();
+            this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.rdbSoloCancelados = new System.Windows.Forms.RadioButton();
             this.rdbMosCancelados = new System.Windows.Forms.RadioButton();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
@@ -36,33 +41,32 @@
             this.dtpFechaFin = new System.Windows.Forms.DateTimePicker();
             this.label2 = new System.Windows.Forms.Label();
             this.dtpFechaIni = new System.Windows.Forms.DateTimePicker();
-            this.pcbIncomeByConcept = new System.Windows.Forms.PictureBox();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.label6 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.cbxArea = new System.Windows.Forms.ComboBox();
             this.cbxOperador = new System.Windows.Forms.ComboBox();
+            this.pcbIncomeByConcept = new System.Windows.Forms.PictureBox();
             this.pbBG = new System.Windows.Forms.PictureBox();
             this.pnlHRigth = new System.Windows.Forms.Panel();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.button2 = new System.Windows.Forms.Button();
+            this.windowsUIButtonPanel1 = new DevExpress.XtraBars.Docking2010.WindowsUIButtonPanel();
             this.pnlHLeft = new System.Windows.Forms.Panel();
             this.label5 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.lblTitulo = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.rvwReportes = new Microsoft.Reporting.WinForms.ReportViewer();
-            this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.pnlHeader.SuspendLayout();
+            this.tableLayoutPanel3.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pcbIncomeByConcept)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pcbIncomeByConcept)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbBG)).BeginInit();
             this.pnlHRigth.SuspendLayout();
             this.panel1.SuspendLayout();
             this.pnlHLeft.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            this.tableLayoutPanel3.SuspendLayout();
             this.SuspendLayout();
             // 
             // pnlHeader
@@ -80,6 +84,24 @@
             this.pnlHeader.Name = "pnlHeader";
             this.pnlHeader.Size = new System.Drawing.Size(800, 144);
             this.pnlHeader.TabIndex = 47;
+            // 
+            // tableLayoutPanel3
+            // 
+            this.tableLayoutPanel3.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.tableLayoutPanel3.BackColor = System.Drawing.Color.Transparent;
+            this.tableLayoutPanel3.ColumnCount = 2;
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 49.82578F));
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.17422F));
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 175F));
+            this.tableLayoutPanel3.Controls.Add(this.rdbSoloCancelados, 1, 0);
+            this.tableLayoutPanel3.Controls.Add(this.rdbMosCancelados, 0, 0);
+            this.tableLayoutPanel3.Location = new System.Drawing.Point(217, 116);
+            this.tableLayoutPanel3.Name = "tableLayoutPanel3";
+            this.tableLayoutPanel3.RowCount = 1;
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 28F));
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(393, 28);
+            this.tableLayoutPanel3.TabIndex = 54;
             // 
             // rdbSoloCancelados
             // 
@@ -161,19 +183,6 @@
             this.dtpFechaIni.Size = new System.Drawing.Size(190, 20);
             this.dtpFechaIni.TabIndex = 48;
             // 
-            // pcbIncomeByConcept
-            // 
-            this.pcbIncomeByConcept.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.pcbIncomeByConcept.BackColor = System.Drawing.Color.Transparent;
-            this.pcbIncomeByConcept.Image = global::SOAPAP.Properties.Resources.bg;
-            this.pcbIncomeByConcept.InitialImage = global::SOAPAP.Properties.Resources.bg;
-            this.pcbIncomeByConcept.Location = new System.Drawing.Point(188, 62);
-            this.pcbIncomeByConcept.Name = "pcbIncomeByConcept";
-            this.pcbIncomeByConcept.Size = new System.Drawing.Size(451, 51);
-            this.pcbIncomeByConcept.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pcbIncomeByConcept.TabIndex = 52;
-            this.pcbIncomeByConcept.TabStop = false;
-            // 
             // tableLayoutPanel1
             // 
             this.tableLayoutPanel1.Anchor = System.Windows.Forms.AnchorStyles.Top;
@@ -229,6 +238,19 @@
             this.cbxOperador.Size = new System.Drawing.Size(176, 21);
             this.cbxOperador.TabIndex = 54;
             // 
+            // pcbIncomeByConcept
+            // 
+            this.pcbIncomeByConcept.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.pcbIncomeByConcept.BackColor = System.Drawing.Color.Transparent;
+            this.pcbIncomeByConcept.Image = global::SOAPAP.Properties.Resources.bg;
+            this.pcbIncomeByConcept.InitialImage = global::SOAPAP.Properties.Resources.bg;
+            this.pcbIncomeByConcept.Location = new System.Drawing.Point(188, 62);
+            this.pcbIncomeByConcept.Name = "pcbIncomeByConcept";
+            this.pcbIncomeByConcept.Size = new System.Drawing.Size(451, 51);
+            this.pcbIncomeByConcept.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pcbIncomeByConcept.TabIndex = 52;
+            this.pcbIncomeByConcept.TabStop = false;
+            // 
             // pbBG
             // 
             this.pbBG.Anchor = System.Windows.Forms.AnchorStyles.Top;
@@ -253,28 +275,33 @@
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.button2);
+            this.panel1.Controls.Add(this.windowsUIButtonPanel1);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Right;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(181, 144);
             this.panel1.TabIndex = 45;
             // 
-            // button2
+            // windowsUIButtonPanel1
             // 
-            this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button2.BackColor = System.Drawing.Color.White;
-            this.button2.FlatAppearance.BorderSize = 0;
-            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button2.Font = new System.Drawing.Font("Segoe UI Black", 12F, System.Drawing.FontStyle.Bold);
-            this.button2.ForeColor = System.Drawing.Color.Black;
-            this.button2.Location = new System.Drawing.Point(36, 13);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(133, 48);
-            this.button2.TabIndex = 18;
-            this.button2.Text = "GENERAR";
-            this.button2.UseVisualStyleBackColor = false;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.windowsUIButtonPanel1.BackColor = System.Drawing.Color.Transparent;
+            windowsUIButtonImageOptions1.Image = global::SOAPAP.Properties.Resources.buscar;
+            toolTipTitleItem1.Text = "Generar";
+            toolTipItem1.LeftIndent = 6;
+            toolTipItem1.Text = "Carga los ingresos corespondientes a los filtros seleccionados.";
+            superToolTip1.Items.Add(toolTipTitleItem1);
+            superToolTip1.Items.Add(toolTipItem1);
+            this.windowsUIButtonPanel1.Buttons.AddRange(new DevExpress.XtraEditors.ButtonPanel.IBaseButton[] {
+            new DevExpress.XtraBars.Docking2010.WindowsUIButton("", true, windowsUIButtonImageOptions1, DevExpress.XtraBars.Docking2010.ButtonStyle.PushButton, "", -1, true, superToolTip1, true, false, true, "GE", -1, false)});
+            this.windowsUIButtonPanel1.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.windowsUIButtonPanel1.Dock = System.Windows.Forms.DockStyle.Right;
+            this.windowsUIButtonPanel1.ForeColor = System.Drawing.SystemColors.ControlLight;
+            this.windowsUIButtonPanel1.Location = new System.Drawing.Point(26, 0);
+            this.windowsUIButtonPanel1.Name = "windowsUIButtonPanel1";
+            this.windowsUIButtonPanel1.Size = new System.Drawing.Size(155, 144);
+            this.windowsUIButtonPanel1.TabIndex = 60;
+            this.windowsUIButtonPanel1.Text = "windowsUIButtonPanel1";
+            this.windowsUIButtonPanel1.ButtonClick += new DevExpress.XtraBars.Docking2010.ButtonEventHandler(this.windowsUIButtonPanel1_ButtonClick);
             // 
             // pnlHLeft
             // 
@@ -347,24 +374,6 @@
             this.rvwReportes.Size = new System.Drawing.Size(800, 270);
             this.rvwReportes.TabIndex = 48;
             // 
-            // tableLayoutPanel3
-            // 
-            this.tableLayoutPanel3.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.tableLayoutPanel3.BackColor = System.Drawing.Color.Transparent;
-            this.tableLayoutPanel3.ColumnCount = 2;
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 49.82578F));
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.17422F));
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 175F));
-            this.tableLayoutPanel3.Controls.Add(this.rdbSoloCancelados, 1, 0);
-            this.tableLayoutPanel3.Controls.Add(this.rdbMosCancelados, 0, 0);
-            this.tableLayoutPanel3.Location = new System.Drawing.Point(217, 116);
-            this.tableLayoutPanel3.Name = "tableLayoutPanel3";
-            this.tableLayoutPanel3.RowCount = 1;
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 27F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(393, 28);
-            this.tableLayoutPanel3.TabIndex = 54;
-            // 
             // ReporteIFB
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -376,19 +385,19 @@
             this.Text = "ReporteIFB";
             this.Load += new System.EventHandler(this.ReporteIFB_Load);
             this.pnlHeader.ResumeLayout(false);
+            this.tableLayoutPanel3.ResumeLayout(false);
+            this.tableLayoutPanel3.PerformLayout();
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pcbIncomeByConcept)).EndInit();
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pcbIncomeByConcept)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbBG)).EndInit();
             this.pnlHRigth.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.pnlHLeft.ResumeLayout(false);
             this.pnlHLeft.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            this.tableLayoutPanel3.ResumeLayout(false);
-            this.tableLayoutPanel3.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -406,7 +415,6 @@
         private System.Windows.Forms.PictureBox pbBG;
         private System.Windows.Forms.Panel pnlHRigth;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Panel pnlHLeft;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label lblTitulo;
@@ -420,5 +428,6 @@
         private System.Windows.Forms.ComboBox cbxOperador;
         private Microsoft.Reporting.WinForms.ReportViewer rvwReportes;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
+        private DevExpress.XtraBars.Docking2010.WindowsUIButtonPanel windowsUIButtonPanel1;
     }
 }

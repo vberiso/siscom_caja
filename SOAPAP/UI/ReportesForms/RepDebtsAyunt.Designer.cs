@@ -29,17 +29,27 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            DevExpress.XtraBars.Docking2010.WindowsUIButtonImageOptions windowsUIButtonImageOptions1 = new DevExpress.XtraBars.Docking2010.WindowsUIButtonImageOptions();
+            DevExpress.Utils.SuperToolTip superToolTip1 = new DevExpress.Utils.SuperToolTip();
+            DevExpress.Utils.ToolTipTitleItem toolTipTitleItem1 = new DevExpress.Utils.ToolTipTitleItem();
+            DevExpress.Utils.ToolTipItem toolTipItem1 = new DevExpress.Utils.ToolTipItem();
+            DevExpress.XtraBars.Docking2010.WindowsUIButtonImageOptions windowsUIButtonImageOptions2 = new DevExpress.XtraBars.Docking2010.WindowsUIButtonImageOptions();
+            DevExpress.Utils.SuperToolTip superToolTip2 = new DevExpress.Utils.SuperToolTip();
+            DevExpress.Utils.ToolTipTitleItem toolTipTitleItem2 = new DevExpress.Utils.ToolTipTitleItem();
+            DevExpress.Utils.ToolTipItem toolTipItem2 = new DevExpress.Utils.ToolTipItem();
             this.pnlHeader = new System.Windows.Forms.Panel();
-            this.btnExportar = new System.Windows.Forms.Button();
-            this.btnGenerar = new System.Windows.Forms.Button();
+            this.windowsUIButtonPanel1 = new DevExpress.XtraBars.Docking2010.WindowsUIButtonPanel();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.chlbxColonia = new DevExpress.XtraEditors.CheckedListBoxControl();
             this.label6 = new System.Windows.Forms.Label();
             this.srchColonia = new DevExpress.XtraEditors.SearchControl();
             this.cheColonia = new DevExpress.XtraEditors.CheckEdit();
+            this.pbBG = new System.Windows.Forms.PictureBox();
             this.label4 = new System.Windows.Forms.Label();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.lblTitulo = new System.Windows.Forms.Label();
             this.pgcAdeudos = new DevExpress.XtraPivotGrid.PivotGridControl();
+            this.dataDebtsAyuntBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.pgfCuenta = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfNombre = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfDomicilio = new DevExpress.XtraPivotGrid.PivotGridField();
@@ -57,28 +67,24 @@
             this.pgfCount = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfDescuento = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfPorcentaje = new DevExpress.XtraPivotGrid.PivotGridField();
-            this.pbBG = new System.Windows.Forms.PictureBox();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.pgfDesdeLi = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfHastaLi = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfTotalPr = new DevExpress.XtraPivotGrid.PivotGridField();
-            this.dataDebtsAyuntBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.pnlHeader.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chlbxColonia)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.srchColonia.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cheColonia.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pgcAdeudos)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbBG)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pgcAdeudos)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataDebtsAyuntBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // pnlHeader
             // 
             this.pnlHeader.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(3)))), ((int)(((byte)(155)))), ((int)(((byte)(229)))));
-            this.pnlHeader.Controls.Add(this.btnExportar);
-            this.pnlHeader.Controls.Add(this.btnGenerar);
+            this.pnlHeader.Controls.Add(this.windowsUIButtonPanel1);
             this.pnlHeader.Controls.Add(this.tableLayoutPanel1);
             this.pnlHeader.Controls.Add(this.pbBG);
             this.pnlHeader.Controls.Add(this.label4);
@@ -90,37 +96,33 @@
             this.pnlHeader.Size = new System.Drawing.Size(1131, 158);
             this.pnlHeader.TabIndex = 51;
             // 
-            // btnExportar
+            // windowsUIButtonPanel1
             // 
-            this.btnExportar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnExportar.BackColor = System.Drawing.Color.White;
-            this.btnExportar.FlatAppearance.BorderSize = 0;
-            this.btnExportar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnExportar.Font = new System.Drawing.Font("Segoe UI Black", 12F, System.Drawing.FontStyle.Bold);
-            this.btnExportar.ForeColor = System.Drawing.Color.Black;
-            this.btnExportar.Location = new System.Drawing.Point(976, 54);
-            this.btnExportar.Name = "btnExportar";
-            this.btnExportar.Size = new System.Drawing.Size(133, 39);
-            this.btnExportar.TabIndex = 19;
-            this.btnExportar.Text = "EXPORTAR";
-            this.btnExportar.UseVisualStyleBackColor = false;
-            this.btnExportar.Click += new System.EventHandler(this.btnExportar_Click);
-            // 
-            // btnGenerar
-            // 
-            this.btnGenerar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnGenerar.BackColor = System.Drawing.Color.White;
-            this.btnGenerar.FlatAppearance.BorderSize = 0;
-            this.btnGenerar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnGenerar.Font = new System.Drawing.Font("Segoe UI Black", 12F, System.Drawing.FontStyle.Bold);
-            this.btnGenerar.ForeColor = System.Drawing.Color.Black;
-            this.btnGenerar.Location = new System.Drawing.Point(976, 9);
-            this.btnGenerar.Name = "btnGenerar";
-            this.btnGenerar.Size = new System.Drawing.Size(133, 39);
-            this.btnGenerar.TabIndex = 18;
-            this.btnGenerar.Text = "GENERAR";
-            this.btnGenerar.UseVisualStyleBackColor = false;
-            this.btnGenerar.Click += new System.EventHandler(this.btnGenerar_Click);
+            this.windowsUIButtonPanel1.BackColor = System.Drawing.Color.Transparent;
+            windowsUIButtonImageOptions1.Image = global::SOAPAP.Properties.Resources.buscar;
+            toolTipTitleItem1.Text = "Generar";
+            toolTipItem1.LeftIndent = 6;
+            toolTipItem1.Text = "Carga los ingresos corespondientes a los filtros seleccionados.";
+            superToolTip1.Items.Add(toolTipTitleItem1);
+            superToolTip1.Items.Add(toolTipItem1);
+            windowsUIButtonImageOptions2.Image = global::SOAPAP.Properties.Resources.file;
+            toolTipTitleItem2.Text = "Exportar";
+            toolTipItem2.LeftIndent = 6;
+            toolTipItem2.Text = "Exporta los ingresos correspondientes a los filtros seleccionados.";
+            superToolTip2.Items.Add(toolTipTitleItem2);
+            superToolTip2.Items.Add(toolTipItem2);
+            this.windowsUIButtonPanel1.Buttons.AddRange(new DevExpress.XtraEditors.ButtonPanel.IBaseButton[] {
+            new DevExpress.XtraBars.Docking2010.WindowsUIButton("", true, windowsUIButtonImageOptions1, DevExpress.XtraBars.Docking2010.ButtonStyle.PushButton, "", -1, true, superToolTip1, true, false, true, "GE", -1, false),
+            new DevExpress.XtraBars.Docking2010.WindowsUIButton("", true, windowsUIButtonImageOptions2, DevExpress.XtraBars.Docking2010.ButtonStyle.PushButton, "Exportar", -1, true, superToolTip2, true, false, true, "EX", -1, false)});
+            this.windowsUIButtonPanel1.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.windowsUIButtonPanel1.Dock = System.Windows.Forms.DockStyle.Right;
+            this.windowsUIButtonPanel1.ForeColor = System.Drawing.SystemColors.ControlLight;
+            this.windowsUIButtonPanel1.Location = new System.Drawing.Point(827, 0);
+            this.windowsUIButtonPanel1.Name = "windowsUIButtonPanel1";
+            this.windowsUIButtonPanel1.Size = new System.Drawing.Size(304, 158);
+            this.windowsUIButtonPanel1.TabIndex = 58;
+            this.windowsUIButtonPanel1.Text = "windowsUIButtonPanel1";
+            this.windowsUIButtonPanel1.ButtonClick += new DevExpress.XtraBars.Docking2010.ButtonEventHandler(this.windowsUIButtonPanel1_ButtonClick);
             // 
             // tableLayoutPanel1
             // 
@@ -185,6 +187,19 @@
             this.cheColonia.TabIndex = 58;
             this.cheColonia.CheckedChanged += new System.EventHandler(this.cheColonia_CheckedChanged);
             // 
+            // pbBG
+            // 
+            this.pbBG.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.pbBG.BackColor = System.Drawing.Color.Transparent;
+            this.pbBG.Image = global::SOAPAP.Properties.Resources.bg;
+            this.pbBG.InitialImage = global::SOAPAP.Properties.Resources.bg;
+            this.pbBG.Location = new System.Drawing.Point(418, 7);
+            this.pbBG.Name = "pbBG";
+            this.pbBG.Size = new System.Drawing.Size(321, 142);
+            this.pbBG.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbBG.TabIndex = 41;
+            this.pbBG.TabStop = false;
+            // 
             // label4
             // 
             this.label4.AutoSize = true;
@@ -197,6 +212,17 @@
             this.label4.TabIndex = 45;
             this.label4.Text = "Adeudos";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
+            this.pictureBox1.Image = global::SOAPAP.Properties.Resources.reportes;
+            this.pictureBox1.InitialImage = global::SOAPAP.Properties.Resources.reportes;
+            this.pictureBox1.Location = new System.Drawing.Point(3, 7);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(20, 20);
+            this.pictureBox1.TabIndex = 37;
+            this.pictureBox1.TabStop = false;
             // 
             // lblTitulo
             // 
@@ -243,6 +269,10 @@
             this.pgcAdeudos.OptionsData.DataProcessingEngine = DevExpress.XtraPivotGrid.PivotDataProcessingEngine.LegacyOptimized;
             this.pgcAdeudos.Size = new System.Drawing.Size(1130, 264);
             this.pgcAdeudos.TabIndex = 52;
+            // 
+            // dataDebtsAyuntBindingSource
+            // 
+            this.dataDebtsAyuntBindingSource.DataSource = typeof(SOAPAP.Reportes.DataDebtsAyunt);
             // 
             // pgfCuenta
             // 
@@ -385,30 +415,6 @@
             this.pgfPorcentaje.Name = "pgfPorcentaje";
             this.pgfPorcentaje.Width = 60;
             // 
-            // pbBG
-            // 
-            this.pbBG.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.pbBG.BackColor = System.Drawing.Color.Transparent;
-            this.pbBG.Image = global::SOAPAP.Properties.Resources.bg;
-            this.pbBG.InitialImage = global::SOAPAP.Properties.Resources.bg;
-            this.pbBG.Location = new System.Drawing.Point(418, 7);
-            this.pbBG.Name = "pbBG";
-            this.pbBG.Size = new System.Drawing.Size(321, 142);
-            this.pbBG.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pbBG.TabIndex = 41;
-            this.pbBG.TabStop = false;
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
-            this.pictureBox1.Image = global::SOAPAP.Properties.Resources.reportes;
-            this.pictureBox1.InitialImage = global::SOAPAP.Properties.Resources.reportes;
-            this.pictureBox1.Location = new System.Drawing.Point(3, 7);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(20, 20);
-            this.pictureBox1.TabIndex = 37;
-            this.pictureBox1.TabStop = false;
-            // 
             // pgfDesdeLi
             // 
             this.pgfDesdeLi.AreaIndex = 2;
@@ -431,10 +437,6 @@
             this.pgfTotalPr.FieldName = "Total_Pr";
             this.pgfTotalPr.Name = "pgfTotalPr";
             // 
-            // dataDebtsAyuntBindingSource
-            // 
-            this.dataDebtsAyuntBindingSource.DataSource = typeof(SOAPAP.Reportes.DataDebtsAyunt);
-            // 
             // RepDebtsAyunt
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -452,9 +454,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.chlbxColonia)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.srchColonia.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cheColonia.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pgcAdeudos)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbBG)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pgcAdeudos)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataDebtsAyuntBindingSource)).EndInit();
             this.ResumeLayout(false);
 
@@ -463,8 +465,6 @@
         #endregion
 
         private System.Windows.Forms.Panel pnlHeader;
-        private System.Windows.Forms.Button btnExportar;
-        private System.Windows.Forms.Button btnGenerar;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private DevExpress.XtraEditors.CheckedListBoxControl chlbxColonia;
         private System.Windows.Forms.Label label6;
@@ -496,5 +496,6 @@
         private DevExpress.XtraPivotGrid.PivotGridField pgfDesdeLi;
         private DevExpress.XtraPivotGrid.PivotGridField pgfHastaLi;
         private DevExpress.XtraPivotGrid.PivotGridField pgfTotalPr;
+        private DevExpress.XtraBars.Docking2010.WindowsUIButtonPanel windowsUIButtonPanel1;
     }
 }

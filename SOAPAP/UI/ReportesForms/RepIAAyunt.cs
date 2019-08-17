@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using DevExpress.XtraBars.Docking2010;
+using Newtonsoft.Json;
 using SOAPAP.Enums;
 using SOAPAP.Reportes;
 using SOAPAP.Services;
@@ -396,6 +397,19 @@ namespace SOAPAP.UI.ReportesForms
             }
         }
 
-       
+        private void windowsUIButtonPanel1_ButtonClick(object sender, DevExpress.XtraBars.Docking2010.ButtonEventArgs e)
+        {
+            string tag = ((WindowsUIButton)e.Button).Tag.ToString();
+            switch (tag)
+            {
+                case "EX":
+                    btnExportar_Click(sender, e);
+                    break;
+                case "GE":
+                    btnGenerar_Click(sender, e);
+                    break;
+
+            }
+        }
     }
 }

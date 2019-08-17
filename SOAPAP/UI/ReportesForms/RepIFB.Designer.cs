@@ -29,6 +29,18 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            DevExpress.XtraBars.Docking2010.WindowsUIButtonImageOptions windowsUIButtonImageOptions1 = new DevExpress.XtraBars.Docking2010.WindowsUIButtonImageOptions();
+            DevExpress.Utils.SuperToolTip superToolTip1 = new DevExpress.Utils.SuperToolTip();
+            DevExpress.Utils.ToolTipTitleItem toolTipTitleItem1 = new DevExpress.Utils.ToolTipTitleItem();
+            DevExpress.Utils.ToolTipItem toolTipItem1 = new DevExpress.Utils.ToolTipItem();
+            DevExpress.XtraBars.Docking2010.WindowsUIButtonImageOptions windowsUIButtonImageOptions2 = new DevExpress.XtraBars.Docking2010.WindowsUIButtonImageOptions();
+            DevExpress.Utils.SuperToolTip superToolTip2 = new DevExpress.Utils.SuperToolTip();
+            DevExpress.Utils.ToolTipTitleItem toolTipTitleItem2 = new DevExpress.Utils.ToolTipTitleItem();
+            DevExpress.Utils.ToolTipItem toolTipItem2 = new DevExpress.Utils.ToolTipItem();
+            DevExpress.XtraBars.Docking2010.WindowsUIButtonImageOptions windowsUIButtonImageOptions3 = new DevExpress.XtraBars.Docking2010.WindowsUIButtonImageOptions();
+            DevExpress.Utils.SuperToolTip superToolTip3 = new DevExpress.Utils.SuperToolTip();
+            DevExpress.Utils.ToolTipTitleItem toolTipTitleItem3 = new DevExpress.Utils.ToolTipTitleItem();
+            DevExpress.Utils.ToolTipItem toolTipItem3 = new DevExpress.Utils.ToolTipItem();
             this.pnlHeader = new System.Windows.Forms.Panel();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.rdbSoloCancelados = new System.Windows.Forms.RadioButton();
@@ -47,9 +59,7 @@
             this.pbBG = new System.Windows.Forms.PictureBox();
             this.pnlHRigth = new System.Windows.Forms.Panel();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.button1 = new System.Windows.Forms.Button();
-            this.btnGenerar = new System.Windows.Forms.Button();
-            this.btnExportar = new System.Windows.Forms.Button();
+            this.windowsUIButtonPanel1 = new DevExpress.XtraBars.Docking2010.WindowsUIButtonPanel();
             this.pnlHLeft = new System.Windows.Forms.Panel();
             this.label5 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
@@ -305,62 +315,49 @@
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.button1);
-            this.panel1.Controls.Add(this.btnGenerar);
-            this.panel1.Controls.Add(this.btnExportar);
+            this.panel1.Controls.Add(this.windowsUIButtonPanel1);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Right;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(228, 144);
             this.panel1.TabIndex = 45;
             // 
-            // button1
+            // windowsUIButtonPanel1
             // 
-            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button1.BackColor = System.Drawing.Color.White;
-            this.button1.FlatAppearance.BorderSize = 0;
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Font = new System.Drawing.Font("Segoe UI Black", 10F, System.Drawing.FontStyle.Bold);
-            this.button1.ForeColor = System.Drawing.Color.Black;
-            this.button1.Location = new System.Drawing.Point(3, 62);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(99, 44);
-            this.button1.TabIndex = 20;
-            this.button1.Text = "IMPRIMIR";
-            this.button1.UseVisualStyleBackColor = false;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // btnGenerar
-            // 
-            this.btnGenerar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnGenerar.BackColor = System.Drawing.Color.White;
-            this.btnGenerar.FlatAppearance.BorderSize = 0;
-            this.btnGenerar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnGenerar.Font = new System.Drawing.Font("Segoe UI Black", 10F, System.Drawing.FontStyle.Bold);
-            this.btnGenerar.ForeColor = System.Drawing.Color.Black;
-            this.btnGenerar.Location = new System.Drawing.Point(33, 10);
-            this.btnGenerar.Name = "btnGenerar";
-            this.btnGenerar.Size = new System.Drawing.Size(146, 43);
-            this.btnGenerar.TabIndex = 18;
-            this.btnGenerar.Text = "GENERAR";
-            this.btnGenerar.UseVisualStyleBackColor = false;
-            this.btnGenerar.Click += new System.EventHandler(this.btnGenerar_Click);
-            // 
-            // btnExportar
-            // 
-            this.btnExportar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnExportar.BackColor = System.Drawing.Color.White;
-            this.btnExportar.FlatAppearance.BorderSize = 0;
-            this.btnExportar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnExportar.Font = new System.Drawing.Font("Segoe UI Black", 10F, System.Drawing.FontStyle.Bold);
-            this.btnExportar.ForeColor = System.Drawing.Color.Black;
-            this.btnExportar.Location = new System.Drawing.Point(117, 62);
-            this.btnExportar.Name = "btnExportar";
-            this.btnExportar.Size = new System.Drawing.Size(99, 44);
-            this.btnExportar.TabIndex = 19;
-            this.btnExportar.Text = "EXPORTAR";
-            this.btnExportar.UseVisualStyleBackColor = false;
-            this.btnExportar.Click += new System.EventHandler(this.btnExportar_Click);
+            this.windowsUIButtonPanel1.BackColor = System.Drawing.Color.Transparent;
+            windowsUIButtonImageOptions1.Image = global::SOAPAP.Properties.Resources.buscar;
+            toolTipTitleItem1.Text = "Generar";
+            toolTipItem1.LeftIndent = 6;
+            toolTipItem1.Text = "Carga los ingresos corespondientes a los filtros seleccionados.";
+            superToolTip1.Items.Add(toolTipTitleItem1);
+            superToolTip1.Items.Add(toolTipItem1);
+            windowsUIButtonImageOptions2.Image = global::SOAPAP.Properties.Resources.file;
+            toolTipTitleItem2.Text = "Exportar";
+            toolTipItem2.LeftIndent = 6;
+            toolTipItem2.Text = "Exporta los ingresos correspondientes a los filtros seleccionados.";
+            superToolTip2.Items.Add(toolTipTitleItem2);
+            superToolTip2.Items.Add(toolTipItem2);
+            windowsUIButtonImageOptions3.EnableTransparency = true;
+            windowsUIButtonImageOptions3.Image = global::SOAPAP.Properties.Resources.imprimir;
+            windowsUIButtonImageOptions3.Location = DevExpress.XtraBars.Docking2010.ImageLocation.BeforeText;
+            toolTipTitleItem3.Text = "Imprimir";
+            toolTipItem3.LeftIndent = 6;
+            toolTipItem3.Text = "Genera y abre un PDF listo para imprimir.";
+            superToolTip3.Items.Add(toolTipTitleItem3);
+            superToolTip3.Items.Add(toolTipItem3);
+            this.windowsUIButtonPanel1.Buttons.AddRange(new DevExpress.XtraEditors.ButtonPanel.IBaseButton[] {
+            new DevExpress.XtraBars.Docking2010.WindowsUIButton("", true, windowsUIButtonImageOptions1, DevExpress.XtraBars.Docking2010.ButtonStyle.PushButton, "", -1, true, superToolTip1, true, false, true, "GE", -1, false),
+            new DevExpress.XtraBars.Docking2010.WindowsUIButton("", true, windowsUIButtonImageOptions2, DevExpress.XtraBars.Docking2010.ButtonStyle.PushButton, "Exportar", -1, true, superToolTip2, true, false, true, "EX", -1, false),
+            new DevExpress.XtraBars.Docking2010.WindowsUIButton("", true, windowsUIButtonImageOptions3, DevExpress.XtraBars.Docking2010.ButtonStyle.PushButton, "imprimit", -1, true, superToolTip3, true, false, true, "PR", -1, false)});
+            this.windowsUIButtonPanel1.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.windowsUIButtonPanel1.Dock = System.Windows.Forms.DockStyle.Right;
+            this.windowsUIButtonPanel1.ForeColor = System.Drawing.SystemColors.ControlLight;
+            this.windowsUIButtonPanel1.Location = new System.Drawing.Point(40, 0);
+            this.windowsUIButtonPanel1.Name = "windowsUIButtonPanel1";
+            this.windowsUIButtonPanel1.Size = new System.Drawing.Size(188, 144);
+            this.windowsUIButtonPanel1.TabIndex = 57;
+            this.windowsUIButtonPanel1.Text = "windowsUIButtonPanel1";
+            this.windowsUIButtonPanel1.ButtonClick += new DevExpress.XtraBars.Docking2010.ButtonEventHandler(this.windowsUIButtonPanel1_ButtonClick);
             // 
             // pnlHLeft
             // 
@@ -636,7 +633,6 @@
         private System.Windows.Forms.PictureBox pbBG;
         private System.Windows.Forms.Panel pnlHRigth;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Button btnGenerar;
         private System.Windows.Forms.Panel pnlHLeft;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label1;
@@ -654,7 +650,6 @@
         private DevExpress.XtraPivotGrid.PivotGridField pgfFecha;
         private DevExpress.XtraPivotGrid.PivotGridField pfgEstatus;
         private DevExpress.XtraPivotGrid.PivotGridField pgfFolioFiscal;
-        private System.Windows.Forms.Button btnExportar;
         private System.Windows.Forms.Label label7;
         private DevExpress.XtraEditors.CheckedComboBoxEdit chcbxOperador;
         private DevExpress.XtraEditors.CheckedComboBoxEdit chcbxOficina;
@@ -665,6 +660,6 @@
         private DevExpress.XtraPivotGrid.PivotGridField pgfFormaPago;
         private DevExpress.XtraPivotGrid.PivotGridField pgfBanco;
         private DevExpress.XtraPivotGrid.PivotGridField pgfTipoNombre;
-        private System.Windows.Forms.Button button1;
+        private DevExpress.XtraBars.Docking2010.WindowsUIButtonPanel windowsUIButtonPanel1;
     }
 }

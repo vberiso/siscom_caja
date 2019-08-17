@@ -1,4 +1,5 @@
-﻿using Microsoft.Reporting.WinForms;
+﻿using DevExpress.XtraBars.Docking2010;
+using Microsoft.Reporting.WinForms;
 using Newtonsoft.Json;
 using SOAPAP.Enums;
 using SOAPAP.Reportes;
@@ -36,10 +37,10 @@ namespace SOAPAP.UI.ReportesForms
         {
             loading = new Loading();
             loading.Show(this);
-            btnGenerar.Enabled = false;
+            //btnGenerar.Enabled = false;
             await CargarCombos();
             loading.Close();
-            btnGenerar.Enabled = true;
+            //btnGenerar.Enabled = true;
             this.rvwReportes.RefreshReport();
         }
 
@@ -345,8 +346,20 @@ namespace SOAPAP.UI.ReportesForms
         }
 
 
+
         #endregion
 
+        private void windowsUIButtonPanel1_ButtonClick(object sender, DevExpress.XtraBars.Docking2010.ButtonEventArgs e)
+        {
+            string tag = ((WindowsUIButton)e.Button).Tag.ToString();
+            switch (tag)
+            {
+                
+                case "GE":
+                    btnGenerar_Click(sender, e);
+                    break;
 
+            }
+        }
     }
 }

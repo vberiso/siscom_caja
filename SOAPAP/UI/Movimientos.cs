@@ -1538,6 +1538,7 @@ namespace SOAPAP
            
             string nombreDivision = "";
             string total = "";
+            string totalCan = "";
             LUsuarios.ForEach(u =>
             {
                 builder.Append(@"<div style='margin-bottom: 10px;'>");
@@ -1563,6 +1564,8 @@ namespace SOAPAP
                     builder.Append(@"<div class='datos_conceptos' style='margin-bottom: 10px;'>");
                     builder.Append(@"<p style='font-size: 16px;text-align:left;'><b>Área: " + nombreDivision + "</b></p>");
                     builder.Append(@"<table style='width: 100%; font-size:13px;  border-collapse: collapse;'>");
+                    
+                    builder.Append(@"<thead>");
                     builder.Append(@"<tr style='color: black;'>");
                     builder.Append(@"<th style='border: 1px solid black;'>SERIE</th>");
                     builder.Append(@"<th style='border: 1px solid black;'>FOLIO</th>");
@@ -1570,28 +1573,33 @@ namespace SOAPAP
                     builder.Append(@"<th style='border: 1px solid black;'>FECHA</th>");
                     builder.Append(@"<th style='border: 1px solid black;'>TOTAL</th>");
                     builder.Append(@"<th style='border: 1px solid black;'>STATUS</th>");
-                    builder.Append(@" </tr>");
-
+                    builder.Append(@"</tr>");
+                    builder.Append(@"</thead>");
+                    builder.Append(@"<tbody>");
                     TransactionesBydivision = TransactionesBydivision.OrderByDescending(x => x.sign).ToList();
                     TransactionesBydivision.ForEach(x =>
                     {
-                        builder.Append(@"<tr >");
-                        builder.Append(@"<th style='border: 1px solid black;'>" + x.Serial + "</th>");
-                        builder.Append(@"<th style='border: 1px solid black;'>" + x.FolioImpresion + "</th>");
+                        builder.Append(@"<tr>");
+                        builder.Append(@"<td style='border: 1px solid black;'>" + x.Serial + "</td>");
+                        builder.Append(@"<td style='border: 1px solid black;'>" + x.FolioImpresion + "</td>");
 
-                        builder.Append(@"<th style='border: 1px solid black;text-align: left;'>" + x.Contribuyente + "</th>");
-                        builder.Append(@"<th style='border: 1px solid black;'>" + DateTime.Parse(x.fecha).ToString("dd-MM-yyyy") + "</th>");
+                        builder.Append(@"<td style='border: 1px solid black;text-align: left;'>" + x.Contribuyente + "</td>");
+                        builder.Append(@"<td style='border: 1px solid black;'>" + DateTime.Parse(x.fecha).ToString("dd-MM-yyyy") + "</td>");
                         
-                        builder.Append(@"<th style='border: 1px solid black;'>" + string.Format(new CultureInfo("es-MX"), "{0:C2}",x.sign==true? x.Total_dt:-x.Total_dt) + "</th>");
-                        builder.Append(@"<th style='border: 1px solid black;'>" + (x.sign==true ? "Activo" : "Cancelado") + "</th>");
+                        builder.Append(@"<td style='border: 1px solid black;'>" + string.Format(new CultureInfo("es-MX"), "{0:C2}",x.sign==true? x.Total_dt:-x.Total_dt) + "</td>");
+                        builder.Append(@"<td style='border: 1px solid black;'>" + (x.sign==true ? "Activo" : "Cancelado") + "</td>");
                         builder.Append(@" </tr>");
                     });
+                    builder.Append(@"</tbody>");
                     builder.Append(@"</table>");
                     builder.Append(@"<div style='display: inline-block; '>");
                     total = string.Format(new CultureInfo("es-MX"), "{0:C2}", TransactionesBydivision.Where(x => x.sign).ToList().Sum(x => x.Total_dt) - TransactionesBydivision.Where(x => !x.sign).ToList().Sum(x => x.Total_dt))  ;
-                    builder.Append(@"<p style='margin-right:150px;font-size: 16px;text-align:left;display: inline-block;'>Total operaciones: " + TransactionesBydivision.Count + "</p>");
-                    builder.Append(@"<p style='margin-right:150px;font-size: 16px;text-align:center;display: inline-block;'>Operaciones canceladas:" + (TransactionesBydivision.Where(x => !x.sign).ToList().Count) + "</p>");
-                    builder.Append(@"<p style='font-size: 16px;text-align:center;display: inline-block;'>Total cobro: " + total + "</p>");
+                    totalCan = string.Format(new CultureInfo("es-MX"), "{0:C2}", TransactionesBydivision.Where(x => !x.sign).ToList().Sum(x => x.Total_dt));
+
+                    builder.Append(@"<p style='margin-right:110px;font-size: 14px;text-align:left;display: inline-block;'>Total operaciones: " + TransactionesBydivision.Count + "</p>");
+                    builder.Append(@"<p style='margin-right:110px;font-size: 14px;text-align:center;display: inline-block;'>Operaciones canceladas:" + (TransactionesBydivision.Where(x => !x.sign).ToList().Count) + "</p>");
+                    builder.Append(@"<p style='margin-right:110px;font-size: 14px;text-align:center;display: inline-block;'>Total cobro: " + total + "</p>");
+                    builder.Append(@"<p style='font-size: 14px;text-align:center;display: inline-block;'>Total cobro cancelado: " + totalCan + "</p>");
                     builder.Append(@"</div>");
                     builder.Append(@"</div>");
 
@@ -1602,20 +1610,25 @@ namespace SOAPAP
                 {
                     var LTransactiontotalUsuario = LTransaction.Where(x =>x.Serial == oUsuario.Serial).ToList();
                     builder.Append(@"<div style='display: inline-block; '>");
-                    builder.Append(@"<p style='margin-right:150px;font-size: 18px;text-align:left;display: inline-block;'><b>Total operaciones: " + LTransactiontotalUsuario.Count + "</b></p>");
-                    builder.Append(@"<p style='margin-right:150px;font-size: 18px;text-align:center;display: inline-block;'><b>Operaciones canceladas:" + (LTransactiontotalUsuario.Where(x => !x.sign).ToList().Count) + "</b></p>");
+                    builder.Append(@"<p style='margin-right:110px;font-size: 14px;text-align:left;display: inline-block;'><b>Total operaciones: " + LTransactiontotalUsuario.Count + "</b></p>");
+                    builder.Append(@"<p style='margin-right:110px;font-size: 14px;text-align:center;display: inline-block;'><b>Operaciones canceladas:" + (LTransactiontotalUsuario.Where(x => !x.sign).ToList().Count) + "</b></p>");
                     total = string.Format(new CultureInfo("es-MX"), "{0:C2}", LTransactiontotalUsuario.Where(x => x.sign).ToList().Sum(x => x.Total_dt)- LTransactiontotalUsuario.Where(x => !x.sign).ToList().Sum(x => x.Total_dt) );
-                    builder.Append(@"<p style='font-size: 18px;text-align:center;display: inline-block;'><b>Total cobro: " + total + "</b></p>");
+                    totalCan = string.Format(new CultureInfo("es-MX"), "{0:C2}", LTransactiontotalUsuario.Where(x => !x.sign).ToList().Sum(x => x.Total_dt) );
+                    builder.Append(@"<p style='margin-right:110px;font-size: 14px;text-align:center;display: inline-block;'><b>Total cobro: " + total + "</b></p>");
+                    builder.Append(@"<p style='font-size: 14px;text-align:center;display: inline-block;'><b>Total cobro cancelado: " + totalCan + "</b></p>");
                     builder.Append(@"</div>");
                 }
             });
 
             builder.Append(@"<br>");
             total = string.Format(new CultureInfo("es-MX"), "{0:C2}",   LTransaction.Where(x => x.sign).ToList().Sum(x => x.Total_dt) - LTransaction.Where(x => !x.sign).ToList().Sum(x => x.Total_dt));
+            totalCan = string.Format(new CultureInfo("es-MX"), "{0:C2}", LTransaction.Where(x => !x.sign).ToList().Sum(x => x.Total_dt));
+
             builder.Append(@"<div style='display: inline-block; '>");
-            builder.Append(@"<p style='margin-right:150px;font-size: 18px;text-align:left;display: inline-block;'><b>Total operaciones: " + LTransaction.Count + "</b></p>");
-            builder.Append(@"<p style='margin-right:150px;font-size: 18px;text-align:center;display: inline-block;'><b>Operaciones canceladas:" + (LTransaction.Where(x => !x.sign).ToList().Count) + "</b></p>");
-            builder.Append(@"<p style='font-size: 18px;text-align:center;display: inline-block;'><b>Total cobro: " + total + "</b></p>");
+            builder.Append(@"<p style='margin-right:100px;font-size: 16px;text-align:left;display: inline-block;'><b>Total operaciones: " + LTransaction.Count + "</b></p>");
+            builder.Append(@"<p style='margin-right:100px;font-size: 16px;text-align:center;display: inline-block;'><b>Operaciones canceladas:" + (LTransaction.Where(x => !x.sign).ToList().Count) + "</b></p>");
+            builder.Append(@"<p style='margin-right:100px;font-size: 16px;text-align:center;display: inline-block;'><b>Total cobro: " + total + "</b></p>");
+            builder.Append(@"<p style='font-size: 16px;text-align:center;display: inline-block;'><b>Total cobro cancelado: " + totalCan + "</b></p>");
             builder.Append(@"</div>");
 
             builder.Append(@"</div>");

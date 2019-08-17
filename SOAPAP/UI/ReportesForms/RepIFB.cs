@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using DevExpress.XtraBars.Docking2010;
+using Newtonsoft.Json;
 using SOAPAP.Enums;
 using SOAPAP.Reportes;
 using SOAPAP.Services;
@@ -36,10 +37,10 @@ namespace SOAPAP.UI.ReportesForms
         {
             loading = new Loading();
             loading.Show(this);
-            btnGenerar.Enabled = false;
+            //btnGenerar.Enabled = false;
             await CargarCombos();
             loading.Close();
-            btnGenerar.Enabled = true;
+            //btnGenerar.Enabled = true;
         }
 
         private async Task CargarCombos()
@@ -308,31 +309,32 @@ namespace SOAPAP.UI.ReportesForms
         }
 
 
-
-
         #endregion
 
         private async void button1_Click(object sender, EventArgs e)
         {
-            loading = new Loading();
-            loading.Show(this);
+
             generatePdf();
-            loading.Close();
+
 
         }
         public async void generatePdf()
         {
+            loading = new Loading();
+            loading.Show(this);
             DataReportes dRep = new DataReportes();
             dRep.FechaIni = dtpFechaIni.Value.ToString("yyyy-MM-dd");
             dRep.FechaFin = dtpFechaFin.Value.ToString("yyyy-MM-dd");
             dRep.CajeroId = getUsersIDSelecionados();
             if (string.IsNullOrEmpty(dRep.CajeroId))
             {
+                loading.Close();
                 return;
             }
             dRep.Oficinas = getOficinasSeleccionadas();
             if (string.IsNullOrEmpty(dRep.Oficinas))
             {
+                loading.Close();
                 return;
             }
 
@@ -347,6 +349,7 @@ namespace SOAPAP.UI.ReportesForms
                 string error = JsonConvert.DeserializeObject<Error>(_resulTransaction).error;
                 mensaje = new MessageBoxForm("Error", error, TypeIcon.Icon.Cancel);
                 result = mensaje.ShowDialog();
+                loading.Close();
                 return;
             }
             List<string> statusT = getStatusTransacction();
@@ -355,18 +358,13 @@ namespace SOAPAP.UI.ReportesForms
             {
                 mensaje = new MessageBoxForm("Error", $"No hay transacciones para las fechas {dRep.FechaIni} a {dRep.FechaFin}, por lo cual no se puede generar un reporte", TypeIcon.Icon.Cancel);
                 result = mensaje.ShowDialog();
+                loading.Close();
                 return;
             }
             //var lstFinal = lstData.Where(x => statusT.Contains(x.st)).ToList();
 
             try
             {
-
-                //HiQPdf.HtmlToPdf htmlToPdfConverter = new HiQPdf.HtmlToPdf();
-                //htmlToPdfConverter.SerialNumber = "YCgJMTAE-BiwJAhIB-EhlWTlBA-UEBRQFBA-U1FOUVJO-WVlZWQ==";
-                //SetHeader(htmlToPdfConverter.Document, dRep.FechaIni, dRep.FechaFin, lstFinal.First().cajero);
-                //SetFooter(htmlToPdfConverter.Document);
-                //htmlToPdfConverter.Document.PageOrientation = HiQPdf.PdfPageOrientation.Landscape;
 
                 HiQPdf.PdfDocument document = new HiQPdf.PdfDocument();
 
@@ -379,10 +377,7 @@ namespace SOAPAP.UI.ReportesForms
                 HiQPdf.PdfHtml html = new HiQPdf.PdfHtml(await getHtml(dRep.FechaIni, dRep.FechaFin, lstData), null);
                 html.WaitBeforeConvert = 2;
                 HiQPdf.PdfLayoutInfo layoutInfo = page1.Layout(html);
-                //htmlToPdfConverter.ConvertHtmlToFile(await getHtml(dRep.FechaIni, dRep.FechaFin, lstFinal), "", "");
                 MemoryStream stream = new MemoryStream();
-                //htmlToPdfConverter.ConvertHtmlToStream(await getHtml(dRep.FechaIni, dRep.FechaFin, lstFinal),"", stream);
-
 
                 byte[] pdfBuffer = document.WriteToMemory();
 
@@ -401,6 +396,7 @@ namespace SOAPAP.UI.ReportesForms
                 mensaje = new MessageBoxForm("Error", "No se puede generar el documento", TypeIcon.Icon.Cancel);
                 result = mensaje.ShowDialog();
             }
+            loading.Close();
         }
         private void SetHeader(HiQPdf.PdfDocument document, string FechaI, string FechaF, string cajero)
         {
@@ -567,23 +563,6 @@ namespace SOAPAP.UI.ReportesForms
 
 
             builder.Append(@" <div  class='datos_conceptos'> ");
-            builder.Append(@"<table id='datos' style='width: 100%; font-size: 10px;'>");
-            builder.Append(@"<tr>");
-            builder.Append(@"<td  style='border:1px  solid black; text-align:center;'>FOLIO</td>");
-            builder.Append(@"<td  style='border: 1px solid black;text-align:center;'>SERIE</td>");
-            builder.Append(@"<td  style='border: 1px solid black;text-align:center;'>CUENTA</td>");
-            builder.Append(@"<td  style='border: 1px solid black;text-align:center;'>NOMBRE</td>");
-            builder.Append(@"<td  style='border: 1px solid black;text-align:center;'>IMPORTE</td>");
-            builder.Append(@"<td  style='border: 1px solid black;text-align:center;'>DESC.</td>");
-            builder.Append(@"<td  style='border: 1px solid black;text-align:center;'>IMPORTE NETO</td>");
-            builder.Append(@"<td  style='border: 1px solid black;text-align:center;'>RECARGOS</td>");
-            builder.Append(@"<td  style='border: 1px solid black;text-align:center;'>DESC.</td>");
-            builder.Append(@"<td  style='border: 1px solid black;text-align:center;'>RECARGOS NETO</td>");
-            builder.Append(@"<td  style='border: 1px solid black;text-align:center;'>TOTAL DESC</td>");
-            builder.Append(@"<td  style='border: 1px solid black;text-align:center;'>TOTAL</td>");
-            builder.Append(@"<td  style='border: 1px solid black;text-align:center;'>FECHA</td>");
-            builder.Append(@"<td  style='border: 1px solid black;text-align:center;'>STATUS</td>");
-            builder.Append(@"</tr>");
             var subListFinal = lstFinal.Select(x => x.id_payment).Distinct().ToList();
 
             List<DataCollection> lNormal = null;
@@ -601,12 +580,30 @@ namespace SOAPAP.UI.ReportesForms
             string total = "";
             int Rows = 2;
 
+            builder.Append(@"<table id='datos' style='width: 100%; font-size: 10px;'>");
+
+            builder.Append(@"<thead>");
+            builder.Append(@"<tr>");
+            builder.Append(@"<th  style='border:1px  solid black; text-align:center;'>FOLIO</th>");
+            builder.Append(@"<th  style='border: 1px solid black;text-align:center;'>SERIE</th>");
+            builder.Append(@"<th  style='border: 1px solid black;text-align:center;'>CUENTA</th>");
+            builder.Append(@"<th  style='border: 1px solid black;text-align:center;'>NOMBRE</th>");
+            builder.Append(@"<th  style='border: 1px solid black;text-align:center;'>IMPORTE</th>");
+            builder.Append(@"<th  style='border: 1px solid black;text-align:center;'>DESC.</th>");
+            builder.Append(@"<th  style='border: 1px solid black;text-align:center;'>IMPORTE NETO</th>");
+            builder.Append(@"<th  style='border: 1px solid black;text-align:center;'>RECARGOS</th>");
+            builder.Append(@"<th  style='border: 1px solid black;text-align:center;'>DESC.</th>");
+            builder.Append(@"<th  style='border: 1px solid black;text-align:center;'>RECARGOS NETO</th>");
+            builder.Append(@"<th  style='border: 1px solid black;text-align:center;'>TOTAL DESC</th>");
+            builder.Append(@"<th  style='border: 1px solid black;text-align:center;'>TOTAL</th>");
+            builder.Append(@"<th  style='border: 1px solid black;text-align:center;'>FECHA</th>");
+            builder.Append(@"<th  style='border: 1px solid black;text-align:center;'>STATUS</th>");
+            builder.Append(@"</tr>");
+            builder.Append(@"</thead>");
+            builder.Append(@"<tbody>");
             subListFinal.ForEach(x =>
             {
                 var element = lstFinal.Where(e => e.id_payment == x).First();
-
-
-
 
                 lRecargos = lstFinal.Where(xx => xx.id_payment == element.id_payment && xx.CUENTA == element.CUENTA &&
                code_concepts.Contains(xx.code_concept)
@@ -614,6 +611,7 @@ namespace SOAPAP.UI.ReportesForms
 
                 lNormal = lstFinal.Where(xx => xx.id_payment == element.id_payment && xx.CUENTA == element.CUENTA &&
                !code_concepts.Contains(xx.code_concept)).ToList();
+
 
 
                 builder.Append(@"<tr>");
@@ -634,13 +632,10 @@ namespace SOAPAP.UI.ReportesForms
                 builder.Append(@"<td  style='border:1px solid black;'> " + DateTime.Parse(element.FECHA_PAGO).ToString("dd-MM-yyyy") + "</td>");
                 builder.Append(@"<td  style='border:1px solid black;'> " + (element.Status == "EP001" ? "Activo" : "Cancelado") + "</td>");
                 builder.Append(@"</tr>");
-                if (Rows == 22)
-                {
-                    builder.Append(@"<tr style=page-break-inside: avoid; border: 1px solid black; '>");
-                    builder.Append(@"</tr> ");
-                }
+
                 Rows++;
             });
+            builder.Append(@"</tbody>");
 
             lRecargos = lstFinal.Where(xx => code_concepts.Contains(xx.code_concept)).ToList();
 
@@ -694,6 +689,8 @@ namespace SOAPAP.UI.ReportesForms
 
 
             builder.Append(@"</div>");
+            builder.Append(@"</body>");
+            builder.Append(@"</html>");
             return Task.FromResult<string>(builder.ToString());
 
         }
@@ -779,6 +776,23 @@ namespace SOAPAP.UI.ReportesForms
 
             }
             return OfiSeleccionado;
+        }
+
+        private void windowsUIButtonPanel1_ButtonClick(object sender, DevExpress.XtraBars.Docking2010.ButtonEventArgs e)
+        {
+            string tag = ((WindowsUIButton)e.Button).Tag.ToString();
+            switch (tag)
+            {
+                case "EX":
+                    btnExportar_Click(sender, e);
+                    break;
+                case "GE":
+                    btnGenerar_Click(sender, e);
+                    break;
+                case "PR":
+                    button1_Click(sender, e);
+                    break;
+            }
         }
     }
 }

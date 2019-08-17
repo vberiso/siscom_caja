@@ -29,7 +29,12 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            DevExpress.XtraBars.Docking2010.WindowsUIButtonImageOptions windowsUIButtonImageOptions1 = new DevExpress.XtraBars.Docking2010.WindowsUIButtonImageOptions();
+            DevExpress.Utils.SuperToolTip superToolTip1 = new DevExpress.Utils.SuperToolTip();
+            DevExpress.Utils.ToolTipTitleItem toolTipTitleItem1 = new DevExpress.Utils.ToolTipTitleItem();
+            DevExpress.Utils.ToolTipItem toolTipItem1 = new DevExpress.Utils.ToolTipItem();
             this.pnlHeader = new System.Windows.Forms.Panel();
+            this.windowsUIButtonPanel1 = new DevExpress.XtraBars.Docking2010.WindowsUIButtonPanel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.lblOpcionBusqueda = new System.Windows.Forms.Label();
@@ -38,7 +43,6 @@
             this.tbxCuenta = new System.Windows.Forms.TextBox();
             this.pcbIncomeByConcept = new System.Windows.Forms.PictureBox();
             this.label5 = new System.Windows.Forms.Label();
-            this.btnBuscar = new System.Windows.Forms.Button();
             this.lblTitulo = new System.Windows.Forms.Label();
             this.pnlDireccion = new System.Windows.Forms.Panel();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
@@ -205,11 +209,11 @@
             this.pnlHeader.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.pnlHeader.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(3)))), ((int)(((byte)(155)))), ((int)(((byte)(229)))));
+            this.pnlHeader.Controls.Add(this.windowsUIButtonPanel1);
             this.pnlHeader.Controls.Add(this.pictureBox1);
             this.pnlHeader.Controls.Add(this.tableLayoutPanel2);
             this.pnlHeader.Controls.Add(this.pcbIncomeByConcept);
             this.pnlHeader.Controls.Add(this.label5);
-            this.pnlHeader.Controls.Add(this.btnBuscar);
             this.pnlHeader.Controls.Add(this.lblTitulo);
             this.pnlHeader.Controls.Add(this.pnlDireccion);
             this.pnlHeader.Controls.Add(this.pnlOpContribuyente);
@@ -218,6 +222,25 @@
             this.pnlHeader.Name = "pnlHeader";
             this.pnlHeader.Size = new System.Drawing.Size(938, 211);
             this.pnlHeader.TabIndex = 50;
+            // 
+            // windowsUIButtonPanel1
+            // 
+            this.windowsUIButtonPanel1.BackColor = System.Drawing.Color.Transparent;
+            windowsUIButtonImageOptions1.Image = global::SOAPAP.Properties.Resources.buscar;
+            toolTipTitleItem1.Text = "Generar";
+            toolTipItem1.LeftIndent = 6;
+            toolTipItem1.Text = "Carga los ingresos corespondientes a los filtros seleccionados.";
+            superToolTip1.Items.Add(toolTipTitleItem1);
+            superToolTip1.Items.Add(toolTipItem1);
+            this.windowsUIButtonPanel1.Buttons.AddRange(new DevExpress.XtraEditors.ButtonPanel.IBaseButton[] {
+            new DevExpress.XtraBars.Docking2010.WindowsUIButton("", true, windowsUIButtonImageOptions1, DevExpress.XtraBars.Docking2010.ButtonStyle.PushButton, "", -1, true, superToolTip1, true, false, true, "GE", -1, false)});
+            this.windowsUIButtonPanel1.ForeColor = System.Drawing.SystemColors.ControlLight;
+            this.windowsUIButtonPanel1.Location = new System.Drawing.Point(723, 4);
+            this.windowsUIButtonPanel1.Name = "windowsUIButtonPanel1";
+            this.windowsUIButtonPanel1.Size = new System.Drawing.Size(101, 59);
+            this.windowsUIButtonPanel1.TabIndex = 61;
+            this.windowsUIButtonPanel1.Text = "windowsUIButtonPanel1";
+            this.windowsUIButtonPanel1.ButtonClick += new DevExpress.XtraBars.Docking2010.ButtonEventHandler(this.windowsUIButtonPanel1_ButtonClick);
             // 
             // pictureBox1
             // 
@@ -311,22 +334,6 @@
             this.label5.TabIndex = 45;
             this.label5.Text = "de Contribuyentes";
             this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // btnBuscar
-            // 
-            this.btnBuscar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnBuscar.BackColor = System.Drawing.Color.White;
-            this.btnBuscar.FlatAppearance.BorderSize = 0;
-            this.btnBuscar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnBuscar.Font = new System.Drawing.Font("Segoe UI Black", 12F, System.Drawing.FontStyle.Bold);
-            this.btnBuscar.ForeColor = System.Drawing.Color.Black;
-            this.btnBuscar.Location = new System.Drawing.Point(793, 12);
-            this.btnBuscar.Name = "btnBuscar";
-            this.btnBuscar.Size = new System.Drawing.Size(133, 41);
-            this.btnBuscar.TabIndex = 18;
-            this.btnBuscar.Text = "BUSCAR";
-            this.btnBuscar.UseVisualStyleBackColor = false;
-            this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
             // 
             // lblTitulo
             // 
@@ -1661,6 +1668,7 @@
             this.ClientSize = new System.Drawing.Size(938, 487);
             this.Controls.Add(this.flowLayoutPanel1);
             this.Controls.Add(this.pnlHeader);
+            this.Cursor = System.Windows.Forms.Cursors.Hand;
             this.Name = "RepTaxpayer";
             this.Text = "RepTaxpayer";
             this.Load += new System.EventHandler(this.RepTaxpayer_Load);
@@ -1736,7 +1744,6 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.PictureBox pcbIncomeByConcept;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Button btnBuscar;
         private System.Windows.Forms.Label lblTitulo;
         private System.Windows.Forms.ComboBox cbxBusqudaPor;
         private System.Windows.Forms.Label lblOpcionBusqueda;
@@ -1858,5 +1865,6 @@
         private System.Windows.Forms.Label label6;
         private DevExpress.XtraEditors.ListBoxControl lbcListadoContratos;
         private System.Windows.Forms.Label label16;
+        private DevExpress.XtraBars.Docking2010.WindowsUIButtonPanel windowsUIButtonPanel1;
     }
 }

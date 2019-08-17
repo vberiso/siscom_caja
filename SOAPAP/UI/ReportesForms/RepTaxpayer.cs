@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using DevExpress.XtraBars.Docking2010;
+using Newtonsoft.Json;
 using SOAPAP.Enums;
 using SOAPAP.Reportes;
 using SOAPAP.Services;
@@ -38,11 +39,11 @@ namespace SOAPAP.UI.ReportesForms
         {
             loading = new Loading();
             loading.Show(this);
-            await CargarCombos();
+            CargarCombos();
             loading.Close();
         }
 
-        private async Task CargarCombos()
+        private void CargarCombos()
         {
             //Combo de Opciones de busqueda.
             List<DataComboBox> lstBusquedaPor = new List<DataComboBox>();
@@ -57,56 +58,56 @@ namespace SOAPAP.UI.ReportesForms
             cbxBusqudaPor.SelectedIndex = 0;
 
             //Opciones de Clientes
-            var resultTypeTransaction = await Requests.SendURIAsync("/api/Reports/GetClientesContains", HttpMethod.Get, Variables.LoginModel.Token);
-            if (resultTypeTransaction.Contains("error"))
-            {
-                mensaje = new MessageBoxForm("Error", resultTypeTransaction.Split(':')[1].Replace("}", ""), TypeIcon.Icon.Cancel);
-                result = mensaje.ShowDialog();
-            }
-            else
-            {
-                lstClientes = JsonConvert.DeserializeObject<List<SOAPAP.Model.ClientFinding>>(resultTypeTransaction);
+            //var resultTypeTransaction = await Requests.SendURIAsync("/api/Reports/GetClientesContains", HttpMethod.Get, Variables.LoginModel.Token);
+            //if (resultTypeTransaction.Contains("error"))
+            //{
+            //    mensaje = new MessageBoxForm("Error", resultTypeTransaction.Split(':')[1].Replace("}", ""), TypeIcon.Icon.Cancel);
+            //    result = mensaje.ShowDialog();
+            //}
+            //else
+            //{
+            //    lstClientes = JsonConvert.DeserializeObject<List<SOAPAP.Model.ClientFinding>>(resultTypeTransaction);
 
                 //Text box Cuenta
-                var sourceCuenta = new AutoCompleteStringCollection();
-                sourceCuenta.AddRange(lstClientes.Select(x => x.Cuenta).Distinct().ToArray());
-                tbxCuenta.AutoCompleteMode = AutoCompleteMode.Suggest;
-                tbxCuenta.AutoCompleteCustomSource = sourceCuenta;
-                tbxCuenta.AutoCompleteSource = AutoCompleteSource.CustomSource;
+                //var sourceCuenta = new AutoCompleteStringCollection();
+                //sourceCuenta.AddRange(lstClientes.Select(x => x.Cuenta).Distinct().ToArray());
+                //tbxCuenta.AutoCompleteMode = AutoCompleteMode.Suggest;
+                //tbxCuenta.AutoCompleteCustomSource = sourceCuenta;
+                //tbxCuenta.AutoCompleteSource = AutoCompleteSource.CustomSource;
 
                 //Text box Nombre
-                var source = new AutoCompleteStringCollection();
-                source.AddRange(lstClientes.Select(x => x.Nombre).ToArray());
-                tbxNombre.AutoCompleteMode = AutoCompleteMode.Suggest;
-                tbxNombre.AutoCompleteCustomSource = source;
-                tbxNombre.AutoCompleteSource = AutoCompleteSource.CustomSource;
+                //var source = new AutoCompleteStringCollection();
+                //source.AddRange(lstClientes.Select(x => x.Nombre).ToArray());
+                //tbxNombre.AutoCompleteMode = AutoCompleteMode.Suggest;
+                //tbxNombre.AutoCompleteCustomSource = source;
+                //tbxNombre.AutoCompleteSource = AutoCompleteSource.CustomSource;
 
                 //Text box RFC
-                var sourceRFC = new AutoCompleteStringCollection();
-                sourceRFC.AddRange(lstClientes.Where(y => y.RFC != null).Select(x => x.RFC).Distinct().ToArray());
-                tbxRFC.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
-                tbxRFC.AutoCompleteCustomSource = sourceRFC;
-                tbxRFC.AutoCompleteSource = AutoCompleteSource.CustomSource;
-            }
+                //var sourceRFC = new AutoCompleteStringCollection();
+                //sourceRFC.AddRange(lstClientes.Where(y => y.RFC != null).Select(x => x.RFC).Distinct().ToArray());
+                //tbxRFC.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+                //tbxRFC.AutoCompleteCustomSource = sourceRFC;
+                //tbxRFC.AutoCompleteSource = AutoCompleteSource.CustomSource;
+            //}
 
             //Opciones de Dirección
-            var resultTypeTransaction2 = await Requests.SendURIAsync("/api/Towns/2/Suburbs", HttpMethod.Get, Variables.LoginModel.Token);
-            if (resultTypeTransaction2.Contains("error"))
-            {
-                mensaje = new MessageBoxForm("Error", resultTypeTransaction2.Split(':')[1].Replace("}", ""), TypeIcon.Icon.Cancel);
-                result = mensaje.ShowDialog();
-            }
-            else
-            {
-                var lstDirecciones = JsonConvert.DeserializeObject<List<SOAPAP.Model.Suburb>>(resultTypeTransaction2);
+            //var resultTypeTransaction2 = await Requests.SendURIAsync("/api/Towns/2/Suburbs", HttpMethod.Get, Variables.LoginModel.Token);
+            //if (resultTypeTransaction2.Contains("error"))
+            //{
+            //    mensaje = new MessageBoxForm("Error", resultTypeTransaction2.Split(':')[1].Replace("}", ""), TypeIcon.Icon.Cancel);
+            //    result = mensaje.ShowDialog();
+            //}
+            //else
+            //{
+            //    var lstDirecciones = JsonConvert.DeserializeObject<List<SOAPAP.Model.Suburb>>(resultTypeTransaction2);
 
-                //Text box Dirección
-                var sourceDireccion = new AutoCompleteStringCollection();
-                sourceDireccion.AddRange(lstDirecciones.Select(x => x.Name).ToArray());
-                tbxColonia.AutoCompleteMode = AutoCompleteMode.Suggest;
-                tbxColonia.AutoCompleteCustomSource = sourceDireccion;
-                tbxColonia.AutoCompleteSource = AutoCompleteSource.CustomSource;
-            }
+            //    //Text box Dirección
+            //    var sourceDireccion = new AutoCompleteStringCollection();
+            //    sourceDireccion.AddRange(lstDirecciones.Select(x => x.Name).ToArray());
+            //    //tbxColonia.AutoCompleteMode = AutoCompleteMode.Suggest;
+            //    tbxColonia.AutoCompleteCustomSource = sourceDireccion;
+            //    //tbxColonia.AutoCompleteSource = AutoCompleteSource.CustomSource;
+            //}
         }
 
         private void cbxBusqudaPor_SelectionChangeCommitted(object sender, EventArgs e)
@@ -187,8 +188,12 @@ namespace SOAPAP.UI.ReportesForms
             else
             {
                 var Contrato = JsonConvert.DeserializeObject<SOAPAP.Model.Agreement>(resultTypeTransaction);
-
-                await LlenaDatos(Contrato);                
+                if (Contrato.Account == null)
+                {
+                    mensaje = new MessageBoxForm("Error", "Cuenta no existe", TypeIcon.Icon.Cancel);
+                    result = mensaje.ShowDialog();
+                }else
+                    await LlenaDatos(Contrato);                
             }
         }
         private async Task BusquedaPorFolio()
@@ -466,7 +471,20 @@ namespace SOAPAP.UI.ReportesForms
             lblOffSaldo.Visible = !((DevExpress.XtraEditors.ToggleSwitch)sender).IsOn;
             sepOffSaldo.Visible = !((DevExpress.XtraEditors.ToggleSwitch)sender).IsOn;
         }
-        
+
         #endregion
+
+        private void windowsUIButtonPanel1_ButtonClick(object sender, DevExpress.XtraBars.Docking2010.ButtonEventArgs e)
+        {
+            string tag = ((WindowsUIButton)e.Button).Tag.ToString();
+            switch (tag)
+            {
+
+                case "GE":
+                    btnBuscar_Click(sender, e);
+                    break;
+
+            }
+        }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Microsoft.Reporting.WinForms;
+﻿using DevExpress.XtraBars.Docking2010;
+using Microsoft.Reporting.WinForms;
 using Newtonsoft.Json;
 using SOAPAP.Enums;
 using SOAPAP.Reportes;
@@ -263,8 +264,20 @@ namespace SOAPAP.UI.ReportesForms
 
 
 
+
         #endregion
 
-        
+        private void windowsUIButtonPanel1_ButtonClick(object sender, DevExpress.XtraBars.Docking2010.ButtonEventArgs e)
+        {
+            string tag = ((WindowsUIButton)e.Button).Tag.ToString();
+            switch (tag)
+            {
+
+                case "GE":
+                    button2_Click(sender, e);
+                    break;
+
+            }
+        }
     }
 }

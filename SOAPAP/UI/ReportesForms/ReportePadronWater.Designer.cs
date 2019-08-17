@@ -28,7 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
+            DevExpress.XtraBars.Docking2010.WindowsUIButtonImageOptions windowsUIButtonImageOptions1 = new DevExpress.XtraBars.Docking2010.WindowsUIButtonImageOptions();
+            DevExpress.Utils.SuperToolTip superToolTip1 = new DevExpress.Utils.SuperToolTip();
+            DevExpress.Utils.ToolTipTitleItem toolTipTitleItem1 = new DevExpress.Utils.ToolTipTitleItem();
+            DevExpress.Utils.ToolTipItem toolTipItem1 = new DevExpress.Utils.ToolTipItem();
             this.pnlHeader = new System.Windows.Forms.Panel();
+            this.windowsUIButtonPanel1 = new DevExpress.XtraBars.Docking2010.WindowsUIButtonPanel();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
             this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
             this.label1 = new System.Windows.Forms.Label();
@@ -48,12 +53,11 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.btnGenerar = new System.Windows.Forms.Button();
-            this.lblTitulo = new System.Windows.Forms.Label();
-            this.rvwReportes = new Microsoft.Reporting.WinForms.ReportViewer();
             this.pcbIncomeByConcept = new System.Windows.Forms.PictureBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.lblTitulo = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.rvwReportes = new Microsoft.Reporting.WinForms.ReportViewer();
             this.pnlHeader.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
@@ -69,19 +73,39 @@
             this.pnlHeader.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.pnlHeader.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(3)))), ((int)(((byte)(155)))), ((int)(((byte)(229)))));
+            this.pnlHeader.Controls.Add(this.windowsUIButtonPanel1);
             this.pnlHeader.Controls.Add(this.tableLayoutPanel4);
             this.pnlHeader.Controls.Add(this.tableLayoutPanel2);
             this.pnlHeader.Controls.Add(this.tableLayoutPanel3);
             this.pnlHeader.Controls.Add(this.tableLayoutPanel1);
             this.pnlHeader.Controls.Add(this.pcbIncomeByConcept);
             this.pnlHeader.Controls.Add(this.label5);
-            this.pnlHeader.Controls.Add(this.btnGenerar);
             this.pnlHeader.Controls.Add(this.lblTitulo);
             this.pnlHeader.Controls.Add(this.pictureBox1);
             this.pnlHeader.Location = new System.Drawing.Point(0, 0);
             this.pnlHeader.Name = "pnlHeader";
             this.pnlHeader.Size = new System.Drawing.Size(800, 259);
             this.pnlHeader.TabIndex = 48;
+            // 
+            // windowsUIButtonPanel1
+            // 
+            this.windowsUIButtonPanel1.BackColor = System.Drawing.Color.Transparent;
+            windowsUIButtonImageOptions1.Image = global::SOAPAP.Properties.Resources.buscar;
+            toolTipTitleItem1.Text = "Generar";
+            toolTipItem1.LeftIndent = 6;
+            toolTipItem1.Text = "Carga los ingresos corespondientes a los filtros seleccionados.";
+            superToolTip1.Items.Add(toolTipTitleItem1);
+            superToolTip1.Items.Add(toolTipItem1);
+            this.windowsUIButtonPanel1.Buttons.AddRange(new DevExpress.XtraEditors.ButtonPanel.IBaseButton[] {
+            new DevExpress.XtraBars.Docking2010.WindowsUIButton("", true, windowsUIButtonImageOptions1, DevExpress.XtraBars.Docking2010.ButtonStyle.PushButton, "", -1, true, superToolTip1, true, false, true, "GE", -1, false)});
+            this.windowsUIButtonPanel1.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.windowsUIButtonPanel1.ForeColor = System.Drawing.SystemColors.ControlLight;
+            this.windowsUIButtonPanel1.Location = new System.Drawing.Point(653, 12);
+            this.windowsUIButtonPanel1.Name = "windowsUIButtonPanel1";
+            this.windowsUIButtonPanel1.Size = new System.Drawing.Size(147, 78);
+            this.windowsUIButtonPanel1.TabIndex = 61;
+            this.windowsUIButtonPanel1.Text = "windowsUIButtonPanel1";
+            this.windowsUIButtonPanel1.ButtonClick += new DevExpress.XtraBars.Docking2010.ButtonEventHandler(this.windowsUIButtonPanel1_ButtonClick);
             // 
             // tableLayoutPanel4
             // 
@@ -327,6 +351,19 @@
             this.label7.TabIndex = 52;
             this.label7.Text = "Tipo de toma:";
             // 
+            // pcbIncomeByConcept
+            // 
+            this.pcbIncomeByConcept.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.pcbIncomeByConcept.BackColor = System.Drawing.Color.Transparent;
+            this.pcbIncomeByConcept.Image = global::SOAPAP.Properties.Resources.bg;
+            this.pcbIncomeByConcept.InitialImage = global::SOAPAP.Properties.Resources.bg;
+            this.pcbIncomeByConcept.Location = new System.Drawing.Point(182, 35);
+            this.pcbIncomeByConcept.Name = "pcbIncomeByConcept";
+            this.pcbIncomeByConcept.Size = new System.Drawing.Size(451, 54);
+            this.pcbIncomeByConcept.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pcbIncomeByConcept.TabIndex = 52;
+            this.pcbIncomeByConcept.TabStop = false;
+            // 
             // label5
             // 
             this.label5.AutoSize = true;
@@ -339,22 +376,6 @@
             this.label5.TabIndex = 45;
             this.label5.Text = "Padron de agua";
             this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // btnGenerar
-            // 
-            this.btnGenerar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnGenerar.BackColor = System.Drawing.Color.White;
-            this.btnGenerar.FlatAppearance.BorderSize = 0;
-            this.btnGenerar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnGenerar.Font = new System.Drawing.Font("Segoe UI Black", 12F, System.Drawing.FontStyle.Bold);
-            this.btnGenerar.ForeColor = System.Drawing.Color.Black;
-            this.btnGenerar.Location = new System.Drawing.Point(655, 12);
-            this.btnGenerar.Name = "btnGenerar";
-            this.btnGenerar.Size = new System.Drawing.Size(133, 48);
-            this.btnGenerar.TabIndex = 18;
-            this.btnGenerar.Text = "GENERAR";
-            this.btnGenerar.UseVisualStyleBackColor = false;
-            this.btnGenerar.Click += new System.EventHandler(this.btnGenerar_Click);
             // 
             // lblTitulo
             // 
@@ -369,29 +390,6 @@
             this.lblTitulo.Text = "Reportes";
             this.lblTitulo.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // rvwReportes
-            // 
-            this.rvwReportes.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.rvwReportes.Location = new System.Drawing.Point(0, 258);
-            this.rvwReportes.Name = "rvwReportes";
-            this.rvwReportes.Size = new System.Drawing.Size(800, 132);
-            this.rvwReportes.TabIndex = 49;
-            // 
-            // pcbIncomeByConcept
-            // 
-            this.pcbIncomeByConcept.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.pcbIncomeByConcept.BackColor = System.Drawing.Color.Transparent;
-            this.pcbIncomeByConcept.Image = global::SOAPAP.Properties.Resources.bg;
-            this.pcbIncomeByConcept.InitialImage = global::SOAPAP.Properties.Resources.bg;
-            this.pcbIncomeByConcept.Location = new System.Drawing.Point(182, 35);
-            this.pcbIncomeByConcept.Name = "pcbIncomeByConcept";
-            this.pcbIncomeByConcept.Size = new System.Drawing.Size(451, 54);
-            this.pcbIncomeByConcept.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pcbIncomeByConcept.TabIndex = 52;
-            this.pcbIncomeByConcept.TabStop = false;
-            // 
             // pictureBox1
             // 
             this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
@@ -402,6 +400,16 @@
             this.pictureBox1.Size = new System.Drawing.Size(20, 20);
             this.pictureBox1.TabIndex = 37;
             this.pictureBox1.TabStop = false;
+            // 
+            // rvwReportes
+            // 
+            this.rvwReportes.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.rvwReportes.Location = new System.Drawing.Point(0, 258);
+            this.rvwReportes.Name = "rvwReportes";
+            this.rvwReportes.Size = new System.Drawing.Size(800, 132);
+            this.rvwReportes.TabIndex = 49;
             // 
             // ReportePadronWater
             // 
@@ -447,7 +455,6 @@
         private System.Windows.Forms.DateTimePicker dtpFechaIni;
         private System.Windows.Forms.ListBox lbxTipoToma;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Button btnGenerar;
         private System.Windows.Forms.Label lblTitulo;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.ListBox lbxServicio;
@@ -458,5 +465,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.CheckBox chxPorFechaContrato;
         private Microsoft.Reporting.WinForms.ReportViewer rvwReportes;
+        private DevExpress.XtraBars.Docking2010.WindowsUIButtonPanel windowsUIButtonPanel1;
     }
 }
