@@ -471,5 +471,65 @@ namespace SOAPAP.UI.FactPasada
             }
         }
 
+        private async void btnDescarga_Click(object sender, EventArgs e)
+        {
+            Loading loadingMail = new Loading();
+            try
+            {               
+                loadingMail.Show(this);
+                var _resulTransaction = await Requests.SendURIAsync(string.Format("/api/Facturacion/Cancelaciones/{0}/{1}", "2019-07-01", "2019-08-10"), HttpMethod.Get, Variables.LoginModel.Token);
+
+                if (_resulTransaction.Contains("error"))
+                {
+                    mensaje = new MessageBoxForm("Error", _resulTransaction.Split(':')[1].Replace("}", ""), TypeIcon.Icon.Cancel);
+                    result = mensaje.ShowDialog();
+                }
+                else
+                {
+                    List<SOAPAP.Model.TaxReceipt> lstFacts = JsonConvert.DeserializeObject<List<SOAPAP.Model.TaxReceipt>>(_resulTransaction);
+                    if (lstFacts == null)
+                    {
+                        mensaje = new MessageBoxForm("Sin Operaciones", "No se han encontrado movimientos para esta terminal", TypeIcon.Icon.Warning);
+                        result = mensaje.ShowDialog();
+                    }
+
+                    if (lstFacts != null)
+                    {
+                        string path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\FacturasCanceladas";
+                        
+                        DirectoryInfo di;
+                        if (!Directory.Exists(path))
+                        {
+                            di = Directory.CreateDirectory(path);
+                        }
+
+                        string Rfc = "";
+                        if (Variables.Configuration.IsMunicipal)
+                            Rfc = "MCP850101944";
+                        else
+                            Rfc = "SOS970808SM7";
+                        foreach (var item in lstFacts)
+                        {
+                            string nombrefile = path + "\\" + Rfc + "_" + item.RFC + "_" + item.PaymentId + "_Cancelacion("+item.Id + ").pdf";
+                            System.IO.File.WriteAllBytes(nombrefile, item.PDFInvoce);
+                        }
+                    }
+                    else
+                    {
+                        mensaje = new MessageBoxForm(Variables.titleprincipal, "Xml no disponible, posiblemente este pago no este facturado para mayor información contactarse con el administrador del sistema.", TypeIcon.Icon.Cancel);
+                        result = mensaje.ShowDialog();
+                    }
+                }                
+            }
+            catch (Exception ex)
+            {
+                mensaje = new MessageBoxForm("Error", ex.Message, TypeIcon.Icon.Cancel);
+                result = mensaje.ShowDialog();
+            }
+            finally
+            {
+                loadingMail.Close();
+            }
+        }
     }
 }

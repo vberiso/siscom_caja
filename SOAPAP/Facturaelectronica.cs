@@ -1557,34 +1557,6 @@ namespace SOAPAP
                 var resultado = await RequestsFacturama.SendURIAsync(string.Format("api-lite/cfdis/{0}", taxes.IdXmlFacturama), HttpMethod.Get, Properties.Settings.Default.FacturamaUser, Properties.Settings.Default.FacturamaPassword);
                 var cfdiGet = JsonConvert.DeserializeObject<Facturama.Models.Response.Cfdi>(resultado);
                 return cfdiGet;
-
-
-                //string fecha = DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ss");
-                //CreatePDF pDF = new CreatePDF(cfdiGet, vM.payment.Account, taxes, fecha, (vM.payment.PayMethod.code + ", " + vM.payment.PayMethod.Name));
-
-                //string resPdf = "";
-                //if (cfdiGet != null)
-                //{
-                //    string seriefolio = vM.transaction.transactionFolios.FirstOrDefault().folio.ToString();
-                //    string path = GeneraCarpetaDescagasXML();
-                //    string nombreXML = string.Format("\\{0}_{1}_{2}.xml", cfdiGet.Issuer.Rfc, cfdiGet.Receiver.Rfc, seriefolio);
-                //    string nombrePDF = string.Format("\\{0}_{1}_{2}.pdf", cfdiGet.Issuer.Rfc, cfdiGet.Receiver.Rfc, seriefolio);
-
-                //    if (vM.payment.OrderSaleId == 0) //Servicio
-                //        resPdf = await pDF.Create(path + nombrePDF);
-                //    else
-                //    {
-                //        vM.orderSale.TaxUser = tu;
-                //        resPdf = await pDF.CreateForOrder(vM.orderSale, path + nombrePDF);
-                //    }
-                //    //facturama.Cfdis.SaveXml(@"C:\Pruebas", cfdiCancel.Id);
-                //    return "Cancelación en proceso. Estado actual: " + cfdiGet;
-                //}
-                //else
-                //{
-                //    return "{\"error\": \"No se ha podido realizar la cancelación, favor de comunicarse con el administrador del sistema\"}";
-                //}
-
             }
             catch (Exception ex)
             {
