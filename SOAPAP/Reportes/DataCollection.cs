@@ -9,23 +9,29 @@ namespace SOAPAP.Reportes
     class DataCollection
     {
         public int id_payment { get; set; }
-        public string OFICINA { get; set; }
-        public string code_concept { get; set; }
-        public string Status { get; set; }
-        public string Contribuyente { get; set; }
-        public string Serie { get; set; }
+        public int id_PuO_detail { get; set; }
+        public string OFICINA { get; set; }        
         public string CAJERO { get; set; }
         public string FECHA_PAGO { get; set; }
         public string CUENTA { get; set; }
         public string folio_impresion { get; set; }
+        public string type { get; set; }
+        public string Status { get; set; }
+        public string code_concept { get; set; }
         public string DESCRIPCION { get; set; }
         public string MetodoPago { get; set; }
         public string OrigenPago { get; set; }
         public string OrigenPagoExterno { get; set; }
-        public decimal MONTO { get; set; }        
+        public decimal MONTO { get; set; }
         public decimal DESCUENTO { get; set; }
         public decimal SUBTOTAL { get; set; }
         public decimal IVA { get; set; }
-        public decimal TOTAL { get; set; }        
+        public decimal TOTAL { get; set; }
+        public string Serie { get; set; }
+        public string IdContribuyente { get; set; }
+        public string Contribuyente { get; set; }
+        public string ContribuyenteDireccion { get; set; }
+        public string ContribuyenteColonia { get; set; }
+
     }
 }
