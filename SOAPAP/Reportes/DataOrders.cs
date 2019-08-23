@@ -10,6 +10,8 @@ namespace SOAPAP.Reportes
     {
         public int id_order_sale { get; set; }
         public int id_payment { get; set; }
+        public string Serie { get; set; }
+        public string Cuenta { get; set; }
         public string folio { get; set; }
         public string account { get; set; }
         public string FechaOS { get; set; }

@@ -235,7 +235,7 @@
             this.windowsUIButtonPanel1.Buttons.AddRange(new DevExpress.XtraEditors.ButtonPanel.IBaseButton[] {
             new DevExpress.XtraBars.Docking2010.WindowsUIButton("", true, windowsUIButtonImageOptions1, DevExpress.XtraBars.Docking2010.ButtonStyle.PushButton, "", -1, true, superToolTip1, true, false, true, "GE", -1, false)});
             this.windowsUIButtonPanel1.ForeColor = System.Drawing.SystemColors.ControlLight;
-            this.windowsUIButtonPanel1.Location = new System.Drawing.Point(723, 4);
+            this.windowsUIButtonPanel1.Location = new System.Drawing.Point(758, 3);
             this.windowsUIButtonPanel1.Name = "windowsUIButtonPanel1";
             this.windowsUIButtonPanel1.Size = new System.Drawing.Size(101, 59);
             this.windowsUIButtonPanel1.TabIndex = 61;

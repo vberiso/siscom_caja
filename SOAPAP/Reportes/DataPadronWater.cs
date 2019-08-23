@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 
 namespace SOAPAP.Reportes
 {
-    class DataPadronWater
+    public class DataPadronWater
     {
         public int id_agreement { get; set; }
         public string CUENTA { get; set; }
+        public string Serie { get; set; }
         public string NOMBRE { get; set; }
         public string DOMICILIO { get; set; }
         public int idCOLONIA { get; set; }

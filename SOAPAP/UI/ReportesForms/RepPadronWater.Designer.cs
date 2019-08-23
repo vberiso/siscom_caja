@@ -37,6 +37,10 @@
             DevExpress.Utils.SuperToolTip superToolTip2 = new DevExpress.Utils.SuperToolTip();
             DevExpress.Utils.ToolTipTitleItem toolTipTitleItem2 = new DevExpress.Utils.ToolTipTitleItem();
             DevExpress.Utils.ToolTipItem toolTipItem2 = new DevExpress.Utils.ToolTipItem();
+            DevExpress.XtraBars.Docking2010.WindowsUIButtonImageOptions windowsUIButtonImageOptions3 = new DevExpress.XtraBars.Docking2010.WindowsUIButtonImageOptions();
+            DevExpress.Utils.SuperToolTip superToolTip3 = new DevExpress.Utils.SuperToolTip();
+            DevExpress.Utils.ToolTipTitleItem toolTipTitleItem3 = new DevExpress.Utils.ToolTipTitleItem();
+            DevExpress.Utils.ToolTipItem toolTipItem3 = new DevExpress.Utils.ToolTipItem();
             this.pnlHeader = new System.Windows.Forms.Panel();
             this.windowsUIButtonPanel1 = new DevExpress.XtraBars.Docking2010.WindowsUIButtonPanel();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
@@ -70,7 +74,6 @@
             this.lblTitulo = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.pgcRepPadronWater = new DevExpress.XtraPivotGrid.PivotGridControl();
-            this.dataPadronWaterBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.pgfCuenta = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfNombre = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfDomicilio = new DevExpress.XtraPivotGrid.PivotGridField();
@@ -87,6 +90,7 @@
             this.pgfAño = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfContador = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfFechaUltimaPago = new DevExpress.XtraPivotGrid.PivotGridField();
+            this.dataPadronWaterBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.pnlHeader.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
@@ -117,12 +121,12 @@
             this.pnlHeader.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.pnlHeader.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(3)))), ((int)(((byte)(155)))), ((int)(((byte)(229)))));
-            this.pnlHeader.Controls.Add(this.windowsUIButtonPanel1);
             this.pnlHeader.Controls.Add(this.tableLayoutPanel4);
             this.pnlHeader.Controls.Add(this.tableLayoutPanel2);
             this.pnlHeader.Controls.Add(this.tableLayoutPanel3);
             this.pnlHeader.Controls.Add(this.tableLayoutPanel1);
             this.pnlHeader.Controls.Add(this.pcbIncomeByConcept);
+            this.pnlHeader.Controls.Add(this.windowsUIButtonPanel1);
             this.pnlHeader.Controls.Add(this.lblTitulo);
             this.pnlHeader.Controls.Add(this.pictureBox1);
             this.pnlHeader.Location = new System.Drawing.Point(1, 0);
@@ -145,14 +149,21 @@
             toolTipItem2.Text = "Exporta los ingresos correspondientes a los filtros seleccionados.";
             superToolTip2.Items.Add(toolTipTitleItem2);
             superToolTip2.Items.Add(toolTipItem2);
+            windowsUIButtonImageOptions3.Image = global::SOAPAP.Properties.Resources.imprimir;
+            toolTipTitleItem3.Text = "Imprimir";
+            toolTipItem3.LeftIndent = 6;
+            toolTipItem3.Text = "Genera un PDF listo para imprimir";
+            superToolTip3.Items.Add(toolTipTitleItem3);
+            superToolTip3.Items.Add(toolTipItem3);
             this.windowsUIButtonPanel1.Buttons.AddRange(new DevExpress.XtraEditors.ButtonPanel.IBaseButton[] {
             new DevExpress.XtraBars.Docking2010.WindowsUIButton("", true, windowsUIButtonImageOptions1, DevExpress.XtraBars.Docking2010.ButtonStyle.PushButton, "", -1, true, superToolTip1, true, false, true, "GE", -1, false),
-            new DevExpress.XtraBars.Docking2010.WindowsUIButton("", true, windowsUIButtonImageOptions2, DevExpress.XtraBars.Docking2010.ButtonStyle.PushButton, "Exportar", -1, true, superToolTip2, true, false, true, "EX", -1, false)});
+            new DevExpress.XtraBars.Docking2010.WindowsUIButton("", true, windowsUIButtonImageOptions2, DevExpress.XtraBars.Docking2010.ButtonStyle.PushButton, "Exportar", -1, true, superToolTip2, true, false, true, "EX", -1, false),
+            new DevExpress.XtraBars.Docking2010.WindowsUIButton("", true, windowsUIButtonImageOptions3, DevExpress.XtraBars.Docking2010.ButtonStyle.PushButton, "", -1, true, superToolTip3, true, false, true, "PR", -1, false)});
             this.windowsUIButtonPanel1.Cursor = System.Windows.Forms.Cursors.Hand;
             this.windowsUIButtonPanel1.ForeColor = System.Drawing.SystemColors.ControlLight;
-            this.windowsUIButtonPanel1.Location = new System.Drawing.Point(792, 3);
+            this.windowsUIButtonPanel1.Location = new System.Drawing.Point(892, 3);
             this.windowsUIButtonPanel1.Name = "windowsUIButtonPanel1";
-            this.windowsUIButtonPanel1.Size = new System.Drawing.Size(147, 78);
+            this.windowsUIButtonPanel1.Size = new System.Drawing.Size(147, 86);
             this.windowsUIButtonPanel1.TabIndex = 60;
             this.windowsUIButtonPanel1.Text = "windowsUIButtonPanel1";
             this.windowsUIButtonPanel1.ButtonClick += new DevExpress.XtraBars.Docking2010.ButtonEventHandler(this.windowsUIButtonPanel1_ButtonClick);
@@ -557,10 +568,6 @@
             this.pgcRepPadronWater.Size = new System.Drawing.Size(951, 161);
             this.pgcRepPadronWater.TabIndex = 50;
             // 
-            // dataPadronWaterBindingSource
-            // 
-            this.dataPadronWaterBindingSource.DataSource = typeof(SOAPAP.Reportes.DataPadronWater);
-            // 
             // pgfCuenta
             // 
             this.pgfCuenta.Area = DevExpress.XtraPivotGrid.PivotArea.RowArea;
@@ -682,6 +689,10 @@
             this.pgfFechaUltimaPago.Caption = "FECHA ULT PAGO";
             this.pgfFechaUltimaPago.FieldName = "FECHA_ULTIMO_PAGO";
             this.pgfFechaUltimaPago.Name = "pgfFechaUltimaPago";
+            // 
+            // dataPadronWaterBindingSource
+            // 
+            this.dataPadronWaterBindingSource.DataSource = typeof(SOAPAP.Reportes.DataPadronWater);
             // 
             // RepPadronWater
             // 

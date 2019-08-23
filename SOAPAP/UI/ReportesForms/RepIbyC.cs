@@ -399,6 +399,16 @@ namespace SOAPAP.UI.ReportesForms
 
                 builder.Append(@"</tr>");
                 builder.Append(@"<tr>");
+                builder.Append(@"<td colspan='1'><b>Colonia: </b></td>");
+                builder.Append(@"<td colspan='3'>" + x.ContribuyenteColonia+"</td>");
+                
+                builder.Append(@"<td colspan='1'><b>Dirección: </b></td>");
+                builder.Append(@"<td colspan='3'>" + x.ContribuyenteDireccion+"</td>");
+               
+
+                builder.Append(@"</tr>");
+
+                builder.Append(@"<tr>");
                 builder.Append(@"<td><b>Concepto(s): </b></td>");
                 builder.Append(@"<td></td>");
                 builder.Append(@"<td></td>");

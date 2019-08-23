@@ -43,7 +43,7 @@ namespace SOAPAP.UI.ReportesForms
         }
 
         private async Task CargarCombos()
-        {            
+        {
             //Combo de Cajeros.
             List<SOAPAP.Model.Users> lstCajeros = new List<Model.Users>();
             List<DataComboBox> lstCaj = new List<DataComboBox>();
@@ -151,14 +151,14 @@ namespace SOAPAP.UI.ReportesForms
         {
             DateTime FechaIni = dtpFechaIni.Value;
             DateTime FechaFin = dtpFechaFin.Value;
-            
+
             ////Se obtiene el cajero para filtrar la consulta            
             var temp = chcbxOperador.Properties.Items.ToList();
             string itemSeleccionado = "";
             ////Se la oficina para la consulta.            
             var tempAr = chcbxArea.Properties.Items.ToList();
             string ArSeleccionado = "";
-           
+
             //Cajero(s) seleccionado(s)
             if (temp.Where(x => x.CheckState == CheckState.Checked).Count() == 0)
             {
@@ -192,7 +192,7 @@ namespace SOAPAP.UI.ReportesForms
                 }
                 ArSeleccionado = ArSeleccionado.Substring(0, ArSeleccionado.Length - 1);
             }
-            
+
             DataReportes dRep = new DataReportes() { FechaIni = FechaIni.ToString("yyyy-MM-dd"), FechaFin = FechaFin.ToString("yyyy-MM-dd"), CajeroId = itemSeleccionado, Oficinas = ArSeleccionado };
 
             HttpContent content;
@@ -216,9 +216,9 @@ namespace SOAPAP.UI.ReportesForms
                     result = mensaje.ShowDialog();
                 }
                 else
-                {  
+                {
                     try
-                    {                        
+                    {
                         pgdIOT.DataSource = lstData;
                         //Para este atributo se uncheck los tipo cancelado.
                         pgfStatus.FilterValues.Add("Cancelado");
@@ -264,9 +264,9 @@ namespace SOAPAP.UI.ReportesForms
             }
         }
 
-       
 
-      
+
+
 
         private void windowsUIButtonPanel1_ButtonClick_1(object sender, ButtonEventArgs e)
         {
@@ -289,14 +289,14 @@ namespace SOAPAP.UI.ReportesForms
         {
             loading = new Loading();
             loading.Show(this);
-           
 
-                try
+
+            try
             {
 
                 HiQPdf.PdfDocument document = new HiQPdf.PdfDocument();
                 List<object> data = await getData();
-                
+
                 if (data == null)
                 {
                     loading.Close();
@@ -345,13 +345,13 @@ namespace SOAPAP.UI.ReportesForms
             if (string.IsNullOrEmpty(dRep.CajeroId))
             {
                 return null;
-               
+
             }
             dRep.Oficinas = getItemSelecionados(chcbxArea, "Debe seleccionar al menos una área");
             if (string.IsNullOrEmpty(dRep.Oficinas))
             {
                 return null;
-                
+
             }
 
             HttpContent content;
@@ -366,18 +366,18 @@ namespace SOAPAP.UI.ReportesForms
             }
             else
             {
-                 lstData = JsonConvert.DeserializeObject<List<DataIncomeOfTreasury>>(_resulTransaction);
+                lstData = JsonConvert.DeserializeObject<List<DataIncomeOfTreasury>>(_resulTransaction);
 
-                if (lstData == null || (lstData !=null && lstData.Count ==0))
+                if (lstData == null || (lstData != null && lstData.Count == 0))
                 {
                     mensaje = new MessageBoxForm("Sin Operaciones", "No se encontraron movimientos.", TypeIcon.Icon.Warning);
                     result = mensaje.ShowDialog();
-                    
+
                     return null;
                 }
             }
-           
-            return  new List<object>() { lstData, dRep };
+
+            return new List<object>() { lstData, dRep };
         }
         private string getItemSelecionados(CheckedComboBoxEdit ComboBox, string msg)
         {
@@ -477,15 +477,9 @@ namespace SOAPAP.UI.ReportesForms
 
             builder.Append(@"<tr style='text-align: left;'>");
             builder.Append(@"<td  style='width: 200px'><b>Operador:</b></td>");
-            if (Variables.Configuration.Terminal.TerminalUsers.Count > 0)
-            {
-                builder.Append(@"<td style='width: 200px;font-family:\""Montserrat\"", sans-serif;'><b>" + cajero + "</b></td>");
 
-            }
-            else
-            {
-                builder.Append(@"<td style='width: 200px;font-family:\""Montserrat\"", sans-serif;'><b>TODOS</b></td>");
-            }
+            builder.Append(@"<td style='width: 200px;font-family:\""Montserrat\"", sans-serif;'><b>TODOS</b></td>");
+
             builder.Append(@"<td width: 800px'></td>");
             builder.Append(@"<td  style='width: 220px'><b>Fecha final:</b></td>");
             builder.Append(@"<td style='width: 220px;font-family:\""Montserrat\"", sans-serif;'><b>" + FechaF + "</b></td>");
@@ -565,7 +559,7 @@ namespace SOAPAP.UI.ReportesForms
             var LAreas = Ldata.Select(x =>
                              x.Area
                            ).Distinct().ToList();
-            Ldata = Ldata.GroupBy(x => (x.Folio,x.Cliente,x.Total)).Select(
+            Ldata = Ldata.GroupBy(x => (x.Folio, x.Cliente, x.Total)).Select(
             e => new DataIncomeOfTreasury()
             {
                 Folio = e.First().Folio,
@@ -576,38 +570,41 @@ namespace SOAPAP.UI.ReportesForms
                 Serie = e.First().Serie,
                 Cajero = e.First().Cajero,
                 Cuenta = e.First().Cuenta,
-                Estado = e.First().Estado
+                Estado = e.First().Estado,
+
             }).ToList();
 
-            LAreas.ForEach(a => {
-                var Ldatac = Ldata.Where(d => d.Area == a).ToList().OrderBy(x => x.Fecha).ThenBy(x =>x.Cliente).ToList();
+            LAreas.ForEach(a =>
+            {
+                var Ldatac = Ldata.Where(d => d.Area == a).ToList().OrderBy(x => x.Fecha).ThenBy(x => x.Cliente).ToList();
                 builder.Append(@"<div class='datos_conceptos' style='margin-bottom: 10px;'>");
                 builder.Append(@"<p style='font-size: 16px;text-align:left;'>
                                         <b>Área: </b>
-                                        <span style='text-decoration:underline;' " + Ldata.First().Area + "</span></p>");
+                                        <span style='text-decoration:underline;'> " + Ldatac.First().Area + "</span></p>");
                 builder.Append(@"<table  id='datos' style='width: 100%; '>");
                 builder.Append(@"<thead>");
-                builder.Append(@"<th>SERIE</th>");
-                builder.Append(@"<th>CUENTA</th>");
-                builder.Append(@"<th>FOLIO</th>");
-                builder.Append(@"<th>NOMBRE</th>");
-                builder.Append(@"<th>FECHA</th>");
-                builder.Append(@"<th>TOTAL</th>");
-                builder.Append(@"<th>STATUS</th>");
+                builder.Append(@"<th style='width: 10%;'>SERIE</th>");
+                builder.Append(@"<th style='width: 10%;'>CUENTA</th>");
+                builder.Append(@"<th style='width: 10%;'>FOLIO</th>");
+                builder.Append(@"<th style='width: 40%;'>NOMBRE</th>");
+                builder.Append(@"<th style='width: 10%;'>FECHA</th>");
+                builder.Append(@"<th style='width: 10%;'>TOTAL</th>");
+                builder.Append(@"<th style='width: 10%;'>STATUS</th>");
                 builder.Append(@"</thead>");
                 builder.Append(@"<tbody>");
-                Ldatac.ForEach(x => {
-                    
-                   
-                    
+                Ldatac.ForEach(x =>
+                {
+
+
+
                     builder.Append(@"<tr>");
-                    builder.Append(@"<td class='centro'>" + x.Cajero+" </td>");
-                    builder.Append(@"<td class='centro'>" + x.Cuenta+" </td>");
-                    builder.Append(@"<td class='centro'>" + x.Folio + " </td>");
-                    builder.Append(@"<td class='left'>" + x.Cliente + " </td>");
-                    builder.Append(@"<td class='centro'>" + x.Fecha + " </td>");
-                    builder.Append(@"<td style='border: 1px solid black;'>" + string.Format(new CultureInfo("es-MX"), "{0:C2}", x.Total) + " </td>");
-                    builder.Append(@"<td style='border: 1px solid black;'>" + x.Estado + " </td>");
+                    builder.Append(@"<td style='width: 10%;' class='centro'>" + x.Serie + " </td>");
+                    builder.Append(@"<td style='width: 10%;' class='centro'>" + x.Cuenta + " </td>");
+                    builder.Append(@"<td style='width: 10%;' class='centro'>" + x.Folio + " </td>");
+                    builder.Append(@"<td style='width: 40%;' class='left'>" + x.Cliente + " </td>");
+                    builder.Append(@"<td style='width: 10%;' class='centro'>" + x.Fecha + " </td>");
+                    builder.Append(@"<td style='width: 10%;border: 1px solid black;'>" + string.Format(new CultureInfo("es-MX"), "{0:C2}", x.Total) + " </td>");
+                    builder.Append(@"<td style='width: 10%;border: 1px solid black;'>" + x.Estado + " </td>");
                     builder.Append(@"</tr>");
 
                 });
