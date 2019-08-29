@@ -134,7 +134,7 @@ namespace SOAPAP
                             {
                                 LogginLog log = new LogginLog
                                 {
-                                    //VersionSiscom = ApplicationDeployment.CurrentDeployment.CurrentVersion.ToString(4),
+                                    VersionSiscom = ApplicationDeployment.CurrentDeployment.CurrentVersion.ToString(4),
                                     BranchOffice = Variables.Configuration.Terminal.BranchOffice.Name,
                                     User = Variables.LoginModel.User,
                                     UserName = Variables.LoginModel.FullName,

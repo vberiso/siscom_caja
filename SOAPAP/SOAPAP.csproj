@@ -27,9 +27,9 @@
     <UpdateRequired>true</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
     <UpdateUrl>\\installer.cuautlancingo.gob.mx\caja\</UpdateUrl>
-    <MinimumRequiredVersion>1.1.1.185</MinimumRequiredVersion>
+    <MinimumRequiredVersion>1.1.1.195</MinimumRequiredVersion>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>186</ApplicationRevision>
+    <ApplicationRevision>196</ApplicationRevision>
     <ApplicationVersion>1.1.1.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -88,27 +88,30 @@
     </AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.BonusSkins.v17.1, Version=17.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
-    <Reference Include="DevExpress.Charts.v17.1.Core, Version=17.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
-    <Reference Include="DevExpress.Data.v17.1, Version=17.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
-    <Reference Include="DevExpress.Pdf.v17.1.Core, Version=17.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
-    <Reference Include="DevExpress.Pdf.v17.1.Drawing, Version=17.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
-    <Reference Include="DevExpress.PivotGrid.v17.1.Core, Version=17.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
-    <Reference Include="DevExpress.Printing.v17.1.Core, Version=17.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
-    <Reference Include="DevExpress.Utils.v17.1, Version=17.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
-    <Reference Include="DevExpress.XtraBars.v17.1, Version=17.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
-    <Reference Include="DevExpress.XtraCharts.v17.1, Version=17.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
-    <Reference Include="DevExpress.XtraCharts.v17.1.UI, Version=17.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
-    <Reference Include="DevExpress.XtraCharts.v17.1.Wizard, Version=17.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
-    <Reference Include="DevExpress.XtraEditors.v17.1, Version=17.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
-    <Reference Include="DevExpress.XtraGrid.v17.1, Version=17.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
-    <Reference Include="DevExpress.XtraLayout.v17.1, Version=17.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
-    <Reference Include="DevExpress.XtraPdfViewer.v17.1, Version=17.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
-    <Reference Include="DevExpress.XtraPivotGrid.v17.1, Version=17.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
-    <Reference Include="DevExpress.XtraPrinting.v17.1, Version=17.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
-    <Reference Include="DevExpress.XtraScheduler.v17.1, Version=17.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
-    <Reference Include="DevExpress.XtraScheduler.v17.1.Core, Version=17.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
-    <Reference Include="DevExpress.XtraTreeList.v17.1, Version=17.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.BonusSkins.v19.1, Version=19.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Charts.v19.1.Core, Version=19.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Data.v19.1, Version=19.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Pdf.v19.1.Core, Version=19.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Pdf.v19.1.Drawing, Version=19.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.PivotGrid.v19.1.Core, Version=19.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Office.v19.1.Core, Version=19.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.RichEdit.v19.1.Core, Version=19.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.RichEdit.v19.1.Export, Version=19.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Printing.v19.1.Core, Version=19.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Utils.v19.1, Version=19.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraBars.v19.1, Version=19.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraCharts.v19.1, Version=19.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraCharts.v19.1.UI, Version=19.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraCharts.v19.1.Wizard, Version=19.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraEditors.v19.1, Version=19.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraGrid.v19.1, Version=19.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraLayout.v19.1, Version=19.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraPdfViewer.v19.1, Version=19.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraPivotGrid.v19.1, Version=19.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraPrinting.v19.1, Version=19.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraScheduler.v19.1, Version=19.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraScheduler.v19.1.Core, Version=19.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraTreeList.v19.1, Version=19.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="Facturama, Version=1.0.0.3, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Facturama.1.0.0.3\lib\net45\Facturama.dll</HintPath>
     </Reference>
@@ -120,7 +123,7 @@
       <HintPath>..\packages\QrCode.Net.0.4.0.0\lib\net45\Gma.QrCodeNet.Encoding.dll</HintPath>
     </Reference>
     <Reference Include="HiQPdf">
-      <HintPath>..\..\..\..\Downloads\HiQPdf_10.17_x64\HiQPdf.dll</HintPath>
+      <HintPath>..\..\..\archivos-siscom\Librerias\HiQPdf_10.17_x64\HiQPdf.dll</HintPath>
     </Reference>
     <Reference Include="Humanizer, Version=2.5.0.0, Culture=neutral, PublicKeyToken=979442b78dfc278e, processorArchitecture=MSIL">
       <HintPath>..\packages\Humanizer.Core.2.5.16\lib\netstandard2.0\Humanizer.dll</HintPath>
@@ -300,6 +303,7 @@
     <Compile Include="Facturaelectronica.cs" />
     <Compile Include="Getdata.cs" />
     <Compile Include="Model\AdressVM.cs" />
+    <Compile Include="Model\AgreementComent.cs" />
     <Compile Include="Model\AgreementProductVM.cs" />
     <Compile Include="Model\AuthorizationDiscountVM.cs" />
     <Compile Include="Model\Breach.cs" />
@@ -372,6 +376,11 @@
     </Compile>
     <Compile Include="prepaidDetails.cs" />
     <Compile Include="Producto.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="PupCobroAgua.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -483,6 +492,12 @@
     </Compile>
     <Compile Include="UI\FacturacionAgrupadaCancelacion.Designer.cs">
       <DependentUpon>FacturacionAgrupadaCancelacion.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\FacturacionAnticipada\PeriodosAnteriores.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\FacturacionAnticipada\PeriodosAnteriores.Designer.cs">
+      <DependentUpon>PeriodosAnteriores.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\FacturacionAnticipada\PeriodosAnticipados.cs">
       <SubType>Form</SubType>
@@ -607,11 +622,6 @@
     <Compile Include="PayMethod.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
     <Compile Include="querys.cs" />
     <Compile Include="RawPrinterHelper.cs" />
     <Compile Include="Region.cs" />
@@ -690,6 +700,12 @@
     <Compile Include="UI\ReportesForms\RepIAAyunt.Designer.cs">
       <DependentUpon>RepIAAyunt.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\ReportesForms\RepIBC.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\ReportesForms\RepIBC.Designer.cs">
+      <DependentUpon>RepIBC.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\ReportesForms\RepIbyC.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -732,12 +748,6 @@
     <Compile Include="UI\ReportesForms\RepOrders.Designer.cs">
       <DependentUpon>RepOrders.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\ReportesForms\ReportePadronWater.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UI\ReportesForms\ReportePadronWater.Designer.cs">
-      <DependentUpon>ReportePadronWater.cs</DependentUpon>
-    </Compile>
     <Compile Include="UI\ReportesForms\RepPadronWater.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -755,18 +765,6 @@
     </Compile>
     <Compile Include="UI\ReportesMenu.Designer.cs">
       <DependentUpon>ReportesMenu.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UI\ReportesForms\ReporteIBC.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UI\ReportesForms\ReporteIBC.Designer.cs">
-      <DependentUpon>ReporteIBC.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UI\ReportesForms\ReporteIFB.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UI\ReportesForms\ReporteIFB.Designer.cs">
-      <DependentUpon>ReporteIFB.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\SearchUser.cs">
       <SubType>Form</SubType>
@@ -916,6 +914,9 @@
     <EmbeddedResource Include="UI\FacturacionAgrupadaCancelacion.resx">
       <DependentUpon>FacturacionAgrupadaCancelacion.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UI\FacturacionAnticipada\PeriodosAnteriores.resx">
+      <DependentUpon>PeriodosAnteriores.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\FacturacionAnticipada\PeriodosAnticipados.resx">
       <DependentUpon>PeriodosAnticipados.cs</DependentUpon>
     </EmbeddedResource>
@@ -979,6 +980,9 @@
     <EmbeddedResource Include="UI\ReportesForms\RepIAAyunt.resx">
       <DependentUpon>RepIAAyunt.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UI\ReportesForms\RepIBC.resx">
+      <DependentUpon>RepIBC.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\ReportesForms\RepIbyC.resx">
       <DependentUpon>RepIbyC.cs</DependentUpon>
     </EmbeddedResource>
@@ -999,15 +1003,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\ReportesForms\RepOrders.resx">
       <DependentUpon>RepOrders.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\ReportesForms\ReporteIBC.resx">
-      <DependentUpon>ReporteIBC.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\ReportesForms\ReporteIFB.resx">
-      <DependentUpon>ReporteIFB.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\ReportesForms\ReportePadronWater.resx">
-      <DependentUpon>ReportePadronWater.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\ReportesForms\RepPadronWater.resx">
       <DependentUpon>RepPadronWater.cs</DependentUpon>
