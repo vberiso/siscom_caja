@@ -10,7 +10,7 @@ namespace SOAPAP.Reportes
     {
         public int id_payment { get; set; }
         public int id_PuO_detail { get; set; }
-        public string OFICINA { get; set; }        
+        public string OFICINA { get; set; }
         public string CAJERO { get; set; }
         public string FECHA_PAGO { get; set; }
         public string CUENTA { get; set; }
@@ -34,6 +34,11 @@ namespace SOAPAP.Reportes
         public string ContribuyenteColonia { get; set; }
         public int DivisionId { get; set; }
         public string Division { get; set; }
+        public string discount { get; set; }
+        public string GrupoVulnerable { get; set; }
+        public string discountAuto { get; set; }
+
+        public string MotivoDescuento { get { return DESCUENTO == 0 ? "" : ( string.IsNullOrEmpty(discount) ? ( string.IsNullOrEmpty(GrupoVulnerable) ? ( discountAuto ) : GrupoVulnerable ) : discount )  ;   }  }
 
     }
 }
