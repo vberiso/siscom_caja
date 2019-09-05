@@ -32,6 +32,13 @@ namespace SOAPAP.Reportes
         public string Contribuyente { get; set; }
         public string ContribuyenteDireccion { get; set; }
         public string ContribuyenteColonia { get; set; }
+        public int DivisionId { get; set; }
+        public string Division { get; set; }
+        public string discount { get; set; }
+        public string GrupoVulnerable { get; set; }
+        public string discountAuto { get; set; }
+
+        public string MotivoDescuento { get { return DESCUENTO == 0 ? "" : (string.IsNullOrEmpty(discount) ? (string.IsNullOrEmpty(GrupoVulnerable) ? (discountAuto) : GrupoVulnerable) : discount); } }
 
     }
 }

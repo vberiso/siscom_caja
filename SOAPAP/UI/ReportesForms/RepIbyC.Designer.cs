@@ -64,7 +64,6 @@
             this.lblTitulo = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.pgcCollection = new DevExpress.XtraPivotGrid.PivotGridControl();
-            this.dataCollectionBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.pgfDescripcion = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfSubtotal = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfDescuento = new DevExpress.XtraPivotGrid.PivotGridField();
@@ -78,6 +77,12 @@
             this.pgfBanco = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfCuenta = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfFolio = new DevExpress.XtraPivotGrid.PivotGridField();
+            this.pgfColonia = new DevExpress.XtraPivotGrid.PivotGridField();
+            this.dataCollectionBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.pgfDireccion = new DevExpress.XtraPivotGrid.PivotGridField();
+            this.pgfCliente = new DevExpress.XtraPivotGrid.PivotGridField();
+            this.pgfDivision = new DevExpress.XtraPivotGrid.PivotGridField();
+            this.pgfMotivo = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pnlHeader.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -403,16 +408,17 @@
             this.pgfFormaPago,
             this.pgfBanco,
             this.pgfCuenta,
-            this.pgfFolio});
+            this.pgfFolio,
+            this.pgfColonia,
+            this.pgfDireccion,
+            this.pgfCliente,
+            this.pgfDivision,
+            this.pgfMotivo});
             this.pgcCollection.Location = new System.Drawing.Point(0, 121);
             this.pgcCollection.Name = "pgcCollection";
             this.pgcCollection.OptionsData.DataProcessingEngine = DevExpress.XtraPivotGrid.PivotDataProcessingEngine.LegacyOptimized;
             this.pgcCollection.Size = new System.Drawing.Size(891, 295);
             this.pgcCollection.TabIndex = 50;
-            // 
-            // dataCollectionBindingSource
-            // 
-            this.dataCollectionBindingSource.DataSource = typeof(SOAPAP.Reportes.DataCollection);
             // 
             // pgfDescripcion
             // 
@@ -515,6 +521,45 @@
             this.pgfFolio.FieldName = "folio_impresion";
             this.pgfFolio.Name = "pgfFolio";
             // 
+            // pgfColonia
+            // 
+            this.pgfColonia.AreaIndex = 4;
+            this.pgfColonia.Caption = "COLONIA";
+            this.pgfColonia.FieldName = "ContribuyenteColonia";
+            this.pgfColonia.Name = "pgfColonia";
+            // 
+            // dataCollectionBindingSource
+            // 
+            this.dataCollectionBindingSource.DataSource = typeof(SOAPAP.Reportes.DataCollection);
+            // 
+            // pgfDireccion
+            // 
+            this.pgfDireccion.AreaIndex = 5;
+            this.pgfDireccion.Caption = "DIRECCION";
+            this.pgfDireccion.FieldName = "ContribuyenteDireccion";
+            this.pgfDireccion.Name = "pgfDireccion";
+            // 
+            // pgfCliente
+            // 
+            this.pgfCliente.AreaIndex = 6;
+            this.pgfCliente.Caption = "CLIENTE";
+            this.pgfCliente.FieldName = "Contribuyente";
+            this.pgfCliente.Name = "pgfCliente";
+            // 
+            // pgfDivision
+            // 
+            this.pgfDivision.AreaIndex = 7;
+            this.pgfDivision.Caption = "DIVISION";
+            this.pgfDivision.FieldName = "Division";
+            this.pgfDivision.Name = "pgfDivision";
+            // 
+            // pgfMotivo
+            // 
+            this.pgfMotivo.AreaIndex = 8;
+            this.pgfMotivo.Caption = "MOTIVO DESCUENTO";
+            this.pgfMotivo.FieldName = "MotivoDescuento";
+            this.pgfMotivo.Name = "pgfMotivo";
+            // 
             // RepIbyC
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -584,5 +629,10 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label8;
         private DevExpress.XtraBars.Docking2010.WindowsUIButtonPanel windowsUIButtonPanel1;
+        private DevExpress.XtraPivotGrid.PivotGridField pgfColonia;
+        private DevExpress.XtraPivotGrid.PivotGridField pgfDireccion;
+        private DevExpress.XtraPivotGrid.PivotGridField pgfCliente;
+        private DevExpress.XtraPivotGrid.PivotGridField pgfDivision;
+        private DevExpress.XtraPivotGrid.PivotGridField pgfMotivo;
     }
 }

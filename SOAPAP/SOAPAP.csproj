@@ -922,6 +922,7 @@
     <EmbeddedResource Include="PopNotificacion.resx">
       <DependentUpon>PopNotificacion.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Properties\licenses.licx" />
     <EmbeddedResource Include="PupCobroAgua.resx">
       <DependentUpon>PupCobroAgua.cs</DependentUpon>
     </EmbeddedResource>
