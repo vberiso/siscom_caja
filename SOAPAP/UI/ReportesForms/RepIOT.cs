@@ -464,6 +464,7 @@ namespace SOAPAP.UI.ReportesForms
             {
                 builder.Append(@"<p style='margin-top: 0px;margin-bottom: 0px; font-size: 16px;'> <b> AGUA POTABLE DE PUEBLA</b></p>");
             }
+        
 
             builder.Append(@"<div style='display: inline-block; width: 90%; font-size: 12px; text-align: left;'>");
             builder.Append(@"<table  style='width: 100%;>");
@@ -486,6 +487,8 @@ namespace SOAPAP.UI.ReportesForms
             builder.Append(@"</tr>");
 
             builder.Append(@"</table>");
+            builder.Append(@"<p style='font-size: 14px;text-align:center;'><b>INGRESOS TESORERIA</b></p></div>");
+
 
             builder.Append(@"</div>");
             builder.Append(@"</div>");
@@ -565,7 +568,7 @@ namespace SOAPAP.UI.ReportesForms
                 Folio = e.First().Folio,
                 Area = e.First().Area,
                 Cliente = e.First().Cliente,
-                Fecha = DateTime.Parse(e.First().Fecha).ToString("dd-MM-yyyy"),
+                Fecha = e.First().Fecha,
                 Total = e.First().Total,
                 Serie = e.First().Serie,
                 Cajero = e.First().Cajero,
@@ -578,10 +581,10 @@ namespace SOAPAP.UI.ReportesForms
             {
                 var Ldatac = Ldata.Where(d => d.Area == a).ToList().OrderBy(x => x.Fecha).ThenBy(x => x.Cliente).ToList();
                 builder.Append(@"<div class='datos_conceptos' style='margin-bottom: 10px;'>");
-                builder.Append(@"<p style='font-size: 16px;text-align:left;'>
+                builder.Append(@"<p style='font-size: 14px;text-align:left;'>
                                         <b>Área: </b>
                                         <span style='text-decoration:underline;'> " + Ldatac.First().Area + "</span></p>");
-                builder.Append(@"<table  id='datos' style='width: 100%; '>");
+                builder.Append(@"<table  id='datos' style='width: 100%; font-size: 10px;'>");
                 builder.Append(@"<thead>");
                 builder.Append(@"<th style='width: 10%;'>SERIE</th>");
                 builder.Append(@"<th style='width: 10%;'>CUENTA</th>");
@@ -602,7 +605,8 @@ namespace SOAPAP.UI.ReportesForms
                     builder.Append(@"<td style='width: 10%;' class='centro'>" + x.Cuenta + " </td>");
                     builder.Append(@"<td style='width: 10%;' class='centro'>" + x.Folio + " </td>");
                     builder.Append(@"<td style='width: 40%;' class='left'>" + x.Cliente + " </td>");
-                    builder.Append(@"<td style='width: 10%;' class='centro'>" + x.Fecha + " </td>");
+                    var fecha = x.Fecha == null ? "" : DateTime.Parse(x.Fecha).ToString("dd-MM-yyyy");
+                    builder.Append(@"<td style='width: 10%;' class='centro'>" +fecha+" </td>");
                     builder.Append(@"<td style='width: 10%;border: 1px solid black;'>" + string.Format(new CultureInfo("es-MX"), "{0:C2}", x.Total) + " </td>");
                     builder.Append(@"<td style='width: 10%;border: 1px solid black;'>" + x.Estado + " </td>");
                     builder.Append(@"</tr>");

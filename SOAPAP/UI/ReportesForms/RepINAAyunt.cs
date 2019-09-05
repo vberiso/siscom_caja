@@ -230,7 +230,7 @@ namespace SOAPAP.UI.ReportesForms
         }
         private void SetHeader(HiQPdf.PdfDocument document, string FechaI, string FechaF, string cajero)
         {
-            document.CreateHeaderCanvas(130);
+            document.CreateHeaderCanvas(120);
 
             float footerHeight = document.Header.Height;
             float footerWidth = document.Header.Width;
@@ -295,6 +295,8 @@ namespace SOAPAP.UI.ReportesForms
             builder.Append(@"</tr>");
 
             builder.Append(@"</table>");
+            builder.Append(@"<p style='margin-top:0px;font-size: 14px;text-align:center;'><b>Reporte Fraccionamientos Nuevos</b></p>");
+
 
             builder.Append(@"</div>");
             builder.Append(@"</div>");
@@ -304,7 +306,7 @@ namespace SOAPAP.UI.ReportesForms
         private void SetFooter(HiQPdf.PdfDocument document)
         {
 
-            document.CreateFooterCanvas(50);
+            document.CreateFooterCanvas(23);
 
             float footerHeight = document.Footer.Height;
             float footerWidth = document.Footer.Width;
@@ -362,7 +364,7 @@ namespace SOAPAP.UI.ReportesForms
             string totalL = "";
             string totalR = "";
             builder.Append(@"</head>");
-            builder.Append(@"<body style='font-size: 8px;padding: 5px'>");
+            builder.Append(@"<body style='font-size: 8px;'>");
             builder.Append(@"<div style='font-family: \""Roboto\"", sans-serif; height: 100px;'>");
 
             var LColonias = Ldata.OrderBy(x => x.COLONIA).ToList().Select(x =>
@@ -375,14 +377,14 @@ namespace SOAPAP.UI.ReportesForms
                 builder.Append(@"<div class='datos_conceptos' style='margin-bottom: 10px;'>");
                 builder.Append(@"<div style='display: inline-block; width: 100%;'>");
                 builder.Append(@"<div style='display: inline-block; width: 40%;'>");
-                builder.Append(@"<p style='font-size: 16px;text-align:left;'>
+                builder.Append(@"<p style='font-size: 14px;text-align:left;'>
                                         <b>Fraccionamiento: </b>
                                         <span style='text-decoration:underline;'> " + Ldatac.First().COLONIA + "</span></p>");
 
 
                 builder.Append(@"</div>");
                 builder.Append(@"<div style='display: inline-block; width: 40%;'>");
-                builder.Append(@"<p style='font-size: 16px;text-align:left;'>
+                builder.Append(@"<p style='font-size: 14px;text-align:left;'>
                                         <b>Tipo viviendas: </b>
                                         <span style='text-decoration:underline;'> " + Ldatac.First().TipoViviendas + "</span></p>");
 
@@ -390,7 +392,7 @@ namespace SOAPAP.UI.ReportesForms
                 builder.Append(@"</div>");
                 builder.Append(@"</div>");
 
-                builder.Append(@"<table  id='datos' style='width: 100%; '>");
+                builder.Append(@"<table  id='datos' style='width: 100%; font-size: 10px;'>");
                 builder.Append(@"<thead>");
                 builder.Append(@"<tr>");
                 builder.Append(@"<th style='width: 10%;'>CUENTA</th>");

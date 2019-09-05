@@ -387,6 +387,8 @@ namespace SOAPAP.UI.ReportesForms
             builder.Append(@"</tr>");
 
             builder.Append(@"</table>");
+            builder.Append(@"<p style='font-size: 14px;text-align:center;'><b>Reporte ordenes</b></p></div>");
+
 
             builder.Append(@"</div>");
             builder.Append(@"</div>");
@@ -396,13 +398,13 @@ namespace SOAPAP.UI.ReportesForms
         private void SetFooter(HiQPdf.PdfDocument document)
         {
 
-            document.CreateFooterCanvas(50);
+           document.CreateFooterCanvas(23);
 
             float footerHeight = document.Footer.Height;
             float footerWidth = document.Footer.Width;
 
             System.Drawing.Font pageNumberingFont = new System.Drawing.Font(new System.Drawing.FontFamily("Times New Roman"), 8, System.Drawing.GraphicsUnit.Point);
-            HiQPdf.PdfText pageNumberingText = new HiQPdf.PdfText(5, footerHeight - 12, "Página {CrtPage} de {PageCount}", pageNumberingFont);
+            HiQPdf.PdfText pageNumberingText = new HiQPdf.PdfText(5, footerHeight - 8, "Página {CrtPage} de {PageCount}", pageNumberingFont);
             pageNumberingText.HorizontalAlign = HiQPdf.PdfTextHAlign.Center;
             pageNumberingText.EmbedSystemFont = true;
 
@@ -455,7 +457,7 @@ namespace SOAPAP.UI.ReportesForms
             builder.Append(@"</head>");
             builder.Append(@"<body style='font-size: 8px;padding: 5px'>");
             builder.Append(@"<div style='font-family: \""Roboto\"", sans-serif; height: 100px;'>");
-            builder.Append(@"</table>");
+          
             var LAreas = Ldata.Select(x =>
                              x.Division
                            ).Distinct().ToList();
@@ -479,10 +481,10 @@ namespace SOAPAP.UI.ReportesForms
             {
                 var Ldatac = Ldata.Where(d => d.Division == a).ToList().OrderBy(x => x.FechaPago).ThenBy(x => x.Cliente).ToList();
                 builder.Append(@"<div class='datos_conceptos' style='margin-bottom: 10px;'>");
-                builder.Append(@"<p style='font-size: 16px;text-align:left;'>
+                builder.Append(@"<p style='font-size: 14px;text-align:left;'>
                                         <b>Área: </b>
                                         <span style='text-decoration:underline;'> " + Ldatac.First().Division + "</span></p>");
-                builder.Append(@"<table  id='datos' style='width: 100%; '>");
+                builder.Append(@"<table  id='datos' style='width: 100%;font-size: 10px; '>");
                 builder.Append(@"<thead>");
                 builder.Append(@"<th style='width: 10%;'>SERIE</th>");
                 builder.Append(@"<th  style='width: 15%;'>CUENTA</th>");
@@ -500,7 +502,7 @@ namespace SOAPAP.UI.ReportesForms
 
                     builder.Append(@"<tr>");
                     builder.Append(@"<td  style='width: 10%;' class='centro'>" + x.Serie + " </td>");
-                    builder.Append(@"<td  style='width: 15%;' class='centro'>" + x.Cuenta + " </td>");
+                    builder.Append(@"<td  style='width: 15%;' class='centro'>"+x.account+" </td>");
                     builder.Append(@"<td  style='width: 15%;' class='centro'>" + x.folio + " </td>");
                     builder.Append(@"<td  style='width: 30%;' class='left'>" + x.Cliente + " </td>");
                     builder.Append(@"<td  style='width: 10%;' class='centro'>" + x.FechaPago + " </td>");

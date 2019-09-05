@@ -106,58 +106,7 @@ namespace SOAPAP.UI.ReportesForms
             {
                 var res = e.Message;
             }
-            //var id = Variables.LoginModel.User;
-
-            //////Se obtiene las Colonias          
-            //var itemsCol = chlbxColonia.CheckedItems;            
-            //string lstColonias = "";
-            //if (itemsCol.Count == 0)
-            //{
-            //    mensaje = new MessageBoxForm("Advertencia: ", "Debe seleccionar una colonia.", TypeIcon.Icon.Cancel);
-            //    result = mensaje.ShowDialog();
-            //    return;
-            //}
-            //else
-            //{
-            //    foreach (SOAPAP.Reportes.DataComboBox item in itemsCol)
-            //    {
-            //        //lstColonia.Add(item);
-            //        lstColonias = lstColonias + item.keyInt + ",";
-            //    }
-            //    lstColonias = lstColonias.Substring(0, lstColonias.Length - 1);
-            //}
-
-            //HttpContent content;
-            //json = JsonConvert.SerializeObject(lstColonias);
-            //content = new StringContent(json, Encoding.UTF8, "application/json");
-
-            //var _resulTransaction = await Requests.SendURIAsync("/api/Reports/DebtsWater" , HttpMethod.Post, Variables.LoginModel.Token, content);
-
-            //if (_resulTransaction.Contains("error"))
-            //{
-            //    mensaje = new MessageBoxForm("Error", _resulTransaction.Split(':')[1].Replace("}", ""), TypeIcon.Icon.Cancel);
-            //    result = mensaje.ShowDialog();
-            //}
-            //else
-            //{
-            //    List<DataDebts> lstData = JsonConvert.DeserializeObject<List<DataDebts>>(_resulTransaction);                
-            //    if (lstData == null)
-            //    {
-            //        mensaje = new MessageBoxForm("Sin Operaciones", "No se encontraron movimientos.", TypeIcon.Icon.Warning);
-            //        result = mensaje.ShowDialog();
-            //    }
-            //    else
-            //    {                   
-            //        try
-            //        {
-            //            pgcAdeudos.DataSource = lstData;
-            //        }
-            //        catch (Exception e)
-            //        {
-            //            var res = e.Message;
-            //        }
-            //    }
-            //}
+            
         }
         private async Task<List<DataDebts>> GetData()
         {

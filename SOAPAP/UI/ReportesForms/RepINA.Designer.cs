@@ -54,7 +54,6 @@
             this.lblTitulo = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.pgcINA = new DevExpress.XtraPivotGrid.PivotGridControl();
-            this.dataIncomeNewAccountsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.pgfColonia = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfAño = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfTipoVivienda = new DevExpress.XtraPivotGrid.PivotGridField();
@@ -64,6 +63,7 @@
             this.pgfCount = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfCuenta = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfCliente = new DevExpress.XtraPivotGrid.PivotGridField();
+            this.dataIncomeNewAccountsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.pnlHeader.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pcbIncomeByConcept)).BeginInit();
@@ -113,7 +113,7 @@
             this.windowsUIButtonPanel1.Buttons.AddRange(new DevExpress.XtraEditors.ButtonPanel.IBaseButton[] {
             new DevExpress.XtraBars.Docking2010.WindowsUIButton("", true, windowsUIButtonImageOptions1, DevExpress.XtraBars.Docking2010.ButtonStyle.PushButton, "", -1, true, superToolTip1, true, false, true, "GE", -1, false),
             new DevExpress.XtraBars.Docking2010.WindowsUIButton("", true, windowsUIButtonImageOptions2, DevExpress.XtraBars.Docking2010.ButtonStyle.PushButton, "Exportar", -1, true, superToolTip2, true, false, true, "EX", -1, false),
-            new DevExpress.XtraBars.Docking2010.WindowsUIButton("Button", true, windowsUIButtonImageOptions3, DevExpress.XtraBars.Docking2010.ButtonStyle.PushButton, "", -1, true, superToolTip3, true, false, true, "PR", -1, false)});
+            new DevExpress.XtraBars.Docking2010.WindowsUIButton("", true, windowsUIButtonImageOptions3, DevExpress.XtraBars.Docking2010.ButtonStyle.PushButton, "", -1, true, superToolTip3, true, false, true, "PR", -1, false)});
             this.windowsUIButtonPanel1.Cursor = System.Windows.Forms.Cursors.Hand;
             this.windowsUIButtonPanel1.Dock = System.Windows.Forms.DockStyle.Right;
             this.windowsUIButtonPanel1.ForeColor = System.Drawing.SystemColors.ControlLight;
@@ -267,10 +267,6 @@
             this.pgcINA.Size = new System.Drawing.Size(995, 303);
             this.pgcINA.TabIndex = 51;
             // 
-            // dataIncomeNewAccountsBindingSource
-            // 
-            this.dataIncomeNewAccountsBindingSource.DataSource = typeof(SOAPAP.Reportes.DataIncomeNewAccounts);
-            // 
             // pgfColonia
             // 
             this.pgfColonia.Area = DevExpress.XtraPivotGrid.PivotArea.RowArea;
@@ -344,6 +340,10 @@
             this.pgfCliente.Caption = "Cliente";
             this.pgfCliente.FieldName = "CLIENTE";
             this.pgfCliente.Name = "pgfCliente";
+            // 
+            // dataIncomeNewAccountsBindingSource
+            // 
+            this.dataIncomeNewAccountsBindingSource.DataSource = typeof(SOAPAP.Reportes.DataIncomeNewAccounts);
             // 
             // RepINA
             // 

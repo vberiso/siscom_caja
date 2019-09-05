@@ -519,6 +519,8 @@ namespace SOAPAP.UI.ReportesForms
             builder.Append(@"</tr>");
 
             builder.Append(@"</table>");
+            builder.Append(@"<p style='margin-top:-15px;font-size: 14px;text-align:center;'><b>INGRESOS POR CONCEPTO</b></p></div>");
+
 
             builder.Append(@"</div>");
             builder.Append(@"</div>");

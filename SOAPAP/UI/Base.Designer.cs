@@ -60,6 +60,7 @@
             this.fraccionamientosNuevosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.facturaciónToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.facturacionPasadaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.finanzasToolStripMenuItemAyuntamiento = new System.Windows.Forms.ToolStripMenuItem();
             this.opcionesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cajasToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.facturacionAgrupadaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -277,7 +278,8 @@
             this.ingresosToolStripMenuItem,
             this.tsmOrdenes,
             this.tsmPadron,
-            this.facturaciónToolStripMenuItem});
+            this.facturaciónToolStripMenuItem,
+            this.finanzasToolStripMenuItemAyuntamiento});
             this.reportesToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 12F);
             this.reportesToolStripMenuItem.ForeColor = System.Drawing.Color.DimGray;
             this.reportesToolStripMenuItem.Image = global::SOAPAP.Properties.Resources.file;
@@ -287,6 +289,7 @@
             this.reportesToolStripMenuItem.Text = "Reportes";
             this.reportesToolStripMenuItem.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.reportesToolStripMenuItem.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
+            this.reportesToolStripMenuItem.Click += new System.EventHandler(this.reportesToolStripMenuItem_Click);
             // 
             // ingresosToolStripMenuItem
             // 
@@ -404,6 +407,13 @@
             this.facturacionPasadaToolStripMenuItem.Size = new System.Drawing.Size(211, 26);
             this.facturacionPasadaToolStripMenuItem.Text = "Facturación Pasada";
             this.facturacionPasadaToolStripMenuItem.Click += new System.EventHandler(this.facturacionPasadaToolStripMenuItem_Click);
+            // 
+            // finanzasToolStripMenuItemAyuntamiento
+            // 
+            this.finanzasToolStripMenuItemAyuntamiento.Name = "finanzasToolStripMenuItemAyuntamiento";
+            this.finanzasToolStripMenuItemAyuntamiento.Size = new System.Drawing.Size(180, 26);
+            this.finanzasToolStripMenuItemAyuntamiento.Text = "Finanzas";
+            this.finanzasToolStripMenuItemAyuntamiento.Click += new System.EventHandler(this.finanzasToolStripMenuItemAyuntamiento_Click);
             // 
             // opcionesToolStripMenuItem
             // 
@@ -870,5 +880,6 @@
         private System.Windows.Forms.Label lblDivition;
         private System.Windows.Forms.ToolStripMenuItem facturaciónToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem facturacionPasadaToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem finanzasToolStripMenuItemAyuntamiento;
     }
 }

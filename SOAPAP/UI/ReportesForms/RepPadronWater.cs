@@ -526,6 +526,8 @@ namespace SOAPAP.UI.ReportesForms
             builder.Append(@"</tr>");
 
             builder.Append(@"</table>");
+            builder.Append(@"<p style='font-size: 14px;text-align:center;'><b>Reporte Padron</b></p></div>");
+
 
             builder.Append(@"</div>");
             builder.Append(@"</div>");
@@ -535,7 +537,7 @@ namespace SOAPAP.UI.ReportesForms
         private void SetFooter(HiQPdf.PdfDocument document)
         {
 
-            document.CreateFooterCanvas(50);
+            document.CreateFooterCanvas(23);
 
             float footerHeight = document.Footer.Height;
             float footerWidth = document.Footer.Width;
@@ -595,7 +597,7 @@ namespace SOAPAP.UI.ReportesForms
             builder.Append(@"</head>");
             builder.Append(@"<body style='font-size: 8px;padding: 5px'>");
             builder.Append(@"<div style='font-family: \""Roboto\"", sans-serif; height: 100px;'>");
-            
+
             var LTipo = Ldata.Select(x =>
                              x.idTIPO_TOMA
                            ).Distinct().ToList();
@@ -616,14 +618,14 @@ namespace SOAPAP.UI.ReportesForms
             LTipo.ForEach(t => {
                 var Ldatac = Ldata.Where(d => d.idTIPO_TOMA == t).ToList().OrderBy(x => x.FECHA_ULTIMO_PAGO).ThenBy(x => x.NOMBRE).ToList();
                 builder.Append(@"<div class='datos_conceptos' style='margin-bottom: 10px;'>");
-                builder.Append(@"<p style='font-size: 16px;text-align:left;'>
+                builder.Append(@"<p style='font-size: 14px;text-align:left;'>
                                         <b>Tipo: </b>
                                         <span style='text-decoration:underline;'> " + Ldatac.First().TIPO_TOMA + "</span></p>");
-                builder.Append(@"<table  id='datos' style='width: 100%; '>");
+                builder.Append(@"<table  id='datos' style='width: 100%; font-size: 10px;'>");
                 builder.Append(@"<thead>");
                 builder.Append(@"<tr>");
                 builder.Append(@"<th style='width: 6%;'>CUENTA</th>");
-               // builder.Append(@"<th style='width: 5%;'>CUENTA</th>");
+                // builder.Append(@"<th style='width: 5%;'>CUENTA</th>");
                 builder.Append(@"<th style='width:14%;'>NOMBRE</th>");
                 builder.Append(@"<th style='width:13%;'>COLONIA</th>");
                 builder.Append(@"<th style='width:4%;'>RUTA</th>");
@@ -651,10 +653,10 @@ namespace SOAPAP.UI.ReportesForms
                     builder.Append(@"<td style='width:8%;' class='centro'>" + DateTime.Parse(x.CONTRATO).ToString("dd-MM-yyyy") + "</td>");
                     builder.Append(@"<td style='width:8%;' class='centro'>" + x.AD_DESDE + " </td>");
                     builder.Append(@"<td style='width:8%;' class='centro'>" + x.AD_HASTA + " </td>");
-                    builder.Append(@"<td style='width:8%;' class='centro'>" + string.Format(new CultureInfo("es-MX"), "{0:C2}", x.ULTIMO_PAGO == null?0: x.ULTIMO_PAGO) + "</td>");
-                    builder.Append(@"<td style='width:8%;' class='centro'>" + (x.FECHA_ULTIMO_PAGO ==null?"": DateTime.Parse(x.FECHA_ULTIMO_PAGO).ToString("dd-MM-yyyy") )+ "</td>");
+                    builder.Append(@"<td style='width:8%;' class='centro'>" + string.Format(new CultureInfo("es-MX"), "{0:C2}", x.ULTIMO_PAGO == null ? 0 : x.ULTIMO_PAGO) + "</td>");
+                    builder.Append(@"<td style='width:8%;' class='centro'>" + (x.FECHA_ULTIMO_PAGO == null ? "" : DateTime.Parse(x.FECHA_ULTIMO_PAGO).ToString("dd-MM-yyyy")) + "</td>");
                     builder.Append(@"<td style='width:8%;' style='border: 1px solid black;'>" + string.Format(new CultureInfo("es-MX"), "{0:C2}", x.ADEUDO == null ? 0 : x.ADEUDO) + "</td>");
-       
+
                     builder.Append(@"</tr>");
 
                 });
@@ -691,7 +693,9 @@ namespace SOAPAP.UI.ReportesForms
                 builder.Append(@"</div>");
             });
 
-            totalO = Ldata.Count().ToString();
+            if (LTipo.Count > 1)
+            { 
+                totalO = Ldata.Count().ToString();
             //totalOc = Ldata.Where(x => x.ESTATUS != "ACTIVO").ToList().Count().ToString();
             totalC = string.Format(new CultureInfo("es-MX"), "{0:C2}", Ldata.Where(x => x.ESTATUS == "ACTIVO").ToList().Sum(x => x.ADEUDO));
             //totalCan = string.Format(new CultureInfo("es-MX"), "{0:C2}", Ldata.Where(x => x.ESTATUS != "ACTIVO").ToList().Sum(x => x.ADEUDO));
@@ -718,6 +722,7 @@ namespace SOAPAP.UI.ReportesForms
             builder.Append(@"</div>");
 
             builder.Append(@" </div>");
+        }
 
 
 

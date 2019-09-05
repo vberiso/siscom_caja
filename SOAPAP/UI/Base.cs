@@ -56,7 +56,7 @@ namespace SOAPAP
             LoadDivition();
             Task taskA = new Task(() => FirebaseService());
             taskA.Start();
-            this.tslVersion.Text = "Ver. " + ApplicationDeployment.CurrentDeployment.CurrentVersion.ToString(4);
+            //this.tslVersion.Text = "Ver. " + ApplicationDeployment.CurrentDeployment.CurrentVersion.ToString(4);
             //taskA.Wait();
         }
 
@@ -262,6 +262,10 @@ namespace SOAPAP
             CargaInformacion();
 
             notificacionesToolStripMenuItem.DropDownItems.Clear();
+            if (Variables.Configuration.IsMunicipal)
+            {
+                finanzasToolStripMenuItemAyuntamiento.Visible = false;
+            }
         }
         private void AddFormInPanel(Form fh)
         {
@@ -1035,7 +1039,21 @@ namespace SOAPAP
         {
             ShowForm("SOAPAP", "UI.FactPasada.FacturacionPasada");
         }
-               
+
+        private void reportesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void cedulaDeInformaciónToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void finanzasToolStripMenuItemAyuntamiento_Click(object sender, EventArgs e)
+        {
+            ShowForm("SOAPAP", "UI.ReportesForms.Finanzas.Agua.Principal");
+        }
     }
 }
 #endregion

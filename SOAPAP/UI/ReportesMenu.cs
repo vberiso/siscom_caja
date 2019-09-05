@@ -73,5 +73,10 @@ namespace SOAPAP.UI
         {
             ShowForm("SOAPAP", "UI.ReportesForms.RepIOT");
         }
+
+        private void btnFinanzas_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

@@ -463,7 +463,7 @@ namespace SOAPAP.UI.ReportesForms
             builder.Append(@"<td  style='width: 200px'><b>Operador:</b></td>");
             if (Variables.Configuration.Terminal.TerminalUsers.Count > 0)
             {
-                builder.Append(@"<td style='width: 200px;font-family:\""Montserrat\"", sans-serif;'><b>" + cajero + "</b></td>");
+                builder.Append(@"<td style='width: 200px;font-family:\""Montserrat\"", sans-serif;'><b>TODOS</b></td>");
 
             }
             else
