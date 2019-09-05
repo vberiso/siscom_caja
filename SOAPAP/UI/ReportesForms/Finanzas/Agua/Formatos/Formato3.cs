@@ -487,7 +487,7 @@ namespace SOAPAP.UI.ReportesForms.Finanzas.Agua.Formatos
             totalConMedidorU += TUsuarios;
             totalConMedidorT += TTomas;
             totalConMedidorUE += TUE;
-            totalConMedidorTE += TTE;
+            totalConMedidorTE += TTE; 
 
             builder.Append($@"<tr>
                                      <td colspan='2' style='width: 47%' class='left'>OTROS USOS</td>
