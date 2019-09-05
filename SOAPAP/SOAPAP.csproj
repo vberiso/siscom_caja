@@ -27,9 +27,9 @@
     <UpdateRequired>true</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
     <UpdateUrl>\\installer.cuautlancingo.gob.mx\caja\</UpdateUrl>
-    <MinimumRequiredVersion>1.1.1.195</MinimumRequiredVersion>
+    <MinimumRequiredVersion>1.1.1.198</MinimumRequiredVersion>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>196</ApplicationRevision>
+    <ApplicationRevision>199</ApplicationRevision>
     <ApplicationVersion>1.1.1.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>

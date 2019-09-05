@@ -161,7 +161,7 @@ namespace SOAPAP.UI
             row["Contribuyente"] = taxresult.TaxUser.Name;
             row["Rfc"] = taxresult.TaxUser.RFC;
             row["Domicilio"] = txtAddress.Text;
-            row["Caja"] = Variables.Configuration.Terminal.TerminalUsers.FirstOrDefault().Id;
+            row["Caja"] = "Jefe de Caja";//Variables.Configuration.Terminal.TerminalUsers.Count > 0 ? Variables.Configuration.Terminal.TerminalUsers.FirstOrDefault().Id : "Jefe de Caja";
             row["Sucursal"] = Variables.Configuration.Terminal.BranchOffice.Name;
             row["Usuario"] = Variables.LoginModel.FullName;
             Variables.datospadron.Rows.Add(row);

@@ -1206,25 +1206,25 @@ namespace SOAPAP
                                                 else
                                                 {
                                                     // *********************************** SAC *************************************
-                                                    if (Variables.Configuration.IsMunicipal)
-                                                    {
-                                                        var resultadosSAC = await Requests.SendURIAsync(string.Format("/api/Payments/SistemaAdministracionContable/Cancel/{0}", payment.Id), HttpMethod.Post, Variables.LoginModel.Token);
-                                                        if (resultadosSAC.Contains("error"))
-                                                        {
-                                                            try
-                                                            {
-                                                                mensaje = new MessageBoxForm("Error", JsonConvert.DeserializeObject<Error>(resultadosSAC).error, TypeIcon.Icon.Cancel);
-                                                                mensaje.ShowDialog();
-                                                            }
-                                                            catch (Exception)
-                                                            {
-                                                                mensaje = new MessageBoxForm("Error", "Servicio no disponible favor de comunicarse con el administrador: -conexion interrumpida-", TypeIcon.Icon.Cancel);
-                                                                mensaje.ShowDialog();
-                                                            }
-                                                        }
-                                                    }
-                                                    mensaje = new MessageBoxForm(Variables.titleprincipal, response, TypeIcon.Icon.Success);
-                                                    result = mensaje.ShowDialog();
+                                                    //if (Variables.Configuration.IsMunicipal)
+                                                    //{
+                                                    //    var resultadosSAC = await Requests.SendURIAsync(string.Format("/api/Payments/SistemaAdministracionContable/Cancel/{0}", payment.Id), HttpMethod.Post, Variables.LoginModel.Token);
+                                                    //    if (resultadosSAC.Contains("error"))
+                                                    //    {
+                                                    //        try
+                                                    //        {
+                                                    //            mensaje = new MessageBoxForm("Error", JsonConvert.DeserializeObject<Error>(resultadosSAC).error, TypeIcon.Icon.Cancel);
+                                                    //            mensaje.ShowDialog();
+                                                    //        }
+                                                    //        catch (Exception)
+                                                    //        {
+                                                    //            mensaje = new MessageBoxForm("Error", "Servicio no disponible favor de comunicarse con el administrador: -conexion interrumpida-", TypeIcon.Icon.Cancel);
+                                                    //            mensaje.ShowDialog();
+                                                    //        }
+                                                    //    }
+                                                    //}
+                                                    //mensaje = new MessageBoxForm(Variables.titleprincipal, response, TypeIcon.Icon.Success);
+                                                    //result = mensaje.ShowDialog();
                                                 }
                                             }
                                             catch (Exception)

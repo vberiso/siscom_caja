@@ -1149,23 +1149,23 @@ namespace SOAPAP.UI
                         else
                         {
                             ///***************************************************** SAC ******************************************////
-                            if (Variables.Configuration.IsMunicipal)
-                            {
-                                var resultadosSAC = await Requests.SendURIAsync(string.Format("/api/Payments/SistemaAdministracionContable/{0}", Variables.transactionVm.payment.Id), HttpMethod.Post, Variables.LoginModel.Token);
-                                if (resultadosSAC.Contains("error"))
-                                {
-                                    try
-                                    {
-                                        mensaje = new MessageBoxForm("Error", JsonConvert.DeserializeObject<Error>(resultadosSAC).error, TypeIcon.Icon.Cancel);
-                                        mensaje.ShowDialog();
-                                    }
-                                    catch (Exception)
-                                    {
-                                        mensaje = new MessageBoxForm("Error", "Servicio no disponible favor de comunicarse con el administrador: -conexion interrumpida-", TypeIcon.Icon.Cancel);
-                                        mensaje.ShowDialog();
-                                    }
-                                }
-                            }
+                            //if (Variables.Configuration.IsMunicipal)
+                            //{
+                            //    var resultadosSAC = await Requests.SendURIAsync(string.Format("/api/Payments/SistemaAdministracionContable/{0}", Variables.transactionVm.payment.Id), HttpMethod.Post, Variables.LoginModel.Token);
+                            //    if (resultadosSAC.Contains("error"))
+                            //    {
+                            //        try
+                            //        {
+                            //            mensaje = new MessageBoxForm("Error", JsonConvert.DeserializeObject<Error>(resultadosSAC).error, TypeIcon.Icon.Cancel);
+                            //            mensaje.ShowDialog();
+                            //        }
+                            //        catch (Exception)
+                            //        {
+                            //            mensaje = new MessageBoxForm("Error", "Servicio no disponible favor de comunicarse con el administrador: -conexion interrumpida-", TypeIcon.Icon.Cancel);
+                            //            mensaje.ShowDialog();
+                            //        }
+                            //    }
+                            //}
                             PdfPrint.IsContentCentered = true;
                             PdfPrint.Scale = PdfPrint.ScaleTypes.None;
                             PdfPrint.Status result = PdfPrint.Status.OK;
@@ -1520,23 +1520,23 @@ namespace SOAPAP.UI
                     else
                     {
                         ///***************************************************** SAC ******************************************////
-                        if (Variables.Configuration.IsMunicipal)
-                        {
-                            var resultadosSAC = await Requests.SendURIAsync(string.Format("/api/Payments/SistemaAdministracionContable/{0}", Variables.transactionVm.payment.Id), HttpMethod.Post, Variables.LoginModel.Token);
-                            if (resultadosSAC.Contains("error"))
-                            {
-                                try
-                                {
-                                    mensaje = new MessageBoxForm("Error", JsonConvert.DeserializeObject<Error>(resultadosSAC).error, TypeIcon.Icon.Cancel);
-                                    mensaje.ShowDialog();
-                                }
-                                catch (Exception)
-                                {
-                                    mensaje = new MessageBoxForm("Error", "Servicio no disponible favor de comunicarse con el administrador: -conexion interrumpida-", TypeIcon.Icon.Cancel);
-                                    mensaje.ShowDialog();
-                                }
-                            }
-                        }
+                        //if (Variables.Configuration.IsMunicipal)
+                        //{
+                        //    var resultadosSAC = await Requests.SendURIAsync(string.Format("/api/Payments/SistemaAdministracionContable/{0}", Variables.transactionVm.payment.Id), HttpMethod.Post, Variables.LoginModel.Token);
+                        //    if (resultadosSAC.Contains("error"))
+                        //    {
+                        //        try
+                        //        {
+                        //            mensaje = new MessageBoxForm("Error", JsonConvert.DeserializeObject<Error>(resultadosSAC).error, TypeIcon.Icon.Cancel);
+                        //            mensaje.ShowDialog();
+                        //        }
+                        //        catch (Exception)
+                        //        {
+                        //            mensaje = new MessageBoxForm("Error", "Servicio no disponible favor de comunicarse con el administrador: -conexion interrumpida-", TypeIcon.Icon.Cancel);
+                        //            mensaje.ShowDialog();
+                        //        }
+                        //    }
+                        //}
 
 
                         PdfPrint.IsContentCentered = true;
