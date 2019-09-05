@@ -46,7 +46,7 @@ namespace SOAPAP
         {
 
             Requests = new RequestsAPI(UrlBase);
-            facturama = new FacturamaApiMultiemisor("gfdsystems", "gfds1st95", false);
+            facturama = new FacturamaApiMultiemisor("gfdsystems", "gfds1st95");
             //facturama = new FacturamaApiMultiemisor("pruebas", "pruebas2011");
         }
         public void setMsgs(string msgObservacionFactura, string msgUsos)
@@ -1037,27 +1037,47 @@ namespace SOAPAP
                 else if (TraVM.payment.OrderSaleId == 0) //Servicio
                 {
                     TipoFactura = "CAT01";
-                    decimal AdeudoTotal = TraVM.payment.PaymentDetails.FirstOrDefault().Debt.Amount + TraVM.payment.PaymentDetails.Sum(x => x.Tax);
+                    decimal AdeudoTotal = TraVM.payment.PaymentDetails.GroupBy(g => g.Debt.Id).Sum(gg => gg.ToList().Sum(x => x.Amount)) + TraVM.payment.PaymentDetails.Sum(x => x.Tax);
 
                     if (AdeudoTotal == TraVM.payment.Total) //Pago total
                     {
-                        List<SOAPAP.Model.DebtDetail> lstDD = new List<DebtDetail>(); //TraVM.payment.PaymentDetails.FirstOrDefault().Debt.DebtDetails.ToList();
-                        foreach(var item in TraVM.payment.PaymentDetails.GroupBy(x => x.Debt.Id).Select(group => new { id = group.Key, detail = group.ToList().FirstOrDefault().Debt.DebtDetails.ToList() }).ToList())
-                        {
-                            lstDD.AddRange(item.detail);
-                        }
-                        List<SOAPAP.Model.DebtDiscount> lstDDis = new List<DebtDiscount>(); //TraVM.payment.PaymentDetails.FirstOrDefault().Debt.DebtDiscounts.ToList();
-                        foreach(var item in TraVM.payment.PaymentDetails.GroupBy(x => x.Debt.Id).Select(group => new { id = group.Key, detail = group.ToList().FirstOrDefault().Debt.DebtDiscounts.ToList() }).ToList())
-                        {
-                            lstDDis.AddRange(item.detail);
-                        }
+                        //List<SOAPAP.Model.DebtDetail> lstDD = new List<DebtDetail>(); //TraVM.payment.PaymentDetails.FirstOrDefault().Debt.DebtDetails.ToList();
+                        //foreach(var item in TraVM.payment.PaymentDetails.GroupBy(x => x.Debt.Id).Select(group => new { id = group.Key, detail = group.ToList().FirstOrDefault().Debt.DebtDetails.ToList() }).ToList())
+                        //{
+                        //    lstDD.AddRange(item.detail);
+                        //}
+                        //List<SOAPAP.Model.DebtDiscount> lstDDis = new List<DebtDiscount>(); //TraVM.payment.PaymentDetails.FirstOrDefault().Debt.DebtDiscounts.ToList();
+                        //foreach(var item in TraVM.payment.PaymentDetails.GroupBy(x => x.Debt.Id).Select(group => new { id = group.Key, detail = group.ToList().FirstOrDefault().Debt.DebtDiscounts.ToList() }).ToList())
+                        //{
+                        //    lstDDis.AddRange(item.detail);
+                        //}
 
-                        foreach (var pay in TraVM.payment.PaymentDetails)
+                        foreach (var pay in TraVM.payment.PaymentDetails.ToList())
                         {
+                            ////Calculo del unit price.
+                            //decimal tmpSubtotal = lstDD.Where(x => x.CodeConcept == pay.CodeConcept).Select(y => y.Amount).FirstOrDefault() + lstDDis.Where(x => x.CodeConcept == pay.CodeConcept).Select(y => y.DiscountAmount).FirstOrDefault();
+                            //decimal tmpQuantity = lstDD.Where(x => x.CodeConcept == pay.CodeConcept).Select(y => y.quantity).FirstOrDefault();
+                            //decimal tmpValorUnitario = Math.Round(tmpSubtotal / tmpQuantity, 2);
+
                             //Calculo del unit price.
-                            decimal tmpSubtotal = lstDD.Where(x => x.CodeConcept == pay.CodeConcept).Select(y => y.Amount).FirstOrDefault() + lstDDis.Where(x => x.CodeConcept == pay.CodeConcept).Select(y => y.DiscountAmount).FirstOrDefault();
-                            decimal tmpQuantity = lstDD.Where(x => x.CodeConcept == pay.CodeConcept).Select(y => y.quantity).FirstOrDefault();
-                            decimal tmpValorUnitario = Math.Round(tmpSubtotal / tmpQuantity, 2);
+                            decimal tmpSubtotal = 0, tmpQuantity = 1, tmpValorUnitario = 0, tmpDescuento = 0;
+                            if (pay.Debt.DebtDiscounts.ToList().Count > 0)
+                            {
+                                var OriginalAmount = pay.Debt.DebtDiscounts.FirstOrDefault(DDis => DDis.DebtId == pay.DebtId && DDis.CodeConcept == pay.CodeConcept).OriginalAmount;
+                                var DiscountAmount = pay.Debt.DebtDiscounts.FirstOrDefault(DDis => DDis.DebtId == pay.DebtId && DDis.CodeConcept == pay.CodeConcept).DiscountAmount;
+                                //var DescuentoProporcion = (DiscountAmount * pay.Amount) / (OriginalAmount - DiscountAmount);
+                                tmpSubtotal = pay.Amount + DiscountAmount;
+                                tmpQuantity = 1;
+                                tmpValorUnitario = tmpSubtotal;
+                                tmpDescuento = DiscountAmount;
+                            }
+                            else
+                            {
+                                tmpSubtotal = pay.Amount;
+                                tmpQuantity = 1;
+                                tmpValorUnitario = tmpSubtotal;
+                                tmpDescuento = 0;
+                            }
 
                             Item item = new Item()
                             {
@@ -1069,7 +1089,7 @@ namespace SOAPAP
                                 UnitPrice = tmpValorUnitario,
                                 Quantity = tmpQuantity,
                                 Subtotal = tmpSubtotal,
-                                Discount = lstDDis.Where(x => x.CodeConcept == pay.CodeConcept).Select(y => y.DiscountAmount).FirstOrDefault(),
+                                Discount = tmpDescuento,
                                 Total = pay.Amount + pay.Tax
                             };
                             if (pay.HaveTax == true)
@@ -1087,20 +1107,33 @@ namespace SOAPAP
                                 item.Taxes = lstTaxs;
                             }
                             lstItems.Add(item);
-                            //Elimino para evitar se pueda replicar es primero en caso de duplicidad.
-                            lstDD.Remove(lstDD.Where(x => x.CodeConcept == pay.CodeConcept).FirstOrDefault());
-                            lstDDis.Remove(lstDDis.Where(x => x.CodeConcept == pay.CodeConcept).FirstOrDefault());
                         }
                     }
                     else                                                                                 //Pago parcial
                     {
+
                         msgPagoParcial = "Esta factura es comprobante de un pago pacial";
-                        foreach (var pay in TraVM.payment.PaymentDetails)
+                        foreach (PaymentDetail pay in TraVM.payment.PaymentDetails.ToList())
                         {
                             //Calculo del unit price.
-                            decimal tmpSubtotal = pay.Amount;
-                            decimal tmpQuantity = 1;
-                            decimal tmpValorUnitario = pay.Amount;
+                            decimal tmpSubtotal = 0, tmpQuantity = 1, tmpValorUnitario = 0, tmpDescuento = 0;
+                            if (pay.Debt.DebtDiscounts.ToList().Count > 0)
+                            {
+                                var OriginalAmount = pay.Debt.DebtDiscounts.FirstOrDefault(DDis => DDis.DebtId == pay.DebtId && DDis.CodeConcept == pay.CodeConcept).OriginalAmount;
+                                var DiscountAmount = pay.Debt.DebtDiscounts.FirstOrDefault(DDis => DDis.DebtId == pay.DebtId && DDis.CodeConcept == pay.CodeConcept).DiscountAmount;
+                                var DescuentoProporcion = (DiscountAmount * pay.Amount) / (OriginalAmount - DiscountAmount);
+                                tmpSubtotal = pay.Amount + DescuentoProporcion;
+                                tmpQuantity = 1;
+                                tmpValorUnitario = tmpSubtotal;
+                                tmpDescuento = DescuentoProporcion;
+                            }
+                            else
+                            {
+                                tmpSubtotal = pay.Amount;
+                                tmpQuantity = 1;
+                                tmpValorUnitario = tmpSubtotal;
+                                tmpDescuento = 0;
+                            }
 
                             Item item = new Item()
                             {
@@ -1112,7 +1145,7 @@ namespace SOAPAP
                                 UnitPrice = tmpValorUnitario,
                                 Quantity = tmpQuantity,
                                 Subtotal = tmpSubtotal,
-                                Discount = 0,
+                                Discount = tmpDescuento > 0 ? tmpDescuento : 0,
                                 Total = pay.Amount + pay.Tax
                             };
                             if (pay.HaveTax == true)
@@ -1132,7 +1165,7 @@ namespace SOAPAP
                             lstItems.Add(item);
                         }
                     }
-                    
+
                 }
                 else                    //Producto
                 {
@@ -1264,30 +1297,35 @@ namespace SOAPAP
                         msgUsos = msgObs.Usos;
                     }
                 }
+                //En caso de tener descuento de grupo vulnerable
+                var tipoDescuento = "";
+                if (TraVM.payment.OrderSaleId == 0)
+                    tipoDescuento = TraVM.payment.PaymentDetails.Where(PD => PD.Debt.Discount != null && PD.Debt.Discount != "").Select(Sel => Sel.Debt.Discount).ToList().Distinct().FirstOrDefault();
+
+                if (!string.IsNullOrEmpty(tipoDescuento))
+                    msgObservacionFactura += msgObservacionFactura != "" ? ", Descuento de grupo vulnerable (" + tipoDescuento + ")" : "Descuento de grupo vulnerable (" + tipoDescuento + ")";
+
                 //En caso de factura fuera de fecha
-                bool printFecha =  Variables.LoginModel.Divition != 12;
+                bool printFecha = Variables.LoginModel.Divition != 12;
                 if (Variables.Configuration.IsMunicipal)
                 {
                     if (TraVM.payment.PaymentDate.ToString("yyyy-MM-dd") != DateTime.Today.ToString("yyyy-MM-dd") && printFecha)
-                        msgObservacionFactura += " Pago efectuado el " + TraVM.payment.PaymentDate.ToString("yyyy-MM-dd");
+                        msgObservacionFactura += msgObservacionFactura != "" ? ", Pago efectuado el " + TraVM.payment.PaymentDate.ToString("yyyy-MM-dd") : "Pago efectuado el " + TraVM.payment.PaymentDate.ToString("yyyy - MM - dd");
                 }
                 else
                 {
                     if (TraVM.payment.PaymentDate.ToString("yyyy-MM-dd") != DateTime.Today.ToString("yyyy-MM-dd"))
-                        msgObservacionFactura += " Pago efectuado el " + TraVM.payment.PaymentDate.ToString("yyyy-MM-dd");
+                        msgObservacionFactura += msgObservacionFactura != "" ? ", Pago efectuado el " + TraVM.payment.PaymentDate.ToString("yyyy-MM-dd") : "Pago efectuado el " + TraVM.payment.PaymentDate.ToString("yyyy-MM-dd");
                 }
                 //Si es un pago parcial.
-                msgObservacionFactura += string.IsNullOrEmpty(msgPagoParcial) ? "" : msgPagoParcial;
-                //Si hay observaciones en la Orden o el debt
-                {
-                    if (TraVM.payment.OrderSaleId == 0)
-                        msgObservacionFactura += (string.IsNullOrEmpty(TraVM.payment.PaymentDetails.FirstOrDefault().Debt.observations) ? "" : ", " + TraVM.payment.PaymentDetails.FirstOrDefault().Debt.observations);
-                    else
-                    {
-                        msgObservacionFactura += (string.IsNullOrEmpty(TraVM.orderSale.Observation) ? "" : ", " + TraVM.orderSale.Observation);
-                    }
-                }
-                
+                if (!string.IsNullOrEmpty(msgPagoParcial))
+                    msgObservacionFactura += msgObservacionFactura != "" ? ", " + msgPagoParcial : "";
+
+                //Si hay observaciones en la Orden o el debt                
+                if (TraVM.payment.OrderSaleId == 0)
+                    msgObservacionFactura += (string.IsNullOrEmpty(TraVM.payment.PaymentDetails.FirstOrDefault().Debt.observations) ? "" : ", " + TraVM.payment.PaymentDetails.FirstOrDefault().Debt.observations);
+                else if (!string.IsNullOrEmpty(TraVM.orderSale.Observation))
+                    msgObservacionFactura += msgObservacionFactura != "" ? ", " + TraVM.orderSale.Observation : TraVM.orderSale.Observation;
 
                 cfdi.Observations = msgObservacionFactura;
 

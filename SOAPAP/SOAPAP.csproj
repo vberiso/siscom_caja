@@ -122,9 +122,8 @@
     <Reference Include="Gma.QrCodeNet.Encoding, Version=0.4.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\QrCode.Net.0.4.0.0\lib\net45\Gma.QrCodeNet.Encoding.dll</HintPath>
     </Reference>
-    <Reference Include="HiQPdf, Version=10.17.0.0, Culture=neutral, PublicKeyToken=acd8b62594985b24, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\HQ2PDF\HiQPdf.dll</HintPath>
+    <Reference Include="HiQPdf">
+      <HintPath>..\..\..\Mau\Software\HiQPdf\HiQPdf.dll</HintPath>
     </Reference>
     <Reference Include="Humanizer, Version=2.5.0.0, Culture=neutral, PublicKeyToken=979442b78dfc278e, processorArchitecture=MSIL">
       <HintPath>..\packages\Humanizer.Core.2.5.16\lib\netstandard2.0\Humanizer.dll</HintPath>
@@ -923,7 +922,6 @@
     <EmbeddedResource Include="PopNotificacion.resx">
       <DependentUpon>PopNotificacion.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Properties\licenses.licx" />
     <EmbeddedResource Include="PupCobroAgua.resx">
       <DependentUpon>PupCobroAgua.cs</DependentUpon>
     </EmbeddedResource>

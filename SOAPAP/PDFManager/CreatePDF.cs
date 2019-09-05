@@ -271,6 +271,16 @@ namespace SOAPAP.PDFManager
             builder.Append(@"<link href='https://fonts.googleapis.com/css?family=Montserrat|Roboto&display=swap' rel='stylesheet'>");
             builder.Append(@"<title>Facturación</title></head>");
             builder.Append(@"<body style='margin: 40px; font-size: 10px;'>");
+
+            if (TraVM.payment.Status == "EP002")
+            {
+                builder.Append(@"<div style='height: 150px; Width: 900px; background-color:transparent; position: absolute; z-index: 5; top: 500px; transform: rotate(-20deg);'>");
+                builder.Append(@"<p align='center'>");
+                builder.Append(@"<font size='20' style='color:rgb(255,0,0);' > F A C T U R A   _ _   C A N C E L A D A </font>");
+                builder.Append(@"</p>");
+                builder.Append(@"</div>");
+            }
+
             builder.Append(@"<div style='font-family: \""Roboto\"", sans-serif; height: 100px;'>");
             builder.Append(@"<div class='cabecera_principal' style='margin-bottom: 15px;'>");
             builder.Append(@"<div style='text-align: center; display: inline-block; width: 15%; vertical-align: top;'>");
@@ -344,7 +354,7 @@ namespace SOAPAP.PDFManager
 
             builder.Append(@"</tr>");
             builder.Append(@"</table>");
-            builder.Append(@"<table style='font-size: 14px;>");
+            builder.Append(@"<table style='font-size: 14px;'>");
             builder.Append(@"<tr>");
             builder.Append(@"<td style='width: 120px;'><b>Periodo:</b></td>");
             builder.Append(@"<td style='font-family:\""Montserrat\"", sans-serif;'>" + Cfdi.PaymentConditions + "</td>"); //Periodo
@@ -385,14 +395,15 @@ namespace SOAPAP.PDFManager
 
             //Foreach Concepts
             int cont = 0;
-            Cfdi.Items.ToList().ForEach(x =>
+            TraVM.payment.PaymentDetails.ToList().ForEach(pd =>
             {
-                var CodeConcept = TraVM.payment.PaymentDetails.ToList()[cont].CodeConcept;
+                var CodeConcept = pd.CodeConcept;
+                var tmpIdDebt = pd.DebtId;
                 string ProductCode = TraVM.ClavesProdServ.Where(c => c.CodeConcep == CodeConcept).FirstOrDefault().ClaveProdServ;
                 string UnitCode = TraVM.payment.PaymentDetails.Where(p => p.CodeConcept == CodeConcept).FirstOrDefault().UnitMeasurement;
                 decimal Descuento = 0;
                 if (TraVM.payment.Type != "PAY04")
-                    Descuento = TraVM.payment.PaymentDetails.Where(p => p.CodeConcept == CodeConcept).FirstOrDefault().Debt.DebtDiscounts.Where(d => d.CodeConcept == CodeConcept).Select(y => y.DiscountAmount).FirstOrDefault();
+                    Descuento = pd.Debt.DebtDiscounts.Where(d => d.CodeConcept == CodeConcept && d.DebtId == tmpIdDebt).Select(y => y.DiscountAmount).FirstOrDefault();
                 else
                     Descuento = 0;
 
@@ -403,11 +414,10 @@ namespace SOAPAP.PDFManager
                 builder.Append(@"<td>" + Cfdi.Items[cont].Quantity + "</td>");
                 builder.Append(@"<td>" + string.Format(new CultureInfo("es-MX"), "{0:C2}", Cfdi.Items[cont].UnitValue) + "</td>");
                 builder.Append(@"<td>" + string.Format(new CultureInfo("es-MX"), "{0:C2}", Descuento) + "</td>");
-                builder.Append(@"<td>" + string.Format(new CultureInfo("es-MX"), "{0:C2}", Cfdi.Items[cont].Total) + "</td>");
+                builder.Append(@"<td>" + string.Format(new CultureInfo("es-MX"), "{0:C2}", Cfdi.Items[cont].Total - Descuento) + "</td>");
                 builder.Append(@"</tr>");
                 cont++;
             });
-
 
             //End Foreach
             builder.Append(@"</table></div>");
@@ -587,6 +597,17 @@ namespace SOAPAP.PDFManager
             builder.Append(@"<link href='https://fonts.googleapis.com/css?family=Montserrat|Roboto&display=swap' rel='stylesheet'>");
             builder.Append(@"<title>Facturación</title></head>");
             builder.Append(@"<body style='margin: 40px; font-size: 10px;'>");
+
+            if (TraVM.payment.Status == "EP002")
+            {
+                builder.Append(@"<div style='height: 150px; Width: 900px; background-color:transparent; position: absolute; z-index: 5; top: 500px; transform: rotate(-20deg);'>");
+                builder.Append(@"<p align='center'>");
+                builder.Append(@"<font size='20' style='color:rgb(255,0,0);' > F A C T U R A   _ _   C A N C E L A D A </font>");
+                builder.Append(@"</p>");
+                builder.Append(@"</div>");
+            }
+
+
             builder.Append(@"<div style='font-family: \""Roboto\"", sans-serif; height: 100px;'>");
             builder.Append(@"<div class='cabecera_principal' style='margin-bottom: 15px;'>");
             builder.Append(@"<div style='text-align: center; display: inline-block; width: 15%; vertical-align: top;'>");
@@ -727,10 +748,9 @@ namespace SOAPAP.PDFManager
             //Foreach Concepts
             int cont = 0;
 
-            Cfdi.Items.ToList().ForEach(x =>
+            TraVM.orderSale.OrderSaleDetails.ToList().ForEach(osd =>
             {
-                var OSD = TraVM.orderSale.OrderSaleDetails.Where(osd => osd.Description == Cfdi.Items[cont].Description && osd.Quantity == Cfdi.Items[cont].Quantity && osd.UnitPrice == Cfdi.Items[cont].UnitValue).FirstOrDefault();
-                var ProductCode = TraVM.ClavesProdServ.Where(c => c.CodeConcep == OSD.CodeConcept).FirstOrDefault().ClaveProdServ;
+                var ProductCode = TraVM.ClavesProdServ.Where(c => c.CodeConcep == osd.CodeConcept).FirstOrDefault().ClaveProdServ;
                 object result = TraVM.orderSale.OrderSaleDetails.Where(orderD => code_concepts.Contains(orderD.CodeConcept)).FirstOrDefault();
                 var UnitCode = "";
                 if (result != null)
@@ -739,9 +759,9 @@ namespace SOAPAP.PDFManager
                 }
                 else
                 {
-                    UnitCode = TraVM.payment.PaymentDetails.Where(pd => pd.CodeConcept == OSD.CodeConcept).FirstOrDefault().UnitMeasurement;
+                    UnitCode = TraVM.payment.PaymentDetails.Where(pd => pd.CodeConcept == osd.CodeConcept).FirstOrDefault().UnitMeasurement;
                 }
-                var Discount = TraVM.orderSale.OrderSaleDiscounts.Where(osd => osd.OrderSaleDetailId == OSD.Id).Select(y => y.DiscountAmount).FirstOrDefault();
+                var Discount = TraVM.orderSale.OrderSaleDiscounts.Where(osdis => osdis.OrderSaleDetailId == osd.Id).Select(y => y.DiscountAmount).FirstOrDefault();
 
                 builder.Append(@"<tr>");
                 builder.Append(@"<td>" + ProductCode + "</td>");
@@ -749,11 +769,38 @@ namespace SOAPAP.PDFManager
                 builder.Append(@"<td>" + Cfdi.Items[cont].Description + "</td>");
                 builder.Append(@"<td>" + Cfdi.Items[cont].Quantity + "</td>");
                 builder.Append(@"<td>" + string.Format(new CultureInfo("es-MX"), "{0:C2}", Cfdi.Items[cont].UnitValue) + "</td>");
-                builder.Append(@"<td>" + string.Format(new CultureInfo("es-MX"), "{0:C2}", 0) + "</td>");
-                builder.Append(@"<td>" + string.Format(new CultureInfo("es-MX"), "{0:C2}", Cfdi.Items[cont].Total) + "</td>");
+                builder.Append(@"<td>" + string.Format(new CultureInfo("es-MX"), "{0:C2}", Discount) + "</td>");
+                builder.Append(@"<td>" + string.Format(new CultureInfo("es-MX"), "{0:C2}", Cfdi.Items[cont].Total - Discount) + "</td>");
                 builder.Append(@"</tr>");
                 cont++;
             });
+            //Cfdi.Items.ToList().ForEach(x =>
+            //{
+            //    var OSD = TraVM.orderSale.OrderSaleDetails.Where(osd => osd.Description == Cfdi.Items[cont].Description && osd.Quantity == Cfdi.Items[cont].Quantity && osd.UnitPrice == Cfdi.Items[cont].UnitValue).FirstOrDefault();
+            //    var ProductCode = TraVM.ClavesProdServ.Where(c => c.CodeConcep == OSD.CodeConcept).FirstOrDefault().ClaveProdServ;
+            //    object result = TraVM.orderSale.OrderSaleDetails.Where(orderD => code_concepts.Contains(orderD.CodeConcept)).FirstOrDefault();
+            //    var UnitCode = "";
+            //    if (result != null)
+            //    {
+            //        UnitCode = "UNO";
+            //    }
+            //    else
+            //    {
+            //        UnitCode = TraVM.payment.PaymentDetails.Where(pd => pd.CodeConcept == OSD.CodeConcept).FirstOrDefault().UnitMeasurement;
+            //    }
+            //    var Discount = TraVM.orderSale.OrderSaleDiscounts.Where(osd => osd.OrderSaleDetailId == OSD.Id).Select(y => y.DiscountAmount).FirstOrDefault();
+
+            //    builder.Append(@"<tr>");
+            //    builder.Append(@"<td>" + ProductCode + "</td>");
+            //    builder.Append(@"<td>" + UnitCode + "</td>");
+            //    builder.Append(@"<td>" + Cfdi.Items[cont].Description + "</td>");
+            //    builder.Append(@"<td>" + Cfdi.Items[cont].Quantity + "</td>");
+            //    builder.Append(@"<td>" + string.Format(new CultureInfo("es-MX"), "{0:C2}", Cfdi.Items[cont].UnitValue) + "</td>");
+            //    builder.Append(@"<td>" + string.Format(new CultureInfo("es-MX"), "{0:C2}", Discount) + "</td>");
+            //    builder.Append(@"<td>" + string.Format(new CultureInfo("es-MX"), "{0:C2}", Cfdi.Items[cont].Total - Discount) + "</td>");
+            //    builder.Append(@"</tr>");
+            //    cont++;
+            //});
             builder.Append(@"</table></div>");
 
             builder.Append(@"<div class='datos_sub_moneda' style='margin-bottom:5px;'>");

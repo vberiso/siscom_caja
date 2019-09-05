@@ -1223,8 +1223,75 @@ namespace SOAPAP
                                                     //        }
                                                     //    }
                                                     //}
-                                                    //mensaje = new MessageBoxForm(Variables.titleprincipal, response, TypeIcon.Icon.Success);
-                                                    //result = mensaje.ShowDialog();
+
+
+                                                    //Actualiza el pdf de este pago, colocando un leyenda de : Factura cancelada.
+                                                    //var resultT = await Requests.SendURIAsync(string.Format("/api/Transaction/Folio/{0}", transactionSelect.Transaction.Id), HttpMethod.Get, Variables.LoginModel.Token);
+                                                    //transactionSelect = JsonConvert.DeserializeObject<Model.TransactionPaymentVM>(resultTransaction);
+
+                                                    string temp = await fst.actualizaPdf(transactionSelect.Transaction.Id.ToString());
+
+                                                    if (temp.Contains("error"))
+                                                    {
+                                                        Form mensaje = new MessageBoxForm("Error", temp, TypeIcon.Icon.Warning);
+                                                        result = mensaje.ShowDialog();
+                                                    }
+                                                    else if (temp.Contains("aviso"))
+                                                    {
+                                                        Form mensaje = new MessageBoxForm("Aviso", temp, TypeIcon.Icon.Info);
+                                                        result = mensaje.ShowDialog();
+                                                    }
+                                                    else    //Impresion de CFDI con mensaje de: Factura cancelada
+                                                    {
+
+                                                        mensaje = new MessageBoxForm(Variables.titleprincipal, "Factura actualizada exitosamente.", TypeIcon.Icon.Success);
+                                                        result = mensaje.ShowDialog();
+
+                                                        //Se Obtiene el CFDI
+                                                        var results = await Requests.SendURIAsync(String.Format("/api/Payments/folio/{0}", transactionSelect.Payment.TransactionFolio), HttpMethod.Get, Variables.LoginModel.Token);
+                                                        if (results.Contains("error"))
+                                                        {
+                                                            try
+                                                            {
+                                                                mensaje = new MessageBoxForm("Error", JsonConvert.DeserializeObject<Error>(results).error, TypeIcon.Icon.Cancel);
+                                                                result = mensaje.ShowDialog();
+                                                            }
+                                                            catch (Exception)
+                                                            {
+                                                                mensaje = new MessageBoxForm("Error", "Servicio no disponible favor de comunicarse con el administrador", TypeIcon.Icon.Cancel);
+                                                                result = mensaje.ShowDialog();
+                                                            }
+                                                        }
+                                                        else
+                                                        {
+                                                            Payment paymentt = JsonConvert.DeserializeObject<Payment>(results);
+                                                            if (paymentt != null)
+                                                            {
+                                                                if (paymentt.HaveTaxReceipt)
+                                                                {
+                                                                    var xmll = paymentt.TaxReceipts.FirstOrDefault();
+                                                                    var account = paymentt.Account;
+                                                                    if (xmll != null)
+                                                                    {
+                                                                        if (xmll.PDFInvoce != null)
+                                                                        {
+                                                                            ExportGridToPDF(xmll.PDFInvoce, xmll.RFC + "_" + xmll.Id);
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            mensaje = new MessageBoxForm(Variables.titleprincipal, $"Descarga no disponible, posiblemente este pago no este facturado o no se genero correctamente el PDF, para mas información contactarse con el administrador del sistema proporcionando el codigo - T-{transactionSelect.Transaction.Id}.", TypeIcon.Icon.Cancel);
+                                                                            result = mensaje.ShowDialog();
+                                                                        }
+                                                                    }
+                                                                }
+                                                                else
+                                                                {
+                                                                    mensaje = new MessageBoxForm(Variables.titleprincipal, $"Descarga no disponible, posiblemente este pago no este facturado, para mas información contactarse con el administrador del sistema proporcionando el codigo - T-{transactionSelect.Transaction.Id}.", TypeIcon.Icon.Cancel);
+                                                                    result = mensaje.ShowDialog();
+                                                                }
+                                                            }
+                                                        }
+                                                    }
                                                 }
                                             }
                                             catch (Exception)
