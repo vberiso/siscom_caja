@@ -401,7 +401,7 @@ namespace SOAPAP.UI.ReportesForms.Finanzas.Agua.Formatos
             totalConMedidorTE += TTE;
 
             builder.Append($@"<tr>
-                                    <td colspan='2' style='width: 47%' class='left'>OTROS USOS</td>
+                                    <td colspan='2' style='width: 47%' class='left'>OTROS USOS (INDUSTRIAL, PRESTADOR DE SERVICIOS)</td>
                                     <td class='centro' style='width: 13%'>{TUsuarios}</td>
                                     <td class='centro'  style='width: 13%'>{TTomas}</td>
                                     <td class='centro' style='width: 13%'>{TUE}</td>
@@ -452,7 +452,7 @@ namespace SOAPAP.UI.ReportesForms.Finanzas.Agua.Formatos
                             <caption style='background:#f1eeec'>USO DE LA BASE SIN MEDIDOR</caption>
                             <tbody>
                                 <tr>
-                                    <td colspan='2' style='width: 47%' class='left'>USO DOMESTICO</td>
+                                    <td colspan='2' style='width: 47%' class='left'>USO DOMÉSTICO</td>
                                     <td class='centro' style='width: 13%'>{TUsuarios}</td>
                                     <td class='centro'  style='width: 13%'>{TTomas}</td>
                                     <td class='centro' style='width: 13%'>{TUE}</td>
@@ -471,7 +471,7 @@ namespace SOAPAP.UI.ReportesForms.Finanzas.Agua.Formatos
 
 
             builder.Append($@"<tr>
-                                     <td colspan='2' style='width: 47%' class='left'>USO NO DOMESTICO (COMERCIAL)</td>
+                                     <td colspan='2' style='width: 47%' class='left'>USO NO DOMÉSTICO (COMERCIAL)</td>
                                     <td class='centro' style='width: 13%'>{TUsuarios}</td>
                                     <td class='centro'  style='width: 13%'>{TTomas}</td>
                                     <td class='centro' style='width: 13%'>{TUE}</td>
@@ -490,7 +490,7 @@ namespace SOAPAP.UI.ReportesForms.Finanzas.Agua.Formatos
             totalConMedidorTE += TTE; 
 
             builder.Append($@"<tr>
-                                     <td colspan='2' style='width: 47%' class='left'>OTROS USOS</td>
+                                     <td colspan='2' style='width: 47%' class='left'>OTROS USOS (INDUSTRIAL, PRESTADOR DE SERVICIOS)</td>
                                     <td class='centro' style='width: 13%'>{TUsuarios}</td>
                                     <td class='centro'  style='width: 13%'>{TTomas}</td>
                                     <td class='centro' style='width: 13%'>{TUE}</td>
@@ -534,7 +534,7 @@ namespace SOAPAP.UI.ReportesForms.Finanzas.Agua.Formatos
                                             <td colspan='2' style='width: 25%' class='centro'>No DE USUARIOS y No DE TOMAS QUE REALIZARON ÚNICAMENTE PAGOS DE {year}<br>C</td>
                                             <td  colspan='2' style='width: 25%'  class='centro'>No DE USUARIOS y No DE TOMAS QUE REALIZARON ÚNICAMENTE PAGOS DE EJERCICIOS ANTERIORES A {year}<br>D</td>
                                             <td colspan='2'  style='width: 25%' class='centro'>No DE USUARIOS y No DE TOMAS QUE REALIZARON TANTO PAGOS DE {year} Y EJERCICIOS ANTERIORES A {year}<br>E</td>
-                                            <td  colspan='2' style='width: 25%' class='centro'>No DE USUARIOS y No DE TOMAS QUE REALIZARON TANTO PAGOS EN EL MES <br>F=C+D+E</td>
+                                            <td  colspan='2' style='width: 25%' class='centro'>No DE USUARIOS y No DE TOMAS QUE REALIZARON  PAGOS EN EL MES <br>F=C+D+E</td>
                                     </tr>
                                     <tr  style='background:#f1eeec' class='centro'>
                                             <td style='width: 12.5%' class='centro'>No DE USUARIOS<br>C1</td>

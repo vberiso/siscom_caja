@@ -432,18 +432,18 @@ namespace SOAPAP.UI.ReportesForms.Finanzas.Agua
             string formatoText = formatoOrigin.Substring(0, 7) + " " + formatoOrigin.Substring(7, 1);
             builder.Append($@"<table id='datos' style='width: 99%;margin-bottom: 8px' class='informativos'>
                             <tr>
-                                <td class='centro'>Sistema Operador de los Servicios de Agua Potable Y Alcantarillado del Municipio de Cuautlancingo </td>
+                                <td class='centro'><b>SISTEMA OPERADOR DE LOS SERVICIOS DE AGUA POTABLE Y ALCANTARILLADO DEL MUNICIPIO DE CUAUTLANCINGO</b> </td>
                             </tr>
                             </table>
                             <table id='datos' style='width: 99%;margin-bottom: 8px' class='informativos'>
                                     <tr>
-                                        <td class='centro'>{formatoOrigin.Substring(0, 7).ToUpper()} PARA PROPORCIONAR CIFRAS DE RECAUDACIÓN DE LOS DERECHOS POR SUMINISTRO DE AGUA </td>
+                                        <td class='centro'><b>{formatoText.ToUpper()} PARA PROPORCIONAR CIFRAS DE RECAUDACIÓN DE LOS DERECHOS POR SUMINISTRO DE AGUA </b></td>
                                     </tr>
                             </table>");
 
             builder.Append(@"<table id='datos' style='width: 99% '><tbody>");
-            builder.Append(@"<tr><td style='width: 50%' class='left'>MUNICIPIO: CUATLANCINGO</td></tr>");
-            builder.Append($@"<tr><td style='width: 50%' class='left'>MES QUE REPORTA: {mes}</td></tr>");
+            builder.Append(@"<tr><td style='width: 50%' class='left'><b>MUNICIPIO: CUAUTLANCINGO</b></td></tr>");
+            builder.Append($@"<tr><td style='width: 50%' class='left'><b>MES QUE REPORTA: {mes.ToUpper()}</b></td></tr>");
             builder.Append(@"</tbody></table>");
 
             return builder.ToString();

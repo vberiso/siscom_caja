@@ -165,7 +165,7 @@ namespace SOAPAP.UI.ReportesForms.Finanzas.Agua.Formatos
             builder.Append(@"<div id='datosTop'>");
             builder.Append(@"<table id='datos' style='width: 99%; background:#f1eeec'><tbody>");
             builder.Append(@"<tr  style='height: 70px'><td style='width: 50%' class='centro'>CONCEPTO</td>
-                             < td style='width: 50%' class='centro'>IMPORTE (PESOS)</td>
+                             <td style='width: 50%' class='centro'>IMPORTE (PESOS)</td>
                              </tr>
                             </tbody>
                             </table>");
@@ -203,7 +203,7 @@ namespace SOAPAP.UI.ReportesForms.Finanzas.Agua.Formatos
                             <td style='width: 50%'>$0.0</td>
                             </tr>");
             builder.Append($@"<tr>
-                            <td style='width: 50%' class='left'>GASTOS DE EJECUCÓNJE</td>
+                            <td style='width: 50%' class='left'>GASTOS DE EJECUCIÓN</td>
                             <td style='width: 50%'>{ string.Format(new CultureInfo("es-MX"), "{0:C2}", TEjeciciones) }</td>
                             </tr>");
             builder.Append($@"<tr>
@@ -269,7 +269,7 @@ namespace SOAPAP.UI.ReportesForms.Finanzas.Agua.Formatos
                             <td style='width: 50%'>$0.0</td>
                             </tr>");
             builder.Append($@"<tr>
-                            <td style='width: 50%' class='left'>GASTOS DE EJECUCÓNJE</td>
+                            <td style='width: 50%' class='left'>GASTOS DE EJECUCIÓN</td>
                             <td style='width: 50%'>{ string.Format(new CultureInfo("es-MX"), "{0:C2}", TEjeciciones) }</td>
                             </tr>");
             builder.Append($@"<tr>

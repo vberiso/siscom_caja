@@ -325,7 +325,7 @@ namespace SOAPAP.UI.ReportesForms.Finanzas.Agua.Formatos
             totalConMedidorT+= TTomas;
             totalConMedidorI+= TImporte;
             builder.Append($@"<tr>
-                                    <td style='width: 40%' class='left'>USO NO DOMÉSTICO</td>
+                                    <td style='width: 40%' class='left'>USO NO DOMÉSTICO (COMERCIAL)</td>
                                     <td style='width: 15%'>{TUsuarios}</td>
                                     <td style='width: 15%'>{TTomas}</td>
                                     <td style='width: 15%'>{string.Format(new CultureInfo("es-MX"), "{0:C2}", TImporte)}</td>
@@ -389,7 +389,7 @@ namespace SOAPAP.UI.ReportesForms.Finanzas.Agua.Formatos
             totalConMedidorT += TTomas;
             totalConMedidorI += TImporte;
             builder.Append($@"<tr>
-                                    <td style='width: 40%' class='left'>USO NO DOMÉSTICO</td>
+                                    <td style='width: 40%' class='left'>USO NO DOMÉSTICO (COMERCIAL)</td>
                                     <td style='width: 15%'>{TUsuarios}</td>
                                     <td style='width: 15%'>{TTomas}</td>
                                     <td style='width: 15%'>{string.Format(new CultureInfo("es-MX"), "{0:C2}", TImporte)}</td>
@@ -441,7 +441,7 @@ namespace SOAPAP.UI.ReportesForms.Finanzas.Agua.Formatos
                                             <td colspan='2' style='width: 25%' class='centro'>No DE USUARIOS y No DE TOMAS QUE REALIZARON ÚNICAMENTE PAGOS DE {year}<br>C</td>
                                             <td  colspan='2' style='width: 25%'  class='centro'>No DE USUARIOS y No DE TOMAS QUE REALIZARON ÚNICAMENTE PAGOS DE EJERCICIOS ANTERIORES A {year}<br>D</td>
                                             <td colspan='2'  style='width: 25%' class='centro'>No DE USUARIOS y No DE TOMAS QUE REALIZARON TANTO PAGOS DE {year} Y EJERCICIOS ANTERIORES A {year}<br>E</td>
-                                            <td  colspan='2' style='width: 25%' class='centro'>No DE USUARIOS y No DE TOMAS QUE REALIZARON TANTO PAGOS EN EL MES <br>F=C+D+E</td>
+                                            <td  colspan='2' style='width: 25%' class='centro'>No DE USUARIOS y No DE TOMAS QUE REALIZARON  PAGOS EN EL MES <br>F=C+D+E</td>
                                     </tr>
                                     <tr  style='background:#f1eeec' class='centro'>
                                             <td style='width: 12.5%' class='centro'>No DE USUARIOS<br>C1</td>
