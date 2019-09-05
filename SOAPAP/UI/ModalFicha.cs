@@ -388,7 +388,7 @@ namespace SOAPAP.UI
 
             if (_debts != null && _debts.Count > 0)
             {
-                _debts.ForEach(x =>
+                _debts.Where(d => d.Status != "ED006").ToList().ForEach(x =>
                 {
                     dgvRecibos.Rows.Add(new string[] {
                             x.DescriptionType,
