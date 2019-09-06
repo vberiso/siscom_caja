@@ -66,7 +66,6 @@
             this.lblTitulo = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.pgcIFB = new DevExpress.XtraPivotGrid.PivotGridControl();
-            this.dataIncomeFromBoxBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.pgfFolio = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfCuenta = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfNombre = new DevExpress.XtraPivotGrid.PivotGridField();
@@ -84,6 +83,8 @@
             this.pgfFormaPago = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfBanco = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfTipoNombre = new DevExpress.XtraPivotGrid.PivotGridField();
+            this.pgf = new DevExpress.XtraPivotGrid.PivotGridField();
+            this.dataIncomeFromBoxBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.pnlHeader.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
@@ -443,16 +444,13 @@
             this.pgfMonto,
             this.pgfFormaPago,
             this.pgfBanco,
-            this.pgfTipoNombre});
+            this.pgfTipoNombre,
+            this.pgf});
             this.pgcIFB.Location = new System.Drawing.Point(0, 142);
             this.pgcIFB.Name = "pgcIFB";
             this.pgcIFB.OptionsData.DataProcessingEngine = DevExpress.XtraPivotGrid.PivotDataProcessingEngine.LegacyOptimized;
             this.pgcIFB.Size = new System.Drawing.Size(1027, 277);
             this.pgcIFB.TabIndex = 49;
-            // 
-            // dataIncomeFromBoxBindingSource
-            // 
-            this.dataIncomeFromBoxBindingSource.DataSource = typeof(SOAPAP.Reportes.DataIncomeFromBox);
             // 
             // pgfFolio
             // 
@@ -584,6 +582,17 @@
             this.pgfTipoNombre.FieldName = "TipoNombre";
             this.pgfTipoNombre.Name = "pgfTipoNombre";
             // 
+            // pgf
+            // 
+            this.pgf.AreaIndex = 8;
+            this.pgf.Caption = "DIVISION";
+            this.pgf.FieldName = "Division";
+            this.pgf.Name = "pgf";
+            // 
+            // dataIncomeFromBoxBindingSource
+            // 
+            this.dataIncomeFromBoxBindingSource.DataSource = typeof(SOAPAP.Reportes.DataIncomeFromBox);
+            // 
             // RepIFB
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -661,5 +670,6 @@
         private DevExpress.XtraPivotGrid.PivotGridField pgfBanco;
         private DevExpress.XtraPivotGrid.PivotGridField pgfTipoNombre;
         private DevExpress.XtraBars.Docking2010.WindowsUIButtonPanel windowsUIButtonPanel1;
+        private DevExpress.XtraPivotGrid.PivotGridField pgf;
     }
 }
