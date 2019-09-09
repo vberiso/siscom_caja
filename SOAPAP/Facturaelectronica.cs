@@ -812,7 +812,7 @@ namespace SOAPAP
 
 
         //con Facturama PRODUCTIVO
-        public async Task<string> generaFactura(string idTransaction, string status)
+        public async Task<string> generaFactura(string idTransaction, string status, string pSerialCajero = "")
         {
             try
             {
@@ -1345,6 +1345,7 @@ namespace SOAPAP
                     
                     CreatePDF pDF = new CreatePDF(cfdi, cfdiFacturama, ms.account, resGuardado, fecha, (TraVM.payment.PayMethod.code + ", " + TraVM.payment.PayMethod.Name), TraVM);
                     pDF.UsoCFDI = string.IsNullOrEmpty(msgUsos) ? "P01 - Por definir" : msgUsos;
+                    pDF.SerialCajero = pSerialCajero;
                     if (TraVM.payment.OrderSaleId == 0)
                     {
                         pDF.ObservacionCFDI = msgObservacionFactura;
@@ -1592,7 +1593,8 @@ namespace SOAPAP
             try
             {
                 RequestsFacturama = new RequestsAPI("https://api.facturama.mx/");
-                var resultado = await RequestsFacturama.SendURIAsync(string.Format("api-lite/cfdis/{0}", taxes.IdXmlFacturama), HttpMethod.Get, Properties.Settings.Default.FacturamaUser, Properties.Settings.Default.FacturamaPassword);
+                var idFacturama = taxes != null ? taxes.IdXmlFacturama : "";
+                var resultado = await RequestsFacturama.SendURIAsync(string.Format("api-lite/cfdis/{0}", idFacturama), HttpMethod.Get, Properties.Settings.Default.FacturamaUser, Properties.Settings.Default.FacturamaPassword);
                 var cfdiGet = JsonConvert.DeserializeObject<Facturama.Models.Response.Cfdi>(resultado);
                 return cfdiGet;
             }
@@ -1641,7 +1643,7 @@ namespace SOAPAP
         }
 
         //Volver a generar factura en PDF
-        public async Task<string> actualizaPdf(string idTransaction)
+        public async Task<string> actualizaPdf(string idTransaction, Boolean esCancelacion = false)
         {
             string respuesta = string.Empty;
             string rutas = string.Empty;
@@ -1662,7 +1664,11 @@ namespace SOAPAP
             //string tmpXML = JsonConvert.DeserializeObject<string>(resultadoXML);
             //SOAPAP.Facturado.DocumentoXML comprobante = DeserializerXML(tmpXML);
 
-            Facturama.Models.Response.Cfdi cfdiGet = await ObterCfdiDesdeAPI(TraVM.payment.TaxReceipts.Where(x => x.Status == "ET001").FirstOrDefault());
+            Facturama.Models.Response.Cfdi cfdiGet = null;
+            if (esCancelacion)
+                cfdiGet = await ObterCfdiDesdeAPI(TraVM.payment.TaxReceipts.Where(x => x.Status == "ET002").OrderBy(xx => xx.Id).LastOrDefault());
+            else
+                cfdiGet = await ObterCfdiDesdeAPI(TraVM.payment.TaxReceipts.Where(x => x.Status == "ET001").FirstOrDefault());
 
             //Si esta campo viene vacio, es porque no existe el registro en facturama.
             if(cfdiGet.Items == null)
@@ -1691,7 +1697,12 @@ namespace SOAPAP
             }
             
             string fecha = DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ss");
-            CreatePDF pDF = new CreatePDF(cfdiGet, TraVM.payment.Account, TraVM.payment.TaxReceipts.Where(x => x.Status == "ET001").FirstOrDefault(), fecha, (TraVM.payment.PayMethod.code + ", " + TraVM.payment.PayMethod.Name), TraVM);
+            CreatePDF pDF = null;
+            if (esCancelacion)
+                pDF = new CreatePDF(cfdiGet, TraVM.payment.Account, TraVM.payment.TaxReceipts.Where(x => x.Status == "ET002").OrderBy(xx => xx.Id).LastOrDefault(), fecha, (TraVM.payment.PayMethod.code + ", " + TraVM.payment.PayMethod.Name), TraVM);
+            else
+                pDF = new CreatePDF(cfdiGet, TraVM.payment.Account, TraVM.payment.TaxReceipts.Where(x => x.Status == "ET001").FirstOrDefault(), fecha, (TraVM.payment.PayMethod.code + ", " + TraVM.payment.PayMethod.Name), TraVM);
+
 
             string resPdf = "";
             if (cfdiGet != null)

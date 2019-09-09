@@ -2,6 +2,7 @@
 using PdfPrintingNet;
 using SOAPAP.Enums;
 using SOAPAP.Facturado;
+using SOAPAP.Reportes;
 using SOAPAP.Services;
 using SOAPAP.UI.Email;
 using System;
@@ -38,9 +39,46 @@ namespace SOAPAP.UI.FactPasada
             InitializeComponent();
         }
 
-        private void FacturacionPasada_Load(object sender, EventArgs e)
+        private async void FacturacionPasada_Load(object sender, EventArgs e)
         {
             PdfPrint = new PdfPrint("irDevelopers", "g/4JFMjn6KvKuhWIxC2f7pv7SMPZhNDCiF/m+DtiJywU4rE0KKwoH+XQtyGxBiLg");
+
+            //Listados de Cajeros.
+            List<DataComboBox> lstCaj = new List<DataComboBox>();
+            if (Variables.LoginModel.RolName[0] == "Supervisor")
+            {
+                //Configuracion de vista inicial
+                tlpUsuario.Visible = true;
+
+                //Peticion de Cajeros.
+                var resultTypeTransaction = await Requests.SendURIAsync("/api/UserRolesManager/Users", HttpMethod.Get, Variables.LoginModel.Token);
+                if (resultTypeTransaction.Contains("error"))
+                {
+                    mensaje = new MessageBoxForm("Error", resultTypeTransaction.Split(':')[1].Replace("}", ""), TypeIcon.Icon.Cancel);
+                    result = mensaje.ShowDialog();
+                }
+                else
+                {
+                    var lstCajeros = JsonConvert.DeserializeObject<List<SOAPAP.Model.Users>>(resultTypeTransaction);
+                    foreach (var item in lstCajeros)
+                    {
+                        lstCaj.Add(new DataComboBox() { keyString = item.id, value = string.Format("{0} {1} {2}", item.name, item.lastName, item.secondLastName) });
+                    }
+
+                    //Asignacion de combo cajeros.
+                    cbxUsuario.DataBindings.Clear();
+                    cbxUsuario.DataSource = null;
+                    cbxUsuario.ValueMember = "keyString";
+                    cbxUsuario.DisplayMember = "value";
+                    cbxUsuario.DataSource = lstCaj;
+                }                
+            }
+            else
+            {
+                //Configuracion de vista inicial
+                tlpUsuario.Visible = false;
+                //tlpFecha.Margin = new Padding(200, 3, 3, 3);
+            }
         }
 
         private async void btnActualizar_Click(object sender, EventArgs e)
@@ -50,9 +88,30 @@ namespace SOAPAP.UI.FactPasada
                 loading = new Loading();
                 loading.Show(this);
 
-                dgvMovimientos.DataSource = null;
-                var _resulTransaction = await Requests.SendURIAsync(string.Format("/api/Transaction/FromUserInDay/{0}/{1}", dtpFecha.Value.ToString("yyyy-MM-dd"), Variables.LoginModel.User), HttpMethod.Get, Variables.LoginModel.Token);
-
+                dgvMovimientos.DataSource = null;                
+                //Operadores seleccionados del combo de cajeros
+                var itemsOpe = cbxUsuario.SelectedItem;
+                string itemSeleccionado = "";
+                if (Variables.LoginModel.RolName[0] == "Supervisor")
+                {
+                    ////Se obtiene el cajero para filtrar la consulta
+                    if (itemsOpe == null)
+                    {
+                        itemSeleccionado = "";
+                        mensaje = new MessageBoxForm("Advertencia: ", "Debe seleccionar un cajero.", TypeIcon.Icon.Cancel);
+                        result = mensaje.ShowDialog();
+                    }
+                    else
+                    {
+                        itemSeleccionado = ((DataComboBox)itemsOpe).keyString;                        
+                    }
+                }
+                else
+                {
+                    itemSeleccionado = Variables.LoginModel.User;
+                }
+                var _resulTransaction = await Requests.SendURIAsync(string.Format("/api/Transaction/FromUserInDay/{0}/{1}", dtpFecha.Value.ToString("yyyy-MM-dd"), itemSeleccionado), HttpMethod.Get, Variables.LoginModel.Token);
+                
                 if (_resulTransaction.Contains("error"))
                 {
                     mensaje = new MessageBoxForm("Error", _resulTransaction.Split(':')[1].Replace("}", ""), TypeIcon.Icon.Cancel);
@@ -198,7 +257,20 @@ namespace SOAPAP.UI.FactPasada
                 Form loadings = new Loading();
                 loadings.Show(this);
                 Fac = new Facturaelectronica();
-                xmltimbrado = await Fac.generaFactura(transactionId, "ET001");
+
+                //Se obtiene el serial de un cajero elejido, esto cuando el reporte lo solicita un administrador.
+                string tmpSerialCajero = "";
+                var _resulSerial = await Requests.SendURIAsync(string.Format("/api/UserRolesManager/SerialFromUser/{0}", ((DataComboBox)cbxUsuario.SelectedItem).keyString), HttpMethod.Get, Variables.LoginModel.Token);
+                if (_resulSerial.Contains("error"))
+                    tmpSerialCajero = "JdC";
+                else
+                {
+                    tmpSerialCajero = JsonConvert.DeserializeObject<string>(_resulSerial);
+                    if (tmpSerialCajero == null)
+                        tmpSerialCajero = "JdC";                    
+                }
+                xmltimbrado = await Fac.generaFactura(transactionId, "ET001",  tmpSerialCajero);
+
                 if (xmltimbrado.Contains("error"))
                 {
                     loadings.Close();

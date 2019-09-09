@@ -42,7 +42,6 @@
             DevExpress.Utils.ToolTipTitleItem toolTipTitleItem3 = new DevExpress.Utils.ToolTipTitleItem();
             DevExpress.Utils.ToolTipItem toolTipItem3 = new DevExpress.Utils.ToolTipItem();
             this.pnlHeader = new System.Windows.Forms.Panel();
-            this.windowsUIButtonPanel1 = new DevExpress.XtraBars.Docking2010.WindowsUIButtonPanel();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
             this.label1 = new System.Windows.Forms.Label();
             this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
@@ -71,9 +70,11 @@
             this.cheColonia = new DevExpress.XtraEditors.CheckEdit();
             this.checkEdit1 = new DevExpress.XtraEditors.CheckEdit();
             this.pcbIncomeByConcept = new System.Windows.Forms.PictureBox();
+            this.windowsUIButtonPanel1 = new DevExpress.XtraBars.Docking2010.WindowsUIButtonPanel();
             this.lblTitulo = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.pgcRepPadronWater = new DevExpress.XtraPivotGrid.PivotGridControl();
+            this.dataPadronWaterBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.pgfCuenta = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfNombre = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfDomicilio = new DevExpress.XtraPivotGrid.PivotGridField();
@@ -90,7 +91,6 @@
             this.pgfAño = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfContador = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfFechaUltimaPago = new DevExpress.XtraPivotGrid.PivotGridField();
-            this.dataPadronWaterBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.pnlHeader.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
@@ -131,42 +131,8 @@
             this.pnlHeader.Controls.Add(this.pictureBox1);
             this.pnlHeader.Location = new System.Drawing.Point(1, 0);
             this.pnlHeader.Name = "pnlHeader";
-            this.pnlHeader.Size = new System.Drawing.Size(951, 259);
+            this.pnlHeader.Size = new System.Drawing.Size(1049, 259);
             this.pnlHeader.TabIndex = 49;
-            // 
-            // windowsUIButtonPanel1
-            // 
-            this.windowsUIButtonPanel1.BackColor = System.Drawing.Color.Transparent;
-            windowsUIButtonImageOptions1.Image = global::SOAPAP.Properties.Resources.buscar;
-            toolTipTitleItem1.Text = "Generar";
-            toolTipItem1.LeftIndent = 6;
-            toolTipItem1.Text = "Carga los ingresos corespondientes a los filtros seleccionados.";
-            superToolTip1.Items.Add(toolTipTitleItem1);
-            superToolTip1.Items.Add(toolTipItem1);
-            windowsUIButtonImageOptions2.Image = global::SOAPAP.Properties.Resources.file;
-            toolTipTitleItem2.Text = "Exportar";
-            toolTipItem2.LeftIndent = 6;
-            toolTipItem2.Text = "Exporta los ingresos correspondientes a los filtros seleccionados.";
-            superToolTip2.Items.Add(toolTipTitleItem2);
-            superToolTip2.Items.Add(toolTipItem2);
-            windowsUIButtonImageOptions3.Image = global::SOAPAP.Properties.Resources.imprimir;
-            toolTipTitleItem3.Text = "Imprimir";
-            toolTipItem3.LeftIndent = 6;
-            toolTipItem3.Text = "Genera un PDF listo para imprimir";
-            superToolTip3.Items.Add(toolTipTitleItem3);
-            superToolTip3.Items.Add(toolTipItem3);
-            this.windowsUIButtonPanel1.Buttons.AddRange(new DevExpress.XtraEditors.ButtonPanel.IBaseButton[] {
-            new DevExpress.XtraBars.Docking2010.WindowsUIButton("", true, windowsUIButtonImageOptions1, DevExpress.XtraBars.Docking2010.ButtonStyle.PushButton, "", -1, true, superToolTip1, true, false, true, "GE", -1, false),
-            new DevExpress.XtraBars.Docking2010.WindowsUIButton("", true, windowsUIButtonImageOptions2, DevExpress.XtraBars.Docking2010.ButtonStyle.PushButton, "Exportar", -1, true, superToolTip2, true, false, true, "EX", -1, false),
-            new DevExpress.XtraBars.Docking2010.WindowsUIButton("", true, windowsUIButtonImageOptions3, DevExpress.XtraBars.Docking2010.ButtonStyle.PushButton, "", -1, true, superToolTip3, true, false, true, "PR", -1, false)});
-            this.windowsUIButtonPanel1.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.windowsUIButtonPanel1.ForeColor = System.Drawing.SystemColors.ControlLight;
-            this.windowsUIButtonPanel1.Location = new System.Drawing.Point(892, 3);
-            this.windowsUIButtonPanel1.Name = "windowsUIButtonPanel1";
-            this.windowsUIButtonPanel1.Size = new System.Drawing.Size(147, 86);
-            this.windowsUIButtonPanel1.TabIndex = 60;
-            this.windowsUIButtonPanel1.Text = "windowsUIButtonPanel1";
-            this.windowsUIButtonPanel1.ButtonClick += new DevExpress.XtraBars.Docking2010.ButtonEventHandler(this.windowsUIButtonPanel1_ButtonClick);
             // 
             // tableLayoutPanel4
             // 
@@ -177,7 +143,7 @@
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 58.44156F));
             this.tableLayoutPanel4.Controls.Add(this.label1, 0, 0);
             this.tableLayoutPanel4.Controls.Add(this.numericUpDown1, 1, 0);
-            this.tableLayoutPanel4.Location = new System.Drawing.Point(708, 228);
+            this.tableLayoutPanel4.Location = new System.Drawing.Point(806, 228);
             this.tableLayoutPanel4.Name = "tableLayoutPanel4";
             this.tableLayoutPanel4.RowCount = 1;
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
@@ -221,7 +187,7 @@
             this.tableLayoutPanel2.Controls.Add(this.dtpFechaFin, 1, 1);
             this.tableLayoutPanel2.Controls.Add(this.label2, 0, 0);
             this.tableLayoutPanel2.Controls.Add(this.dtpFechaIni, 0, 1);
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(283, 37);
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(332, 37);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 2;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
@@ -276,7 +242,7 @@
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 43.51145F));
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 175F));
             this.tableLayoutPanel3.Controls.Add(this.tswtFiltro, 0, 0);
-            this.tableLayoutPanel3.Location = new System.Drawing.Point(287, 9);
+            this.tableLayoutPanel3.Location = new System.Drawing.Point(336, 9);
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
             this.tableLayoutPanel3.RowCount = 1;
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
@@ -327,7 +293,7 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 22F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(924, 133);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(1022, 133);
             this.tableLayoutPanel1.TabIndex = 49;
             // 
             // chlbxToma
@@ -335,14 +301,14 @@
             this.chlbxToma.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.chlbxToma.Cursor = System.Windows.Forms.Cursors.Default;
-            this.chlbxToma.Location = new System.Drawing.Point(696, 65);
+            this.chlbxToma.Location = new System.Drawing.Point(768, 65);
             this.chlbxToma.Name = "chlbxToma";
-            this.chlbxToma.Size = new System.Drawing.Size(225, 65);
+            this.chlbxToma.Size = new System.Drawing.Size(251, 65);
             this.chlbxToma.TabIndex = 64;
             // 
             // cheToma
             // 
-            this.cheToma.Location = new System.Drawing.Point(696, 43);
+            this.cheToma.Location = new System.Drawing.Point(768, 43);
             this.cheToma.Name = "cheToma";
             this.cheToma.Properties.Caption = "Todos";
             this.cheToma.Size = new System.Drawing.Size(75, 19);
@@ -354,13 +320,13 @@
             this.srchToma.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.srchToma.Client = this.chlbxToma;
-            this.srchToma.Location = new System.Drawing.Point(696, 18);
+            this.srchToma.Location = new System.Drawing.Point(768, 18);
             this.srchToma.Name = "srchToma";
             this.srchToma.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Repository.ClearButton(),
             new DevExpress.XtraEditors.Repository.SearchButton()});
             this.srchToma.Properties.Client = this.chlbxToma;
-            this.srchToma.Size = new System.Drawing.Size(225, 20);
+            this.srchToma.Size = new System.Drawing.Size(251, 20);
             this.srchToma.TabIndex = 62;
             // 
             // srchServicio
@@ -368,13 +334,13 @@
             this.srchServicio.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.srchServicio.Client = this.chlbxServicio;
-            this.srchServicio.Location = new System.Drawing.Point(465, 18);
+            this.srchServicio.Location = new System.Drawing.Point(513, 18);
             this.srchServicio.Name = "srchServicio";
             this.srchServicio.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Repository.ClearButton(),
             new DevExpress.XtraEditors.Repository.SearchButton()});
             this.srchServicio.Properties.Client = this.chlbxServicio;
-            this.srchServicio.Size = new System.Drawing.Size(225, 20);
+            this.srchServicio.Size = new System.Drawing.Size(249, 20);
             this.srchServicio.TabIndex = 59;
             // 
             // chlbxServicio
@@ -382,9 +348,9 @@
             this.chlbxServicio.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.chlbxServicio.Cursor = System.Windows.Forms.Cursors.Default;
-            this.chlbxServicio.Location = new System.Drawing.Point(465, 65);
+            this.chlbxServicio.Location = new System.Drawing.Point(513, 65);
             this.chlbxServicio.Name = "chlbxServicio";
-            this.chlbxServicio.Size = new System.Drawing.Size(225, 65);
+            this.chlbxServicio.Size = new System.Drawing.Size(249, 65);
             this.chlbxServicio.TabIndex = 61;
             // 
             // srchColonia
@@ -392,13 +358,13 @@
             this.srchColonia.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.srchColonia.Client = this.chlbxColonia;
-            this.srchColonia.Location = new System.Drawing.Point(234, 18);
+            this.srchColonia.Location = new System.Drawing.Point(258, 18);
             this.srchColonia.Name = "srchColonia";
             this.srchColonia.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Repository.ClearButton(),
             new DevExpress.XtraEditors.Repository.SearchButton()});
             this.srchColonia.Properties.Client = this.chlbxColonia;
-            this.srchColonia.Size = new System.Drawing.Size(225, 20);
+            this.srchColonia.Size = new System.Drawing.Size(249, 20);
             this.srchColonia.TabIndex = 56;
             // 
             // chlbxColonia
@@ -406,15 +372,15 @@
             this.chlbxColonia.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.chlbxColonia.Cursor = System.Windows.Forms.Cursors.Default;
-            this.chlbxColonia.Location = new System.Drawing.Point(234, 65);
+            this.chlbxColonia.Location = new System.Drawing.Point(258, 65);
             this.chlbxColonia.Name = "chlbxColonia";
-            this.chlbxColonia.Size = new System.Drawing.Size(225, 65);
+            this.chlbxColonia.Size = new System.Drawing.Size(249, 65);
             this.chlbxColonia.TabIndex = 58;
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(234, 3);
+            this.label6.Location = new System.Drawing.Point(258, 3);
             this.label6.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(133, 12);
@@ -434,7 +400,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(465, 3);
+            this.label8.Location = new System.Drawing.Point(513, 3);
             this.label8.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(101, 12);
@@ -444,7 +410,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(696, 3);
+            this.label7.Location = new System.Drawing.Point(768, 3);
             this.label7.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(31, 12);
@@ -462,7 +428,7 @@
             new DevExpress.XtraEditors.Repository.ClearButton(),
             new DevExpress.XtraEditors.Repository.SearchButton()});
             this.srchRuta.Properties.Client = this.chlbxRuta;
-            this.srchRuta.Size = new System.Drawing.Size(225, 20);
+            this.srchRuta.Size = new System.Drawing.Size(249, 20);
             this.srchRuta.TabIndex = 53;
             // 
             // chlbxRuta
@@ -472,7 +438,7 @@
             this.chlbxRuta.Cursor = System.Windows.Forms.Cursors.Default;
             this.chlbxRuta.Location = new System.Drawing.Point(3, 65);
             this.chlbxRuta.Name = "chlbxRuta";
-            this.chlbxRuta.Size = new System.Drawing.Size(225, 65);
+            this.chlbxRuta.Size = new System.Drawing.Size(249, 65);
             this.chlbxRuta.TabIndex = 55;
             // 
             // cheRuta
@@ -486,7 +452,7 @@
             // 
             // cheColonia
             // 
-            this.cheColonia.Location = new System.Drawing.Point(234, 43);
+            this.cheColonia.Location = new System.Drawing.Point(258, 43);
             this.cheColonia.Name = "cheColonia";
             this.cheColonia.Properties.Caption = "Todos";
             this.cheColonia.Size = new System.Drawing.Size(75, 19);
@@ -495,7 +461,7 @@
             // 
             // checkEdit1
             // 
-            this.checkEdit1.Location = new System.Drawing.Point(465, 43);
+            this.checkEdit1.Location = new System.Drawing.Point(513, 43);
             this.checkEdit1.Name = "checkEdit1";
             this.checkEdit1.Properties.Caption = "Todos";
             this.checkEdit1.Size = new System.Drawing.Size(75, 19);
@@ -508,12 +474,47 @@
             this.pcbIncomeByConcept.BackColor = System.Drawing.Color.Transparent;
             this.pcbIncomeByConcept.Image = global::SOAPAP.Properties.Resources.bg;
             this.pcbIncomeByConcept.InitialImage = global::SOAPAP.Properties.Resources.bg;
-            this.pcbIncomeByConcept.Location = new System.Drawing.Point(257, 35);
+            this.pcbIncomeByConcept.Location = new System.Drawing.Point(306, 35);
             this.pcbIncomeByConcept.Name = "pcbIncomeByConcept";
             this.pcbIncomeByConcept.Size = new System.Drawing.Size(451, 54);
             this.pcbIncomeByConcept.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pcbIncomeByConcept.TabIndex = 52;
             this.pcbIncomeByConcept.TabStop = false;
+            // 
+            // windowsUIButtonPanel1
+            // 
+            this.windowsUIButtonPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.windowsUIButtonPanel1.BackColor = System.Drawing.Color.Transparent;
+            windowsUIButtonImageOptions1.Image = global::SOAPAP.Properties.Resources.buscar;
+            toolTipTitleItem1.Text = "Generar";
+            toolTipItem1.LeftIndent = 6;
+            toolTipItem1.Text = "Carga los ingresos corespondientes a los filtros seleccionados.";
+            superToolTip1.Items.Add(toolTipTitleItem1);
+            superToolTip1.Items.Add(toolTipItem1);
+            windowsUIButtonImageOptions2.Image = global::SOAPAP.Properties.Resources.file;
+            toolTipTitleItem2.Text = "Exportar";
+            toolTipItem2.LeftIndent = 6;
+            toolTipItem2.Text = "Exporta los ingresos correspondientes a los filtros seleccionados.";
+            superToolTip2.Items.Add(toolTipTitleItem2);
+            superToolTip2.Items.Add(toolTipItem2);
+            windowsUIButtonImageOptions3.Image = global::SOAPAP.Properties.Resources.imprimir;
+            toolTipTitleItem3.Text = "Imprimir";
+            toolTipItem3.LeftIndent = 6;
+            toolTipItem3.Text = "Genera un PDF listo para imprimir";
+            superToolTip3.Items.Add(toolTipTitleItem3);
+            superToolTip3.Items.Add(toolTipItem3);
+            this.windowsUIButtonPanel1.Buttons.AddRange(new DevExpress.XtraEditors.ButtonPanel.IBaseButton[] {
+            new DevExpress.XtraBars.Docking2010.WindowsUIButton("", true, windowsUIButtonImageOptions1, DevExpress.XtraBars.Docking2010.ButtonStyle.PushButton, "", -1, true, superToolTip1, true, false, true, "GE", -1, false),
+            new DevExpress.XtraBars.Docking2010.WindowsUIButton("", true, windowsUIButtonImageOptions2, DevExpress.XtraBars.Docking2010.ButtonStyle.PushButton, "Exportar", -1, true, superToolTip2, true, false, true, "EX", -1, false),
+            new DevExpress.XtraBars.Docking2010.WindowsUIButton("", true, windowsUIButtonImageOptions3, DevExpress.XtraBars.Docking2010.ButtonStyle.PushButton, "", -1, true, superToolTip3, true, false, true, "PR", -1, false)});
+            this.windowsUIButtonPanel1.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.windowsUIButtonPanel1.ForeColor = System.Drawing.SystemColors.ControlLight;
+            this.windowsUIButtonPanel1.Location = new System.Drawing.Point(892, 3);
+            this.windowsUIButtonPanel1.Name = "windowsUIButtonPanel1";
+            this.windowsUIButtonPanel1.Size = new System.Drawing.Size(147, 86);
+            this.windowsUIButtonPanel1.TabIndex = 60;
+            this.windowsUIButtonPanel1.Text = "windowsUIButtonPanel1";
+            this.windowsUIButtonPanel1.ButtonClick += new DevExpress.XtraBars.Docking2010.ButtonEventHandler(this.windowsUIButtonPanel1_ButtonClick);
             // 
             // lblTitulo
             // 
@@ -565,8 +566,12 @@
             this.pgcRepPadronWater.Location = new System.Drawing.Point(1, 258);
             this.pgcRepPadronWater.Name = "pgcRepPadronWater";
             this.pgcRepPadronWater.OptionsData.DataProcessingEngine = DevExpress.XtraPivotGrid.PivotDataProcessingEngine.LegacyOptimized;
-            this.pgcRepPadronWater.Size = new System.Drawing.Size(951, 161);
+            this.pgcRepPadronWater.Size = new System.Drawing.Size(1049, 161);
             this.pgcRepPadronWater.TabIndex = 50;
+            // 
+            // dataPadronWaterBindingSource
+            // 
+            this.dataPadronWaterBindingSource.DataSource = typeof(SOAPAP.Reportes.DataPadronWater);
             // 
             // pgfCuenta
             // 
@@ -690,15 +695,11 @@
             this.pgfFechaUltimaPago.FieldName = "FECHA_ULTIMO_PAGO";
             this.pgfFechaUltimaPago.Name = "pgfFechaUltimaPago";
             // 
-            // dataPadronWaterBindingSource
-            // 
-            this.dataPadronWaterBindingSource.DataSource = typeof(SOAPAP.Reportes.DataPadronWater);
-            // 
             // RepPadronWater
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(951, 450);
+            this.ClientSize = new System.Drawing.Size(1049, 450);
             this.Controls.Add(this.pgcRepPadronWater);
             this.Controls.Add(this.pnlHeader);
             this.Name = "RepPadronWater";

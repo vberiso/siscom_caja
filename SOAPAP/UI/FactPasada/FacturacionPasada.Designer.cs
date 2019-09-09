@@ -30,8 +30,10 @@
         {
             this.components = new System.ComponentModel.Container();
             this.pnlHeader = new System.Windows.Forms.Panel();
+            this.tlpUsuario = new System.Windows.Forms.TableLayoutPanel();
+            this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.tlpFecha = new System.Windows.Forms.TableLayoutPanel();
             this.label2 = new System.Windows.Forms.Label();
             this.dtpFecha = new System.Windows.Forms.DateTimePicker();
             this.btnActualizar = new System.Windows.Forms.Button();
@@ -116,12 +118,14 @@
             this.dataGridViewButtonColumn2 = new System.Windows.Forms.DataGridViewButtonColumn();
             this.dataGridViewButtonColumn3 = new System.Windows.Forms.DataGridViewButtonColumn();
             this.dataGridViewButtonColumn4 = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.pdfBarController1 = new DevExpress.XtraPdfViewer.Bars.PdfBarController();
+            this.pdfBarController1 = new DevExpress.XtraPdfViewer.Bars.PdfBarController(this.components);
             this.panel2 = new System.Windows.Forms.Panel();
             this.lblSucursal = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
+            this.cbxUsuario = new System.Windows.Forms.ComboBox();
             this.pnlHeader.SuspendLayout();
-            this.tableLayoutPanel2.SuspendLayout();
+            this.tlpUsuario.SuspendLayout();
+            this.tlpFecha.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pcbIncomeByConcept)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvMovimientos)).BeginInit();
@@ -138,8 +142,9 @@
             // pnlHeader
             // 
             this.pnlHeader.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(3)))), ((int)(((byte)(155)))), ((int)(((byte)(229)))));
+            this.pnlHeader.Controls.Add(this.tlpUsuario);
             this.pnlHeader.Controls.Add(this.panel1);
-            this.pnlHeader.Controls.Add(this.tableLayoutPanel2);
+            this.pnlHeader.Controls.Add(this.tlpFecha);
             this.pnlHeader.Controls.Add(this.btnActualizar);
             this.pnlHeader.Controls.Add(this.pcbIncomeByConcept);
             this.pnlHeader.Controls.Add(this.label4);
@@ -151,6 +156,33 @@
             this.pnlHeader.Size = new System.Drawing.Size(1055, 77);
             this.pnlHeader.TabIndex = 50;
             // 
+            // tlpUsuario
+            // 
+            this.tlpUsuario.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.tlpUsuario.BackColor = System.Drawing.Color.White;
+            this.tlpUsuario.ColumnCount = 1;
+            this.tlpUsuario.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tlpUsuario.Controls.Add(this.cbxUsuario, 0, 1);
+            this.tlpUsuario.Controls.Add(this.label1, 0, 0);
+            this.tlpUsuario.Location = new System.Drawing.Point(536, 13);
+            this.tlpUsuario.Name = "tlpUsuario";
+            this.tlpUsuario.RowCount = 2;
+            this.tlpUsuario.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tlpUsuario.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 27F));
+            this.tlpUsuario.Size = new System.Drawing.Size(212, 46);
+            this.tlpUsuario.TabIndex = 54;
+            this.tlpUsuario.Visible = false;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(3, 3);
+            this.label1.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(43, 13);
+            this.label1.TabIndex = 50;
+            this.label1.Text = "Usuario";
+            // 
             // panel1
             // 
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -161,21 +193,21 @@
             this.panel1.Size = new System.Drawing.Size(1055, 337);
             this.panel1.TabIndex = 50;
             // 
-            // tableLayoutPanel2
+            // tlpFecha
             // 
-            this.tableLayoutPanel2.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.tableLayoutPanel2.BackColor = System.Drawing.Color.White;
-            this.tableLayoutPanel2.ColumnCount = 1;
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel2.Controls.Add(this.label2, 0, 0);
-            this.tableLayoutPanel2.Controls.Add(this.dtpFecha, 0, 1);
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(438, 12);
-            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
-            this.tableLayoutPanel2.RowCount = 2;
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 27F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(196, 46);
-            this.tableLayoutPanel2.TabIndex = 53;
+            this.tlpFecha.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.tlpFecha.BackColor = System.Drawing.Color.White;
+            this.tlpFecha.ColumnCount = 1;
+            this.tlpFecha.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tlpFecha.Controls.Add(this.label2, 0, 0);
+            this.tlpFecha.Controls.Add(this.dtpFecha, 0, 1);
+            this.tlpFecha.Location = new System.Drawing.Point(334, 13);
+            this.tlpFecha.Name = "tlpFecha";
+            this.tlpFecha.RowCount = 2;
+            this.tlpFecha.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tlpFecha.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 27F));
+            this.tlpFecha.Size = new System.Drawing.Size(196, 46);
+            this.tlpFecha.TabIndex = 53;
             // 
             // label2
             // 
@@ -218,9 +250,9 @@
             this.pcbIncomeByConcept.BackColor = System.Drawing.Color.Transparent;
             this.pcbIncomeByConcept.Image = global::SOAPAP.Properties.Resources.bg;
             this.pcbIncomeByConcept.InitialImage = global::SOAPAP.Properties.Resources.bg;
-            this.pcbIncomeByConcept.Location = new System.Drawing.Point(420, 12);
+            this.pcbIncomeByConcept.Location = new System.Drawing.Point(299, 12);
             this.pcbIncomeByConcept.Name = "pcbIncomeByConcept";
-            this.pcbIncomeByConcept.Size = new System.Drawing.Size(231, 51);
+            this.pcbIncomeByConcept.Size = new System.Drawing.Size(480, 51);
             this.pcbIncomeByConcept.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pcbIncomeByConcept.TabIndex = 52;
             this.pcbIncomeByConcept.TabStop = false;
@@ -444,6 +476,7 @@
             this.ribbonControl1.ExpandCollapseItem.Id = 0;
             this.ribbonControl1.Items.AddRange(new DevExpress.XtraBars.BarItem[] {
             this.ribbonControl1.ExpandCollapseItem,
+            this.ribbonControl1.SearchEditItem,
             this.pdfFileOpenBarItem1,
             this.pdfFileSaveAsBarItem1,
             this.pdfFilePrintBarItem1,
@@ -960,6 +993,15 @@
             this.label3.TabIndex = 5;
             this.label3.Text = "Sucursal:";
             // 
+            // cbxUsuario
+            // 
+            this.cbxUsuario.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.cbxUsuario.FormattingEnabled = true;
+            this.cbxUsuario.Location = new System.Drawing.Point(3, 22);
+            this.cbxUsuario.Name = "cbxUsuario";
+            this.cbxUsuario.Size = new System.Drawing.Size(206, 21);
+            this.cbxUsuario.TabIndex = 55;
+            // 
             // FacturacionPasada
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -975,8 +1017,10 @@
             this.Load += new System.EventHandler(this.FacturacionPasada_Load);
             this.pnlHeader.ResumeLayout(false);
             this.pnlHeader.PerformLayout();
-            this.tableLayoutPanel2.ResumeLayout(false);
-            this.tableLayoutPanel2.PerformLayout();
+            this.tlpUsuario.ResumeLayout(false);
+            this.tlpUsuario.PerformLayout();
+            this.tlpFecha.ResumeLayout(false);
+            this.tlpFecha.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pcbIncomeByConcept)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvMovimientos)).EndInit();
@@ -998,7 +1042,7 @@
 
         private System.Windows.Forms.Panel pnlHeader;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
+        private System.Windows.Forms.TableLayoutPanel tlpFecha;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button btnActualizar;
         private System.Windows.Forms.PictureBox pcbIncomeByConcept;
@@ -1087,5 +1131,8 @@
         private DevExpress.XtraPdfViewer.Bars.PdfZoomRibbonPageGroup pdfZoomRibbonPageGroup1;
         private DevExpress.XtraPdfViewer.Bars.PdfFormDataRibbonPage pdfFormDataRibbonPage1;
         private DevExpress.XtraPdfViewer.Bars.PdfFormDataBarPageGroup pdfFormDataBarPageGroup1;
+        private System.Windows.Forms.TableLayoutPanel tlpUsuario;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ComboBox cbxUsuario;
     }
 }

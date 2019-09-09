@@ -1229,7 +1229,7 @@ namespace SOAPAP
                                                     //var resultT = await Requests.SendURIAsync(string.Format("/api/Transaction/Folio/{0}", transactionSelect.Transaction.Id), HttpMethod.Get, Variables.LoginModel.Token);
                                                     //transactionSelect = JsonConvert.DeserializeObject<Model.TransactionPaymentVM>(resultTransaction);
 
-                                                    string temp = await fst.actualizaPdf(transactionSelect.Transaction.Id.ToString());
+                                                    string temp = await fst.actualizaPdf(transactionSelect.Transaction.Id.ToString(), true);
 
                                                     if (temp.Contains("error"))
                                                     {
