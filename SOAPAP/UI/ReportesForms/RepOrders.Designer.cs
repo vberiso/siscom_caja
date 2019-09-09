@@ -74,6 +74,8 @@
             this.pgfCajero = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfFechaPago = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfcount = new DevExpress.XtraPivotGrid.PivotGridField();
+            this.pgfSerial = new DevExpress.XtraPivotGrid.PivotGridField();
+            this.pgfCuenta = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pnlHeader.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chcbxArea.Properties)).BeginInit();
@@ -340,7 +342,9 @@
             this.pgfEstado,
             this.pgfCajero,
             this.pgfFechaPago,
-            this.pgfcount});
+            this.pgfcount,
+            this.pgfSerial,
+            this.pgfCuenta});
             this.pgcOrders.Location = new System.Drawing.Point(0, 124);
             this.pgcOrders.Name = "pgcOrders";
             this.pgcOrders.OptionsData.DataProcessingEngine = DevExpress.XtraPivotGrid.PivotDataProcessingEngine.LegacyOptimized;
@@ -441,7 +445,7 @@
             // 
             // pgfCajero
             // 
-            this.pgfCajero.AreaIndex = 0;
+            this.pgfCajero.AreaIndex = 1;
             this.pgfCajero.Caption = "Cajero";
             this.pgfCajero.FieldName = "cajero";
             this.pgfCajero.Name = "pgfCajero";
@@ -461,6 +465,20 @@
             this.pgfcount.Caption = "Elems";
             this.pgfcount.FieldName = "count";
             this.pgfcount.Name = "pgfcount";
+            // 
+            // pgfSerial
+            // 
+            this.pgfSerial.AreaIndex = 0;
+            this.pgfSerial.Caption = "Serial";
+            this.pgfSerial.FieldName = "Serie";
+            this.pgfSerial.Name = "pgfSerial";
+            // 
+            // pgfCuenta
+            // 
+            this.pgfCuenta.AreaIndex = 2;
+            this.pgfCuenta.Caption = "Cuenta";
+            this.pgfCuenta.FieldName = "account";
+            this.pgfCuenta.Name = "pgfCuenta";
             // 
             // RepOrders
             // 
@@ -525,5 +543,7 @@
         private DevExpress.XtraPivotGrid.PivotGridField pgfcount;
         private System.Windows.Forms.Label label4;
         private DevExpress.XtraBars.Docking2010.WindowsUIButtonPanel windowsUIButtonPanel1;
+        private DevExpress.XtraPivotGrid.PivotGridField pgfSerial;
+        private DevExpress.XtraPivotGrid.PivotGridField pgfCuenta;
     }
 }
