@@ -60,6 +60,7 @@
             this.fraccionamientosNuevosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.facturaciónToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.facturacionPasadaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmDescargarFacturas = new System.Windows.Forms.ToolStripMenuItem();
             this.finanzasToolStripMenuItemAyuntamiento = new System.Windows.Forms.ToolStripMenuItem();
             this.opcionesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cajasToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
@@ -289,7 +290,6 @@
             this.reportesToolStripMenuItem.Text = "Reportes";
             this.reportesToolStripMenuItem.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.reportesToolStripMenuItem.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
-            this.reportesToolStripMenuItem.Click += new System.EventHandler(this.reportesToolStripMenuItem_Click);
             // 
             // ingresosToolStripMenuItem
             // 
@@ -396,7 +396,8 @@
             // facturaciónToolStripMenuItem
             // 
             this.facturaciónToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.facturacionPasadaToolStripMenuItem});
+            this.facturacionPasadaToolStripMenuItem,
+            this.tsmDescargarFacturas});
             this.facturaciónToolStripMenuItem.Name = "facturaciónToolStripMenuItem";
             this.facturaciónToolStripMenuItem.Size = new System.Drawing.Size(180, 26);
             this.facturaciónToolStripMenuItem.Text = "Facturación";
@@ -407,6 +408,14 @@
             this.facturacionPasadaToolStripMenuItem.Size = new System.Drawing.Size(211, 26);
             this.facturacionPasadaToolStripMenuItem.Text = "Facturación Pasada";
             this.facturacionPasadaToolStripMenuItem.Click += new System.EventHandler(this.facturacionPasadaToolStripMenuItem_Click);
+            // 
+            // tsmDescargarFacturas
+            // 
+            this.tsmDescargarFacturas.Name = "tsmDescargarFacturas";
+            this.tsmDescargarFacturas.Size = new System.Drawing.Size(211, 26);
+            this.tsmDescargarFacturas.Text = "Descargar Facturas";
+            this.tsmDescargarFacturas.Visible = false;
+            this.tsmDescargarFacturas.Click += new System.EventHandler(this.DescargasToolStripMenuItem_Click);
             // 
             // finanzasToolStripMenuItemAyuntamiento
             // 
@@ -881,5 +890,6 @@
         private System.Windows.Forms.ToolStripMenuItem facturaciónToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem facturacionPasadaToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem finanzasToolStripMenuItemAyuntamiento;
+        private System.Windows.Forms.ToolStripMenuItem tsmDescargarFacturas;
     }
 }

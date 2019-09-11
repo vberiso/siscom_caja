@@ -28,6 +28,8 @@ using Issuer = Facturama.Models.Request.Issuer;
 using Receiver = Facturama.Models.Request.Receiver;
 using Item = Facturama.Models.Request.Item;
 using Tax = Facturama.Models.Request.Tax;
+using SOAPAP.UI;
+using SOAPAP.Enums;
 
 namespace SOAPAP
 {
@@ -46,7 +48,7 @@ namespace SOAPAP
         {
 
             Requests = new RequestsAPI(UrlBase);
-            facturama = new FacturamaApiMultiemisor("gfdsystems", "gfds1st95", false);
+            facturama = new FacturamaApiMultiemisor("gfdsystems", "gfds1st95");
             //facturama = new FacturamaApiMultiemisor("pruebas", "pruebas2011");
         }
         public void setMsgs(string msgObservacionFactura, string msgUsos)
@@ -819,7 +821,8 @@ namespace SOAPAP
                 string respuesta = string.Empty;
                 string rutas = string.Empty;
                 string json = string.Empty;
-                Facturama.Models.Response.Cfdi cfdiFacturama = null;
+                //Facturama.Models.Response.Cfdi cfdiFacturama = null;
+                ModFac.ResponseCFDI cfdiFacturama = null;
 
 
                 var resultado = await Requests.SendURIAsync(string.Format("/api/Transaction/{0}", idTransaction), HttpMethod.Get, Variables.LoginModel.Token);
@@ -1337,7 +1340,8 @@ namespace SOAPAP
                 object[] vs = TimbrarAnteFacturama(cfdi, path + nombreXML);
                 if(vs[0] != null)
                 {
-                    cfdiFacturama = (Facturama.Models.Response.Cfdi)vs[0];
+                    //cfdiFacturama = (Facturama.Models.Response.Cfdi)vs[0];
+                    cfdiFacturama = new ModFac.ResponseCFDI((Facturama.Models.Response.Cfdi)vs[0]);
                     string XML = LeerXML(path + nombreXML);
                     TaxReceipt resGuardado = await guardarXMLenBD(XML, cfdiFacturama.Complement.TaxStamp.Uuid, receptor.Rfc, TipoFactura, status, TraVM.payment.Id, cfdiFacturama.Id);
                     string resActPay = await actualizarPaymentConFactura(TraVM.payment);
@@ -1587,7 +1591,7 @@ namespace SOAPAP
             }
         }
 
-        public async Task<Facturama.Models.Response.Cfdi> ObterCfdiDesdeAPI(TaxReceipt taxes)
+        public async Task<ModFac.ResponseCFDI> ObterCfdiDesdeAPI(TaxReceipt taxes)
         {
             RequestsAPI RequestsFacturama = null;
             try
@@ -1595,7 +1599,8 @@ namespace SOAPAP
                 RequestsFacturama = new RequestsAPI("https://api.facturama.mx/");
                 var idFacturama = taxes != null ? taxes.IdXmlFacturama : "";
                 var resultado = await RequestsFacturama.SendURIAsync(string.Format("api-lite/cfdis/{0}", idFacturama), HttpMethod.Get, Properties.Settings.Default.FacturamaUser, Properties.Settings.Default.FacturamaPassword);
-                var cfdiGet = JsonConvert.DeserializeObject<Facturama.Models.Response.Cfdi>(resultado);
+                //var cfdiGet = JsonConvert.DeserializeObject<Facturama.Models.Response.Cfdi>(resultado);
+                var cfdiGet = JsonConvert.DeserializeObject<ModFac.ResponseCFDI>(resultado);
                 return cfdiGet;
             }
             catch (Exception ex)
@@ -1664,9 +1669,21 @@ namespace SOAPAP
             //string tmpXML = JsonConvert.DeserializeObject<string>(resultadoXML);
             //SOAPAP.Facturado.DocumentoXML comprobante = DeserializerXML(tmpXML);
 
-            Facturama.Models.Response.Cfdi cfdiGet = null;
+            //Facturama.Models.Response.Cfdi cfdiGet = null;
+            ModFac.ResponseCFDI cfdiGet = null;
             if (esCancelacion)
-                cfdiGet = await ObterCfdiDesdeAPI(TraVM.payment.TaxReceipts.Where(x => x.Status == "ET002").OrderBy(xx => xx.Id).LastOrDefault());
+            {
+                cfdiGet = await ObterCfdiDesdeAPI(TraVM.payment.TaxReceipts.OrderBy(xx => xx.Id).LastOrDefault());
+                if(cfdiGet != null)
+                {
+                    //Verifica el estatus, en caso de no estar cancelado, solicita la cancelacion.
+                    if(cfdiGet.Status == "active")
+                    {
+                        MessageBoxForm mensaje = new MessageBoxForm("Advertencia", "Este CFDI continua activo, consulte al administrador.", TypeIcon.Icon.Warning);
+                        var result = mensaje.ShowDialog();
+                    }
+                }
+            }                
             else
                 cfdiGet = await ObterCfdiDesdeAPI(TraVM.payment.TaxReceipts.Where(x => x.Status == "ET001").FirstOrDefault());
 
@@ -1699,7 +1716,7 @@ namespace SOAPAP
             string fecha = DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ss");
             CreatePDF pDF = null;
             if (esCancelacion)
-                pDF = new CreatePDF(cfdiGet, TraVM.payment.Account, TraVM.payment.TaxReceipts.Where(x => x.Status == "ET002").OrderBy(xx => xx.Id).LastOrDefault(), fecha, (TraVM.payment.PayMethod.code + ", " + TraVM.payment.PayMethod.Name), TraVM);
+                pDF = new CreatePDF(cfdiGet, TraVM.payment.Account, TraVM.payment.TaxReceipts.OrderBy(xx => xx.Id).LastOrDefault(), fecha, (TraVM.payment.PayMethod.code + ", " + TraVM.payment.PayMethod.Name), TraVM);
             else
                 pDF = new CreatePDF(cfdiGet, TraVM.payment.Account, TraVM.payment.TaxReceipts.Where(x => x.Status == "ET001").FirstOrDefault(), fecha, (TraVM.payment.PayMethod.code + ", " + TraVM.payment.PayMethod.Name), TraVM);
 

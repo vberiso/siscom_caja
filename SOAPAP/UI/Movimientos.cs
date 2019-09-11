@@ -1155,8 +1155,6 @@ namespace SOAPAP
                                 {
                                     url = "/api/Transaction/Orders/Cancel/{0}";
                                 }
-
-
                                 else if (transactionSelect.Payment.Type == "PAY06" || transactionSelect.Payment.Type == "PAY04")
                                     url = "/api/Transaction/Prepaid/Cancel/{0}";
                                 else
@@ -1200,35 +1198,11 @@ namespace SOAPAP
                                                 var response = await fst.CancelarFacturaDesdeAPI(key);
                                                 if (response.Contains("error"))
                                                 {
-                                                    mensaje = new MessageBoxForm("Error", response, TypeIcon.Icon.Cancel);
+                                                    mensaje = new MessageBoxForm("Error", "Es posible que el CFDI no haya sido cancelado. Consulte al administrador. " + response, TypeIcon.Icon.Warning);
                                                     result = mensaje.ShowDialog();
                                                 }
                                                 else
                                                 {
-                                                    // *********************************** SAC *************************************
-                                                    //if (Variables.Configuration.IsMunicipal)
-                                                    //{
-                                                    //    var resultadosSAC = await Requests.SendURIAsync(string.Format("/api/Payments/SistemaAdministracionContable/Cancel/{0}", payment.Id), HttpMethod.Post, Variables.LoginModel.Token);
-                                                    //    if (resultadosSAC.Contains("error"))
-                                                    //    {
-                                                    //        try
-                                                    //        {
-                                                    //            mensaje = new MessageBoxForm("Error", JsonConvert.DeserializeObject<Error>(resultadosSAC).error, TypeIcon.Icon.Cancel);
-                                                    //            mensaje.ShowDialog();
-                                                    //        }
-                                                    //        catch (Exception)
-                                                    //        {
-                                                    //            mensaje = new MessageBoxForm("Error", "Servicio no disponible favor de comunicarse con el administrador: -conexion interrumpida-", TypeIcon.Icon.Cancel);
-                                                    //            mensaje.ShowDialog();
-                                                    //        }
-                                                    //    }
-                                                    //}
-
-
-                                                    //Actualiza el pdf de este pago, colocando un leyenda de : Factura cancelada.
-                                                    //var resultT = await Requests.SendURIAsync(string.Format("/api/Transaction/Folio/{0}", transactionSelect.Transaction.Id), HttpMethod.Get, Variables.LoginModel.Token);
-                                                    //transactionSelect = JsonConvert.DeserializeObject<Model.TransactionPaymentVM>(resultTransaction);
-
                                                     string temp = await fst.actualizaPdf(transactionSelect.Transaction.Id.ToString(), true);
 
                                                     if (temp.Contains("error"))
@@ -1243,7 +1217,6 @@ namespace SOAPAP
                                                     }
                                                     else    //Impresion de CFDI con mensaje de: Factura cancelada
                                                     {
-
                                                         mensaje = new MessageBoxForm(Variables.titleprincipal, "Factura actualizada exitosamente.", TypeIcon.Icon.Success);
                                                         result = mensaje.ShowDialog();
 
@@ -1269,7 +1242,7 @@ namespace SOAPAP
                                                             {
                                                                 if (paymentt.HaveTaxReceipt)
                                                                 {
-                                                                    var xmll = paymentt.TaxReceipts.FirstOrDefault();
+                                                                    var xmll = paymentt.TaxReceipts.LastOrDefault();
                                                                     var account = paymentt.Account;
                                                                     if (xmll != null)
                                                                     {
@@ -1293,6 +1266,26 @@ namespace SOAPAP
                                                         }
                                                     }
                                                 }
+
+                                                // *********************************** SAC *************************************
+                                                //if (Variables.Configuration.IsMunicipal)
+                                                //{
+                                                //    var resultadosSAC = await Requests.SendURIAsync(string.Format("/api/Payments/SistemaAdministracionContable/Cancel/{0}", payment.Id), HttpMethod.Post, Variables.LoginModel.Token);
+                                                //    if (resultadosSAC.Contains("error"))
+                                                //    {
+                                                //        try
+                                                //        {
+                                                //            mensaje = new MessageBoxForm("Error", JsonConvert.DeserializeObject<Error>(resultadosSAC).error, TypeIcon.Icon.Cancel);
+                                                //            mensaje.ShowDialog();
+                                                //        }
+                                                //        catch (Exception)
+                                                //        {
+                                                //            mensaje = new MessageBoxForm("Error", "Servicio no disponible favor de comunicarse con el administrador: -conexion interrumpida-", TypeIcon.Icon.Cancel);
+                                                //            mensaje.ShowDialog();
+                                                //        }
+                                                //    }
+                                                //}
+
                                             }
                                             catch (Exception)
                                             {

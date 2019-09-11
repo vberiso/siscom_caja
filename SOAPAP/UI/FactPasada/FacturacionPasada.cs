@@ -63,22 +63,19 @@ namespace SOAPAP.UI.FactPasada
                     foreach (var item in lstCajeros)
                     {
                         lstCaj.Add(new DataComboBox() { keyString = item.id, value = string.Format("{0} {1} {2}", item.name, item.lastName, item.secondLastName) });
-                    }
-
-                    //Asignacion de combo cajeros.
-                    cbxUsuario.DataBindings.Clear();
-                    cbxUsuario.DataSource = null;
-                    cbxUsuario.ValueMember = "keyString";
-                    cbxUsuario.DisplayMember = "value";
-                    cbxUsuario.DataSource = lstCaj;
+                    }                    
                 }                
             }
             else
             {
-                //Configuracion de vista inicial
-                tlpUsuario.Visible = false;
-                //tlpFecha.Margin = new Padding(200, 3, 3, 3);
+                lstCaj.Add(new DataComboBox() { keyString = Variables.LoginModel.User, value = Variables.LoginModel.FullName});
             }
+            //Asignacion de combo cajeros.
+            cbxUsuario.DataBindings.Clear();
+            cbxUsuario.DataSource = null;
+            cbxUsuario.ValueMember = "keyString";
+            cbxUsuario.DisplayMember = "value";
+            cbxUsuario.DataSource = lstCaj;
         }
 
         private async void btnActualizar_Click(object sender, EventArgs e)
@@ -205,8 +202,8 @@ namespace SOAPAP.UI.FactPasada
             { 
                 string transactionFolio = row.Cells["folioTransaccionDataGridViewTextBoxColumn"].Value.ToString();
                 
-                if (Operacion == "Cobro")
-                {
+                //if (Operacion == "Cobro")
+                //{
                     Loading loadingDetalles = new Loading();
                     loadingDetalles.Show(pnlDetalle);
                     var _resulPayment = await Requests.SendURIAsync(string.Format("/api/Payments/folio/{0}", transactionFolio), HttpMethod.Get, Variables.LoginModel.Token);
@@ -226,11 +223,11 @@ namespace SOAPAP.UI.FactPasada
                             result = mensaje.ShowDialog();
                         }
                         mostrarInfoPay(payment);
-                        visualizaPDFActual(payment.TaxReceipts.FirstOrDefault(t => t.Status == "ET001"));
+                        visualizaPDFActual(payment.TaxReceipts.LastOrDefault());
                     }
-                }
-                else
-                    dgvDetallesPago.Visible = false;
+                //}
+                //else
+                //    dgvDetallesPago.Visible = false;
             }
         }
 
@@ -347,8 +344,25 @@ namespace SOAPAP.UI.FactPasada
                     result = mensaje.ShowDialog();
                                         
                     btnActualizar.PerformClick();
+                }                    
+            }
+            if (EstaFacturado && Operacion == "Cancelacion")
+            {
+                Fac = new Facturaelectronica();
+                string temp = await Fac.actualizaPdf(transactionId, true);
+
+                if (temp.Contains("error"))
+                {
+                    Form mensaje = new MessageBoxForm("Error", temp, TypeIcon.Icon.Warning);
+                    result = mensaje.ShowDialog();
                 }
-                    
+                else if (temp.Contains("aviso"))
+                {
+                    Form mensaje = new MessageBoxForm("Aviso", temp, TypeIcon.Icon.Info);
+                    result = mensaje.ShowDialog();
+
+                    btnActualizar.PerformClick();
+                }
             }
             loadings.Close();
         }

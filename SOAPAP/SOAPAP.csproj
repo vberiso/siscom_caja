@@ -356,6 +356,7 @@
     <Compile Include="Model\TaxReceipt.cs" />
     <Compile Include="ModFac\CFDIMultiResponse.cs" />
     <Compile Include="ModFac\RepuestaCancelacion.cs" />
+    <Compile Include="ModFac\ResponseCFDI.cs" />
     <Compile Include="notificationDetails.cs" />
     <Compile Include="Notify.cs" />
     <Compile Include="PDFManager\CreatePDF.cs" />
@@ -409,6 +410,12 @@
     <Compile Include="Reportes\Finanzas\Formato1.cs" />
     <Compile Include="Reportes\Finanzas\Formato2.cs" />
     <Compile Include="Reportes\Finanzas\Formato23Desgloce.cs" />
+    <Compile Include="UI\FactPasada\DescargarFacturas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\FactPasada\DescargarFacturas.Designer.cs">
+      <DependentUpon>DescargarFacturas.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\ReportesForms\Finanzas\Agua\Formatos\Formato2.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -932,6 +939,9 @@
     <EmbeddedResource Include="Report2.rdlc" />
     <EmbeddedResource Include="Report4.rdlc" />
     <EmbeddedResource Include="Reporte3.rdlc" />
+    <EmbeddedResource Include="UI\FactPasada\DescargarFacturas.resx">
+      <DependentUpon>DescargarFacturas.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\ReportesForms\Finanzas\Agua\Formatos\Formato2.resx">
       <DependentUpon>Formato2.cs</DependentUpon>
     </EmbeddedResource>

@@ -28,7 +28,8 @@ namespace SOAPAP.PDFManager
     public class CreatePDF
     {
         public CfdiMulti CfdiMulti { get; set; }
-        public Facturama.Models.Response.Cfdi Cfdi { get; set; }
+        //public Facturama.Models.Response.Cfdi Cfdi { get; set; }
+        public ModFac.ResponseCFDI Cfdi { get; set; }
         public TransactionVM TraVM { get; set; }
         Form loading;
         private RequestsAPI Requests = null;
@@ -47,7 +48,7 @@ namespace SOAPAP.PDFManager
         public string Paymethod { get; set; }
         public string SerialCajero { get; set; }
 
-        public CreatePDF(CfdiMulti CfdiMulti, Facturama.Models.Response.Cfdi Cfdi, string Account, TaxReceipt TaxReceipt, string Date, string Paymethod, TransactionVM TraVM)
+        public CreatePDF(CfdiMulti CfdiMulti, ModFac.ResponseCFDI Cfdi, string Account, TaxReceipt TaxReceipt, string Date, string Paymethod, TransactionVM TraVM)
         {
             this.CfdiMulti = CfdiMulti;
             this.Cfdi = Cfdi;
@@ -59,7 +60,7 @@ namespace SOAPAP.PDFManager
             Requests = new RequestsAPI(UrlBase);
         }
 
-        public CreatePDF(Facturama.Models.Response.Cfdi Cfdi, string Account, TaxReceipt TaxReceipt, string Date, string Paymethod, TransactionVM TraVM)
+        public CreatePDF(ModFac.ResponseCFDI Cfdi, string Account, TaxReceipt TaxReceipt, string Date, string Paymethod, TransactionVM TraVM)
         {
             this.Cfdi = Cfdi;
             this.Account = Account;
@@ -273,7 +274,8 @@ namespace SOAPAP.PDFManager
             builder.Append(@"<title>Facturación</title></head>");
             builder.Append(@"<body style='margin: 40px; font-size: 10px;'>");
 
-            if (TraVM.payment.Status == "EP002")
+            //if (TraVM.payment.Status == "EP002")
+            if(Cfdi.Status != "active")
             {
                 builder.Append(@"<div style='height: 150px; Width: 900px; background-color:transparent; position: absolute; z-index: 5; top: 500px; transform: rotate(-20deg);'>");
                 builder.Append(@"<p align='center'>");
@@ -599,7 +601,7 @@ namespace SOAPAP.PDFManager
             builder.Append(@"<title>Facturación</title></head>");
             builder.Append(@"<body style='margin: 40px; font-size: 10px;'>");
 
-            if (TraVM.payment.Status == "EP002")
+            if (Cfdi.Status != "active")
             {
                 builder.Append(@"<div style='height: 150px; Width: 900px; background-color:transparent; position: absolute; z-index: 5; top: 500px; transform: rotate(-20deg);'>");
                 builder.Append(@"<p align='center'>");

@@ -896,6 +896,7 @@ namespace SOAPAP
                         reportesToolStripMenuItem.Enabled = true;
                         ingresosToolStripMenuItem.Visible = true;
                         tsmPadron.Visible = true;
+                        tsmDescargarFacturas.Visible = true;
                     }
                     tslMac.Text = "ID:" + Variables.Configuration.Terminal.MacAdress;
                     tslFechaApertura.Text = "Abierta:" + (Variables.Configuration.Terminal.TerminalUsers.Count > 0 ? Variables.Configuration.Terminal.TerminalUsers.First().OpenDate.ToShortDateString() : "-");
@@ -1040,11 +1041,12 @@ namespace SOAPAP
             ShowForm("SOAPAP", "UI.FactPasada.FacturacionPasada");
         }
 
-        private void reportesToolStripMenuItem_Click(object sender, EventArgs e)
+        private void DescargasToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            ShowForm("SOAPAP", "UI.FactPasada.DescargarFacturas");
         }
 
+       
         private void cedulaDeInformaciónToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
@@ -1054,6 +1056,8 @@ namespace SOAPAP
         {
             ShowForm("SOAPAP", "UI.ReportesForms.Finanzas.Agua.Principal");
         }
+
+        
     }
 }
 #endregion
