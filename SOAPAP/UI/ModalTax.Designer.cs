@@ -358,7 +358,7 @@
             this.lblTitle.Location = new System.Drawing.Point(146, -2);
             this.lblTitle.Name = "lblTitle";
             this.lblTitle.Size = new System.Drawing.Size(127, 20);
-            this.lblTitle.TabIndex = 1;
+            this.lblTitle.TabIndex = 0;
             this.lblTitle.Text = "Datos Generales";
             // 
             // pnlImagen
@@ -398,7 +398,7 @@
             this.btnCancelar.Location = new System.Drawing.Point(325, 4);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(97, 31);
-            this.btnCancelar.TabIndex = 27;
+            this.btnCancelar.TabIndex = 14;
             this.btnCancelar.Text = "Cerrar";
             this.btnCancelar.UseVisualStyleBackColor = false;
             this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
@@ -412,7 +412,7 @@
             this.btnAceptar.Location = new System.Drawing.Point(222, 4);
             this.btnAceptar.Name = "btnAceptar";
             this.btnAceptar.Size = new System.Drawing.Size(97, 31);
-            this.btnAceptar.TabIndex = 26;
+            this.btnAceptar.TabIndex = 13;
             this.btnAceptar.Text = "Generar";
             this.btnAceptar.UseVisualStyleBackColor = false;
             this.btnAceptar.Click += new System.EventHandler(this.btnAceptar_Click);
@@ -519,7 +519,7 @@
             this.btnBuscar.Location = new System.Drawing.Point(377, 22);
             this.btnBuscar.Name = "btnBuscar";
             this.btnBuscar.Size = new System.Drawing.Size(36, 27);
-            this.btnBuscar.TabIndex = 26;
+            this.btnBuscar.TabIndex = 0;
             this.btnBuscar.Text = "....";
             this.btnBuscar.UseVisualStyleBackColor = false;
             this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
@@ -531,7 +531,7 @@
             this.txtState.MaxLength = 30;
             this.txtState.Name = "txtState";
             this.txtState.Size = new System.Drawing.Size(193, 24);
-            this.txtState.TabIndex = 25;
+            this.txtState.TabIndex = 10;
             // 
             // label11
             // 
@@ -539,7 +539,7 @@
             this.label11.Location = new System.Drawing.Point(15, 228);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(43, 13);
-            this.label11.TabIndex = 24;
+            this.label11.TabIndex = 0;
             this.label11.Text = "Estado:";
             // 
             // txtTown
@@ -549,7 +549,7 @@
             this.txtTown.MaxLength = 100;
             this.txtTown.Name = "txtTown";
             this.txtTown.Size = new System.Drawing.Size(199, 24);
-            this.txtTown.TabIndex = 23;
+            this.txtTown.TabIndex = 11;
             // 
             // label10
             // 
@@ -557,7 +557,7 @@
             this.label10.Location = new System.Drawing.Point(214, 228);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(55, 13);
-            this.label10.TabIndex = 22;
+            this.label10.TabIndex = 0;
             this.label10.Text = "Municipio:";
             // 
             // txtSuburb
@@ -567,7 +567,7 @@
             this.txtSuburb.MaxLength = 100;
             this.txtSuburb.Name = "txtSuburb";
             this.txtSuburb.Size = new System.Drawing.Size(193, 24);
-            this.txtSuburb.TabIndex = 21;
+            this.txtSuburb.TabIndex = 12;
             // 
             // label9
             // 
@@ -575,7 +575,7 @@
             this.label9.Location = new System.Drawing.Point(15, 271);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(45, 13);
-            this.label9.TabIndex = 20;
+            this.label9.TabIndex = 0;
             this.label9.Text = "Colonia:";
             // 
             // txtCP
@@ -585,7 +585,7 @@
             this.txtCP.MaxLength = 5;
             this.txtCP.Name = "txtCP";
             this.txtCP.Size = new System.Drawing.Size(128, 24);
-            this.txtCP.TabIndex = 19;
+            this.txtCP.TabIndex = 9;
             this.txtCP.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtCP_KeyPress);
             // 
             // label8
@@ -594,7 +594,7 @@
             this.label8.Location = new System.Drawing.Point(285, 185);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(75, 13);
-            this.label8.TabIndex = 18;
+            this.label8.TabIndex = 0;
             this.label8.Text = "Codigo Postal:";
             // 
             // txtIndoor
@@ -604,7 +604,7 @@
             this.txtIndoor.MaxLength = 50;
             this.txtIndoor.Name = "txtIndoor";
             this.txtIndoor.Size = new System.Drawing.Size(129, 24);
-            this.txtIndoor.TabIndex = 17;
+            this.txtIndoor.TabIndex = 8;
             // 
             // label4
             // 
@@ -612,7 +612,7 @@
             this.label4.Location = new System.Drawing.Point(150, 185);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(42, 13);
-            this.label4.TabIndex = 16;
+            this.label4.TabIndex = 0;
             this.label4.Text = "No. Int:";
             // 
             // txtOutdoor
@@ -622,7 +622,7 @@
             this.txtOutdoor.MaxLength = 50;
             this.txtOutdoor.Name = "txtOutdoor";
             this.txtOutdoor.Size = new System.Drawing.Size(129, 24);
-            this.txtOutdoor.TabIndex = 15;
+            this.txtOutdoor.TabIndex = 7;
             // 
             // label3
             // 
@@ -630,7 +630,7 @@
             this.label3.Location = new System.Drawing.Point(15, 185);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(45, 13);
-            this.label3.TabIndex = 14;
+            this.label3.TabIndex = 0;
             this.label3.Text = "No. Ext:";
             // 
             // txtName
@@ -640,7 +640,7 @@
             this.txtName.MaxLength = 100;
             this.txtName.Name = "txtName";
             this.txtName.Size = new System.Drawing.Size(360, 24);
-            this.txtName.TabIndex = 3;
+            this.txtName.TabIndex = 1;
             this.txtName.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtName_KeyPress);
             // 
             // txtAddress
@@ -650,7 +650,7 @@
             this.txtAddress.MaxLength = 150;
             this.txtAddress.Name = "txtAddress";
             this.txtAddress.Size = new System.Drawing.Size(398, 24);
-            this.txtAddress.TabIndex = 13;
+            this.txtAddress.TabIndex = 6;
             // 
             // label2
             // 
@@ -658,7 +658,7 @@
             this.label2.Location = new System.Drawing.Point(15, 142);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(55, 13);
-            this.label2.TabIndex = 12;
+            this.label2.TabIndex = 0;
             this.label2.Text = "Dirección:";
             // 
             // txtEmail
@@ -667,7 +667,7 @@
             this.txtEmail.Location = new System.Drawing.Point(214, 113);
             this.txtEmail.Name = "txtEmail";
             this.txtEmail.Size = new System.Drawing.Size(199, 24);
-            this.txtEmail.TabIndex = 11;
+            this.txtEmail.TabIndex = 5;
             // 
             // label1
             // 
@@ -675,7 +675,7 @@
             this.label1.Location = new System.Drawing.Point(214, 97);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(35, 13);
-            this.label1.TabIndex = 10;
+            this.label1.TabIndex = 0;
             this.label1.Text = "Email:";
             // 
             // txtRFC
@@ -685,7 +685,7 @@
             this.txtRFC.MaxLength = 17;
             this.txtRFC.Name = "txtRFC";
             this.txtRFC.Size = new System.Drawing.Size(193, 24);
-            this.txtRFC.TabIndex = 5;
+            this.txtRFC.TabIndex = 2;
             this.txtRFC.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtRFC_KeyPress);
             // 
             // lblTotPagar
@@ -694,7 +694,7 @@
             this.lblTotPagar.Location = new System.Drawing.Point(15, 8);
             this.lblTotPagar.Name = "lblTotPagar";
             this.lblTotPagar.Size = new System.Drawing.Size(94, 13);
-            this.lblTotPagar.TabIndex = 2;
+            this.lblTotPagar.TabIndex = 0;
             this.lblTotPagar.Text = "Nombre Completo:";
             // 
             // txtPhone
@@ -704,7 +704,7 @@
             this.txtPhone.MaxLength = 13;
             this.txtPhone.Name = "txtPhone";
             this.txtPhone.Size = new System.Drawing.Size(193, 24);
-            this.txtPhone.TabIndex = 9;
+            this.txtPhone.TabIndex = 4;
             this.txtPhone.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtPhone_KeyPress);
             // 
             // txtCURP
@@ -714,7 +714,7 @@
             this.txtCURP.MaxLength = 18;
             this.txtCURP.Name = "txtCURP";
             this.txtCURP.Size = new System.Drawing.Size(199, 24);
-            this.txtCURP.TabIndex = 7;
+            this.txtCURP.TabIndex = 3;
             this.txtCURP.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtCURP_KeyPress);
             // 
             // lblTCheque
@@ -723,7 +723,7 @@
             this.lblTCheque.Location = new System.Drawing.Point(214, 52);
             this.lblTCheque.Name = "lblTCheque";
             this.lblTCheque.Size = new System.Drawing.Size(40, 13);
-            this.lblTCheque.TabIndex = 6;
+            this.lblTCheque.TabIndex = 0;
             this.lblTCheque.Text = "CURP:";
             // 
             // lblAuth
@@ -732,7 +732,7 @@
             this.lblAuth.Location = new System.Drawing.Point(15, 97);
             this.lblAuth.Name = "lblAuth";
             this.lblAuth.Size = new System.Drawing.Size(52, 13);
-            this.lblAuth.TabIndex = 8;
+            this.lblAuth.TabIndex = 0;
             this.lblAuth.Text = "Telefono:";
             // 
             // lblBank
@@ -741,7 +741,7 @@
             this.lblBank.Location = new System.Drawing.Point(15, 52);
             this.lblBank.Name = "lblBank";
             this.lblBank.Size = new System.Drawing.Size(31, 13);
-            this.lblBank.TabIndex = 4;
+            this.lblBank.TabIndex = 0;
             this.lblBank.Text = "RFC:";
             // 
             // pnlEfectivo
