@@ -31,6 +31,7 @@
             this.components = new System.ComponentModel.Container();
             this.pnlHeader = new System.Windows.Forms.Panel();
             this.tlpUsuario = new System.Windows.Forms.TableLayoutPanel();
+            this.cbxUsuario = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.tlpFecha = new System.Windows.Forms.TableLayoutPanel();
@@ -122,7 +123,6 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.lblSucursal = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.cbxUsuario = new System.Windows.Forms.ComboBox();
             this.pnlHeader.SuspendLayout();
             this.tlpUsuario.SuspendLayout();
             this.tlpFecha.SuspendLayout();
@@ -171,7 +171,15 @@
             this.tlpUsuario.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 27F));
             this.tlpUsuario.Size = new System.Drawing.Size(212, 46);
             this.tlpUsuario.TabIndex = 54;
-            this.tlpUsuario.Visible = false;
+            // 
+            // cbxUsuario
+            // 
+            this.cbxUsuario.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.cbxUsuario.FormattingEnabled = true;
+            this.cbxUsuario.Location = new System.Drawing.Point(3, 22);
+            this.cbxUsuario.Name = "cbxUsuario";
+            this.cbxUsuario.Size = new System.Drawing.Size(206, 21);
+            this.cbxUsuario.TabIndex = 55;
             // 
             // label1
             // 
@@ -992,15 +1000,6 @@
             this.label3.Size = new System.Drawing.Size(67, 17);
             this.label3.TabIndex = 5;
             this.label3.Text = "Sucursal:";
-            // 
-            // cbxUsuario
-            // 
-            this.cbxUsuario.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.cbxUsuario.FormattingEnabled = true;
-            this.cbxUsuario.Location = new System.Drawing.Point(3, 22);
-            this.cbxUsuario.Name = "cbxUsuario";
-            this.cbxUsuario.Size = new System.Drawing.Size(206, 21);
-            this.cbxUsuario.TabIndex = 55;
             // 
             // FacturacionPasada
             // 
