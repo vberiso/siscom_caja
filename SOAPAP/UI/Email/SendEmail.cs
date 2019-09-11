@@ -59,18 +59,22 @@ namespace SOAPAP.UI.Email
                 {
                     loading = new Loading();
                     loading.Show(this);
-
+                    
                     MailMessage mail = new MailMessage();
                     SmtpClient SmtpServer = null;
                     if (Variables.Configuration.IsMunicipal)
                     {
-                        SmtpServer = new SmtpClient("cuautlancingo.gob.mx");
-                        mail.From = new MailAddress("facturacion@cuautlancingo.gob.mx");
+                        SmtpServer = new SmtpClient("smtp.office365.com", 587);
+                        SmtpServer.EnableSsl = true;
+                        SmtpServer.Credentials = new System.Net.NetworkCredential("facturacion@cuautlancingo.gob.mx", "e0P?k0k8");
+                        mail.From = new MailAddress("facturacion@cuautlancingo.gob.mx", string.Empty, System.Text.Encoding.UTF8);
                     }
                     else
                     {
-                        SmtpServer = new SmtpClient("sosapac.gob.mx");
-                        mail.From = new MailAddress("facturacion@sosapac.gob.mx");
+                        SmtpServer = new SmtpClient("smtp.office365.com", 587);
+                        SmtpServer.EnableSsl = true;
+                        SmtpServer.Credentials = new System.Net.NetworkCredential("dir_sistemas@cuautlancingo.gob.mx", "Pacifico201718");
+                        mail.From = new MailAddress("sosapac@cuautlancingo.gob.mx", string.Empty, System.Text.Encoding.UTF8);                        
                     }
                    
                     mail.To.Add(txtFrom.Text);
@@ -94,15 +98,7 @@ namespace SOAPAP.UI.Email
                     Stream stream = memoryStream;
                     Attachment attachment = new Attachment(stream, string.Format("Comprobante_{0}.xml", Account), "application/xml");
                     mail.Attachments.Add(attachment);
-                    SmtpServer.Port = 25;
-                    if (Variables.Configuration.IsMunicipal)
-                    {
-                        SmtpServer.Credentials = new System.Net.NetworkCredential("facturacion@cuautlancingo.gob.mx", "e0P?k0k8");
-                    }
-                    else
-                    {
-                        SmtpServer.Credentials = new System.Net.NetworkCredential("facturacion@sosapac.gob.mx", "e0P?k0k8");
-                    }
+                    
                     SmtpServer.Send(mail);
                     loading.Close();
                     mensaje = new MessageBoxForm("Envio Exitoso", "El correo electrónico se ha enviado exitosamente", TypeIcon.Icon.Success);
