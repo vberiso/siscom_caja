@@ -413,7 +413,7 @@
             this.btnAceptar.Name = "btnAceptar";
             this.btnAceptar.Size = new System.Drawing.Size(97, 31);
             this.btnAceptar.TabIndex = 26;
-            this.btnAceptar.Text = "Facturar";
+            this.btnAceptar.Text = "Generar";
             this.btnAceptar.UseVisualStyleBackColor = false;
             this.btnAceptar.Click += new System.EventHandler(this.btnAceptar_Click);
             // 
