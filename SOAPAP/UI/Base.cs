@@ -895,12 +895,12 @@ namespace SOAPAP
                         facturacionAgrupadaCanceladasToolStripMenuItem.Available = false;
                         reportesToolStripMenuItem.Enabled = true;
                         ingresosToolStripMenuItem.Visible = true;
-                        tsmPadron.Visible = true;
-                        tsmDescargarFacturas.Visible = true;
+                        tsmPadron.Visible = true;                        
                     }
                     tslMac.Text = "ID:" + Variables.Configuration.Terminal.MacAdress;
                     tslFechaApertura.Text = "Abierta:" + (Variables.Configuration.Terminal.TerminalUsers.Count > 0 ? Variables.Configuration.Terminal.TerminalUsers.First().OpenDate.ToShortDateString() : "-");
                     tslTerminal.Text = "Terminal:" + (Variables.Configuration.Terminal.TerminalUsers.Count > 0 ? Variables.Configuration.Terminal.TerminalUsers.First().Id.ToString() : "-");
+                    tsmDescargarFacturas.Visible = true;
                 }
             }
             if (Variables.LoginModel.RolName.ToList().Find(x => x == "Super") != null)

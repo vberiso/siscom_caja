@@ -148,10 +148,10 @@ namespace SOAPAP.UI.FactPasada
                             XmlDocument xdoc = new XmlDocument();
                             xdoc.LoadXml(item.Xml);
                             xdoc.Save(System.IO.File.OpenWrite(nombrefile + ".xml"));
-
+                            
                             Count++;
                         }
-                        lblResultado.Text = "CFDIs descargados: " + Count;
+                        lblResultado.Text = "CFDIs descargados: " + Count;                        
                     }
                     else
                     {
