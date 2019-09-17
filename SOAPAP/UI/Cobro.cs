@@ -434,6 +434,15 @@ namespace SOAPAP.UI
                                 result = mensaje.ShowDialog();
                             }
 
+                            //Si es una Infraccion y tiene descuentos
+                            if (_cuenta.Substring(0, 1).Contains("I"))
+                            {
+                                if (Variables.OrderSale.OrderSaleDiscounts.Count > 0 && Variables.OrderSale.OrderSaleDiscounts.FirstOrDefault().DiscountPercentage > 0)
+                                {
+                                    mensaje = new MessageBoxForm("Aviso", "Se ha aplicado un descuento del: " + Variables.OrderSale.OrderSaleDiscounts.FirstOrDefault().DiscountPercentage + "%", TypeIcon.Icon.Info);
+                                    result = mensaje.ShowDialog();
+                                }
+                            }
                         }
                         else
                         {
