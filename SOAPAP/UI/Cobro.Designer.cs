@@ -120,12 +120,13 @@
             this.lblTxtSubtotal = new System.Windows.Forms.Label();
             this.dgvConceptosCobro = new System.Windows.Forms.DataGridView();
             this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.detail = new System.Windows.Forms.DataGridViewButtonColumn();
             this.Select = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.Type = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Description = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Importe = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewButtonColumn1 = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.detail = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.panel6 = new System.Windows.Forms.Panel();
             this.pnlHeader.SuspendLayout();
             this.pnlHeaderBuscar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbBuscar)).BeginInit();
@@ -170,6 +171,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.datadescripcion)).BeginInit();
             this.tlpTotales.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvConceptosCobro)).BeginInit();
+            this.panel6.SuspendLayout();
             this.SuspendLayout();
             // 
             // txtCuenta
@@ -192,7 +194,7 @@
             this.pnlHeader.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlHeader.Location = new System.Drawing.Point(0, 0);
             this.pnlHeader.Name = "pnlHeader";
-            this.pnlHeader.Size = new System.Drawing.Size(853, 124);
+            this.pnlHeader.Size = new System.Drawing.Size(900, 124);
             this.pnlHeader.TabIndex = 46;
             // 
             // pnlHeaderBuscar
@@ -204,7 +206,7 @@
             this.pnlHeaderBuscar.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlHeaderBuscar.Location = new System.Drawing.Point(211, 0);
             this.pnlHeaderBuscar.Name = "pnlHeaderBuscar";
-            this.pnlHeaderBuscar.Size = new System.Drawing.Size(642, 74);
+            this.pnlHeaderBuscar.Size = new System.Drawing.Size(689, 74);
             this.pnlHeaderBuscar.TabIndex = 47;
             // 
             // pbBuscar
@@ -228,7 +230,7 @@
             this.mstMenu.Dock = System.Windows.Forms.DockStyle.None;
             this.mstMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.stmiOpciones});
-            this.mstMenu.Location = new System.Drawing.Point(590, 9);
+            this.mstMenu.Location = new System.Drawing.Point(637, 9);
             this.mstMenu.Name = "mstMenu";
             this.mstMenu.Size = new System.Drawing.Size(43, 31);
             this.mstMenu.TabIndex = 0;
@@ -300,7 +302,7 @@
             this.pnlHeaderBottom.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.pnlHeaderBottom.Location = new System.Drawing.Point(211, 74);
             this.pnlHeaderBottom.Name = "pnlHeaderBottom";
-            this.pnlHeaderBottom.Size = new System.Drawing.Size(642, 50);
+            this.pnlHeaderBottom.Size = new System.Drawing.Size(689, 50);
             this.pnlHeaderBottom.TabIndex = 46;
             // 
             // pnlSubHead
@@ -313,7 +315,7 @@
             this.pnlSubHead.Location = new System.Drawing.Point(0, 10);
             this.pnlSubHead.Margin = new System.Windows.Forms.Padding(3, 3, 20, 3);
             this.pnlSubHead.Name = "pnlSubHead";
-            this.pnlSubHead.Size = new System.Drawing.Size(642, 40);
+            this.pnlSubHead.Size = new System.Drawing.Size(689, 40);
             this.pnlSubHead.TabIndex = 89;
             // 
             // cmbTipos
@@ -332,7 +334,7 @@
             // 
             this.pnlSubHeadRight.BackgroundImage = global::SOAPAP.Properties.Resources.bg_rigth;
             this.pnlSubHeadRight.Dock = System.Windows.Forms.DockStyle.Right;
-            this.pnlSubHeadRight.Location = new System.Drawing.Point(634, 0);
+            this.pnlSubHeadRight.Location = new System.Drawing.Point(681, 0);
             this.pnlSubHeadRight.Name = "pnlSubHeadRight";
             this.pnlSubHeadRight.Size = new System.Drawing.Size(8, 40);
             this.pnlSubHeadRight.TabIndex = 1;
@@ -959,12 +961,12 @@
             // 
             // pnlCobro
             // 
+            this.pnlCobro.Controls.Add(this.panel6);
             this.pnlCobro.Controls.Add(this.panelConent);
-            this.pnlCobro.Controls.Add(this.dgvConceptosCobro);
             this.pnlCobro.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlCobro.Location = new System.Drawing.Point(344, 124);
             this.pnlCobro.Name = "pnlCobro";
-            this.pnlCobro.Size = new System.Drawing.Size(509, 578);
+            this.pnlCobro.Size = new System.Drawing.Size(556, 578);
             this.pnlCobro.TabIndex = 89;
             // 
             // panelConent
@@ -974,7 +976,7 @@
             this.panelConent.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panelConent.Location = new System.Drawing.Point(0, 334);
             this.panelConent.Name = "panelConent";
-            this.panelConent.Size = new System.Drawing.Size(509, 244);
+            this.panelConent.Size = new System.Drawing.Size(556, 244);
             this.panelConent.TabIndex = 90;
             // 
             // panelDescripciones
@@ -984,7 +986,7 @@
             this.panelDescripciones.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelDescripciones.Location = new System.Drawing.Point(0, 0);
             this.panelDescripciones.Name = "panelDescripciones";
-            this.panelDescripciones.Size = new System.Drawing.Size(252, 244);
+            this.panelDescripciones.Size = new System.Drawing.Size(299, 244);
             this.panelDescripciones.TabIndex = 0;
             // 
             // datadescripcion
@@ -1002,7 +1004,7 @@
             this.datadescripcion.Margin = new System.Windows.Forms.Padding(0);
             this.datadescripcion.Name = "datadescripcion";
             this.datadescripcion.ReadOnly = true;
-            this.datadescripcion.Size = new System.Drawing.Size(252, 226);
+            this.datadescripcion.Size = new System.Drawing.Size(299, 226);
             this.datadescripcion.TabIndex = 0;
             this.datadescripcion.Visible = false;
             this.datadescripcion.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.datadescripcion_CellContentClick);
@@ -1045,7 +1047,7 @@
             this.tlpTotales.Controls.Add(this.lblTxtIva, 0, 2);
             this.tlpTotales.Controls.Add(this.lblTxtSubtotal, 0, 1);
             this.tlpTotales.Dock = System.Windows.Forms.DockStyle.Right;
-            this.tlpTotales.Location = new System.Drawing.Point(252, 0);
+            this.tlpTotales.Location = new System.Drawing.Point(299, 0);
             this.tlpTotales.Name = "tlpTotales";
             this.tlpTotales.RowCount = 8;
             this.tlpTotales.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 14.26767F));
@@ -1251,8 +1253,9 @@
             dataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.Black;
             this.dgvConceptosCobro.RowsDefaultCellStyle = dataGridViewCellStyle4;
             this.dgvConceptosCobro.RowTemplate.DefaultCellStyle.BackColor = System.Drawing.Color.White;
+            this.dgvConceptosCobro.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.dgvConceptosCobro.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvConceptosCobro.Size = new System.Drawing.Size(509, 578);
+            this.dgvConceptosCobro.Size = new System.Drawing.Size(556, 334);
             this.dgvConceptosCobro.TabIndex = 89;
             this.dgvConceptosCobro.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvConceptosCobro_CellClick);
             this.dgvConceptosCobro.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvConceptosCobro_CellDoubleClick);
@@ -1264,15 +1267,6 @@
             this.Id.HeaderText = "Id";
             this.Id.Name = "Id";
             this.Id.Visible = false;
-            // 
-            // detail
-            // 
-            this.detail.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.detail.FillWeight = 50.76143F;
-            this.detail.HeaderText = "";
-            this.detail.Name = "detail";
-            this.detail.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.detail.Width = 30;
             // 
             // Select
             // 
@@ -1316,12 +1310,32 @@
             this.dataGridViewButtonColumn1.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.dataGridViewButtonColumn1.Width = 30;
             // 
+            // detail
+            // 
+            this.detail.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.detail.FillWeight = 50.76143F;
+            this.detail.HeaderText = "";
+            this.detail.Name = "detail";
+            this.detail.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.detail.Width = 30;
+            // 
+            // panel6
+            // 
+            this.panel6.AutoSize = true;
+            this.panel6.BackColor = System.Drawing.Color.DeepSkyBlue;
+            this.panel6.Controls.Add(this.dgvConceptosCobro);
+            this.panel6.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel6.Location = new System.Drawing.Point(0, 0);
+            this.panel6.Name = "panel6";
+            this.panel6.Size = new System.Drawing.Size(556, 334);
+            this.panel6.TabIndex = 91;
+            // 
             // Cobro
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(853, 702);
+            this.ClientSize = new System.Drawing.Size(900, 702);
             this.Controls.Add(this.pnlCobro);
             this.Controls.Add(this.pnlDatos);
             this.Controls.Add(this.pnlHeader);
@@ -1378,12 +1392,14 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
             this.tableLayoutPanel5.ResumeLayout(false);
             this.pnlCobro.ResumeLayout(false);
+            this.pnlCobro.PerformLayout();
             this.panelConent.ResumeLayout(false);
             this.panelDescripciones.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.datadescripcion)).EndInit();
             this.tlpTotales.ResumeLayout(false);
             this.tlpTotales.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvConceptosCobro)).EndInit();
+            this.panel6.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -1482,5 +1498,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn fecha;
         private System.Windows.Forms.DataGridViewTextBoxColumn Observacion;
         private System.Windows.Forms.DataGridViewTextBoxColumn usuario;
+        private System.Windows.Forms.Panel panel6;
     }
 }

@@ -1287,7 +1287,7 @@ namespace SOAPAP
                                                 //}
 
                                             }
-                                            catch (Exception)
+                                            catch (Exception ex)
                                             {
 
                                             }
