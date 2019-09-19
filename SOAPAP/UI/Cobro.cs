@@ -349,6 +349,7 @@ namespace SOAPAP.UI
             lblMetrosTerreno.Text = string.Empty;
             lblUtimoAvaluo.Text = string.Empty;
             lblTipoPredio.Text = string.Empty;
+            lblTipoPredioEncabezado.Text = string.Empty;
         }
 
         private async void ObtenerInformacion()
@@ -505,6 +506,11 @@ namespace SOAPAP.UI
                             lblMetrosTerreno.Text = Variables.Agreement.AgreementDetails.FirstOrDefault().Ground.ToString();
                             lblUtimoAvaluo.Text = Variables.Agreement.AgreementDetails.FirstOrDefault().LastUpdate.ToString("dd/MM/yyyy");
                             lblTipoPredio.Text = Variables.Agreement.TypeIntake != null ? Variables.Agreement.TypeIntake.Name : "";
+                        }
+                        if (!Variables.Configuration.IsMunicipal && Variables.Agreement.TypeIntake != null)
+                        {
+                            lblEti_TipoPredioEncabezado.Visible = lblTipoPredioEncabezado.Visible = true;
+                            lblTipoPredioEncabezado.Text = Variables.Agreement.TypeIntake != null ? Variables.Agreement.TypeIntake.Name : "";
                         }
                         if (!string.IsNullOrWhiteSpace(resultAgreement))
                         {                           

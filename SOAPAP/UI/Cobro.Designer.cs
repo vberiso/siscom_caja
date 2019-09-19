@@ -29,13 +29,15 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Cobro));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle16 = new System.Windows.Forms.DataGridViewCellStyle();
             this.txtCuenta = new System.Windows.Forms.TextBox();
             this.pnlHeader = new System.Windows.Forms.Panel();
             this.pnlHeaderBuscar = new System.Windows.Forms.Panel();
+            this.lblTipoPredioEncabezado = new System.Windows.Forms.Label();
+            this.lblEti_TipoPredioEncabezado = new System.Windows.Forms.Label();
             this.pbBuscar = new System.Windows.Forms.PictureBox();
             this.mstMenu = new System.Windows.Forms.MenuStrip();
             this.stmiOpciones = new System.Windows.Forms.ToolStripMenuItem();
@@ -100,6 +102,14 @@
             this.lblBaseGravable = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.pnlCobro = new System.Windows.Forms.Panel();
+            this.panel6 = new System.Windows.Forms.Panel();
+            this.dgvConceptosCobro = new System.Windows.Forms.DataGridView();
+            this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.detail = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.Select = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.Type = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Description = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Importe = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panelConent = new System.Windows.Forms.Panel();
             this.panelDescripciones = new System.Windows.Forms.Panel();
             this.datadescripcion = new System.Windows.Forms.DataGridView();
@@ -118,15 +128,7 @@
             this.lblSubtotal = new System.Windows.Forms.Label();
             this.lblTxtIva = new System.Windows.Forms.Label();
             this.lblTxtSubtotal = new System.Windows.Forms.Label();
-            this.dgvConceptosCobro = new System.Windows.Forms.DataGridView();
-            this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Select = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.Type = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Description = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Importe = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewButtonColumn1 = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.detail = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.panel6 = new System.Windows.Forms.Panel();
             this.pnlHeader.SuspendLayout();
             this.pnlHeaderBuscar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbBuscar)).BeginInit();
@@ -166,12 +168,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
             this.tableLayoutPanel5.SuspendLayout();
             this.pnlCobro.SuspendLayout();
+            this.panel6.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvConceptosCobro)).BeginInit();
             this.panelConent.SuspendLayout();
             this.panelDescripciones.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.datadescripcion)).BeginInit();
             this.tlpTotales.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvConceptosCobro)).BeginInit();
-            this.panel6.SuspendLayout();
             this.SuspendLayout();
             // 
             // txtCuenta
@@ -199,6 +201,8 @@
             // 
             // pnlHeaderBuscar
             // 
+            this.pnlHeaderBuscar.Controls.Add(this.lblTipoPredioEncabezado);
+            this.pnlHeaderBuscar.Controls.Add(this.lblEti_TipoPredioEncabezado);
             this.pnlHeaderBuscar.Controls.Add(this.pbBuscar);
             this.pnlHeaderBuscar.Controls.Add(this.mstMenu);
             this.pnlHeaderBuscar.Controls.Add(this.txtCuenta);
@@ -208,6 +212,29 @@
             this.pnlHeaderBuscar.Name = "pnlHeaderBuscar";
             this.pnlHeaderBuscar.Size = new System.Drawing.Size(689, 74);
             this.pnlHeaderBuscar.TabIndex = 47;
+            // 
+            // lblTipoPredioEncabezado
+            // 
+            this.lblTipoPredioEncabezado.AutoSize = true;
+            this.lblTipoPredioEncabezado.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTipoPredioEncabezado.ForeColor = System.Drawing.SystemColors.Window;
+            this.lblTipoPredioEncabezado.Location = new System.Drawing.Point(412, 33);
+            this.lblTipoPredioEncabezado.Name = "lblTipoPredioEncabezado";
+            this.lblTipoPredioEncabezado.Size = new System.Drawing.Size(68, 17);
+            this.lblTipoPredioEncabezado.TabIndex = 47;
+            this.lblTipoPredioEncabezado.Text = "**********";
+            this.lblTipoPredioEncabezado.Visible = false;
+            // 
+            // lblEti_TipoPredioEncabezado
+            // 
+            this.lblEti_TipoPredioEncabezado.AutoSize = true;
+            this.lblEti_TipoPredioEncabezado.ForeColor = System.Drawing.SystemColors.Window;
+            this.lblEti_TipoPredioEncabezado.Location = new System.Drawing.Point(414, 17);
+            this.lblEti_TipoPredioEncabezado.Name = "lblEti_TipoPredioEncabezado";
+            this.lblEti_TipoPredioEncabezado.Size = new System.Drawing.Size(64, 13);
+            this.lblEti_TipoPredioEncabezado.TabIndex = 46;
+            this.lblEti_TipoPredioEncabezado.Text = "Tipo Predio:";
+            this.lblEti_TipoPredioEncabezado.Visible = false;
             // 
             // pbBuscar
             // 
@@ -969,6 +996,129 @@
             this.pnlCobro.Size = new System.Drawing.Size(556, 578);
             this.pnlCobro.TabIndex = 89;
             // 
+            // panel6
+            // 
+            this.panel6.AutoSize = true;
+            this.panel6.BackColor = System.Drawing.Color.DeepSkyBlue;
+            this.panel6.Controls.Add(this.dgvConceptosCobro);
+            this.panel6.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel6.Location = new System.Drawing.Point(0, 0);
+            this.panel6.Name = "panel6";
+            this.panel6.Size = new System.Drawing.Size(556, 334);
+            this.panel6.TabIndex = 91;
+            // 
+            // dgvConceptosCobro
+            // 
+            this.dgvConceptosCobro.AllowUserToAddRows = false;
+            this.dgvConceptosCobro.AllowUserToDeleteRows = false;
+            this.dgvConceptosCobro.AllowUserToResizeColumns = false;
+            this.dgvConceptosCobro.AllowUserToResizeRows = false;
+            this.dgvConceptosCobro.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgvConceptosCobro.BackgroundColor = System.Drawing.Color.White;
+            this.dgvConceptosCobro.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.dgvConceptosCobro.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
+            dataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle13.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle13.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle13.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle13.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle13.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            this.dgvConceptosCobro.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle13;
+            this.dgvConceptosCobro.ColumnHeadersHeight = 35;
+            this.dgvConceptosCobro.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Id,
+            this.detail,
+            this.Select,
+            this.Type,
+            this.Description,
+            this.Importe});
+            this.dgvConceptosCobro.Cursor = System.Windows.Forms.Cursors.Hand;
+            dataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle14.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle14.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle14.ForeColor = System.Drawing.Color.DimGray;
+            dataGridViewCellStyle14.SelectionBackColor = System.Drawing.Color.Silver;
+            dataGridViewCellStyle14.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle14.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvConceptosCobro.DefaultCellStyle = dataGridViewCellStyle14;
+            this.dgvConceptosCobro.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgvConceptosCobro.GridColor = System.Drawing.Color.White;
+            this.dgvConceptosCobro.Location = new System.Drawing.Point(0, 0);
+            this.dgvConceptosCobro.Margin = new System.Windows.Forms.Padding(3, 3, 10, 3);
+            this.dgvConceptosCobro.Name = "dgvConceptosCobro";
+            this.dgvConceptosCobro.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
+            dataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle15.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle15.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle15.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle15.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle15.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle15.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvConceptosCobro.RowHeadersDefaultCellStyle = dataGridViewCellStyle15;
+            this.dgvConceptosCobro.RowHeadersVisible = false;
+            dataGridViewCellStyle16.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle16.ForeColor = System.Drawing.Color.DimGray;
+            dataGridViewCellStyle16.SelectionBackColor = System.Drawing.Color.Silver;
+            dataGridViewCellStyle16.SelectionForeColor = System.Drawing.Color.Black;
+            this.dgvConceptosCobro.RowsDefaultCellStyle = dataGridViewCellStyle16;
+            this.dgvConceptosCobro.RowTemplate.DefaultCellStyle.BackColor = System.Drawing.Color.White;
+            this.dgvConceptosCobro.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.dgvConceptosCobro.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvConceptosCobro.Size = new System.Drawing.Size(556, 334);
+            this.dgvConceptosCobro.TabIndex = 89;
+            this.dgvConceptosCobro.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvConceptosCobro_CellClick);
+            this.dgvConceptosCobro.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvConceptosCobro_CellDoubleClick);
+            this.dgvConceptosCobro.CellPainting += new System.Windows.Forms.DataGridViewCellPaintingEventHandler(this.dgvConceptosCobro_CellPainting);
+            // 
+            // Id
+            // 
+            this.Id.DataPropertyName = "Id";
+            this.Id.HeaderText = "Id";
+            this.Id.Name = "Id";
+            this.Id.Visible = false;
+            // 
+            // detail
+            // 
+            this.detail.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.detail.FillWeight = 50.76143F;
+            this.detail.HeaderText = "";
+            this.detail.Name = "detail";
+            this.detail.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.detail.Width = 30;
+            // 
+            // Select
+            // 
+            this.Select.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.Select.DataPropertyName = "Select";
+            this.Select.FillWeight = 67.25129F;
+            this.Select.HeaderText = "";
+            this.Select.Name = "Select";
+            this.Select.Width = 25;
+            // 
+            // Type
+            // 
+            this.Type.DataPropertyName = "Type";
+            this.Type.FillWeight = 152.1532F;
+            this.Type.HeaderText = "Tipo";
+            this.Type.Name = "Type";
+            this.Type.ReadOnly = true;
+            // 
+            // Description
+            // 
+            this.Description.DataPropertyName = "Description";
+            this.Description.FillWeight = 77.68098F;
+            this.Description.HeaderText = "Periodo";
+            this.Description.Name = "Description";
+            this.Description.ReadOnly = true;
+            // 
+            // Importe
+            // 
+            this.Importe.DataPropertyName = "Amount";
+            this.Importe.FillWeight = 152.1532F;
+            this.Importe.HeaderText = "Importe";
+            this.Importe.Name = "Importe";
+            this.Importe.ReadOnly = true;
+            // 
             // panelConent
             // 
             this.panelConent.Controls.Add(this.panelDescripciones);
@@ -1198,109 +1348,6 @@
             this.lblTxtSubtotal.Text = "Subtotal:";
             this.lblTxtSubtotal.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // dgvConceptosCobro
-            // 
-            this.dgvConceptosCobro.AllowUserToAddRows = false;
-            this.dgvConceptosCobro.AllowUserToDeleteRows = false;
-            this.dgvConceptosCobro.AllowUserToResizeColumns = false;
-            this.dgvConceptosCobro.AllowUserToResizeRows = false;
-            this.dgvConceptosCobro.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dgvConceptosCobro.BackgroundColor = System.Drawing.Color.White;
-            this.dgvConceptosCobro.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.dgvConceptosCobro.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            this.dgvConceptosCobro.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
-            this.dgvConceptosCobro.ColumnHeadersHeight = 35;
-            this.dgvConceptosCobro.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Id,
-            this.detail,
-            this.Select,
-            this.Type,
-            this.Description,
-            this.Importe});
-            this.dgvConceptosCobro.Cursor = System.Windows.Forms.Cursors.Hand;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.DimGray;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.Silver;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvConceptosCobro.DefaultCellStyle = dataGridViewCellStyle2;
-            this.dgvConceptosCobro.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgvConceptosCobro.GridColor = System.Drawing.Color.White;
-            this.dgvConceptosCobro.Location = new System.Drawing.Point(0, 0);
-            this.dgvConceptosCobro.Margin = new System.Windows.Forms.Padding(3, 3, 10, 3);
-            this.dgvConceptosCobro.Name = "dgvConceptosCobro";
-            this.dgvConceptosCobro.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvConceptosCobro.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
-            this.dgvConceptosCobro.RowHeadersVisible = false;
-            dataGridViewCellStyle4.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle4.ForeColor = System.Drawing.Color.DimGray;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.Silver;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.Black;
-            this.dgvConceptosCobro.RowsDefaultCellStyle = dataGridViewCellStyle4;
-            this.dgvConceptosCobro.RowTemplate.DefaultCellStyle.BackColor = System.Drawing.Color.White;
-            this.dgvConceptosCobro.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.dgvConceptosCobro.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvConceptosCobro.Size = new System.Drawing.Size(556, 334);
-            this.dgvConceptosCobro.TabIndex = 89;
-            this.dgvConceptosCobro.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvConceptosCobro_CellClick);
-            this.dgvConceptosCobro.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvConceptosCobro_CellDoubleClick);
-            this.dgvConceptosCobro.CellPainting += new System.Windows.Forms.DataGridViewCellPaintingEventHandler(this.dgvConceptosCobro_CellPainting);
-            // 
-            // Id
-            // 
-            this.Id.DataPropertyName = "Id";
-            this.Id.HeaderText = "Id";
-            this.Id.Name = "Id";
-            this.Id.Visible = false;
-            // 
-            // Select
-            // 
-            this.Select.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.Select.DataPropertyName = "Select";
-            this.Select.FillWeight = 67.25129F;
-            this.Select.HeaderText = "";
-            this.Select.Name = "Select";
-            this.Select.Width = 25;
-            // 
-            // Type
-            // 
-            this.Type.DataPropertyName = "Type";
-            this.Type.FillWeight = 152.1532F;
-            this.Type.HeaderText = "Tipo";
-            this.Type.Name = "Type";
-            this.Type.ReadOnly = true;
-            // 
-            // Description
-            // 
-            this.Description.DataPropertyName = "Description";
-            this.Description.FillWeight = 77.68098F;
-            this.Description.HeaderText = "Periodo";
-            this.Description.Name = "Description";
-            this.Description.ReadOnly = true;
-            // 
-            // Importe
-            // 
-            this.Importe.DataPropertyName = "Amount";
-            this.Importe.FillWeight = 152.1532F;
-            this.Importe.HeaderText = "Importe";
-            this.Importe.Name = "Importe";
-            this.Importe.ReadOnly = true;
-            // 
             // dataGridViewButtonColumn1
             // 
             this.dataGridViewButtonColumn1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
@@ -1309,26 +1356,6 @@
             this.dataGridViewButtonColumn1.Name = "dataGridViewButtonColumn1";
             this.dataGridViewButtonColumn1.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.dataGridViewButtonColumn1.Width = 30;
-            // 
-            // detail
-            // 
-            this.detail.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.detail.FillWeight = 50.76143F;
-            this.detail.HeaderText = "";
-            this.detail.Name = "detail";
-            this.detail.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.detail.Width = 30;
-            // 
-            // panel6
-            // 
-            this.panel6.AutoSize = true;
-            this.panel6.BackColor = System.Drawing.Color.DeepSkyBlue;
-            this.panel6.Controls.Add(this.dgvConceptosCobro);
-            this.panel6.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel6.Location = new System.Drawing.Point(0, 0);
-            this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(556, 334);
-            this.panel6.TabIndex = 91;
             // 
             // Cobro
             // 
@@ -1393,13 +1420,13 @@
             this.tableLayoutPanel5.ResumeLayout(false);
             this.pnlCobro.ResumeLayout(false);
             this.pnlCobro.PerformLayout();
+            this.panel6.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvConceptosCobro)).EndInit();
             this.panelConent.ResumeLayout(false);
             this.panelDescripciones.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.datadescripcion)).EndInit();
             this.tlpTotales.ResumeLayout(false);
             this.tlpTotales.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvConceptosCobro)).EndInit();
-            this.panel6.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -1499,5 +1526,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Observacion;
         private System.Windows.Forms.DataGridViewTextBoxColumn usuario;
         private System.Windows.Forms.Panel panel6;
+        private System.Windows.Forms.Label lblTipoPredioEncabezado;
+        private System.Windows.Forms.Label lblEti_TipoPredioEncabezado;
     }
 }
