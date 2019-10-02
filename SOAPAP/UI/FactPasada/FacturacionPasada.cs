@@ -179,7 +179,7 @@ namespace SOAPAP.UI.FactPasada
             string transactionId = row.Cells["idTransactionDataGridViewTextBoxColumn"].Value.ToString();
             int paymentId = int.Parse(row.Cells["idPaymentDataGridViewTextBoxColumn"].Value.ToString());
             string Cuenta = row.Cells["CuentaDataGridViewTextBoxColumn"].Value.ToString();
-            string Cliente = row.Cells["ClienteDataGridViewTextBoxColumn"].Value.ToString();
+            string Cliente = row.Cells["ClienteDataGridViewTextBoxColumn"].Value != null ? row.Cells["ClienteDataGridViewTextBoxColumn"].Value.ToString() : "";
             bool EstaFacturado = (bool)row.Cells["haveInvoiceDataGridViewCheckBoxColumn"].Value;
             
             if (dgvMovimientos.Columns[e.ColumnIndex].Name == "Facturar")
@@ -346,7 +346,7 @@ namespace SOAPAP.UI.FactPasada
                     btnActualizar.PerformClick();
                 }                    
             }
-            if (EstaFacturado && Operacion == "Cancelacion")
+            if (EstaFacturado && Operacion.Contains("Cancela"))
             {
                 Fac = new Facturaelectronica();
                 string temp = await Fac.actualizaPdf(transactionId, true);

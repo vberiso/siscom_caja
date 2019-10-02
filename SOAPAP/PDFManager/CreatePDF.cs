@@ -398,42 +398,82 @@ namespace SOAPAP.PDFManager
 
             //Foreach Concepts
             int cont = 0;
-            TraVM.payment.PaymentDetails.ToList().ForEach(pd =>
+            decimal totalDescuento = 0;            
+            decimal AdeudoTotal = TraVM.payment.PaymentDetails.GroupBy(g => g.Debt.Id).Select(g => g.First()).Sum(gg => gg.Debt.Amount) + TraVM.payment.PaymentDetails.Sum(x => x.Tax);
+            if (AdeudoTotal == TraVM.payment.Total) //Pago total
             {
-                var CodeConcept = pd.CodeConcept;
-                var tmpIdDebt = pd.DebtId;
-                string ProductCode = TraVM.ClavesProdServ.Where(c => c.CodeConcep == CodeConcept).FirstOrDefault().ClaveProdServ;
-                string UnitCode = TraVM.payment.PaymentDetails.Where(p => p.CodeConcept == CodeConcept).FirstOrDefault().UnitMeasurement;
-                decimal Descuento = 0;
-                if (TraVM.payment.Type != "PAY04")
-                    Descuento = pd.Debt.DebtDiscounts.Where(d => d.CodeConcept == CodeConcept && d.DebtId == tmpIdDebt).Select(y => y.DiscountAmount).FirstOrDefault();
-                else
-                    Descuento = 0;
+                TraVM.payment.PaymentDetails.ToList().ForEach(pd =>
+                {
+                    var CodeConcept = pd.CodeConcept;
+                    var tmpIdDebt = pd.DebtId;
+                    string ProductCode = TraVM.ClavesProdServ.Where(c => c.CodeConcep == CodeConcept).FirstOrDefault().ClaveProdServ;
+                    string UnitCode = TraVM.payment.PaymentDetails.Where(p => p.CodeConcept == CodeConcept).FirstOrDefault().UnitMeasurement;
+                    decimal Descuento = 0;
+                    if (TraVM.payment.Type != "PAY04")
+                        Descuento = pd.Debt.DebtDiscounts.Where(d => d.CodeConcept == CodeConcept && d.DebtId == tmpIdDebt).Select(y => y.DiscountAmount).FirstOrDefault();
+                    else
+                        Descuento = 0;
 
-                builder.Append(@"<tr>");
-                builder.Append(@"<td>" + ProductCode + "</td>");
-                builder.Append(@"<td>" + UnitCode + "</td>");
-                builder.Append(@"<td>" + Cfdi.Items[cont].Description + "</td>");
-                builder.Append(@"<td>" + Cfdi.Items[cont].Quantity + "</td>");
-                builder.Append(@"<td>" + string.Format(new CultureInfo("es-MX"), "{0:C2}", Cfdi.Items[cont].UnitValue) + "</td>");
-                builder.Append(@"<td>" + string.Format(new CultureInfo("es-MX"), "{0:C2}", Descuento) + "</td>");
-                builder.Append(@"<td>" + string.Format(new CultureInfo("es-MX"), "{0:C2}", Cfdi.Items[cont].Total - Descuento) + "</td>");
-                builder.Append(@"</tr>");
-                cont++;
-            });
+                    builder.Append(@"<tr>");
+                    builder.Append(@"<td>" + ProductCode + "</td>");
+                    builder.Append(@"<td>" + UnitCode + "</td>");
+                    builder.Append(@"<td>" + Cfdi.Items[cont].Description + "</td>");
+                    builder.Append(@"<td>" + Cfdi.Items[cont].Quantity + "</td>");
+                    builder.Append(@"<td>" + string.Format(new CultureInfo("es-MX"), "{0:C2}", Cfdi.Items[cont].UnitValue) + "</td>");
+                    builder.Append(@"<td>" + string.Format(new CultureInfo("es-MX"), "{0:C2}", Descuento) + "</td>");
+                    builder.Append(@"<td>" + string.Format(new CultureInfo("es-MX"), "{0:C2}", Cfdi.Items[cont].Total - Descuento) + "</td>");
+                    builder.Append(@"</tr>");
+                    cont++;
+                    totalDescuento += Descuento;
+                });
+            }
+            else     //Pago Parcial
+            {
+                TraVM.payment.PaymentDetails.ToList().ForEach(pd =>
+                {
+                    //Calculo del unit price.
+                    decimal tmpSubtotal = 0, tmpValorUnitario = 0, tmpDescuento = 0, tmpQuantity = 0;
+                    if (pd.Debt.DebtDiscounts.ToList().Count > 0)
+                    {
+                        tmpQuantity = pd.Debt.DebtDetails.FirstOrDefault(DDis => DDis.DebtId == pd.DebtId && DDis.CodeConcept == pd.CodeConcept).quantity;
+                        var OriginalAmount = pd.Debt.DebtDiscounts.FirstOrDefault(DDis => DDis.DebtId == pd.DebtId && DDis.CodeConcept == pd.CodeConcept).OriginalAmount;
+                        var DiscountAmount = pd.Debt.DebtDiscounts.FirstOrDefault(DDis => DDis.DebtId == pd.DebtId && DDis.CodeConcept == pd.CodeConcept).DiscountAmount;
+                        var DescuentoProporcion = (DiscountAmount * pd.Amount) / (OriginalAmount - DiscountAmount);
+                        tmpSubtotal = pd.Amount + DiscountAmount; 
+                        tmpValorUnitario = OriginalAmount/tmpQuantity;
+                        tmpDescuento = DiscountAmount;
 
+                        totalDescuento += DescuentoProporcion;
+                    }
+                    else
+                    {
+                        tmpQuantity = pd.Debt.DebtDetails.FirstOrDefault(DDis => DDis.DebtId == pd.DebtId && DDis.CodeConcept == pd.CodeConcept).quantity;
+                        tmpValorUnitario = pd.Debt.DebtDetails.FirstOrDefault(dd => dd.DebtId == pd.DebtId && dd.CodeConcept == pd.CodeConcept).Amount / tmpQuantity;
+                        tmpSubtotal = pd.Amount;
+                        tmpDescuento = 0;
+                    }
+                                       
+                    string ProductCode = TraVM.ClavesProdServ.Where(c => c.CodeConcep == pd.CodeConcept).FirstOrDefault().ClaveProdServ;
+                    string UnitCode = TraVM.payment.PaymentDetails.Where(p => p.CodeConcept == pd.CodeConcept).FirstOrDefault().UnitMeasurement;
+                    
+                    builder.Append(@"<tr>");
+                    builder.Append(@"<td>" + ProductCode + "</td>");
+                    builder.Append(@"<td>" + UnitCode + "</td>");
+                    builder.Append(@"<td>" + Cfdi.Items[cont].Description + "</td>");
+                    builder.Append(@"<td>" + tmpQuantity + "</td>");
+                    builder.Append(@"<td>" + string.Format(new CultureInfo("es-MX"), "{0:C2}", tmpValorUnitario) + "</td>");
+                    builder.Append(@"<td>" + string.Format(new CultureInfo("es-MX"), "{0:C2}", tmpDescuento) + "</td>");
+                    builder.Append(@"<td>" + string.Format(new CultureInfo("es-MX"), "{0:C2}", tmpSubtotal - tmpDescuento) + "</td>");
+                    builder.Append(@"</tr>");
+                    cont++;                    
+                });
+            }             
             //End Foreach
             builder.Append(@"</table></div>");
 
             builder.Append(@"<div class='datos_sub_moneda' style='margin-bottom:5px;'>");
             builder.Append(@"<div style='text-align: left; display: inline-block; width:70%; font-size: 12px; font-family:\""Montserrat\"", sans-serif;'>");
-            //CfdiMulti.Items.ForEach(x =>
-            //{
-            //    if (x.Taxes != null)
-            //    {
-            //        havtax = true;
-            //    }
-            //});
+            
             if (!havtax)
             {
                 builder.Append(@"<p style='margin-top: 0px;margin-bottom: 0px; font-size:14px;'>" + let.ToCustomCardinal(Cfdi.Total).ToUpperInvariant() + "M.N</p></div>"); //Numero a letras
@@ -443,9 +483,23 @@ namespace SOAPAP.PDFManager
                 builder.Append(@"<p style='margin-top: 0px;margin-bottom: 0px; font-size:14px;'>" + let.ToCustomCardinal(((double)Cfdi.Total)).ToUpperInvariant() + "M.N</p></div>"); //Numero a letras
             }
             builder.Append(@"<div style='text-align: right; display: inline-block; width: 20%; font-size: 14px; font-family:\""Montserrat\"", sans-serif;'>");
-            builder.Append(@"<p style='margin-top: 0px;margin-bottom: 0px; font-size: 14px;'>SubTotal: </p></div>");
+            if (AdeudoTotal == TraVM.payment.Total)   //Pago Total
+                builder.Append(@"<p style='margin-top: 0px;margin-bottom: 0px; font-size: 14px;'>SubTotal: </p></div>");
+            else    //Pago parcial
+                builder.Append(@"<p style='margin-top: 0px;margin-bottom: 0px; font-size: 14px;'>SubTotalParcial: </p></div>");
             builder.Append(@"<div style='text-align: right; display: inline-block; width: 5%; font-size: 14px; font-family:\""Montserrat\"", sans-serif;'>");
             builder.Append(@"<p style='margin-top: 20px;margin-bottom: 0px; font-size: 14px;'>" + string.Format(new CultureInfo("es-MX"), "{0:C2}", Cfdi.Subtotal) + "</p></div></div>"); //subtotal
+
+            builder.Append(@"<div style='text-align: right; display: inline-block; width: 90%; font-size: 14px;'>");
+            if (AdeudoTotal == TraVM.payment.Total)   //Pago Total
+                builder.Append(@"<p style='margin-top: 0px;margin-bottom: 0px; font-size: 14px;'>DescTotal:</p>");
+            else   //Pago Parcial
+                builder.Append(@"<p style='margin-top: 0px;margin-bottom: 0px; font-size: 14px;'>DescParcialTotal:</p>");
+            builder.Append("</div>");
+            builder.Append(@"<div style='text-align: right; display: inline-block; width: 4.3%; font-size: 14px;'>");
+            builder.Append(@"<p style='margin-top: 0px;margin-bottom: 0px; font-size: 14px;'>" + string.Format(new CultureInfo("es-MX"), "{0:C2}", totalDescuento ) + "</p>");
+            builder.Append("</div>");
+
             builder.Append(@"<div style='text-align: right; display: inline-block; width: 90%; font-size: 14px;'>");
             if (!Variables.Configuration.IsMunicipal)
             {
@@ -476,7 +530,10 @@ namespace SOAPAP.PDFManager
             builder.Append(@"<div style='text-align: left; display: inline-block; width:60%; font-size: 14px; font-family:\""Montserrat\"", sans-serif;'>");
             builder.Append(@"<p style='margin-top: 0px;margin-bottom: 0px;'>MXN</p></div>"); //tipo Moneda
             builder.Append(@"<div style='text-align: right; display: inline-block; width: 19.6%; font-size: 14px; font-family:\""Montserrat\"", sans-serif;'>");
-            builder.Append(@"<p style='margin-top: 0px;margin-bottom: 0px;'>Total:</p></div>");
+            if (AdeudoTotal == TraVM.payment.Total)
+                builder.Append(@"<p style='margin-top: 0px;margin-bottom: 0px;'>Total:</p></div>");
+            else
+                builder.Append(@"<p style='margin-top: 0px;margin-bottom: 0px;'>ParcialTotal:</p></div>");
             builder.Append(@"<div style='text-align: right; display: inline-block; width: 5.1%; font-size: 14px; font-family:\""Montserrat\"", sans-serif;'>");
             if (havtax)
             {
@@ -665,29 +722,31 @@ namespace SOAPAP.PDFManager
             builder.Append(@"<table style='font-size: 14px;>");
             builder.Append(@"<tr>");
             String[] code_concepts = {
-                                    "3118",
                                     "3114",
+                                    "3115",
+                                    "3116",
+                                    "3117",
+                                    "3118",                                    
+                                    "3119",
+                                    "3120",
+                                    "3121",
+                                    "3199",
+                                    "3203",
                                     "3204",
                                     "3205",
                                     "3206",
                                     "3207",
                                     "3208",
-                                    "3209",
-                                    "3121",
-                                    "3120",
-                                    "3199",
-                                    "3210",
-                                    "3218",
+                                    "3209",                                   
+                                    "3210",                                    
                                     "3211",
                                     "3212",
                                     "3213",
-                                    "3115",
-                                    "3116",
-                                    "3117",
+                                    "3214",
+                                    "3215",
                                     "3216",
                                     "3217",
-                                    "3119",
-                                    "3220",
+                                    "3218"
                                 };
 
             bool is_participaciones = false;
@@ -750,7 +809,7 @@ namespace SOAPAP.PDFManager
             builder.Append(@" </tr>");
             //Foreach Concepts
             int cont = 0;
-
+            decimal totalDescuento = 0;
             TraVM.orderSale.OrderSaleDetails.ToList().ForEach(osd =>
             {
                 var ProductCode = TraVM.ClavesProdServ.Where(c => c.CodeConcep == osd.CodeConcept).FirstOrDefault().ClaveProdServ;
@@ -776,6 +835,7 @@ namespace SOAPAP.PDFManager
                 builder.Append(@"<td>" + string.Format(new CultureInfo("es-MX"), "{0:C2}", Cfdi.Items[cont].Total - Discount) + "</td>");
                 builder.Append(@"</tr>");
                 cont++;
+                totalDescuento += Discount;
             });
             //Cfdi.Items.ToList().ForEach(x =>
             //{
@@ -807,14 +867,7 @@ namespace SOAPAP.PDFManager
             builder.Append(@"</table></div>");
 
             builder.Append(@"<div class='datos_sub_moneda' style='margin-bottom:5px;'>");
-            builder.Append(@"<div style='text-align: left; display: inline-block; width:70%; font-size: 12px; font-family:\""Montserrat\"", sans-serif;'>");
-            //CfdiMulti.Items.ForEach(x =>
-            //{
-            //    if (x.Taxes != null)
-            //    {
-            //        havtax = true;
-            //    }
-            //});
+            builder.Append(@"<div style='text-align: left; display: inline-block; width:70%; font-size: 12px; font-family:\""Montserrat\"", sans-serif;'>");            
             if (!havtax)
             {
                 builder.Append(@"<p style='margin-top: 0px;margin-bottom: 0px; font-size:14px;'>" + let.ToCustomCardinal(Cfdi.Total).ToUpperInvariant() + "M.N</p></div>"); //Numero a letras
@@ -827,6 +880,14 @@ namespace SOAPAP.PDFManager
             builder.Append(@"<p style='margin-top: 0px;margin-bottom: 0px;'>SubTotal: </p></div>");
             builder.Append(@"<div style='text-align: right; display: inline-block; width: 5%; font-size: 14px; font-family:\""Montserrat\"", sans-serif;'>");
             builder.Append(@"<p style='margin-top: 20px;margin-bottom: 0px; font-size: 14px;'>" + string.Format(new CultureInfo("es-MX"), "{0:C2}", Cfdi.Subtotal) + "</p></div></div>"); //subtotal
+
+            builder.Append(@"<div style='text-align: right; display: inline-block; width: 90%; font-size: 14px;'>");
+            builder.Append(@"<p style='margin-top: 0px;margin-bottom: 0px; font-size: 14px;'>DescTotal:</p>");
+            builder.Append("</div>");
+            builder.Append(@"<div style='text-align: right; display: inline-block; width: 4.3%; font-size: 14px;'>");
+            builder.Append(@"<p style='margin-top: 0px;margin-bottom: 0px; font-size: 14px;'>" + string.Format(new CultureInfo("es-MX"), "{0:C2}", totalDescuento) + "</p>");
+            builder.Append("</div>");
+
             builder.Append(@"<div style='text-align: right; display: inline-block; width: 90%; font-size: 14px;'>");
             if (!Variables.Configuration.IsMunicipal)
             {

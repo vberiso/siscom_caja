@@ -898,7 +898,10 @@ namespace SOAPAP.UI
                                     }
 
                                 });
-                                onAccount = Convert.ToDecimal((x.DebtDetails.Sum(z => (z.OnPayment)) + ivaTotal).ToString("#.##"));
+                                if ((x.DebtDetails.Sum(z => (z.OnPayment)) + ivaTotal) > 0)
+                                    onAccount = Convert.ToDecimal((x.DebtDetails.Sum(z => (z.OnPayment)) + ivaTotal).ToString("#.##"));
+                                else
+                                    onAccount = 0;
 
                                 x.NewStatus = "ED005";
                                 x.OnAccount = total;
@@ -915,7 +918,7 @@ namespace SOAPAP.UI
                     pagado = 0;
                     ivaTotal = 0;
 
-                    Debts.ToList().ForEach(x =>
+                    Debts.Where(x => x.Type != "TIP02").ToList().ForEach(x =>
                     {
                         TotalIva = 0;
                         x.DebtDetails.ToList().ForEach(y =>
@@ -948,7 +951,10 @@ namespace SOAPAP.UI
                                     pagado += y.OnPayment;
                                 }
                             });
-                            onAccount = Convert.ToDecimal((x.DebtDetails.Sum(z => (z.OnPayment)) + ivaTotal).ToString("#.##"));
+                            if ((x.DebtDetails.Sum(z => (z.OnPayment)) + ivaTotal) > 0)
+                                onAccount = Convert.ToDecimal((x.DebtDetails.Sum(z => (z.OnPayment)) + ivaTotal).ToString("#.##"));
+                            else
+                                onAccount = 0;
 
                             x.NewStatus = "ED005";
                             x.OnAccount = total;
@@ -1118,6 +1124,30 @@ namespace SOAPAP.UI
 
                 if (validResponse)
                 {
+                    //Se lanza al orden de trabajo para el caso de reconección.
+                    if(Variables.Agreement.TypeStateServiceId == 3)
+                    {
+                        string[] ids = new string[] { paymentVM.Transaction.AgreementId.ToString() };
+                        var data = new { isAgreement = 1, ids, applicant = Variables.LoginModel.FullName, typeOrder = "OT003", Observation = "Orden de reconección", Activities = "Reconección" };                       
+                        var a = JsonConvert.SerializeObject(data);
+                        HttpContent content = new StringContent(a, Encoding.UTF8, "application/json");
+                        //TODO
+                        string resOrWo = string.Empty;
+                        resOrWo = await Requests.SendURIAsync("/api/OrderWork/OrderWorks", HttpMethod.Post, Variables.LoginModel.Token, content);
+                        if (resOrWo.Contains("error"))
+                        {
+                            mensaje = new MessageBoxForm("Error", resOrWo, TypeIcon.Icon.Warning);
+                            result = mensaje.ShowDialog();
+                            //this.Close();                           
+                        }
+                        else
+                        {
+                            mensaje = new MessageBoxForm("Orden solicitada.", "Se realizo la orden de reconección para esta cuenta", TypeIcon.Icon.Success);
+                            result = mensaje.ShowDialog();
+                            //this.Close();
+                        }
+                    }
+
                     dt = await q.GETTransactionID("/api/Transaction/" + resultados);
                     Variables.idtransaction = Convert.ToInt32(resultados);
                     loading.Close();

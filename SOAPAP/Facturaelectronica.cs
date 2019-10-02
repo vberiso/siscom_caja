@@ -844,7 +844,7 @@ namespace SOAPAP
                 }
                                 
                 
-                string registro = RegitraEmisor();
+                //string registro = RegitraEmisor();
 
 
                 string seriefolio = TraVM.transaction.transactionFolios.FirstOrDefault().folio.ToString();
@@ -1018,7 +1018,7 @@ namespace SOAPAP
                 //xml = xml + "<cfdi:Conceptos>";
                 string TipoFactura = "", msgPagoParcial = "";
                 List<Item> lstItems = new List<Item>();
-                if(TraVM.payment.Type == "PAY04")
+                if(TraVM.payment.Type == "PAY04")   //Pago Anticipado.
                 {
                     TipoFactura = "CAT01";
                     SOAPAP.Model.PaymentDetail PD = TraVM.payment.PaymentDetails.FirstOrDefault();
@@ -1040,28 +1040,12 @@ namespace SOAPAP
                 else if (TraVM.payment.OrderSaleId == 0) //Servicio
                 {
                     TipoFactura = "CAT01";
-                    decimal AdeudoTotal = TraVM.payment.PaymentDetails.GroupBy(g => g.Debt.Id).Sum(gg => gg.ToList().Sum(x => x.Amount)) + TraVM.payment.PaymentDetails.Sum(x => x.Tax);
+                    decimal AdeudoTotal = TraVM.payment.PaymentDetails.GroupBy(g => g.Debt.Id).Select(g => g.First()).Sum(gg => gg.Debt.Amount) + TraVM.payment.PaymentDetails.Sum(x => x.Tax);
 
                     if (AdeudoTotal == TraVM.payment.Total) //Pago total
-                    {
-                        //List<SOAPAP.Model.DebtDetail> lstDD = new List<DebtDetail>(); //TraVM.payment.PaymentDetails.FirstOrDefault().Debt.DebtDetails.ToList();
-                        //foreach(var item in TraVM.payment.PaymentDetails.GroupBy(x => x.Debt.Id).Select(group => new { id = group.Key, detail = group.ToList().FirstOrDefault().Debt.DebtDetails.ToList() }).ToList())
-                        //{
-                        //    lstDD.AddRange(item.detail);
-                        //}
-                        //List<SOAPAP.Model.DebtDiscount> lstDDis = new List<DebtDiscount>(); //TraVM.payment.PaymentDetails.FirstOrDefault().Debt.DebtDiscounts.ToList();
-                        //foreach(var item in TraVM.payment.PaymentDetails.GroupBy(x => x.Debt.Id).Select(group => new { id = group.Key, detail = group.ToList().FirstOrDefault().Debt.DebtDiscounts.ToList() }).ToList())
-                        //{
-                        //    lstDDis.AddRange(item.detail);
-                        //}
-
+                    {                        
                         foreach (var pay in TraVM.payment.PaymentDetails.ToList())
-                        {
-                            ////Calculo del unit price.
-                            //decimal tmpSubtotal = lstDD.Where(x => x.CodeConcept == pay.CodeConcept).Select(y => y.Amount).FirstOrDefault() + lstDDis.Where(x => x.CodeConcept == pay.CodeConcept).Select(y => y.DiscountAmount).FirstOrDefault();
-                            //decimal tmpQuantity = lstDD.Where(x => x.CodeConcept == pay.CodeConcept).Select(y => y.quantity).FirstOrDefault();
-                            //decimal tmpValorUnitario = Math.Round(tmpSubtotal / tmpQuantity, 2);
-
+                        {                           
                             //Calculo del unit price.
                             decimal tmpSubtotal = 0, tmpQuantity = 1, tmpValorUnitario = 0, tmpDescuento = 0;
                             if (pay.Debt.DebtDiscounts.ToList().Count > 0)
@@ -1125,10 +1109,10 @@ namespace SOAPAP
                                 var OriginalAmount = pay.Debt.DebtDiscounts.FirstOrDefault(DDis => DDis.DebtId == pay.DebtId && DDis.CodeConcept == pay.CodeConcept).OriginalAmount;
                                 var DiscountAmount = pay.Debt.DebtDiscounts.FirstOrDefault(DDis => DDis.DebtId == pay.DebtId && DDis.CodeConcept == pay.CodeConcept).DiscountAmount;
                                 var DescuentoProporcion = (DiscountAmount * pay.Amount) / (OriginalAmount - DiscountAmount);
-                                tmpSubtotal = pay.Amount + DescuentoProporcion;
+                                tmpSubtotal = decimal.Round(pay.Amount + DescuentoProporcion, 2);
                                 tmpQuantity = 1;
                                 tmpValorUnitario = tmpSubtotal;
-                                tmpDescuento = DescuentoProporcion;
+                                tmpDescuento = decimal.Round(DescuentoProporcion, 2);
                             }
                             else
                             {
@@ -1322,11 +1306,14 @@ namespace SOAPAP
                 }
                 //Si es un pago parcial.
                 if (!string.IsNullOrEmpty(msgPagoParcial))
-                    msgObservacionFactura += msgObservacionFactura != "" ? ", " + msgPagoParcial : "";
+                    msgObservacionFactura += msgObservacionFactura != "" ? ", " + msgPagoParcial : msgPagoParcial;
 
                 //Si hay observaciones en la Orden o el debt                
                 if (TraVM.payment.OrderSaleId == 0)
-                    msgObservacionFactura += (string.IsNullOrEmpty(TraVM.payment.PaymentDetails.FirstOrDefault().Debt.observations) ? "" : ", " + TraVM.payment.PaymentDetails.FirstOrDefault().Debt.observations);
+                {
+                    if (!string.IsNullOrEmpty(TraVM.payment.PaymentDetails.FirstOrDefault().Debt.observations))
+                        msgObservacionFactura += (msgObservacionFactura != "" ? ", " + TraVM.payment.PaymentDetails.FirstOrDefault().Debt.observations : TraVM.payment.PaymentDetails.FirstOrDefault().Debt.observations);
+                }                    
                 else if (!string.IsNullOrEmpty(TraVM.orderSale.Observation))
                     msgObservacionFactura += msgObservacionFactura != "" ? ", " + TraVM.orderSale.Observation : TraVM.orderSale.Observation;
 
@@ -1411,12 +1398,18 @@ namespace SOAPAP
             }
             catch (FacturamaException ex)
             {
-                string error = "Detalle: ";
-                foreach (var messageDetail in ex.Model.Details)
+                string error = "";
+                if(ex.Model.Details.Count > 0)
                 {
-                    //error = $"{messageDetail.Key}: {string.Join(",", messageDetail.Value)}";
-                    error += "(" + messageDetail.Value.Aggregate("", (current, next) => current + ", " + next).Substring(2) + ") ";
-                }                
+                    foreach (var messageDetail in ex.Model.Details)
+                    {
+                        //error = $"{messageDetail.Key}: {string.Join(",", messageDetail.Value)}";
+                        error += "(" + messageDetail.Value.Aggregate("", (current, next) => current + ", " + next).Substring(2) + ") ";
+                    }
+                }
+                else
+                    error = "Detalle: " + ex.Message;
+
                 cfdistatus[0] = null;
                 //cfdistatus[1] = "{\"error\": \"" + ex.Message + "\", " + error + "}";
                 cfdistatus[1] = error;
@@ -1446,11 +1439,11 @@ namespace SOAPAP
                     //    PrivateKeyPassword = "Cuau1312"
                     //};
 
-                    //11-Sep-2019
+                    //18-Sep-2019
                     csdRequest = new Csd
                     {
                         Rfc = "MCP850101944",
-                        Certificate = "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",
+                        Certificate = "MIIGKTCCBBGgAwIBAgIUMDAwMDEwMDAwMDA1MDEyODY1NzYwDQYJKoZIhvcNAQELBQAwggGEMSAwHgYDVQQDDBdBVVRPUklEQUQgQ0VSVElGSUNBRE9SQTEuMCwGA1UECgwlU0VSVklDSU8gREUgQURNSU5JU1RSQUNJT04gVFJJQlVUQVJJQTEaMBgGA1UECwwRU0FULUlFUyBBdXRob3JpdHkxKjAoBgkqhkiG9w0BCQEWG2NvbnRhY3RvLnRlY25pY29Ac2F0LmdvYi5teDEmMCQGA1UECQwdQVYuIEhJREFMR08gNzcsIENPTC4gR1VFUlJFUk8xDjAMBgNVBBEMBTA2MzAwMQswCQYDVQQGEwJNWDEZMBcGA1UECAwQQ0lVREFEIERFIE1FWElDTzETMBEGA1UEBwwKQ1VBVUhURU1PQzEVMBMGA1UELRMMU0FUOTcwNzAxTk4zMVwwWgYJKoZIhvcNAQkCE01yZXNwb25zYWJsZTogQURNSU5JU1RSQUNJT04gQ0VOVFJBTCBERSBTRVJWSUNJT1MgVFJJQlVUQVJJT1MgQUwgQ09OVFJJQlVZRU5URTAeFw0xOTA5MDYxNjMwMTZaFw0yMzA5MDYxNjMwMTZaMIH3MSowKAYDVQQDEyFNVU5JQ0lQSU8gREUgQ1VBVVRMQU5DSU5HTyBQVUVCTEExKjAoBgNVBCkTIU1VTklDSVBJTyBERSBDVUFVVExBTkNJTkdPIFBVRUJMQTEqMCgGA1UEChMhTVVOSUNJUElPIERFIENVQVVUTEFOQ0lOR08gUFVFQkxBMSUwIwYDVQQtExxNQ1A4NTAxMDE5NDQgLyBBQUFBODEwNjE2OUI2MR4wHAYDVQQFExUgLyBBQUFBODEwNjE2SFBMTE1OMDkxKjAoBgNVBAsTIU1VTklDSVBJTyBERSBDVUFVVExBTkNJTkdPIFBVRUJMQTCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAI0/v3sEZtfy7cjDqJUHjZqr+38Lrh79FrNQn/rC7zAtXGKy/XepZn/vlF+ePWNEsqWvPtTZNyvvAhF+bM2lcDD/p27i6vUW4GrNdDHtcPjTSb5aHCBc3IHTTs18HpPoi/U6xknYE9m1BFe/jlHHMDUj/o04P67upYs20oB/D1ZwqSk0Uxit489isonW++XtH+vH1j+djI78xHEcPxi8LV9Z+Z3/tF+JJYjO0BHmDFtjRSh+pLhZrQoYE31MjZyiNiSyzOnsqKyH1L2jnqD7znmxItv16QOe+mUMa3YraMLzFJQROqkdFYRUrcMdlKFDtpSOe4PO1YGfYJB37dM7780CAwEAAaMdMBswDAYDVR0TAQH/BAIwADALBgNVHQ8EBAMCBsAwDQYJKoZIhvcNAQELBQADggIBAHVZD+DsBCwNWPawXmyQTxQoBoujCin9TystMUCwkjUn/7NjZJvA8Xz/Ff9AD28IvvtybAGeXFDaYvRvvWwLO2Coah1YSG4tImE6mcKpPGtRf+WHmuP0kp2JJZQzNEQm4waBxIxCSxKXaEuBnKH6YLqFIKySeYoNydHux0SZ3B1cx7e7RWGfbvZwo8vSvhNddMxLhNMt9uUKdKIzYPkY2rfA3Kod2Wcir73I8EcRZbm2cK4PRqM40hDxuZhhcSKyI7RdiV07adNbl0Ieq76Y8JUnmVXzWqbABxgG1qhSI9/Q6JoYrADU7Z+o74IBO6HWWk7eeNPn3p7e26s17oxc0+ODhvPlFcYRdOUUm6pz+EiwXzQpbmPOBxcgqrBZhKavVwOX37zRbCgXJlSA2VoE3xdNf8tA0QiIhiwVVO3LdO0wMciqyaHZbpemFMc5mEBIJDOoVGEsLDxQPgFuFhHEk3vbdv1ABsEHghRyU85F9dmmfdlhRgyqwgsmIemTMzPbLTB0ix9U2FApfeRxuNIKPmBa7ZHgh0Kc9XUfolUeH5H+1bQEL3VfB0HeiHlARruDwu6gDmVbe4mRWjhkJrcXSW7bpNz8wKQ1EbKuSIj8eywp8Tvq1a28aVjJJ/DEuFBwLRjN/C5XzPDdVJU9shwMKb8BGVLd9Yrna1lEB4ziL7nP",
                         PrivateKey = "MIIFDjBABgkqhkiG9w0BBQ0wMzAbBgkqhkiG9w0BBQwwDgQIAgEAAoIBAQACAggAMBQGCCqGSIb3DQMHBAgwggS9AgEAMASCBMgoaLzpMOsUTfA/0PzRE4Kf0I9nxh3rD2W67YVl9iNriXT+XVe2DdV+u/3co21S+GF4TX5utqYjNUeT/R0jMcAJtAia0GWYyctlrX6pcLVRUqqSKCJ2LR9+VO4u5gs3t/Ch56YxjFCI091i5bLJbc44DwCmbs2SibRQMEXM6qC+6x0E9yuSXBzpmiZ99QvWok8rEao3Pik5ICMQ21iC16zArIZSLIPKUH9Bgg3fZchn3R01KnzAmc4AnAe97pdqnnC5SUlV4CykS6i615hlUo5Q54t6FnL77qepr/WGvCaBCh5OycGF2M424IVCLm7FNWuFKzUWHkvbHnvDWghVua9vkFPrD0jyMc/xew0Mofl3jrybJobdFINqYKCJl1S7U3+FRuzWrEwqSAs6+lRhArBHxTWVKE3wQzSaSG+dZPq9q584/+ooqyNttwWNiC8/dvZPOmhCmya+Rt80dxoy92yBNgRSkqbq45Ltm2PEQP95V1NjVxkWUTUEJLV95Fq66l/170wHKsHUI9wUb9WwBJKbu6EyInMQzql6SOsdybYAi0oH6sG3xJQJVBdKeTWSASOnv3OvyZ+q4ehijQldoHQjPrTJU7gvOO01cRxXrHeEy4OpZaE6UncUYEdqFhIpcQwK6EMP3FD/x7Sj2O0LOjT3/RQCsNXmCU7DDFS7/BlaM7SdrI2zCkk/e0TsldHkoT9WzH0Mbrod6byWe69s/ENftkFBIWZ8/Pmd9qE93yk7fL665TZyguBIRCU6yofm5oW7Sz27PodUW/s+xNocZg7LSnfG4cJAHCIARcG+r2Ifx7/xkP99bmHIdbAkriiiwakkERMtgypILuAGCRLQDBzngEY67REMyoYeuOzT04nArBrgvR2NDBN4Wa05eM81+4p6fsSgkheIBJ/UukFTnxqh50nMoodA0uJ+swhCh8G6mO3a1Ea5ysqhjVEbju+xSDtROaDUk6IhUNk084ie8OfDDxKDHOuZvFi/rFCWTq0zhnUwIdLoiwSPjCcGyiZpbi9rxUCJl47pkVBfLgtyvbpn+8Bq3ngR/Y882FTRTGSJNKCfgnWZm///KWORh3I0l8qODYyiLlRw3qlLKCFJbgojiFDI65116bQPnlXysTCfAPlWWowsw13LvymdPDdXI+FhlK/eJR1dHHqIJw6x8F/rr1HvbV/jqbo0B0RDseyNDKbvZgst99V1dcbLTJ6J6+KBK+kJp8br7VBkoTKwZSi5Lrr43Lmuiw7YjXZl1WN2Tk2kjjtpeT66Az5yUjKRW5YHE3n/sDAzGN/wqo57ouUEHNjdPaez8sBvGa0KCTEb0PKxdbNZMUAs24pxudrDDKiFvPSJNd5W2w2W9CBT9jbuvjlPt6xPjwskuHYZ8XnyGHvZGZNHYzfhsqZafk0dAQbjinUMWKOmaC7vayTx1pQwe8zuaDp4MT1aPyXAmabUcPGt+xhBLcMDjs7FLZb1RYcP6iUsCZiS7C9c2Jp2/QPBnpRIydCfdKCQK1f7R1HmqadsUikD+LXdV4gaJeKF0EoyVlkEku1DkR67yQV+1IIxNRNWFkjpkWUHD2IFPXpdRXiL8BQyUobUm1n5zA4j72TIXcTrWVvc0T46vy6Khu747k9fTgdLiLQ=",
                         PrivateKeyPassword = "CUAUTLANCINGO1821"
                     };
@@ -1753,20 +1746,20 @@ namespace SOAPAP
                 if (string.IsNullOrEmpty(cfdiGet.Observations))
                 {
                     string msgObservacionFactura = string.IsNullOrEmpty(TraVM.payment.ObservationInvoice) ? "" : TraVM.payment.ObservationInvoice;
-                    bool printFecha = Variables.LoginModel.Divition != 12;
-                    if (Variables.Configuration.IsMunicipal)
-                    {
-                        //En caso de factura fuera de fecha
-                        if (TraVM.payment.PaymentDate.ToString("yyyy-MM-dd") != DateTime.Today.ToString("yyyy-MM-dd") && printFecha)
-                            msgObservacionFactura += ", Pago efectuado el " + TraVM.payment.PaymentDate.ToString("yyyy-MM-dd");
-                    }
-                    else
-                    {
-                        if (TraVM.payment.PaymentDate.ToString("yyyy-MM-dd") != DateTime.Today.ToString("yyyy-MM-dd"))
-                            msgObservacionFactura += ", Pago efectuado el " + TraVM.payment.PaymentDate.ToString("yyyy-MM-dd");
-                    }
+                    ////bool printFecha = Variables.LoginModel.Divition != 12;
+                    ////if (Variables.Configuration.IsMunicipal)
+                    ////{
+                    ////    //En caso de factura fuera de fecha
+                    ////    if (TraVM.payment.PaymentDate.ToString("yyyy-MM-dd") != DateTime.Today.ToString("yyyy-MM-dd") && printFecha)
+                    ////        msgObservacionFactura += ", Pago efectuado el " + TraVM.payment.PaymentDate.ToString("yyyy-MM-dd");
+                    ////}
+                    ////else
+                    ////{
+                    ////    if (TraVM.payment.PaymentDate.ToString("yyyy-MM-dd") != DateTime.Today.ToString("yyyy-MM-dd"))
+                    ////        msgObservacionFactura += ", Pago efectuado el " + TraVM.payment.PaymentDate.ToString("yyyy-MM-dd");
+                    ////}
                     //Verifico si es un pago parcial.
-                    if(TraVM.payment.OrderSaleId == 0)
+                    if(TraVM.payment.OrderSaleId == 0 && cfdiGet.Status == "active")
                     {
                         var resulDebt = await Requests.SendURIAsync(string.Format("/api/Debts/id/{0}", TraVM.payment.PaymentDetails.FirstOrDefault()?.DebtId), HttpMethod.Get, Variables.LoginModel.Token);
                         var resDebt = JsonConvert.DeserializeObject<SOAPAP.Model.Debt>(resulDebt);
@@ -1776,7 +1769,7 @@ namespace SOAPAP
                     }
                     else
                     {
-                        if(TraVM.orderSale.Amount > TraVM.orderSale.OnAccount)
+                        if(TraVM.orderSale.Amount > TraVM.orderSale.OnAccount && cfdiGet.Status == "active")
                             msgObservacionFactura += ", Esta factura es comprobante de un pago pacial";
                     }
                     

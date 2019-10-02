@@ -64,6 +64,7 @@
             this.lblTitulo = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.pgcCollection = new DevExpress.XtraPivotGrid.PivotGridControl();
+            this.dataCollectionBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.pgfDescripcion = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfSubtotal = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfDescuento = new DevExpress.XtraPivotGrid.PivotGridField();
@@ -78,7 +79,6 @@
             this.pgfCuenta = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfFolio = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfColonia = new DevExpress.XtraPivotGrid.PivotGridField();
-            this.dataCollectionBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.pgfDireccion = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfCliente = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfDivision = new DevExpress.XtraPivotGrid.PivotGridField();
@@ -417,8 +417,12 @@
             this.pgcCollection.Location = new System.Drawing.Point(0, 121);
             this.pgcCollection.Name = "pgcCollection";
             this.pgcCollection.OptionsData.DataProcessingEngine = DevExpress.XtraPivotGrid.PivotDataProcessingEngine.LegacyOptimized;
-            this.pgcCollection.Size = new System.Drawing.Size(891, 295);
+            this.pgcCollection.Size = new System.Drawing.Size(891, 298);
             this.pgcCollection.TabIndex = 50;
+            // 
+            // dataCollectionBindingSource
+            // 
+            this.dataCollectionBindingSource.DataSource = typeof(SOAPAP.Reportes.DataCollection);
             // 
             // pgfDescripcion
             // 
@@ -527,10 +531,6 @@
             this.pgfColonia.Caption = "COLONIA";
             this.pgfColonia.FieldName = "ContribuyenteColonia";
             this.pgfColonia.Name = "pgfColonia";
-            // 
-            // dataCollectionBindingSource
-            // 
-            this.dataCollectionBindingSource.DataSource = typeof(SOAPAP.Reportes.DataCollection);
             // 
             // pgfDireccion
             // 

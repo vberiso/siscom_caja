@@ -44,5 +44,6 @@ namespace SOAPAP.ModFac
 
         [JsonProperty("Status")]
         public string Status { get; set; }
+        public string Name { get; set; }
     }
 }

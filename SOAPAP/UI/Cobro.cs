@@ -150,60 +150,81 @@ namespace SOAPAP.UI
                 }
                 if (this.dgvConceptosCobro.Columns[e.ColumnIndex].Name == "Select")
                 {
-                    DataGridViewCheckBoxCell cell = this.dgvConceptosCobro.CurrentCell as DataGridViewCheckBoxCell;
-                    bool seleccionado = false;
-
-                    if (!Convert.ToBoolean(this.dgvConceptosCobro.Rows[e.RowIndex].Cells["Select"].Value.ToString()))
-                    {                       
-                        lCollectConcepts.ForEach(x =>
-                        {
-                            if (!seleccionado)
-                                x.Select = true;
-                            if (x.Id == Convert.ToInt32(this.dgvConceptosCobro.Rows[e.RowIndex].Cells["Id"].Value.ToString()))
-                                seleccionado = true;
-                            
-                        });
-                    }
-                    else
-                    {                        
-                        lCollectConcepts.ForEach(x =>
-                        {
-                            if (x.Id == Convert.ToInt32(this.dgvConceptosCobro.Rows[e.RowIndex].Cells["Id"].Value.ToString()))
-                                seleccionado = true;
-                            if (seleccionado)
-                                x.Select = false;
-                        });
-                    }
-                    if (_cuenta.Length > 2 && char.IsLetter(Convert.ToChar(_cuenta.Substring(0, 1))) && _cuenta.Contains("-"))
+                    if(Variables.Agreement.TypeStateServiceId == 1)
                     {
-                        List<Model.OrderSale> ordersList = new List<Model.OrderSale>();
-                        ordersList.Add(Variables.OrderSale);
-                        orders = (from d in ordersList
+                        DataGridViewCheckBoxCell cell = this.dgvConceptosCobro.CurrentCell as DataGridViewCheckBoxCell;
+                        bool seleccionado = false;
+
+                        if (!Convert.ToBoolean(this.dgvConceptosCobro.Rows[e.RowIndex].Cells["Select"].Value.ToString()))
+                        {
+                            lCollectConcepts.ForEach(x =>
+                            {
+                                if (!seleccionado)
+                                    x.Select = true;
+                                if (x.Id == Convert.ToInt32(this.dgvConceptosCobro.Rows[e.RowIndex].Cells["Id"].Value.ToString()))
+                                    seleccionado = true;
+
+                            });
+                        }
+                        else
+                        {
+                            lCollectConcepts.ForEach(x =>
+                            {
+                                if (x.Id == Convert.ToInt32(this.dgvConceptosCobro.Rows[e.RowIndex].Cells["Id"].Value.ToString()))
+                                    seleccionado = true;
+                                if (seleccionado)
+                                    x.Select = false;
+                            });
+                        }
+                        if (_cuenta.Length > 2 && char.IsLetter(Convert.ToChar(_cuenta.Substring(0, 1))) && _cuenta.Contains("-"))
+                        {
+                            List<Model.OrderSale> ordersList = new List<Model.OrderSale>();
+                            ordersList.Add(Variables.OrderSale);
+                            orders = (from d in ordersList
                                       where lCollectConcepts.Where(x => x.Select == true).Select(x => x.Id).ToList().Contains(d.Id)
                                       select d).ToList();
 
-                        subTotal = (orders.Count > 0 ? Variables.OrderSale.Amount - Variables.OrderSale.OnAccount : 0);
-                        lblSubtotal.Text = string.Format(new CultureInfo("es-MX"), "{0:C2}", subTotal);
-                        CalculateAmounts(orders);
-                        btnCobrar.Enabled = Variables.OrderSale.OrderSaleDetails.Count > 0 & subTotal == 0 ? false : true;
+                            subTotal = (orders.Count > 0 ? Variables.OrderSale.Amount - Variables.OrderSale.OnAccount : 0);
+                            lblSubtotal.Text = string.Format(new CultureInfo("es-MX"), "{0:C2}", subTotal);
+                            CalculateAmounts(orders);
+                            btnCobrar.Enabled = Variables.OrderSale.OrderSaleDetails.Count > 0 & subTotal == 0 ? false : true;
+                        }
+                        else
+                        {
+                            tmpFiltros = (from d in Variables.Agreement.Debts
+                                          where lCollectConcepts.Where(x => x.Select == true).Select(x => x.Id).ToList().Contains(d.Id)
+                                          select d).ToList();
+                            subTotal = tmpFiltros != null ? tmpFiltros.Sum(x => (x.Amount - x.OnAccount)) : 0;
+                            lblSubtotal.Text = string.Format(new CultureInfo("es-MX"), "{0:C2}", subTotal);
+                            CalculateAmounts(tmpFiltros);
+                            btnCobrar.Enabled = Variables.Agreement.Debts.Count > 0 & subTotal == 0 ? false : true;
+                        }
+
+                        source.DataSource = lCollectConcepts ?? new List<CollectConcepts>();
+                        dgvConceptosCobro.DataSource = source;
                     }
                     else
                     {
+                        string msg = "En necesario cubrir el monto total del adeudo.";
+                        mensaje = new MessageBoxForm("El servicio esta cortado", msg, TypeIcon.Icon.Warning);
+                        result = mensaje.ShowDialog();
+                        //Siempre se seleccionan todos los campos.
+                        lCollectConcepts.ForEach(x =>
+                        {
+                            x.Select = true;
+                        });
+                        //Se calculan los montos
                         tmpFiltros = (from d in Variables.Agreement.Debts
-                                      where lCollectConcepts.Where(x => x.Select == true).Select(x => x.Id).ToList().Contains(d.Id)
-                                      select d).ToList();
+                                        where lCollectConcepts.Where(x => x.Select == true).Select(x => x.Id).ToList().Contains(d.Id)
+                                        select d).ToList();
                         subTotal = tmpFiltros != null ? tmpFiltros.Sum(x => (x.Amount - x.OnAccount)) : 0;
                         lblSubtotal.Text = string.Format(new CultureInfo("es-MX"), "{0:C2}", subTotal);
                         CalculateAmounts(tmpFiltros);
                         btnCobrar.Enabled = Variables.Agreement.Debts.Count > 0 & subTotal == 0 ? false : true;
+                        
+                        source.DataSource = lCollectConcepts ?? new List<CollectConcepts>();
+                        dgvConceptosCobro.DataSource = source;
                     }
-
-                    source.DataSource = lCollectConcepts ?? new List<CollectConcepts>();
-                    dgvConceptosCobro.DataSource = source;
-                    
-                    
-                   
-                  
                 }
             }
         }
@@ -586,8 +607,14 @@ namespace SOAPAP.UI
                             }
 
 
-                            if (Variables.Agreement.TypeStateServiceId == 1)
+                            if (Variables.Agreement.TypeStateServiceId == 1 || Variables.Agreement.TypeStateServiceId == 3)
                             {
+                                if (Variables.Agreement.TypeStateServiceId == 3)
+                                {                                    
+                                    string msg = "La cuenta proporcionada " + (Variables.Agreement.TypeStateService != null ? "está: " + Variables.Agreement.TypeStateService.Name : "No existe");
+                                    mensaje = new MessageBoxForm("Aviso", msg, TypeIcon.Icon.Info);
+                                    result = mensaje.ShowDialog();
+                                }
                                 //Deuda
                                 loading = new Loading();
                                 loading.Show(this);
