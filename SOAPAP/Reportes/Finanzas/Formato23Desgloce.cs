@@ -11,5 +11,8 @@ namespace SOAPAP.Reportes.Finanzas
 
         public int usuarios { get; set; }
         public string tipo { get; set; }
+        public int accumulatedActuales { get; set; }
+        public int accumulatedAnteriores { get; set; }
+        public int accumulatedMixto { get; set; }
     }
 }

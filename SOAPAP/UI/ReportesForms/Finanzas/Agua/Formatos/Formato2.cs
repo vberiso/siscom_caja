@@ -228,7 +228,7 @@ namespace SOAPAP.UI.ReportesForms.Finanzas.Agua.Formatos
 
 
             var StringContent = new StringContent(json, Encoding.UTF8, "application/json");
-            string url = string.Format("/api/StoreProcedure/RunFormato23Desgloce");
+            string url = string.Format("/api/StoreProcedure/RunFormato23Desgloce/true");
 
 
 
@@ -249,10 +249,13 @@ namespace SOAPAP.UI.ReportesForms.Finanzas.Agua.Formatos
                 {
                     var JdDta = JObject.Parse(results);
                     var data = JsonConvert.SerializeObject(JdDta["data"]);
-                    List<Formato23Desgloce> Lusuarios = JsonConvert.DeserializeObject<List<Formato23Desgloce>>(data.ToString());
+                    List<object> LData = JsonConvert.DeserializeObject<List<object>>(data);
+                    List<Formato23Desgloce> Lusuarios = JsonConvert.DeserializeObject<List<Formato23Desgloce>>(JsonConvert.SerializeObject(LData.First()));
+                 
                     if (isReturn == 0)
                     {
-                       
+                        //var total = JsonConvert.DeserializeObject<List<int>>(JsonConvert.SerializeObject(LData.Last()));
+
                         textC1.Text = Lusuarios.Where(x => x.tipo == "actuales").First().usuarios.ToString();
                         textC2.Text = Lusuarios.Where(x => x.tipo == "actuales").First().usuarios.ToString();
                         textD1.Text = Lusuarios.Where(x => x.tipo == "anteriores").First().usuarios.ToString();
@@ -261,6 +264,10 @@ namespace SOAPAP.UI.ReportesForms.Finanzas.Agua.Formatos
                         textE2.Text = Lusuarios.Where(x => x.tipo == "mixto").First().usuarios.ToString();
                         textF1.Text = (int.Parse(textC1.Text) + int.Parse(textD1.Text) + int.Parse(textE1.Text)).ToString();
                         textF2.Text = (int.Parse(textC2.Text) + int.Parse(textD2.Text) + int.Parse(textE2.Text)).ToString();
+
+
+
+
                         return null;
                     }
                     else
@@ -283,6 +290,7 @@ namespace SOAPAP.UI.ReportesForms.Finanzas.Agua.Formatos
             var JdDta = JObject.Parse(data.ToString());
             data = JsonConvert.SerializeObject(JdDta["data"]);
             List<SOAPAP.Reportes.Finanzas.Formato2> OData = JsonConvert.DeserializeObject<List<SOAPAP.Reportes.Finanzas.Formato2>>(data.ToString());
+
             //datos para uso domestico
             TUsuarios = OData.Where(x => x.uso == "HA").ToList().Count;
             TTomas = OData.Where(x => x.uso == "HA" && x.type_agreement == "AGR01").ToList().Count;
