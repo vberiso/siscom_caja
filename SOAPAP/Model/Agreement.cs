@@ -62,6 +62,8 @@ namespace SOAPAP.Model
         public ICollection<Notification> Notifications { get; set; }
         public ICollection<AgreementDetail> AgreementDetails { get; set; }
         public ICollection<AgreementComent> AgreementComments { get; set; }
-        
+
+        public ICollection<OrderWork> OrderWork { get; set; }
+
     }
 }

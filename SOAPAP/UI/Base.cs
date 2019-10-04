@@ -266,6 +266,10 @@ namespace SOAPAP
             {
                 finanzasToolStripMenuItemAyuntamiento.Visible = false;
             }
+            else
+            {
+                ingresosPorConceptoToolStripMenuItem.Visible = true;
+            }
         }
         private void AddFormInPanel(Form fh)
         {

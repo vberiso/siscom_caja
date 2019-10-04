@@ -608,13 +608,45 @@ namespace SOAPAP.UI
 
 
                             if (Variables.Agreement.TypeStateServiceId == 1 || Variables.Agreement.TypeStateServiceId == 3)
-                            {
+                            {                                
+                                //Aviso previo a corte de servicio
+                                var resultadoAgreement = await Requests.SendURIAsync(string.Format("/api/OrderWork/FromAccount/{0}", Variables.Agreement.Account), HttpMethod.Get, Variables.LoginModel.Token);
+                                if (resultadoAgreement.Contains("error"))
+                                {
+                                }
+                                else
+                                {
+                                    Agreement agree = JsonConvert.DeserializeObject<Agreement>(resultadoAgreement);
+                                    if (agree.OrderWork.Where(ow => ow.Status == "EOT01" && ow.Type == "OT002").FirstOrDefault() != null)
+                                    {
+                                        //La cuenta tiene una orden de corte aun sin asinar
+                                        var folio = agree.OrderWork.Where(ow => ow.Status == "EOT01" && ow.Type == "OT002").FirstOrDefault().Folio;
+
+                                        string msgCorte = "La cuenta proporcionada tiene una orden de corte sin asignar aun. Folio de orden: " + folio;
+                                        mensaje = new MessageBoxForm("Orden de corte, sin asignar", msgCorte, TypeIcon.Icon.Info);
+                                        result = mensaje.ShowDialog();
+                                    }
+                                    else if (agree.OrderWork.Where(ow => ow.Status == "EOT02" && ow.Type == "OT002").FirstOrDefault() != null)
+                                    {
+                                        //La cuenta tiene una orden de corte asignada, es problabe que el tecnico este en camino
+                                        var nombre = agree.OrderWork.Where(ow => ow.Status == "EOT02" && ow.Type == "OT002").FirstOrDefault().TechnicalStaff.Name;  //es el usuario que va a cortar.
+                                        var cel = agree.OrderWork.Where(ow => ow.Status == "EOT02" && ow.Type == "OT002").FirstOrDefault().TechnicalStaff.Phone;
+                                        var folio = agree.OrderWork.Where(ow => ow.Status == "EOT02" && ow.Type == "OT002").FirstOrDefault().Folio;
+
+                                        string msgCorte = string.Format("La cuenta proporcionada tiene una orden de corte asignada a {0} {1}. Folio de orden: {2}, es probable que el técnico este en camino.", nombre, string.IsNullOrEmpty(cel) ? "": ", Cel: " + cel, folio);
+                                        mensaje = new MessageBoxForm("Orden de corte Asignada", msgCorte, TypeIcon.Icon.Warning);
+                                        result = mensaje.ShowDialog();
+                                    }
+                                }
+
+                                //Si la cuenta ya ha sido cortada.
                                 if (Variables.Agreement.TypeStateServiceId == 3)
-                                {                                    
+                                {
                                     string msg = "La cuenta proporcionada " + (Variables.Agreement.TypeStateService != null ? "está: " + Variables.Agreement.TypeStateService.Name : "No existe");
                                     mensaje = new MessageBoxForm("Aviso", msg, TypeIcon.Icon.Info);
                                     result = mensaje.ShowDialog();
                                 }
+
                                 //Deuda
                                 loading = new Loading();
                                 loading.Show(this);

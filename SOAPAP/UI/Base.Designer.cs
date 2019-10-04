@@ -324,6 +324,7 @@
             this.ingresosPorConceptoToolStripMenuItem.Name = "ingresosPorConceptoToolStripMenuItem";
             this.ingresosPorConceptoToolStripMenuItem.Size = new System.Drawing.Size(237, 26);
             this.ingresosPorConceptoToolStripMenuItem.Text = "Ingresos agrupados";
+            this.ingresosPorConceptoToolStripMenuItem.Visible = false;
             this.ingresosPorConceptoToolStripMenuItem.Click += new System.EventHandler(this.ingresosPorConceptoToolStripMenuItem_Click);
             // 
             // recaudaciónToolStripMenuItem
@@ -346,7 +347,7 @@
             // 
             this.ordenesToolStripMenuItem.ForeColor = System.Drawing.Color.DimGray;
             this.ordenesToolStripMenuItem.Name = "ordenesToolStripMenuItem";
-            this.ordenesToolStripMenuItem.Size = new System.Drawing.Size(139, 26);
+            this.ordenesToolStripMenuItem.Size = new System.Drawing.Size(180, 26);
             this.ordenesToolStripMenuItem.Text = "Ordenes";
             this.ordenesToolStripMenuItem.Click += new System.EventHandler(this.ordenesToolStripMenuItem_Click);
             // 
