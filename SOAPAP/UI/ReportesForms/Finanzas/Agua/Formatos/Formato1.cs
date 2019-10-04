@@ -15,7 +15,7 @@ namespace SOAPAP.UI.ReportesForms.Finanzas.Agua.Formatos
     {
 
         private decimal TEjeciciones, Tagua, TDrenaje, TRecargos, TSaneamiento, TSaneamientA, GranTotal = 0, GranTotalSaneamiento = 0;
-        private decimal TReconexion, TConexion;
+        private decimal TReconexion, TConexion, TMulta, TAlcantarillado;
         private int NumCallGetParams;
         private string formato;
         private List<GroupCataloguesVM> Groups;
@@ -73,6 +73,12 @@ namespace SOAPAP.UI.ReportesForms.Finanzas.Agua.Formatos
             Catalogues = Groups.Where(g => g.Id == 9).First().Catalogues;
             TEjeciciones = OData.Where(x => Catalogues.Any(c => c.Value.Equals(x.code_concept.ToString()))).ToList().Sum(x => formato == "formato1" ? x.importe : x.descuento);
 
+            Catalogues = Groups.Where(g => g.Id == 8).First().Catalogues;
+            TMulta = OData.Where(x => Catalogues.Any(c => c.Value.Equals(x.code_concept.ToString()))).ToList().Sum(x => formato == "formato1" ? x.importe : x.descuento);
+
+            Catalogues = Groups.Where(g => g.Id == 6).First().Catalogues;
+            TAlcantarillado = OData.Where(x => Catalogues.Any(c => c.Value.Equals(x.code_concept.ToString()))).ToList().Sum(x => formato == "formato1" ? x.importe : x.descuento);
+
         }
         public void DrawData(object data, string mes, string year)
         {
@@ -83,7 +89,7 @@ namespace SOAPAP.UI.ReportesForms.Finanzas.Agua.Formatos
             setDatatovariables(OData);
 
 
-            GranTotal = Tagua + TDrenaje + TRecargos + TReconexion + TConexion + TEjeciciones;
+            GranTotal = Tagua + TDrenaje + TRecargos + TReconexion + TConexion + TEjeciciones + TMulta + TAlcantarillado;
             GranTotalSaneamiento = TSaneamiento;
 
 
@@ -94,9 +100,13 @@ namespace SOAPAP.UI.ReportesForms.Finanzas.Agua.Formatos
             textReconexiones.Text = string.Format(new CultureInfo("es-MX"), "{0:C2}", TReconexion);
             textConexiones.Text = string.Format(new CultureInfo("es-MX"), "{0:C2}", TConexion);
             textGastos.Text = string.Format(new CultureInfo("es-MX"), "{0:C2}", TEjeciciones);
+            textMultas.Text = string.Format(new CultureInfo("es-MX"), "{0:C2}", TMulta);
+            textAlcantarillado.Text = string.Format(new CultureInfo("es-MX"), "{0:C2}", TAlcantarillado);
 
             textBoxTotal.Text = string.Format(new CultureInfo("es-MX"), "{0:C2}", GranTotal);
             textToTaoGeneral.Text = OData.Sum(x => x.importe).ToString();
+
+         
 
 
         }
@@ -119,6 +129,12 @@ namespace SOAPAP.UI.ReportesForms.Finanzas.Agua.Formatos
             Catalogues = Groups.Where(g => g.Id == 9).First().Catalogues;
             TEjeciciones = OData.Where(x => Catalogues.Any(c => c.Value.Equals(x.code_concept.ToString()))).ToList().Sum(x => formato == "formato1" ? x.importe : x.descuento) - TEjeciciones;
 
+            Catalogues = Groups.Where(g => g.Id == 8).First().Catalogues;
+            TMulta = OData.Where(x => Catalogues.Any(c => c.Value.Equals(x.code_concept.ToString()))).ToList().Sum(x => formato == "formato1" ? x.importe : x.descuento) - TMulta;
+
+            Catalogues = Groups.Where(g => g.Id == 6).First().Catalogues;
+            TAlcantarillado = OData.Where(x => Catalogues.Any(c => c.Value.Equals(x.code_concept.ToString()))).ToList().Sum(x => formato == "formato1" ? x.importe : x.descuento) - TAlcantarillado;
+
 
         }
         public void DrawDataA(object data, string mes, string year)
@@ -128,7 +144,7 @@ namespace SOAPAP.UI.ReportesForms.Finanzas.Agua.Formatos
 
             List<SOAPAP.Reportes.Finanzas.Formato1> OData = JsonConvert.DeserializeObject<List<SOAPAP.Reportes.Finanzas.Formato1>>(data.ToString());
             SetDataVariablesA(OData);
-            GranTotal += Tagua + TDrenaje + TRecargos + TReconexion + TConexion + TEjeciciones;
+            GranTotal += Tagua + TDrenaje + TRecargos + TReconexion + TConexion + TEjeciciones + TAlcantarillado + TMulta;
             GranTotalSaneamiento += TSaneamientA;
 
             textServicioA.Text = string.Format(new CultureInfo("es-MX"), "{0:C2}", Tagua);
@@ -139,6 +155,8 @@ namespace SOAPAP.UI.ReportesForms.Finanzas.Agua.Formatos
             textReconexionesA.Text = string.Format(new CultureInfo("es-MX"), "{0:C2}", TReconexion);
             textConexionesA.Text = string.Format(new CultureInfo("es-MX"), "{0:C2}", TConexion);
             textGastosA.Text = string.Format(new CultureInfo("es-MX"), "{0:C2}", TEjeciciones);
+            textMultasA.Text = string.Format(new CultureInfo("es-MX"), "{0:C2}", TMulta);
+            textAlcantarilladoA.Text = string.Format(new CultureInfo("es-MX"), "{0:C2}", TAlcantarillado);
             textBoxTotal.Text = string.Format(new CultureInfo("es-MX"), "{0:C2}", GranTotal);
 
             //textToTaoGeneral.Text = (decimal.Parse(textToTaoGeneral.Text) + OData.Sum(x => x.importe).ToString()).ToString();
@@ -158,7 +176,7 @@ namespace SOAPAP.UI.ReportesForms.Finanzas.Agua.Formatos
             data = JsonConvert.SerializeObject(JdDta["data"]);
             List<SOAPAP.Reportes.Finanzas.Formato1> OData = JsonConvert.DeserializeObject<List<SOAPAP.Reportes.Finanzas.Formato1>>(data.ToString());
             setDatatovariables(OData);
-            GranTotal = Tagua + TDrenaje + TRecargos + TReconexion + TConexion + TEjeciciones;
+            GranTotal = Tagua + TDrenaje + TRecargos + TReconexion + TConexion + TEjeciciones + TMulta + TAlcantarillado;
             GranTotalSaneamiento = TSaneamiento;
             StringBuilder builder = new StringBuilder();
             
@@ -188,7 +206,7 @@ namespace SOAPAP.UI.ReportesForms.Finanzas.Agua.Formatos
                             </tr>");
             builder.Append($@"<tr>
                             <td style='width: 50%' class='left'>ALCANTARILLADO</td>
-                            <td style='width: 50%'>$0.0</td>
+                            <td style='width: 50%'>{ string.Format(new CultureInfo("es-MX"), "{0:C2}", TAlcantarillado) }</td>
                             </tr>");
             builder.Append($@"<tr>
                             <td style='width: 50%' class='left'>DRENAJE</td>
@@ -200,7 +218,7 @@ namespace SOAPAP.UI.ReportesForms.Finanzas.Agua.Formatos
                             </tr>");
             builder.Append($@"<tr>
                             <td style='width: 50%' class='left'>MULTAS</td>
-                            <td style='width: 50%'>$0.0</td>
+                            <td style='width: 50%'>{ string.Format(new CultureInfo("es-MX"), "{0:C2}", TMulta) }</td>
                             </tr>");
             builder.Append($@"<tr>
                             <td style='width: 50%' class='left'>GASTOS DE EJECUCIÓN</td>
@@ -254,7 +272,7 @@ namespace SOAPAP.UI.ReportesForms.Finanzas.Agua.Formatos
                             </tr>");
             builder.Append($@"<tr>
                             <td style='width: 50%' class='left'>ALCANTARILLADO</td>
-                            <td style='width: 50%'>$0.0</td>
+                            <td style='width: 50%'>{ string.Format(new CultureInfo("es-MX"), "{0:C2}", TAlcantarillado) }</td>
                             </tr>");
             builder.Append($@"<tr>
                             <td style='width: 50%' class='left'>DRENAJE</td>
@@ -266,7 +284,7 @@ namespace SOAPAP.UI.ReportesForms.Finanzas.Agua.Formatos
                             </tr>");
             builder.Append($@"<tr>
                             <td style='width: 50%' class='left'>MULTAS</td>
-                            <td style='width: 50%'>$0.0</td>
+                            <td style='width: 50%'>{ string.Format(new CultureInfo("es-MX"), "{0:C2}", TMulta) }</td>
                             </tr>");
             builder.Append($@"<tr>
                             <td style='width: 50%' class='left'>GASTOS DE EJECUCIÓN</td>

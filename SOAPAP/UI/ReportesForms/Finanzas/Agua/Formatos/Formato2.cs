@@ -128,7 +128,8 @@ namespace SOAPAP.UI.ReportesForms.Finanzas.Agua.Formatos
             textTICM.Text = string.Format(new CultureInfo("es-MX"), "{0:C2}", decimal.Parse(textTICM.Text));
 
             textGTI.Text = string.Format(new CultureInfo("es-MX"), "{0:C2}", decimal.Parse(textGTI.Text));
-            textTISM.Text = string.Format(new CultureInfo("es-MX"), "{0:C2}", decimal.Parse(textTISM.Text));
+            var totalO = OData.Where(x => x.uso == "NO").ToList();
+            textTISM.Text = string.Format(new CultureInfo("es-MX"), "{0:C2}", decimal.Parse(textTISM.Text) + totalO.Sum(x => x.importe));
 
             lblC.Text = $@"No DE USUARIOS Y No DE TOMAS QUE REALIZARON ÚNICAMENTE PAGOS DE {year}
                         (C)";
@@ -188,9 +189,9 @@ namespace SOAPAP.UI.ReportesForms.Finanzas.Agua.Formatos
 
 
             //datos para otros usos
-            TUsuarios = OData.Where(x => x.uso != "CO" && x.uso != "HA").ToList().Count;
-            TTomas = OData.Where(x => x.uso != "CO" && x.uso != "HA" && x.type_agreement == "AGR01").ToList().Count;
-            TImporte = OData.Where(x => x.uso != "CO" && x.uso != "HA").ToList().Sum(x => x.importe);
+            TUsuarios = OData.Where(x => x.uso != "CO" && x.uso != "HA" && x.uso!= "NO").ToList().Count;
+            TTomas = OData.Where(x => x.uso != "CO" && x.uso != "HA" && x.uso != "NO"  && x.type_agreement == "AGR01").ToList().Count;
+            TImporte = OData.Where(x => x.uso != "CO" && x.uso != "HA" && x.uso != "NO").ToList().Sum(x => x.importe);
 
             textUOCM.Text = TUsuarios.ToString();
             textTOCM.Text = TTomas.ToString();
@@ -338,9 +339,9 @@ namespace SOAPAP.UI.ReportesForms.Finanzas.Agua.Formatos
                                     <td style='width: 15%'>{TTomas}</td>
                                     <td style='width: 15%'>{string.Format(new CultureInfo("es-MX"), "{0:C2}", TImporte)}</td>
                                 </tr>");
-            TUsuarios = OData.Where(x => x.uso != "CO" && x.uso != "HA").ToList().Count;
-            TTomas = OData.Where(x => x.uso != "CO" && x.uso != "HA" && x.type_agreement == "AGR01").ToList().Count;
-            TImporte = OData.Where(x => x.uso != "CO" && x.uso != "HA").ToList().Sum(x => x.importe);
+            TUsuarios = OData.Where(x => x.uso != "CO" && x.uso != "HA" && x.uso != "NO").ToList().Count;
+            TTomas = OData.Where(x => x.uso != "CO" && x.uso != "HA" && x.type_agreement == "AGR01" && x.uso != "NO").ToList().Count;
+            TImporte = OData.Where(x => x.uso != "CO" && x.uso != "HA" && x.uso != "NO").ToList().Sum(x => x.importe);
             totalConMedidorU += TUsuarios;
             totalConMedidorT += TTomas;
             totalConMedidorI += TImporte;
@@ -402,9 +403,9 @@ namespace SOAPAP.UI.ReportesForms.Finanzas.Agua.Formatos
                                     <td style='width: 15%'>{TTomas}</td>
                                     <td style='width: 15%'>{string.Format(new CultureInfo("es-MX"), "{0:C2}", TImporte)}</td>
                                 </tr>");
-            TUsuarios = OData.Where(x => x.uso != "CO" && x.uso != "HA").ToList().Count;
-            TTomas = OData.Where(x => x.uso != "CO" && x.uso != "HA" && x.type_agreement == "AGR01").ToList().Count;
-            TImporte = OData.Where(x => x.uso != "CO" && x.uso != "HA").ToList().Sum(x => x.importe);
+            TUsuarios = OData.Where(x => x.uso != "CO" && x.uso != "HA" && x.uso != "NO").ToList().Count;
+            TTomas = OData.Where(x => x.uso != "CO" && x.uso != "HA" && x.type_agreement == "AGR01" && x.uso != "NO").ToList().Count;
+            TImporte = OData.Where(x => x.uso != "CO" && x.uso != "HA" && x.uso != "NO").ToList().Sum(x => x.importe);
             totalConMedidorU += TUsuarios;
             totalConMedidorT += TTomas;
             totalConMedidorI += TImporte;
@@ -423,13 +424,14 @@ namespace SOAPAP.UI.ReportesForms.Finanzas.Agua.Formatos
                                 </tr> 
                             </tbody>
                         </table>");
+            var totalO = OData.Where(x => x.uso == "NO").ToList();
             builder.Append($@"<table id='datos' style='width: 99%;margin-top: 10px' class='actuales'>
                                 <tbody>
                                     <tr  style='background:#f1eeec' class='centro'>
                                             <td style='width: 40%' class='left'>TOTAL</td>
                                             <td style='width: 15%'><b>{GTU + totalConMedidorU}</b></td>
                                             <td style='width: 15%'><b>{GTT + totalConMedidorT}</b></td>
-                                            <td style='width: 15%'><b>{string.Format(new CultureInfo("es-MX"), "{0:C2}",GTI+totalConMedidorI)}</b></td>    
+                                            <td style='width: 15%'><b>{string.Format(new CultureInfo("es-MX"), "{0:C2}",GTI+totalConMedidorI + totalO.Sum(x => x.importe))}</b></td>    
                                     </tr>       
                                 </tbody>
                                 </table>");
