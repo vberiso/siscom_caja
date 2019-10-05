@@ -25,11 +25,14 @@ using System.Diagnostics;
 using System.Threading;
 using PdfPrintingNet;
 using SOAPAP.Reportes;
+using Firebase.Database;
+using Firebase.Database.Query;
 
 namespace SOAPAP.UI
 {
     public partial class ModalDetalleCobro : Form
     {
+        public readonly FirebaseClient firebase = new FirebaseClient(Variables.Configuration.StringURLFirebase);
         private string NumberCardOrCheck { get; set; }
         private RequestsAPI Requests = null;
         private string UrlBase = Properties.Settings.Default.URL;
@@ -1123,31 +1126,7 @@ namespace SOAPAP.UI
 
 
                 if (validResponse)
-                {
-                    //Se lanza al orden de trabajo para el caso de reconección.
-                    if(Variables.Agreement.TypeStateServiceId == 3)
-                    {
-                        string[] ids = new string[] { paymentVM.Transaction.AgreementId.ToString() };
-                        var data = new { isAgreement = 1, ids, applicant = Variables.LoginModel.FullName, typeOrder = "OT003", Observation = "Orden de reconección", Activities = "Reconección" };                       
-                        var a = JsonConvert.SerializeObject(data);
-                        HttpContent content = new StringContent(a, Encoding.UTF8, "application/json");
-                        //TODO
-                        string resOrWo = string.Empty;
-                        resOrWo = await Requests.SendURIAsync("/api/OrderWork/OrderWorks", HttpMethod.Post, Variables.LoginModel.Token, content);
-                        if (resOrWo.Contains("error"))
-                        {
-                            mensaje = new MessageBoxForm("Error", resOrWo, TypeIcon.Icon.Warning);
-                            result = mensaje.ShowDialog();
-                            //this.Close();                           
-                        }
-                        else
-                        {
-                            mensaje = new MessageBoxForm("Orden solicitada.", "Se realizo la orden de reconección para esta cuenta", TypeIcon.Icon.Success);
-                            result = mensaje.ShowDialog();
-                            //this.Close();
-                        }
-                    }
-
+                {                    
                     dt = await q.GETTransactionID("/api/Transaction/" + resultados);
                     Variables.idtransaction = Convert.ToInt32(resultados);
                     loading.Close();
@@ -1162,8 +1141,7 @@ namespace SOAPAP.UI
                         {
                             loadings.Close();
                             try
-                            {
-                                //mensaje = new MessageBoxForm("Error", JsonConvert.DeserializeObject<Error>(xmltimbrado).error, TypeIcon.Icon.Cancel);
+                            {                                
                                 mensaje = new MessageBoxForm("Error", xmltimbrado, TypeIcon.Icon.Cancel);
                                 mensaje.AutoSize = true;
                                 result = mensaje.ShowDialog();
@@ -1239,6 +1217,40 @@ namespace SOAPAP.UI
                         default:
                             break;
                     }
+
+
+                    //Se lanza al orden de trabajo para el caso de reconección.
+                    if (Variables.Agreement.TypeStateServiceId == 3)
+                    {
+                        string[] ids = new string[] { paymentVM.Transaction.AgreementId.ToString() };
+                        var data = new { isAgreement = 1, ids, applicant = Variables.LoginModel.FullName, typeOrder = "OT003", Observation = "Orden de reconección", Activities = "Reconección" };
+                        var a = JsonConvert.SerializeObject(data);
+                        HttpContent content = new StringContent(a, Encoding.UTF8, "application/json");
+
+                        string resOrWo = string.Empty;
+                        resOrWo = await Requests.SendURIAsync("/api/OrderWork/OrderWorks", HttpMethod.Post, Variables.LoginModel.Token, content);
+                        if (resOrWo.Contains("error"))
+                        {
+                            mensaje = new MessageBoxForm("Error", resOrWo, TypeIcon.Icon.Warning);
+                            result = mensaje.ShowDialog();
+                        }
+                        else
+                        {
+                            mensaje = new MessageBoxForm("Orden solicitada.", "Se realizo la orden de reconección para esta cuenta.", TypeIcon.Icon.Success);
+                            result = mensaje.ShowDialog();
+                        }
+                    }
+                    //Se lanza la notificación de la order work
+                    FirebaseObject<NotificacionOrderWork> @object = await firebase
+                                                                 .Child("Notifications")
+                                                                 .PostAsync(new NotificacionOrderWork()
+                                                                 {
+                                                                     Account = Variables.Agreement.Account,
+                                                                     NombreUsuario = string.Format("{0} {1} {2}", Variables.Agreement.Clients.FirstOrDefault().Name, Variables.Agreement.Clients.FirstOrDefault().LastName, Variables.Agreement.Clients.FirstOrDefault().SecondLastName),
+                                                                     Fecha = DateTime.Now.ToLocalTime(),
+                                                                     Cheked = false
+                                                                 }, true);
+
 
                     if (mensaje.ShowDialog() == DialogResult.OK)
                     {
