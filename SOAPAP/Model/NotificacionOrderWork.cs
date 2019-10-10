@@ -12,5 +12,6 @@ namespace SOAPAP.Model
         public string NombreUsuario { get; set; }
         public DateTime Fecha { get; set; }
         public bool Cheked { get; set; }
+        public int OrderWorkId { get; set; }
     }
 }

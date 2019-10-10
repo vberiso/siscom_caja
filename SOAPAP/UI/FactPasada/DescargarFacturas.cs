@@ -145,9 +145,13 @@ namespace SOAPAP.UI.FactPasada
                             // Se guarda pdf
                             System.IO.File.WriteAllBytes(nombrefile + ".pdf", item.PDFInvoce);
                             //Se guarde el xml.
-                            XmlDocument xdoc = new XmlDocument();
+                            XmlDocument xdoc = new XmlDocument();                            
                             xdoc.LoadXml(item.Xml);
-                            xdoc.Save(System.IO.File.OpenWrite(nombrefile + ".xml"));
+                            //xdoc.Save(System.IO.File.OpenWrite(nombrefile + ".xml"));
+                            FileStream fs = System.IO.File.OpenWrite(nombrefile + ".xml");
+                            xdoc.Save(fs);
+                            fs.Flush();
+                            fs.Close();
                             
                             Count++;
                         }

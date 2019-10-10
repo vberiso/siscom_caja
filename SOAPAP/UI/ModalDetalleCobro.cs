@@ -1219,7 +1219,7 @@ namespace SOAPAP.UI
                     }
 
 
-                    //Se lanza al orden de trabajo para el caso de reconección.
+                    //Se lanza al orden de trabajo para el caso de reconección.                    
                     if (Variables.Agreement.TypeStateServiceId == 3)
                     {
                         string[] ids = new string[] { paymentVM.Transaction.AgreementId.ToString() };
@@ -1231,27 +1231,34 @@ namespace SOAPAP.UI
                         resOrWo = await Requests.SendURIAsync("/api/OrderWork/OrderWorks", HttpMethod.Post, Variables.LoginModel.Token, content);
                         if (resOrWo.Contains("error"))
                         {
-                            mensaje = new MessageBoxForm("Error", resOrWo, TypeIcon.Icon.Warning);
+                            mensaje = new MessageBoxForm("Error", "No se pudo generar la orden de reconexión", TypeIcon.Icon.Warning);
+                            result = mensaje.ShowDialog();
+                        }
+                        else if (resOrWo.Contains("reazon")) {
+                            mensaje = new MessageBoxForm("Error", "No se pudo generar lo orden de reconexión", TypeIcon.Icon.Warning);
                             result = mensaje.ShowDialog();
                         }
                         else
                         {
-                            mensaje = new MessageBoxForm("Orden solicitada.", "Se realizo la orden de reconección para esta cuenta.", TypeIcon.Icon.Success);
+                            mensaje = new MessageBoxForm("Orden solicitada.", "Se realizo la orden de reconexión para esta cuenta.", TypeIcon.Icon.Success);
                             result = mensaje.ShowDialog();
-                        }
+
+                            var definition = new { msg = "", id = 0 };
+                            var resOW = JsonConvert.DeserializeAnonymousType(resOrWo, definition);
+                            //Se lanza la notificación de la order work
+                            FirebaseObject<NotificacionOrderWork> @object = await firebase
+                                                                         .Child("Notifications")
+                                                                         .PostAsync(new NotificacionOrderWork()
+                                                                         {
+                                                                             Account = Variables.Agreement.Account,
+                                                                             NombreUsuario = string.Format("{0} {1} {2}", Variables.Agreement.Clients.FirstOrDefault().Name, Variables.Agreement.Clients.FirstOrDefault().LastName, Variables.Agreement.Clients.FirstOrDefault().SecondLastName),
+                                                                             Fecha = DateTime.Now.ToLocalTime(),
+                                                                             Cheked = false,
+                                                                             OrderWorkId = resOW.id
+                                                                         }, true);
+                        }                        
                     }
-                    //Se lanza la notificación de la order work
-                    FirebaseObject<NotificacionOrderWork> @object = await firebase
-                                                                 .Child("Notifications")
-                                                                 .PostAsync(new NotificacionOrderWork()
-                                                                 {
-                                                                     Account = Variables.Agreement.Account,
-                                                                     NombreUsuario = string.Format("{0} {1} {2}", Variables.Agreement.Clients.FirstOrDefault().Name, Variables.Agreement.Clients.FirstOrDefault().LastName, Variables.Agreement.Clients.FirstOrDefault().SecondLastName),
-                                                                     Fecha = DateTime.Now.ToLocalTime(),
-                                                                     Cheked = false
-                                                                 }, true);
-
-
+                    
                     if (mensaje.ShowDialog() == DialogResult.OK)
                     {
                         this.Close();
