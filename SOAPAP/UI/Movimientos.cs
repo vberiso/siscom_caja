@@ -32,11 +32,15 @@ using SOAPAP.Reportes;
 using SOAPAP.UI.HistorialTransacciones;
 using System.Net;
 using HiQPdf;
+using Firebase.Database;
+using Firebase.Database.Query;
+using SOAPAP.UI.Messages;
 
 namespace SOAPAP
 {
     public partial class Movimientos : Form
     {
+        public readonly FirebaseClient firebase = new FirebaseClient(Variables.Configuration.StringURLFirebase);
         DataTable dtt = new DataTable();
         querys q = new querys();
         Form cuadritos3;
@@ -1111,9 +1115,65 @@ namespace SOAPAP
 
                     if (row.Cells["typeTransactionId"].Value.ToString() == "3")
                     {
-                        mensaje = new MessageBoxForm("¿Cancelar operación?", "Se enviará una solictud de autorización", TypeIcon.Icon.Warning, true);
-                        result = mensaje.ShowDialog();
-                        if (result == DialogResult.OK)
+                        //mensaje = new MessageBoxForm("¿Deseas cancelar la operación?", "Se enviará una solictud de autorización", TypeIcon.Icon.Warning, true);
+                        //result = mensaje.ShowDialog();  
+                        loading = new Loading();
+                        loading.Show(this);
+
+                        TransactionCancellationRequest TCR = new TransactionCancellationRequest()
+                        {
+                            DateRequest = DateTime.Now,
+                            Status = "ESC01",
+                            TransactionId = transactionSelect.Transaction.Id
+                        };
+                        using (msgSolicitudCancelacion msgObs = new msgSolicitudCancelacion())
+                        {
+                            msgObs.ShowDialog();
+                            TCR.Reason = msgObs.TextoMotivo;                            
+                        }
+
+                        if (!string.IsNullOrEmpty(TCR.Reason))
+                        {
+                            //Se genera el registro en BD de la solicitud de cancelacion.
+                            HttpContent content;          
+                            content = new StringContent(JsonConvert.SerializeObject(TCR), Encoding.UTF8, "application/json");
+                            var ResultAddCancelReq = await Requests.SendURIAsync("/api/TransactionCancelationRequest", HttpMethod.Post, Variables.LoginModel.Token, content);
+                            if (ResultAddCancelReq.Contains("error"))
+                            {
+                                mensaje = new MessageBoxForm("Error", JsonConvert.DeserializeObject<Error>(ResultAddCancelReq).error, TypeIcon.Icon.Cancel);
+                                result = mensaje.ShowDialog();
+                            }
+                            else
+                            {
+                                TransactionCancellationRequest TCRregistro = JsonConvert.DeserializeObject<TransactionCancellationRequest>(ResultAddCancelReq);
+                                //Se lanza la notificación de la order work
+                                FirebaseObject<TransactionCancellationRequest> @object = await firebase
+                                                                             .Child("CancelRequest")
+                                                                             .PostAsync(TCRregistro, true);
+                                TCRregistro.KeyFirebase = @object.Key;
+                                HttpContent contUpdate = new StringContent(JsonConvert.SerializeObject(TCRregistro), Encoding.UTF8, "application/json");
+                                var ResultUpdateCancelReq = await Requests.SendURIAsync(string.Format("/api/TransactionCancelationRequest/{0}", TCRregistro.Id), HttpMethod.Put, Variables.LoginModel.Token, contUpdate);
+                                if (ResultUpdateCancelReq.Contains("error"))
+                                {
+                                    mensaje = new MessageBoxForm("Error", JsonConvert.DeserializeObject<Error>(ResultAddCancelReq).error, TypeIcon.Icon.Cancel);
+                                    result = mensaje.ShowDialog();
+                                }
+                                else
+                                {
+                                    mensaje = new MessageBoxForm("Solicitud enviada.", "Se ha enviado la solitud de descuento.", TypeIcon.Icon.Success);
+                                    result = mensaje.ShowDialog();
+                                }
+                            }
+                            loading.Close();
+                        }
+                        else
+                        {
+                            loading.Close();
+                        }
+
+
+                        //if (result == DialogResult.OK)
+                        if(!string.IsNullOrEmpty(TCR.Reason))
                         {
                             mensaje = new MessageBoxForm("¿Seguro de cancelar movimiento?", "Este proceso será irreversible", TypeIcon.Icon.Warning, true);
                             result = mensaje.ShowDialog();

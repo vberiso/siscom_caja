@@ -32,9 +32,9 @@
             this.lblTitulo = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.tbxMensage = new System.Windows.Forms.TextBox();
-            this.btnAceptar = new System.Windows.Forms.Button();
             this.cbxUsoCFDI = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
+            this.btnAceptar = new System.Windows.Forms.Button();
             this.pnlHeader.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -81,16 +81,6 @@
             this.tbxMensage.TabIndex = 46;
             this.tbxMensage.TextChanged += new System.EventHandler(this.tbxMensage_TextChanged);
             // 
-            // btnAceptar
-            // 
-            this.btnAceptar.Location = new System.Drawing.Point(565, 282);
-            this.btnAceptar.Name = "btnAceptar";
-            this.btnAceptar.Size = new System.Drawing.Size(75, 23);
-            this.btnAceptar.TabIndex = 47;
-            this.btnAceptar.Text = "Aceptar";
-            this.btnAceptar.UseVisualStyleBackColor = true;
-            this.btnAceptar.Click += new System.EventHandler(this.btnAceptar_Click);
-            // 
             // cbxUsoCFDI
             // 
             this.cbxUsoCFDI.FormattingEnabled = true;
@@ -110,15 +100,29 @@
             this.label2.Text = "Tipo de uso CFDI:";
             this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
+            // btnAceptar
+            // 
+            this.btnAceptar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(133)))), ((int)(((byte)(214)))));
+            this.btnAceptar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAceptar.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAceptar.ForeColor = System.Drawing.Color.White;
+            this.btnAceptar.Location = new System.Drawing.Point(541, 279);
+            this.btnAceptar.Name = "btnAceptar";
+            this.btnAceptar.Size = new System.Drawing.Size(97, 31);
+            this.btnAceptar.TabIndex = 50;
+            this.btnAceptar.Text = "Aceptar";
+            this.btnAceptar.UseVisualStyleBackColor = false;
+            this.btnAceptar.Click += new System.EventHandler(this.btnAceptar_Click);
+            // 
             // msgObservacionFactura
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(652, 317);
             this.ControlBox = false;
+            this.Controls.Add(this.btnAceptar);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.cbxUsoCFDI);
-            this.Controls.Add(this.btnAceptar);
             this.Controls.Add(this.tbxMensage);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.pnlHeader);
@@ -139,8 +143,8 @@
         private System.Windows.Forms.Label lblTitulo;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox tbxMensage;
-        private System.Windows.Forms.Button btnAceptar;
         private System.Windows.Forms.ComboBox cbxUsoCFDI;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Button btnAceptar;
     }
 }
