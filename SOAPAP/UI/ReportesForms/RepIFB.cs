@@ -671,7 +671,7 @@ namespace SOAPAP.UI.ReportesForms
                 Nombre2 = "";
             }
             builder.Append(@"<div  class='firma_y_sello' style='margin-bottom:50px; margin-top: 200px; text-align: center'>");
-            builder.Append(@"<div   style='text-align: right; display: inline-block; width: 20 %;' >");
+            builder.Append(@"<div   style='text-align: right; display: inline-block; width: 20%;' >");
             builder.Append(@"<p style='text-align: center; padding-top: 10px; border-top-style: solid; border-top-color: black; '>");
             builder.Append(Nombre);
             builder.Append(@"</p>");

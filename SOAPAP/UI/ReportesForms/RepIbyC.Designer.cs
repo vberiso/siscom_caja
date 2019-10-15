@@ -55,7 +55,7 @@
             this.pcbIncomeByConcept = new System.Windows.Forms.PictureBox();
             this.pbBG = new System.Windows.Forms.PictureBox();
             this.pnlHRigth = new System.Windows.Forms.Panel();
-            this.panel1 = new System.Windows.Forms.Panel();
+            this.oanel = new System.Windows.Forms.Panel();
             this.windowsUIButtonPanel1 = new DevExpress.XtraBars.Docking2010.WindowsUIButtonPanel();
             this.pnlHLeft = new System.Windows.Forms.Panel();
             this.label7 = new System.Windows.Forms.Label();
@@ -64,7 +64,6 @@
             this.lblTitulo = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.pgcCollection = new DevExpress.XtraPivotGrid.PivotGridControl();
-            this.dataCollectionBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.pgfDescripcion = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfSubtotal = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfDescuento = new DevExpress.XtraPivotGrid.PivotGridField();
@@ -83,6 +82,11 @@
             this.pgfCliente = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfDivision = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfMotivo = new DevExpress.XtraPivotGrid.PivotGridField();
+            this.RadioPredial = new System.Windows.Forms.RadioButton();
+            this.RadioLimpia = new System.Windows.Forms.RadioButton();
+            this.radioTodo = new System.Windows.Forms.RadioButton();
+            this.PanelPredialLimpia = new System.Windows.Forms.Panel();
+            this.dataCollectionBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.pnlHeader.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -91,10 +95,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.pcbIncomeByConcept)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbBG)).BeginInit();
             this.pnlHRigth.SuspendLayout();
-            this.panel1.SuspendLayout();
+            this.oanel.SuspendLayout();
             this.pnlHLeft.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pgcCollection)).BeginInit();
+            this.PanelPredialLimpia.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataCollectionBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
@@ -260,21 +265,22 @@
             // 
             // pnlHRigth
             // 
-            this.pnlHRigth.Controls.Add(this.panel1);
+            this.pnlHRigth.Controls.Add(this.oanel);
             this.pnlHRigth.Dock = System.Windows.Forms.DockStyle.Right;
-            this.pnlHRigth.Location = new System.Drawing.Point(690, 0);
+            this.pnlHRigth.Location = new System.Drawing.Point(639, 0);
             this.pnlHRigth.Name = "pnlHRigth";
-            this.pnlHRigth.Size = new System.Drawing.Size(201, 124);
+            this.pnlHRigth.Size = new System.Drawing.Size(252, 124);
             this.pnlHRigth.TabIndex = 44;
             // 
-            // panel1
+            // oanel
             // 
-            this.panel1.Controls.Add(this.windowsUIButtonPanel1);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panel1.Location = new System.Drawing.Point(3, 0);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(198, 124);
-            this.panel1.TabIndex = 45;
+            this.oanel.Controls.Add(this.PanelPredialLimpia);
+            this.oanel.Controls.Add(this.windowsUIButtonPanel1);
+            this.oanel.Dock = System.Windows.Forms.DockStyle.Right;
+            this.oanel.Location = new System.Drawing.Point(7, 0);
+            this.oanel.Name = "oanel";
+            this.oanel.Size = new System.Drawing.Size(245, 124);
+            this.oanel.TabIndex = 45;
             // 
             // windowsUIButtonPanel1
             // 
@@ -306,9 +312,9 @@
             this.windowsUIButtonPanel1.Cursor = System.Windows.Forms.Cursors.Hand;
             this.windowsUIButtonPanel1.Dock = System.Windows.Forms.DockStyle.Right;
             this.windowsUIButtonPanel1.ForeColor = System.Drawing.SystemColors.ControlLight;
-            this.windowsUIButtonPanel1.Location = new System.Drawing.Point(10, 0);
+            this.windowsUIButtonPanel1.Location = new System.Drawing.Point(104, 0);
             this.windowsUIButtonPanel1.Name = "windowsUIButtonPanel1";
-            this.windowsUIButtonPanel1.Size = new System.Drawing.Size(188, 124);
+            this.windowsUIButtonPanel1.Size = new System.Drawing.Size(141, 124);
             this.windowsUIButtonPanel1.TabIndex = 56;
             this.windowsUIButtonPanel1.Text = "windowsUIButtonPanel1";
             this.windowsUIButtonPanel1.ButtonClick += new DevExpress.XtraBars.Docking2010.ButtonEventHandler(this.windowsUIButtonPanel1_ButtonClick);
@@ -419,10 +425,6 @@
             this.pgcCollection.OptionsData.DataProcessingEngine = DevExpress.XtraPivotGrid.PivotDataProcessingEngine.LegacyOptimized;
             this.pgcCollection.Size = new System.Drawing.Size(891, 298);
             this.pgcCollection.TabIndex = 50;
-            // 
-            // dataCollectionBindingSource
-            // 
-            this.dataCollectionBindingSource.DataSource = typeof(SOAPAP.Reportes.DataCollection);
             // 
             // pgfDescripcion
             // 
@@ -560,6 +562,59 @@
             this.pgfMotivo.FieldName = "MotivoDescuento";
             this.pgfMotivo.Name = "pgfMotivo";
             // 
+            // RadioPredial
+            // 
+            this.RadioPredial.AutoSize = true;
+            this.RadioPredial.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RadioPredial.Location = new System.Drawing.Point(4, 48);
+            this.RadioPredial.Name = "RadioPredial";
+            this.RadioPredial.Size = new System.Drawing.Size(69, 20);
+            this.RadioPredial.TabIndex = 57;
+            this.RadioPredial.Text = "Predial";
+            this.RadioPredial.UseVisualStyleBackColor = true;
+            this.RadioPredial.CheckedChanged += new System.EventHandler(this.RadioPredial_CheckedChanged);
+            // 
+            // RadioLimpia
+            // 
+            this.RadioLimpia.AutoSize = true;
+            this.RadioLimpia.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RadioLimpia.Location = new System.Drawing.Point(4, 79);
+            this.RadioLimpia.Name = "RadioLimpia";
+            this.RadioLimpia.Size = new System.Drawing.Size(66, 20);
+            this.RadioLimpia.TabIndex = 58;
+            this.RadioLimpia.Text = "Limpia";
+            this.RadioLimpia.UseVisualStyleBackColor = true;
+            this.RadioLimpia.CheckedChanged += new System.EventHandler(this.RadioLimpia_CheckedChanged);
+            // 
+            // radioTodo
+            // 
+            this.radioTodo.AutoSize = true;
+            this.radioTodo.Checked = true;
+            this.radioTodo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.radioTodo.Location = new System.Drawing.Point(4, 16);
+            this.radioTodo.Name = "radioTodo";
+            this.radioTodo.Size = new System.Drawing.Size(59, 20);
+            this.radioTodo.TabIndex = 59;
+            this.radioTodo.TabStop = true;
+            this.radioTodo.Text = "Todo";
+            this.radioTodo.UseVisualStyleBackColor = true;
+            this.radioTodo.CheckedChanged += new System.EventHandler(this.RadioTodo_CheckedChanged);
+            // 
+            // PanelPredialLimpia
+            // 
+            this.PanelPredialLimpia.Controls.Add(this.RadioLimpia);
+            this.PanelPredialLimpia.Controls.Add(this.RadioPredial);
+            this.PanelPredialLimpia.Controls.Add(this.radioTodo);
+            this.PanelPredialLimpia.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.PanelPredialLimpia.Location = new System.Drawing.Point(0, 0);
+            this.PanelPredialLimpia.Name = "PanelPredialLimpia";
+            this.PanelPredialLimpia.Size = new System.Drawing.Size(104, 124);
+            this.PanelPredialLimpia.TabIndex = 60;
+            // 
+            // dataCollectionBindingSource
+            // 
+            this.dataCollectionBindingSource.DataSource = typeof(SOAPAP.Reportes.DataCollection);
+            // 
             // RepIbyC
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -580,11 +635,13 @@
             ((System.ComponentModel.ISupportInitialize)(this.pcbIncomeByConcept)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbBG)).EndInit();
             this.pnlHRigth.ResumeLayout(false);
-            this.panel1.ResumeLayout(false);
+            this.oanel.ResumeLayout(false);
             this.pnlHLeft.ResumeLayout(false);
             this.pnlHLeft.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pgcCollection)).EndInit();
+            this.PanelPredialLimpia.ResumeLayout(false);
+            this.PanelPredialLimpia.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataCollectionBindingSource)).EndInit();
             this.ResumeLayout(false);
 
@@ -603,7 +660,7 @@
         private System.Windows.Forms.PictureBox pcbIncomeByConcept;
         private System.Windows.Forms.PictureBox pbBG;
         private System.Windows.Forms.Panel pnlHRigth;
-        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel oanel;
         private System.Windows.Forms.Panel pnlHLeft;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label lblTitulo;
@@ -634,5 +691,9 @@
         private DevExpress.XtraPivotGrid.PivotGridField pgfCliente;
         private DevExpress.XtraPivotGrid.PivotGridField pgfDivision;
         private DevExpress.XtraPivotGrid.PivotGridField pgfMotivo;
+        private System.Windows.Forms.RadioButton RadioLimpia;
+        private System.Windows.Forms.RadioButton RadioPredial;
+        private System.Windows.Forms.RadioButton radioTodo;
+        private System.Windows.Forms.Panel PanelPredialLimpia;
     }
 }

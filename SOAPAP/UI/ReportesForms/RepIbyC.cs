@@ -26,6 +26,7 @@ namespace SOAPAP.UI.ReportesForms
         private RequestsAPI Requests = null;
         Form mensaje;
         DialogResult result = new DialogResult();
+        private int predialLimpia = 1;
 
         private string UrlBase = Properties.Settings.Default.URL;
         string json = string.Empty;
@@ -38,6 +39,15 @@ namespace SOAPAP.UI.ReportesForms
 
         private async void RepCollection_Load(object sender, EventArgs e)
         {
+            if (Variables.Configuration.IsMunicipal)
+            {
+                PanelPredialLimpia.Visible = true;
+            }
+            else
+            {
+                PanelPredialLimpia.Visible = false;
+            }
+
             loading = new Loading();
             loading.Show(this);
             await CargarCombos();
@@ -240,17 +250,20 @@ namespace SOAPAP.UI.ReportesForms
             else
             {
                 var lstData = JsonConvert.DeserializeObject<List<DataCollection>>(_resulTransaction);
+                
 
                 if (lstData == null)
                 {
                     mensaje = new MessageBoxForm("Sin Operaciones", "No se encontraron movimientos.", TypeIcon.Icon.Warning);
                     result = mensaje.ShowDialog();
                 }
+                
 
                 try
                 {
+
                     //Filtros finales                    
-                    pgcCollection.DataSource = lstData;
+                    pgcCollection.DataSource = ResolveConcepts(lstData);
 
                 }
                 catch (Exception e)
@@ -323,7 +336,16 @@ namespace SOAPAP.UI.ReportesForms
                 HiQPdf.PdfPage page1 = document.AddPage(HiQPdf.PdfPageSize.A4, new HiQPdf.PdfDocumentMargins(5), HiQPdf.PdfPageOrientation.Landscape);
                 SetHeader(document, dRep.FechaIni, dRep.FechaFin);
                 SetFooter(document);
-                HiQPdf.PdfHtml html = new HiQPdf.PdfHtml(await getHtml(dRep.FechaIni, dRep.FechaFin, lstData), null);
+                HiQPdf.PdfHtml html = null;
+                if (predialLimpia != 1 && Variables.Configuration.IsMunicipal)
+                {
+                     html = new HiQPdf.PdfHtml(await getHtmlReporteLimpia(dRep.FechaIni, dRep.FechaFin, lstData), null);
+                }
+                
+                else
+                {
+                     html = new HiQPdf.PdfHtml(await getHtml(dRep.FechaIni, dRep.FechaFin, lstData), null);
+                }
                 html.WaitBeforeConvert = 2;
                 HiQPdf.PdfLayoutInfo layoutInfo = page1.Layout(html);
                 MemoryStream stream = new MemoryStream();
@@ -347,6 +369,7 @@ namespace SOAPAP.UI.ReportesForms
         }
         private Task<string> getHtml(string FechaI, string FechaF, List<DataCollection> lstData)
         {
+            //lstData = ResolveConcepts(lstData);
             StringBuilder builder = new StringBuilder();
             builder.Append(@"<html lang='es'><head>");
             builder.Append(@"<meta charset='UTF-8'>");
@@ -519,7 +542,7 @@ namespace SOAPAP.UI.ReportesForms
             builder.Append(@"</tr>");
 
             builder.Append(@"</table>");
-            builder.Append(@"<p style='margin-top:-15px;font-size: 14px;text-align:center;'><b>INGRESOS POR CONCEPTO</b></p></div>");
+            builder.Append(@"<p style='margin-top:-15px;font-size: 14px;text-align:center;'><b>INGRESOS POR CONCEPTO</b>"+ (predialLimpia  == 2? "<br>Predial" :(predialLimpia == 3 ?"<br>Limpia": "")) + "</p></div>");
 
 
             builder.Append(@"</div>");
@@ -623,6 +646,225 @@ namespace SOAPAP.UI.ReportesForms
                     button1_Click(sender, e);
                     break;
             }
+        }
+
+        private void RadioTodo_CheckedChanged(object sender, EventArgs e)
+        {
+            predialLimpia = 1;
+        }
+
+        private void RadioPredial_CheckedChanged(object sender, EventArgs e)
+        {
+            predialLimpia = 2;
+        }
+
+        private void RadioLimpia_CheckedChanged(object sender, EventArgs e)
+        {
+            predialLimpia = 3; 
+        }
+
+        private List<DataCollection> ResolveConcepts(List<DataCollection> lstData)
+        {
+            if (predialLimpia == 2)
+            {
+                lstData = lstData.Where(x => x.code_concept == "1" || x.code_concept == "3").ToList();
+
+            }
+            else if (predialLimpia == 3)
+            {
+                lstData = lstData.Where(x => x.code_concept == "2" || x.code_concept == "5").ToList();
+            }
+
+            return lstData;
+        }
+
+        private Task<string> getHtmlReporteLimpia(string FechaI, string FechaF, List<DataCollection> lstData)
+        {
+            StringBuilder builder = new StringBuilder();
+            lstData = ResolveConcepts(lstData);
+
+            builder.Append(@"<html lang='es'><head>");
+            builder.Append(@"<meta charset='UTF-8'>");
+            builder.Append(@"<meta name='viewport' content='width=device-width, initial-scale=1.0'>");
+            builder.Append(@"<meta http-equiv='X-UA-Compatible' content='ie=edge'>");
+            builder.Append(@"<link href='https://fonts.googleapis.com/css?family=Montserrat|Roboto&display=swap' rel='stylesheet'>");
+            builder.Append(@"<title>Facturación</title>");
+            builder.Append(@"<style  type='text/css'>
+            td.snfrmt{
+                padding: 5px;
+                text-align: left;
+                border-style: none !important;
+                border-collapse:collapse !important; 
+                border-right-style: hidden !important;
+                border-bottom-style: hidden !important;
+                border-left-style: hidden !important;
+            }
+
+            table#datos, table#datos tr, table#datos td {
+                padding: 5px;
+                text-align: right;
+                border: 1px solid black;
+                border-collapse: collapse;
+            }
+
+            table#datos th{
+                padding: 5px;
+                text-align: center;
+                border: 1px solid black;
+                border-collapse: collapse;
+            }
+
+            td.centro {
+                text-align: center !important;
+            }
+
+            td.left {
+                text-align: left !important;
+            }
+
+            td.negrita {
+                font-weight: bold;
+            }
+
+            td.padding {
+                padding-top: 10px;
+            }
+
+            
+            </style>");
+            builder.Append(@"</head>");
+            builder.Append(@"<body style='font-size: 8px;padding: 5px'>");
+            builder.Append(@"<div style='font-family: \""Roboto\"", sans-serif; height: 100px;'>");
+
+
+
+
+
+            builder.Append(@" <div  class='datos_conceptos'> ");
+
+            var subListFinal = lstData.Select(x => x.id_payment).Distinct().ToList();
+            List<DataCollection> lNormal = null;
+            List<DataCollection> lRecargos = null;
+            string[] code_concepts = null;
+            if (Variables.Configuration.IsMunicipal)
+            {
+                code_concepts = new string[] { "3", "5" };
+            }
+         
+            string totalD = "";
+            string total = "";
+            int Rows = 2;
+
+            builder.Append(@"<table id='datos' style='width: 100%; font-size: 10px;'>");
+
+            builder.Append(@"<thead>");
+            builder.Append(@"<tr>");
+            builder.Append(@"<th  style='border:1px  solid black; text-align:center;'>FOLIO</th>");
+            builder.Append(@"<th  style='border: 1px solid black;text-align:center;'>SERIE</th>");
+            builder.Append(@"<th  style='border: 1px solid black;text-align:center;'>CUENTA</th>");
+            builder.Append(@"<th  style='border: 1px solid black;text-align:center;'>NOMBRE</th>");
+            builder.Append(@"<th  style='border: 1px solid black;text-align:center;'>IMPORTE</th>");
+            builder.Append(@"<th  style='border: 1px solid black;text-align:center;'>DESC.</th>");
+            builder.Append(@"<th  style='border: 1px solid black;text-align:center;'>IMPORTE NETO</th>");
+            builder.Append(@"<th  style='border: 1px solid black;text-align:center;'>RECARGOS</th>");
+            builder.Append(@"<th  style='border: 1px solid black;text-align:center;'>DESC.</th>");
+            builder.Append(@"<th  style='border: 1px solid black;text-align:center;'>RECARGOS NETO</th>");
+            builder.Append(@"<th  style='border: 1px solid black;text-align:center;'>TOTAL DESC</th>");
+            builder.Append(@"<th  style='border: 1px solid black;text-align:center;'>TOTAL</th>");
+            builder.Append(@"<th  style='border: 1px solid black;text-align:center;'>FECHA</th>");
+            builder.Append(@"<th  style='border: 1px solid black;text-align:center;'>STATUS</th>");
+            builder.Append(@"</tr>");
+            builder.Append(@"</thead>");
+            builder.Append(@"<tbody>");
+            subListFinal.ForEach(x =>
+            {
+                var element = lstData.Where(e => e.id_payment == x).First();
+
+                lRecargos = lstData.Where(xx => xx.id_payment == element.id_payment && xx.CUENTA == element.CUENTA &&
+               code_concepts.Contains(xx.code_concept)
+              ).ToList();
+
+                lNormal = lstData.Where(xx => xx.id_payment == element.id_payment && xx.CUENTA == element.CUENTA &&
+               !code_concepts.Contains(xx.code_concept)).ToList();
+                builder.Append(@"<tr>");
+                builder.Append(@"<td  style='border:1px solid black ;text-align: left;'> " + element.folio_impresion + "</td>");
+                builder.Append(@"<td  style='border:1px solid black;text-align: center;'> " + element.Serie + "</td>");
+                builder.Append(@"<td  style='border:1px solid black;text-align: left;'> " + element.CUENTA + "</td>");
+                builder.Append(@"<td  style='border:1px solid black; text-align: left;'> " + element.Contribuyente + "</td>");
+                builder.Append(@"<td  style='border:1px solid black;'> " + string.Format(new CultureInfo("es-MX"), "{0:C2}", lNormal.Sum(lm => lm.MONTO)) + "</td>");
+                builder.Append(@"<td  style='border:1px solid black;' > " + string.Format(new CultureInfo("es-MX"), "{0:C2}", lNormal.Sum(lm => lm.DESCUENTO)) + "</td>");
+                builder.Append(@"<td  style='border:1px solid black;'> " + string.Format(new CultureInfo("es-MX"), "{0:C2}", lNormal.Sum(lm => lm.TOTAL)) + "</td>");
+                builder.Append(@"<td  style='border:1px solid black;'> " + string.Format(new CultureInfo("es-MX"), "{0:C2}", lRecargos.Sum(lm => lm.MONTO)) + "</td>");
+                builder.Append(@"<td  style='border:1px solid black;'> " + string.Format(new CultureInfo("es-MX"), "{0:C2}", lRecargos.Sum(lm => lm.DESCUENTO)) + "</td>");
+                builder.Append(@"<td  style='border:1px solid black;'> " + string.Format(new CultureInfo("es-MX"), "{0:C2}", lRecargos.Sum(lm => lm.TOTAL)) + "</td>");
+                totalD = string.Format(new CultureInfo("es-MX"), "{0:C2}", (lNormal.Sum(lm => lm.DESCUENTO) + lRecargos.Sum(lm => lm.DESCUENTO)));
+                builder.Append(@"<td  style='border:1px solid black;'> " + totalD + "</td>");
+                total = string.Format(new CultureInfo("es-MX"), "{0:C2}", (lNormal.Sum(lm => lm.TOTAL) + lRecargos.Sum(lm => lm.TOTAL)));
+                builder.Append(@"<td  style='border:1px solid black;'> " + total + "</td>");
+                builder.Append(@"<td  style='border:1px solid black;'> " + DateTime.Parse(element.FECHA_PAGO).ToString("dd-MM-yyyy") + "</td>");
+                builder.Append(@"<td  style='border:1px solid black;'> " + (element.Status == "EP001" ? "Activo" : "Cancelado") + "</td>");
+                builder.Append(@"</tr>");
+
+                Rows++;
+            });
+            builder.Append(@"</tbody>");
+
+            lRecargos = lstData.Where(xx => code_concepts.Contains(xx.code_concept)).ToList();
+
+            lNormal = lstData.Where(xx => !code_concepts.Contains(xx.code_concept)).ToList();
+
+            builder.Append(@"<tr class='padding'>");
+            builder.Append(@"<td  class='snfrmt'></td>");
+            builder.Append(@"<td  class='snfrmt'></td>");
+            builder.Append(@"<td  class='snfrmt'></td>");
+            builder.Append(@"<td  class='snfrmt'></td>");
+            //montos
+
+            builder.Append(@"<td  class='snfrmt'>" + string.Format(new CultureInfo("es-MX"), "{0:C2}", lNormal.Sum(m => m.MONTO)) + "</td>");
+            builder.Append(@"<td  class='snfrmt'>" + string.Format(new CultureInfo("es-MX"), "{0:C2}", lNormal.Sum(m => m.DESCUENTO)) + "</td>");
+            builder.Append(@"<td  class='snfrmt'>" + string.Format(new CultureInfo("es-MX"), "{0:C2}", lNormal.Sum(m => m.TOTAL)) + "</td>");
+            builder.Append(@"<td  class='snfrmt'>" + string.Format(new CultureInfo("es-MX"), "{0:C2}", lRecargos.Sum(m => m.MONTO)) + "</td>");
+            builder.Append(@"<td  class='snfrmt'>" + string.Format(new CultureInfo("es-MX"), "{0:C2}", lRecargos.Sum(m => m.DESCUENTO)) + "</td>");
+            builder.Append(@"<td  class='snfrmt'>" + string.Format(new CultureInfo("es-MX"), "{0:C2}", lRecargos.Sum(m => m.TOTAL)) + "</td>");
+            total = string.Format(new CultureInfo("es-MX"), "{0:C2}", lRecargos.Sum(m => m.TOTAL) + lNormal.Sum(m => m.TOTAL));
+            totalD = string.Format(new CultureInfo("es-MX"), "{0:C2}", lRecargos.Sum(m => m.DESCUENTO) + lNormal.Sum(m => m.DESCUENTO));
+            builder.Append(@"<td  class='snfrmt'>" + totalD + "</td>");
+            builder.Append(@"<td  class='snfrmt'>" + total + "</td>");
+            builder.Append(@"<td  class='snfrmt'></td>");
+            builder.Append(@"<td  class='snfrmt'></td>");
+            builder.Append(@"</tr>");
+            builder.Append(@"</table>");
+            builder.Append(@"</div>");
+            string Nombre = "C. Martha Rojas Flores<br>Directora de Predial";
+            string Nombre2 = "C. Mercedes Pérez Zempoalteca<br>Directora de Ingresos";
+            if (!Variables.Configuration.IsMunicipal)
+            {
+                Nombre = "";
+                Nombre2 = "";
+            }
+            builder.Append(@"<div  class='firma_y_sello' style='margin-bottom:50px; margin-top: 200px; text-align: center'>");
+            builder.Append(@"<div   style='text-align: right; display: inline-block; width: 20%;' >");
+            builder.Append(@"<p style='text-align: center; padding-top: 10px; border-top-style: solid; border-top-color: black; '>");
+            builder.Append(Nombre);
+            builder.Append(@"</p>");
+            builder.Append(@"</div>");
+            builder.Append(@"<div style='text-align: right; display: inline-block; width: 15%;'>");
+            builder.Append(@"<p style='text-align: center; padding-top: 10px;'> ");
+            builder.Append(@"</p>");
+            builder.Append(@"</div>");
+            builder.Append(@"<div style='text-align: right; display: inline-block; width: 20%;'>");
+            builder.Append(@"<p style='text-align: center; padding-top: 10px; border-top-style: solid; border-top-color: black;'> ");
+            builder.Append(Nombre2);
+            builder.Append(@"</p>");
+            builder.Append(@"</div>");
+            builder.Append(@"</div>");
+
+
+            builder.Append(@"</div>");
+            builder.Append(@"</body>");
+            builder.Append(@"</html>");
+            return Task.FromResult<string>(builder.ToString());
+
         }
     }
 }
