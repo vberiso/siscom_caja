@@ -46,5 +46,22 @@ namespace SOAPAP.UI.Visualizador
         {
             pdfViewer1.Print();
         }
+
+        //Metodo para imprimir el documento cargado.
+        public void imprimirDocumentoSinVisualizar()
+        {
+            if (StreamReader == null)
+            {
+                pdfViewer1.LoadDocument(PathResource);
+            }
+            else
+            {
+                pdfViewer1.LoadDocument(StreamReader);
+            }
+            pdfViewer1.Print();
+        }
+            
+
+
     }
 }

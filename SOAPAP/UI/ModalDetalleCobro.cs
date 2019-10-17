@@ -1174,23 +1174,35 @@ namespace SOAPAP.UI
                             //        }
                             //    }
                             //}
-                            PdfPrint.IsContentCentered = true;
-                            PdfPrint.Scale = PdfPrint.ScaleTypes.None;
-                            PdfPrint.Status result = PdfPrint.Status.OK;
-                            PrintDialog printDialog = new PrintDialog();
-                            if (printDialog.ShowDialog() == DialogResult.OK)
+
+                            //Impresion del PDF.
+                            SOAPAP.UI.Visualizador.Preview oPreview = new SOAPAP.UI.Visualizador.Preview(xmltimbrado);
+                            try
                             {
-                                try
-                                {
-                                    result = PdfPrint.Print(xmltimbrado, printDialog.PrinterSettings);
-                                }
-                                catch (Exception ex)
-                                {
-                                    result = PdfPrint.Status.UNKNOWN_ERROR;
-                                    mensaje = new MessageBoxForm("Error", ex.Message, TypeIcon.Icon.Cancel);
-                                    mensaje.ShowDialog();
-                                }
+                                oPreview.imprimirDocumentoSinVisualizar();                                
                             }
+                            catch (Exception ex)
+                            {
+                                mensaje = new MessageBoxForm("Error", ex.Message, TypeIcon.Icon.Cancel);
+                                mensaje.ShowDialog();
+                            }
+                            //PdfPrint.IsContentCentered = true;
+                            //PdfPrint.Scale = PdfPrint.ScaleTypes.None;
+                            //PdfPrint.Status result = PdfPrint.Status.OK;
+                            //PrintDialog printDialog = new PrintDialog();
+                            //if (printDialog.ShowDialog() == DialogResult.OK)
+                            //{
+                            //    try
+                            //    {
+                            //        result = PdfPrint.Print(xmltimbrado, printDialog.PrinterSettings);
+                            //    }
+                            //    catch (Exception ex)
+                            //    {
+                            //        result = PdfPrint.Status.UNKNOWN_ERROR;
+                            //        mensaje = new MessageBoxForm("Error", ex.Message, TypeIcon.Icon.Cancel);
+                            //        mensaje.ShowDialog();
+                            //    }
+                            //}
                             loadings.Close();
                         }
                     }
@@ -1587,24 +1599,34 @@ namespace SOAPAP.UI
                         //    }
                         //}
 
-
-                        PdfPrint.IsContentCentered = true;
-                        PdfPrint.Scale = PdfPrint.ScaleTypes.None;
-                        PdfPrint.Status result = PdfPrint.Status.OK;
-                        PrintDialog printDialog = new PrintDialog();
-                        if (printDialog.ShowDialog() == DialogResult.OK)
+                        //Impresion del PDF.
+                        SOAPAP.UI.Visualizador.Preview oPreview = new SOAPAP.UI.Visualizador.Preview(xmltimbrado);
+                        try
                         {
-                            try
-                            {
-                                result = PdfPrint.Print(xmltimbrado, printDialog.PrinterSettings);
-                            }
-                            catch (Exception ex)
-                            {
-                                result = PdfPrint.Status.UNKNOWN_ERROR;
-                                mensaje = new MessageBoxForm("Error", ex.Message, TypeIcon.Icon.Cancel);
-                                mensaje.ShowDialog();
-                            }
+                            oPreview.imprimirDocumentoSinVisualizar();                            
                         }
+                        catch (Exception ex)
+                        {
+                            mensaje = new MessageBoxForm("Error", ex.Message, TypeIcon.Icon.Cancel);
+                            mensaje.ShowDialog();
+                        }
+                        //PdfPrint.IsContentCentered = true;
+                        //PdfPrint.Scale = PdfPrint.ScaleTypes.None;
+                        //PdfPrint.Status result = PdfPrint.Status.OK;
+                        //PrintDialog printDialog = new PrintDialog();
+                        //if (printDialog.ShowDialog() == DialogResult.OK)
+                        //{
+                        //    try
+                        //    {
+                        //        result = PdfPrint.Print(xmltimbrado, printDialog.PrinterSettings);
+                        //    }
+                        //    catch (Exception ex)
+                        //    {
+                        //        result = PdfPrint.Status.UNKNOWN_ERROR;
+                        //        mensaje = new MessageBoxForm("Error", ex.Message, TypeIcon.Icon.Cancel);
+                        //        mensaje.ShowDialog();
+                        //    }
+                        //}
                         loadings.Close();
                     }
                 }
