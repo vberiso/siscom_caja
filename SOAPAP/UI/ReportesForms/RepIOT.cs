@@ -309,7 +309,8 @@ namespace SOAPAP.UI.ReportesForms
 
 
                 HiQPdf.PdfPage page1 = document.AddPage(HiQPdf.PdfPageSize.A4, new HiQPdf.PdfDocumentMargins(5), HiQPdf.PdfPageOrientation.Landscape);
-                SetHeader(document, dRep.FechaIni, dRep.FechaFin, lstData.First().Cajero);
+                var cajero = chcbxArea.Properties.Items.ToList().Where(x => x.CheckState == CheckState.Checked).Count() == 1 ? chcbxArea.Properties.Items.ToList().Where(x => x.CheckState == CheckState.Checked).First().Value.ToString()  : null;
+                SetHeader(document, dRep.FechaIni, dRep.FechaFin, cajero ==null?null:lstData.First().Area);
                 SetFooter(document);
                 HiQPdf.PdfHtml html = new HiQPdf.PdfHtml(await getHtml(lstData), null);
                 html.WaitBeforeConvert = 2;
@@ -414,7 +415,7 @@ namespace SOAPAP.UI.ReportesForms
 
             return itemSeleccionado;
         }
-        private void SetHeader(HiQPdf.PdfDocument document, string FechaI, string FechaF, string cajero)
+        private void SetHeader(HiQPdf.PdfDocument document, string FechaI, string FechaF, string cajero= null)
         {
             document.CreateHeaderCanvas(130);
 
@@ -435,7 +436,7 @@ namespace SOAPAP.UI.ReportesForms
             document.Header.Layout(headerHtml);
         }
 
-        private string getHeaderHtml(string FechaI, string FechaF, string cajero)
+        private string getHeaderHtml(string FechaI, string FechaF, string cajero = null)
         {
             StringBuilder builder = new StringBuilder();
             builder.Append(@"<div class='cabecera_principal' style='margin-bottom: 15px;'>");
@@ -468,26 +469,40 @@ namespace SOAPAP.UI.ReportesForms
 
             builder.Append(@"<div style='display: inline-block; width: 90%; font-size: 12px; text-align: left;'>");
             builder.Append(@"<table  style='width: 100%;>");
+            //builder.Append(@"<tr style='text-align: left;'>");
+            //builder.Append(@"<td  style='width: 200px'><b>Área:</b></td>");
+            //builder.Append(@"<td style='font-size:14px;width: 200px;font-family:\""Montserrat\"", sans-serif;'><b>" + (cajero?? "TODOS") + "</b></td>"); //fecha
+            //builder.Append(@"<td style='width: 800px'></td>");
+            //builder.Append(@"<td  style='width: 220px'><b>Fecha inicial:</b></td>");
+            //builder.Append(@"<td style='font-size:14px;width: 220px;font-family:\""Montserrat\"", sans-serif;'><b>" + FechaI + "</b></td>");
+            //builder.Append(@"</tr>");
+
+            //builder.Append(@"<tr style='text-align: left;'>");
+            //builder.Append(@"<td  style='width: 200px'><b>Operador:</b></td>");
+
+            //builder.Append(@"<td style='font-size:14px;width: 200px;font-family:\""Montserrat\"", sans-serif;'><b>"+ Variables.LoginModel.FullName+ "</b></td>");
+
+            //builder.Append(@"<td width: 800px'></td>");
+            //builder.Append(@"<td  style='width: 220px'><b>Fecha final:</b></td>");
+            //builder.Append(@"<td style='font-size:14px;width: 220px;font-family:\""Montserrat\"", sans-serif;'><b>" + FechaF + "</b></td>");
+            //builder.Append(@"</tr>");
+
             builder.Append(@"<tr style='text-align: left;'>");
-            builder.Append(@"<td  style='width: 200px'><b>Área:</b></td>");
-            builder.Append(@"<td style='width: 200px;font-family:\""Montserrat\"", sans-serif;'><b>" + (Variables.Configuration.IsMunicipal ? "PREDIAL" : "SOSAPAC") + "</b></td>"); //fecha
+            builder.Append(@"<td  style='width: 200px'><b>Fecha inicial:</b></td>");
+            builder.Append(@"<td style='width: 200px;font-family:\""Montserrat\"", sans-serif;'><b>" + FechaI + "</b></td>"); //fecha
             builder.Append(@"<td style='width: 800px'></td>");
-            builder.Append(@"<td  style='width: 220px'><b>Fecha inicial:</b></td>");
-            builder.Append(@"<td style='width: 220px;font-family:\""Montserrat\"", sans-serif;'><b>" + FechaI + "</b></td>");
-            builder.Append(@"</tr>");
-
-            builder.Append(@"<tr style='text-align: left;'>");
-            builder.Append(@"<td  style='width: 200px'><b>Operador:</b></td>");
-
-            builder.Append(@"<td style='width: 200px;font-family:\""Montserrat\"", sans-serif;'><b>TODOS</b></td>");
-
-            builder.Append(@"<td width: 800px'></td>");
             builder.Append(@"<td  style='width: 220px'><b>Fecha final:</b></td>");
             builder.Append(@"<td style='width: 220px;font-family:\""Montserrat\"", sans-serif;'><b>" + FechaF + "</b></td>");
             builder.Append(@"</tr>");
+            builder.Append(@"<tr style='text-align: left;'>");
+            builder.Append(@"<td  style='width: 200px'><b>Operador:</b></td>");
+            builder.Append(@"<td style='width: 400px;font-family:\""Montserrat\"", sans-serif;'><b>" + Variables.LoginModel.FullName + "</b></td>"); //fecha
+
+            builder.Append(@"</tr>");
+
 
             builder.Append(@"</table>");
-            builder.Append(@"<p style='font-size: 14px;text-align:center;'><b>INGRESOS TESORERIA</b></p></div>");
+            builder.Append(@"<p style='margin-top: 20px;font-size: 14px;text-align:center;'><b>INGRESOS TESORERIA</b></p></div>");
 
 
             builder.Append(@"</div>");
@@ -566,6 +581,9 @@ namespace SOAPAP.UI.ReportesForms
             e => new DataIncomeOfTreasury()
             {
                 Folio = e.First().Folio,
+                
+                branch_office = e.First().branch_office,
+                Oficina = e.First().Oficina,
                 Area = e.First().Area,
                 Cliente = e.First().Cliente,
                 Fecha = e.First().Fecha,
@@ -586,6 +604,7 @@ namespace SOAPAP.UI.ReportesForms
                                         <span style='text-decoration:underline;'> " + Ldatac.First().Area + "</span></p>");
                 builder.Append(@"<table  id='datos' style='width: 100%; font-size: 10px;'>");
                 builder.Append(@"<thead>");
+                builder.Append(@"<th style='width: 10%;'>OFICINA</th>");
                 builder.Append(@"<th style='width: 10%;'>SERIE</th>");
                 builder.Append(@"<th style='width: 10%;'>CUENTA</th>");
                 builder.Append(@"<th style='width: 10%;'>FOLIO</th>");
@@ -601,6 +620,7 @@ namespace SOAPAP.UI.ReportesForms
 
 
                     builder.Append(@"<tr>");
+                    builder.Append(@"<td style='width: 10%;' class='centro'>" + x.branch_office + " </td>");
                     builder.Append(@"<td style='width: 10%;' class='centro'>" + x.Serie + " </td>");
                     builder.Append(@"<td style='width: 10%;' class='centro'>" + x.Cuenta + " </td>");
                     builder.Append(@"<td style='width: 10%;' class='centro'>" + x.Folio + " </td>");

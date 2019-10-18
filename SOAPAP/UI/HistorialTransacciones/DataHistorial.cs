@@ -42,6 +42,8 @@ namespace SOAPAP.UI.HistorialTransacciones
         public string NombreDivision { get; set; }
         public string fecha { get; set; }
         public string Serial { get; set; }
+        public string code_concept { get; set; }
+        public string TypeP { get; set; }
 
         public decimal TotalConSigno
         {

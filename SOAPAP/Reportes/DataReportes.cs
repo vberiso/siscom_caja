@@ -14,6 +14,7 @@ namespace SOAPAP.Reportes
         public string CajeroNombre { get; set; }
         public string CajeroAPaterno { get; set; }
         public string CajeroAMaterno { get; set; }
+        public string branch_office { get; set; }
         public string Oficinas { get; set; }
         public string statusIFB { get; set; }
         public Boolean pwaFiltrarPorContrato { get; set; }

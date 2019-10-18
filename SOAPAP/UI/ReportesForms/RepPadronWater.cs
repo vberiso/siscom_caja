@@ -505,22 +505,30 @@ namespace SOAPAP.UI.ReportesForms
 
             builder.Append(@"<div style='display: inline-block; width: 90%; font-size: 12px; text-align: left;'>");
             builder.Append(@"<table  style='width: 100%;>");
+            //builder.Append(@"<tr style='text-align: left;'>");
+            //builder.Append(@"<td  style='width: 200px'><b>Área:</b></td>");
+            //builder.Append(@"<td style='width: 200px;font-family:\""Montserrat\"", sans-serif;'>" + (Variables.Configuration.IsMunicipal ? "PREDIAL" : "SOSAPAC") + "</td>"); //fecha
+            //builder.Append(@"<td style='width: 800px'></td>");
+            //builder.Append(@"<td  style='width: 220px'><b>Fecha inicial:</b></td>");
+            //builder.Append(@"<td style='width: 220px;font-family:\""Montserrat\"", sans-serif;'>" + FechaI + "</td>");
+            //builder.Append(@"</tr>");
+
+            //builder.Append(@"<tr style='text-align: left;'>");
+            //builder.Append(@"<td  style='width: 200px'></td>");
+
+            //builder.Append(@"<td style='width: 200px;font-family:\""Montserrat\"", sans-serif;'></td>");
+
+
+
+            //builder.Append(@"<td width: 800px'></td>");
+            //builder.Append(@"<td  style='width: 220px'><b>Fecha final:</b></td>");
+            //builder.Append(@"<td style='width: 220px;font-family:\""Montserrat\"", sans-serif;'>" + FechaF + "</td>");
+            //builder.Append(@"</tr>");
+
             builder.Append(@"<tr style='text-align: left;'>");
-            builder.Append(@"<td  style='width: 200px'><b>Área:</b></td>");
-            builder.Append(@"<td style='width: 200px;font-family:\""Montserrat\"", sans-serif;'>" + (Variables.Configuration.IsMunicipal ? "PREDIAL" : "SOSAPAC") + "</td>"); //fecha
+            builder.Append(@"<td  style='width: 200px'><b>Fecha inicial:</b></td>");
+            builder.Append(@"<td style='width: 200px;font-family:\""Montserrat\"", sans-serif;'>" + FechaI + "</td>"); //fecha
             builder.Append(@"<td style='width: 800px'></td>");
-            builder.Append(@"<td  style='width: 220px'><b>Fecha inicial:</b></td>");
-            builder.Append(@"<td style='width: 220px;font-family:\""Montserrat\"", sans-serif;'>" + FechaI + "</td>");
-            builder.Append(@"</tr>");
-
-            builder.Append(@"<tr style='text-align: left;'>");
-            builder.Append(@"<td  style='width: 200px'></td>");
-            
-            builder.Append(@"<td style='width: 200px;font-family:\""Montserrat\"", sans-serif;'></td>");
-
-            
-            
-            builder.Append(@"<td width: 800px'></td>");
             builder.Append(@"<td  style='width: 220px'><b>Fecha final:</b></td>");
             builder.Append(@"<td style='width: 220px;font-family:\""Montserrat\"", sans-serif;'>" + FechaF + "</td>");
             builder.Append(@"</tr>");

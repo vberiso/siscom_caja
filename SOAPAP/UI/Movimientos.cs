@@ -1619,26 +1619,43 @@ namespace SOAPAP
                 CajeroId = usuario_id != null ? usuario_id : Variables.LoginModel.User
             };
 
+
+
             HttpContent content;
             var json = JsonConvert.SerializeObject(dRep);
             content = new StringContent(json, Encoding.UTF8, "application/json");
-
             var result = await Requests.SendURIAsync("/api/Reports/Historial", HttpMethod.Post, Variables.LoginModel.Token, content);
 
+            //var result = await Requests.SendURIAsync("/api/Reports/Historial", HttpMethod.Post, Variables.LoginModel.Token, content);
+
             var LTransaction = JsonConvert.DeserializeObject<List<DataHistorial>>(result);
+         
+
 
             //builder.Append(@"<div class='datos_conceptos' style='margin-bottom: 10px;'>");
 
             LTransaction = LTransaction.Where(x => x.DivisionId != -1).ToList();
 
+
             var LUsuarios = LTransaction.Select(x =>
                 x.Serial
                ).Distinct().ToList();
 
+            var CLTransaction = LTransaction;
+            List<string> CodeConcepts = null;
+            if (Variables.Configuration.IsMunicipal)
+            {
+                CodeConcepts = new List<string>() { "3", "5" };
+            }
+            else
+            {
+                CodeConcepts = new List<string>() { "13", "14", "15" };
+            }
             LTransaction = LTransaction.GroupBy(d => d.id_transaction)
                     .Select(
                         g => new DataHistorial
                         {
+                            code_concept = g.Where(x => CodeConcepts.Contains(x.code_concept)).FirstOrDefault()?.code_concept,
                             FolioImpresion = g.First().FolioImpresion,
                             Total_dt = g.Sum(s => s.Total_dt),
                             Descuento_dt = g.Sum(s => s.Descuento_dt),
@@ -1657,14 +1674,15 @@ namespace SOAPAP
                             Monto_dt = g.First().Monto_dt,
                             tipo_dt = g.First().tipo_dt,
                             Oficina = g.First().Oficina
-                            
+
                         }).ToList();
 
 
-           
+
             string nombreDivision = "";
             string total = "";
             string totalCan = "";
+           
             LUsuarios.ForEach(u =>
             {
                 builder.Append(@"<div>");
@@ -1680,6 +1698,8 @@ namespace SOAPAP
                 Ldivisiones.ForEach(d =>
                 {
                     var TransactionesBydivision = LTransaction.Where(x => x.DivisionId == d && x.Serial == oUsuario.Serial).ToList();
+
+                   
 
                     nombreDivision = "Agua";
                     if (Variables.Configuration.IsMunicipal)
@@ -1708,17 +1728,24 @@ namespace SOAPAP
                     builder.Append(@"<th style='width: 7%;border: 1px solid black;text-align:center;'>STATUS</th>");
                     builder.Append(@"<th style='width: 8%;border: 1px solid black;text-align:center;'>FECHA</th>");
                     builder.Append(@"<th style='width: 6%;border: 1px solid black;text-align:center;'>FORMA PAGO</th>");
-                    builder.Append(@"<th style='width: 6%;border: 1px solid black;text-align:center;'>MONTO</th>");
+                    builder.Append(@"<th style='width: 6%;border: 1px solid black;text-align:center;'>IMPORTE</th>");
+                 
+                   
+                    builder.Append(@"<th style='width: 6%;border: 1px solid black;text-align:center;'>RECARGOS</th>");
                     builder.Append(@"<th style='width: 6%;border: 1px solid black;text-align:center;'>DESCUENTO</th>");
-                    builder.Append(@"<th style='width: 6%;border: 1px solid black;text-align:center;'>SUBTOTAL</th>");
+                  
                     builder.Append(@"<th style='width: 7%;border: 1px solid black;text-align:center;'>TOTAL</th>");
                   
                     builder.Append(@"</tr>");
                     builder.Append(@"</thead>");
                     builder.Append(@"<tbody>");
                     TransactionesBydivision = TransactionesBydivision.OrderByDescending(x => x.sign).ToList();
+                   
                     TransactionesBydivision.ForEach(x =>
                     {
+                        
+                        var LTransactionI = CLTransaction.Where(tr => tr.FolioImpresion == x.FolioImpresion   && !CodeConcepts.Contains(tr.code_concept)).ToList();
+                        var LTransactionR = CLTransaction.Where(tr => tr.FolioImpresion == x.FolioImpresion && CodeConcepts.Contains(tr.code_concept)).ToList();
                         builder.Append(@"<tr>");
                         
                         if (is_supervisor)
@@ -1736,9 +1763,12 @@ namespace SOAPAP
 
                         builder.Append(@"<td style='width: 8%;border: 1px solid black;text-align:center;'>" + DateTime.Parse(x.fecha).ToString("dd-MM-yyyy") + "</td>");
                         builder.Append(@"<td style='width: 6%;border: 1px solid black;text-align: center;'>" + x.TipoPago + "</td>");
-                        builder.Append(@"<td style='width: 6%;border: 1px solid black;text-align:center;'>" + string.Format(new CultureInfo("es-MX"), "{0:C2}",x.sign==true? x.Monto_dt:-x.Monto_dt) + "</td>");
+                        var recargo = 
+                        //builder.Append(@"<td style='width: 6%;border: 1px solid black;text-align:center;'>" + string.Format(new CultureInfo("es-MX"), "{0:C2}",x.sign==true? x.Monto_dt:-x.Monto_dt) + "</td>");
+                        builder.Append(@"<td style='width: 6%;border: 1px solid black;text-align:center;'>" + string.Format(new CultureInfo("es-MX"), "{0:C2}", x.sign == true ? LTransactionI.Sum(st => st.Monto_dt) : -LTransactionI.Sum(st => st.Monto_dt)) + "</td>");
+                        builder.Append(@"<td style='width: 6%;border: 1px solid black;text-align:center;'>" + string.Format(new CultureInfo("es-MX"), "{0:C2}", x.sign == true ? LTransactionR.Sum(st => st.Monto_dt) : -LTransactionR.Sum(st => st.Monto_dt)) + "</td>");
                         builder.Append(@"<td style='width: 6%;border: 1px solid black;text-align:center;'>" + string.Format(new CultureInfo("es-MX"), "{0:C2}",x.sign==true? x.Descuento_dt:-x.Descuento_dt) + "</td>");
-                        builder.Append(@"<td style='width: 6%;border: 1px solid black;text-align:center;'>" + string.Format(new CultureInfo("es-MX"), "{0:C2}",x.sign==true? x.Subtotal_dt:-x.Subtotal_dt) + "</td>");
+
                         builder.Append(@"<td style='width: 7%;border: 1px solid black;text-align:center;'>" + string.Format(new CultureInfo("es-MX"), "{0:C2}",x.sign==true? x.Total_dt : -x.Total_dt) + "</td>");
                         
                         builder.Append(@" </tr>");

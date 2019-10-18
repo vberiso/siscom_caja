@@ -11,6 +11,7 @@ namespace SOAPAP.Reportes
         public string id_payment { get; set; }
         public string Fecha { get; set; }
         public string Oficina { get; set; }
+        public string branch_office { get; set; }
         public string Serie { get; set; }
         public decimal Total { get; set; }
         public string Estado { get; set; }

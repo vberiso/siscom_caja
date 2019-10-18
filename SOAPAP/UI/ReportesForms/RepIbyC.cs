@@ -303,6 +303,29 @@ namespace SOAPAP.UI.ReportesForms
                 loading.Close();
                 return;
             }
+            var difd =  DateTime.Parse (dRep.FechaFin) -  DateTime.Parse(dRep.FechaIni);
+            if (chcbxOperador.Properties.Items.ToList().Where(x => x.CheckState == CheckState.Checked).Count() > 6 && difd.Days >=10)
+            {
+                loading.Close();
+                mensaje = new MessageBoxForm("Error", "No se puede generar el PDF, porque los parametros seleccionados haran que el archivo sea demasiado grande, por favor seleccione menos días o seleccione menos usuarios ", TypeIcon.Icon.Cancel);
+                
+                result = mensaje.ShowDialog();
+                loading.Close();
+                return;
+
+            }
+
+            if (chcbxOperador.Properties.Items.ToList().Where(x => x.CheckState == CheckState.Checked).Count() < 6 && difd.Days > 30)
+            {
+                loading.Close();
+                mensaje = new MessageBoxForm("Error", "No se puede generar el PDF, porque los parametros seleccionados haran que el archivo sea demasiado grande, por favor seleccione menos días o seleccione menos usuarios ", TypeIcon.Icon.Cancel);
+
+                result = mensaje.ShowDialog();
+                loading.Close();
+                return;
+
+            }
+
 
             HttpContent content;
             json = JsonConvert.SerializeObject(dRep);
@@ -405,14 +428,17 @@ namespace SOAPAP.UI.ReportesForms
             {
                 builder.Append(@"<div  class='datos_conceptos'> ");
                 builder.Append(@"<table id='datos' style='width: 95%;font-size:10px;'>");
+             
                 builder.Append(@"<tr>");
+                builder.Append(@"<td  style='width: 5%'><b>Oficina: </b></td>");
+                builder.Append(@"<td  style='width: 10%'>" + x.OFICINA + "</td>");
 
-                builder.Append(@"<td  style='width: 10%'><b>Folio: </b></td>");
-                builder.Append(@"<td  style='width: 5%'>" + x.folio_impresion + "</td>");
+                builder.Append(@"<td  style='width: 5%'><b>Folio: </b></td>");
+                builder.Append(@"<td  style='width: 10%'>" + x.folio_impresion + "</td>");
                 builder.Append(@"<td  style='width: 5%'><b>Serie: </b></td>");
-                builder.Append(@"<td  style='width: 5%'>" + x.Serie + "</td>");
+                builder.Append(@"<td  style='width: 10%'>" + x.Serie + "</td>");
                 builder.Append(@"<td  style='width: 5%'><b>Nombre: </b></td>");
-                builder.Append(@"<td  style='width: 35%'>" + x.Contribuyente + "</td>");
+                builder.Append(@"<td  style='width: 25%'>" + x.Contribuyente + "</td>");
                 builder.Append(@"<td  style='width: 5%'><b>Fecha: </b></td>");
                 builder.Append(@"<td  style='width: 10%'>" + x.FECHA_PAGO + "</td>");
                 builder.Append(@"<td  style='width: 10%'><b>Importe: </b></td>");
@@ -426,7 +452,7 @@ namespace SOAPAP.UI.ReportesForms
                 builder.Append(@"<td colspan='3'>" + x.ContribuyenteColonia+"</td>");
                 
                 builder.Append(@"<td colspan='1'><b>Dirección: </b></td>");
-                builder.Append(@"<td colspan='3'>" + x.ContribuyenteDireccion+"</td>");
+                builder.Append(@"<td colspan='4'>" + x.ContribuyenteDireccion+"</td>");
                
 
                 builder.Append(@"</tr>");
@@ -675,7 +701,7 @@ namespace SOAPAP.UI.ReportesForms
                 lstData = lstData.Where(x => x.code_concept == "2" || x.code_concept == "5").ToList();
             }
 
-            return lstData;
+            return lstData.OrderBy(x => x.OFICINA).ToList();
         }
 
         private Task<string> getHtmlReporteLimpia(string FechaI, string FechaF, List<DataCollection> lstData)
@@ -759,6 +785,7 @@ namespace SOAPAP.UI.ReportesForms
 
             builder.Append(@"<thead>");
             builder.Append(@"<tr>");
+            builder.Append(@"<th  style='border:1px  solid black; text-align:center;'>OFICINA</th>");
             builder.Append(@"<th  style='border:1px  solid black; text-align:center;'>FOLIO</th>");
             builder.Append(@"<th  style='border: 1px solid black;text-align:center;'>SERIE</th>");
             builder.Append(@"<th  style='border: 1px solid black;text-align:center;'>CUENTA</th>");
@@ -787,6 +814,7 @@ namespace SOAPAP.UI.ReportesForms
                 lNormal = lstData.Where(xx => xx.id_payment == element.id_payment && xx.CUENTA == element.CUENTA &&
                !code_concepts.Contains(xx.code_concept)).ToList();
                 builder.Append(@"<tr>");
+                builder.Append(@"<td  style='border:1px solid black ;text-align: left;'> " + element.OFICINA + "</td>");
                 builder.Append(@"<td  style='border:1px solid black ;text-align: left;'> " + element.folio_impresion + "</td>");
                 builder.Append(@"<td  style='border:1px solid black;text-align: center;'> " + element.Serie + "</td>");
                 builder.Append(@"<td  style='border:1px solid black;text-align: left;'> " + element.CUENTA + "</td>");
@@ -843,8 +871,8 @@ namespace SOAPAP.UI.ReportesForms
                 Nombre2 = "";
             }
             builder.Append(@"<div  class='firma_y_sello' style='margin-bottom:50px; margin-top: 200px; text-align: center'>");
-            builder.Append(@"<div   style='text-align: right; display: inline-block; width: 20%;' >");
-            builder.Append(@"<p style='text-align: center; padding-top: 10px; border-top-style: solid; border-top-color: black; '>");
+            builder.Append(@"<div   style='text-align: right; display: inline-block; width: 30%;' >");
+            builder.Append(@"<p style='font-size:16px;text-align: center; padding-top: 10px; border-top-style: solid; border-top-color: black; '>");
             builder.Append(Nombre);
             builder.Append(@"</p>");
             builder.Append(@"</div>");
@@ -852,8 +880,8 @@ namespace SOAPAP.UI.ReportesForms
             builder.Append(@"<p style='text-align: center; padding-top: 10px;'> ");
             builder.Append(@"</p>");
             builder.Append(@"</div>");
-            builder.Append(@"<div style='text-align: right; display: inline-block; width: 20%;'>");
-            builder.Append(@"<p style='text-align: center; padding-top: 10px; border-top-style: solid; border-top-color: black;'> ");
+            builder.Append(@"<div style='text-align: right; display: inline-block; width: 30%;'>");
+            builder.Append(@"<p style='font-size:16px;text-align: center; padding-top: 10px; border-top-style: solid; border-top-color: black;'> ");
             builder.Append(Nombre2);
             builder.Append(@"</p>");
             builder.Append(@"</div>");
