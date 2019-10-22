@@ -56,6 +56,10 @@
             this.pbBG = new System.Windows.Forms.PictureBox();
             this.pnlHRigth = new System.Windows.Forms.Panel();
             this.oanel = new System.Windows.Forms.Panel();
+            this.PanelPredialLimpia = new System.Windows.Forms.Panel();
+            this.RadioLimpia = new System.Windows.Forms.RadioButton();
+            this.RadioPredial = new System.Windows.Forms.RadioButton();
+            this.radioTodo = new System.Windows.Forms.RadioButton();
             this.windowsUIButtonPanel1 = new DevExpress.XtraBars.Docking2010.WindowsUIButtonPanel();
             this.pnlHLeft = new System.Windows.Forms.Panel();
             this.label7 = new System.Windows.Forms.Label();
@@ -82,10 +86,7 @@
             this.pgfCliente = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfDivision = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfMotivo = new DevExpress.XtraPivotGrid.PivotGridField();
-            this.RadioPredial = new System.Windows.Forms.RadioButton();
-            this.RadioLimpia = new System.Windows.Forms.RadioButton();
-            this.radioTodo = new System.Windows.Forms.RadioButton();
-            this.PanelPredialLimpia = new System.Windows.Forms.Panel();
+            this.radioButton1 = new System.Windows.Forms.RadioButton();
             this.dataCollectionBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.pnlHeader.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
@@ -96,10 +97,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.pbBG)).BeginInit();
             this.pnlHRigth.SuspendLayout();
             this.oanel.SuspendLayout();
+            this.PanelPredialLimpia.SuspendLayout();
             this.pnlHLeft.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pgcCollection)).BeginInit();
-            this.PanelPredialLimpia.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataCollectionBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
@@ -130,18 +131,18 @@
             this.tableLayoutPanel2.Controls.Add(this.dtpFechaFin, 1, 1);
             this.tableLayoutPanel2.Controls.Add(this.label2, 0, 0);
             this.tableLayoutPanel2.Controls.Add(this.dtpFechaIni, 0, 1);
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(260, 64);
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(224, 64);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 2;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 27F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(399, 46);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(394, 46);
             this.tableLayoutPanel2.TabIndex = 53;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(219, 3);
+            this.label3.Location = new System.Drawing.Point(217, 3);
             this.label3.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(59, 13);
@@ -152,7 +153,7 @@
             // 
             this.dtpFechaFin.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.dtpFechaFin.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpFechaFin.Location = new System.Drawing.Point(224, 22);
+            this.dtpFechaFin.Location = new System.Drawing.Point(221, 22);
             this.dtpFechaFin.Name = "dtpFechaFin";
             this.dtpFechaFin.Size = new System.Drawing.Size(166, 20);
             this.dtpFechaFin.TabIndex = 49;
@@ -171,7 +172,7 @@
             // 
             this.dtpFechaIni.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.dtpFechaIni.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpFechaIni.Location = new System.Drawing.Point(13, 22);
+            this.dtpFechaIni.Location = new System.Drawing.Point(12, 22);
             this.dtpFechaIni.Name = "dtpFechaIni";
             this.dtpFechaIni.Size = new System.Drawing.Size(190, 20);
             this.dtpFechaIni.TabIndex = 48;
@@ -187,12 +188,12 @@
             this.tableLayoutPanel1.Controls.Add(this.chcbxOficina, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.label6, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.label4, 1, 0);
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(259, 8);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(225, 8);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 2;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 29F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(399, 45);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(393, 45);
             this.tableLayoutPanel1.TabIndex = 49;
             // 
             // chcbxOperador
@@ -203,18 +204,18 @@
             this.chcbxOperador.Name = "chcbxOperador";
             this.chcbxOperador.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.chcbxOperador.Size = new System.Drawing.Size(211, 20);
+            this.chcbxOperador.Size = new System.Drawing.Size(208, 20);
             this.chcbxOperador.TabIndex = 57;
             // 
             // chcbxOficina
             // 
             this.chcbxOficina.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.chcbxOficina.EditValue = "";
-            this.chcbxOficina.Location = new System.Drawing.Point(220, 20);
+            this.chcbxOficina.Location = new System.Drawing.Point(217, 20);
             this.chcbxOficina.Name = "chcbxOficina";
             this.chcbxOficina.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.chcbxOficina.Size = new System.Drawing.Size(176, 20);
+            this.chcbxOficina.Size = new System.Drawing.Size(173, 20);
             this.chcbxOficina.TabIndex = 56;
             // 
             // label6
@@ -230,7 +231,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(220, 3);
+            this.label4.Location = new System.Drawing.Point(217, 3);
             this.label4.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(43, 13);
@@ -243,9 +244,9 @@
             this.pcbIncomeByConcept.BackColor = System.Drawing.Color.Transparent;
             this.pcbIncomeByConcept.Image = global::SOAPAP.Properties.Resources.bg;
             this.pcbIncomeByConcept.InitialImage = global::SOAPAP.Properties.Resources.bg;
-            this.pcbIncomeByConcept.Location = new System.Drawing.Point(233, 62);
+            this.pcbIncomeByConcept.Location = new System.Drawing.Point(201, 63);
             this.pcbIncomeByConcept.Name = "pcbIncomeByConcept";
-            this.pcbIncomeByConcept.Size = new System.Drawing.Size(451, 51);
+            this.pcbIncomeByConcept.Size = new System.Drawing.Size(441, 51);
             this.pcbIncomeByConcept.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pcbIncomeByConcept.TabIndex = 52;
             this.pcbIncomeByConcept.TabStop = false;
@@ -256,9 +257,9 @@
             this.pbBG.BackColor = System.Drawing.Color.Transparent;
             this.pbBG.Image = global::SOAPAP.Properties.Resources.bg;
             this.pbBG.InitialImage = global::SOAPAP.Properties.Resources.bg;
-            this.pbBG.Location = new System.Drawing.Point(233, 7);
+            this.pbBG.Location = new System.Drawing.Point(201, 7);
             this.pbBG.Name = "pbBG";
-            this.pbBG.Size = new System.Drawing.Size(451, 50);
+            this.pbBG.Size = new System.Drawing.Size(441, 50);
             this.pbBG.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pbBG.TabIndex = 41;
             this.pbBG.TabStop = false;
@@ -267,9 +268,9 @@
             // 
             this.pnlHRigth.Controls.Add(this.oanel);
             this.pnlHRigth.Dock = System.Windows.Forms.DockStyle.Right;
-            this.pnlHRigth.Location = new System.Drawing.Point(639, 0);
+            this.pnlHRigth.Location = new System.Drawing.Point(483, 0);
             this.pnlHRigth.Name = "pnlHRigth";
-            this.pnlHRigth.Size = new System.Drawing.Size(252, 124);
+            this.pnlHRigth.Size = new System.Drawing.Size(408, 124);
             this.pnlHRigth.TabIndex = 44;
             // 
             // oanel
@@ -277,10 +278,60 @@
             this.oanel.Controls.Add(this.PanelPredialLimpia);
             this.oanel.Controls.Add(this.windowsUIButtonPanel1);
             this.oanel.Dock = System.Windows.Forms.DockStyle.Right;
-            this.oanel.Location = new System.Drawing.Point(7, 0);
+            this.oanel.Location = new System.Drawing.Point(87, 0);
             this.oanel.Name = "oanel";
-            this.oanel.Size = new System.Drawing.Size(245, 124);
+            this.oanel.Size = new System.Drawing.Size(321, 124);
             this.oanel.TabIndex = 45;
+            // 
+            // PanelPredialLimpia
+            // 
+            this.PanelPredialLimpia.Controls.Add(this.radioButton1);
+            this.PanelPredialLimpia.Controls.Add(this.RadioLimpia);
+            this.PanelPredialLimpia.Controls.Add(this.RadioPredial);
+            this.PanelPredialLimpia.Controls.Add(this.radioTodo);
+            this.PanelPredialLimpia.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.PanelPredialLimpia.Location = new System.Drawing.Point(0, 0);
+            this.PanelPredialLimpia.Name = "PanelPredialLimpia";
+            this.PanelPredialLimpia.Size = new System.Drawing.Size(180, 124);
+            this.PanelPredialLimpia.TabIndex = 60;
+            // 
+            // RadioLimpia
+            // 
+            this.RadioLimpia.AutoSize = true;
+            this.RadioLimpia.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RadioLimpia.Location = new System.Drawing.Point(3, 68);
+            this.RadioLimpia.Name = "RadioLimpia";
+            this.RadioLimpia.Size = new System.Drawing.Size(66, 20);
+            this.RadioLimpia.TabIndex = 58;
+            this.RadioLimpia.Text = "Limpia";
+            this.RadioLimpia.UseVisualStyleBackColor = true;
+            this.RadioLimpia.CheckedChanged += new System.EventHandler(this.RadioLimpia_CheckedChanged);
+            // 
+            // RadioPredial
+            // 
+            this.RadioPredial.AutoSize = true;
+            this.RadioPredial.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RadioPredial.Location = new System.Drawing.Point(3, 41);
+            this.RadioPredial.Name = "RadioPredial";
+            this.RadioPredial.Size = new System.Drawing.Size(69, 20);
+            this.RadioPredial.TabIndex = 57;
+            this.RadioPredial.Text = "Predial";
+            this.RadioPredial.UseVisualStyleBackColor = true;
+            this.RadioPredial.CheckedChanged += new System.EventHandler(this.RadioPredial_CheckedChanged);
+            // 
+            // radioTodo
+            // 
+            this.radioTodo.AutoSize = true;
+            this.radioTodo.Checked = true;
+            this.radioTodo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.radioTodo.Location = new System.Drawing.Point(3, 16);
+            this.radioTodo.Name = "radioTodo";
+            this.radioTodo.Size = new System.Drawing.Size(59, 20);
+            this.radioTodo.TabIndex = 59;
+            this.radioTodo.TabStop = true;
+            this.radioTodo.Text = "Todo";
+            this.radioTodo.UseVisualStyleBackColor = true;
+            this.radioTodo.CheckedChanged += new System.EventHandler(this.RadioTodo_CheckedChanged);
             // 
             // windowsUIButtonPanel1
             // 
@@ -312,7 +363,7 @@
             this.windowsUIButtonPanel1.Cursor = System.Windows.Forms.Cursors.Hand;
             this.windowsUIButtonPanel1.Dock = System.Windows.Forms.DockStyle.Right;
             this.windowsUIButtonPanel1.ForeColor = System.Drawing.SystemColors.ControlLight;
-            this.windowsUIButtonPanel1.Location = new System.Drawing.Point(104, 0);
+            this.windowsUIButtonPanel1.Location = new System.Drawing.Point(180, 0);
             this.windowsUIButtonPanel1.Name = "windowsUIButtonPanel1";
             this.windowsUIButtonPanel1.Size = new System.Drawing.Size(141, 124);
             this.windowsUIButtonPanel1.TabIndex = 56;
@@ -330,7 +381,7 @@
             this.pnlHLeft.Controls.Add(this.pictureBox1);
             this.pnlHLeft.Location = new System.Drawing.Point(0, 0);
             this.pnlHLeft.Name = "pnlHLeft";
-            this.pnlHLeft.Size = new System.Drawing.Size(302, 144);
+            this.pnlHLeft.Size = new System.Drawing.Size(176, 144);
             this.pnlHLeft.TabIndex = 44;
             // 
             // label7
@@ -562,54 +613,17 @@
             this.pgfMotivo.FieldName = "MotivoDescuento";
             this.pgfMotivo.Name = "pgfMotivo";
             // 
-            // RadioPredial
+            // radioButton1
             // 
-            this.RadioPredial.AutoSize = true;
-            this.RadioPredial.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RadioPredial.Location = new System.Drawing.Point(4, 48);
-            this.RadioPredial.Name = "RadioPredial";
-            this.RadioPredial.Size = new System.Drawing.Size(69, 20);
-            this.RadioPredial.TabIndex = 57;
-            this.RadioPredial.Text = "Predial";
-            this.RadioPredial.UseVisualStyleBackColor = true;
-            this.RadioPredial.CheckedChanged += new System.EventHandler(this.RadioPredial_CheckedChanged);
-            // 
-            // RadioLimpia
-            // 
-            this.RadioLimpia.AutoSize = true;
-            this.RadioLimpia.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RadioLimpia.Location = new System.Drawing.Point(4, 79);
-            this.RadioLimpia.Name = "RadioLimpia";
-            this.RadioLimpia.Size = new System.Drawing.Size(66, 20);
-            this.RadioLimpia.TabIndex = 58;
-            this.RadioLimpia.Text = "Limpia";
-            this.RadioLimpia.UseVisualStyleBackColor = true;
-            this.RadioLimpia.CheckedChanged += new System.EventHandler(this.RadioLimpia_CheckedChanged);
-            // 
-            // radioTodo
-            // 
-            this.radioTodo.AutoSize = true;
-            this.radioTodo.Checked = true;
-            this.radioTodo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radioTodo.Location = new System.Drawing.Point(4, 16);
-            this.radioTodo.Name = "radioTodo";
-            this.radioTodo.Size = new System.Drawing.Size(59, 20);
-            this.radioTodo.TabIndex = 59;
-            this.radioTodo.TabStop = true;
-            this.radioTodo.Text = "Todo";
-            this.radioTodo.UseVisualStyleBackColor = true;
-            this.radioTodo.CheckedChanged += new System.EventHandler(this.RadioTodo_CheckedChanged);
-            // 
-            // PanelPredialLimpia
-            // 
-            this.PanelPredialLimpia.Controls.Add(this.RadioLimpia);
-            this.PanelPredialLimpia.Controls.Add(this.RadioPredial);
-            this.PanelPredialLimpia.Controls.Add(this.radioTodo);
-            this.PanelPredialLimpia.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.PanelPredialLimpia.Location = new System.Drawing.Point(0, 0);
-            this.PanelPredialLimpia.Name = "PanelPredialLimpia";
-            this.PanelPredialLimpia.Size = new System.Drawing.Size(104, 124);
-            this.PanelPredialLimpia.TabIndex = 60;
+            this.radioButton1.AutoSize = true;
+            this.radioButton1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.radioButton1.Location = new System.Drawing.Point(4, 96);
+            this.radioButton1.Name = "radioButton1";
+            this.radioButton1.Size = new System.Drawing.Size(134, 20);
+            this.radioButton1.TabIndex = 60;
+            this.radioButton1.Text = "Const. No adeudo";
+            this.radioButton1.UseVisualStyleBackColor = true;
+            this.radioButton1.CheckedChanged += new System.EventHandler(this.RadioButton1_CheckedChanged);
             // 
             // dataCollectionBindingSource
             // 
@@ -636,12 +650,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.pbBG)).EndInit();
             this.pnlHRigth.ResumeLayout(false);
             this.oanel.ResumeLayout(false);
+            this.PanelPredialLimpia.ResumeLayout(false);
+            this.PanelPredialLimpia.PerformLayout();
             this.pnlHLeft.ResumeLayout(false);
             this.pnlHLeft.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pgcCollection)).EndInit();
-            this.PanelPredialLimpia.ResumeLayout(false);
-            this.PanelPredialLimpia.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataCollectionBindingSource)).EndInit();
             this.ResumeLayout(false);
 
@@ -695,5 +709,6 @@
         private System.Windows.Forms.RadioButton RadioPredial;
         private System.Windows.Forms.RadioButton radioTodo;
         private System.Windows.Forms.Panel PanelPredialLimpia;
+        private System.Windows.Forms.RadioButton radioButton1;
     }
 }

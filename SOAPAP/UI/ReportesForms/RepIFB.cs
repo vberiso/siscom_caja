@@ -602,7 +602,10 @@ namespace SOAPAP.UI.ReportesForms
             builder.Append(@"<tr>");
             builder.Append(@"<th  style='border:1px  solid black; text-align:center;'>OFICINA</th>");
             builder.Append(@"<th  style='border:1px  solid black; text-align:center;'>FOLIO</th>");
-            builder.Append(@"<th  style='border: 1px solid black;text-align:center;'>SERIE</th>");
+            if (!Variables.Configuration.IsMunicipal)
+            {
+               builder.Append(@"<th  style='border: 1px solid black;text-align:center;'>SERIE</th>");
+            }
             builder.Append(@"<th  style='border: 1px solid black;text-align:center;'>CUENTA</th>");
             builder.Append(@"<th  style='border: 1px solid black;text-align:center;'>NOMBRE</th>");
             builder.Append(@"<th  style='border: 1px solid black;text-align:center;'>IMPORTE</th>");
@@ -633,8 +636,18 @@ namespace SOAPAP.UI.ReportesForms
 
                 builder.Append(@"<tr>");
                 builder.Append(@"<td  style='border:1px solid black ;text-align: left;'> " + element.OFICINA + "</td>");
-                builder.Append(@"<td  style='border:1px solid black ;text-align: left;'> " + element.folio_impresion + "</td>");
-                builder.Append(@"<td  style='border:1px solid black;text-align: center;'> " + element.Serie + "</td>");
+                 if (!Variables.Configuration.IsMunicipal)
+                {
+                    builder.Append(@"<td  style='border:1px solid black;text-align: center;'> " + element.folio_impresion + "</td>");
+                    builder.Append(@"<td  style='border:1px solid black;text-align: center;'> " + element.Serie+ "</td>");
+
+                }
+                else
+                {
+                    builder.Append(@"<td  style='border:1px solid black ;text-align: left;'> " + element.Serie + element.folio_impresion.Substring(1) + "</td>");
+
+                }
+
                 builder.Append(@"<td  style='border:1px solid black;text-align: left;'> " + element.CUENTA + "</td>");
                 builder.Append(@"<td  style='border:1px solid black; text-align: left;'> " + element.Contribuyente + "</td>");
                 builder.Append(@"<td  style='border:1px solid black;'> " + string.Format(new CultureInfo("es-MX"), "{0:C2}", lNormal.Sum(lm => lm.MONTO)) + "</td>");

@@ -433,10 +433,19 @@ namespace SOAPAP.UI.ReportesForms
                 builder.Append(@"<td  style='width: 5%'><b>Oficina: </b></td>");
                 builder.Append(@"<td  style='width: 10%'>" + x.OFICINA + "</td>");
 
-                builder.Append(@"<td  style='width: 5%'><b>Folio: </b></td>");
-                builder.Append(@"<td  style='width: 10%'>" + x.folio_impresion + "</td>");
-                builder.Append(@"<td  style='width: 5%'><b>Serie: </b></td>");
-                builder.Append(@"<td  style='width: 10%'>" + x.Serie + "</td>");
+                
+                if (Variables.Configuration.IsMunicipal)
+                {
+                    builder.Append(@"<td  style='width: 6%'><b>Folio: </b></td>");
+                    builder.Append(@"<td  style='width: 10%'>" + x.Serie + x.folio_impresion.Substring(1) + "</td>");
+                }
+                
+                if (!Variables.Configuration.IsMunicipal) {
+                    builder.Append(@"<td  style='width: 5%'><b>Folio: </b></td>");
+                    builder.Append(@"<td  style='width: 10%'>" + x.folio_impresion + "</td>");
+                    builder.Append(@"<td  style='width: 5%'><b>Serie: </b></td>");
+                    builder.Append(@"<td  style='width: 10%'>" + x.Serie + "</td>");
+                }
                 builder.Append(@"<td  style='width: 5%'><b>Nombre: </b></td>");
                 builder.Append(@"<td  style='width: 25%'>" + x.Contribuyente + "</td>");
                 builder.Append(@"<td  style='width: 5%'><b>Fecha: </b></td>");
@@ -688,17 +697,25 @@ namespace SOAPAP.UI.ReportesForms
         {
             predialLimpia = 3; 
         }
+        private void RadioButton1_CheckedChanged(object sender, EventArgs e)
+        {
+            predialLimpia = 4;
+        }
 
         private List<DataCollection> ResolveConcepts(List<DataCollection> lstData)
         {
             if (predialLimpia == 2)
             {
-                lstData = lstData.Where(x => x.code_concept == "1" || x.code_concept == "3").ToList();
+                lstData = lstData.Where(x => x.type != "PAY02" && x.code_concept == "1" || x.code_concept == "3").ToList();
 
             }
             else if (predialLimpia == 3)
             {
-                lstData = lstData.Where(x => x.code_concept == "2" || x.code_concept == "5").ToList();
+                lstData = lstData.Where(x => x.type != "PAY02" && x.code_concept == "2" || x.code_concept == "5").ToList();
+            }
+            else if (predialLimpia == 4)
+            {
+                lstData = lstData.Where(x => x.type == "PAY02" && x.code_concept == "420" || x.code_concept == "421" || x.code_concept == "3222").ToList();
             }
 
             return lstData.OrderBy(x => x.OFICINA).ToList();
@@ -787,7 +804,10 @@ namespace SOAPAP.UI.ReportesForms
             builder.Append(@"<tr>");
             builder.Append(@"<th  style='border:1px  solid black; text-align:center;'>OFICINA</th>");
             builder.Append(@"<th  style='border:1px  solid black; text-align:center;'>FOLIO</th>");
-            builder.Append(@"<th  style='border: 1px solid black;text-align:center;'>SERIE</th>");
+            if (!Variables.Configuration.IsMunicipal)
+            {
+                builder.Append(@"<th  style='border: 1px solid black;text-align:center;'>SERIE</th>");
+            }
             builder.Append(@"<th  style='border: 1px solid black;text-align:center;'>CUENTA</th>");
             builder.Append(@"<th  style='border: 1px solid black;text-align:center;'>NOMBRE</th>");
             builder.Append(@"<th  style='border: 1px solid black;text-align:center;'>IMPORTE</th>");
@@ -815,8 +835,17 @@ namespace SOAPAP.UI.ReportesForms
                !code_concepts.Contains(xx.code_concept)).ToList();
                 builder.Append(@"<tr>");
                 builder.Append(@"<td  style='border:1px solid black ;text-align: left;'> " + element.OFICINA + "</td>");
-                builder.Append(@"<td  style='border:1px solid black ;text-align: left;'> " + element.folio_impresion + "</td>");
-                builder.Append(@"<td  style='border:1px solid black;text-align: center;'> " + element.Serie + "</td>");
+                if (!Variables.Configuration.IsMunicipal)
+                {
+                    builder.Append(@"<td  style='border:1px solid black ;text-align: left;'> " + element.folio_impresion + "</td>");
+                    builder.Append(@"<td  style='border:1px solid black ;text-align: left;'> " + element.Serie + "</td>");
+                }
+                else
+                {
+                    builder.Append(@"<td  style='border:1px solid black;text-align: center;'> " + element.Serie + "" + element.folio_impresion.Substring(1) + "</td>");
+
+                }
+
                 builder.Append(@"<td  style='border:1px solid black;text-align: left;'> " + element.CUENTA + "</td>");
                 builder.Append(@"<td  style='border:1px solid black; text-align: left;'> " + element.Contribuyente + "</td>");
                 builder.Append(@"<td  style='border:1px solid black;'> " + string.Format(new CultureInfo("es-MX"), "{0:C2}", lNormal.Sum(lm => lm.MONTO)) + "</td>");
@@ -894,5 +923,7 @@ namespace SOAPAP.UI.ReportesForms
             return Task.FromResult<string>(builder.ToString());
 
         }
+
+        
     }
 }

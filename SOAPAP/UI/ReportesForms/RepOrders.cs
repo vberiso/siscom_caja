@@ -502,7 +502,10 @@ namespace SOAPAP.UI.ReportesForms
                 builder.Append(@"<table  id='datos' style='width: 100%;font-size: 10px; '>");
                 builder.Append(@"<thead>");
                 builder.Append(@"<th style='width: 10%;'>OFICINA</th>");
-                builder.Append(@"<th style='width: 10%;'>SERIE</th>");
+                if (!Variables.Configuration.IsMunicipal)
+                {
+                    builder.Append(@"<th style='width: 10%;'>SERIE</th>");
+                }
                 builder.Append(@"<th  style='width: 15%;'>CUENTA</th>");
                 builder.Append(@"<th  style='width: 15%;'>FOLIO</th>");
                 builder.Append(@"<th  style='width: 30%;'>NOMBRE</th>");
@@ -518,9 +521,19 @@ namespace SOAPAP.UI.ReportesForms
 
                     builder.Append(@"<tr>");
                     builder.Append(@"<td  style='width: 10%;' class='centro'>" + x.branch_office + " </td>");
-                    builder.Append(@"<td  style='width: 10%;' class='centro'>" + x.Serie + " </td>");
+                    if (!Variables.Configuration.IsMunicipal)
+                    {
+                        builder.Append(@"<td  style='width: 10%;' class='centro'>" + x.Serie + " </td>");
+                    }
                     builder.Append(@"<td  style='width: 15%;' class='centro'>"+x.account+" </td>");
-                    builder.Append(@"<td  style='width: 15%;' class='centro'>" + x.folio + " </td>");
+                    if (!Variables.Configuration.IsMunicipal)
+                    {
+                        builder.Append(@"<td  style='width: 15%;' class='centro'>" + x.folio + " </td>");
+                    }
+                    else
+                    {
+                        builder.Append(@"<td  style='width: 15%;' class='centro'>" + x.Serie+ x.folio.Substring(1) + " </td>");
+                    }
                     builder.Append(@"<td  style='width: 30%;' class='left'>" + x.Cliente + " </td>");
                     builder.Append(@"<td  style='width: 10%;' class='centro'>" + x.FechaPago + " </td>");
                     builder.Append(@"<td style='width: 10%;border: 1px solid black;'>" + string.Format(new CultureInfo("es-MX"), "{0:C2}", x.TOTAL) + " </td>");

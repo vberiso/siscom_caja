@@ -605,7 +605,11 @@ namespace SOAPAP.UI.ReportesForms
                 builder.Append(@"<table  id='datos' style='width: 100%; font-size: 10px;'>");
                 builder.Append(@"<thead>");
                 builder.Append(@"<th style='width: 10%;'>OFICINA</th>");
-                builder.Append(@"<th style='width: 10%;'>SERIE</th>");
+                if (!Variables.Configuration.IsMunicipal)
+                {
+                    builder.Append(@"<th style='width: 10%;'>SERIE</th>");
+                }
+
                 builder.Append(@"<th style='width: 10%;'>CUENTA</th>");
                 builder.Append(@"<th style='width: 10%;'>FOLIO</th>");
                 builder.Append(@"<th style='width: 40%;'>NOMBRE</th>");
@@ -621,9 +625,19 @@ namespace SOAPAP.UI.ReportesForms
 
                     builder.Append(@"<tr>");
                     builder.Append(@"<td style='width: 10%;' class='centro'>" + x.branch_office + " </td>");
-                    builder.Append(@"<td style='width: 10%;' class='centro'>" + x.Serie + " </td>");
+                    if (!Variables.Configuration.IsMunicipal)
+                    {
+                       builder.Append(@"<td style='width: 10%;' class='centro'>" + x.Serie + " </td>");
+                    }
                     builder.Append(@"<td style='width: 10%;' class='centro'>" + x.Cuenta + " </td>");
-                    builder.Append(@"<td style='width: 10%;' class='centro'>" + x.Folio + " </td>");
+                    if (!Variables.Configuration.IsMunicipal)
+                    {
+                        builder.Append(@"<td style='width: 10%;' class='centro'>" + x.Folio+ " </td>");
+                    }
+                    else
+                    {
+                        builder.Append(@"<td style='width: 10%;' class='centro'>" + x.Serie + x.Folio.Substring(1) + " </td>");
+                    }
                     builder.Append(@"<td style='width: 40%;' class='left'>" + x.Cliente + " </td>");
                     var fecha = x.Fecha == null ? "" : DateTime.Parse(x.Fecha).ToString("dd-MM-yyyy");
                     builder.Append(@"<td style='width: 10%;' class='centro'>" +fecha+" </td>");

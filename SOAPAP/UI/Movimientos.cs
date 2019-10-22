@@ -1720,7 +1720,9 @@ namespace SOAPAP
                         widthForName = "width: 22%;";
                         builder.Append(@"<th style='width: 8%;border: 1px solid black;'>OFICINA</th>");
                     }
-                    builder.Append(@"<th style='width: 5%;border: 1px solid black;'>SERIE</th>");
+                    if (!Variables.Configuration.IsMunicipal) {
+                        builder.Append(@"<th style='width: 5%;border: 1px solid black;'>SERIE</th>");
+                    }
                     builder.Append(@"<th style='width: 6%;border: 1px solid black;text-align:center;'>FOLIO</th>");
                     builder.Append(@"<th style='width: 6%;border: 1px solid black;text-align:center;'>CUENTA</th>");
                     builder.Append(@"<th style='"+ widthForName + "border: 1px solid black;text-align:center;'>NOMBRE</th>");
@@ -1753,8 +1755,15 @@ namespace SOAPAP
                             
                             builder.Append(@"<td style='width: 8%;border: 1px solid black;'>" + x.Oficina + "</td>");
                         }
-                        builder.Append(@"<td style='width: 5%;border: 1px solid black;text-align:center;'>" + x.Serial + "</td>");
-                        builder.Append(@"<td style='width: 6%;border: 1px solid black;text-align:center;'>" + x.FolioImpresion + "</td>");
+                        if (!Variables.Configuration.IsMunicipal)
+                        {
+                            builder.Append(@"<td style='width: 5%;border: 1px solid black;text-align:center;'>" + x.Serial + "</td>");
+                            builder.Append(@"<td style='width: 6%;border: 1px solid black;text-align:center;'>" + x.FolioImpresion + "</td>");
+                        }
+                        else
+                        {
+                            builder.Append(@"<td style='width: 6%;border: 1px solid black;text-align:center;'>" + x.Serial+x.FolioImpresion.Substring(1) + "</td>");
+                        }
                         builder.Append(@"<td style='width: 6%;border: 1px solid black;text-align:center;'>" + x.account + "</td>");
 
                         builder.Append(@"<td style='"+ widthForName + "border: 1px solid black;text-align: left;'>" + x.Contribuyente + "</td>");
