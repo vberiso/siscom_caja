@@ -42,6 +42,12 @@ namespace SOAPAP
         public string msgObservacionFactura { get; set; }
         public string msgUsos { get; set; }
         public bool showMsgObservacion { get; set; } = true;
+        string msgCorreo = "";
+        bool enviarCorreo = false;
+
+        //Estas variables permiten administrar si es un administador quien trata de Facturar o actualizar factura.
+        public bool isAdministrator { get; set; } = false;
+        public string ActualUserId { get; set; }    //Es necesario inicializar esta propiedad, si esta facturando un administrador
         
 
         public Facturaelectronica()
@@ -979,6 +985,7 @@ namespace SOAPAP
                             Name = client.name + " " + client.lastName + " " + client.secondLastName,
                             CfdiUse = "P01"
                         };
+                        msgCorreo = string.IsNullOrEmpty(client.eMail) ? "": client.eMail;
                     }
                     else
                     {
@@ -988,7 +995,8 @@ namespace SOAPAP
                             Name = "Público en General",
                             CfdiUse = "P01"
                         };
-                    }
+                        msgCorreo = "";
+                    }                    
                 }
                 else
                 {                    
@@ -1000,6 +1008,7 @@ namespace SOAPAP
                             Name = tu.Name,
                             CfdiUse = "P01"
                         };
+                        msgCorreo = string.IsNullOrEmpty(tu.EMail) ? "" : tu.EMail;
                     }
                     else
                     {
@@ -1009,6 +1018,7 @@ namespace SOAPAP
                             Name = "Público en General",
                             CfdiUse = "P01"
                         };
+                        msgCorreo = "";
                     }
                 }
                 
@@ -1180,7 +1190,7 @@ namespace SOAPAP
                                     Description = Or.Description,
                                     UnitPrice = Or.UnitPrice,
                                     Quantity = Or.Quantity,
-                                    Subtotal = TraVM.orderSale.OrderSaleDiscounts.Count == 0 ? Or.Amount : TraVM.orderSale.OrderSaleDiscounts.Where(x => x.OrderSaleDetailId == Or.Id).Select(y => y.OriginalAmount).FirstOrDefault(),
+                                    Subtotal = TraVM.orderSale.OrderSaleDiscounts.Where(x => x.OrderSaleDetailId == Or.Id).Count() == 0 ? Or.Amount : TraVM.orderSale.OrderSaleDiscounts.Where(x => x.OrderSaleDetailId == Or.Id).Select(y => y.OriginalAmount).FirstOrDefault(),
                                     Discount = TraVM.orderSale.OrderSaleDiscounts.Where(x => x.OrderSaleDetailId == Or.Id).Select(y => y.DiscountAmount).FirstOrDefault(),
                                     Total = Or.Amount + TraVM.payment.PaymentDetails.Where(x => x.CodeConcept == Or.CodeConcept && x.Amount == Or.Amount).FirstOrDefault().Tax
                                 };
@@ -1274,7 +1284,7 @@ namespace SOAPAP
 
                 //FIN DEL ARMADO DEL XML
 
-                //Se solicita una obsevacion para cada factura.
+                //Se solicita una obsevacion para cada factura.                
                 if (showMsgObservacion)
                 {
                     using (msgObservacionFactura msgObs = new msgObservacionFactura())
@@ -1282,6 +1292,8 @@ namespace SOAPAP
                         msgObs.ShowDialog();
                         msgObservacionFactura = msgObs.TextoObservacion;
                         msgUsos = msgObs.Usos;
+                        msgCorreo = msgObs.tbxCorreo.Text;
+                        enviarCorreo = msgObs.chbxEnviarCorreo.Checked;
                     }
                 }
                 //En caso de tener descuento de grupo vulnerable
@@ -1331,7 +1343,7 @@ namespace SOAPAP
                     cfdiFacturama = new ModFac.ResponseCFDI((Facturama.Models.Response.Cfdi)vs[0]);
                     string XML = LeerXML(path + nombreXML);
                     TaxReceipt resGuardado = await guardarXMLenBD(XML, cfdiFacturama.Complement.TaxStamp.Uuid, receptor.Rfc, TipoFactura, status, TraVM.payment.Id, cfdiFacturama.Id);
-                    string resActPay = await actualizarPaymentConFactura(TraVM.payment);
+                    string resActPay = await actualizarPaymentConFactura(TraVM.payment, resGuardado);
 
                     
                     CreatePDF pDF = new CreatePDF(cfdi, cfdiFacturama, ms.account, resGuardado, fecha, (TraVM.payment.PayMethod.code + ", " + TraVM.payment.PayMethod.Name), TraVM);
@@ -1519,7 +1531,7 @@ namespace SOAPAP
             }
         }
 
-        private async Task<TaxReceipt> guardarXMLenBD(string pXML, string pUuid, string pRfcReceptor, string pTipo, string status, int pIdPayment, string idCFDI)
+        private async Task<TaxReceipt> guardarXMLenBD(string pXML, string pUuid, string pRfcReceptor, string pTipo, string status, int pIdPayment, string idCFDI)        
         {
             string json = string.Empty;
 
@@ -1533,7 +1545,7 @@ namespace SOAPAP
                 xMLS.Type = pTipo;
                 xMLS.Status = status;
                 xMLS.PaymentId = pIdPayment;                
-                xMLS.UserId = Variables.Configuration.Terminal.TerminalUsers.FirstOrDefault().UserId;
+                xMLS.UserId = isAdministrator == false ? Variables.Configuration.Terminal.TerminalUsers.FirstOrDefault().UserId : ActualUserId;
                 xMLS.IdXmlFacturama = idCFDI;
                 xMLS.UsoCFDI = string.IsNullOrEmpty(msgUsos) ? "P01 - Por definir" : msgUsos;
 
@@ -1543,20 +1555,20 @@ namespace SOAPAP
                 var jsonResponse = await Requests.SendURIAsync("/api/TaxReceipt/", HttpMethod.Post, Variables.LoginModel.Token, content);
                 TaxReceipt tax = JsonConvert.DeserializeObject<TaxReceipt>(jsonResponse);
 
-                return tax;                
+                return tax;
             }
             catch (Exception ex)
             {
                 return null;
             }
         }
-        private async Task<string> actualizarPaymentConFactura(Model.Payment pPay)
+        private async Task<string> actualizarPaymentConFactura(Model.Payment pPay, Model.TaxReceipt pTR)
         {
             HttpContent content;
             try
             {
                 pPay.HaveTaxReceipt = true;
-                pPay.ObservationInvoice = string.IsNullOrEmpty(msgObservacionFactura) ? "" : msgObservacionFactura;
+                pPay.ObservationInvoice = string.IsNullOrEmpty(msgObservacionFactura) ? "" : msgObservacionFactura;              
                 content = new StringContent(JsonConvert.SerializeObject(pPay), Encoding.UTF8, "application/json");
                 var updatePayment = await Requests.SendURIAsync(string.Format("/api/Payments/{0}", pPay.Id), HttpMethod.Put, Variables.LoginModel.Token, content);
                 return "ok";
@@ -1746,20 +1758,20 @@ namespace SOAPAP
                 if (string.IsNullOrEmpty(cfdiGet.Observations))
                 {
                     string msgObservacionFactura = string.IsNullOrEmpty(TraVM.payment.ObservationInvoice) ? "" : TraVM.payment.ObservationInvoice;
-                    ////bool printFecha = Variables.LoginModel.Divition != 12;
-                    ////if (Variables.Configuration.IsMunicipal)
-                    ////{
-                    ////    //En caso de factura fuera de fecha
-                    ////    if (TraVM.payment.PaymentDate.ToString("yyyy-MM-dd") != DateTime.Today.ToString("yyyy-MM-dd") && printFecha)
-                    ////        msgObservacionFactura += ", Pago efectuado el " + TraVM.payment.PaymentDate.ToString("yyyy-MM-dd");
-                    ////}
-                    ////else
-                    ////{
-                    ////    if (TraVM.payment.PaymentDate.ToString("yyyy-MM-dd") != DateTime.Today.ToString("yyyy-MM-dd"))
-                    ////        msgObservacionFactura += ", Pago efectuado el " + TraVM.payment.PaymentDate.ToString("yyyy-MM-dd");
-                    ////}
+                    //bool printFecha = Variables.LoginModel.Divition != 12;
+                    //if (Variables.Configuration.IsMunicipal)
+                    //{
+                    //    //En caso de factura fuera de fecha
+                    //    if (TraVM.payment.PaymentDate.ToString("yyyy-MM-dd") != DateTime.Today.ToString("yyyy-MM-dd") && printFecha)
+                    msgObservacionFactura += string.IsNullOrEmpty(msgObservacionFactura) ? "Pago efectuado el " + TraVM.payment.PaymentDate.ToString("yyyy-MM-dd") : ", Pago efectuado el " + TraVM.payment.PaymentDate.ToString("yyyy-MM-dd");
+                    //}
+                    //else
+                    //{
+                    //    if (TraVM.payment.PaymentDate.ToString("yyyy-MM-dd") != DateTime.Today.ToString("yyyy-MM-dd"))
+                    //        msgObservacionFactura += ", Pago efectuado el " + TraVM.payment.PaymentDate.ToString("yyyy-MM-dd");
+                    //}
                     //Verifico si es un pago parcial.
-                    if(TraVM.payment.OrderSaleId == 0 && cfdiGet.Status == "active")
+                    if (TraVM.payment.OrderSaleId == 0 && cfdiGet.Status == "active")
                     {
                         var resulDebt = await Requests.SendURIAsync(string.Format("/api/Debts/id/{0}", TraVM.payment.PaymentDetails.FirstOrDefault()?.DebtId), HttpMethod.Get, Variables.LoginModel.Token);
                         var resDebt = JsonConvert.DeserializeObject<SOAPAP.Model.Debt>(resulDebt);
@@ -1773,15 +1785,28 @@ namespace SOAPAP
                             msgObservacionFactura += ", Esta factura es comprobante de un pago pacial";
                     }
                     
-                    //Si hay observaciones en la Orden o el debt
-                    if (TraVM.payment.OrderSaleId == 0)
-                        msgObservacionFactura += (string.IsNullOrEmpty(TraVM.payment.PaymentDetails.FirstOrDefault().Debt.observations) ? "" : ", " + TraVM.payment.PaymentDetails.FirstOrDefault().Debt.observations);
-                    else
-                    {
-                        msgObservacionFactura += (string.IsNullOrEmpty(TraVM.orderSale.Observation) ? "" : ", " + TraVM.orderSale.Observation);
-                    }
+                    ////Si hay observaciones en la Orden o el debt
+                    //if (TraVM.payment.OrderSaleId == 0)
+                    //    msgObservacionFactura += (string.IsNullOrEmpty(TraVM.payment.PaymentDetails.FirstOrDefault().Debt.observations) ? "" : ", " + TraVM.payment.PaymentDetails.FirstOrDefault().Debt.observations);
+                    //else
+                    //{
+                    //    msgObservacionFactura += (string.IsNullOrEmpty(TraVM.orderSale.Observation) ? "" : ", " + TraVM.orderSale.Observation);
+                    //}
                     pDF.ObservacionCFDI = msgObservacionFactura;                   
                 }
+
+                //Se obtiene el serial de un cajero elejido, esto cuando el reporte lo solicita un administrador.
+                string tmpSerialCajero = "";
+                var _resulSerial = await Requests.SendURIAsync(string.Format("/api/UserRolesManager/SerialFromUser/{0}", ActualUserId), HttpMethod.Get, Variables.LoginModel.Token);
+                if (_resulSerial.Contains("error"))
+                    tmpSerialCajero = "JdC";
+                else
+                {
+                    tmpSerialCajero = JsonConvert.DeserializeObject<string>(_resulSerial);
+                    if (tmpSerialCajero == null)
+                        tmpSerialCajero = "JdC";
+                }
+                pDF.SerialCajero = tmpSerialCajero;
 
                 if (TraVM.payment.OrderSaleId == 0) //Servicio
                     resPdf = await pDF.Create(path + nombrePDF, TraVM.payment.AgreementId);

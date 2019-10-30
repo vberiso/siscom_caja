@@ -49,7 +49,7 @@ namespace SOAPAP.UI.ReportesForms
         {
             //Combo de Colonias.
             List<DataComboBox> lstColonias = new List<DataComboBox>();
-            var resultTypeTransaction2 = await Requests.SendURIAsync("/api/Towns/2/Suburbs", HttpMethod.Get, Variables.LoginModel.Token);
+            var resultTypeTransaction2 = await Requests.SendURIAsync("/api/Towns/2/Suburbs/all", HttpMethod.Get, Variables.LoginModel.Token);
             if (resultTypeTransaction2.Contains("error"))
             {
                 mensaje = new MessageBoxForm("Error", resultTypeTransaction2.Split(':')[1].Replace("}", ""), TypeIcon.Icon.Cancel);
@@ -175,12 +175,19 @@ namespace SOAPAP.UI.ReportesForms
             }
             else
             {
-                foreach (SOAPAP.Reportes.DataComboBox item in itemsCol)
+                if(cheColonia.Checked)  //Todos{
                 {
-                    //lstColonia.Add(item);
-                    lstColonias = lstColonias + item.keyInt + ",";
+                    lstColonias = "Todos";
                 }
-                lstColonias = lstColonias.Substring(0, lstColonias.Length - 1);
+                else
+                {
+                    foreach (SOAPAP.Reportes.DataComboBox item in itemsCol)
+                    {
+                        //lstColonia.Add(item);
+                        lstColonias = lstColonias + item.keyInt + ",";
+                    }
+                    lstColonias = lstColonias.Substring(0, lstColonias.Length - 1);
+                }                
             }
 
             HttpContent content;

@@ -47,7 +47,7 @@ namespace SOAPAP.UI
         decimal porcentaje = 0;
         public readonly FirebaseClient firebase = new FirebaseClient("https://siscom-notifications.firebaseio.com/");
         CashBoxAccess.Access accessParam = CashBoxAccess.Access.Cobro;
-
+        string CorreoCliente = "";
         public Cobro()
         {
             Requests = new RequestsAPI(UrlBase);
@@ -376,7 +376,7 @@ namespace SOAPAP.UI
         private async void ObtenerInformacion()
         {
             LimpiaDatos();           
-                if (txtCuenta.Text.Trim().Length != 0)
+            if (txtCuenta.Text.Trim().Length != 0)
             {
                 string _cuenta = txtCuenta.Text.Trim();
                 txtCuenta.Text = _cuenta;
@@ -996,11 +996,13 @@ namespace SOAPAP.UI
                     }
                     else
                     {
+                        CorreoCliente = Variables.OrderSale.TaxUser.EMail;
                         PaymentModal();
                     }
                 }
                 else
                 {
+                    CorreoCliente = Variables.OrderSale.TaxUser.EMail;
                     PaymentModal();
                 }
             }
@@ -1022,6 +1024,7 @@ namespace SOAPAP.UI
                     }
                     else
                     {
+                        CorreoCliente = Variables.Agreement.Clients.FirstOrDefault() == null ? "" : Variables.Agreement.Clients.FirstOrDefault().EMail;
                         if (amount < total)
                         {
                             if (lblIva.Text != "$0.00")
@@ -1043,6 +1046,7 @@ namespace SOAPAP.UI
                 }
                 else
                 {
+                    CorreoCliente = Variables.Agreement.Clients.FirstOrDefault() == null ? "" : Variables.Agreement.Clients.FirstOrDefault().EMail;
                     if (amount < total)
                     {
                         if (lblIva.Text != "$0.00")
@@ -1078,8 +1082,8 @@ namespace SOAPAP.UI
                 decimal rounding = Convert.ToDecimal((System.Text.RegularExpressions.Regex.Replace(lblRedondeo.Text, @"[^\d.]", "")));
                 decimal total = Convert.ToDecimal((System.Text.RegularExpressions.Regex.Replace(lblTotal.Text, @"[^\d.]", "")));
                 string Padron = lblContibuyente.Text;
-
-                ModalDetalleCobro Cobro = new ModalDetalleCobro(amount, tax, rounding, paidUp, total, tmpFiltros, Padron, porcentaje, anual, prepaid);
+                
+                ModalDetalleCobro Cobro = new ModalDetalleCobro(amount, tax, rounding, paidUp, total, tmpFiltros, Padron, porcentaje, anual, prepaid, CorreoCliente);
 
                 Cobro.ShowDialog(this);
                 ObtenerInformacion();

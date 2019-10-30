@@ -21,10 +21,39 @@ namespace SOAPAP.UI.Messages
             InitializeComponent();
         }
 
+        public msgObservacionFactura(string pCorreo)
+        {
+            InitializeComponent();
+            tbxCorreo.Text = pCorreo;
+        }
+
         private void btnAceptar_Click(object sender, EventArgs e)
         {
-            TextoObservacion = tbxMensage.Text;
-            this.Close();
+            try
+            {
+                TextoObservacion = tbxMensage.Text;
+                
+                if(chbxEnviarCorreo.Checked == true)
+                {
+                    if (string.IsNullOrEmpty(tbxCorreo.Text))
+                    {
+                        lblMensajeCorreo.Text = "Debe ingresar una dirección de correo.";
+                    }
+                    else
+                    {
+                        var eMailValidator = new System.Net.Mail.MailAddress(tbxCorreo.Text);
+                        this.Close();
+                    }                    
+                }
+                else
+                {                    
+                    this.Close();
+                }                
+            }
+            catch (FormatException ex)
+            {
+                lblMensajeCorreo.Text = "Debe especificar una dirección de correo valida.";
+            }            
         }
 
         private void pnlHeader_Paint(object sender, PaintEventArgs e)

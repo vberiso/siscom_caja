@@ -27,6 +27,8 @@ using PdfPrintingNet;
 using SOAPAP.Reportes;
 using Firebase.Database;
 using Firebase.Database.Query;
+using System.Runtime.InteropServices;
+using SOAPAP.UI.Email;
 
 namespace SOAPAP.UI
 {
@@ -63,7 +65,7 @@ namespace SOAPAP.UI
         PdfPrint PdfPrint = null;
         private string Usos { get; set; }
 
-        public ModalDetalleCobro(decimal Amount, decimal Tax, decimal Rounding, decimal PaidUp, decimal Total, List<Model.Debt> Debts, string Padron, decimal Porcentaje, bool Anual, bool Prepaid)
+        public ModalDetalleCobro(decimal Amount, decimal Tax, decimal Rounding, decimal PaidUp, decimal Total, List<Model.Debt> Debts, string Padron, decimal Porcentaje, bool Anual, bool Prepaid, string CorreoCliente)
         {
             InitializeComponent();
             Requests = new RequestsAPI(UrlBase);
@@ -77,6 +79,7 @@ namespace SOAPAP.UI
             this.Porcentaje = Porcentaje;
             this.Anual = Anual;
             this.Prepaid = Prepaid;
+            this.tbxCorreo.Text = CorreoCliente;
         }
 
         private void ModalDetalleCobro_Load(object sender, EventArgs e)
@@ -520,8 +523,38 @@ namespace SOAPAP.UI
             //}
         }
 
-        private void btnAceptar_Click(object sender, EventArgs e)
+        private string validaCorreo()
         {
+            try
+            {
+                if (chbxEnviarCorreo.Checked == true)
+                {
+                    if (string.IsNullOrEmpty(tbxCorreo.Text))
+                    {
+                        lblMensajeCorreo.Text = "Debe ingresar una dirección de correo.";
+                        return "Error";
+                    }
+                    else
+                    {
+                        var eMailValidator = new System.Net.Mail.MailAddress(tbxCorreo.Text);
+                        lblMensajeCorreo.Text = "";
+                        return "";
+                    }
+                }
+                else
+                {
+                    return "";
+                }
+            }
+            catch (FormatException ex)
+            {
+                lblMensajeCorreo.Text = "Debe especificar una dirección de correo valida.";
+                return "Error";
+            }
+        }
+
+        private void btnAceptar_Click(object sender, EventArgs e)
+        {            
             switch (paymethod)
             {
                 case 1:
@@ -534,6 +567,11 @@ namespace SOAPAP.UI
                     {
 
                         mensaje = new MessageBoxForm("Error", "El monto que se está recibiendo es menor a la cantidad a pagar", TypeIcon.Icon.Cancel);
+                        result = mensaje.ShowDialog();
+                    }
+                    else if (validaCorreo().Contains("Error"))
+                    {
+                        mensaje = new MessageBoxForm("Error", "Favor de verificar el correo", TypeIcon.Icon.Cancel);
                         result = mensaje.ShowDialog();
                     }
                     else
@@ -555,6 +593,11 @@ namespace SOAPAP.UI
                         mensaje = new MessageBoxForm("Error", "Error al intentar realizar el cobro, los datos de la tarjeta no son validos", TypeIcon.Icon.Cancel);
                         result = mensaje.ShowDialog();
                     }
+                    else if (validaCorreo().Contains("Error"))
+                    {
+                        mensaje = new MessageBoxForm("Error", "Favor de verificar el correo", TypeIcon.Icon.Cancel);
+                        result = mensaje.ShowDialog();
+                    }
                     else
                     {
                         if (Debts != null || Anual || Prepaid)
@@ -567,6 +610,11 @@ namespace SOAPAP.UI
                     if (string.IsNullOrEmpty(txtReferencia.Text))
                     {
                         mensaje = new MessageBoxForm("Error", "Error al intentar realizar el cobro favor de verificar los campos", TypeIcon.Icon.Cancel);
+                        result = mensaje.ShowDialog();
+                    }
+                    else if (validaCorreo().Contains("Error"))
+                    {
+                        mensaje = new MessageBoxForm("Error", "Favor de verificar el correo", TypeIcon.Icon.Cancel);
                         result = mensaje.ShowDialog();
                     }
                     else
@@ -588,6 +636,11 @@ namespace SOAPAP.UI
                         mensaje = new MessageBoxForm("Error", "Error al intentar realizar el cobro, los datos de la tarjeta no son validos", TypeIcon.Icon.Cancel);
                         result = mensaje.ShowDialog();
                     }
+                    else if (validaCorreo().Contains("Error"))
+                    {
+                        mensaje = new MessageBoxForm("Error", "Favor de verificar el correo", TypeIcon.Icon.Cancel);
+                        result = mensaje.ShowDialog();
+                    }
                     else
                     {
                         if (Debts != null || Anual || Prepaid)
@@ -603,6 +656,11 @@ namespace SOAPAP.UI
                     if (resta > 0 || resta < 0)
                     {
                         mensaje = new MessageBoxForm("Error", "Error al intentar realizar el cobro, los montos son incorrectos, favor de verificar", TypeIcon.Icon.Cancel);
+                        result = mensaje.ShowDialog();
+                    }
+                    else if (validaCorreo().Contains("Error"))
+                    {
+                        mensaje = new MessageBoxForm("Error", "Favor de verificar el correo", TypeIcon.Icon.Cancel);
                         result = mensaje.ShowDialog();
                     }
                     else if (ValidPayMixed())
@@ -1179,7 +1237,9 @@ namespace SOAPAP.UI
                             SOAPAP.UI.Visualizador.Preview oPreview = new SOAPAP.UI.Visualizador.Preview(xmltimbrado);
                             try
                             {
-                                oPreview.imprimirDocumentoSinVisualizar();                                
+                                oPreview.imprimirDocumentoSinVisualizar();
+                                oPreview.Close();
+                                alzheimer();
                             }
                             catch (Exception ex)
                             {
@@ -1270,7 +1330,30 @@ namespace SOAPAP.UI
                                                                          }, true);
                         }                        
                     }
-                    
+
+                    //Se enviara correo
+                    if (chbxEnviarCorreo.Checked)
+                    {
+                        if (!string.IsNullOrEmpty(tbxCorreo.Text))
+                        {
+                            var tmpCliente = Variables.Agreement.Clients.FirstOrDefault();
+                            EnvioEmail email = new EnvioEmail(Variables.Agreement.Account, string.Format("{0} {1} {2}", tmpCliente.Name, tmpCliente.LastName, tmpCliente.SecondLastName));
+                            string nombre = xmltimbrado.Substring(xmltimbrado.LastIndexOf("\\") + 1);
+                            string ruta = xmltimbrado.Replace(nombre, "");                            
+                            string resultadoMail = email.Send_Email(tbxCorreo.Text, ruta.Substring(0, ruta.Length - 1), nombre.Split('.')[0]);
+                            if (resultadoMail.Contains("error"))
+                            {
+                                mensaje = new MessageBoxForm("Error", resultadoMail, TypeIcon.Icon.Warning);
+                                mensaje.ShowDialog();
+                            }
+                            else
+                            {
+                                mensaje = new MessageBoxForm("Comprobante enviado.", resultadoMail, TypeIcon.Icon.Success);
+                                mensaje.ShowDialog();
+                            }
+                        }
+                    }
+
                     if (mensaje.ShowDialog() == DialogResult.OK)
                     {
                         this.Close();
@@ -1603,7 +1686,9 @@ namespace SOAPAP.UI
                         SOAPAP.UI.Visualizador.Preview oPreview = new SOAPAP.UI.Visualizador.Preview(xmltimbrado);
                         try
                         {
-                            oPreview.imprimirDocumentoSinVisualizar();                            
+                            oPreview.imprimirDocumentoSinVisualizar();
+                            oPreview.Close();
+                            alzheimer();
                         }
                         catch (Exception ex)
                         {
@@ -1627,6 +1712,30 @@ namespace SOAPAP.UI
                         //        mensaje.ShowDialog();
                         //    }
                         //}
+
+                        //Se enviara correo
+                        if (chbxEnviarCorreo.Checked)
+                        {
+                            if (!string.IsNullOrEmpty(tbxCorreo.Text))
+                            {
+                                var tmpCliente = Variables.OrderSale.TaxUser;
+                                EnvioEmail email = new EnvioEmail(Variables.OrderSale.Folio, tmpCliente.Name);
+                                string nombre = xmltimbrado.Substring(xmltimbrado.LastIndexOf("\\") + 1);
+                                string ruta = xmltimbrado.Replace(nombre, "");
+                                string resultadoMail = email.Send_Email(tbxCorreo.Text, ruta.Substring(0, ruta.Length - 1), nombre.Split('.')[0]);
+                                if (resultadoMail.Contains("error"))
+                                {
+                                    mensaje = new MessageBoxForm("Error", resultadoMail, TypeIcon.Icon.Warning);
+                                    mensaje.ShowDialog();
+                                }
+                                else
+                                {
+                                    mensaje = new MessageBoxForm("Comprobante enviado.", resultadoMail, TypeIcon.Icon.Success);
+                                    mensaje.ShowDialog();
+                                }
+                            }
+                        }
+
                         loadings.Close();
                     }
                 }
@@ -1647,6 +1756,15 @@ namespace SOAPAP.UI
                 }
 
             }
+        }
+
+        [DllImport("kernel32.dll", EntryPoint = "SetProcessWorkingSetSize", ExactSpelling = true, CharSet = CharSet.Ansi, SetLastError = true)]
+        private static extern int SetProcessWorkingSetSize(IntPtr process, int minimumWorkingSetSize, int maximumWorkingSetSize);
+        public static void alzheimer()
+        {
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
+            SetProcessWorkingSetSize(System.Diagnostics.Process.GetCurrentProcess().Handle, -1, -1);
         }
 
         public decimal RoundDown(decimal i, double decimalPlaces)

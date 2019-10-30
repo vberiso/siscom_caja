@@ -162,19 +162,20 @@ namespace SOAPAP
                 {
                     radio = 3;
                     dt = await q.GETAgreementsFindAgreement("/api/Agreements/FindAgreementParam?type=" + radio + "&stringSearch=" + textBox1.Text);
-                    if(dt != null) { 
-                    foreach (DataRow row in dt.Rows)
-                    {
-                        separadas = row[0].ToString().Split('/');
-                        if (separadas[0].ToString() == "error")
+                    if(dt != null)
+                    { 
+                        foreach (DataRow row in dt.Rows)
                         {
-                            mensaje = new MessageBoxForm(Variables.titleprincipal, separadas[1].ToString(), TypeIcon.Icon.Cancel);
-                            mensaje.ShowDialog();
-                            dt.Rows.Clear();
-                                loading.Close();
-                                return;
+                            separadas = row[0].ToString().Split('/');
+                            if (separadas[0].ToString() == "error")
+                            {
+                                mensaje = new MessageBoxForm(Variables.titleprincipal, separadas[1].ToString(), TypeIcon.Icon.Cancel);
+                                mensaje.ShowDialog();
+                                dt.Rows.Clear();
+                                    loading.Close();
+                                    return;
+                            }
                         }
-                    }
                     }
                     else
                     {
@@ -184,6 +185,9 @@ namespace SOAPAP
                     cargar();
                     dataGridView1.ClearSelection();
                 }
+
+                
+
                 loading.Close();
             }
         }

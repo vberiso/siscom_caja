@@ -6,6 +6,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -58,7 +59,10 @@ namespace SOAPAP.UI.Visualizador
             {
                 pdfViewer1.LoadDocument(StreamReader);
             }
+            //Thread.Sleep(3000);
             pdfViewer1.Print();
+            pdfViewer1.CloseDocument();
+            pdfViewer1.Dispose();
         }
             
 

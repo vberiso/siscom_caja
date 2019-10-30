@@ -13,6 +13,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -223,7 +224,7 @@ namespace SOAPAP.UI.FactPasada
                             result = mensaje.ShowDialog();
                         }
                         mostrarInfoPay(payment);
-                        visualizaPDFActual(payment.TaxReceipts.LastOrDefault());
+                        visualizaPDFActual(payment.TaxReceipts.LastOrDefault(p => p.Status == "ET001"));
                     }
                 //}
                 //else
@@ -255,6 +256,12 @@ namespace SOAPAP.UI.FactPasada
                 loadings.Show(this);
                 Fac = new Facturaelectronica();
 
+                if (Variables.LoginModel.RolName[0] == "Supervisor")
+                {
+                    Fac.isAdministrator = true;
+                    Fac.ActualUserId = ((DataComboBox)cbxUsuario.SelectedItem).keyString;
+                }
+                    
                 //Se obtiene el serial de un cajero elejido, esto cuando el reporte lo solicita un administrador.
                 string tmpSerialCajero = "";
                 var _resulSerial = await Requests.SendURIAsync(string.Format("/api/UserRolesManager/SerialFromUser/{0}", ((DataComboBox)cbxUsuario.SelectedItem).keyString), HttpMethod.Get, Variables.LoginModel.Token);
@@ -287,26 +294,39 @@ namespace SOAPAP.UI.FactPasada
                 }
                 else
                 {
-                    PdfPrint.IsContentCentered = true;
-                    PdfPrint.Scale = PdfPrint.ScaleTypes.None;
-                    PdfPrint.Status result = PdfPrint.Status.OK;
-                    PrintDialog printDialog = new PrintDialog();
-                    if (printDialog.ShowDialog() == DialogResult.OK)
+                    //Impresion del PDF.
+                    SOAPAP.UI.Visualizador.Preview oPreview = new SOAPAP.UI.Visualizador.Preview(xmltimbrado);
+                    try
                     {
-                        try
-                        {
-                            result = PdfPrint.Print(xmltimbrado, printDialog.PrinterSettings);
-                        }
-                        catch (Exception ex)
-                        {
-                            result = PdfPrint.Status.UNKNOWN_ERROR;
-                            mensaje = new MessageBoxForm("Error", ex.Message, TypeIcon.Icon.Cancel);
-                            mensaje.ShowDialog();
-                        }
+                        oPreview.imprimirDocumentoSinVisualizar();
+                        oPreview.Close();
+                        alzheimer();
                     }
+                    catch (Exception ex)
+                    {
+                        mensaje = new MessageBoxForm("Error", ex.Message, TypeIcon.Icon.Cancel);
+                        mensaje.ShowDialog();
+                    }
+                    //PdfPrint.IsContentCentered = true;
+                    //PdfPrint.Scale = PdfPrint.ScaleTypes.None;
+                    //PdfPrint.Status result = PdfPrint.Status.OK;
+                    //PrintDialog printDialog = new PrintDialog();
+                    //if (printDialog.ShowDialog() == DialogResult.OK)
+                    //{
+                    //    try
+                    //    {
+                    //        result = PdfPrint.Print(xmltimbrado, printDialog.PrinterSettings);
+                    //    }
+                    //    catch (Exception ex)
+                    //    {
+                    //        result = PdfPrint.Status.UNKNOWN_ERROR;
+                    //        mensaje = new MessageBoxForm("Error", ex.Message, TypeIcon.Icon.Cancel);
+                    //        mensaje.ShowDialog();
+                    //    }
+                    //}
 
 
-                    btnActualizar.PerformClick();
+                    btnActualizar_Click(new object(), new EventArgs());
 
                     loadings.Close();
                 }
@@ -331,6 +351,13 @@ namespace SOAPAP.UI.FactPasada
             if (EstaFacturado && Operacion == "Cobro")
             {
                 Fac = new Facturaelectronica();
+
+                if (Variables.LoginModel.RolName[0] == "Supervisor")
+                {
+                    Fac.isAdministrator = true;
+                    Fac.ActualUserId = ((DataComboBox)cbxUsuario.SelectedItem).keyString;
+                }
+
                 string temp = await Fac.actualizaPdf(transactionId);
 
                 if (temp.Contains("error"))
@@ -349,6 +376,13 @@ namespace SOAPAP.UI.FactPasada
             if (EstaFacturado && Operacion.Contains("Cancela"))
             {
                 Fac = new Facturaelectronica();
+
+                if (Variables.LoginModel.RolName[0] == "Supervisor")
+                {
+                    Fac.isAdministrator = true;
+                    Fac.ActualUserId = ((DataComboBox)cbxUsuario.SelectedItem).keyString;
+                }
+
                 string temp = await Fac.actualizaPdf(transactionId, true);
 
                 if (temp.Contains("error"))
@@ -616,6 +650,16 @@ namespace SOAPAP.UI.FactPasada
             {
                 loadingMail.Close();
             }
+        }
+
+        //Liberar recursos
+        [DllImport("kernel32.dll", EntryPoint = "SetProcessWorkingSetSize", ExactSpelling = true, CharSet = CharSet.Ansi, SetLastError = true)]
+        private static extern int SetProcessWorkingSetSize(IntPtr process, int minimumWorkingSetSize, int maximumWorkingSetSize);
+        public static void alzheimer()
+        {
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
+            SetProcessWorkingSetSize(System.Diagnostics.Process.GetCurrentProcess().Handle, -1, -1);
         }
     }
 }

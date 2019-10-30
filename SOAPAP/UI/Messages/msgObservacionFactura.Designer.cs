@@ -35,6 +35,9 @@
             this.cbxUsoCFDI = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.btnAceptar = new System.Windows.Forms.Button();
+            this.chbxEnviarCorreo = new System.Windows.Forms.CheckBox();
+            this.tbxCorreo = new System.Windows.Forms.TextBox();
+            this.lblMensajeCorreo = new System.Windows.Forms.Label();
             this.pnlHeader.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -65,7 +68,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(14, 146);
+            this.label1.Location = new System.Drawing.Point(14, 105);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(198, 13);
             this.label1.TabIndex = 45;
@@ -74,7 +77,8 @@
             // 
             // tbxMensage
             // 
-            this.tbxMensage.Location = new System.Drawing.Point(12, 165);
+            this.tbxMensage.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbxMensage.Location = new System.Drawing.Point(12, 123);
             this.tbxMensage.Multiline = true;
             this.tbxMensage.Name = "tbxMensage";
             this.tbxMensage.Size = new System.Drawing.Size(628, 111);
@@ -83,17 +87,18 @@
             // 
             // cbxUsoCFDI
             // 
+            this.cbxUsoCFDI.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbxUsoCFDI.FormattingEnabled = true;
-            this.cbxUsoCFDI.Location = new System.Drawing.Point(17, 84);
+            this.cbxUsoCFDI.Location = new System.Drawing.Point(17, 72);
             this.cbxUsoCFDI.Name = "cbxUsoCFDI";
-            this.cbxUsoCFDI.Size = new System.Drawing.Size(184, 21);
+            this.cbxUsoCFDI.Size = new System.Drawing.Size(184, 23);
             this.cbxUsoCFDI.TabIndex = 48;
             this.cbxUsoCFDI.SelectedIndexChanged += new System.EventHandler(this.cbxUsoCFDI_SelectedIndexChanged);
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(17, 65);
+            this.label2.Location = new System.Drawing.Point(17, 54);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(93, 13);
             this.label2.TabIndex = 49;
@@ -114,12 +119,47 @@
             this.btnAceptar.UseVisualStyleBackColor = false;
             this.btnAceptar.Click += new System.EventHandler(this.btnAceptar_Click);
             // 
+            // chbxEnviarCorreo
+            // 
+            this.chbxEnviarCorreo.AutoSize = true;
+            this.chbxEnviarCorreo.Location = new System.Drawing.Point(19, 252);
+            this.chbxEnviarCorreo.Name = "chbxEnviarCorreo";
+            this.chbxEnviarCorreo.Size = new System.Drawing.Size(101, 17);
+            this.chbxEnviarCorreo.TabIndex = 51;
+            this.chbxEnviarCorreo.Text = "Enviar correo a:";
+            this.chbxEnviarCorreo.UseVisualStyleBackColor = true;
+            this.chbxEnviarCorreo.Visible = false;
+            // 
+            // tbxCorreo
+            // 
+            this.tbxCorreo.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbxCorreo.Location = new System.Drawing.Point(15, 272);
+            this.tbxCorreo.Name = "tbxCorreo";
+            this.tbxCorreo.Size = new System.Drawing.Size(347, 23);
+            this.tbxCorreo.TabIndex = 52;
+            this.tbxCorreo.Visible = false;
+            // 
+            // lblMensajeCorreo
+            // 
+            this.lblMensajeCorreo.AutoSize = true;
+            this.lblMensajeCorreo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblMensajeCorreo.ForeColor = System.Drawing.Color.Red;
+            this.lblMensajeCorreo.Location = new System.Drawing.Point(116, 251);
+            this.lblMensajeCorreo.Name = "lblMensajeCorreo";
+            this.lblMensajeCorreo.Size = new System.Drawing.Size(143, 15);
+            this.lblMensajeCorreo.TabIndex = 53;
+            this.lblMensajeCorreo.Text = "Debe ingresar un correo.";
+            this.lblMensajeCorreo.Visible = false;
+            // 
             // msgObservacionFactura
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(652, 317);
             this.ControlBox = false;
+            this.Controls.Add(this.lblMensajeCorreo);
+            this.Controls.Add(this.tbxCorreo);
+            this.Controls.Add(this.chbxEnviarCorreo);
             this.Controls.Add(this.btnAceptar);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.cbxUsoCFDI);
@@ -146,5 +186,8 @@
         private System.Windows.Forms.ComboBox cbxUsoCFDI;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button btnAceptar;
+        public System.Windows.Forms.CheckBox chbxEnviarCorreo;
+        public System.Windows.Forms.TextBox tbxCorreo;
+        private System.Windows.Forms.Label lblMensajeCorreo;
     }
 }

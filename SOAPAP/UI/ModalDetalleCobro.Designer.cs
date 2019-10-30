@@ -133,6 +133,9 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label1 = new System.Windows.Forms.Label();
             this.cmbPaymentMethod = new System.Windows.Forms.ComboBox();
+            this.lblMensajeCorreo = new System.Windows.Forms.Label();
+            this.tbxCorreo = new System.Windows.Forms.TextBox();
+            this.chbxEnviarCorreo = new System.Windows.Forms.CheckBox();
             this.pnlImagen.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbxIcon)).BeginInit();
             this.pnlButtons.SuspendLayout();
@@ -228,6 +231,9 @@
             // pnlContent
             // 
             this.pnlContent.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pnlContent.Controls.Add(this.lblMensajeCorreo);
+            this.pnlContent.Controls.Add(this.tbxCorreo);
+            this.pnlContent.Controls.Add(this.chbxEnviarCorreo);
             this.pnlContent.Controls.Add(this.label23);
             this.pnlContent.Controls.Add(this.cbxUsoCFDI);
             this.pnlContent.Controls.Add(this.tbxMensage);
@@ -245,7 +251,7 @@
             // label23
             // 
             this.label23.AutoSize = true;
-            this.label23.Location = new System.Drawing.Point(12, 422);
+            this.label23.Location = new System.Drawing.Point(12, 418);
             this.label23.Name = "label23";
             this.label23.Size = new System.Drawing.Size(99, 16);
             this.label23.TabIndex = 53;
@@ -254,7 +260,7 @@
             // cbxUsoCFDI
             // 
             this.cbxUsoCFDI.FormattingEnabled = true;
-            this.cbxUsoCFDI.Location = new System.Drawing.Point(12, 441);
+            this.cbxUsoCFDI.Location = new System.Drawing.Point(12, 435);
             this.cbxUsoCFDI.Name = "cbxUsoCFDI";
             this.cbxUsoCFDI.Size = new System.Drawing.Size(216, 24);
             this.cbxUsoCFDI.TabIndex = 52;
@@ -262,16 +268,16 @@
             // 
             // tbxMensage
             // 
-            this.tbxMensage.Location = new System.Drawing.Point(7, 522);
+            this.tbxMensage.Location = new System.Drawing.Point(7, 488);
             this.tbxMensage.Multiline = true;
             this.tbxMensage.Name = "tbxMensage";
-            this.tbxMensage.Size = new System.Drawing.Size(445, 111);
+            this.tbxMensage.Size = new System.Drawing.Size(445, 102);
             this.tbxMensage.TabIndex = 51;
             // 
             // label24
             // 
             this.label24.AutoSize = true;
-            this.label24.Location = new System.Drawing.Point(9, 503);
+            this.label24.Location = new System.Drawing.Point(9, 469);
             this.label24.Name = "label24";
             this.label24.Size = new System.Drawing.Size(217, 16);
             this.label24.TabIndex = 50;
@@ -1319,6 +1325,36 @@
             this.cmbPaymentMethod.TabIndex = 1;
             this.cmbPaymentMethod.SelectionChangeCommitted += new System.EventHandler(this.cmbPaymentMethod_SelectionChangeCommitted);
             // 
+            // lblMensajeCorreo
+            // 
+            this.lblMensajeCorreo.AutoSize = true;
+            this.lblMensajeCorreo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblMensajeCorreo.ForeColor = System.Drawing.Color.Red;
+            this.lblMensajeCorreo.Location = new System.Drawing.Point(120, 595);
+            this.lblMensajeCorreo.Name = "lblMensajeCorreo";
+            this.lblMensajeCorreo.Size = new System.Drawing.Size(0, 15);
+            this.lblMensajeCorreo.TabIndex = 56;
+            // 
+            // tbxCorreo
+            // 
+            this.tbxCorreo.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbxCorreo.Location = new System.Drawing.Point(7, 614);
+            this.tbxCorreo.Name = "tbxCorreo";
+            this.tbxCorreo.Size = new System.Drawing.Size(347, 23);
+            this.tbxCorreo.TabIndex = 55;
+            // 
+            // chbxEnviarCorreo
+            // 
+            this.chbxEnviarCorreo.AutoSize = true;
+            this.chbxEnviarCorreo.Checked = true;
+            this.chbxEnviarCorreo.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chbxEnviarCorreo.Location = new System.Drawing.Point(11, 594);
+            this.chbxEnviarCorreo.Name = "chbxEnviarCorreo";
+            this.chbxEnviarCorreo.Size = new System.Drawing.Size(108, 20);
+            this.chbxEnviarCorreo.TabIndex = 54;
+            this.chbxEnviarCorreo.Text = "Enviar correo a:";
+            this.chbxEnviarCorreo.UseVisualStyleBackColor = true;
+            // 
             // ModalDetalleCobro
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
@@ -1502,5 +1538,8 @@
         private System.Windows.Forms.ComboBox cbxUsoCFDI;
         private System.Windows.Forms.TextBox tbxMensage;
         private System.Windows.Forms.Label label24;
+        private System.Windows.Forms.Label lblMensajeCorreo;
+        public System.Windows.Forms.TextBox tbxCorreo;
+        public System.Windows.Forms.CheckBox chbxEnviarCorreo;
     }
 }
