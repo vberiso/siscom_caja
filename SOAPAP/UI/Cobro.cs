@@ -606,7 +606,7 @@ namespace SOAPAP.UI
                                 }
                             }
 
-
+                            
                             if (Variables.Agreement.TypeStateServiceId == 1 || Variables.Agreement.TypeStateServiceId == 3)
                             {                                
                                 //Aviso previo a corte de servicio
@@ -678,20 +678,24 @@ namespace SOAPAP.UI
                                        
                                         if (!Variables.Configuration.IsMunicipal)
                                         {
-                                            mensaje = new MessageBoxForm("Sin Deuda", "La cuenta proporcionada no tiene adeudo, puede realizar pagos anticipados", TypeIcon.Icon.Success, true);
-                                            result = mensaje.ShowDialog();
-                                            if (result == DialogResult.OK)
+                                            //Si es convenio no debe decirle que puede dar pagos anticipados
+                                            if (Variables.Agreement.PartialPayments != null && Variables.Agreement.PartialPayments.Count > 0)
                                             {
-                                                Anticipo Anticipo = new Anticipo();
-                                                Anticipo.setAgreementID(Variables.Agreement.Id);
-                                                if (Anticipo.ShowDialog() == DialogResult.OK)
-                                                    ObtenerInformacion();
-
-                                                
-                                                    //AddPrepaid();
-                                                //else
-                                                //anua
+                                                mensaje = new MessageBoxForm("Cuenta con convenio", "Esta cuenta tiene un convenio vigente.", TypeIcon.Icon.Info);
+                                                mensaje.ShowDialog();
                                             }
+                                            else  //Para realiza pagos anticipados
+                                            {
+                                                mensaje = new MessageBoxForm("Sin Deuda", "La cuenta proporcionada no tiene adeudo, puede realizar pagos anticipados", TypeIcon.Icon.Success, true);
+                                                result = mensaje.ShowDialog();
+                                                if (result == DialogResult.OK)
+                                                {
+                                                    Anticipo Anticipo = new Anticipo();
+                                                    Anticipo.setAgreementID(Variables.Agreement.Id);
+                                                    if (Anticipo.ShowDialog() == DialogResult.OK)
+                                                        ObtenerInformacion();
+                                                }
+                                            }                                            
                                         }
                                         else
                                         {
@@ -1049,21 +1053,30 @@ namespace SOAPAP.UI
                     CorreoCliente = Variables.Agreement.Clients.FirstOrDefault() == null ? "" : Variables.Agreement.Clients.FirstOrDefault().EMail;
                     if (amount < total)
                     {
-                        if (lblIva.Text != "$0.00")
+                        //En los convenios (TIP06) no se permiten pagos parciales.
+                        if (Variables.Agreement.Debts.Any(d => d.Type == "TIP06"))
                         {
-                            mensaje = new MessageBoxForm(Variables.titleprincipal, "El monto de cobro sera proporcional al iva", TypeIcon.Icon.Warning);
+                            mensaje = new MessageBoxForm("Cuenta con convenio", "No se permiten pagos parciales durante un convenio.", TypeIcon.Icon.Warning);
                             mensaje.ShowDialog();
-                            PaymentModal();
                         }
                         else
                         {
-                            PaymentModal();
-                        }
+                            if (lblIva.Text != "$0.00")
+                            {
+                                mensaje = new MessageBoxForm(Variables.titleprincipal, "El monto de cobro sera proporcional al iva", TypeIcon.Icon.Warning);
+                                mensaje.ShowDialog();
+                                PaymentModal();
+                            }
+                            else
+                            {
+                                PaymentModal();
+                            }
+                        }                        
                     }
                     else
                     {
                         PaymentModal();
-                    }
+                    }                                       
                 }
             }
            

@@ -64,6 +64,7 @@ namespace SOAPAP.Model
         public ICollection<AgreementComent> AgreementComments { get; set; }
 
         public ICollection<OrderWork> OrderWork { get; set; }
+        public ICollection<PartialPayment> PartialPayments { get; set; }
 
     }
 }
