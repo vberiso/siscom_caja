@@ -34,6 +34,9 @@
             this.btnCancelar = new System.Windows.Forms.Button();
             this.btnAceptar = new System.Windows.Forms.Button();
             this.pnlContent = new System.Windows.Forms.Panel();
+            this.lblMensajeCorreo = new System.Windows.Forms.Label();
+            this.tbxCorreo = new System.Windows.Forms.TextBox();
+            this.chbxEnviarCorreo = new System.Windows.Forms.CheckBox();
             this.label23 = new System.Windows.Forms.Label();
             this.cbxUsoCFDI = new System.Windows.Forms.ComboBox();
             this.tbxMensage = new System.Windows.Forms.TextBox();
@@ -133,9 +136,6 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label1 = new System.Windows.Forms.Label();
             this.cmbPaymentMethod = new System.Windows.Forms.ComboBox();
-            this.lblMensajeCorreo = new System.Windows.Forms.Label();
-            this.tbxCorreo = new System.Windows.Forms.TextBox();
-            this.chbxEnviarCorreo = new System.Windows.Forms.CheckBox();
             this.pnlImagen.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbxIcon)).BeginInit();
             this.pnlButtons.SuspendLayout();
@@ -247,6 +247,36 @@
             this.pnlContent.Name = "pnlContent";
             this.pnlContent.Size = new System.Drawing.Size(478, 683);
             this.pnlContent.TabIndex = 2;
+            // 
+            // lblMensajeCorreo
+            // 
+            this.lblMensajeCorreo.AutoSize = true;
+            this.lblMensajeCorreo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblMensajeCorreo.ForeColor = System.Drawing.Color.Red;
+            this.lblMensajeCorreo.Location = new System.Drawing.Point(120, 595);
+            this.lblMensajeCorreo.Name = "lblMensajeCorreo";
+            this.lblMensajeCorreo.Size = new System.Drawing.Size(0, 15);
+            this.lblMensajeCorreo.TabIndex = 56;
+            // 
+            // tbxCorreo
+            // 
+            this.tbxCorreo.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbxCorreo.Location = new System.Drawing.Point(7, 614);
+            this.tbxCorreo.Name = "tbxCorreo";
+            this.tbxCorreo.Size = new System.Drawing.Size(347, 23);
+            this.tbxCorreo.TabIndex = 55;
+            // 
+            // chbxEnviarCorreo
+            // 
+            this.chbxEnviarCorreo.AutoSize = true;
+            this.chbxEnviarCorreo.Checked = true;
+            this.chbxEnviarCorreo.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chbxEnviarCorreo.Location = new System.Drawing.Point(11, 594);
+            this.chbxEnviarCorreo.Name = "chbxEnviarCorreo";
+            this.chbxEnviarCorreo.Size = new System.Drawing.Size(108, 20);
+            this.chbxEnviarCorreo.TabIndex = 54;
+            this.chbxEnviarCorreo.Text = "Enviar correo a:";
+            this.chbxEnviarCorreo.UseVisualStyleBackColor = true;
             // 
             // label23
             // 
@@ -1324,36 +1354,6 @@
             this.cmbPaymentMethod.Size = new System.Drawing.Size(303, 24);
             this.cmbPaymentMethod.TabIndex = 1;
             this.cmbPaymentMethod.SelectionChangeCommitted += new System.EventHandler(this.cmbPaymentMethod_SelectionChangeCommitted);
-            // 
-            // lblMensajeCorreo
-            // 
-            this.lblMensajeCorreo.AutoSize = true;
-            this.lblMensajeCorreo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblMensajeCorreo.ForeColor = System.Drawing.Color.Red;
-            this.lblMensajeCorreo.Location = new System.Drawing.Point(120, 595);
-            this.lblMensajeCorreo.Name = "lblMensajeCorreo";
-            this.lblMensajeCorreo.Size = new System.Drawing.Size(0, 15);
-            this.lblMensajeCorreo.TabIndex = 56;
-            // 
-            // tbxCorreo
-            // 
-            this.tbxCorreo.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbxCorreo.Location = new System.Drawing.Point(7, 614);
-            this.tbxCorreo.Name = "tbxCorreo";
-            this.tbxCorreo.Size = new System.Drawing.Size(347, 23);
-            this.tbxCorreo.TabIndex = 55;
-            // 
-            // chbxEnviarCorreo
-            // 
-            this.chbxEnviarCorreo.AutoSize = true;
-            this.chbxEnviarCorreo.Checked = true;
-            this.chbxEnviarCorreo.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chbxEnviarCorreo.Location = new System.Drawing.Point(11, 594);
-            this.chbxEnviarCorreo.Name = "chbxEnviarCorreo";
-            this.chbxEnviarCorreo.Size = new System.Drawing.Size(108, 20);
-            this.chbxEnviarCorreo.TabIndex = 54;
-            this.chbxEnviarCorreo.Text = "Enviar correo a:";
-            this.chbxEnviarCorreo.UseVisualStyleBackColor = true;
             // 
             // ModalDetalleCobro
             // 
