@@ -966,7 +966,7 @@ namespace SOAPAP.UI
                         }
                         else
                         {
-                            mensaje = new MessageBoxForm(Variables.titleprincipal, "Facturado Correctamente", TypeIcon.Icon.Success);
+                            mensaje = new MessageBoxForm(Variables.titleprincipal, "Generado Correctamente", TypeIcon.Icon.Success);
                             mensaje.ShowDialog();
                             loading.Close();
                             if (Properties.Settings.Default.Printer == true)
