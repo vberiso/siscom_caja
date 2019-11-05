@@ -375,7 +375,8 @@ namespace SOAPAP.UI
 
         private async void ObtenerInformacion()
         {
-            LimpiaDatos();           
+            LimpiaDatos();
+            btnCobrar.Enabled = true;
             if (txtCuenta.Text.Trim().Length != 0)
             {
                 string _cuenta = txtCuenta.Text.Trim();
@@ -637,7 +638,8 @@ namespace SOAPAP.UI
                                             var cel = agree.OrderWork.Where(ow => ow.Status == "EOT02" && ow.Type == "OT002").FirstOrDefault().TechnicalStaff.Phone;
                                             var folio = agree.OrderWork.Where(ow => ow.Status == "EOT02" && ow.Type == "OT002").FirstOrDefault().Folio;
 
-                                            string msgCorte = string.Format("La cuenta proporcionada tiene una orden de corte asignada a {0} {1}. Folio de orden: {2}, es probable que el técnico este en camino.", nombre, string.IsNullOrEmpty(cel) ? "" : ", Cel: " + cel, folio);
+                                            btnCobrar.Enabled = false;
+                                            string msgCorte = string.Format("La cuenta proporcionada tiene una orden de corte asignada a {0} {1}. Folio de orden: {2}, es probable que el técnico este en camino. No se puede recibir pago hasta que la orden se resuelta.", nombre, string.IsNullOrEmpty(cel) ? "" : ", Cel: " + cel, folio);
                                             mensaje = new MessageBoxForm("Orden de corte Asignada", msgCorte, TypeIcon.Icon.Warning);
                                             result = mensaje.ShowDialog();
                                         }
@@ -681,7 +683,7 @@ namespace SOAPAP.UI
                                             //Si es convenio no debe decirle que puede dar pagos anticipados
                                             if (Variables.Agreement.PartialPayments != null && Variables.Agreement.PartialPayments.Count > 0)
                                             {
-                                                mensaje = new MessageBoxForm("Cuenta con convenio", "Esta cuenta tiene un convenio vigente.", TypeIcon.Icon.Info);
+                                                mensaje = new MessageBoxForm("Cuenta sin deuda y con convenio", "La cuenta proporcionada no tiene adeudo y tiene un convenio vigente.", TypeIcon.Icon.Info);
                                                 mensaje.ShowDialog();
                                             }
                                             else  //Para realiza pagos anticipados
