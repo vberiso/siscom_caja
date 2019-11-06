@@ -29,6 +29,7 @@ namespace SOAPAP.Model
         public DateTime StratDate { get; set; }
         public string TypeAgreement { get; set; }
         public string Route { get; set; }
+        public string Token { get; set; }
         public int TypeServiceId { get; set; }
         public TypeService TypeService { get; set; }
         public int TypeUseId { get; set; }
@@ -65,6 +66,7 @@ namespace SOAPAP.Model
 
         public ICollection<OrderWork> OrderWork { get; set; }
         public ICollection<PartialPayment> PartialPayments { get; set; }
+        public ICollection<AccountStatusInFile> AccountStatusInFiles { get; set; }
 
     }
 }

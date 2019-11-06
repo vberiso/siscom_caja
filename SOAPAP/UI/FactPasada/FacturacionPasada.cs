@@ -362,15 +362,15 @@ namespace SOAPAP.UI.FactPasada
 
                 if (temp.Contains("error"))
                 {
-                    Form mensaje = new MessageBoxForm("Error", temp, TypeIcon.Icon.Warning);
+                    Form mensaje = new MessageBoxForm("Error", temp.Substring(6), TypeIcon.Icon.Warning);
                     result = mensaje.ShowDialog();
                 }
                 else if(temp.Contains("aviso"))
                 {
-                    Form mensaje = new MessageBoxForm("Aviso", temp, TypeIcon.Icon.Info);
+                    Form mensaje = new MessageBoxForm("Aviso", temp.Substring(6), TypeIcon.Icon.Info);
                     result = mensaje.ShowDialog();
-                                        
-                    btnActualizar.PerformClick();
+
+                    btnActualizar_Click(new object(), new EventArgs());
                 }                    
             }
             if (EstaFacturado && Operacion.Contains("Cancela"))
@@ -387,15 +387,15 @@ namespace SOAPAP.UI.FactPasada
 
                 if (temp.Contains("error"))
                 {
-                    Form mensaje = new MessageBoxForm("Error", temp, TypeIcon.Icon.Warning);
+                    Form mensaje = new MessageBoxForm("Error", temp.Substring(6), TypeIcon.Icon.Warning);
                     result = mensaje.ShowDialog();
                 }
                 else if (temp.Contains("aviso"))
                 {
-                    Form mensaje = new MessageBoxForm("Aviso", temp, TypeIcon.Icon.Info);
+                    Form mensaje = new MessageBoxForm("Aviso", temp.Substring(6), TypeIcon.Icon.Info);
                     result = mensaje.ShowDialog();
 
-                    btnActualizar.PerformClick();
+                    btnActualizar_Click(new object(), new EventArgs());
                 }
             }
             loadings.Close();

@@ -52,6 +52,7 @@
             this.type = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.numDerivades = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.debit = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.token = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tableLayoutPanel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox12)).BeginInit();
@@ -104,7 +105,8 @@
             this.status,
             this.type,
             this.numDerivades,
-            this.debit});
+            this.debit,
+            this.token});
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window;
             dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -303,6 +305,14 @@
             this.debit.Name = "debit";
             this.debit.ReadOnly = true;
             // 
+            // token
+            // 
+            this.token.DataPropertyName = "Token";
+            this.token.HeaderText = "FOLIO EN LINEA";
+            this.token.MinimumWidth = 20;
+            this.token.Name = "token";
+            this.token.ReadOnly = true;
+            // 
             // cobro
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -348,5 +358,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn type;
         private System.Windows.Forms.DataGridViewTextBoxColumn numDerivades;
         private System.Windows.Forms.DataGridViewTextBoxColumn debit;
+        private System.Windows.Forms.DataGridViewTextBoxColumn token;
     }
 }

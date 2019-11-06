@@ -1106,7 +1106,7 @@ namespace SOAPAP
                                             Form loadings = new Loading();
                                             loadings.Show(this);
                                             Facturaelectronica fs = new Facturaelectronica();
-                                            xmltimbrado = await fs.facturar(Variables.idtransaction.ToString(), "ET001","");
+                                            //xmltimbrado = await fs.facturar(Variables.idtransaction.ToString(), "ET001","");
                                             loadings.Close();
                                             separadas = xmltimbrado.Split('/');
                                             if (separadas[0].ToString() == "error")

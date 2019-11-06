@@ -65,7 +65,7 @@ namespace SOAPAP.UI
                 this.Close();
             }catch(Exception ex)
             {
-                mensaje = new MessageBoxForm("Error", "Ocurrio un error interno, porfavor contacte con el administrador", TypeIcon.Icon.Cancel);
+                mensaje = new MessageBoxForm("Error", "Ocurrio un error interno, por favor contacte con el administrador", TypeIcon.Icon.Cancel);
                 mensaje.ShowDialog();
             }
         }

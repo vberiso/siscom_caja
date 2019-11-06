@@ -564,6 +564,14 @@ namespace SOAPAP.PDFManager
             builder.Append(@"<td style='font-family:\""Montserrat\"", sans-serif;'>" + ObservacionCFDI == null ? Cfdi.Observations : ObservacionCFDI + "</td></tr>"); //Oberservaciones
             builder.Append(@"</table>");
             builder.Append(@"</div>");
+
+            builder.Append(@"<div class='InformacionEnLinea' style='text-align: center; display: inline-block; width: 100%; font-size: 11px;'>");
+            builder.Append(@"<hr>");
+            builder.Append(@"<p>Te invitamos a utilizar los servicios en linea: " + (Variables.Configuration.IsMunicipal ? "https://enlinea.cuautlancingo.gob.mx" : "https://enlinea.sosapac.gob.mx") +  "</p>");
+            builder.Append(@"<p>Para registrar esta cuenta, utiliza el folio: " + _agreement.Token + "</p>");
+            builder.Append(@"<hr>");
+            builder.Append(@"</div>");
+
             builder.Append(@"<div class='sello_digital' style='margin-bottom: 30px;'>");
             builder.Append(@"<div style='text-align: center; display: inline-block; width: 15%; vertical-align: top; margin-top: 29px; margin-right: 19px;'>");
             //QR image 

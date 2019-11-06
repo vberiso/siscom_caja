@@ -81,7 +81,7 @@
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(430, 44);
             this.label1.TabIndex = 1;
-            this.label1.Text = "Se encontró más de una cuenta, porfavor seleccione\r\nuna, dando doble click.\r\n";
+            this.label1.Text = "Se encontró más de una cuenta, por favor seleccione\r\nuna, dando doble click.\r\n";
             this.label1.UseWaitCursor = true;
             // 
             // panel3
