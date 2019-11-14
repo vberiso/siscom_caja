@@ -678,7 +678,7 @@ namespace SOAPAP.UI
                                     {
 
                                         descuentosToolStripMenuItem.Enabled = false;
-                                       
+
                                         if (!Variables.Configuration.IsMunicipal)
                                         {
                                             //Si es convenio no debe decirle que puede dar pagos anticipados
@@ -693,21 +693,23 @@ namespace SOAPAP.UI
                                                 result = mensaje.ShowDialog();
                                                 if (result == DialogResult.OK)
                                                 {
+                                                    Variables.Configuration.Anual = checkApplyAnual(Variables.Agreement); 
                                                     Anticipo Anticipo = new Anticipo();
-                                                    Anticipo.setAgreementID(Variables.Agreement.Id);
+                                                    Anticipo.setAgreement(Variables.Agreement);
                                                     if (Anticipo.ShowDialog() == DialogResult.OK)
                                                         ObtenerInformacion();
                                                 }
-                                            }                                            
+                                            }
                                         }
                                         else
                                         {
+
                                             mensaje = new MessageBoxForm(Variables.titleprincipal, "La cuenta proporcionada no tiene adeudo", TypeIcon.Icon.Success);
                                             result = mensaje.ShowDialog();
                                         }
 
                                     }
-                                    
+
                                 }
                             }
                             else
@@ -784,7 +786,20 @@ namespace SOAPAP.UI
             cmbTipos.Enabled = true;
             SeleccionarDeuda(Search.Type.Cuenta);
         }
+        private bool checkApplyAnual(Model.Agreement agreement)
+        {
+            var date  = DateTime.Now;
+            
+            //Variables.Agreement = null;
+            if (date.Month != 12  && date.Month != 1 && date.Month != 2 && agreement.Debts.Count > 0)
+            {
+                return false;
+            }
 
+            
+            return true;
+
+        }
         private void SeleccionarDeuda(Search.Type type)
         {
             var source = new BindingSource();

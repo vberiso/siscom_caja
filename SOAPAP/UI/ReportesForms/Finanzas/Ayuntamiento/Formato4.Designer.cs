@@ -1,6 +1,6 @@
 ﻿namespace SOAPAP.UI.ReportesForms.Finanzas.Ayuntamiento
 {
-    partial class Formato3
+    partial class Formato4
     {
         /// <summary>
         /// Required designer variable.

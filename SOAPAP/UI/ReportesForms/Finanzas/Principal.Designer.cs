@@ -1,4 +1,4 @@
-﻿namespace SOAPAP.UI.ReportesForms.Finanzas.Agua
+﻿namespace SOAPAP.UI.ReportesForms.Finanzas
 {
     partial class Principal
     {
@@ -28,17 +28,21 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DevExpress.XtraBars.Docking2010.WindowsUIButtonImageOptions windowsUIButtonImageOptions5 = new DevExpress.XtraBars.Docking2010.WindowsUIButtonImageOptions();
-            DevExpress.Utils.SuperToolTip superToolTip5 = new DevExpress.Utils.SuperToolTip();
-            DevExpress.Utils.ToolTipTitleItem toolTipTitleItem5 = new DevExpress.Utils.ToolTipTitleItem();
-            DevExpress.Utils.ToolTipItem toolTipItem5 = new DevExpress.Utils.ToolTipItem();
-            DevExpress.XtraBars.Docking2010.WindowsUIButtonImageOptions windowsUIButtonImageOptions6 = new DevExpress.XtraBars.Docking2010.WindowsUIButtonImageOptions();
-            DevExpress.Utils.SuperToolTip superToolTip6 = new DevExpress.Utils.SuperToolTip();
-            DevExpress.Utils.ToolTipTitleItem toolTipTitleItem6 = new DevExpress.Utils.ToolTipTitleItem();
-            DevExpress.Utils.ToolTipItem toolTipItem6 = new DevExpress.Utils.ToolTipItem();
+            DevExpress.XtraBars.Docking2010.WindowsUIButtonImageOptions windowsUIButtonImageOptions1 = new DevExpress.XtraBars.Docking2010.WindowsUIButtonImageOptions();
+            DevExpress.Utils.SuperToolTip superToolTip1 = new DevExpress.Utils.SuperToolTip();
+            DevExpress.Utils.ToolTipTitleItem toolTipTitleItem1 = new DevExpress.Utils.ToolTipTitleItem();
+            DevExpress.Utils.ToolTipItem toolTipItem1 = new DevExpress.Utils.ToolTipItem();
+            DevExpress.XtraBars.Docking2010.WindowsUIButtonImageOptions windowsUIButtonImageOptions2 = new DevExpress.XtraBars.Docking2010.WindowsUIButtonImageOptions();
+            DevExpress.Utils.SuperToolTip superToolTip2 = new DevExpress.Utils.SuperToolTip();
+            DevExpress.Utils.ToolTipTitleItem toolTipTitleItem2 = new DevExpress.Utils.ToolTipTitleItem();
+            DevExpress.Utils.ToolTipItem toolTipItem2 = new DevExpress.Utils.ToolTipItem();
             this.panel1 = new System.Windows.Forms.Panel();
             this.PanelContent = new System.Windows.Forms.Panel();
-            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.tabAyuntamiento = new System.Windows.Forms.TabControl();
+            this.tabFormato1Ayuntamiento = new System.Windows.Forms.TabPage();
+            this.tabFormato2Ayuntamiento = new System.Windows.Forms.TabPage();
+            this.tabFormato3Ayuntamiento = new System.Windows.Forms.TabPage();
+            this.tabAgua = new System.Windows.Forms.TabControl();
             this.tabFormato1 = new System.Windows.Forms.TabPage();
             this.tabFormato2 = new System.Windows.Forms.TabPage();
             this.tabFormato3 = new System.Windows.Forms.TabPage();
@@ -61,7 +65,8 @@
             this.lblTitulo = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.PanelContent.SuspendLayout();
-            this.tabControl1.SuspendLayout();
+            this.tabAyuntamiento.SuspendLayout();
+            this.tabAgua.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel7.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
@@ -85,31 +90,83 @@
             // 
             // PanelContent
             // 
-            this.PanelContent.Controls.Add(this.tabControl1);
+            this.PanelContent.Controls.Add(this.tabAyuntamiento);
+            this.PanelContent.Controls.Add(this.tabAgua);
             this.PanelContent.Dock = System.Windows.Forms.DockStyle.Fill;
             this.PanelContent.Location = new System.Drawing.Point(0, 94);
             this.PanelContent.Name = "PanelContent";
             this.PanelContent.Size = new System.Drawing.Size(1060, 469);
             this.PanelContent.TabIndex = 2;
             // 
-            // tabControl1
+            // tabAyuntamiento
             // 
-            this.tabControl1.Controls.Add(this.tabFormato1);
-            this.tabControl1.Controls.Add(this.tabFormato2);
-            this.tabControl1.Controls.Add(this.tabFormato3);
-            this.tabControl1.Controls.Add(this.tabFormato4);
-            this.tabControl1.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tabControl1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tabControl1.ItemSize = new System.Drawing.Size(90, 50);
-            this.tabControl1.Location = new System.Drawing.Point(0, 0);
-            this.tabControl1.Multiline = true;
-            this.tabControl1.Name = "tabControl1";
-            this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(1060, 469);
-            this.tabControl1.TabIndex = 0;
-            this.tabControl1.Tag = "formato1";
-            this.tabControl1.Selected += new System.Windows.Forms.TabControlEventHandler(this.tabControl1_Selected);
+            this.tabAyuntamiento.Controls.Add(this.tabFormato1Ayuntamiento);
+            this.tabAyuntamiento.Controls.Add(this.tabFormato2Ayuntamiento);
+            this.tabAyuntamiento.Controls.Add(this.tabFormato3Ayuntamiento);
+            this.tabAyuntamiento.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.tabAyuntamiento.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabAyuntamiento.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tabAyuntamiento.ItemSize = new System.Drawing.Size(90, 50);
+            this.tabAyuntamiento.Location = new System.Drawing.Point(0, 0);
+            this.tabAyuntamiento.Multiline = true;
+            this.tabAyuntamiento.Name = "tabAyuntamiento";
+            this.tabAyuntamiento.SelectedIndex = 0;
+            this.tabAyuntamiento.Size = new System.Drawing.Size(1060, 469);
+            this.tabAyuntamiento.TabIndex = 1;
+            this.tabAyuntamiento.Tag = "formato1";
+            this.tabAyuntamiento.Selected += new System.Windows.Forms.TabControlEventHandler(this.TabAyuntamiento_Selected);
+            // 
+            // tabFormato1Ayuntamiento
+            // 
+            this.tabFormato1Ayuntamiento.Location = new System.Drawing.Point(4, 54);
+            this.tabFormato1Ayuntamiento.Name = "tabFormato1Ayuntamiento";
+            this.tabFormato1Ayuntamiento.Padding = new System.Windows.Forms.Padding(3);
+            this.tabFormato1Ayuntamiento.Size = new System.Drawing.Size(1052, 411);
+            this.tabFormato1Ayuntamiento.TabIndex = 0;
+            this.tabFormato1Ayuntamiento.Tag = "formato1";
+            this.tabFormato1Ayuntamiento.Text = "Formato 1";
+            this.tabFormato1Ayuntamiento.UseVisualStyleBackColor = true;
+            // 
+            // tabFormato2Ayuntamiento
+            // 
+            this.tabFormato2Ayuntamiento.Location = new System.Drawing.Point(4, 54);
+            this.tabFormato2Ayuntamiento.Name = "tabFormato2Ayuntamiento";
+            this.tabFormato2Ayuntamiento.Padding = new System.Windows.Forms.Padding(3);
+            this.tabFormato2Ayuntamiento.Size = new System.Drawing.Size(1052, 411);
+            this.tabFormato2Ayuntamiento.TabIndex = 1;
+            this.tabFormato2Ayuntamiento.Tag = "formatoH2";
+            this.tabFormato2Ayuntamiento.Text = "Formato 2";
+            this.tabFormato2Ayuntamiento.UseVisualStyleBackColor = true;
+            // 
+            // tabFormato3Ayuntamiento
+            // 
+            this.tabFormato3Ayuntamiento.Location = new System.Drawing.Point(4, 54);
+            this.tabFormato3Ayuntamiento.Name = "tabFormato3Ayuntamiento";
+            this.tabFormato3Ayuntamiento.Padding = new System.Windows.Forms.Padding(3);
+            this.tabFormato3Ayuntamiento.Size = new System.Drawing.Size(1052, 411);
+            this.tabFormato3Ayuntamiento.TabIndex = 2;
+            this.tabFormato3Ayuntamiento.Tag = "formato3";
+            this.tabFormato3Ayuntamiento.Text = "Formato 3";
+            this.tabFormato3Ayuntamiento.UseVisualStyleBackColor = true;
+            // 
+            // tabAgua
+            // 
+            this.tabAgua.Controls.Add(this.tabFormato1);
+            this.tabAgua.Controls.Add(this.tabFormato2);
+            this.tabAgua.Controls.Add(this.tabFormato3);
+            this.tabAgua.Controls.Add(this.tabFormato4);
+            this.tabAgua.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.tabAgua.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabAgua.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tabAgua.ItemSize = new System.Drawing.Size(90, 50);
+            this.tabAgua.Location = new System.Drawing.Point(0, 0);
+            this.tabAgua.Multiline = true;
+            this.tabAgua.Name = "tabAgua";
+            this.tabAgua.SelectedIndex = 0;
+            this.tabAgua.Size = new System.Drawing.Size(1060, 469);
+            this.tabAgua.TabIndex = 0;
+            this.tabAgua.Tag = "formato1";
+            this.tabAgua.Selected += new System.Windows.Forms.TabControlEventHandler(this.tabControl1_Selected);
             // 
             // tabFormato1
             // 
@@ -290,21 +347,21 @@
             // windowsUIButtonPanel1
             // 
             this.windowsUIButtonPanel1.BackColor = System.Drawing.Color.Transparent;
-            windowsUIButtonImageOptions5.Image = global::SOAPAP.Properties.Resources.buscar;
-            toolTipTitleItem5.Text = "Generar";
-            toolTipItem5.LeftIndent = 6;
-            toolTipItem5.Text = "Carga los ingresos corespondientes a los filtros seleccionados.";
-            superToolTip5.Items.Add(toolTipTitleItem5);
-            superToolTip5.Items.Add(toolTipItem5);
-            windowsUIButtonImageOptions6.Image = global::SOAPAP.Properties.Resources.imprimir;
-            toolTipTitleItem6.Text = "Imprimir";
-            toolTipItem6.LeftIndent = 6;
-            toolTipItem6.Text = "genera un PDF listo para imprimir";
-            superToolTip6.Items.Add(toolTipTitleItem6);
-            superToolTip6.Items.Add(toolTipItem6);
+            windowsUIButtonImageOptions1.Image = global::SOAPAP.Properties.Resources.buscar;
+            toolTipTitleItem1.Text = "Generar";
+            toolTipItem1.LeftIndent = 6;
+            toolTipItem1.Text = "Carga los ingresos corespondientes a los filtros seleccionados.";
+            superToolTip1.Items.Add(toolTipTitleItem1);
+            superToolTip1.Items.Add(toolTipItem1);
+            windowsUIButtonImageOptions2.Image = global::SOAPAP.Properties.Resources.imprimir;
+            toolTipTitleItem2.Text = "Imprimir";
+            toolTipItem2.LeftIndent = 6;
+            toolTipItem2.Text = "genera un PDF listo para imprimir";
+            superToolTip2.Items.Add(toolTipTitleItem2);
+            superToolTip2.Items.Add(toolTipItem2);
             this.windowsUIButtonPanel1.Buttons.AddRange(new DevExpress.XtraEditors.ButtonPanel.IBaseButton[] {
-            new DevExpress.XtraBars.Docking2010.WindowsUIButton("", true, windowsUIButtonImageOptions5, DevExpress.XtraBars.Docking2010.ButtonStyle.PushButton, "", -1, true, superToolTip5, true, false, true, "GE", -1, false),
-            new DevExpress.XtraBars.Docking2010.WindowsUIButton("", true, windowsUIButtonImageOptions6, DevExpress.XtraBars.Docking2010.ButtonStyle.PushButton, "", -1, true, superToolTip6, true, false, true, "PR", -1, false)});
+            new DevExpress.XtraBars.Docking2010.WindowsUIButton("", true, windowsUIButtonImageOptions1, DevExpress.XtraBars.Docking2010.ButtonStyle.PushButton, "", -1, true, superToolTip1, true, false, true, "GE", -1, false),
+            new DevExpress.XtraBars.Docking2010.WindowsUIButton("", true, windowsUIButtonImageOptions2, DevExpress.XtraBars.Docking2010.ButtonStyle.PushButton, "", -1, true, superToolTip2, true, false, true, "PR", -1, false)});
             this.windowsUIButtonPanel1.Cursor = System.Windows.Forms.Cursors.Hand;
             this.windowsUIButtonPanel1.Dock = System.Windows.Forms.DockStyle.Right;
             this.windowsUIButtonPanel1.ForeColor = System.Drawing.SystemColors.ControlLight;
@@ -374,7 +431,8 @@
             this.Load += new System.EventHandler(this.Principal_Load);
             this.panel1.ResumeLayout(false);
             this.PanelContent.ResumeLayout(false);
-            this.tabControl1.ResumeLayout(false);
+            this.tabAyuntamiento.ResumeLayout(false);
+            this.tabAgua.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
             this.panel7.ResumeLayout(false);
             this.tableLayoutPanel2.ResumeLayout(false);
@@ -409,12 +467,16 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.TabControl tabAgua;
         private System.Windows.Forms.TabPage tabFormato1;
         private System.Windows.Forms.TabPage tabFormato2;
         private System.Windows.Forms.TabPage tabFormato3;
         private System.Windows.Forms.TabPage tabFormato4;
         private System.Windows.Forms.ComboBox comboBoxMeses;
         private System.Windows.Forms.ComboBox comboBoxEjercicios;
+        private System.Windows.Forms.TabControl tabAyuntamiento;
+        private System.Windows.Forms.TabPage tabFormato1Ayuntamiento;
+        private System.Windows.Forms.TabPage tabFormato2Ayuntamiento;
+        private System.Windows.Forms.TabPage tabFormato3Ayuntamiento;
     }
 }

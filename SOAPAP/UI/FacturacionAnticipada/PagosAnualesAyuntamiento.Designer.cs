@@ -1,6 +1,6 @@
-﻿namespace SOAPAP.UI.FacturacionAnticipada
+﻿namespace SOAPAP.UI.PagosAnualesAyuntamiento
 {
-    partial class PeriodosAnticipados
+    partial class PagosAnualesAyuntamiento
     {
 
         /// <summary>
@@ -29,7 +29,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.lblTitle = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -39,29 +38,18 @@
             this.label4 = new System.Windows.Forms.Label();
             this.textDescripcion = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
-            this.comboMesFin2 = new System.Windows.Forms.ComboBox();
             this.lblYear = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.comboMesInicio = new System.Windows.Forms.ComboBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.lblTextAnual = new System.Windows.Forms.Label();
-            this.lblDescuento = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
+            this.lblPredial = new System.Windows.Forms.Label();
+            this.lblPredia = new System.Windows.Forms.Label();
+            this.lblLimpia = new System.Windows.Forms.Label();
+            this.lblLimpi = new System.Windows.Forms.Label();
+            this.lblTotal = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // lblTitle
-            // 
-            this.lblTitle.AutoSize = true;
-            this.lblTitle.Font = new System.Drawing.Font("Microsoft YaHei UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTitle.Location = new System.Drawing.Point(23, 73);
-            this.lblTitle.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(110, 26);
-            this.lblTitle.TabIndex = 0;
-            this.lblTitle.Text = "Mes inicio";
             // 
             // panel1
             // 
@@ -92,9 +80,9 @@
             this.label2.ForeColor = System.Drawing.Color.White;
             this.label2.Location = new System.Drawing.Point(12, 9);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(204, 25);
+            this.label2.Size = new System.Drawing.Size(169, 25);
             this.label2.TabIndex = 4;
-            this.label2.Text = "Periodos anticipados";
+            this.label2.Text = "Pago adelantado";
             // 
             // btnSimular
             // 
@@ -108,6 +96,7 @@
             this.btnSimular.TabIndex = 4;
             this.btnSimular.Text = "Simular";
             this.btnSimular.UseVisualStyleBackColor = false;
+            this.btnSimular.Visible = false;
             this.btnSimular.Click += new System.EventHandler(this.btnSimular_Click);
             // 
             // btnGenerar
@@ -127,20 +116,19 @@
             // panel2
             // 
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel2.Controls.Add(this.lblDescuento);
-            this.panel2.Controls.Add(this.label6);
-            this.panel2.Controls.Add(this.lblTextAnual);
+            this.panel2.Controls.Add(this.lblTotal);
+            this.panel2.Controls.Add(this.label5);
+            this.panel2.Controls.Add(this.lblLimpia);
+            this.panel2.Controls.Add(this.lblLimpi);
+            this.panel2.Controls.Add(this.lblPredial);
+            this.panel2.Controls.Add(this.lblPredia);
             this.panel2.Controls.Add(this.label4);
             this.panel2.Controls.Add(this.textDescripcion);
             this.panel2.Controls.Add(this.button1);
-            this.panel2.Controls.Add(this.comboMesFin2);
             this.panel2.Controls.Add(this.lblYear);
             this.panel2.Controls.Add(this.label3);
-            this.panel2.Controls.Add(this.comboMesInicio);
-            this.panel2.Controls.Add(this.label1);
             this.panel2.Controls.Add(this.btnSimular);
             this.panel2.Controls.Add(this.btnGenerar);
-            this.panel2.Controls.Add(this.lblTitle);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Name = "panel2";
@@ -180,19 +168,11 @@
             this.button1.UseVisualStyleBackColor = false;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // comboMesFin2
-            // 
-            this.comboMesFin2.FormattingEnabled = true;
-            this.comboMesFin2.Location = new System.Drawing.Point(181, 112);
-            this.comboMesFin2.Name = "comboMesFin2";
-            this.comboMesFin2.Size = new System.Drawing.Size(121, 27);
-            this.comboMesFin2.TabIndex = 10;
-            // 
             // lblYear
             // 
             this.lblYear.AutoSize = true;
             this.lblYear.Font = new System.Drawing.Font("Microsoft YaHei UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblYear.Location = new System.Drawing.Point(86, 174);
+            this.lblYear.Location = new System.Drawing.Point(114, 150);
             this.lblYear.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblYear.Name = "lblYear";
             this.lblYear.Size = new System.Drawing.Size(41, 21);
@@ -203,66 +183,80 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft YaHei UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(23, 171);
+            this.label3.Location = new System.Drawing.Point(18, 147);
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(55, 26);
             this.label3.TabIndex = 8;
             this.label3.Text = "Año:";
             // 
-            // comboMesInicio
+            // lblPredial
             // 
-            this.comboMesInicio.FormattingEnabled = true;
-            this.comboMesInicio.Location = new System.Drawing.Point(28, 112);
-            this.comboMesInicio.Name = "comboMesInicio";
-            this.comboMesInicio.Size = new System.Drawing.Size(121, 27);
-            this.comboMesInicio.TabIndex = 6;
+            this.lblPredial.AutoSize = true;
+            this.lblPredial.Font = new System.Drawing.Font("Microsoft YaHei UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPredial.Location = new System.Drawing.Point(116, 72);
+            this.lblPredial.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblPredial.Name = "lblPredial";
+            this.lblPredial.Size = new System.Drawing.Size(41, 21);
+            this.lblPredial.TabIndex = 20;
+            this.lblPredial.Text = "Año";
             // 
-            // label1
+            // lblPredia
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft YaHei UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(195, 73);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(84, 26);
-            this.label1.TabIndex = 5;
-            this.label1.Text = "Mes fin";
+            this.lblPredia.AutoSize = true;
+            this.lblPredia.Font = new System.Drawing.Font("Microsoft YaHei UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPredia.Location = new System.Drawing.Point(23, 69);
+            this.lblPredia.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblPredia.Name = "lblPredia";
+            this.lblPredia.Size = new System.Drawing.Size(84, 26);
+            this.lblPredia.TabIndex = 19;
+            this.lblPredia.Text = "Predial:";
             // 
-            // lblTextAnual
+            // lblLimpia
             // 
-            this.lblTextAnual.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.lblTextAnual.Location = new System.Drawing.Point(28, 62);
-            this.lblTextAnual.Name = "lblTextAnual";
-            this.lblTextAnual.Size = new System.Drawing.Size(313, 66);
-            this.lblTextAnual.TabIndex = 19;
-            this.lblTextAnual.Text = "En este apartado se va a facturar una deuda de 12 recibos, contemplando el mes de" +
-    " enero hasta el mes de Diciembre del corriente año.";
-            this.lblTextAnual.Visible = false;
+            this.lblLimpia.AutoSize = true;
+            this.lblLimpia.Font = new System.Drawing.Font("Microsoft YaHei UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblLimpia.Location = new System.Drawing.Point(297, 72);
+            this.lblLimpia.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblLimpia.Name = "lblLimpia";
+            this.lblLimpia.Size = new System.Drawing.Size(41, 21);
+            this.lblLimpia.TabIndex = 22;
+            this.lblLimpia.Text = "Año";
             // 
-            // lblDescuento
+            // lblLimpi
             // 
-            this.lblDescuento.AutoSize = true;
-            this.lblDescuento.Font = new System.Drawing.Font("Microsoft YaHei UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblDescuento.Location = new System.Drawing.Point(148, 144);
-            this.lblDescuento.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblDescuento.Name = "lblDescuento";
-            this.lblDescuento.Size = new System.Drawing.Size(41, 21);
-            this.lblDescuento.TabIndex = 21;
-            this.lblDescuento.Text = "Año";
+            this.lblLimpi.AutoSize = true;
+            this.lblLimpi.Font = new System.Drawing.Font("Microsoft YaHei UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblLimpi.Location = new System.Drawing.Point(202, 69);
+            this.lblLimpi.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblLimpi.Name = "lblLimpi";
+            this.lblLimpi.Size = new System.Drawing.Size(82, 26);
+            this.lblLimpi.TabIndex = 21;
+            this.lblLimpi.Text = "Limpia:";
             // 
-            // label6
+            // lblTotal
             // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Microsoft YaHei UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(23, 139);
-            this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(117, 26);
-            this.label6.TabIndex = 20;
-            this.label6.Text = "Descuento:";
+            this.lblTotal.AutoSize = true;
+            this.lblTotal.Font = new System.Drawing.Font("Microsoft YaHei UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTotal.Location = new System.Drawing.Point(292, 150);
+            this.lblTotal.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblTotal.Name = "lblTotal";
+            this.lblTotal.Size = new System.Drawing.Size(41, 21);
+            this.lblTotal.TabIndex = 24;
+            this.lblTotal.Text = "Año";
             // 
-            // PeriodosAnticipados
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Microsoft YaHei UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Location = new System.Drawing.Point(202, 147);
+            this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(61, 26);
+            this.label5.TabIndex = 23;
+            this.label5.Text = "Total";
+            // 
+            // PagosAnualesAyuntamiento
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 19F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -273,7 +267,7 @@
             this.Font = new System.Drawing.Font("Microsoft YaHei UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Margin = new System.Windows.Forms.Padding(4);
-            this.Name = "PeriodosAnticipados";
+            this.Name = "PagosAnualesAyuntamiento";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
@@ -285,8 +279,6 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.Label lblTitle;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button btnSimular;
@@ -295,14 +287,14 @@
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Label lblYear;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.ComboBox comboMesInicio;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.ComboBox comboMesFin2;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox textDescripcion;
-        private System.Windows.Forms.Label lblTextAnual;
-        private System.Windows.Forms.Label lblDescuento;
-        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label lblTotal;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label lblLimpia;
+        private System.Windows.Forms.Label lblLimpi;
+        private System.Windows.Forms.Label lblPredial;
+        private System.Windows.Forms.Label lblPredia;
     }
 }

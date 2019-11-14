@@ -264,7 +264,7 @@ namespace SOAPAP
             notificacionesToolStripMenuItem.DropDownItems.Clear();
             if (Variables.Configuration.IsMunicipal)
             {
-                finanzasToolStripMenuItemAyuntamiento.Visible = false;
+                finanzasToolStripMenuItemAyuntamiento.Visible = true;
             }
             else
             {
@@ -1058,7 +1058,7 @@ namespace SOAPAP
 
         private void finanzasToolStripMenuItemAyuntamiento_Click(object sender, EventArgs e)
         {
-            ShowForm("SOAPAP", "UI.ReportesForms.Finanzas.Agua.Principal");
+            ShowForm("SOAPAP", "UI.ReportesForms.Finanzas.Principal");
         }
 
         

@@ -29,10 +29,10 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Cobro));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.txtCuenta = new System.Windows.Forms.TextBox();
             this.pnlHeader = new System.Windows.Forms.Panel();
             this.pnlHeaderBuscar = new System.Windows.Forms.Panel();
@@ -107,6 +107,12 @@
             this.tableLayoutPanel7 = new System.Windows.Forms.TableLayoutPanel();
             this.lblTitleCondonation = new System.Windows.Forms.Label();
             this.btnCondonacion = new System.Windows.Forms.Button();
+            this.gbxAnual = new System.Windows.Forms.GroupBox();
+            this.tableLayoutPanel8 = new System.Windows.Forms.TableLayoutPanel();
+            this.pictureBox6 = new System.Windows.Forms.PictureBox();
+            this.tableLayoutPanel9 = new System.Windows.Forms.TableLayoutPanel();
+            this.lblAnual = new System.Windows.Forms.Label();
+            this.btnAnual = new System.Windows.Forms.Button();
             this.pnlCobro = new System.Windows.Forms.Panel();
             this.panel6 = new System.Windows.Forms.Panel();
             this.dgvConceptosCobro = new System.Windows.Forms.DataGridView();
@@ -135,12 +141,6 @@
             this.lblTxtIva = new System.Windows.Forms.Label();
             this.lblTxtSubtotal = new System.Windows.Forms.Label();
             this.dataGridViewButtonColumn1 = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.gbxAnual = new System.Windows.Forms.GroupBox();
-            this.tableLayoutPanel8 = new System.Windows.Forms.TableLayoutPanel();
-            this.pictureBox6 = new System.Windows.Forms.PictureBox();
-            this.tableLayoutPanel9 = new System.Windows.Forms.TableLayoutPanel();
-            this.lblAnual = new System.Windows.Forms.Label();
-            this.btnAnual = new System.Windows.Forms.Button();
             this.pnlHeader.SuspendLayout();
             this.pnlHeaderBuscar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbBuscar)).BeginInit();
@@ -183,6 +183,10 @@
             this.tableLayoutPanel6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).BeginInit();
             this.tableLayoutPanel7.SuspendLayout();
+            this.gbxAnual.SuspendLayout();
+            this.tableLayoutPanel8.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).BeginInit();
+            this.tableLayoutPanel9.SuspendLayout();
             this.pnlCobro.SuspendLayout();
             this.panel6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvConceptosCobro)).BeginInit();
@@ -190,10 +194,6 @@
             this.panelDescripciones.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.datadescripcion)).BeginInit();
             this.tlpTotales.SuspendLayout();
-            this.gbxAnual.SuspendLayout();
-            this.tableLayoutPanel8.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).BeginInit();
-            this.tableLayoutPanel9.SuspendLayout();
             this.SuspendLayout();
             // 
             // txtCuenta
@@ -816,7 +816,7 @@
             this.tabDireccionNotificacion.Location = new System.Drawing.Point(4, 26);
             this.tabDireccionNotificacion.Name = "tabDireccionNotificacion";
             this.tabDireccionNotificacion.Padding = new System.Windows.Forms.Padding(3);
-            this.tabDireccionNotificacion.Size = new System.Drawing.Size(282, 68);
+            this.tabDireccionNotificacion.Size = new System.Drawing.Size(282, 36);
             this.tabDireccionNotificacion.TabIndex = 1;
             this.tabDireccionNotificacion.Text = "Notificación";
             this.tabDireccionNotificacion.UseVisualStyleBackColor = true;
@@ -828,7 +828,7 @@
             this.lblDireccionN.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold);
             this.lblDireccionN.Location = new System.Drawing.Point(3, 3);
             this.lblDireccionN.Name = "lblDireccionN";
-            this.lblDireccionN.Size = new System.Drawing.Size(276, 62);
+            this.lblDireccionN.Size = new System.Drawing.Size(276, 30);
             this.lblDireccionN.TabIndex = 1;
             // 
             // lblDireccionNotificacion
@@ -1092,6 +1092,88 @@
             this.btnCondonacion.UseVisualStyleBackColor = false;
             this.btnCondonacion.Click += new System.EventHandler(this.btnCondonacion_Click);
             // 
+            // gbxAnual
+            // 
+            this.gbxAnual.Controls.Add(this.tableLayoutPanel8);
+            this.gbxAnual.Location = new System.Drawing.Point(3, 3);
+            this.gbxAnual.Name = "gbxAnual";
+            this.gbxAnual.Size = new System.Drawing.Size(338, 85);
+            this.gbxAnual.TabIndex = 6;
+            this.gbxAnual.TabStop = false;
+            this.gbxAnual.Visible = false;
+            // 
+            // tableLayoutPanel8
+            // 
+            this.tableLayoutPanel8.ColumnCount = 2;
+            this.tableLayoutPanel8.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 10.17442F));
+            this.tableLayoutPanel8.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 89.82558F));
+            this.tableLayoutPanel8.Controls.Add(this.pictureBox6, 0, 0);
+            this.tableLayoutPanel8.Controls.Add(this.tableLayoutPanel9, 1, 0);
+            this.tableLayoutPanel8.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel8.Location = new System.Drawing.Point(3, 16);
+            this.tableLayoutPanel8.Name = "tableLayoutPanel8";
+            this.tableLayoutPanel8.RowCount = 1;
+            this.tableLayoutPanel8.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel8.Size = new System.Drawing.Size(332, 66);
+            this.tableLayoutPanel8.TabIndex = 4;
+            // 
+            // pictureBox6
+            // 
+            this.pictureBox6.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.pictureBox6.BackColor = System.Drawing.Color.Transparent;
+            this.pictureBox6.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox6.Image")));
+            this.pictureBox6.InitialImage = ((System.Drawing.Image)(resources.GetObject("pictureBox6.InitialImage")));
+            this.pictureBox6.Location = new System.Drawing.Point(3, 3);
+            this.pictureBox6.Name = "pictureBox6";
+            this.pictureBox6.Size = new System.Drawing.Size(27, 60);
+            this.pictureBox6.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.pictureBox6.TabIndex = 38;
+            this.pictureBox6.TabStop = false;
+            // 
+            // tableLayoutPanel9
+            // 
+            this.tableLayoutPanel9.ColumnCount = 1;
+            this.tableLayoutPanel9.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel9.Controls.Add(this.lblAnual, 0, 0);
+            this.tableLayoutPanel9.Controls.Add(this.btnAnual, 0, 1);
+            this.tableLayoutPanel9.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel9.Location = new System.Drawing.Point(36, 3);
+            this.tableLayoutPanel9.Name = "tableLayoutPanel9";
+            this.tableLayoutPanel9.RowCount = 2;
+            this.tableLayoutPanel9.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.66667F));
+            this.tableLayoutPanel9.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 49.33333F));
+            this.tableLayoutPanel9.Size = new System.Drawing.Size(293, 60);
+            this.tableLayoutPanel9.TabIndex = 39;
+            // 
+            // lblAnual
+            // 
+            this.lblAnual.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblAnual.Location = new System.Drawing.Point(3, 0);
+            this.lblAnual.Name = "lblAnual";
+            this.lblAnual.Size = new System.Drawing.Size(287, 30);
+            this.lblAnual.TabIndex = 0;
+            this.lblAnual.Text = "ANUAL";
+            this.lblAnual.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // btnAnual
+            // 
+            this.btnAnual.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(3)))), ((int)(((byte)(155)))), ((int)(((byte)(229)))));
+            this.btnAnual.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnAnual.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(3)))), ((int)(((byte)(155)))), ((int)(((byte)(250)))));
+            this.btnAnual.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnAnual.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAnual.ForeColor = System.Drawing.Color.White;
+            this.btnAnual.Location = new System.Drawing.Point(3, 33);
+            this.btnAnual.Name = "btnAnual";
+            this.btnAnual.Size = new System.Drawing.Size(287, 24);
+            this.btnAnual.TabIndex = 1;
+            this.btnAnual.Text = "Aplicar";
+            this.btnAnual.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.btnAnual.UseVisualStyleBackColor = false;
+            this.btnAnual.Click += new System.EventHandler(this.btnAnual_Click);
+            // 
             // pnlCobro
             // 
             this.pnlCobro.Controls.Add(this.panel6);
@@ -1123,13 +1205,13 @@
             this.dgvConceptosCobro.BackgroundColor = System.Drawing.Color.White;
             this.dgvConceptosCobro.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dgvConceptosCobro.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            this.dgvConceptosCobro.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            this.dgvConceptosCobro.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dgvConceptosCobro.ColumnHeadersHeight = 35;
             this.dgvConceptosCobro.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Id,
@@ -1139,34 +1221,34 @@
             this.Description,
             this.Importe});
             this.dgvConceptosCobro.Cursor = System.Windows.Forms.Cursors.Hand;
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle6.ForeColor = System.Drawing.Color.DimGray;
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.Silver;
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvConceptosCobro.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.DimGray;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.Silver;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvConceptosCobro.DefaultCellStyle = dataGridViewCellStyle2;
             this.dgvConceptosCobro.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvConceptosCobro.GridColor = System.Drawing.Color.White;
             this.dgvConceptosCobro.Location = new System.Drawing.Point(0, 0);
             this.dgvConceptosCobro.Margin = new System.Windows.Forms.Padding(3, 3, 10, 3);
             this.dgvConceptosCobro.Name = "dgvConceptosCobro";
             this.dgvConceptosCobro.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvConceptosCobro.RowHeadersDefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvConceptosCobro.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.dgvConceptosCobro.RowHeadersVisible = false;
-            dataGridViewCellStyle8.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle8.ForeColor = System.Drawing.Color.DimGray;
-            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.Color.Silver;
-            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.Color.Black;
-            this.dgvConceptosCobro.RowsDefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle4.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle4.ForeColor = System.Drawing.Color.DimGray;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.Silver;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.Black;
+            this.dgvConceptosCobro.RowsDefaultCellStyle = dataGridViewCellStyle4;
             this.dgvConceptosCobro.RowTemplate.DefaultCellStyle.BackColor = System.Drawing.Color.White;
             this.dgvConceptosCobro.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.dgvConceptosCobro.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
@@ -1463,88 +1545,6 @@
             this.dataGridViewButtonColumn1.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.dataGridViewButtonColumn1.Width = 30;
             // 
-            // gbxAnual
-            // 
-            this.gbxAnual.Controls.Add(this.tableLayoutPanel8);
-            this.gbxAnual.Location = new System.Drawing.Point(3, 3);
-            this.gbxAnual.Name = "gbxAnual";
-            this.gbxAnual.Size = new System.Drawing.Size(338, 85);
-            this.gbxAnual.TabIndex = 6;
-            this.gbxAnual.TabStop = false;
-            this.gbxAnual.Visible = false;
-            // 
-            // tableLayoutPanel8
-            // 
-            this.tableLayoutPanel8.ColumnCount = 2;
-            this.tableLayoutPanel8.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 10.17442F));
-            this.tableLayoutPanel8.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 89.82558F));
-            this.tableLayoutPanel8.Controls.Add(this.pictureBox6, 0, 0);
-            this.tableLayoutPanel8.Controls.Add(this.tableLayoutPanel9, 1, 0);
-            this.tableLayoutPanel8.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel8.Location = new System.Drawing.Point(3, 16);
-            this.tableLayoutPanel8.Name = "tableLayoutPanel8";
-            this.tableLayoutPanel8.RowCount = 1;
-            this.tableLayoutPanel8.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel8.Size = new System.Drawing.Size(332, 66);
-            this.tableLayoutPanel8.TabIndex = 4;
-            // 
-            // pictureBox6
-            // 
-            this.pictureBox6.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.pictureBox6.BackColor = System.Drawing.Color.Transparent;
-            this.pictureBox6.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox6.Image")));
-            this.pictureBox6.InitialImage = ((System.Drawing.Image)(resources.GetObject("pictureBox6.InitialImage")));
-            this.pictureBox6.Location = new System.Drawing.Point(3, 3);
-            this.pictureBox6.Name = "pictureBox6";
-            this.pictureBox6.Size = new System.Drawing.Size(27, 60);
-            this.pictureBox6.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
-            this.pictureBox6.TabIndex = 38;
-            this.pictureBox6.TabStop = false;
-            // 
-            // tableLayoutPanel9
-            // 
-            this.tableLayoutPanel9.ColumnCount = 1;
-            this.tableLayoutPanel9.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel9.Controls.Add(this.lblAnual, 0, 0);
-            this.tableLayoutPanel9.Controls.Add(this.btnAnual, 0, 1);
-            this.tableLayoutPanel9.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel9.Location = new System.Drawing.Point(36, 3);
-            this.tableLayoutPanel9.Name = "tableLayoutPanel9";
-            this.tableLayoutPanel9.RowCount = 2;
-            this.tableLayoutPanel9.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.66667F));
-            this.tableLayoutPanel9.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 49.33333F));
-            this.tableLayoutPanel9.Size = new System.Drawing.Size(293, 60);
-            this.tableLayoutPanel9.TabIndex = 39;
-            // 
-            // lblAnual
-            // 
-            this.lblAnual.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblAnual.Location = new System.Drawing.Point(3, 0);
-            this.lblAnual.Name = "lblAnual";
-            this.lblAnual.Size = new System.Drawing.Size(287, 30);
-            this.lblAnual.TabIndex = 0;
-            this.lblAnual.Text = "ANUAL";
-            this.lblAnual.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // btnAnual
-            // 
-            this.btnAnual.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(3)))), ((int)(((byte)(155)))), ((int)(((byte)(229)))));
-            this.btnAnual.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnAnual.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(3)))), ((int)(((byte)(155)))), ((int)(((byte)(250)))));
-            this.btnAnual.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnAnual.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAnual.ForeColor = System.Drawing.Color.White;
-            this.btnAnual.Location = new System.Drawing.Point(3, 33);
-            this.btnAnual.Name = "btnAnual";
-            this.btnAnual.Size = new System.Drawing.Size(287, 24);
-            this.btnAnual.TabIndex = 1;
-            this.btnAnual.Text = "Aplicar";
-            this.btnAnual.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnAnual.UseVisualStyleBackColor = false;
-            this.btnAnual.Click += new System.EventHandler(this.btnAnual_Click);
-            // 
             // Cobro
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1610,6 +1610,10 @@
             this.tableLayoutPanel6.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).EndInit();
             this.tableLayoutPanel7.ResumeLayout(false);
+            this.gbxAnual.ResumeLayout(false);
+            this.tableLayoutPanel8.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).EndInit();
+            this.tableLayoutPanel9.ResumeLayout(false);
             this.pnlCobro.ResumeLayout(false);
             this.pnlCobro.PerformLayout();
             this.panel6.ResumeLayout(false);
@@ -1619,10 +1623,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.datadescripcion)).EndInit();
             this.tlpTotales.ResumeLayout(false);
             this.tlpTotales.PerformLayout();
-            this.gbxAnual.ResumeLayout(false);
-            this.tableLayoutPanel8.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).EndInit();
-            this.tableLayoutPanel9.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }

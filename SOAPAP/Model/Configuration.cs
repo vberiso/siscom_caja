@@ -9,6 +9,7 @@ namespace SOAPAP.Model
     public class Configuration
     {
         public string RFC { get; set; }
+        public int Descuento { get; set; }
         public string ANSII { get; set; }
         public string CompanyName { get; set; }
         public string Address { get; set; }

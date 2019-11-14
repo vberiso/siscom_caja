@@ -19,7 +19,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace SOAPAP.UI.ReportesForms.Finanzas.Agua
+namespace SOAPAP.UI.ReportesForms.Finanzas
 {
 
     public partial class Principal : Form
@@ -107,7 +107,8 @@ namespace SOAPAP.UI.ReportesForms.Finanzas.Agua
                 this.tab = e.TabPage;
                 var Tag = this.tab.Tag;
                 formatoOrigin = Tag.ToString();
-                formato = Tag.ToString() == "formato4" ? "formato1" : Tag.ToString();
+                string FormatoIdentico = !Variables.Configuration.IsMunicipal ? "formato4" : "formato3";
+                formato = Tag.ToString() == FormatoIdentico ? "formato1" : Tag.ToString();
 
                 ShowForm("SOAPAP", "UI.ReportesForms.Finanzas.Agua.Formatos." + char.ToUpper(formato[0]) + formato.Substring(1));
                 invokeMethod(InstanceForm, "SetFormato", new object[] { Tag.ToString() });
@@ -124,12 +125,24 @@ namespace SOAPAP.UI.ReportesForms.Finanzas.Agua
         {
             loading = new Loading();
             loading.Show(this);
-            this.tab = tabFormato1;
+            GroupsServices = await GetGroupsCtalogues();
+
+            if (!Variables.Configuration.IsMunicipal) {
+                
+                this.tab = tabFormato1;
+                tabAyuntamiento.Visible = false;
+                ShowForm("SOAPAP", "UI.ReportesForms.Finanzas.Agua.Formatos.Formato1");
+            }
+            else
+            {
+                this.tab = tabFormato1Ayuntamiento;
+                tabAgua.Visible = false;
+                
+                ShowForm("SOAPAP", "UI.ReportesForms.Finanzas.Ayuntamiento.Formato1");
+            }
             formato = tab.Tag.ToString();
             formatoOrigin = formato;
-            GroupsServices = await GetGroupsCtalogues();
-            ShowForm("SOAPAP", "UI.ReportesForms.Finanzas.Agua.Formatos.Formato1");
-
+           
             invokeMethod(InstanceForm, "SetFormato", new object[] { "formato1" });
             loadMeses();
             loadyears();
@@ -285,6 +298,12 @@ namespace SOAPAP.UI.ReportesForms.Finanzas.Agua
                     {
                         await ProcessesRequestAgua(tag);
                     }
+                    else
+                    {
+                        await ProcessesRequestAyuntamiento(tag);
+                        
+                    }
+                    
                     break;
                 case "PR":
                         await GenerarPDF();
@@ -314,6 +333,30 @@ namespace SOAPAP.UI.ReportesForms.Finanzas.Agua
                     case "PR":
                         // GenerarPDF();
                         break;
+
+                }
+            }
+            catch (Exception e)
+            {
+                mensaje = new MessageBoxForm("Error", e.Message, TypeIcon.Icon.Cancel);
+                mensaje.ShowDialog();
+            }
+        }
+        private async Task ProcessesRequestAyuntamiento(string tag)
+        {
+            try
+            {
+                switch (tag)
+                {
+
+                    case "GE":
+                        method = "DrawData";
+                        ProcessData(await Getdata());
+                        method = "DrawDataA";
+                        ProcessData(await Getdata());
+                        break;
+
+
 
                 }
             }
@@ -365,7 +408,15 @@ namespace SOAPAP.UI.ReportesForms.Finanzas.Agua
 
         private void SetHeader(HiQPdf.PdfDocument document)
         {
-            document.CreateHeaderCanvas(140);
+            
+            if (Variables.Configuration.IsMunicipal)
+            {
+                document.CreateHeaderCanvas(155);
+            }
+            else
+            {
+                document.CreateHeaderCanvas(140);
+            }
 
             float footerHeight = document.Header.Height;
             float footerWidth = document.Header.Width;
@@ -430,14 +481,28 @@ namespace SOAPAP.UI.ReportesForms.Finanzas.Agua
           
             builder.Append(@"</div>");
             string formatoText = formatoOrigin.Substring(0, 7) + " " + formatoOrigin.Substring(7, 1);
-            builder.Append($@"<table id='datos' style='width: 99%;margin-bottom: 8px' class='informativos'>
+            formatoText = formatoOrigin == "formatoH2" ? "Formato 2" : formatoText;
+            string textLeyen ;
+            string textleyen2;
+            if (Variables.Configuration.IsMunicipal)
+            {
+                textleyen2 = "<b>GOBIERNO DEL ESTADO DE PUEBLA SECRETARÍA DE FINANZAS Y ADMINISTRACIÓN</b>";
+                textLeyen = $"<b>{formatoText.ToUpper()} PARA PROPORCIONAR CIFRAS DE RECAUDACIÓN DE IMPUESTO PREDIAL</b>";
+            }
+            else
+            {
+                textleyen2 = "<b>SISTEMA OPERADOR DE LOS SERVICIOS DE AGUA POTABLE Y ALCANTARILLADO DEL MUNICIPIO DE CUAUTLANCINGO</b>";
+                textLeyen = $"<b>{formatoText.ToUpper()} PARA PROPORCIONAR CIFRAS DE RECAUDACIÓN DE LOS DERECHOS POR SUMINISTRO DE AGUA </b>";
+            }
+                builder.Append($@"<table id='datos' style='width: 99%;margin-bottom: 8px' class='informativos'>
                             <tr>
-                                <td class='centro'><b>SISTEMA OPERADOR DE LOS SERVICIOS DE AGUA POTABLE Y ALCANTARILLADO DEL MUNICIPIO DE CUAUTLANCINGO</b> </td>
+                                <td class='centro'>{textleyen2}</td>
                             </tr>
                             </table>
                             <table id='datos' style='width: 99%;margin-bottom: 8px' class='informativos'>
                                     <tr>
-                                        <td class='centro'><b>{formatoText.ToUpper()} PARA PROPORCIONAR CIFRAS DE RECAUDACIÓN DE LOS DERECHOS POR SUMINISTRO DE AGUA </b></td>
+
+                                        <td class='centro'>{textLeyen}</td>
                                     </tr>
                             </table>");
 
@@ -527,6 +592,27 @@ namespace SOAPAP.UI.ReportesForms.Finanzas.Agua
 
 
           return builder.ToString();
+        }
+
+        private void TabAyuntamiento_Selected(object sender, TabControlEventArgs e)
+        {
+            try
+            {
+                this.tab = e.TabPage;
+                var Tag = this.tab.Tag;
+                formatoOrigin = Tag.ToString();
+                string FormatoIdentico = !Variables.Configuration.IsMunicipal ? "formato4" : "formato3";
+                formato = Tag.ToString() == FormatoIdentico ? "formato1" : Tag.ToString();
+               
+
+                ShowForm("SOAPAP", "UI.ReportesForms.Finanzas.Ayuntamiento." + char.ToUpper(formato[0]) + formato.Substring(1));
+                invokeMethod(InstanceForm, "SetFormato", new object[] { Tag.ToString() });
+            }
+            catch (Exception ex)
+            {
+                mensaje = new MessageBoxForm("Error", "Ocurrio un error, Intentelo más tarde", TypeIcon.Icon.Cancel);
+                mensaje.ShowDialog();
+            }
         }
     }
 }

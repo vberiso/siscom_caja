@@ -23,13 +23,15 @@ namespace SOAPAP.UI.FacturacionAnticipada
         private int MesInicio;
         private int MesIFin;
         Form loading;
+        private Model.Agreement Agreement;
         private int Year;
         private string UrlBase = Properties.Settings.Default.URL;
-        public Simular(int AgreementId, int MesInicio, int MesFin, int Year)
+        public Simular(Model.Agreement Agreement, int MesInicio, int MesFin, int Year)
         {
             
             InitializeComponent();
-            this.AgreementId = AgreementId;
+            this.AgreementId = Agreement.Id;
+            this.Agreement = Agreement;
             this.MesInicio = MesInicio;
             this.MesIFin = MesFin;
             this.Year = Year;
@@ -114,6 +116,13 @@ namespace SOAPAP.UI.FacturacionAnticipada
                 }
 
                 ivaTotal = ivaTotal + ivat;
+                if (Variables.Configuration.Anual)
+                {
+                    paelAnual.Visible = true;
+                    lblSubtotal.Text = total.ToString();
+                    lblDescuento.Text = Math.Round((total * Variables.Configuration.Descuento / 100), 2).ToString();
+                    total = total - (total * Variables.Configuration.Descuento / 100);
+                }
                 lblTotal.Text = Math.Round(ivaTotal + total, 2).ToString();
                 lblIva.Text = Math.Round(ivat, 2).ToString();
                 loading.Close();

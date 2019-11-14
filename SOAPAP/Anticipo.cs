@@ -16,19 +16,21 @@ namespace SOAPAP
     public partial class Anticipo : Form
     {
         private int agreement_id;
+        private Model.Agreement Agreement;
          
         public Anticipo()
         {
             
             InitializeComponent();
         }
-        public void setAgreementID(int agreement_id)
+        public void setAgreement(Model.Agreement Agreement)
         {
-            this.agreement_id = agreement_id;
+            this.agreement_id = Agreement.Id;
+            this.Agreement = Agreement;
         }
         private void button1_Click(object sender, EventArgs e)
         {
-            PeriodosAnticipados Uiperiodos = new PeriodosAnticipados(agreement_id);
+            PeriodosAnticipados Uiperiodos = new PeriodosAnticipados(Agreement);
             var result = Uiperiodos.ShowDialog(this);
             Uiperiodos.Close();
             
@@ -49,21 +51,16 @@ namespace SOAPAP
             //Close();
             //this.DialogResult = DialogResult.OK;
         }
-
+        
         private void button2_Click(object sender, EventArgs e)
         {
-            //Variables.anticipo = 1;
-            //Variables.oprtions = true;
-            //IForm formInterface = this.Owner as IForm;
+            Variables.Configuration.Anual = true;
+            PeriodosAnticipados Uiperiodos = new PeriodosAnticipados(Agreement, true);
+            var result = Uiperiodos.ShowDialog(this);
+            Uiperiodos.Close();
 
-            //if (formInterface != null)
-            //{
-            //    formInterface.ShowForm("SOAPAP", "cobroagua");
-            //}
-            //UI.Cobro Return = ((UI.Cobro)this.Owner.OwnedForms.Where(x => x.Name == "Cobro").FirstOrDefault());
-            //Return.CalculateAnual();
-            //Close();
-            this.DialogResult = DialogResult.Yes;
+            this.DialogResult = result;
+            this.Close();
 
         }
 

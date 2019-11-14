@@ -16,5 +16,7 @@ namespace SOAPAP.UI.ReportesForms.Finanzas
         {
             InitializeComponent();
         }
+
+        
     }
 }
