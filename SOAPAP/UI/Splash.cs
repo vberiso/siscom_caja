@@ -230,15 +230,32 @@ namespace SOAPAP.UI
             {
                 configuration.DiscountCampaigns = JsonConvert.DeserializeObject<List<DiscountCampaign>>(campaign);
                 lblProgress.Text = "Obteniendo Descuentos Disponibles ...";
-                RunProgress(progressn);
+                //RunProgress(progressn);
             }
 
             /*24*/
+            var condonations = await Requests.SendURIAsync("/api/ValueParameters/Condonations", HttpMethod.Get);
+            if (condonations.Contains("error"))
+            {
+                DialogResult result = new DialogResult();
+                Form mensaje = new MessageBoxForm("Error", condonations.Split(':')[1].Replace("}", ""), TypeIcon.Icon.Cancel);
+                result = mensaje.ShowDialog();
+            }
+            else
+            {
+                configuration.CondonationCampaings = JsonConvert.DeserializeObject<List<CondonationCampaing>>(condonations);
+                lblProgress.Text = "Obteniendo promociónes de condonacion disponibles ...";
+                RunProgress(progressn);
+            }
+
+            /*25*/
             decimal Percentage = 0;
             Decimal.TryParse(ValidResponses(await Requests.SendURIAsync("/api/ValueParameters?value=AIM", HttpMethod.Get)), out Percentage);
             configuration.Percentage = Percentage;
             lblProgress.Text = "Obteniendo AIM ...";
             RunProgress(progressn);
+
+            
 
             if (configuration.Terminal == null)
             {

@@ -10,6 +10,14 @@ namespace SOAPAP.Model
     {
         public int Id { get; set; }
         public string Name { get; set; }
+
+        public DateTime RegistrationDate { get; set; }       
+        public DateTime LastUpdateDate { get; set; }        
+        public string Zip { get; set; }        
+        public string Settlement { get; set; }        
+        public string Zone { get; set; }        
+        public bool ApplyAnnualPromotion { get; set; }
+
         public int TownsId { get; set; }
         public Town Towns { get; set; }
         public int RegionsId { get; set; }

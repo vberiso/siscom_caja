@@ -486,6 +486,7 @@ namespace SOAPAP.UI
                         tableLayoutPanel3.RowStyles[0] = new RowStyle(SizeType.AutoSize);
                         lblTitleCampaign.Text = Variables.Configuration.DiscountCampaigns.First().Name;
                     }
+                    
                     orderSale = false;
                     TypeSearchSelect = Search.Type.Cuenta;
                     loading = new Loading();
@@ -716,12 +717,35 @@ namespace SOAPAP.UI
                                 mensaje = new MessageBoxForm("Error", msg, TypeIcon.Icon.Cancel);
                                 result = mensaje.ShowDialog();
                             }
+
+                            //Si hay promocion y la cuenta es apta para aplicar promocion.
+                            if (Variables.Agreement.Addresses.FirstOrDefault().Suburbs.ApplyAnnualPromotion) 
+                            {
+                                mensaje = new MessageBoxForm("Promoción activa", "La cuenta cumple con los requisitos para participar en la promoción de condonación.", TypeIcon.Icon.Info);
+                                result = mensaje.ShowDialog();                                
+                            }
                         }
                         else
                         {
                             descuentosToolStripMenuItem.Enabled = false;
                             mensaje = new MessageBoxForm("Sin dato", "No se encontraron datos para este número de cuenta", TypeIcon.Icon.Warning);
                             result = mensaje.ShowDialog();
+                        }
+
+                        //Valida si hay campañas de descuentos adicionales.
+                        if (Variables.Configuration.CondonationCampaings.Count > 0 && Variables.Agreement.Addresses.FirstOrDefault().Suburbs.ApplyAnnualPromotion == true)
+                        {
+                            gbxCondonacion.Visible = accessParam == CashBoxAccess.Access.GenerarOrden ? false : true;
+                            tableLayoutPanel3.RowStyles[0] = new RowStyle(SizeType.AutoSize);
+                            lblTitleCondonation.Text = Variables.Configuration.CondonationCampaings.First().Alias;
+                        }
+
+                        //Valida esta activa la campaña añual
+                        if (Variables.Configuration.Anual)
+                        {
+                            gbxAnual.Visible = accessParam == CashBoxAccess.Access.GenerarOrden ? false : true;
+                            tableLayoutPanel3.RowStyles[0] = new RowStyle(SizeType.AutoSize);
+                            lblTitleCondonation.Text = Variables.Configuration.CondonationCampaings.First().Alias;
                         }
                     }
                 }
@@ -1348,6 +1372,41 @@ namespace SOAPAP.UI
         }
 
         private void datadescripcion_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private async void btnCondonacion_Click(object sender, EventArgs e)
+        {
+            loading = new Loading();
+            loading.Show(this);
+          
+            var resultCampaign = await Requests.SendURIAsync(string.Format("/api/CondonationCampaing/{0}/{1}", Variables.Agreement.Id,Variables.Configuration.CondonationCampaings.FirstOrDefault().Id), HttpMethod.Post, Variables.LoginModel.Token);
+            if (resultCampaign.Contains("error"))
+            {
+                try
+                {
+                    mensaje = new MessageBoxForm("Error", JsonConvert.DeserializeObject<Error>(resultCampaign).error, TypeIcon.Icon.Cancel);
+                    result = mensaje.ShowDialog();
+                    loading.Close();
+                }
+                catch (Exception)
+                {
+                    mensaje = new MessageBoxForm("Error", "Servicio no disponible favor de comunicarse con el administrador", TypeIcon.Icon.Cancel);
+                    result = mensaje.ShowDialog();
+                    loading.Close();
+                }
+            }
+            else
+            {
+                mensaje = new MessageBoxForm(Variables.titleprincipal, "La condonación de recargos se ha realizado con exito", TypeIcon.Icon.Success);
+                result = mensaje.ShowDialog();
+                loading.Close();
+                ObtenerInformacion();
+            }
+        }
+
+        private void btnAnual_Click(object sender, EventArgs e)
         {
 
         }

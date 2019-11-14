@@ -32,6 +32,7 @@ namespace SOAPAP.Model
         public bool CFDIFacturacionPasada { get; set; }
         public string StringURLFirebase { get; set; }
         public List<DiscountCampaign> DiscountCampaigns { get; set; }
+        public List<CondonationCampaing> CondonationCampaings { get; set; }
         public decimal Percentage { get; set; }
         public VersionApp VersionApp { get; set; }
     }

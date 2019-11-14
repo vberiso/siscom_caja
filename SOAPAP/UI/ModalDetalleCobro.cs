@@ -1303,15 +1303,11 @@ namespace SOAPAP.UI
 
                         string resOrWo = string.Empty;
                         resOrWo = await Requests.SendURIAsync("/api/OrderWork/OrderWorks", HttpMethod.Post, Variables.LoginModel.Token, content);
-                        if (resOrWo.Contains("error"))
+                        if (resOrWo.Contains("error") || resOrWo.Contains("reazon"))
                         {
                             mensaje = new MessageBoxForm("Error", "No se pudo generar la orden de reconexión", TypeIcon.Icon.Warning);
                             result = mensaje.ShowDialog();
-                        }
-                        else if (resOrWo.Contains("reazon")) {
-                            mensaje = new MessageBoxForm("Error", "No se pudo generar lo orden de reconexión", TypeIcon.Icon.Warning);
-                            result = mensaje.ShowDialog();
-                        }
+                        }                        
                         else
                         {
                             mensaje = new MessageBoxForm("Orden solicitada.", "Se realizo la orden de reconexión para esta cuenta.", TypeIcon.Icon.Success);
