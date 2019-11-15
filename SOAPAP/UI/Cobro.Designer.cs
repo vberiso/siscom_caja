@@ -29,10 +29,10 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Cobro));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
             this.txtCuenta = new System.Windows.Forms.TextBox();
             this.pnlHeader = new System.Windows.Forms.Panel();
             this.pnlHeaderBuscar = new System.Windows.Forms.Panel();
@@ -454,11 +454,13 @@
             this.pnlDatos.Dock = System.Windows.Forms.DockStyle.Left;
             this.pnlDatos.Location = new System.Drawing.Point(0, 124);
             this.pnlDatos.Name = "pnlDatos";
-            this.pnlDatos.Size = new System.Drawing.Size(344, 639);
+            this.pnlDatos.Size = new System.Drawing.Size(344, 900);
             this.pnlDatos.TabIndex = 47;
             // 
             // tableLayoutPanel3
             // 
+            this.tableLayoutPanel3.AutoScroll = true;
+            this.tableLayoutPanel3.AutoSize = true;
             this.tableLayoutPanel3.ColumnCount = 1;
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel3.Controls.Add(this.panel1, 0, 2);
@@ -475,11 +477,11 @@
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 18.71181F));
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.96634F));
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 34.7338F));
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 29.58805F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(344, 555);
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 30F));
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 30F));
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(344, 596);
             this.tableLayoutPanel3.TabIndex = 4;
             // 
             // panel1
@@ -583,7 +585,7 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(3, 276);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(338, 46);
+            this.panel2.Size = new System.Drawing.Size(338, 58);
             this.panel2.TabIndex = 1;
             // 
             // gbContribuyente
@@ -593,8 +595,9 @@
             this.gbContribuyente.Dock = System.Windows.Forms.DockStyle.Fill;
             this.gbContribuyente.Location = new System.Drawing.Point(0, 0);
             this.gbContribuyente.Margin = new System.Windows.Forms.Padding(20);
+            this.gbContribuyente.MinimumSize = new System.Drawing.Size(0, 80);
             this.gbContribuyente.Name = "gbContribuyente";
-            this.gbContribuyente.Size = new System.Drawing.Size(338, 46);
+            this.gbContribuyente.Size = new System.Drawing.Size(338, 80);
             this.gbContribuyente.TabIndex = 1;
             this.gbContribuyente.TabStop = false;
             // 
@@ -610,7 +613,7 @@
             this.tlpContribuyente.Name = "tlpContribuyente";
             this.tlpContribuyente.RowCount = 1;
             this.tlpContribuyente.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tlpContribuyente.Size = new System.Drawing.Size(332, 27);
+            this.tlpContribuyente.Size = new System.Drawing.Size(332, 61);
             this.tlpContribuyente.TabIndex = 2;
             // 
             // lblContibuyente
@@ -620,7 +623,7 @@
             this.lblContibuyente.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblContibuyente.Location = new System.Drawing.Point(36, 0);
             this.lblContibuyente.Name = "lblContibuyente";
-            this.lblContibuyente.Size = new System.Drawing.Size(293, 27);
+            this.lblContibuyente.Size = new System.Drawing.Size(293, 61);
             this.lblContibuyente.TabIndex = 39;
             this.lblContibuyente.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -634,7 +637,7 @@
             this.pbContribuyente.InitialImage = ((System.Drawing.Image)(resources.GetObject("pbContribuyente.InitialImage")));
             this.pbContribuyente.Location = new System.Drawing.Point(3, 3);
             this.pbContribuyente.Name = "pbContribuyente";
-            this.pbContribuyente.Size = new System.Drawing.Size(27, 21);
+            this.pbContribuyente.Size = new System.Drawing.Size(27, 55);
             this.pbContribuyente.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.pbContribuyente.TabIndex = 38;
             this.pbContribuyente.TabStop = false;
@@ -643,9 +646,9 @@
             // 
             this.panel3.Controls.Add(this.groupBox2);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel3.Location = new System.Drawing.Point(3, 328);
+            this.panel3.Location = new System.Drawing.Point(3, 340);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(338, 41);
+            this.panel3.Size = new System.Drawing.Size(338, 58);
             this.panel3.TabIndex = 2;
             // 
             // groupBox2
@@ -656,8 +659,9 @@
             this.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox2.Location = new System.Drawing.Point(0, 0);
             this.groupBox2.Margin = new System.Windows.Forms.Padding(20);
+            this.groupBox2.MinimumSize = new System.Drawing.Size(0, 60);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(338, 41);
+            this.groupBox2.Size = new System.Drawing.Size(338, 60);
             this.groupBox2.TabIndex = 3;
             this.groupBox2.TabStop = false;
             // 
@@ -673,7 +677,7 @@
             this.tlpRFC.Name = "tlpRFC";
             this.tlpRFC.RowCount = 1;
             this.tlpRFC.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tlpRFC.Size = new System.Drawing.Size(332, 22);
+            this.tlpRFC.Size = new System.Drawing.Size(332, 41);
             this.tlpRFC.TabIndex = 2;
             // 
             // lblRFC
@@ -683,7 +687,7 @@
             this.lblRFC.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblRFC.Location = new System.Drawing.Point(36, 0);
             this.lblRFC.Name = "lblRFC";
-            this.lblRFC.Size = new System.Drawing.Size(293, 22);
+            this.lblRFC.Size = new System.Drawing.Size(293, 41);
             this.lblRFC.TabIndex = 39;
             this.lblRFC.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -697,7 +701,7 @@
             this.pictureBox2.InitialImage = ((System.Drawing.Image)(resources.GetObject("pictureBox2.InitialImage")));
             this.pictureBox2.Location = new System.Drawing.Point(3, 3);
             this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(27, 16);
+            this.pictureBox2.Size = new System.Drawing.Size(27, 35);
             this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.pictureBox2.TabIndex = 38;
             this.pictureBox2.TabStop = false;
@@ -706,9 +710,9 @@
             // 
             this.panel4.Controls.Add(this.groupBox1);
             this.panel4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel4.Location = new System.Drawing.Point(3, 375);
+            this.panel4.Location = new System.Drawing.Point(3, 404);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(338, 91);
+            this.panel4.Size = new System.Drawing.Size(338, 90);
             this.panel4.TabIndex = 3;
             // 
             // groupBox1
@@ -719,8 +723,9 @@
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox1.Location = new System.Drawing.Point(0, 0);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(20);
+            this.groupBox1.MinimumSize = new System.Drawing.Size(0, 100);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(338, 91);
+            this.groupBox1.Size = new System.Drawing.Size(338, 100);
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
             // 
@@ -736,7 +741,7 @@
             this.tlpDireccion.Name = "tlpDireccion";
             this.tlpDireccion.RowCount = 1;
             this.tlpDireccion.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tlpDireccion.Size = new System.Drawing.Size(332, 72);
+            this.tlpDireccion.Size = new System.Drawing.Size(332, 81);
             this.tlpDireccion.TabIndex = 2;
             // 
             // pictureBox1
@@ -749,7 +754,7 @@
             this.pictureBox1.InitialImage = ((System.Drawing.Image)(resources.GetObject("pictureBox1.InitialImage")));
             this.pictureBox1.Location = new System.Drawing.Point(3, 3);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(27, 66);
+            this.pictureBox1.Size = new System.Drawing.Size(27, 75);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.pictureBox1.TabIndex = 38;
             this.pictureBox1.TabStop = false;
@@ -844,9 +849,9 @@
             // 
             this.panel5.Controls.Add(this.groupBox3);
             this.panel5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel5.Location = new System.Drawing.Point(3, 472);
+            this.panel5.Location = new System.Drawing.Point(3, 500);
             this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(338, 80);
+            this.panel5.Size = new System.Drawing.Size(338, 93);
             this.panel5.TabIndex = 4;
             // 
             // groupBox3
@@ -859,7 +864,7 @@
             this.groupBox3.Location = new System.Drawing.Point(0, 0);
             this.groupBox3.Margin = new System.Windows.Forms.Padding(20);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(338, 80);
+            this.groupBox3.Size = new System.Drawing.Size(338, 93);
             this.groupBox3.TabIndex = 4;
             this.groupBox3.TabStop = false;
             // 
@@ -875,7 +880,7 @@
             this.tableLayoutPanel4.Name = "tableLayoutPanel4";
             this.tableLayoutPanel4.RowCount = 1;
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel4.Size = new System.Drawing.Size(332, 59);
+            this.tableLayoutPanel4.Size = new System.Drawing.Size(332, 72);
             this.tableLayoutPanel4.TabIndex = 2;
             // 
             // pictureBox4
@@ -888,7 +893,7 @@
             this.pictureBox4.InitialImage = ((System.Drawing.Image)(resources.GetObject("pictureBox4.InitialImage")));
             this.pictureBox4.Location = new System.Drawing.Point(3, 3);
             this.pictureBox4.Name = "pictureBox4";
-            this.pictureBox4.Size = new System.Drawing.Size(27, 53);
+            this.pictureBox4.Size = new System.Drawing.Size(27, 66);
             this.pictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.pictureBox4.TabIndex = 38;
             this.pictureBox4.TabStop = false;
@@ -917,78 +922,78 @@
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.tableLayoutPanel5.Size = new System.Drawing.Size(293, 53);
+            this.tableLayoutPanel5.Size = new System.Drawing.Size(293, 66);
             this.tableLayoutPanel5.TabIndex = 39;
             // 
             // lblTipoPredio
             // 
             this.lblTipoPredio.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblTipoPredio.Location = new System.Drawing.Point(122, 40);
+            this.lblTipoPredio.Location = new System.Drawing.Point(122, 52);
             this.lblTipoPredio.Name = "lblTipoPredio";
-            this.lblTipoPredio.Size = new System.Drawing.Size(168, 13);
+            this.lblTipoPredio.Size = new System.Drawing.Size(168, 14);
             this.lblTipoPredio.TabIndex = 9;
             this.lblTipoPredio.Text = "**********";
             // 
             // label4
             // 
             this.label4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label4.Location = new System.Drawing.Point(3, 40);
+            this.label4.Location = new System.Drawing.Point(3, 52);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(113, 13);
+            this.label4.Size = new System.Drawing.Size(113, 14);
             this.label4.TabIndex = 8;
             this.label4.Text = "Tipo Predio:";
             // 
             // lblUtimoAvaluo
             // 
             this.lblUtimoAvaluo.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblUtimoAvaluo.Location = new System.Drawing.Point(122, 30);
+            this.lblUtimoAvaluo.Location = new System.Drawing.Point(122, 39);
             this.lblUtimoAvaluo.Name = "lblUtimoAvaluo";
-            this.lblUtimoAvaluo.Size = new System.Drawing.Size(168, 10);
+            this.lblUtimoAvaluo.Size = new System.Drawing.Size(168, 13);
             this.lblUtimoAvaluo.TabIndex = 7;
             this.lblUtimoAvaluo.Text = "**********";
             // 
             // label5
             // 
             this.label5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label5.Location = new System.Drawing.Point(3, 30);
+            this.label5.Location = new System.Drawing.Point(3, 39);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(113, 10);
+            this.label5.Size = new System.Drawing.Size(113, 13);
             this.label5.TabIndex = 6;
             this.label5.Text = "Ultimo Avaluo:";
             // 
             // lblMetrosTerreno
             // 
             this.lblMetrosTerreno.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblMetrosTerreno.Location = new System.Drawing.Point(122, 20);
+            this.lblMetrosTerreno.Location = new System.Drawing.Point(122, 26);
             this.lblMetrosTerreno.Name = "lblMetrosTerreno";
-            this.lblMetrosTerreno.Size = new System.Drawing.Size(168, 10);
+            this.lblMetrosTerreno.Size = new System.Drawing.Size(168, 13);
             this.lblMetrosTerreno.TabIndex = 5;
             this.lblMetrosTerreno.Text = "**********";
             // 
             // label3
             // 
             this.label3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label3.Location = new System.Drawing.Point(3, 20);
+            this.label3.Location = new System.Drawing.Point(3, 26);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(113, 10);
+            this.label3.Size = new System.Drawing.Size(113, 13);
             this.label3.TabIndex = 4;
             this.label3.Text = "Metros del Terreno:";
             // 
             // lblMetrosConstruidos
             // 
             this.lblMetrosConstruidos.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblMetrosConstruidos.Location = new System.Drawing.Point(122, 10);
+            this.lblMetrosConstruidos.Location = new System.Drawing.Point(122, 13);
             this.lblMetrosConstruidos.Name = "lblMetrosConstruidos";
-            this.lblMetrosConstruidos.Size = new System.Drawing.Size(168, 10);
+            this.lblMetrosConstruidos.Size = new System.Drawing.Size(168, 13);
             this.lblMetrosConstruidos.TabIndex = 3;
             this.lblMetrosConstruidos.Text = "**********";
             // 
             // label2
             // 
             this.label2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label2.Location = new System.Drawing.Point(3, 10);
+            this.label2.Location = new System.Drawing.Point(3, 13);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(113, 10);
+            this.label2.Size = new System.Drawing.Size(113, 13);
             this.label2.TabIndex = 2;
             this.label2.Text = "Metros Costruidos:";
             // 
@@ -997,7 +1002,7 @@
             this.lblBaseGravable.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblBaseGravable.Location = new System.Drawing.Point(122, 0);
             this.lblBaseGravable.Name = "lblBaseGravable";
-            this.lblBaseGravable.Size = new System.Drawing.Size(168, 10);
+            this.lblBaseGravable.Size = new System.Drawing.Size(168, 13);
             this.lblBaseGravable.TabIndex = 1;
             this.lblBaseGravable.Text = "**********";
             // 
@@ -1006,7 +1011,7 @@
             this.label1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label1.Location = new System.Drawing.Point(3, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(113, 10);
+            this.label1.Size = new System.Drawing.Size(113, 13);
             this.label1.TabIndex = 0;
             this.label1.Text = "Base Gravable:";
             // 
@@ -1181,7 +1186,7 @@
             this.pnlCobro.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlCobro.Location = new System.Drawing.Point(344, 124);
             this.pnlCobro.Name = "pnlCobro";
-            this.pnlCobro.Size = new System.Drawing.Size(556, 639);
+            this.pnlCobro.Size = new System.Drawing.Size(556, 900);
             this.pnlCobro.TabIndex = 89;
             // 
             // panel6
@@ -1192,7 +1197,7 @@
             this.panel6.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel6.Location = new System.Drawing.Point(0, 0);
             this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(556, 395);
+            this.panel6.Size = new System.Drawing.Size(556, 656);
             this.panel6.TabIndex = 91;
             // 
             // dgvConceptosCobro
@@ -1205,13 +1210,13 @@
             this.dgvConceptosCobro.BackgroundColor = System.Drawing.Color.White;
             this.dgvConceptosCobro.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dgvConceptosCobro.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            this.dgvConceptosCobro.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle9.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            this.dgvConceptosCobro.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle9;
             this.dgvConceptosCobro.ColumnHeadersHeight = 35;
             this.dgvConceptosCobro.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Id,
@@ -1221,38 +1226,38 @@
             this.Description,
             this.Importe});
             this.dgvConceptosCobro.Cursor = System.Windows.Forms.Cursors.Hand;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.DimGray;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.Silver;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvConceptosCobro.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle10.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle10.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle10.ForeColor = System.Drawing.Color.DimGray;
+            dataGridViewCellStyle10.SelectionBackColor = System.Drawing.Color.Silver;
+            dataGridViewCellStyle10.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvConceptosCobro.DefaultCellStyle = dataGridViewCellStyle10;
             this.dgvConceptosCobro.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvConceptosCobro.GridColor = System.Drawing.Color.White;
             this.dgvConceptosCobro.Location = new System.Drawing.Point(0, 0);
             this.dgvConceptosCobro.Margin = new System.Windows.Forms.Padding(3, 3, 10, 3);
             this.dgvConceptosCobro.Name = "dgvConceptosCobro";
             this.dgvConceptosCobro.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvConceptosCobro.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle11.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle11.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle11.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle11.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle11.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvConceptosCobro.RowHeadersDefaultCellStyle = dataGridViewCellStyle11;
             this.dgvConceptosCobro.RowHeadersVisible = false;
-            dataGridViewCellStyle4.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle4.ForeColor = System.Drawing.Color.DimGray;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.Silver;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.Black;
-            this.dgvConceptosCobro.RowsDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle12.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle12.ForeColor = System.Drawing.Color.DimGray;
+            dataGridViewCellStyle12.SelectionBackColor = System.Drawing.Color.Silver;
+            dataGridViewCellStyle12.SelectionForeColor = System.Drawing.Color.Black;
+            this.dgvConceptosCobro.RowsDefaultCellStyle = dataGridViewCellStyle12;
             this.dgvConceptosCobro.RowTemplate.DefaultCellStyle.BackColor = System.Drawing.Color.White;
             this.dgvConceptosCobro.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.dgvConceptosCobro.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvConceptosCobro.Size = new System.Drawing.Size(556, 395);
+            this.dgvConceptosCobro.Size = new System.Drawing.Size(556, 656);
             this.dgvConceptosCobro.TabIndex = 89;
             this.dgvConceptosCobro.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvConceptosCobro_CellClick);
             this.dgvConceptosCobro.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvConceptosCobro_CellDoubleClick);
@@ -1312,7 +1317,7 @@
             this.panelConent.Controls.Add(this.panelDescripciones);
             this.panelConent.Controls.Add(this.tlpTotales);
             this.panelConent.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panelConent.Location = new System.Drawing.Point(0, 395);
+            this.panelConent.Location = new System.Drawing.Point(0, 656);
             this.panelConent.Name = "panelConent";
             this.panelConent.Size = new System.Drawing.Size(556, 244);
             this.panelConent.TabIndex = 90;
@@ -1550,7 +1555,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(900, 763);
+            this.ClientSize = new System.Drawing.Size(900, 1024);
             this.Controls.Add(this.pnlCobro);
             this.Controls.Add(this.pnlDatos);
             this.Controls.Add(this.pnlHeader);
@@ -1572,6 +1577,7 @@
             this.pnlHeaderLeft.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbxIcon)).EndInit();
             this.pnlDatos.ResumeLayout(false);
+            this.pnlDatos.PerformLayout();
             this.tableLayoutPanel3.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();

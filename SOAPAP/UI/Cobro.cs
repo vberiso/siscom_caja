@@ -756,12 +756,15 @@ namespace SOAPAP.UI
                             lblTitleCondonation.Text = Variables.Configuration.CondonationCampaings.First().Alias;
                         }
 
+                        //if (!Variables.Configuration.IsMunicipal)
+                        //{
+                        //    Variables.Configuration.Anual = checkApplyAnual(Variables.Agreement);
+                        //}
                         //Valida esta activa la campaña añual
-                        if (Variables.Configuration.Anual)
+                        if (Variables.Configuration.IsMunicipal  && Variables.Configuration.Anual && Variables.Agreement != null )
                         {
-                            gbxAnual.Visible = accessParam == CashBoxAccess.Access.GenerarOrden ? false : true;
-                            tableLayoutPanel3.RowStyles[0] = new RowStyle(SizeType.AutoSize);
-                            lblTitleCondonation.Text = Variables.Configuration.CondonationCampaings.First().Alias;
+                            gbxAnual.Visible = true;
+                            tableLayoutPanel3.RowStyles[0] = new RowStyle(SizeType.AutoSize);                            
                         }
                     }
                 }
@@ -805,7 +808,12 @@ namespace SOAPAP.UI
             var date  = DateTime.Now;
             
             //Variables.Agreement = null;
-            if (date.Month != 12  && date.Month != 1 && date.Month != 2 && agreement.Debts.Count > 0)
+            if (date.Month != 12  && date.Month != 1 && date.Month != 2) // &&)
+            {
+                return false;
+            }
+
+            if (agreement.Debts.Count > 0)
             {
                 return false;
             }
@@ -1444,8 +1452,6 @@ namespace SOAPAP.UI
             var result = Uiperiodos.ShowDialog(this);
             Uiperiodos.Close();
 
-            this.DialogResult = result;
-            this.Close();
         }
     }
 

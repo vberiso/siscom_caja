@@ -145,7 +145,7 @@ namespace SOAPAP.UI.FacturacionAnticipada
             }
             else
             {
-                var mensaje = new MessageBoxForm("Error", "La Onservación debe tener como minimo 5 caracteres", TypeIcon.Icon.Cancel);
+                var mensaje = new MessageBoxForm("Error", "La Observación debe tener como minimo 5 caracteres", TypeIcon.Icon.Cancel);
                 result = mensaje.ShowDialog();
                 mensaje.Close();
 
@@ -217,7 +217,7 @@ namespace SOAPAP.UI.FacturacionAnticipada
                 string error = JsonConvert.DeserializeObject<Error>(results).error;
                 error = !string.IsNullOrEmpty(error) ? error : jsonResult["data"]["paramsOut"][0]["value"].ToString();
 
-                mensaje = new MessageBoxForm("Error", error, TypeIcon.Icon.Cancel);
+                mensaje = new MessageBoxForm("Error", "No se puede generar.", TypeIcon.Icon.Cancel);
 
             }
             else

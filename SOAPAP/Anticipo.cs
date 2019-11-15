@@ -94,9 +94,15 @@ namespace SOAPAP
             }
 
             if (Variables.Configuration.Anual)
-                button2.Enabled = true;
+            {
+                button2.Enabled = true;                
+            }                
             else
+            {
                 button2.Enabled = false;
+                button2.BackColor = Color.Gray;
+            }
+                
         }
     }
 }
