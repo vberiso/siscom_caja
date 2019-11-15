@@ -689,16 +689,17 @@ namespace SOAPAP.UI
                                             }
                                             else  //Para realiza pagos anticipados
                                             {
+                                                Variables.Configuration.Anual = checkApplyAnual(Variables.Agreement);
                                                 mensaje = new MessageBoxForm("Sin Deuda", "La cuenta proporcionada no tiene adeudo, puede realizar pagos anticipados", TypeIcon.Icon.Success, true);
                                                 result = mensaje.ShowDialog();
-                                                if (result == DialogResult.OK)
-                                                {
-                                                    Variables.Configuration.Anual = checkApplyAnual(Variables.Agreement); 
-                                                    Anticipo Anticipo = new Anticipo();
-                                                    Anticipo.setAgreement(Variables.Agreement);
-                                                    if (Anticipo.ShowDialog() == DialogResult.OK)
-                                                        ObtenerInformacion();
-                                                }
+                                                //if (result == DialogResult.OK)
+                                                //{
+                                                //    Variables.Configuration.Anual = checkApplyAnual(Variables.Agreement); 
+                                                //    Anticipo Anticipo = new Anticipo();
+                                                //    Anticipo.setAgreement(Variables.Agreement);
+                                                //    if (Anticipo.ShowDialog() == DialogResult.OK)
+                                                //        ObtenerInformacion();
+                                                //}
                                             }
                                         }
                                         else
@@ -706,6 +707,18 @@ namespace SOAPAP.UI
 
                                             mensaje = new MessageBoxForm(Variables.titleprincipal, "La cuenta proporcionada no tiene adeudo", TypeIcon.Icon.Success);
                                             result = mensaje.ShowDialog();
+                                        }
+
+                                        if (result == DialogResult.OK)
+                                        {
+                                            Variables.Configuration.Anual = checkApplyAnual(Variables.Agreement);
+                                            Anticipo Anticipo = new Anticipo();
+                                            Anticipo.setAgreement(Variables.Agreement);
+                                            if (Anticipo.ShowDialog() == DialogResult.OK)
+                                            {
+                                                ObtenerInformacion();
+                                                
+                                            }
                                         }
 
                                     }
@@ -718,10 +731,11 @@ namespace SOAPAP.UI
                                 string msg = "La cuenta proporcionada " + (Variables.Agreement.TypeStateService != null? "está: " + Variables.Agreement.TypeStateService.Name:"No existe");
                                 mensaje = new MessageBoxForm("Error", msg, TypeIcon.Icon.Cancel);
                                 result = mensaje.ShowDialog();
+                                Variables.Agreement = null;
                             }
 
                             //Si hay promocion y la cuenta es apta para aplicar promocion.
-                            if (Variables.Agreement.Addresses.FirstOrDefault().Suburbs.ApplyAnnualPromotion) 
+                            if (Variables.Agreement != null && Variables.Agreement.Addresses.FirstOrDefault().Suburbs.ApplyAnnualPromotion) 
                             {
                                 mensaje = new MessageBoxForm("Promoción activa", "La cuenta cumple con los requisitos para participar en la promoción de condonación.", TypeIcon.Icon.Info);
                                 result = mensaje.ShowDialog();                                
@@ -735,7 +749,7 @@ namespace SOAPAP.UI
                         }
 
                         //Valida si hay campañas de descuentos adicionales.
-                        if (Variables.Configuration.CondonationCampaings.Count > 0 && Variables.Agreement.Addresses.FirstOrDefault().Suburbs.ApplyAnnualPromotion == true)
+                        if (Variables.Agreement != null &&  Variables.Configuration.CondonationCampaings.Count > 0 && Variables.Agreement.Addresses.FirstOrDefault().Suburbs.ApplyAnnualPromotion == true)
                         {
                             gbxCondonacion.Visible = accessParam == CashBoxAccess.Access.GenerarOrden ? false : true;
                             tableLayoutPanel3.RowStyles[0] = new RowStyle(SizeType.AutoSize);
@@ -1414,6 +1428,7 @@ namespace SOAPAP.UI
             }
             else
             {
+                
                 mensaje = new MessageBoxForm(Variables.titleprincipal, "La condonación de recargos se ha realizado con exito", TypeIcon.Icon.Success);
                 result = mensaje.ShowDialog();
                 loading.Close();
@@ -1423,7 +1438,14 @@ namespace SOAPAP.UI
 
         private void btnAnual_Click(object sender, EventArgs e)
         {
+            var Uiperiodos = new PagosAnualesAyuntamiento(Variables.Agreement);
 
+
+            var result = Uiperiodos.ShowDialog(this);
+            Uiperiodos.Close();
+
+            this.DialogResult = result;
+            this.Close();
         }
     }
 

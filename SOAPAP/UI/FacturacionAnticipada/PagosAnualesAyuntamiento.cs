@@ -4,6 +4,7 @@ using SOAPAP.Enums;
 using SOAPAP.Model;
 using SOAPAP.Reportes;
 using SOAPAP.Services;
+using SOAPAP.UI.FacturacionAnticipada;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -17,9 +18,9 @@ using System.Threading.Tasks;
 using System.Transactions;
 using System.Windows.Forms;
 
-namespace SOAPAP.UI.PagosAnualesAyuntamiento
+namespace SOAPAP.UI.FacturacionAnticipada
 {
-
+    
     public partial class PagosAnualesAyuntamiento : Form
     {
         Form loading;
@@ -47,16 +48,18 @@ namespace SOAPAP.UI.PagosAnualesAyuntamiento
                 "Diciembre"
         };
         private int agreement_id;
-        public PagosAnualesAyuntamiento(Model.Agreement Agreement, bool IsAnual = false)
+        public PagosAnualesAyuntamiento(Model.Agreement Agreement)
         {
+          
 
             InitializeComponent();
-            this.IsAnual = IsAnual;
+           
             this.agreement_id = Agreement.Id;
             this.Agreement = Agreement;
+            Requests = new RequestsAPI(UrlBase);
             load_data();
 
-            Requests = new RequestsAPI(UrlBase);
+           
 
         }
 
@@ -64,11 +67,24 @@ namespace SOAPAP.UI.PagosAnualesAyuntamiento
 
         private void load_data()
         {
-        
-              
-             
-                lblYear.Text = (DateTime.Now.Year+1).ToString();
-                RequestData();
+
+            List<DataComboBox> years = new List<DataComboBox>();
+            for (int i = DateTime.Now.Year +1; i < DateTime.Now.Year +2; i++)
+            {
+               
+                    years.Add(new DataComboBox() { keyString = (i ).ToString(), value = i.ToString() });
+                  
+
+                
+
+            }
+
+
+            comboYears.ValueMember = "keyString";
+            comboYears.DisplayMember = "value";
+            comboYears.DataSource = years;
+            comboYears.SelectedIndex = 0;
+            RequestData();
 
 
 
@@ -78,7 +94,7 @@ namespace SOAPAP.UI.PagosAnualesAyuntamiento
 
         private async void RequestData()
         {
-            int year = Convert.ToInt32(lblYear.Text);
+            int year = Convert.ToInt32(((DataComboBox)comboYears.SelectedItem).keyString);
             var url = string.Format("/api/Agreements/getSimulateDebt/{0}/{1}", Convert.ToInt32(agreement_id), year);
           
             var results = await Requests.SendURIAsync(url, HttpMethod.Post, Variables.LoginModel.Token);
@@ -86,7 +102,7 @@ namespace SOAPAP.UI.PagosAnualesAyuntamiento
             decimal TPredial = 0;
             decimal TLimpia = 0;
             var predial = DebtAnnual.Where(x => x.Type == "TIP01").ToList();
-            var limpia = DebtAnnual.Where(x => x.Type == "TIP01").ToList();
+            var limpia = DebtAnnual.Where(x => x.Type == "TIP04").ToList();
             predial.ForEach(x => {
                 if (x.HaveTax)
                 {
@@ -109,7 +125,7 @@ namespace SOAPAP.UI.PagosAnualesAyuntamiento
                 }
             });
             lblPredial.Text = string.Format(new CultureInfo("es-MX"), "{0:C2}", TPredial); 
-            lblLimpi.Text = string.Format(new CultureInfo("es-MX"), "{0:C2}", TLimpia); 
+            lblLimpia.Text = string.Format(new CultureInfo("es-MX"), "{0:C2}", TLimpia); 
             lblTotal.Text = string.Format(new CultureInfo("es-MX"), "{0:C2}", TLimpia + TPredial); 
             
 
@@ -118,45 +134,55 @@ namespace SOAPAP.UI.PagosAnualesAyuntamiento
      
         private void btnGenerar_Click(object sender, EventArgs e)
         {
-            loading = new Loading();
-            loading.Show(this);
-
-            generarFacturaAdelantada();
-            
-            loading.Close();
-
-        }
-
-        private void btnSimular_Click(object sender, EventArgs e)
-        {
-            loading = new Loading();
-            loading.Show(this);
-            if (!IsAnual && !checkMeses())
+            if (textDescripcion.Text.Length > 5)
             {
+                loading = new Loading();
+                loading.Show(this);
 
-                mensaje = new MessageBoxForm("Error", "el mes fin no debe ser menor al mes inicio", TypeIcon.Icon.Cancel);
+                generarFacturaAdelantada();
+
                 loading.Close();
-                //result = mensaje.ShowDialog();
-
-                result = mensaje.ShowDialog(this);
-
             }
             else
             {
+                var mensaje = new MessageBoxForm("Error", "La Onservación debe tener como minimo 5 caracteres", TypeIcon.Icon.Cancel);
+                result = mensaje.ShowDialog();
+                mensaje.Close();
 
-                if (IsAnual)
-                {
-                    mesInicio = 1;
-                    mesFin = 12;
-                }
-                Variables.Configuration.Anual = IsAnual;
-
-                Simular uiSimular = new Simular(Agreement, mesInicio, mesFin, Convert.ToInt32(lblYear.Text));
-                loading.Close();
-                //uiSimular.loadDataInTable();
-                uiSimular.ShowDialog(this);
             }
+
         }
+
+        //private void btnSimular_Click(object sender, EventArgs e)
+        //{
+        //    loading = new Loading();
+        //    loading.Show(this);
+        //    if (!IsAnual && !checkMeses())
+        //    {
+
+        //        mensaje = new MessageBoxForm("Error", "el mes fin no debe ser menor al mes inicio", TypeIcon.Icon.Cancel);
+        //        loading.Close();
+        //        //result = mensaje.ShowDialog();
+
+        //        result = mensaje.ShowDialog(this);
+
+        //    }
+        //    else
+        //    {
+
+        //        if (IsAnual)
+        //        {
+        //            mesInicio = 1;
+        //            mesFin = 12;
+        //        }
+        //        Variables.Configuration.Anual = IsAnual;
+
+        //        Simular uiSimular = new Simular(Agreement, mesInicio, mesFin, Convert.ToInt32(lblYear.Text));
+        //        loading.Close();
+        //        //uiSimular.loadDataInTable();
+        //        uiSimular.ShowDialog(this);
+        //    }
+        //}
 
 
    
@@ -165,7 +191,7 @@ namespace SOAPAP.UI.PagosAnualesAyuntamiento
         private async void generarFacturaAdelantada()
         {
 
-            int year = Convert.ToInt32(lblYear.Text);
+            int year = Convert.ToInt32(((DataComboBox)comboYears.SelectedItem).keyString);
 
             List<object> content = new List<object>();
           
@@ -174,13 +200,13 @@ namespace SOAPAP.UI.PagosAnualesAyuntamiento
             content.Add(new { Key = "id_agreement", Value =agreement_id, DbType = DbType.Int32 });
             
 
-            var url = string.Format("/api/StoreProcedure/runSpAsignarDeb/{0}", "billing_period_year");
+            var url = string.Format("/api/StoreProcedure/runSpAsignarDeb/{0}", "billing_debt_annual");
             var stringContent = new StringContent(JsonConvert.SerializeObject(content), Encoding.UTF8, "application/json");
             var results = await Requests.SendURIAsync(url, HttpMethod.Post, Variables.LoginModel.Token, stringContent);
             var jsonResult = JObject.Parse(results);
 
             bool is_null_error = jsonResult.ContainsKey("error");
-            if (!is_null_error && jsonResult.ContainsKey("paramsOut"))
+            if (is_null_error )
             {
                 is_null_error = is_null_error == true ? is_null_error : !string.IsNullOrEmpty(jsonResult["data"]["paramsOut"][0]["value"].ToString().Trim());
             }
@@ -206,6 +232,7 @@ namespace SOAPAP.UI.PagosAnualesAyuntamiento
             mensaje.Close();
             if (!is_null_error)
             {
+                Variables.Agreement = Agreement;
                 this.DialogResult = DialogResult.OK;
                 this.Close();
             }
@@ -219,6 +246,8 @@ namespace SOAPAP.UI.PagosAnualesAyuntamiento
             this.DialogResult = DialogResult.Cancel;
 
         }
+
+       
     }
 
 

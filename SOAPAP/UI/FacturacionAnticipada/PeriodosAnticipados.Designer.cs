@@ -36,17 +36,17 @@
             this.btnSimular = new System.Windows.Forms.Button();
             this.btnGenerar = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.lblDescuento = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.lblTextAnual = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.textDescripcion = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
             this.comboMesFin2 = new System.Windows.Forms.ComboBox();
-            this.lblYear = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.comboMesInicio = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.lblTextAnual = new System.Windows.Forms.Label();
-            this.lblDescuento = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
+            this.lblYear = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel2.SuspendLayout();
@@ -147,6 +147,39 @@
             this.panel2.Size = new System.Drawing.Size(363, 391);
             this.panel2.TabIndex = 5;
             // 
+            // lblDescuento
+            // 
+            this.lblDescuento.AutoSize = true;
+            this.lblDescuento.Font = new System.Drawing.Font("Microsoft YaHei UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblDescuento.Location = new System.Drawing.Point(148, 144);
+            this.lblDescuento.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblDescuento.Name = "lblDescuento";
+            this.lblDescuento.Size = new System.Drawing.Size(41, 21);
+            this.lblDescuento.TabIndex = 21;
+            this.lblDescuento.Text = "Año";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Microsoft YaHei UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Location = new System.Drawing.Point(23, 139);
+            this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(117, 26);
+            this.label6.TabIndex = 20;
+            this.label6.Text = "Descuento:";
+            // 
+            // lblTextAnual
+            // 
+            this.lblTextAnual.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lblTextAnual.Location = new System.Drawing.Point(28, 62);
+            this.lblTextAnual.Name = "lblTextAnual";
+            this.lblTextAnual.Size = new System.Drawing.Size(313, 66);
+            this.lblTextAnual.TabIndex = 19;
+            this.lblTextAnual.Text = "En este apartado se va a facturar una deuda de 12 recibos, contemplando el mes de" +
+    " enero hasta el mes de Diciembre del corriente año.";
+            this.lblTextAnual.Visible = false;
+            // 
             // label4
             // 
             this.label4.AutoSize = true;
@@ -188,17 +221,6 @@
             this.comboMesFin2.Size = new System.Drawing.Size(121, 27);
             this.comboMesFin2.TabIndex = 10;
             // 
-            // lblYear
-            // 
-            this.lblYear.AutoSize = true;
-            this.lblYear.Font = new System.Drawing.Font("Microsoft YaHei UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblYear.Location = new System.Drawing.Point(86, 174);
-            this.lblYear.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblYear.Name = "lblYear";
-            this.lblYear.Size = new System.Drawing.Size(41, 21);
-            this.lblYear.TabIndex = 9;
-            this.lblYear.Text = "Año";
-            // 
             // label3
             // 
             this.label3.AutoSize = true;
@@ -229,38 +251,16 @@
             this.label1.TabIndex = 5;
             this.label1.Text = "Mes fin";
             // 
-            // lblTextAnual
+            // lblYear
             // 
-            this.lblTextAnual.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.lblTextAnual.Location = new System.Drawing.Point(28, 62);
-            this.lblTextAnual.Name = "lblTextAnual";
-            this.lblTextAnual.Size = new System.Drawing.Size(313, 66);
-            this.lblTextAnual.TabIndex = 19;
-            this.lblTextAnual.Text = "En este apartado se va a facturar una deuda de 12 recibos, contemplando el mes de" +
-    " enero hasta el mes de Diciembre del corriente año.";
-            this.lblTextAnual.Visible = false;
-            // 
-            // lblDescuento
-            // 
-            this.lblDescuento.AutoSize = true;
-            this.lblDescuento.Font = new System.Drawing.Font("Microsoft YaHei UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblDescuento.Location = new System.Drawing.Point(148, 144);
-            this.lblDescuento.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblDescuento.Name = "lblDescuento";
-            this.lblDescuento.Size = new System.Drawing.Size(41, 21);
-            this.lblDescuento.TabIndex = 21;
-            this.lblDescuento.Text = "Año";
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Microsoft YaHei UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(23, 139);
-            this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(117, 26);
-            this.label6.TabIndex = 20;
-            this.label6.Text = "Descuento:";
+            this.lblYear.AutoSize = true;
+            this.lblYear.Font = new System.Drawing.Font("Microsoft YaHei UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblYear.Location = new System.Drawing.Point(86, 174);
+            this.lblYear.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblYear.Name = "lblYear";
+            this.lblYear.Size = new System.Drawing.Size(41, 21);
+            this.lblYear.TabIndex = 9;
+            this.lblYear.Text = "Año";
             // 
             // PeriodosAnticipados
             // 
@@ -293,7 +293,6 @@
         private System.Windows.Forms.Button btnGenerar;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.Label lblYear;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.ComboBox comboMesInicio;
         private System.Windows.Forms.Label label1;
@@ -304,5 +303,6 @@
         private System.Windows.Forms.Label lblTextAnual;
         private System.Windows.Forms.Label lblDescuento;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label lblYear;
     }
 }

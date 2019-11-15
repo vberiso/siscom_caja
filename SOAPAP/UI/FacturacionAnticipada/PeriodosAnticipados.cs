@@ -254,6 +254,7 @@ namespace SOAPAP.UI.FacturacionAnticipada
             mensaje.Close();
             if (!is_null_error)
             {
+                Variables.Agreement = Agreement;
                 this.DialogResult = DialogResult.OK;
                 this.Close();
             }
