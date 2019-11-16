@@ -92,7 +92,7 @@ namespace SOAPAP
 
 
             }
-
+           // Variables.Configuration.Anual = true;
             if (Variables.Configuration.Anual)
             {
                 button2.Enabled = true;                

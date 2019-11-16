@@ -681,6 +681,7 @@ namespace SOAPAP.UI
 
                                         if (!Variables.Configuration.IsMunicipal)
                                         {
+                                            
                                             //Si es convenio no debe decirle que puede dar pagos anticipados
                                             if (Variables.Agreement.PartialPayments != null && Variables.Agreement.PartialPayments.Count > 0)
                                             {
@@ -711,7 +712,7 @@ namespace SOAPAP.UI
 
                                         if (result == DialogResult.OK)
                                         {
-                                            Variables.Configuration.Anual = checkApplyAnual(Variables.Agreement);
+                                            //Variables.Configuration.Anual = checkApplyAnual(Variables.Agreement);
                                             Anticipo Anticipo = new Anticipo();
                                             Anticipo.setAgreement(Variables.Agreement);
                                             if (Anticipo.ShowDialog() == DialogResult.OK)
@@ -817,6 +818,10 @@ namespace SOAPAP.UI
             {
                 return false;
             }
+            //if (agreement.Debts.Count > 0 && agreement.PartialPayments.Where(x => x.Status == "COV01").ToList().Count() > 0)
+            //{
+            //    return false;
+            //}
 
             
             return true;
@@ -1446,12 +1451,25 @@ namespace SOAPAP.UI
 
         private void btnAnual_Click(object sender, EventArgs e)
         {
-            var Uiperiodos = new PagosAnualesAyuntamiento(Variables.Agreement);
+            if (Variables.Agreement != null) {
+                if (Variables.Configuration.IsMunicipal) {
+                    var Uiperiodos = new PagosAnualesAyuntamiento(Variables.Agreement);
 
 
-            var result = Uiperiodos.ShowDialog(this);
-            Uiperiodos.Close();
+                    var result = Uiperiodos.ShowDialog(this);
+                    Uiperiodos.Close();
+                }
+                else
+                {
+                    Variables.Configuration.Anual = true;
+                    var Uiperiodos = new PeriodosAnticipados(Variables.Agreement, true);
+                    var result = Uiperiodos.ShowDialog(this);
+                    Uiperiodos.Close();
 
+                }
+            }
+
+          
         }
     }
 

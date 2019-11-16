@@ -98,6 +98,13 @@ namespace SOAPAP.UI.FacturacionAnticipada
             var url = string.Format("/api/Agreements/getSimulateDebt/{0}/{1}", Convert.ToInt32(agreement_id), year);
           
             var results = await Requests.SendURIAsync(url, HttpMethod.Post, Variables.LoginModel.Token);
+            if (results.Contains("error"))
+            {
+                var mensaje = new MessageBoxForm("Error", "No se puede obtener deuda de este contrato", TypeIcon.Icon.Cancel);
+                result = mensaje.ShowDialog();
+                mensaje.Close();
+                return;
+            }
             List<DebtAnnual> DebtAnnual = JsonConvert.DeserializeObject<List<DebtAnnual>>(results);
             decimal TPredial = 0;
             decimal TLimpia = 0;

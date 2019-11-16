@@ -19,7 +19,7 @@
     <PublishUrl>\\installer.cuautlancingo.gob.mx\caja\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Unc</InstallFrom>
-    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateEnabled>true</UpdateEnabled>
     <UpdateMode>Foreground</UpdateMode>
     <UpdateInterval>7</UpdateInterval>
     <UpdateIntervalUnits>Days</UpdateIntervalUnits>
@@ -27,9 +27,9 @@
     <UpdateRequired>true</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
     <UpdateUrl>\\installer.cuautlancingo.gob.mx\caja\</UpdateUrl>
-    <MinimumRequiredVersion>1.1.1.254</MinimumRequiredVersion>
+    <MinimumRequiredVersion>1.1.1.198</MinimumRequiredVersion>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>255</ApplicationRevision>
+    <ApplicationRevision>199</ApplicationRevision>
     <ApplicationVersion>1.1.1.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -88,78 +88,30 @@
     </AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.BonusSkins.v19.1, Version=19.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.Charts.v19.1.Core, Version=19.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.Data.v19.1, Version=19.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.Office.v19.1.Core, Version=19.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.Pdf.v19.1.Core, Version=19.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.Pdf.v19.1.Drawing, Version=19.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.PivotGrid.v19.1.Core, Version=19.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.Printing.v19.1.Core, Version=19.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.RichEdit.v19.1.Core, Version=19.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.RichEdit.v19.1.Export, Version=19.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.Utils.v19.1, Version=19.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.XtraBars.v19.1, Version=19.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.XtraCharts.v19.1, Version=19.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.XtraCharts.v19.1.UI, Version=19.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.XtraCharts.v19.1.Wizard, Version=19.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.XtraEditors.v19.1, Version=19.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.XtraGrid.v19.1, Version=19.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.XtraLayout.v19.1, Version=19.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.XtraPdfViewer.v19.1, Version=19.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.XtraPivotGrid.v19.1, Version=19.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.XtraPrinting.v19.1, Version=19.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.XtraScheduler.v19.1, Version=19.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.XtraScheduler.v19.1.Core, Version=19.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.XtraTreeList.v19.1, Version=19.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
+    <Reference Include="DevExpress.BonusSkins.v19.1, Version=19.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Charts.v19.1.Core, Version=19.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Data.v19.1, Version=19.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Pdf.v19.1.Core, Version=19.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Pdf.v19.1.Drawing, Version=19.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.PivotGrid.v19.1.Core, Version=19.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Office.v19.1.Core, Version=19.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.RichEdit.v19.1.Core, Version=19.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.RichEdit.v19.1.Export, Version=19.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Printing.v19.1.Core, Version=19.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Utils.v19.1, Version=19.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraBars.v19.1, Version=19.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraCharts.v19.1, Version=19.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraCharts.v19.1.UI, Version=19.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraCharts.v19.1.Wizard, Version=19.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraEditors.v19.1, Version=19.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraGrid.v19.1, Version=19.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraLayout.v19.1, Version=19.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraPdfViewer.v19.1, Version=19.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraPivotGrid.v19.1, Version=19.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraPrinting.v19.1, Version=19.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraScheduler.v19.1, Version=19.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraScheduler.v19.1.Core, Version=19.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraTreeList.v19.1, Version=19.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="Facturama, Version=1.0.0.3, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Facturama.1.0.0.3\lib\net45\Facturama.dll</HintPath>
     </Reference>
@@ -171,7 +123,7 @@
       <HintPath>..\packages\QrCode.Net.0.4.0.0\lib\net45\Gma.QrCodeNet.Encoding.dll</HintPath>
     </Reference>
     <Reference Include="HiQPdf">
-      <HintPath>..\..\..\Mau\Software\HiQPdf\HiQPdf.dll</HintPath>
+      <HintPath>..\..\..\archivos-siscom\Librerias\HiQPdf_10.17_x64\HiQPdf.dll</HintPath>
     </Reference>
     <Reference Include="Humanizer, Version=2.5.0.0, Culture=neutral, PublicKeyToken=979442b78dfc278e, processorArchitecture=MSIL">
       <HintPath>..\packages\Humanizer.Core.2.5.16\lib\netstandard2.0\Humanizer.dll</HintPath>
@@ -351,6 +303,7 @@
     <Compile Include="Facturado\Signer.cs" />
     <Compile Include="Facturaelectronica.cs" />
     <Compile Include="Getdata.cs" />
+    <Compile Include="Model\AccountStatusInFile.cs" />
     <Compile Include="Model\AdressVM.cs" />
     <Compile Include="Model\AgreementComent.cs" />
     <Compile Include="Model\AgreementProductVM.cs" />
@@ -367,8 +320,10 @@
     <Compile Include="Model\ClientFinding.cs" />
     <Compile Include="Model\ClientVM.cs" />
     <Compile Include="Model\Comprobante.cs" />
+    <Compile Include="Model\CondonationCampaing.cs" />
     <Compile Include="Model\ContactVM.cs" />
     <Compile Include="Model\DebtandDiscount.cs" />
+    <Compile Include="Model\DebtAnnual.cs" />
     <Compile Include="Model\DetailOfPaymentMethods.cs" />
     <Compile Include="Model\DiscountAuthorization.cs" />
     <Compile Include="Model\DiscountAuthorizationDetail.cs" />
@@ -384,6 +339,11 @@
     <Compile Include="Model\OrderWork.cs" />
     <Compile Include="Model\OrderWorkReasonCatalog.cs" />
     <Compile Include="Model\OrderWorkStatus.cs" />
+    <Compile Include="Model\PartialPayment.cs" />
+    <Compile Include="Model\PartialPaymentDebt.cs" />
+    <Compile Include="Model\PartialPaymentDetail.cs" />
+    <Compile Include="Model\PartialPaymentDetailConcept.cs" />
+    <Compile Include="Model\PartialPaymentDetailStatus.cs" />
     <Compile Include="Model\PaymentConceptsVM.cs" />
     <Compile Include="Model\PaymentOrdersVM.cs" />
     <Compile Include="Model\PaymentResume.cs" />
@@ -462,6 +422,8 @@
     <Compile Include="Reportes\DataTaxpayerDebt.cs" />
     <Compile Include="Reportes\DataTaxpayerOrderSale.cs" />
     <Compile Include="Reportes\DataTaxpayerPrepaid.cs" />
+    <Compile Include="Reportes\Finanzas\Ayuntamiento\AccountsPay.cs" />
+    <Compile Include="Reportes\Finanzas\Ayuntamiento\Cuentas.cs" />
     <Compile Include="Reportes\Finanzas\Formato1.cs" />
     <Compile Include="Reportes\Finanzas\Formato2.cs" />
     <Compile Include="Reportes\Finanzas\Formato23Desgloce.cs" />
@@ -472,11 +434,11 @@
     <Compile Include="UI\FactPasada\DescargarFacturas.Designer.cs">
       <DependentUpon>DescargarFacturas.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Messages\msgSolicitudCancelacion.cs">
+    <Compile Include="UI\FacturacionAnticipada\PagosAnualesAyuntamiento.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\Messages\msgSolicitudCancelacion.Designer.cs">
-      <DependentUpon>msgSolicitudCancelacion.cs</DependentUpon>
+    <Compile Include="UI\FacturacionAnticipada\PagosAnualesAyuntamiento.Designer.cs">
+      <DependentUpon>PagosAnualesAyuntamiento.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\ReportesForms\Finanzas\Agua\Formatos\Formato2.cs">
       <SubType>Form</SubType>
@@ -781,10 +743,22 @@
     <Compile Include="UI\ReportesForms\Finanzas\Agua\Formatos\Formato4.Designer.cs">
       <DependentUpon>Formato4.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\ReportesForms\Finanzas\Agua\Principal.cs">
+    <Compile Include="UI\ReportesForms\Finanzas\Ayuntamiento\Formato1.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\ReportesForms\Finanzas\Agua\Principal.Designer.cs">
+    <Compile Include="UI\ReportesForms\Finanzas\Ayuntamiento\Formato1.Designer.cs">
+      <DependentUpon>Formato1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\ReportesForms\Finanzas\Ayuntamiento\FormatoH2.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\ReportesForms\Finanzas\Ayuntamiento\FormatoH2.Designer.cs">
+      <DependentUpon>FormatoH2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\ReportesForms\Finanzas\Principal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\ReportesForms\Finanzas\Principal.Designer.cs">
       <DependentUpon>Principal.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\ReportesForms\Finanzas\Ayuntamiento\Cedula.cs">
@@ -793,23 +767,11 @@
     <Compile Include="UI\ReportesForms\Finanzas\Ayuntamiento\Cedula.Designer.cs">
       <DependentUpon>Cedula.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\ReportesForms\Finanzas\Ayuntamiento\Formato1.cs">
+    <Compile Include="UI\ReportesForms\Finanzas\Ayuntamiento\Formato4.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\ReportesForms\Finanzas\Ayuntamiento\Formato1.Designer.cs">
-      <DependentUpon>Formato1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UI\ReportesForms\Finanzas\Ayuntamiento\Formato2.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UI\ReportesForms\Finanzas\Ayuntamiento\Formato2.Designer.cs">
-      <DependentUpon>Formato2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UI\ReportesForms\Finanzas\Ayuntamiento\Formato3.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UI\ReportesForms\Finanzas\Ayuntamiento\Formato3.Designer.cs">
-      <DependentUpon>Formato3.cs</DependentUpon>
+    <Compile Include="UI\ReportesForms\Finanzas\Ayuntamiento\Formato4.Designer.cs">
+      <DependentUpon>Formato4.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\ReportesForms\RepDebts.cs">
       <SubType>Form</SubType>
@@ -982,6 +944,75 @@
       <DependentUpon>Anticipo.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="obj\Debug\SOAPAP.Anticipo.resources" />
+    <EmbeddedResource Include="obj\Debug\SOAPAP.Base.resources" />
+    <EmbeddedResource Include="obj\Debug\SOAPAP.cobro.resources" />
+    <EmbeddedResource Include="obj\Debug\SOAPAP.cobroagua.resources" />
+    <EmbeddedResource Include="obj\Debug\SOAPAP.Impresion.resources" />
+    <EmbeddedResource Include="obj\Debug\SOAPAP.Login.resources" />
+    <EmbeddedResource Include="obj\Debug\SOAPAP.Movimientos.resources" />
+    <EmbeddedResource Include="obj\Debug\SOAPAP.PopAnticipo.resources" />
+    <EmbeddedResource Include="obj\Debug\SOAPAP.PopAnticipo2.resources" />
+    <EmbeddedResource Include="obj\Debug\SOAPAP.PopNotificacion.resources" />
+    <EmbeddedResource Include="obj\Debug\SOAPAP.Properties.Resources.resources" />
+    <EmbeddedResource Include="obj\Debug\SOAPAP.PupCobroAgua.resources" />
+    <EmbeddedResource Include="obj\Debug\SOAPAP.querys.resources" />
+    <EmbeddedResource Include="obj\Debug\SOAPAP.results.resources" />
+    <EmbeddedResource Include="obj\Debug\SOAPAP.TerminalFront.resources" />
+    <EmbeddedResource Include="obj\Debug\SOAPAP.UI.Cajas.resources" />
+    <EmbeddedResource Include="obj\Debug\SOAPAP.UI.Cobro.resources" />
+    <EmbeddedResource Include="obj\Debug\SOAPAP.UI.CobroBuscarCuentaSelectOne.resources" />
+    <EmbeddedResource Include="obj\Debug\SOAPAP.UI.Descuentos.DetalleDescuentos.resources" />
+    <EmbeddedResource Include="obj\Debug\SOAPAP.UI.Descuentos.RequestDiscount.resources" />
+    <EmbeddedResource Include="obj\Debug\SOAPAP.UI.Email.SendEmail.resources" />
+    <EmbeddedResource Include="obj\Debug\SOAPAP.UI.FactPasada.DescargarFacturas.resources" />
+    <EmbeddedResource Include="obj\Debug\SOAPAP.UI.FactPasada.FacturacionPasada.resources" />
+    <EmbeddedResource Include="obj\Debug\SOAPAP.UI.FacturaAgrupada.resources" />
+    <EmbeddedResource Include="obj\Debug\SOAPAP.UI.FacturacionAgrupadaCancelacion.resources" />
+    <EmbeddedResource Include="obj\Debug\SOAPAP.UI.FacturacionAnticipada.PeriodosAnteriores.resources" />
+    <EmbeddedResource Include="obj\Debug\SOAPAP.UI.FacturacionAnticipada.PeriodosAnticipados.resources" />
+    <EmbeddedResource Include="obj\Debug\SOAPAP.UI.FacturacionAnticipada.Simular.resources" />
+    <EmbeddedResource Include="obj\Debug\SOAPAP.UI.FindOrders.resources" />
+    <EmbeddedResource Include="obj\Debug\SOAPAP.UI.HistorialTransacciones.Historial.resources" />
+    <EmbeddedResource Include="obj\Debug\SOAPAP.UI.Loading.resources" />
+    <EmbeddedResource Include="obj\Debug\SOAPAP.UI.MessageBoxForm.resources" />
+    <EmbeddedResource Include="obj\Debug\SOAPAP.UI.MessageBoxFormOption.resources" />
+    <EmbeddedResource Include="obj\Debug\SOAPAP.UI.Messages.msgObservacionFactura.resources" />
+    <EmbeddedResource Include="obj\Debug\SOAPAP.UI.ModalDetalleCaja.resources" />
+    <EmbeddedResource Include="obj\Debug\SOAPAP.UI.ModalDetalleCobro.resources" />
+    <EmbeddedResource Include="obj\Debug\SOAPAP.UI.ModalFicha.resources" />
+    <EmbeddedResource Include="obj\Debug\SOAPAP.UI.ModalFondoCaja.resources" />
+    <EmbeddedResource Include="obj\Debug\SOAPAP.UI.ModalProduct.resources" />
+    <EmbeddedResource Include="obj\Debug\SOAPAP.UI.ModalRetiroCaja.resources" />
+    <EmbeddedResource Include="obj\Debug\SOAPAP.UI.ModalTax.resources" />
+    <EmbeddedResource Include="obj\Debug\SOAPAP.UI.OrdersCancel.resources" />
+    <EmbeddedResource Include="obj\Debug\SOAPAP.UI.Productos.resources" />
+    <EmbeddedResource Include="obj\Debug\SOAPAP.UI.Reportes.resources" />
+    <EmbeddedResource Include="obj\Debug\SOAPAP.UI.ReportesForms.Finanzas.Agua.Formatos.Formato1.resources" />
+    <EmbeddedResource Include="obj\Debug\SOAPAP.UI.ReportesForms.Finanzas.Agua.Formatos.Formato2.resources" />
+    <EmbeddedResource Include="obj\Debug\SOAPAP.UI.ReportesForms.Finanzas.Agua.Formatos.Formato3.resources" />
+    <EmbeddedResource Include="obj\Debug\SOAPAP.UI.ReportesForms.Finanzas.Ayuntamiento.Formato1.resources" />
+    <EmbeddedResource Include="obj\Debug\SOAPAP.UI.ReportesForms.Finanzas.Ayuntamiento.FormatoH2.resources" />
+    <EmbeddedResource Include="obj\Debug\SOAPAP.UI.ReportesForms.Finanzas.Cedula.resources" />
+    <EmbeddedResource Include="obj\Debug\SOAPAP.UI.ReportesForms.Finanzas.Principal.resources" />
+    <EmbeddedResource Include="obj\Debug\SOAPAP.UI.ReportesForms.RepDebts.resources" />
+    <EmbeddedResource Include="obj\Debug\SOAPAP.UI.ReportesForms.RepDebtsAyunt.resources" />
+    <EmbeddedResource Include="obj\Debug\SOAPAP.UI.ReportesForms.RepIA.resources" />
+    <EmbeddedResource Include="obj\Debug\SOAPAP.UI.ReportesForms.RepIAAyunt.resources" />
+    <EmbeddedResource Include="obj\Debug\SOAPAP.UI.ReportesForms.RepIBC.resources" />
+    <EmbeddedResource Include="obj\Debug\SOAPAP.UI.ReportesForms.RepIbyC.resources" />
+    <EmbeddedResource Include="obj\Debug\SOAPAP.UI.ReportesForms.RepIFB.resources" />
+    <EmbeddedResource Include="obj\Debug\SOAPAP.UI.ReportesForms.RepINA.resources" />
+    <EmbeddedResource Include="obj\Debug\SOAPAP.UI.ReportesForms.RepINAAyunt.resources" />
+    <EmbeddedResource Include="obj\Debug\SOAPAP.UI.ReportesForms.RepIOT.resources" />
+    <EmbeddedResource Include="obj\Debug\SOAPAP.UI.ReportesForms.RepOrders.resources" />
+    <EmbeddedResource Include="obj\Debug\SOAPAP.UI.ReportesForms.RepPadronWater.resources" />
+    <EmbeddedResource Include="obj\Debug\SOAPAP.UI.ReportesForms.RepTaxpayer.resources" />
+    <EmbeddedResource Include="obj\Debug\SOAPAP.UI.ReportesMenu.resources" />
+    <EmbeddedResource Include="obj\Debug\SOAPAP.UI.SearchUser.resources" />
+    <EmbeddedResource Include="obj\Debug\SOAPAP.UI.Splash.resources" />
+    <EmbeddedResource Include="obj\Debug\SOAPAP.UI.Visualizador.Preview.resources" />
+    <EmbeddedResource Include="obj\Debug\SOAPAP.viewdetails.resources" />
     <EmbeddedResource Include="PopAnticipo.resx">
       <DependentUpon>PopAnticipo.cs</DependentUpon>
     </EmbeddedResource>
@@ -1004,8 +1035,8 @@
     <EmbeddedResource Include="UI\FactPasada\DescargarFacturas.resx">
       <DependentUpon>DescargarFacturas.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\Messages\msgSolicitudCancelacion.resx">
-      <DependentUpon>msgSolicitudCancelacion.cs</DependentUpon>
+    <EmbeddedResource Include="UI\FacturacionAnticipada\PagosAnualesAyuntamiento.resx">
+      <DependentUpon>PagosAnualesAyuntamiento.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\ReportesForms\Finanzas\Agua\Formatos\Formato2.resx">
       <DependentUpon>Formato2.cs</DependentUpon>
@@ -1115,7 +1146,16 @@
     <EmbeddedResource Include="UI\ReportesForms\Finanzas\Agua\Formatos\Formato3.resx">
       <DependentUpon>Formato3.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\ReportesForms\Finanzas\Agua\Principal.resx">
+    <EmbeddedResource Include="UI\ReportesForms\Finanzas\Ayuntamiento\Cedula.resx">
+      <DependentUpon>Cedula.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\ReportesForms\Finanzas\Ayuntamiento\Formato1.resx">
+      <DependentUpon>Formato1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\ReportesForms\Finanzas\Ayuntamiento\FormatoH2.resx">
+      <DependentUpon>FormatoH2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\ReportesForms\Finanzas\Principal.resx">
       <DependentUpon>Principal.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\ReportesForms\RepDebts.resx">
@@ -1281,6 +1321,11 @@
     <None Include="DataSet1.xss">
       <DependentUpon>DataSet1.xsd</DependentUpon>
     </None>
+    <None Include="obj\Debug\DesignTimeResolveAssemblyReferences.cache" />
+    <None Include="obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
+    <None Include="obj\Debug\SISCOM.exe.config" />
+    <None Include="obj\Debug\SOAPAP.csproj.GenerateResource.cache" />
+    <None Include="obj\Debug\SOAPAP.csproj.ResolveComReference.cache" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
@@ -1380,6 +1425,14 @@
     <None Include="Resources\warnning.png" />
     <None Include="Resources\cerrar-over.png" />
     <None Include="Resources\config.png" />
+    <Content Include="obj\Debug\AxInterop.RDPCOMAPILib.dll" />
+    <Content Include="obj\Debug\Interop.RDPCOMAPILib.dll" />
+    <Content Include="obj\Debug\siscom.exe.licenses" />
+    <Content Include="obj\Debug\SOAPAP.csproj.FileListAbsolute.txt" />
+    <Content Include="obj\Debug\TempPE\Connected Services.WSCFDI33.Reference.cs.dll" />
+    <Content Include="obj\Debug\TempPE\Connected Services.WsIntegral33Pruebas.Reference.cs.dll" />
+    <Content Include="obj\Debug\TempPE\DataSet1.Designer.cs.dll" />
+    <Content Include="obj\Debug\TempPE\Properties.Resources.Designer.cs.dll" />
     <Content Include="OutputTem\ayuntamiento.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -1487,152 +1540,152 @@
   <ItemGroup>
     <PublishFile Include="CrystalDecisions.ReportAppServer.ClientDoc">
       <Visible>False</Visible>
-      <PublishState>Include</PublishState>
-      <IncludeHash>True</IncludeHash>
       <Group>
       </Group>
       <TargetPath>
       </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
       <FileType>Assembly</FileType>
     </PublishFile>
     <PublishFile Include="CrystalDecisions.ReportAppServer.CommLayer">
       <Visible>False</Visible>
-      <PublishState>Include</PublishState>
-      <IncludeHash>True</IncludeHash>
       <Group>
       </Group>
       <TargetPath>
       </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
       <FileType>Assembly</FileType>
     </PublishFile>
     <PublishFile Include="CrystalDecisions.ReportAppServer.CommonControls">
       <Visible>False</Visible>
-      <PublishState>Include</PublishState>
-      <IncludeHash>True</IncludeHash>
       <Group>
       </Group>
       <TargetPath>
       </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
       <FileType>Assembly</FileType>
     </PublishFile>
     <PublishFile Include="CrystalDecisions.ReportAppServer.CommonObjectModel">
       <Visible>False</Visible>
-      <PublishState>Include</PublishState>
-      <IncludeHash>True</IncludeHash>
       <Group>
       </Group>
       <TargetPath>
       </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
       <FileType>Assembly</FileType>
     </PublishFile>
     <PublishFile Include="CrystalDecisions.ReportAppServer.Controllers">
       <Visible>False</Visible>
-      <PublishState>Include</PublishState>
-      <IncludeHash>True</IncludeHash>
       <Group>
       </Group>
       <TargetPath>
       </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
       <FileType>Assembly</FileType>
     </PublishFile>
     <PublishFile Include="CrystalDecisions.ReportAppServer.CubeDefModel">
       <Visible>False</Visible>
-      <PublishState>Include</PublishState>
-      <IncludeHash>True</IncludeHash>
       <Group>
       </Group>
       <TargetPath>
       </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
       <FileType>Assembly</FileType>
     </PublishFile>
     <PublishFile Include="CrystalDecisions.ReportAppServer.DataDefModel">
       <Visible>False</Visible>
-      <PublishState>Include</PublishState>
-      <IncludeHash>True</IncludeHash>
       <Group>
       </Group>
       <TargetPath>
       </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
       <FileType>Assembly</FileType>
     </PublishFile>
     <PublishFile Include="CrystalDecisions.ReportAppServer.DataSetConversion">
       <Visible>False</Visible>
-      <PublishState>Include</PublishState>
-      <IncludeHash>True</IncludeHash>
       <Group>
       </Group>
       <TargetPath>
       </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
       <FileType>Assembly</FileType>
     </PublishFile>
     <PublishFile Include="CrystalDecisions.ReportAppServer.ObjectFactory">
       <Visible>False</Visible>
-      <PublishState>Include</PublishState>
-      <IncludeHash>True</IncludeHash>
       <Group>
       </Group>
       <TargetPath>
       </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
       <FileType>Assembly</FileType>
     </PublishFile>
     <PublishFile Include="CrystalDecisions.ReportAppServer.Prompting">
       <Visible>False</Visible>
-      <PublishState>Include</PublishState>
-      <IncludeHash>True</IncludeHash>
       <Group>
       </Group>
       <TargetPath>
       </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
       <FileType>Assembly</FileType>
     </PublishFile>
     <PublishFile Include="CrystalDecisions.ReportAppServer.ReportDefModel">
       <Visible>False</Visible>
-      <PublishState>Include</PublishState>
-      <IncludeHash>True</IncludeHash>
       <Group>
       </Group>
       <TargetPath>
       </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
       <FileType>Assembly</FileType>
     </PublishFile>
     <PublishFile Include="CrystalDecisions.ReportAppServer.XmlSerialize">
       <Visible>False</Visible>
-      <PublishState>Include</PublishState>
-      <IncludeHash>True</IncludeHash>
       <Group>
       </Group>
       <TargetPath>
       </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
       <FileType>Assembly</FileType>
     </PublishFile>
     <PublishFile Include="cubo-ConvertImage %282%29.ico">
       <Visible>False</Visible>
-      <PublishState>Include</PublishState>
-      <IncludeHash>True</IncludeHash>
       <Group>
       </Group>
       <TargetPath>
       </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
       <FileType>File</FileType>
     </PublishFile>
     <PublishFile Include="es\Humanizer.resources">
       <Visible>False</Visible>
-      <PublishState>Include</PublishState>
-      <IncludeHash>True</IncludeHash>
       <Group>
       </Group>
       <TargetPath>
       </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
       <FileType>Satellite</FileType>
     </PublishFile>
     <PublishFile Include="log4net">
       <Visible>False</Visible>
-      <PublishState>Include</PublishState>
-      <IncludeHash>True</IncludeHash>
       <Group>
       </Group>
       <TargetPath>
       </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
       <FileType>Assembly</FileType>
     </PublishFile>
   </ItemGroup>

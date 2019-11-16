@@ -66,6 +66,7 @@ namespace SOAPAP.UI.FacturacionAnticipada
             dataGridViewServicios.Columns[0].Name = "Servicio";
             dataGridViewServicios.Columns[1].Name = "Precio";
             dataGridViewServicios.Columns[2].Name = "Meses a pagar";
+
             dataGridViewServicios.Columns[3].Name = "Total";
             dataGridViewServicios.Columns[4].Name = "Iva";
 
@@ -97,6 +98,7 @@ namespace SOAPAP.UI.FacturacionAnticipada
 
                 decimal ivaParcial = 0;
                 decimal ivat = 0;
+                decimal totalDescuent = 0;
                 decimal totalMeses = Convert.ToDecimal(MesIFin - (MesInicio - 1));
                 foreach (var rowArray in data)
                 {
@@ -111,6 +113,12 @@ namespace SOAPAP.UI.FacturacionAnticipada
                     {
                         total += Convert.ToDecimal(rowArray["amount"].ToString()) * totalMeses;
                     }
+
+                    if (Variables.Configuration.Anual)
+                    {
+                        
+                        totalDescuent = totalDescuent + ((Convert.ToDecimal(rowArray["amount"].ToString()) * Variables.Configuration.Descuento / 100) * totalMeses);
+                    }
                     dataGridViewServicios.Rows.Add(new string[] { rowArray["name_concept"].ToString(), rowArray["amount"].ToString(), totalMeses.ToString(), (totalMeses * Convert.ToDecimal(rowArray["amount"].ToString())).ToString(), ivaParcial.ToString() });
 
                 }
@@ -120,8 +128,12 @@ namespace SOAPAP.UI.FacturacionAnticipada
                 {
                     paelAnual.Visible = true;
                     lblSubtotal.Text = total.ToString();
-                    lblDescuento.Text = Math.Round((total * Variables.Configuration.Descuento / 100), 2).ToString();
-                    total = total - (total * Variables.Configuration.Descuento / 100);
+                    lblDescuento.Text = Math.Round(totalDescuent, 2).ToString();
+                    
+                }
+                if (totalDescuent >0 )
+                {
+                    total = total - totalDescuent;
                 }
                 lblTotal.Text = Math.Round(ivaTotal + total, 2).ToString();
                 lblIva.Text = Math.Round(ivat, 2).ToString();

@@ -104,7 +104,7 @@ namespace SOAPAP.UI.FacturacionAnticipada
                 int year = now.Year;
                 string descuento = "5%";
                 Variables.Configuration.Descuento = 5;
-                Variables.Agreement = null;
+              
            
                 if (now.Month == 12)
                 {
@@ -120,6 +120,8 @@ namespace SOAPAP.UI.FacturacionAnticipada
                 }
 
                 lblDescuento.Text = descuento;
+                lblDescuento.Visible = true;
+                lbldescuentoT.Visible = true;
                 lblYear.Text = year.ToString();
             }
 
@@ -232,21 +234,24 @@ namespace SOAPAP.UI.FacturacionAnticipada
             if (!is_null_error  && jsonResult.ContainsKey("paramsOut")) {
                 is_null_error = is_null_error == true ? is_null_error : !string.IsNullOrEmpty(jsonResult["data"]["paramsOut"][0]["value"].ToString().Trim());
             }
-         
+
 
             if (is_null_error)
             {
                 string error = JsonConvert.DeserializeObject<Error>(results).error;
                 error = !string.IsNullOrEmpty(error) ? error : jsonResult["data"]["paramsOut"][0]["value"].ToString();
-                
+
                 mensaje = new MessageBoxForm("Error", error, TypeIcon.Icon.Cancel);
 
             }
             else
             {
-                 url = string.Format("/api/Agreements/GeneratePagosAnuales/{0}/{1}", Convert.ToInt32(agreement_id), Variables.Configuration.Descuento);
-                 stringContent = new StringContent(JsonConvert.SerializeObject( jsonResult["data"]), Encoding.UTF8, "application/json");
-                 results = await Requests.SendURIAsync(url, HttpMethod.Post, Variables.LoginModel.Token, stringContent);
+                if (Variables.Configuration.Anual)
+                {
+                    url = string.Format("/api/Agreements/GeneratePagosAnuales/{0}/{1}", Convert.ToInt32(agreement_id), Variables.Configuration.Descuento);
+                    stringContent = new StringContent(JsonConvert.SerializeObject(jsonResult["data"]), Encoding.UTF8, "application/json");
+                    results = await Requests.SendURIAsync(url, HttpMethod.Post, Variables.LoginModel.Token, stringContent);
+                }
                 mensaje = new MessageBoxForm("Éxito", jsonResult["message"].ToString(), TypeIcon.Icon.Success);
             }
             
