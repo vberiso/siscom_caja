@@ -31,10 +31,14 @@ namespace SOAPAP
         }
         private void button1_Click(object sender, EventArgs e)
         {
+            if (!Variables.Configuration.IsMunicipal)
+            {
+                Variables.Configuration.Anual = false;
+            }
             PeriodosAnticipados Uiperiodos = new PeriodosAnticipados(Agreement);
             var result = Uiperiodos.ShowDialog(this);
             Uiperiodos.Close();
-            
+          
             this.DialogResult = result;
             this.Close();
             //Variables.anticipo = 2;
