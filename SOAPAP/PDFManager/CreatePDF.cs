@@ -433,7 +433,7 @@ namespace SOAPAP.PDFManager
                 {
                     //Calculo del unit price.
                     decimal tmpSubtotal = 0, tmpValorUnitario = 0, tmpDescuento = 0, tmpQuantity = 0;
-                    if (pd.Debt.DebtDiscounts.ToList().Count > 0)
+                    if (pd.Debt.DebtDiscounts.ToList().Count > 0 && pd.Debt.DebtDiscounts.FirstOrDefault(DDis => DDis.DebtId == pd.DebtId && DDis.CodeConcept == pd.CodeConcept) != null)
                     {
                         tmpQuantity = pd.Debt.DebtDetails.FirstOrDefault(DDis => DDis.DebtId == pd.DebtId && DDis.CodeConcept == pd.CodeConcept).quantity;
                         var OriginalAmount = pd.Debt.DebtDiscounts.FirstOrDefault(DDis => DDis.DebtId == pd.DebtId && DDis.CodeConcept == pd.CodeConcept).OriginalAmount;

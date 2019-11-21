@@ -306,21 +306,25 @@ namespace SOAPAP.UI
                     var Banks = JsonConvert.DeserializeObject<List<SOAPAP.Model.ExternalOriginPayment>>(getBanks).Where(x => x.IsBank && x.IsActive).ToList();
                     Banks.Add(new Model.ExternalOriginPayment
                     {
-                        Id = 0,
-                        Name = "Seleccionar"
+                        Id = 1,
+                        Name = "Defaul"
                     });
                     Banks.OrderBy(x => x.Name);
                     cmbBank.ValueMember = "Id";
                     cmbBank.DisplayMember = "Name";
                     cmbBank.DataSource = Banks;
-                    cmbBank.SelectedIndex = cmbBank.FindString("Seleccionar");
+                    cmbBank.SelectedIndex = cmbBank.FindString("Defaul");
                     loading.Close();
                     pnlOtros.Visible = true;
                     txtTarjetaCheque.Visible = true;
+                    txtTarjetaCheque.Text = "4152111111111111";
                     txtCheque.Visible = false;
+                    txtAuth.Text = "1111122222333334444455555";
                     panel2.Visible = true;
                     lblTCheque.Text = "No. Tarjeta:";
                     lblAuth.Text = "Autorización:";
+
+                    txtTarjetaCheque_Leave(new object(), new EventArgs());
                 }
             }
             else if (name.Contains("mixto"))

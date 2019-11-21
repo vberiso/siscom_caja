@@ -735,12 +735,12 @@ namespace SOAPAP.UI
                                 Variables.Agreement = null;
                             }
 
-                            //Si hay promocion y la cuenta es apta para aplicar promocion.
-                            if (Variables.Agreement != null && Variables.Agreement.Addresses.FirstOrDefault().Suburbs.ApplyAnnualPromotion) 
-                            {
-                                mensaje = new MessageBoxForm("Promoción activa", "La cuenta cumple con los requisitos para participar en la promoción de condonación.", TypeIcon.Icon.Info);
-                                result = mensaje.ShowDialog();                                
-                            }
+                            ////Si hay promocion y la cuenta es apta para aplicar promocion.
+                            //if (Variables.Agreement != null && Variables.Agreement.Addresses.FirstOrDefault().Suburbs.ApplyAnnualPromotion) 
+                            //{
+                            //    mensaje = new MessageBoxForm("Promoción activa", "La cuenta cumple con los requisitos para participar en la promoción de condonación.", TypeIcon.Icon.Info);
+                            //    result = mensaje.ShowDialog();                                
+                            //}
                         }
                         else
                         {
@@ -756,11 +756,7 @@ namespace SOAPAP.UI
                             tableLayoutPanel3.RowStyles[0] = new RowStyle(SizeType.AutoSize);
                             lblTitleCondonation.Text = Variables.Configuration.CondonationCampaings.First().Alias;
                         }
-
-                        //if (!Variables.Configuration.IsMunicipal)
-                        //{
-                        //    Variables.Configuration.Anual = checkApplyAnual(Variables.Agreement);
-                        //}
+                                                
                         //Valida esta activa la campaña añual
                         if (Variables.Configuration.IsMunicipal  && Variables.Configuration.Anual && Variables.Agreement != null )
                         {

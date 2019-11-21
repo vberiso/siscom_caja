@@ -462,7 +462,7 @@
             this.tabTarjeta.Location = new System.Drawing.Point(4, 4);
             this.tabTarjeta.Name = "tabTarjeta";
             this.tabTarjeta.Padding = new System.Windows.Forms.Padding(3);
-            this.tabTarjeta.Size = new System.Drawing.Size(462, 177);
+            this.tabTarjeta.Size = new System.Drawing.Size(462, 176);
             this.tabTarjeta.TabIndex = 1;
             this.tabTarjeta.Text = "Tarjeta";
             // 
@@ -632,7 +632,7 @@
             this.tabCheque.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tabCheque.Location = new System.Drawing.Point(4, 4);
             this.tabCheque.Name = "tabCheque";
-            this.tabCheque.Size = new System.Drawing.Size(462, 177);
+            this.tabCheque.Size = new System.Drawing.Size(462, 176);
             this.tabCheque.TabIndex = 2;
             this.tabCheque.Text = "Cheque";
             // 
@@ -782,7 +782,7 @@
             this.tabTransferencia.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tabTransferencia.Location = new System.Drawing.Point(4, 4);
             this.tabTransferencia.Name = "tabTransferencia";
-            this.tabTransferencia.Size = new System.Drawing.Size(462, 177);
+            this.tabTransferencia.Size = new System.Drawing.Size(462, 176);
             this.tabTransferencia.TabIndex = 3;
             this.tabTransferencia.Text = "Transferencia";
             // 
@@ -807,7 +807,7 @@
             this.panel7.Dock = System.Windows.Forms.DockStyle.Right;
             this.panel7.Location = new System.Drawing.Point(310, 36);
             this.panel7.Name = "panel7";
-            this.panel7.Size = new System.Drawing.Size(150, 139);
+            this.panel7.Size = new System.Drawing.Size(150, 138);
             this.panel7.TabIndex = 9;
             // 
             // txtMixedMontoTransfer
