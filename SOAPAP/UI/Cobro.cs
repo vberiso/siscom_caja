@@ -38,11 +38,17 @@ namespace SOAPAP.UI
         //List<Model.Debt> tmpFiltros = null;
         List<TypeService> TypeServices = new List<TypeService>();
         List<Model.Debt> tmpFiltros = null;
+        bool ApplyMSI = false;
+        decimal descuento = 0;
+      
         List<Model.OrderSale> orders = null;
         Search.Type TypeSearchSelect = Search.Type.Ninguno;
+        private List<int> debtApplyDiscount = new List<int>();
+        private List<int> AllDebtAnnual = new List<int>();
+        
         querys q = new querys();
         bool anual;
-        bool prepaid ;
+        bool prepaid;
         bool orderSale;
         decimal porcentaje = 0;
         public readonly FirebaseClient firebase = new FirebaseClient("https://siscom-notifications.firebaseio.com/");
@@ -71,7 +77,7 @@ namespace SOAPAP.UI
             }
             anual = false;
             prepaid = false;
-            
+
         }
 
 
@@ -96,7 +102,7 @@ namespace SOAPAP.UI
             {
                 //if (Variables.Agreement != null && txtCuenta.Text.Trim() == Variables.Agreement.Account)
                 //    return;
-               
+
                 ObtenerInformacion();
             }
             else
@@ -126,31 +132,31 @@ namespace SOAPAP.UI
             {
                 CollectConcepts temp = (CollectConcepts)((System.Windows.Forms.BindingSource)((System.Windows.Forms.DataGridView)sender).DataSource).Current;
 
-                mensaje = new ModalDetalleCaja("Detalle Conceptos", "", TypeIcon.Icon.Warning,this.dgvConceptosCobro.Rows[e.RowIndex].Cells["Id"].Value.ToString(), TypeSearchSelect, txtCuenta.Text.Trim(), temp.Type);
+                mensaje = new ModalDetalleCaja("Detalle Conceptos", "", TypeIcon.Icon.Warning, this.dgvConceptosCobro.Rows[e.RowIndex].Cells["Id"].Value.ToString(), TypeSearchSelect, txtCuenta.Text.Trim(), temp.Type);
                 result = mensaje.ShowDialog();
             }
         }
 
         private void dgvConceptosCobro_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-             string _cuenta = txtCuenta.Text.Trim();
-                txtCuenta.Text = _cuenta;
+            string _cuenta = txtCuenta.Text.Trim();
+            txtCuenta.Text = _cuenta;
             if (e.RowIndex >= 0)
             {
-                
+
                 decimal subTotal = 0;
                 var source = new BindingSource();
 
                 if (e.ColumnIndex == dgvConceptosCobro.Columns["detail"].Index && e.RowIndex >= 0)
                 {
-                    CollectConcepts temp = (CollectConcepts)((System.Windows.Forms.BindingSource)((System.Windows.Forms.DataGridView)sender).DataSource).Current;                    
-                    
+                    CollectConcepts temp = (CollectConcepts)((System.Windows.Forms.BindingSource)((System.Windows.Forms.DataGridView)sender).DataSource).Current;
+
                     mensaje = new ModalDetalleCaja("Detalle Conceptos", "", TypeIcon.Icon.Warning, this.dgvConceptosCobro.Rows[e.RowIndex].Cells["Id"].Value.ToString(), TypeSearchSelect, txtCuenta.Text.Trim(), temp.Type);
                     result = mensaje.ShowDialog();
                 }
                 if (this.dgvConceptosCobro.Columns[e.ColumnIndex].Name == "Select")
                 {
-                    if(Variables.Agreement.TypeStateServiceId == 1)
+                    if (Variables.Agreement.TypeStateServiceId == 1)
                     {
                         DataGridViewCheckBoxCell cell = this.dgvConceptosCobro.CurrentCell as DataGridViewCheckBoxCell;
                         bool seleccionado = false;
@@ -215,13 +221,13 @@ namespace SOAPAP.UI
                         });
                         //Se calculan los montos
                         tmpFiltros = (from d in Variables.Agreement.Debts
-                                        where lCollectConcepts.Where(x => x.Select == true).Select(x => x.Id).ToList().Contains(d.Id)
-                                        select d).ToList();
+                                      where lCollectConcepts.Where(x => x.Select == true).Select(x => x.Id).ToList().Contains(d.Id)
+                                      select d).ToList();
                         subTotal = tmpFiltros != null ? tmpFiltros.Sum(x => (x.Amount - x.OnAccount)) : 0;
                         lblSubtotal.Text = string.Format(new CultureInfo("es-MX"), "{0:C2}", subTotal);
                         CalculateAmounts(tmpFiltros);
                         btnCobrar.Enabled = Variables.Agreement.Debts.Count > 0 & subTotal == 0 ? false : true;
-                        
+
                         source.DataSource = lCollectConcepts ?? new List<CollectConcepts>();
                         dgvConceptosCobro.DataSource = source;
                     }
@@ -248,7 +254,7 @@ namespace SOAPAP.UI
                     }
                     break;
             }
-                   
+
         }
 
         private void btnCobrar_Click(object sender, EventArgs e)
@@ -328,10 +334,11 @@ namespace SOAPAP.UI
             Seleccion = new List<string>();
             if (cmbTipos.SelectedValue.ToString() == "0")
             {
-                TypeServices.ForEach(x => {
+                TypeServices.ForEach(x =>
+                {
                     Seleccion.Add(x.Id);
                 });
-            }           
+            }
             else
                 Seleccion.Add(cmbTipos.SelectedValue.ToString());
             SeleccionarDeuda(Search.Type.Cuenta);
@@ -399,7 +406,7 @@ namespace SOAPAP.UI
                     }
                     else
                     {
-                        Variables.OrderSale= JsonConvert.DeserializeObject<Model.OrderSale>(resultOrder);
+                        Variables.OrderSale = JsonConvert.DeserializeObject<Model.OrderSale>(resultOrder);
                         if (!string.IsNullOrWhiteSpace(resultOrder))
                         {
 
@@ -420,7 +427,7 @@ namespace SOAPAP.UI
                                                       + ". " + Variables.OrderSale.TaxUser.TaxAddresses.First().Town
                                                       + ". " + Variables.OrderSale.TaxUser.TaxAddresses.First().State;
 
-                                    
+
                                 }
                                 else
                                 {
@@ -478,7 +485,7 @@ namespace SOAPAP.UI
                 {
                     if (Variables.Configuration.DiscountCampaigns.Count > 0)
                     {
-                        gbxCampaign.Visible = accessParam == CashBoxAccess.Access.GenerarOrden? false: true;
+                        gbxCampaign.Visible = accessParam == CashBoxAccess.Access.GenerarOrden ? false : true;
                         //if (!gbxCampaign.Visible)
                         //{
                         //    tableLayoutPanel3.RowStyles[0] = new RowStyle(SizeType.Percent, 0);
@@ -486,12 +493,12 @@ namespace SOAPAP.UI
                         tableLayoutPanel3.RowStyles[0] = new RowStyle(SizeType.AutoSize);
                         lblTitleCampaign.Text = Variables.Configuration.DiscountCampaigns.First().Name;
                     }
-                    
+
                     orderSale = false;
                     TypeSearchSelect = Search.Type.Cuenta;
                     loading = new Loading();
                     loading.Show(this);
-                    var resultAgreement = await Requests.SendURIAsync(string.Format("/api/Agreements/AgreementByAccount/Cash/{0}/{1}", _cuenta, Variables.cuentaID == -1?"": Variables.cuentaID.ToString()), HttpMethod.Get, Variables.LoginModel.Token);
+                    var resultAgreement = await Requests.SendURIAsync(string.Format("/api/Agreements/AgreementByAccount/Cash/{0}/{1}", _cuenta, Variables.cuentaID == -1 ? "" : Variables.cuentaID.ToString()), HttpMethod.Get, Variables.LoginModel.Token);
                     Variables.cuentaID = -1;
                     loading.Close();
                     if (resultAgreement.Contains("error"))
@@ -507,20 +514,20 @@ namespace SOAPAP.UI
                         int count = oLAgreement.Count();
                         if (count <= 1)
                         {
-                            
+
                             Variables.Agreement = count == 1 ? oLAgreement[0] : JsonConvert.DeserializeObject<Model.Agreement>("{}");
                         }
                         else
                         {
-                            
+
                             var OCobroBuscarCuentaSelectOne = new CobroBuscarCuentaSelectOne(oLAgreement);
                             OCobroBuscarCuentaSelectOne.ShowDialog();
                             Variables.Agreement = OCobroBuscarCuentaSelectOne.getAgreement();
 
                         }
-                     
-                        
-                        if (Variables.Configuration.IsMunicipal && Variables.Agreement.AgreementDetails.Count() >0)
+
+
+                        if (Variables.Configuration.IsMunicipal && Variables.Agreement.AgreementDetails.Count() > 0)
                         {
                             tableLayoutPanel3.Size = new Size(344, 478);
                             tableLayoutPanel3.RowStyles[tableLayoutPanel3.RowCount - 1] = new RowStyle(SizeType.Percent, 31.03f);
@@ -536,7 +543,7 @@ namespace SOAPAP.UI
                             lblTipoPredioEncabezado.Text = Variables.Agreement.TypeIntake != null ? Variables.Agreement.TypeIntake.Name : "";
                         }
                         if (!string.IsNullOrWhiteSpace(resultAgreement))
-                        {                           
+                        {
                             //Cliente
                             if (Variables.Agreement.Clients != null && Variables.Agreement.Clients.Count > 0)
                             {
@@ -560,7 +567,7 @@ namespace SOAPAP.UI
                             //Dirección
                             if (Variables.Agreement.Addresses != null && Variables.Agreement.Addresses.Count > 0)
                             {
-                                
+
                                 var address = Variables.Agreement.Addresses.Where(c => c.TypeAddress == "DIR01" && c.IsActive == true).First();
                                 lblDireccionF.Text = address.Street
                                                   + " NO." + address.Outdoor
@@ -595,12 +602,12 @@ namespace SOAPAP.UI
                             //Avalúo
                             if (Variables.Configuration.IsMunicipal)
                             {
-                                if (Variables.Agreement.AgreementDetails != null && Variables.Agreement.AgreementDetails.Count>0)
+                                if (Variables.Agreement.AgreementDetails != null && Variables.Agreement.AgreementDetails.Count > 0)
                                 {
                                     int _idetail = Variables.Agreement.AgreementDetails.Max(x => x.Id);
                                     var _detail = Variables.Agreement.AgreementDetails.SingleOrDefault(x => x.Id == _idetail);
                                     var _fechaActualizacion = _detail.LastUpdate;
-                                    if (_detail.LastUpdate< DateTime.UtcNow.ToLocalTime().AddYears(-4))
+                                    if (_detail.LastUpdate < DateTime.UtcNow.ToLocalTime().AddYears(-4))
                                     {
                                         mensaje = new MessageBoxForm("Actualización", "Debe Actualizar Avalúo", TypeIcon.Icon.Warning);
                                         result = mensaje.ShowDialog();
@@ -608,9 +615,9 @@ namespace SOAPAP.UI
                                 }
                             }
 
-                            
+
                             if (Variables.Agreement.TypeStateServiceId == 1 || Variables.Agreement.TypeStateServiceId == 3)
-                            {                                
+                            {
                                 //Aviso previo a corte de servicio
                                 var resultadoAgreement = await Requests.SendURIAsync(string.Format("/api/OrderWork/FromAccount/{0}", Variables.Agreement.Account), HttpMethod.Get, Variables.LoginModel.Token);
                                 if (resultadoAgreement.Contains("error") || string.IsNullOrEmpty(resultadoAgreement))
@@ -670,7 +677,7 @@ namespace SOAPAP.UI
                                     Variables.Agreement.Debts = JsonConvert.DeserializeObject<List<Model.Debt>>(resultDeb);
                                     draw_Observaciones(Variables.Agreement.AgreementComments.ToList());
                                     if (Variables.Agreement.Debts != null && Variables.Agreement.Debts.Count > 0)
-                                    {                                        
+                                    {
                                         ObtenerSeleccion();
                                         descuentosToolStripMenuItem.Enabled = true;
                                     }
@@ -681,7 +688,7 @@ namespace SOAPAP.UI
 
                                         if (!Variables.Configuration.IsMunicipal)
                                         {
-                                            
+
                                             //Si es convenio no debe decirle que puede dar pagos anticipados
                                             if (Variables.Agreement.PartialPayments != null && Variables.Agreement.PartialPayments.Count > 0)
                                             {
@@ -718,7 +725,7 @@ namespace SOAPAP.UI
                                             if (Anticipo.ShowDialog() == DialogResult.OK)
                                             {
                                                 ObtenerInformacion();
-                                                
+
                                             }
                                         }
 
@@ -729,7 +736,7 @@ namespace SOAPAP.UI
                             else
                             {
                                 descuentosToolStripMenuItem.Enabled = false;
-                                string msg = "La cuenta proporcionada " + (Variables.Agreement.TypeStateService != null? "está: " + Variables.Agreement.TypeStateService.Name:"No existe");
+                                string msg = "La cuenta proporcionada " + (Variables.Agreement.TypeStateService != null ? "está: " + Variables.Agreement.TypeStateService.Name : "No existe");
                                 mensaje = new MessageBoxForm("Error", msg, TypeIcon.Icon.Cancel);
                                 result = mensaje.ShowDialog();
                                 Variables.Agreement = null;
@@ -750,18 +757,18 @@ namespace SOAPAP.UI
                         }
 
                         //Valida si hay campañas de descuentos adicionales.
-                        if (Variables.Agreement != null &&  Variables.Configuration.CondonationCampaings.Count > 0 && Variables.Agreement.Addresses.FirstOrDefault().Suburbs.ApplyAnnualPromotion == true)
+                        if (Variables.Agreement != null && Variables.Configuration.CondonationCampaings.Count > 0 && Variables.Agreement.Addresses.FirstOrDefault().Suburbs.ApplyAnnualPromotion == true)
                         {
                             gbxCondonacion.Visible = accessParam == CashBoxAccess.Access.GenerarOrden ? false : true;
                             tableLayoutPanel3.RowStyles[0] = new RowStyle(SizeType.AutoSize);
                             lblTitleCondonation.Text = Variables.Configuration.CondonationCampaings.First().Alias;
                         }
-                                                
+
                         //Valida esta activa la campaña añual
-                        if (Variables.Configuration.IsMunicipal  && Variables.Configuration.Anual && Variables.Agreement != null )
+                        if (Variables.Configuration.IsMunicipal && Variables.Configuration.Anual && Variables.Agreement != null)
                         {
                             gbxAnual.Visible = true;
-                            tableLayoutPanel3.RowStyles[0] = new RowStyle(SizeType.AutoSize);                            
+                            tableLayoutPanel3.RowStyles[0] = new RowStyle(SizeType.AutoSize);
                         }
                     }
                 }
@@ -789,7 +796,8 @@ namespace SOAPAP.UI
                 Description = "Todos"
             });
 
-            TypeServices.ForEach( x=> {
+            TypeServices.ForEach(x =>
+            {
                 Seleccion.Add(x.Id);
             });
 
@@ -802,10 +810,10 @@ namespace SOAPAP.UI
         }
         private bool checkApplyAnual(Model.Agreement agreement)
         {
-            var date  = DateTime.Now;
-            
+            var date = DateTime.Now;
+
             //Variables.Agreement = null;
-            if (date.Month != 12  && date.Month != 1 && date.Month != 2) // &&)
+            if (date.Month != 12 && date.Month != 1 && date.Month != 2) // &&)
             {
                 return false;
             }
@@ -819,7 +827,7 @@ namespace SOAPAP.UI
             //    return false;
             //}
 
-            
+
             return true;
 
         }
@@ -846,7 +854,7 @@ namespace SOAPAP.UI
                                             }).ToList();
                         subTotal = lCollectConcepts != null ? lCollectConcepts.Sum(x => x.Amount) : 0;
                         lblSubtotal.Text = string.Format(new CultureInfo("es-MX"), "{0:C2}", subTotal);
-                        CalculateAmounts(tmpFiltros);                       
+                        CalculateAmounts(tmpFiltros);
                     }
                     break;
 
@@ -859,13 +867,13 @@ namespace SOAPAP.UI
                         orders.Add(Variables.OrderSale);
 
                         lCollectConcepts.Add(new CollectConcepts
-                                               {
-                                                   Id = Variables.OrderSale.Id,
-                                                   Select = true,
-                                                   Type = Variables.OrderSale.DescriptionType,
-                                                   Description = Variables.OrderSale.DateOrder.Date.ToString("dd-MM-yyyy"),
-                                                   Amount = Variables.OrderSale.Amount - Variables.OrderSale.OnAccount
-                                               });
+                        {
+                            Id = Variables.OrderSale.Id,
+                            Select = true,
+                            Type = Variables.OrderSale.DescriptionType,
+                            Description = Variables.OrderSale.DateOrder.Date.ToString("dd-MM-yyyy"),
+                            Amount = Variables.OrderSale.Amount - Variables.OrderSale.OnAccount
+                        });
                         subTotal = lCollectConcepts != null ? lCollectConcepts.Sum(x => x.Amount) : 0;
                         lblSubtotal.Text = string.Format(new CultureInfo("es-MX"), "{0:C2}", subTotal);
                         CalculateAmounts(orders);
@@ -876,29 +884,87 @@ namespace SOAPAP.UI
             source.DataSource = lCollectConcepts ?? new List<CollectConcepts>();
             dgvConceptosCobro.DataSource = source;
         }
-
-        private void CalculateAmounts(List<Model.Debt> pDebts)
+        private async Task CheckDebtIsAnnual(List<int> debtId )
         {
+            Variables.Configuration.Descuento = 5;
+
+            if (DateTime.Now.Month == 12)
+            {
+
+
+                Variables.Configuration.Descuento = 10;
+
+            }
+            var agreementDiscount = Variables.Agreement.AgreementDiscounts.Where(xx => xx.IsActive).FirstOrDefault();
+            if (agreementDiscount != null)
+            {
+
+
+                Variables.Configuration.Descuento = 50;
+            }
+
+
+            var content = new StringContent(JsonConvert.SerializeObject(debtId), Encoding.UTF8, "application/json");
+            var result =  await Requests.SendURIAsync(string.Format("/api/Debts/GetDiscountAnnual/" + Variables.Configuration.Descuento), HttpMethod.Post, Variables.LoginModel.Token, content);
+            if (!result.Contains("error"))
+            {
+                
+                var resultO = JObject.Parse(result);
+                debtApplyDiscount = JsonConvert.DeserializeObject<List<int>>(JsonConvert.SerializeObject(resultO["ids"]));
+                AllDebtAnnual = JsonConvert.DeserializeObject<List<int>>(JsonConvert.SerializeObject(resultO["allDebtAnnual"]));
+                descuento =decimal.Parse(resultO["descuento"].ToString());
+                ApplyMSI= bool.Parse(resultO["applyMSI"].ToString());
+               
+                 
+
+
+            }
+            
+        }
+        private async void CalculateAmounts(List<Model.Debt> pDebts)
+        {
+            loading = new Loading();
+            loading.Show(this);
+
             decimal IVA = 0;
+            descuento = 0;
+            
             decimal subTotal = Convert.ToDecimal((System.Text.RegularExpressions.Regex.Replace(lblSubtotal.Text, @"[^\d.]", "")));
             decimal redondeo = 0;
             decimal total = 0;
             //Get IVA
-            pDebts.ToList().ForEach(x =>
+           
+            if ((DateTime.Now.Month == 12 || DateTime.Now.Month == 1 || DateTime.Now.Month == 2))
             {
+
+
+
+               await CheckDebtIsAnnual(pDebts.Select(x =>x.Id).ToList());
+
+
+               
+            }
+
+            foreach (var x in pDebts)
+            {
+                bool isAnnual = false;
                 //IVA = IVA + x.DebtDetails.Where(t => t.HaveTax == true).Sum(y => (((y.Amount - y.OnAccount) * Convert.ToDecimal(Variables.Configuration.IVA)) / 100));
+             
                 x.DebtDetails.ToList().ForEach(y =>
-                {
-                    if(y.HaveTax)
-                        IVA = IVA + (Math.Round(((y.Amount - y.OnAccount) * Convert.ToDecimal(Variables.Configuration.IVA)) / 100 , 2));
-                });
-            });
+              {
+                  if (y.HaveTax)
+                      IVA = IVA + (Math.Round(((y.Amount - y.OnAccount) * Convert.ToDecimal(Variables.Configuration.IVA)) / 100, 2));
+                  
+
+              });
+
+            }
             subTotal = subTotal + IVA;
             redondeo = Math.Ceiling(subTotal) - subTotal;
             //Quitar para efectuar redondeo
             redondeo = 0;
             total = subTotal + redondeo;
-            if(total > 0)
+            if (total > 0)
             {
                 btnCobrar.Enabled = true;
             }
@@ -906,8 +972,17 @@ namespace SOAPAP.UI
             lblIva.Text = string.Format(new CultureInfo("es-MX"), "{0:C2}", IVA);
             lblRedondeo.Text = string.Format(new CultureInfo("es-MX"), "{0:C2}", redondeo);
             lblTotal.Text = string.Format(new CultureInfo("es-MX"), "{0:C2}", total);
-            txtTotal.Text = string.Format(new CultureInfo("es-MX"), "{0:C2}", total).Replace("$", "").Replace(",","");
-
+            if (descuento > 0)
+            {
+                lblDescuentoT.Visible = true;
+                lblDescuentoT.Text = "Por promoción anual se aplico un descuento de " + string.Format(new CultureInfo("es-MX"), "{0:C2}", (total * Variables.Configuration.Descuento) / (100 - Variables.Configuration.Descuento)) + " Pesos.\nNo aplica para pagos con targeta de credito a MSI";
+            }
+            else
+            {
+                lblDescuentoT.Visible = false;
+            }
+            txtTotal.Text = string.Format(new CultureInfo("es-MX"), "{0:C2}", total).Replace("$", "").Replace(",", "");
+            loading.Close();
         }
 
         private void CalculateAmounts(List<Model.OrderSale> pOrderSale)
@@ -947,7 +1022,7 @@ namespace SOAPAP.UI
         private void Calculate(List<Model.Debt> debts)
         {
             List<Model.Debt> tempDebt = new List<Model.Debt>(debts);
-           
+
             decimal PorPagar = 0;
             decimal TotalIva = 0;
             decimal TotalSinIva = 0;
@@ -962,7 +1037,7 @@ namespace SOAPAP.UI
                 PorPagar = (x.Amount - x.OnAccount) + (x.DebtDetails.Any(z => z.HaveTax) ? Convert.ToDecimal(x.DebtDetails.Where(z => z.HaveTax).Sum(z => ((z.Amount - z.OnAccount) * 16) / 100).ToString("#.##")) : 0);
                 if (PorPagar <= totalDisponible && totalDisponible != 0)
                 {
-        
+
                 }
                 else if (totalDisponible != 0 && totalDisponible > 0)
                 {
@@ -1033,14 +1108,14 @@ namespace SOAPAP.UI
             });
 
         }
-        
+
         private void SendPayment()
         {
             decimal total = Convert.ToDecimal((System.Text.RegularExpressions.Regex.Replace(lblTotal.Text, @"[^\d.]", "")));
             decimal amount = Convert.ToDecimal(txtTotal.Text);
             if (orderSale)
             {
-                
+
                 txtTotal.Text = txtTotal.Text.Trim();
                 if (string.IsNullOrWhiteSpace(txtTotal.Text))
                 {
@@ -1048,7 +1123,7 @@ namespace SOAPAP.UI
                     mensaje.ShowDialog();
                     txtTotal.Text = lblTotal.Text.Replace("$", "").Replace(",", "");
                 }
-                else if (Convert.ToDecimal(lblTotal.Text.Replace("$","").Replace(",","")) > Convert.ToDecimal(txtTotal.Text))
+                else if (Convert.ToDecimal(lblTotal.Text.Replace("$", "").Replace(",", "")) > Convert.ToDecimal(txtTotal.Text))
                 {
                     mensaje = new MessageBoxForm(Variables.titleprincipal, "El monto capturado esta no es valido para el cobro del producto favor de verificar", TypeIcon.Icon.Cancel);
                     mensaje.ShowDialog();
@@ -1076,7 +1151,7 @@ namespace SOAPAP.UI
             }
             else
             {
-                
+
                 if (string.IsNullOrWhiteSpace(txtTotal.Text))
                 {
                     mensaje = new MessageBoxForm(Variables.titleprincipal, "El monto capturado esta no es valido", TypeIcon.Icon.Cancel);
@@ -1135,15 +1210,15 @@ namespace SOAPAP.UI
                             {
                                 PaymentModal();
                             }
-                        }                        
+                        }
                     }
                     else
                     {
                         PaymentModal();
-                    }                                       
+                    }
                 }
             }
-           
+
         }
 
         public void PaymentModal()
@@ -1159,8 +1234,9 @@ namespace SOAPAP.UI
                 decimal rounding = Convert.ToDecimal((System.Text.RegularExpressions.Regex.Replace(lblRedondeo.Text, @"[^\d.]", "")));
                 decimal total = Convert.ToDecimal((System.Text.RegularExpressions.Regex.Replace(lblTotal.Text, @"[^\d.]", "")));
                 string Padron = lblContibuyente.Text;
-                
+
                 ModalDetalleCobro Cobro = new ModalDetalleCobro(amount, tax, rounding, paidUp, total, tmpFiltros, Padron, porcentaje, anual, prepaid, CorreoCliente);
+                Cobro.SetIsMSI(ApplyMSI, descuento, debtApplyDiscount);
 
                 Cobro.ShowDialog(this);
                 ObtenerInformacion();
@@ -1193,7 +1269,7 @@ namespace SOAPAP.UI
                     else
                     {
                         List<Adeudos> m = JsonConvert.DeserializeObject<List<Adeudos>>(resultado);
-                        if(!m.Any(x => x.name_concept.Contains("Descuento")))
+                        if (!m.Any(x => x.name_concept.Contains("Descuento")))
                         {
                             amoutn = m.Sum(s => s.amount);
                         }
@@ -1282,9 +1358,9 @@ namespace SOAPAP.UI
                     source.DataSource = lCollectConcepts ?? new List<CollectConcepts>();
                     dgvConceptosCobro.DataSource = source;
                 }
-                
+
             }
-            if(txtTotal.Text.Trim() == "")
+            if (txtTotal.Text.Trim() == "")
             {
                 txtTotal.Text = "";
             }
@@ -1300,7 +1376,10 @@ namespace SOAPAP.UI
             }
             else
             {
-                RequestDiscount discount = new RequestDiscount(amount, tmpFiltros);
+               
+                tmpFiltros = tmpFiltros.Where(x => !AllDebtAnnual.Contains(x.Id)).ToList();
+                var ammo = tmpFiltros.Count == 0? 0: amount;
+                RequestDiscount discount = new RequestDiscount(ammo, tmpFiltros);
                 discount.ShowDialog(this);
             }
 
@@ -1326,8 +1405,8 @@ namespace SOAPAP.UI
         //Button Campaign Recharges
         private async void BtnAcept_Click(object sender, EventArgs e)
         {
-            
-            
+
+
         }
 
         private async void BtnAcept_Click_1(object sender, EventArgs e)
@@ -1389,20 +1468,20 @@ namespace SOAPAP.UI
             Observaciones.ForEach(x =>
             {
                 datadescripcion.Rows.Add(x.DateIn.ToString(), x.Observation, x.UserName);
-               // datadescripcion.Rows[0].
+                // datadescripcion.Rows[0].
             });
-            
+
         }
-        private void removeColumns(DataGridViewRowCollection  rows)
+        private void removeColumns(DataGridViewRowCollection rows)
         {
             while (rows.Count > 1)
             {
 
-                datadescripcion.Rows.Remove(rows[rows.Count-2]);
+                datadescripcion.Rows.Remove(rows[rows.Count - 2]);
             }
             var countRows = rows.Count - 1;
-            
-           
+
+
         }
         private void btnCobrar_Click_1(object sender, EventArgs e)
         {
@@ -1418,8 +1497,8 @@ namespace SOAPAP.UI
         {
             loading = new Loading();
             loading.Show(this);
-          
-            var resultCampaign = await Requests.SendURIAsync(string.Format("/api/CondonationCampaing/{0}/{1}", Variables.Agreement.Id,Variables.Configuration.CondonationCampaings.FirstOrDefault().Id), HttpMethod.Post, Variables.LoginModel.Token);
+
+            var resultCampaign = await Requests.SendURIAsync(string.Format("/api/CondonationCampaing/{0}/{1}", Variables.Agreement.Id, Variables.Configuration.CondonationCampaings.FirstOrDefault().Id), HttpMethod.Post, Variables.LoginModel.Token);
             if (resultCampaign.Contains("error"))
             {
                 try
@@ -1437,7 +1516,7 @@ namespace SOAPAP.UI
             }
             else
             {
-                
+
                 mensaje = new MessageBoxForm(Variables.titleprincipal, "La condonación de recargos se ha realizado con exito", TypeIcon.Icon.Success);
                 result = mensaje.ShowDialog();
                 loading.Close();
@@ -1447,8 +1526,10 @@ namespace SOAPAP.UI
 
         private void btnAnual_Click(object sender, EventArgs e)
         {
-            if (Variables.Agreement != null) {
-                if (Variables.Configuration.IsMunicipal) {
+            if (Variables.Agreement != null)
+            {
+                if (Variables.Configuration.IsMunicipal)
+                {
                     var Uiperiodos = new PagosAnualesAyuntamiento(Variables.Agreement);
 
 
@@ -1465,11 +1546,17 @@ namespace SOAPAP.UI
                 }
             }
 
-          
+
+        }
+
+        private async void lblDescuentoT_Click(object sender, EventArgs e)
+        {
+
         }
     }
 
-    public partial class CollectConcepts {
+    public partial class CollectConcepts
+    {
         public int Id { get; set; }
         public bool Select { get; set; }
         public string Type { get; set; }

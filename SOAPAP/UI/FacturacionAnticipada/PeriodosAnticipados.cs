@@ -25,6 +25,7 @@ namespace SOAPAP.UI.FacturacionAnticipada
         private RequestsAPI Requests = null;
         private int mesFin;
         private bool IsAnual;
+        int CurrentDescuento = 0;
         private Model.Agreement Agreement;
         private int mesInicio;
         private string UrlBase = Properties.Settings.Default.URL;
@@ -83,13 +84,19 @@ namespace SOAPAP.UI.FacturacionAnticipada
                 comboMesInicio.ValueMember = "keyString";
                 comboMesInicio.DisplayMember = "value";
                 comboMesInicio.DataSource = lstMeses;
-                comboMesInicio.SelectedIndex = 0;
+           
 
                 //mes fin
                 comboMesFin2.ValueMember = "keyString";
                 comboMesFin2.DisplayMember = "value";
                 comboMesFin2.DataSource = lstMesesF;
-                comboMesFin2.SelectedIndex = 0;
+                if (lstMeses.Count > 0)
+                {
+                    comboMesInicio.SelectedIndex = 0;
+
+                    comboMesFin2.SelectedIndex = 0;
+                }
+               
                 lblYear.Text = now.Year.ToString();
             }
             else
@@ -99,24 +106,30 @@ namespace SOAPAP.UI.FacturacionAnticipada
                 label1.Visible = false;
                 lblTitle.Visible = false;
                 label2.Text = "Pago anual";
-               
+                checkPaymentTarget.Visible = true;
+
+
                 lblTextAnual.Visible = true;
                 int year = now.Year;
                 string descuento = "5%";
                 Variables.Configuration.Descuento = 5;
-              
-           
+                CurrentDescuento = 5;
+
+
+
                 if (now.Month == 12)
                 {
                     Variables.Configuration.Descuento = 10;
                     descuento = "10%";
                     year = year+1;
+                    CurrentDescuento = 10;
                 }
                 var agreementDiscount = Agreement.AgreementDiscounts.Where(x => x.IsActive).FirstOrDefault();
                 if (agreementDiscount != null)
                 {
                     Variables.Configuration.Descuento = 50;
                     descuento = "50%";
+                    CurrentDescuento = 50;
                 }
 
                 lblDescuento.Text = descuento;
@@ -194,17 +207,21 @@ namespace SOAPAP.UI.FacturacionAnticipada
 
         private bool checkMeses()
         {
-             mesFin = Convert.ToInt32(((DataComboBox)comboMesFin2.SelectedItem).keyString);
-             mesInicio = Convert.ToInt32(((DataComboBox)comboMesInicio.SelectedItem).keyString);
-            return !(mesFin < mesInicio);
+            if (comboMesFin2.SelectedItem != null && comboMesInicio.SelectedItem != null) {
+                mesFin = Convert.ToInt32(((DataComboBox)comboMesFin2.SelectedItem).keyString);
+                mesInicio = Convert.ToInt32(((DataComboBox)comboMesInicio.SelectedItem).keyString);
+                return !(mesFin < mesInicio);
+            }
+            return false;
 
         }
 
 
         private async void generarFacturaAdelantada()
         {
+            loading = new Loading();
+            loading.Show(this);
 
-            
             int mesFin =12;
             int mesInicio = 1;
             int year = Convert.ToInt32(lblYear.Text);
@@ -217,11 +234,11 @@ namespace SOAPAP.UI.FacturacionAnticipada
             DateTime current = DateTime.Now;
             if (current.Month == 1)
             {
-                mesInicio = 2;
+                mesInicio = 1;
             }
             if (current.Month == 2)
             {
-                mesInicio = 3;
+                mesInicio = 1;
             }
             
 
@@ -235,7 +252,7 @@ namespace SOAPAP.UI.FacturacionAnticipada
                 is_null_error = is_null_error == true ? is_null_error : !string.IsNullOrEmpty(jsonResult["data"]["paramsOut"][0]["value"].ToString().Trim());
             }
 
-
+            loading.Close();
             if (is_null_error)
             {
                 string error = JsonConvert.DeserializeObject<Error>(results).error;
@@ -248,7 +265,7 @@ namespace SOAPAP.UI.FacturacionAnticipada
             {
                 if (Variables.Configuration.Anual)
                 {
-                    url = string.Format("/api/Agreements/GeneratePagosAnuales/{0}/{1}", Convert.ToInt32(agreement_id), Variables.Configuration.Descuento);
+                    url = string.Format("/api/Agreements/GeneratePagosAnuales/{0}/{1}/{2}/{3}", Convert.ToInt32(agreement_id), Variables.Configuration.Descuento,Variables.LoginModel.FullName, Variables.LoginModel.User);
                     stringContent = new StringContent(JsonConvert.SerializeObject(jsonResult["data"]), Encoding.UTF8, "application/json");
                     results = await Requests.SendURIAsync(url, HttpMethod.Post, Variables.LoginModel.Token, stringContent);
                 }
@@ -272,6 +289,19 @@ namespace SOAPAP.UI.FacturacionAnticipada
             this.Close();
             this.DialogResult = DialogResult.Cancel;
 
+        }
+
+        private void checkPaymentTarget_Click(object sender, EventArgs e)
+        {
+            if (checkPaymentTarget.Checked)
+            {
+                Variables.Configuration.Descuento = 0;
+            }
+            else
+            {
+                Variables.Configuration.Descuento = CurrentDescuento;
+            }
+            lblMSI.Visible = checkPaymentTarget.Checked;
         }
     }
 

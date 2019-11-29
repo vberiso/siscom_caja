@@ -36,6 +36,8 @@
             this.btnSimular = new System.Windows.Forms.Button();
             this.btnGenerar = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.lblMSI = new System.Windows.Forms.Label();
+            this.checkPaymentTarget = new System.Windows.Forms.CheckBox();
             this.lblDescuento = new System.Windows.Forms.Label();
             this.lbldescuentoT = new System.Windows.Forms.Label();
             this.lblTextAnual = new System.Windows.Forms.Label();
@@ -127,6 +129,8 @@
             // panel2
             // 
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel2.Controls.Add(this.lblMSI);
+            this.panel2.Controls.Add(this.checkPaymentTarget);
             this.panel2.Controls.Add(this.lblDescuento);
             this.panel2.Controls.Add(this.lbldescuentoT);
             this.panel2.Controls.Add(this.lblTextAnual);
@@ -146,6 +150,28 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(363, 391);
             this.panel2.TabIndex = 5;
+            // 
+            // lblMSI
+            // 
+            this.lblMSI.ForeColor = System.Drawing.Color.Brown;
+            this.lblMSI.Location = new System.Drawing.Point(158, 185);
+            this.lblMSI.Name = "lblMSI";
+            this.lblMSI.Size = new System.Drawing.Size(183, 40);
+            this.lblMSI.TabIndex = 23;
+            this.lblMSI.Text = "Con la promoción a MSI \r\nel descuento no aplica.\r\n\r\n";
+            this.lblMSI.Visible = false;
+            // 
+            // checkPaymentTarget
+            // 
+            this.checkPaymentTarget.AutoSize = true;
+            this.checkPaymentTarget.Location = new System.Drawing.Point(28, 199);
+            this.checkPaymentTarget.Name = "checkPaymentTarget";
+            this.checkPaymentTarget.Size = new System.Drawing.Size(124, 23);
+            this.checkPaymentTarget.TabIndex = 22;
+            this.checkPaymentTarget.Text = "Promoción MSI";
+            this.checkPaymentTarget.UseVisualStyleBackColor = true;
+            this.checkPaymentTarget.Visible = false;
+            this.checkPaymentTarget.Click += new System.EventHandler(this.checkPaymentTarget_Click);
             // 
             // lblDescuento
             // 
@@ -186,7 +212,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft YaHei UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(18, 207);
+            this.label4.Location = new System.Drawing.Point(18, 225);
             this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(156, 26);
@@ -195,7 +221,7 @@
             // 
             // textDescripcion
             // 
-            this.textDescripcion.Location = new System.Drawing.Point(17, 242);
+            this.textDescripcion.Location = new System.Drawing.Point(17, 254);
             this.textDescripcion.Multiline = true;
             this.textDescripcion.Name = "textDescripcion";
             this.textDescripcion.Size = new System.Drawing.Size(341, 88);
@@ -217,6 +243,7 @@
             // 
             // comboMesFin2
             // 
+            this.comboMesFin2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboMesFin2.FormattingEnabled = true;
             this.comboMesFin2.Location = new System.Drawing.Point(181, 112);
             this.comboMesFin2.Name = "comboMesFin2";
@@ -227,7 +254,7 @@
             // 
             this.lblYear.AutoSize = true;
             this.lblYear.Font = new System.Drawing.Font("Microsoft YaHei UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblYear.Location = new System.Drawing.Point(86, 174);
+            this.lblYear.Location = new System.Drawing.Point(86, 172);
             this.lblYear.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblYear.Name = "lblYear";
             this.lblYear.Size = new System.Drawing.Size(41, 21);
@@ -238,7 +265,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft YaHei UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(23, 171);
+            this.label3.Location = new System.Drawing.Point(23, 169);
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(55, 26);
@@ -247,6 +274,7 @@
             // 
             // comboMesInicio
             // 
+            this.comboMesInicio.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboMesInicio.FormattingEnabled = true;
             this.comboMesInicio.Location = new System.Drawing.Point(28, 112);
             this.comboMesInicio.Name = "comboMesInicio";
@@ -306,5 +334,7 @@
         private System.Windows.Forms.Label lblDescuento;
         private System.Windows.Forms.Label lbldescuentoT;
         private System.Windows.Forms.Label lblYear;
+        private System.Windows.Forms.CheckBox checkPaymentTarget;
+        private System.Windows.Forms.Label lblMSI;
     }
 }

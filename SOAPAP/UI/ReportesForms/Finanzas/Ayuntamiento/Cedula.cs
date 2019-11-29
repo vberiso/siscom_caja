@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace SOAPAP.UI.ReportesForms.Finanzas
+namespace SOAPAP.UI.ReportesForms.Finanzas.Ayuntamiento
 {
     public partial class Cedula : Form
     {

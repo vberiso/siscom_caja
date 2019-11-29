@@ -53,6 +53,8 @@
             this.txtMixedEfectivo = new System.Windows.Forms.TextBox();
             this.lblMixedRecibido = new System.Windows.Forms.Label();
             this.tabTarjeta = new System.Windows.Forms.TabPage();
+            this.comboMSI = new System.Windows.Forms.ComboBox();
+            this.checkPromocion = new System.Windows.Forms.CheckBox();
             this.btnCleanCard = new System.Windows.Forms.Button();
             this.panel6 = new System.Windows.Forms.Panel();
             this.lblMixedTypeElectron = new System.Windows.Forms.Label();
@@ -119,6 +121,8 @@
             this.label7 = new System.Windows.Forms.Label();
             this.pnlOtros = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.checkBoxPromocion2 = new System.Windows.Forms.CheckBox();
+            this.comboPromocionMSI2 = new System.Windows.Forms.ComboBox();
             this.panel2 = new System.Windows.Forms.Panel();
             this.lblTypeElectron = new System.Windows.Forms.Label();
             this.lblTotPagar = new System.Windows.Forms.Label();
@@ -447,6 +451,8 @@
             // tabTarjeta
             // 
             this.tabTarjeta.BackColor = System.Drawing.Color.White;
+            this.tabTarjeta.Controls.Add(this.comboMSI);
+            this.tabTarjeta.Controls.Add(this.checkPromocion);
             this.tabTarjeta.Controls.Add(this.btnCleanCard);
             this.tabTarjeta.Controls.Add(this.panel6);
             this.tabTarjeta.Controls.Add(this.txtMixedMontoTarjeta);
@@ -465,6 +471,30 @@
             this.tabTarjeta.Size = new System.Drawing.Size(462, 176);
             this.tabTarjeta.TabIndex = 1;
             this.tabTarjeta.Text = "Tarjeta";
+            // 
+            // comboMSI
+            // 
+            this.comboMSI.FormattingEnabled = true;
+            this.comboMSI.Items.AddRange(new object[] {
+            "3 MSI,",
+            "6 MSI,",
+            "9 MSI"});
+            this.comboMSI.Location = new System.Drawing.Point(117, 160);
+            this.comboMSI.Name = "comboMSI";
+            this.comboMSI.Size = new System.Drawing.Size(121, 21);
+            this.comboMSI.TabIndex = 41;
+            this.comboMSI.Visible = false;
+            // 
+            // checkPromocion
+            // 
+            this.checkPromocion.AutoSize = true;
+            this.checkPromocion.Location = new System.Drawing.Point(10, 160);
+            this.checkPromocion.Name = "checkPromocion";
+            this.checkPromocion.Size = new System.Drawing.Size(76, 17);
+            this.checkPromocion.TabIndex = 40;
+            this.checkPromocion.Text = "Promoción";
+            this.checkPromocion.UseVisualStyleBackColor = true;
+            this.checkPromocion.Click += new System.EventHandler(this.checkPromocion_Click);
             // 
             // btnCleanCard
             // 
@@ -523,7 +553,7 @@
             // txtMixedNumeroTarjeta
             // 
             this.txtMixedNumeroTarjeta.Font = new System.Drawing.Font("Microsoft YaHei UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtMixedNumeroTarjeta.Location = new System.Drawing.Point(231, 68);
+            this.txtMixedNumeroTarjeta.Location = new System.Drawing.Point(231, 71);
             this.txtMixedNumeroTarjeta.MaxLength = 20;
             this.txtMixedNumeroTarjeta.Name = "txtMixedNumeroTarjeta";
             this.txtMixedNumeroTarjeta.Size = new System.Drawing.Size(213, 24);
@@ -632,7 +662,7 @@
             this.tabCheque.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tabCheque.Location = new System.Drawing.Point(4, 4);
             this.tabCheque.Name = "tabCheque";
-            this.tabCheque.Size = new System.Drawing.Size(462, 176);
+            this.tabCheque.Size = new System.Drawing.Size(462, 177);
             this.tabCheque.TabIndex = 2;
             this.tabCheque.Text = "Cheque";
             // 
@@ -782,7 +812,7 @@
             this.tabTransferencia.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tabTransferencia.Location = new System.Drawing.Point(4, 4);
             this.tabTransferencia.Name = "tabTransferencia";
-            this.tabTransferencia.Size = new System.Drawing.Size(462, 176);
+            this.tabTransferencia.Size = new System.Drawing.Size(462, 177);
             this.tabTransferencia.TabIndex = 3;
             this.tabTransferencia.Text = "Transferencia";
             // 
@@ -807,7 +837,7 @@
             this.panel7.Dock = System.Windows.Forms.DockStyle.Right;
             this.panel7.Location = new System.Drawing.Point(310, 36);
             this.panel7.Name = "panel7";
-            this.panel7.Size = new System.Drawing.Size(150, 138);
+            this.panel7.Size = new System.Drawing.Size(150, 139);
             this.panel7.TabIndex = 9;
             // 
             // txtMixedMontoTransfer
@@ -1165,6 +1195,8 @@
             // 
             // panel3
             // 
+            this.panel3.Controls.Add(this.checkBoxPromocion2);
+            this.panel3.Controls.Add(this.comboPromocionMSI2);
             this.panel3.Controls.Add(this.panel2);
             this.panel3.Controls.Add(this.lblTotPagar);
             this.panel3.Controls.Add(this.pnlTotalOtros);
@@ -1180,6 +1212,27 @@
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(470, 215);
             this.panel3.TabIndex = 1;
+            // 
+            // checkBoxPromocion2
+            // 
+            this.checkBoxPromocion2.AutoSize = true;
+            this.checkBoxPromocion2.Location = new System.Drawing.Point(20, 170);
+            this.checkBoxPromocion2.Name = "checkBoxPromocion2";
+            this.checkBoxPromocion2.Size = new System.Drawing.Size(85, 20);
+            this.checkBoxPromocion2.TabIndex = 42;
+            this.checkBoxPromocion2.Text = "Promoción";
+            this.checkBoxPromocion2.UseVisualStyleBackColor = true;
+            this.checkBoxPromocion2.Click += new System.EventHandler(this.checkBoxPromocion2_Click);
+            // 
+            // comboPromocionMSI2
+            // 
+            this.comboPromocionMSI2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboPromocionMSI2.FormattingEnabled = true;
+            this.comboPromocionMSI2.Location = new System.Drawing.Point(150, 170);
+            this.comboPromocionMSI2.Name = "comboPromocionMSI2";
+            this.comboPromocionMSI2.Size = new System.Drawing.Size(121, 24);
+            this.comboPromocionMSI2.TabIndex = 43;
+            this.comboPromocionMSI2.Visible = false;
             // 
             // panel2
             // 
@@ -1541,5 +1594,9 @@
         private System.Windows.Forms.Label lblMensajeCorreo;
         public System.Windows.Forms.TextBox tbxCorreo;
         public System.Windows.Forms.CheckBox chbxEnviarCorreo;
+        private System.Windows.Forms.CheckBox checkPromocion;
+        private System.Windows.Forms.ComboBox comboMSI;
+        private System.Windows.Forms.CheckBox checkBoxPromocion2;
+        private System.Windows.Forms.ComboBox comboPromocionMSI2;
     }
 }

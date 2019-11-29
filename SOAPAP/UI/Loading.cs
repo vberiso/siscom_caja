@@ -20,15 +20,29 @@ namespace SOAPAP.UI
 
         private void Loading_FormClosed(object sender, FormClosedEventArgs e)
         {
-            Form Return = (Form)this.Owner;
+            try
+            {
+                Form Return = (Form)this.Owner;
             Return.Enabled = true;
             Return.ShowIcon = false;
+            }
+            catch (Exception ex)
+            {
+
+            }
         }
 
         private void Loading_Load(object sender, EventArgs e)
         {
-            Form Return = (Form)this.Owner;
-            Return.Enabled = false;
+            try
+            {
+                Form Return = (Form)this.Owner;
+                Return.Enabled = false;
+            }
+            catch (Exception ex)
+            {
+
+            }
         }
     }
 }

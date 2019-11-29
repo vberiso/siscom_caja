@@ -29,6 +29,7 @@ using Firebase.Database;
 using Firebase.Database.Query;
 using System.Runtime.InteropServices;
 using SOAPAP.UI.Email;
+using System.Threading.Tasks;
 
 namespace SOAPAP.UI
 {
@@ -41,10 +42,12 @@ namespace SOAPAP.UI
         private bool mixEfectivo = false, mixCheque = false, mixTarjeta = false, mixTransfer = false; 
         private decimal mixAmountEfectivo = 0, mixAmountCheque = 0, mixAmountTarjeta = 0, mixAmountTransfer = 0;
         private int countMixed = 0;
+        private bool applyMSI = false;
         DialogResult result = new DialogResult();
         Form mensaje;
         Form loading;
         private decimal Total { get; set; }
+        private bool isAnual = false;
         private int paymethod = 1;
         private bool validCard = false;
         private bool validCheque = false;
@@ -53,8 +56,10 @@ namespace SOAPAP.UI
         private decimal Rounding { get; set; }
         private decimal PaidUp { get; set; }
         private decimal TotalMixed { get; set; }
+        decimal descuento=0;
         private List<Model.Debt> Debts { get; set; }
         private string Padron { get; set; }
+        private List<int> DebsMSI;
         decimal Porcentaje;
         bool Anual;
         bool Prepaid;
@@ -81,8 +86,19 @@ namespace SOAPAP.UI
             this.Prepaid = Prepaid;
             this.tbxCorreo.Text = CorreoCliente;
         }
-
-        private void ModalDetalleCobro_Load(object sender, EventArgs e)
+        public void SetIsMSI(bool applyMSI, decimal descuento, List<int> DebsMSI)
+        {
+            isAnual = true;
+            this.applyMSI = applyMSI;
+            this.descuento = descuento;
+            this.DebsMSI = DebsMSI;
+            if (applyMSI ==false && descuento == 0)
+            {
+                this.DebsMSI = Debts.Select(x => x.Id).ToList();
+                isAnual = false;
+            }
+        }
+        private  void ModalDetalleCobro_Load(object sender, EventArgs e)
         {
             pnlMixto.Visible = false;
             CargaCombo();
@@ -96,6 +112,52 @@ namespace SOAPAP.UI
             txtEntregado.Focus();
             PdfPrint = new PdfPrint("irDevelopers", "g/4JFMjn6KvKuhWIxC2f7pv7SMPZhNDCiF/m+DtiJywU4rE0KKwoH+XQtyGxBiLg");
             load_items();
+           
+            LoadPromotions();
+           
+
+        }
+        private void resolveFormasPago()
+        {
+            
+            if (applyMSI)
+            {
+                cmbPaymentMethod.SelectedIndex = 3;
+               
+
+
+
+                cmbPaymentMethod_SelectionChangeCommitted(cmbPaymentMethod, null);
+                //this.cmbPaymentMethod.SelectedIndexChanged +=
+                //    new System.EventHandler(cmbPaymentMethod_SelectionChangeCommitted);
+                 cmbPaymentMethod.Enabled = false;
+                checkPromocion.Checked = true;
+                checkPromocion.Visible = true;
+
+                checkBoxPromocion2.Checked = true;
+                checkBoxPromocion2.Visible = true;
+                comboMSI.Visible = true;
+                comboPromocionMSI2.Visible = true;
+                checkBoxPromocion2.Enabled = false;
+            }
+            if (descuento >0)
+            {
+                comboMSI.Visible = false;
+                checkPromocion.Visible = false;
+                checkBoxPromocion2.Visible = false;
+                comboPromocionMSI2.Visible = false;
+                //var newData = JsonConvert.DeserializeObject<List<object>>(JsonConvert.SerializeObject(cmbPaymentMethod.DataSource));
+                //newData.RemoveAt(3);
+
+
+
+                //cmbPaymentMethod.DataSource = newData;
+                //cmbPaymentMethod.SelectedIndex = 0;
+
+
+
+            }
+          
         }
         private void load_items()
         {
@@ -108,6 +170,39 @@ namespace SOAPAP.UI
             cbxUsoCFDI.SelectedIndex = 0;
 
             Usos = "P01 - Por definir";
+        }
+
+        private async void LoadPromotions()
+        {
+            var promotionsS = await Requests.SendURIAsync("/api/Promotions/1", HttpMethod.Get, Variables.LoginModel.Token);
+
+            if (promotionsS.Contains("error"))
+            {
+                return;
+            }
+            var promotion = JsonConvert.DeserializeObject<List<PromotionVM>>(promotionsS);
+            List<DataComboBox> lstPromotions = new List<DataComboBox>();
+
+            promotion.ForEach(x=>
+            {
+                lstPromotions.Add(new DataComboBox() { keyString = x.Id.ToString(), value = x.description });
+               
+
+            });
+           
+           
+            comboMSI.ValueMember = "keyString";
+            comboMSI.DisplayMember = "value";
+            comboMSI.DataSource = lstPromotions;
+            comboMSI.SelectedIndex = 0;
+
+            comboPromocionMSI2.ValueMember = "keyString";
+            comboPromocionMSI2.DisplayMember = "value";
+            comboPromocionMSI2.DataSource = lstPromotions;
+            comboPromocionMSI2.SelectedIndex = 0;
+
+            
+
         }
         private void centraX(Control padre, Control hijo)
         {
@@ -157,6 +252,7 @@ namespace SOAPAP.UI
                 groupBox1.Visible = true;
                 txtEntregado.Focus();
             }
+            resolveFormasPago();
         }
 
         private String MaskedNumber(String source)
@@ -272,60 +368,7 @@ namespace SOAPAP.UI
             }
             else if (name.Contains("tarjeta"))
             {
-                paymethod = 4;
-                pnlEfectivo.Visible = false;
-                pnlOtros.Visible = false;
-                pnlReferencia.Visible = false;
-                pnlMixto.Visible = false;
-                loading = new Loading();
-                loading.Show(this);
-                var getBanks = await Requests.SendURIAsync("/api/ExternalOriginPayments", HttpMethod.Get, Variables.LoginModel.Token);
-                if (getBanks.Contains("error"))
-                {
-                    pnlOtros.Visible = true;
-                    txtTarjetaCheque.Visible = true;
-                    panel2.Visible = true;
-                    txtCheque.Visible = false;
-                    lblTCheque.Text = "No. Tarjeta:";
-                    lblAuth.Text = "Autorización:";
-                    loading.Close();
-                    try
-                    {
-                        mensaje = new MessageBoxForm("Error", JsonConvert.DeserializeObject<Error>(getBanks).error, TypeIcon.Icon.Cancel);
-                        result = mensaje.ShowDialog();
-                        this.Close();
-                    }
-                    catch (Exception)
-                    {
-                        mensaje = new MessageBoxForm("Error", "Servicio no disponible favor de comunicarse con el administrador: -conexion interrumpida-", TypeIcon.Icon.Cancel);
-                        result = mensaje.ShowDialog();
-                    }
-                }
-                else
-                {
-                    var Banks = JsonConvert.DeserializeObject<List<SOAPAP.Model.ExternalOriginPayment>>(getBanks).Where(x => x.IsBank && x.IsActive).ToList();
-                    Banks.Add(new Model.ExternalOriginPayment
-                    {
-                        Id = 1,
-                        Name = "Defaul"
-                    });
-                    Banks.OrderBy(x => x.Name);
-                    cmbBank.ValueMember = "Id";
-                    cmbBank.DisplayMember = "Name";
-                    cmbBank.DataSource = Banks;
-                    cmbBank.SelectedIndex = cmbBank.FindString("Defaul");
-                    loading.Close();
-                    pnlOtros.Visible = true;
-                    txtTarjetaCheque.Visible = true;
-                    txtTarjetaCheque.Text = "4152111111111111";
-                    txtCheque.Visible = false;
-                    txtAuth.Text = "1111122222333334444455555";
-                    panel2.Visible = true;
-                    lblTCheque.Text = "No. Tarjeta:";
-                    lblAuth.Text = "Autorización:";
-
-                    txtTarjetaCheque_Leave(new object(), new EventArgs());
-                }
+                await ShowMethodTarget();
             }
             else if (name.Contains("mixto"))
             {
@@ -376,7 +419,63 @@ namespace SOAPAP.UI
                 }
             }
         }
+        private async Task ShowMethodTarget()
+        {
+            paymethod = 4;
+            pnlEfectivo.Visible = false;
+            pnlOtros.Visible = false;
+            pnlReferencia.Visible = false;
+            pnlMixto.Visible = false;
+            loading = new Loading();
+            loading.Show(this);
+            var getBanks = await Requests.SendURIAsync("/api/ExternalOriginPayments", HttpMethod.Get, Variables.LoginModel.Token);
+            if (getBanks.Contains("error"))
+            {
+                pnlOtros.Visible = true;
+                txtTarjetaCheque.Visible = true;
+                panel2.Visible = true;
+                txtCheque.Visible = false;
+                lblTCheque.Text = "No. Tarjeta:";
+                lblAuth.Text = "Autorización:";
+                loading.Close();
+                try
+                {
+                    mensaje = new MessageBoxForm("Error", JsonConvert.DeserializeObject<Error>(getBanks).error, TypeIcon.Icon.Cancel);
+                    result = mensaje.ShowDialog();
+                    this.Close();
+                }
+                catch (Exception)
+                {
+                    mensaje = new MessageBoxForm("Error", "Servicio no disponible favor de comunicarse con el administrador: -conexion interrumpida-", TypeIcon.Icon.Cancel);
+                    result = mensaje.ShowDialog();
+                }
+            }
+            else
+            {
+                var Banks = JsonConvert.DeserializeObject<List<SOAPAP.Model.ExternalOriginPayment>>(getBanks).Where(x => x.IsBank && x.IsActive).ToList();
+                Banks.Add(new Model.ExternalOriginPayment
+                {
+                    Id = 1,
+                    Name = "Defaul"
+                });
+                Banks.OrderBy(x => x.Name);
+                cmbBank.ValueMember = "Id";
+                cmbBank.DisplayMember = "Name";
+                cmbBank.DataSource = Banks;
+                cmbBank.SelectedIndex = cmbBank.FindString("Defaul");
+                loading.Close();
+                pnlOtros.Visible = true;
+                txtTarjetaCheque.Visible = true;
+                txtTarjetaCheque.Text = "4152111111111111";
+                txtCheque.Visible = false;
+                txtAuth.Text = "1111122222333334444455555";
+                panel2.Visible = true;
+                lblTCheque.Text = "No. Tarjeta:";
+                lblAuth.Text = "Autorización:";
 
+                txtTarjetaCheque_Leave(new object(), new EventArgs());
+            }
+        }
         private void txtTarjetaCheque_Leave(object sender, EventArgs e)
         {
             if ((new Regex(@"^4[0-9]{12}(?:[0-9]{3})?$")).IsMatch(txtTarjetaCheque.Text)) //Visa
@@ -651,6 +750,8 @@ namespace SOAPAP.UI
                             PostTransaction();
                         else
                             PostTransactionOrder();
+
+
                     }
                   
                     break;
@@ -1200,6 +1301,18 @@ namespace SOAPAP.UI
                         loadings.Show(this);
                         Facturaelectronica fs = new Facturaelectronica();
                         fs.setMsgs(tbxMensage.Text, Usos);
+
+                        //Aplicar promocion de meses sin intereses
+                        if (checkBoxPromocion2.Checked)
+                        {
+                           string promotion = ((DataComboBox)comboPromocionMSI2.SelectedItem).keyString;
+                            var content = new StringContent(JsonConvert.SerializeObject(DebsMSI), Encoding.UTF8, "application/json");
+                            //TODO
+                           Requests.SendURIAsync("/api/Promotions/ApplyPromotionDebts/"+ promotion+"/"+ Variables.LoginModel.FullName+"/"+Variables.LoginModel.User, HttpMethod.Post, Variables.LoginModel.Token, content);
+                            
+                        }
+
+
                         xmltimbrado = await fs.generaFactura(Variables.idtransaction.ToString(), "ET001");
                         if (xmltimbrado.Contains("error"))
                         {
@@ -2213,6 +2326,23 @@ namespace SOAPAP.UI
         {
             Usos = ((DataComboBox)cbxUsoCFDI.SelectedItem).keyString + " - " + ((DataComboBox)cbxUsoCFDI.SelectedItem).value;
 
+        }
+
+        private void checkPromocion_Click(object sender, EventArgs e)
+        {
+
+            comboMSI.Visible = checkPromocion.Checked;
+
+            comboPromocionMSI2.Visible = checkBoxPromocion2.Checked;
+
+
+        }
+
+       
+
+        private void checkBoxPromocion2_Click(object sender, EventArgs e)
+        {
+            comboPromocionMSI2.Visible = checkBoxPromocion2.Checked;
         }
 
         private void ValidAmount()

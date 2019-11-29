@@ -350,6 +350,7 @@
     <Compile Include="Model\Product.cs" />
     <Compile Include="Model\ProductParam.cs" />
     <Compile Include="Model\ProductVM.cs" />
+    <Compile Include="Model\PromotionVM.cs" />
     <Compile Include="Model\PushNotification.cs" />
     <Compile Include="Model\ReasonCatalog.cs" />
     <Compile Include="Model\RequiredAttribute.cs" />
@@ -993,7 +994,6 @@
     <EmbeddedResource Include="obj\Debug\SOAPAP.UI.ReportesForms.Finanzas.Agua.Formatos.Formato3.resources" />
     <EmbeddedResource Include="obj\Debug\SOAPAP.UI.ReportesForms.Finanzas.Ayuntamiento.Formato1.resources" />
     <EmbeddedResource Include="obj\Debug\SOAPAP.UI.ReportesForms.Finanzas.Ayuntamiento.FormatoH2.resources" />
-    <EmbeddedResource Include="obj\Debug\SOAPAP.UI.ReportesForms.Finanzas.Cedula.resources" />
     <EmbeddedResource Include="obj\Debug\SOAPAP.UI.ReportesForms.Finanzas.Principal.resources" />
     <EmbeddedResource Include="obj\Debug\SOAPAP.UI.ReportesForms.RepDebts.resources" />
     <EmbeddedResource Include="obj\Debug\SOAPAP.UI.ReportesForms.RepDebtsAyunt.resources" />
