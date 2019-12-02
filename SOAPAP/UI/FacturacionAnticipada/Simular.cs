@@ -116,8 +116,8 @@ namespace SOAPAP.UI.FacturacionAnticipada
 
                     if (Variables.Configuration.Anual)
                     {
-                        
-                        totalDescuent = totalDescuent + ((Convert.ToDecimal(rowArray["amount"].ToString()) * Variables.Configuration.Descuento / 100) * totalMeses);
+                        var des = Variables.Configuration.Descuento == 50 ? 0 : Variables.Configuration.Descuento;
+                        totalDescuent = totalDescuent + ((Convert.ToDecimal(rowArray["amount"].ToString()) *des / 100) * totalMeses);
                     }
                     dataGridViewServicios.Rows.Add(new string[] { rowArray["name_concept"].ToString(), rowArray["amount"].ToString(), totalMeses.ToString(), (totalMeses * Convert.ToDecimal(rowArray["amount"].ToString())).ToString(), ivaParcial.ToString() });
 
@@ -126,15 +126,18 @@ namespace SOAPAP.UI.FacturacionAnticipada
                 ivaTotal = ivaTotal + ivat;
                 if (Variables.Configuration.Anual)
                 {
+                    var Tdes = Variables.Configuration.Descuento == 50 ? total : totalDescuent;
                     paelAnual.Visible = true;
-                    lblSubtotal.Text = total.ToString();
-                    lblDescuento.Text = Math.Round(totalDescuent, 2).ToString();
+                    lblSubtotal.Text = (Variables.Configuration.Descuento == 50 ?  (total * 100 / 50) : total ).ToString();
+                    lblDescuento.Text = Math.Round(Tdes, 2).ToString();
                     
                 }
                 if (totalDescuent >0 )
                 {
                     total = total - totalDescuent;
+                   
                 }
+                //total = Variables.Configuration.Descuento == 50 ? total + (total * 100 / 50) : total;
                 lblTotal.Text = Math.Round(ivaTotal + total, 2).ToString();
                 lblIva.Text = Math.Round(ivat, 2).ToString();
                 loading.Close();
