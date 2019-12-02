@@ -266,7 +266,7 @@ namespace SOAPAP.UI.FacturacionAnticipada
                 if (Variables.Configuration.Anual)
                 {
                     var des = Variables.Configuration.Descuento == 50 ? 0 : Variables.Configuration.Descuento;
-                     url = string.Format("/api/Agreements/GeneratePagosAnuales/{0}/{1}/{2}/{3}", Convert.ToInt32(agreement_id), des, Variables.LoginModel.FullName, Variables.LoginModel.User);
+                     url = string.Format("/api/Agreements/GeneratePagosAnuales/{0}/{1}/{2}/{3}/{4}", Convert.ToInt32(agreement_id), des, Variables.LoginModel.FullName, Variables.LoginModel.User, checkPaymentTarget.Checked);
                     stringContent = new StringContent(JsonConvert.SerializeObject(jsonResult["data"]), Encoding.UTF8, "application/json");
                     results = await Requests.SendURIAsync(url, HttpMethod.Post, Variables.LoginModel.Token, stringContent);
                 }
