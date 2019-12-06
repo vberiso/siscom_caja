@@ -131,6 +131,12 @@ namespace SOAPAP.UI.FacturacionAnticipada
                     descuento = "50%";
                     CurrentDescuento = 50;
                 }
+                if (Agreement.TypeIntakeId == 2 || Agreement.TypeIntakeId == 3 )
+                {
+                    Variables.Configuration.Descuento = 0;
+                    descuento = "0%";
+                    CurrentDescuento = 0;
+                }
 
                 lblDescuento.Text = descuento;
                 lblDescuento.Visible = true;

@@ -102,17 +102,17 @@ namespace SOAPAP.UI.FacturacionAnticipada
                 decimal totalMeses = Convert.ToDecimal(MesIFin - (MesInicio - 1));
                 foreach (var rowArray in data)
                 {
-
+                    ivaParcial = 0;
                     if (Convert.ToBoolean(rowArray["have_tax"]))
                     {
                         ivaTotal += Convert.ToDecimal(rowArray["amount"].ToString()) * totalMeses;
-                        ivaParcial = Math.Round(Convert.ToDecimal(rowArray["amount"].ToString()) * Convert.ToDecimal(Variables.Configuration.IVA) / 100, 2);
+                        ivaParcial = Math.Round(Convert.ToDecimal(rowArray["amount"].ToString()) * Convert.ToDecimal(Variables.Configuration.IVA) / 100, 2) * totalMeses;
                         ivat += ivaParcial;
                     }
-                    else
-                    {
+                  
+                        
                         total += Convert.ToDecimal(rowArray["amount"].ToString()) * totalMeses;
-                    }
+                    
 
                     if (Variables.Configuration.Anual)
                     {
@@ -123,7 +123,7 @@ namespace SOAPAP.UI.FacturacionAnticipada
 
                 }
 
-                ivaTotal = ivaTotal + ivat;
+                ivaTotal =  ivat;
                 if (Variables.Configuration.Anual)
                 {
                     var Tdes = Variables.Configuration.Descuento == 50 ? total : totalDescuent;

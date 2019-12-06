@@ -972,7 +972,7 @@ namespace SOAPAP.UI
             lblIva.Text = string.Format(new CultureInfo("es-MX"), "{0:C2}", IVA);
             lblRedondeo.Text = string.Format(new CultureInfo("es-MX"), "{0:C2}", redondeo);
             lblTotal.Text = string.Format(new CultureInfo("es-MX"), "{0:C2}", total);
-            if (descuento > 0)
+            if (descuento > 0 && (Variables.Agreement.TypeIntakeId != 2   && Variables.Agreement.TypeIntakeId != 3))
             {
                 lblDescuentoT.Visible = true;
                 lblDescuentoT.Text = "Por promoción anual se aplico un descuento de " + string.Format(new CultureInfo("es-MX"), "{0:C2}", (total * Variables.Configuration.Descuento) / (100 - Variables.Configuration.Descuento)) + " Pesos.\nNo aplica para pagos con targeta de credito a MSI";
