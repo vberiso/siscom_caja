@@ -180,6 +180,8 @@ namespace SOAPAP.UI.Descuentos
                     });
                 }
 
+
+
                 StringContent @string = new StringContent(JsonConvert.SerializeObject(discountAuthorization), Encoding.UTF8, "application/json");
                 var resultDiscount= await Requests.UploadImageToServer("/api/DiscountAuthorizations", Variables.LoginModel.Token, FilePath, @string);
                
@@ -339,6 +341,12 @@ namespace SOAPAP.UI.Descuentos
 
         private bool ValidationDiscount()
         {
+            if(Total <= 0)
+            {
+                mensaje = new MessageBoxForm(Variables.titleprincipal, "No se puede aplicar descuento, el total es incorrecto.", TypeIcon.Icon.Cancel);
+                result = mensaje.ShowDialog();
+                return false;
+            }         
             switch (cmbTypeDescount.SelectedIndex)
             {
                 case 1:

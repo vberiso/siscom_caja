@@ -30,6 +30,7 @@ using Item = Facturama.Models.Request.Item;
 using Tax = Facturama.Models.Request.Tax;
 using SOAPAP.UI;
 using SOAPAP.Enums;
+using SOAPAP.FacturadoTimbox;
 
 namespace SOAPAP
 {
@@ -48,13 +49,12 @@ namespace SOAPAP
         //Estas variables permiten administrar si es un administador quien trata de Facturar o actualizar factura.
         public bool isAdministrator { get; set; } = false;
         public string ActualUserId { get; set; }    //Es necesario inicializar esta propiedad, si esta facturando un administrador
-        
 
         public Facturaelectronica()
         {
 
             Requests = new RequestsAPI(UrlBase);
-            facturama = new FacturamaApiMultiemisor("gfdsystems", "gfds1st95", false);
+            facturama = new FacturamaApiMultiemisor("gfdsystems", "gfds1st9");
             //facturama = new FacturamaApiMultiemisor("pruebas", "pruebas2011");
         }
         public void setMsgs(string msgObservacionFactura, string msgUsos)
@@ -63,761 +63,6 @@ namespace SOAPAP
             this.msgUsos = msgUsos;
             showMsgObservacion = false;
         }
-        //Metodo del Vic (con calmita...)
-        public async Task<string> facturar(string idtraccaction, string status, string uuid)
-        {
-            string respuesta = string.Empty;
-            string rutas = string.Empty;
-            string json = string.Empty;
-            int contadordeiva = 0;
-            int contadordeiva1 = 0;
-            bool check = false;
-
-
-
-            var resultado = await Requests.SendURIAsync(string.Format("/api/Transaction/{0}", idtraccaction), HttpMethod.Get, Variables.LoginModel.Token);
-            TransactionVM m = JsonConvert.DeserializeObject<TransactionVM>(resultado);
-
-            var resultados = await Requests.SendURIAsync(string.Format("/api/Agreements/AgreementByAccount/{0}", m.payment.AgreementId), HttpMethod.Get, Variables.LoginModel.Token);
-            Agreement ms = JsonConvert.DeserializeObject<Agreement>(resultados);
-
-            string seriefolio = m.transaction.transactionFolios.FirstOrDefault().folio.ToString();
-            string serie = string.Empty;
-            string folio = string.Empty;
-            string uuids = uuid;
-
-            serie = seriefolio.Substring(0, 1);
-            folio = seriefolio.Replace(serie, "");
-
-            string fecha = DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ss");
-            string xml = "<?xml version=\"1.0\" encoding=\"utf-8\"?><cfdi:Comprobante xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://www.sat.gob.mx/cfd/3 http://www.sat.gob.mx/sitio_internet/cfd/3/cfdv33.xsd\" ";
-            xml = xml + "Version=\"3.3\" Fecha=\"" + fecha + "\" FormaPago=\"" + m.transaction.payMethod.code + "\" SubTotal=\"" + m.transaction.amount + "\" Moneda=\"MXN\" Total=\"" + m.transaction.total + "\" TipoDeComprobante=\"I\" MetodoPago=\"PUE\" LugarExpedicion=\"72700\" Serie=\"" + serie + "\" Folio=\"" + folio + "\" xmlns:cfdi=\"http://www.sat.gob.mx/cfd/3\">";
-
-            if (Variables.Configuration.CFDITest == "Verdadero")
-            {
-                xml = xml + "<cfdi:Emisor Rfc=\"TEST010203001\" Nombre=\"Una razón rh de cv\" RegimenFiscal=\"605\" />";
-                xml = xml + "<cfdi:Receptor Rfc=\"TEST010203001\" Nombre=\"Pepe SA DE CV\" UsoCFDI=\"P01\"/>";
-            }
-            else
-            {
-                xml = xml + "<cfdi:Emisor Rfc=\"" + Variables.Configuration.RFC + "\" Nombre=\"" + Variables.Configuration.LegendRegime + "\" RegimenFiscal=\"603\" />";
-                xml = xml + "<cfdi:Receptor Rfc=\"" + ms.Clients.FirstOrDefault().rfc + "\" Nombre=\"" + ms.Clients.FirstOrDefault().name + " " + ms.Clients.FirstOrDefault().lastName + " " + ms.Clients.FirstOrDefault().secondLastName + " \" UsoCFDI=\"P01\"/>";
-
-            }
-
-
-            xml = xml + "<cfdi:Conceptos>";
-
-            foreach (var pay in m.payment.PaymentDetails)
-            {
-
-                xml = xml + "<cfdi:Concepto ClaveProdServ=\"" + pay.AccountNumber + "\" Cantidad=\"1\" ClaveUnidad=\"" + pay.UnitMeasurement + "\" Unidad=\"Unidad de servicio\"  Descripcion=\"" + pay.Description + "\" ValorUnitario=\"" + pay.Amount + "\" Importe=\"" + pay.Amount + "\">";
-
-                if (pay.HaveTax == true)
-                {
-                    xml = xml + "<cfdi:Impuestos><cfdi:Traslados><cfdi:Traslado Base=\"" + pay.Amount + "\" Impuesto=\"002\" TipoFactor=\"Tasa\" TasaOCuota=\"0.160000\" Importe=\"" + pay.Tax + "\" /></cfdi:Traslados></cfdi:Impuestos>";
-                    xml = xml + "</cfdi:Concepto>";
-                    contadordeiva = contadordeiva + 1;
-                }
-                else
-                {
-                    xml = xml + "</cfdi:Concepto>";
-                }
-            }
-
-            foreach (var pays in m.payment.PaymentDetails)
-            {
-                if (pays.HaveTax == true)
-                {
-                    if (check == false)
-                    {
-                        xml = xml + "</cfdi:Conceptos><cfdi:Impuestos TotalImpuestosTrasladados=\"" + m.transaction.tax + "\"><cfdi:Traslados>";
-                        xml = xml + "<cfdi:Traslado  Impuesto=\"002\" TipoFactor=\"Tasa\" TasaOCuota=\"0.160000\" Importe=\"" + m.transaction.tax + "\" />";
-                        check = true;
-                        contadordeiva1 = contadordeiva1 + 1;
-                    }
-                    else
-                    {
-                        contadordeiva1 = contadordeiva1 + 1;
-                    }
-                }
-            }
-
-            if (contadordeiva == contadordeiva1 && check == true)
-            {
-                xml = xml + "</cfdi:Traslados></cfdi:Impuestos></cfdi:Comprobante>";
-            }
-            else
-            {
-                xml = xml + "</cfdi:Conceptos></cfdi:Comprobante>";
-            }
-
-            string xmlcreado = xml;
-            string xmltimbre = string.Empty;
-
-
-            WsIntegral33Pruebas.WsCFDI33Client n = new WsIntegral33Pruebas.WsCFDI33Client();
-
-            if (status == "ET002")
-            {
-
-                try
-                {
-
-                    String log_txt = "";
-                    if (Variables.Configuration.CFDITest == "Verdadero")
-                    {
-                        log_txt = "C:/CFDI/TES030201001_b64.pem";
-                    }
-                    else
-                    {
-                        log_txt = "C:/CFDI/" + Variables.Configuration.CFDIKeyCancel + "";
-                    }
-
-
-                    var pkcs = System.IO.File.ReadAllText(log_txt);
-                    Thread.Sleep(3000);
-
-
-                    WsIntegral33Pruebas.RespuestaCancelacionV2 detalle = new WsIntegral33Pruebas.RespuestaCancelacionV2();
-                    if (Variables.Configuration.CFDITest == "Verdadero")
-                    {
-                        detalle = n.CancelarCFDIConValidacion("CFDI010233001", "Pruebas1a$", "TES030201001", "267138D4-7E57-7E57-7E57-AD01F16DAC82", pkcs, "12345678a");
-
-                    }
-                    else
-                    {
-                        detalle = n.CancelarCFDIConValidacion(Variables.Configuration.CFDIUser, Variables.Configuration.CFDIPassword, ms.Clients.FirstOrDefault().rfc, uuids, pkcs, Variables.Configuration.CFDICertificado);
-
-                    }
-
-
-                    if (detalle.OperacionExitosa)
-                    {
-
-                        //ET001
-                        //ET002
-
-                        Model.TaxReceipt xMLS = new Model.TaxReceipt();
-                        try
-                        {
-                            xMLS.RFC = ms.Clients.FirstOrDefault(x => x.typeUser == "CLI01").rfc;
-                        }
-                        catch (Exception)
-                        {
-
-                            xMLS.RFC = "XEXX010101000";
-
-                        }
-
-                        xMLS.Status = status;
-                        xMLS.PaymentId = m.payment.Id;
-                        xMLS.TaxReceiptDate = DateTime.Now;
-                        xMLS.Type = "CAT02";
-                        xMLS.Xml = detalle.XMLAcuse;
-                        xMLS.FielXML = uuids;
-                        xMLS.UserId = Variables.Configuration.Terminal.TerminalUsers.FirstOrDefault().UserId;
-                        HttpContent content;
-                        json = JsonConvert.SerializeObject(xMLS);
-                        content = new StringContent(json, Encoding.UTF8, "application/json");
-                        var jsonResponse = await Requests.SendURIAsync("/api/TaxReceipt/", HttpMethod.Post, Variables.LoginModel.Token, content);
-                        m.payment.HaveTaxReceipt = true;
-                        content = new StringContent(JsonConvert.SerializeObject(m.payment), Encoding.UTF8, "application/json");
-                        var updatePayment = await Requests.SendURIAsync(string.Format("/api/Payments/{0}", m.payment.Id), HttpMethod.Put, Variables.LoginModel.Token, content);
-                        respuesta = rutas;
-                        return respuesta;
-
-                    }
-                    else
-                    {
-
-                        respuesta = "error/" + detalle.MensajeError + " " + detalle.MensajeErrorDetallado;
-                        return respuesta;
-
-                    }
-                }
-                catch (Exception)
-                {
-
-                    respuesta = "error/La Facturacion se encuentra fuera de linea";
-                    return respuesta;
-                }
-
-            }
-            else
-            {
-
-                try
-                {
-
-                    Thread.Sleep(3000);
-
-                    WsIntegral33Pruebas.Respuesta respuestas = new WsIntegral33Pruebas.Respuesta();
-
-                    if (Variables.Configuration.CFDITest == "Verdadero")
-                    {
-                        respuestas = n.Sellar("CFDI010233001", "Pruebas1a$", xmlcreado, "", false, 1, "", true);
-
-                    }
-                    else
-                    {
-                        respuestas = n.Sellar(Variables.Configuration.CFDIUser, Variables.Configuration.CFDIPassword, xmlcreado, "", false, 1, "", true);
-                    }
-
-
-
-
-                    if (respuestas.exito)
-                    {
-
-                        //ET001
-                        //ET002
-
-                        Model.TaxReceipt xMLS = new Model.TaxReceipt();
-                        try
-                        {
-                            xMLS.RFC = ms.Clients.FirstOrDefault(x => x.typeUser == "CLI01").rfc;
-                        }
-                        catch (Exception)
-                        {
-
-                            xMLS.RFC = "XEXX010101000";
-
-                        }
-
-                        xMLS.Status = status;
-                        xMLS.PaymentId = m.payment.Id;
-                        xMLS.TaxReceiptDate = DateTime.Now;
-                        xMLS.Type = "CAT01";
-                        xMLS.Xml = respuestas.xmlTimbrado;
-                        xMLS.FielXML = respuestas.uuid;
-                        xMLS.UserId = Variables.Configuration.Terminal.TerminalUsers.FirstOrDefault().UserId;
-                        HttpContent content;
-                        json = JsonConvert.SerializeObject(xMLS);
-
-                        content = new StringContent(json, Encoding.UTF8, "application/json");
-                        var jsonResponse = await Requests.SendURIAsync("/api/TaxReceipt/", HttpMethod.Post, Variables.LoginModel.Token, content);
-
-                        m.payment.HaveTaxReceipt = true;
-                        content = new StringContent(JsonConvert.SerializeObject(m.payment), Encoding.UTF8, "application/json");
-
-                        var updatePayment = await Requests.SendURIAsync(string.Format("/api/Payments/{0}", m.payment.Id), HttpMethod.Put, Variables.LoginModel.Token, content);
-                        String log_txts = AppDomain.CurrentDomain.BaseDirectory;
-                        if (respuestas.pdf != null)
-                        {
-
-                            System.IO.File.WriteAllBytes(log_txts + @"\PDF.pdf", respuestas.pdf);
-                            rutas = log_txts + @"\PDF.pdf";
-
-                        }
-
-                        respuesta = rutas;
-                        return respuesta;
-
-                    }
-                    else
-                    {
-
-                        respuesta = "error/" + respuestas.errorGeneral + " " + respuestas.errorEspecifico;
-                        return respuesta;
-
-                    }
-                }
-                catch (Exception)
-                {
-                    respuesta = "error/La Facturacion se encuentra fuera de linea";
-                    return respuesta;
-                }
-            }
-        }
-
-        // Con Factura inteligente
-        public async Task<string> facturarPago(string idtraccaction, int idDebt, string status, string uuid)
-        {
-            try
-            {
-                string respuesta = string.Empty;
-                string rutas = string.Empty;
-                string json = string.Empty;
-                int contadordeiva = 0;
-                int contadordeiva1 = 0;
-                bool check = false;
-
-                var resultado = await Requests.SendURIAsync(string.Format("/api/Transaction/{0}", idtraccaction), HttpMethod.Get, Variables.LoginModel.Token);
-                TransactionVM m = JsonConvert.DeserializeObject<TransactionVM>(resultado);
-
-                var resultados = await Requests.SendURIAsync(string.Format("/api/Agreements/AgreementByAccount/{0}", m.payment.AgreementId), HttpMethod.Get, Variables.LoginModel.Token);
-                Agreement ms = JsonConvert.DeserializeObject<Agreement>(resultados);
-
-                //Generacion de sello fiscal
-                string origenKEY = "";
-                string origenCER = "";
-                string origenPass = "";
-                if (Variables.Configuration.IsMunicipal)
-                {
-                    origenKEY = "C:\\Pruebas\\FIELayunt\\CSD_Cuautlancingo_MCP850101944_20180501_125624 (1).key";
-                    origenCER = "C:\\Pruebas\\FIELayunt\\00001000000410637078.cer";
-                    origenPass = "Cuau1312";
-                }
-                else
-                {
-                    origenKEY = "C:\\Pruebas\\FIEL\\CSD_SISTEMA_OPERADOR_DE_LOS_SERVICIOS_DE_AGUA_POTABLE_Y_ALCANTARILLA_SOS970808SM7_20190629_115551.key";
-                    origenCER = "C:\\Pruebas\\FIEL\\00001000000412882009.cer";
-                    origenPass = "htepox1978";
-                }
-
-                //Leectura de Cer
-                FIELCertificadeReader fcr = new FIELCertificadeReader();
-                Dictionary<string, string> dataCer = fcr.GetCertificateData(origenCER);
-
-                armaXmlParaCadenaOriginal(m , ms, idDebt, dataCer);
-                string CadenaOriginal = GeneradorCadenas();
-
-                opensslkey libssl = new opensslkey();
-                
-                string SignedString = libssl.SignString(origenKEY, origenPass, CadenaOriginal);
-                string Certificate = "";
-                string CertificateNumber = "";
-                libssl.CertificateData(origenCER, out Certificate, out CertificateNumber);
-                
-                string fecha = DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ss");
-                               
-                string xmlcreado = await armaXML(m, ms, idDebt, dataCer, origenKEY, origenCER, origenPass, CadenaOriginal);
-                string xmltimbre = string.Empty;
-
-                string stringXML = null;
-                try
-                {
-                    XmlDocument doc = new XmlDocument();
-                    doc.LoadXml(xmlcreado);
-                    doc.Save(@"c:\Pruebas\XmlArmado.xml");
-
-                    //doc.Load("C:\\Pruebas\\XmlMau.xml");
-                    stringXML = doc.OuterXml;
-                }
-                catch (Exception ex)
-                {
-
-                }
-                                             
-                //Se instancia el WS de Timbrado.
-                WSCFDI33.WSCFDI33Client ServicioTimbrado = new WSCFDI33.WSCFDI33Client();
-
-                //Se instancia la Respuesta del WS de Timbrado.
-                WSCFDI33.RespuestaTFD33 RespuestaTimbrado = new WSCFDI33.RespuestaTFD33();
-
-                if (status == "ET002")
-                {
-                    //try
-                    //{
-                    //    String log_txt = "";
-                    //    if (Variables.Configuration.CFDITest == "Verdadero")
-                    //    {
-                    //        log_txt = "C:/CFDI/TES030201001_b64.pem";
-                    //    }
-                    //    else
-                    //    {
-                    //        log_txt = "C:/CFDI/" + Variables.Configuration.CFDIKeyCancel + "";
-                    //    }
-
-
-                    //    var pkcs = System.IO.File.ReadAllText(log_txt);
-                    //    Thread.Sleep(3000);
-
-
-                    //    WsIntegral33Pruebas.RespuestaCancelacionV2 detalle = new WsIntegral33Pruebas.RespuestaCancelacionV2();
-                    //    if (Variables.Configuration.CFDITest == "Verdadero")
-                    //    {
-                    //        detalle = n.CancelarCFDIConValidacion("CFDI010233001", "Pruebas1a$", "TES030201001", "267138D4-7E57-7E57-7E57-AD01F16DAC82", pkcs, "12345678a");
-
-                    //    }
-                    //    else
-                    //    {
-                    //        detalle = n.CancelarCFDIConValidacion(Variables.Configuration.CFDIUser, Variables.Configuration.CFDIPassword, ms.Clients.FirstOrDefault().rfc, uuids, pkcs, Variables.Configuration.CFDICertificado);
-
-                    //    }
-
-
-                    //    if (detalle.OperacionExitosa)
-                    //    {
-
-                    //        //ET001
-                    //        //ET002
-
-                    //        Model.TaxReceipt xMLS = new Model.TaxReceipt();
-                    //        try
-                    //        {
-                    //            xMLS.RFC = ms.Clients.FirstOrDefault(x => x.typeUser == "CLI01").rfc;
-                    //        }
-                    //        catch (Exception)
-                    //        {
-
-                    //            xMLS.RFC = "XEXX010101000";
-
-                    //        }
-
-                    //        xMLS.Status = status;
-                    //        xMLS.PaymentId = m.payment.Id;
-                    //        xMLS.TaxReceiptDate = DateTime.Now;
-                    //        xMLS.Type = "CAT02";
-                    //        xMLS.Xml = detalle.XMLAcuse;
-                    //        xMLS.FielXML = uuids;
-                    //        xMLS.UserId = Variables.Configuration.Terminal.TerminalUsers.FirstOrDefault().UserId;
-                    //        HttpContent content;
-                    //        json = JsonConvert.SerializeObject(xMLS);
-                    //        content = new StringContent(json, Encoding.UTF8, "application/json");
-                    //        var jsonResponse = await Requests.SendURIAsync("/api/TaxReceipt/", HttpMethod.Post, Variables.LoginModel.Token, content);
-                    //        m.payment.HaveTaxReceipt = true;
-                    //        content = new StringContent(JsonConvert.SerializeObject(m.payment), Encoding.UTF8, "application/json");
-                    //        var updatePayment = await Requests.SendURIAsync(string.Format("/api/Payments/{0}", m.payment.Id), HttpMethod.Put, Variables.LoginModel.Token, content);
-                    //        respuesta = rutas;
-                    //        return respuesta;
-
-                    //    }
-                    //    else
-                    //    {
-
-                    //        respuesta = "error/" + detalle.MensajeError + " " + detalle.MensajeErrorDetallado;
-                    //        return respuesta;
-
-                    //    }
-                    //}
-                    //catch (Exception)
-                    //{
-
-                    //    respuesta = "error/La Facturacion se encuentra fuera de linea";
-                    //    return respuesta;
-                    //}
-                    return "";
-                }
-                else
-                {
-                    if (Variables.Configuration.CFDITest == "Verdadero")
-                    {
-                        RespuestaTimbrado = ServicioTimbrado.TimbrarCFDI("GFD190307TYA", "Re2PgVBNm&", stringXML, "0001");
-                    }                    
-
-                    if (RespuestaTimbrado.OperacionExitosa == true)
-                    {
-                        Model.TaxReceipt xMLS = new Model.TaxReceipt();
-                        try
-                        {
-                            xMLS.RFC = ms.Clients.FirstOrDefault(x => x.typeUser == "CLI01").rfc;
-                        }
-                        catch (Exception)
-                        {
-                            xMLS.RFC = "XEXX010101000";
-                        }
-
-                        xMLS.Status = status;
-                        xMLS.PaymentId = m.payment.Id;
-                        xMLS.TaxReceiptDate = DateTime.Now;
-                        xMLS.Type = "CAT01";
-                        xMLS.Xml = RespuestaTimbrado.XMLResultado;
-                        xMLS.FielXML = RespuestaTimbrado.Timbre.UUID;
-                        xMLS.UserId = Variables.Configuration.Terminal.TerminalUsers.FirstOrDefault().UserId;
-                        HttpContent content;
-                        json = JsonConvert.SerializeObject(xMLS);
-
-                        content = new StringContent(json, Encoding.UTF8, "application/json");
-                        var jsonResponse = await Requests.SendURIAsync("/api/TaxReceipt/", HttpMethod.Post, Variables.LoginModel.Token, content);
-
-                        m.payment.HaveTaxReceipt = true;
-                        content = new StringContent(JsonConvert.SerializeObject(m.payment), Encoding.UTF8, "application/json");
-
-                        var updatePayment = await Requests.SendURIAsync(string.Format("/api/Payments/{0}", m.payment.Id), HttpMethod.Put, Variables.LoginModel.Token, content);
-                        String log_txts = AppDomain.CurrentDomain.BaseDirectory;
-                        if (RespuestaTimbrado.PDFResultado != null)
-                        {
-                            System.IO.File.WriteAllText(log_txts + @"\PDF.pdf", RespuestaTimbrado.PDFResultado);
-                            //System.IO.File.WriteAllBytes(log_txts + @"\PDF.pdf", RespuestaTimbrado.PDFResultado );
-                            rutas = log_txts + @"\PDF.pdf";
-                        }
-
-                        respuesta = rutas;
-                        return respuesta;
-
-                    }
-                    else
-                    {
-
-                        respuesta = "error/" + RespuestaTimbrado.MensajeError + " // " + RespuestaTimbrado.MensajeErrorDetallado;
-                        return respuesta;
-                    }
-
-                }
-
-
-
-            }
-            catch (Exception ex)
-            {
-                return "error/La Facturacion se encuentra fuera de linea";
-            }
-        }
-        
-        private string GeneradorCadenas()
-        {
-            //Cargar el XML
-            StreamReader reader = new StreamReader(@"C:/Pruebas/XmlPrevio.xml");
-            XPathDocument myXPathDoc = new XPathDocument(reader);
-
-            //Cargando el XSLT
-            XslCompiledTransform myXslTrans = new XslCompiledTransform();
-            myXslTrans.Load(@"../../Conversion/cadenaoriginal_3_3/cadenaoriginal_3_3.xslt");
-
-            StringWriter str = new StringWriter();
-            XmlTextWriter myWriter = new XmlTextWriter(str);
-
-            //Aplicando transformacion
-            myXslTrans.Transform(myXPathDoc, null, myWriter);
-
-            //Resultado
-            string result = str.ToString();
-
-            return result;
-        }
-
-        private async void armaXmlParaCadenaOriginal(TransactionVM TrVM, Agreement Ag, int idDebt, Dictionary<string, string> dataCer)
-        {            
-            string seriefolio = TrVM.transaction.transactionFolios.FirstOrDefault().folio.ToString();
-            string serie = seriefolio.Substring(0, 1);
-            string folio = seriefolio.Replace(serie, "");
-                        
-            //Se Obtienen los descuentos
-            decimal Descuento = 0;
-            if (TrVM.payment.OrderSaleId == 0) //Servicio
-            {
-                Descuento = TrVM.payment.PaymentDetails.Sum(x => x.Debt.DebtDiscounts.Where(y => y.CodeConcept == x.CodeConcept).Select(yy => yy.DiscountAmount).FirstOrDefault());
-            }
-            else                    //Producto
-            {
-                Descuento = TrVM.orderSale.OrderSaleDiscounts.Sum(x => x.DiscountAmount);
-            }
-
-            //se obtiene el metodo de pago
-            string MetodoPago = "PUE"; //PUE(Pago en una sola exhibición), PPD(Pago en parcialidades o diferido)
-            if (TrVM.payment.OrderSaleId == 0) //Servicio
-            {
-                decimal tmpTotalPagado = TrVM.payment.PaymentDetails.Sum(x => x.Amount);
-                decimal tmpTotalDebt = TrVM.payment.PaymentDetails.First().Debt.Amount;
-                MetodoPago = (tmpTotalPagado == tmpTotalDebt ? "PUE" : "PPD");
-            }
-            else                    //Producto
-            {
-                MetodoPago = "PUE";
-            }
-
-            string fecha = DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ss");
-                        
-            //COMIENZA ARMADO DE XML
-            string xml = "<?xml version=\"1.0\" encoding=\"utf-8\"?>";
-
-            //NODO: Comprobante
-            xml = xml + "<cfdi:Comprobante xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://www.sat.gob.mx/cfd/3 http://www.sat.gob.mx/sitio_internet/cfd/3/cfdv33.xsd\" ";
-            xml = xml + "Version=\"3.3\" Serie=\"" + serie + "\" Folio=\"" + folio + "\" " + "Fecha =\"" + fecha + "\" ";           
-            xml = xml + "FormaPago=\"" + TrVM.transaction.payMethod.code + "\" ";
-            xml = xml + "SubTotal=\"" + TrVM.transaction.amount + "\" Descuento=\"" + Descuento + "\" Moneda=\"MXN\" TipoCambio=\"1.0\" ";
-            xml = xml + "Total=\"" + TrVM.transaction.total + "\" TipoDeComprobante=\"I\" ";
-            xml = xml + "MetodoPago=\"" + MetodoPago + "\" ";
-            xml = xml + "LugarExpedicion=\"72700\" xmlns:cfdi=\"http://www.sat.gob.mx/cfd/3\">";
-
-            //Obtengo el primer pago relacionado si lo hay, para relacionarlo a esta pago.
-            if (MetodoPago == "PPD")
-            {
-                var tmplstPayments = await Requests.SendURIAsync(string.Format("api/Payments/fromDebt/{0}", idDebt), HttpMethod.Get, Variables.LoginModel.Token);
-                List<Model.Payment> lstPayments = JsonConvert.DeserializeObject<List<Model.Payment>>(tmplstPayments);
-
-                //remuevo el pago actual.
-                lstPayments.Remove(lstPayments.FirstOrDefault(x => x.TransactionFolio == TrVM.transaction.folio));
-
-                //Busco el primer pago con uuid para relacionarlo al actual
-                string primerUUID = "";
-                foreach (var item in lstPayments)
-                {
-                    if (item.HaveTaxReceipt)
-                    {
-                        var tmpUUID = await Requests.SendURIAsync(string.Format("api/TaxReceipt/UUIDFromTaxReceipt/{0}", item.Id), HttpMethod.Get, Variables.LoginModel.Token);
-                        primerUUID = JsonConvert.DeserializeObject<string>(tmplstPayments);
-                        break;
-                    }
-                }
-
-                //NODO: CfdiRelacionados (Para pagos parciales)
-                xml = xml + "<cfdi:CfdiRelacionados TipoRelacion=\"08\">";
-                xml = xml + "<cfdi:CfdiRelacionado UUID = \"" + primerUUID + "\" />";
-                xml = xml + "</cfdi:CfdiRelacionados>";
-            }
-                       
-            //NODO: Emisor   
-            xml = xml + "<cfdi:Emisor Rfc=\"" + dataCer["Subject"].Split(',')[2].Split('=')[1].Substring(0, 12) + "\" Nombre=\"" + dataCer["Subject"].Split(',')[4].Split('=')[1] + "\" RegimenFiscal=\"601\" />";
-
-
-            //NODO: Receptor
-            if (Ag.Clients != null)
-                xml = xml + "<cfdi:Receptor Rfc=\"" + Ag.Clients.FirstOrDefault().rfc + "\" Nombre=\"" + Ag.Clients.FirstOrDefault().name + " " + Ag.Clients.FirstOrDefault().lastName + " " + Ag.Clients.FirstOrDefault().secondLastName + " \" UsoCFDI=\"P01\"/>";
-            else
-                xml = xml + "<cfdi:Receptor Rfc=\"TEST010203001\" Nombre=\"Pepe SA DE CV\" UsoCFDI=\"P01\"/>";
-            
-
-            //NODO: Conceptos
-            xml = xml + "<cfdi:Conceptos>";
-
-            foreach (var pay in TrVM.payment.PaymentDetails)
-            {
-                xml = xml + "<cfdi:Concepto ClaveProdServ=\"" + pay.AccountNumber + "\" Cantidad=\"1\" ClaveUnidad=\"" + pay.UnitMeasurement + "\" Unidad=\"Unidad de servicio\"  Descripcion=\"" + pay.Description + "\" ValorUnitario=\"" + pay.Amount + "\" Importe=\"" + pay.Amount + "\">";
-
-                if (pay.HaveTax == true)
-                {
-                    xml = xml + "<cfdi:Impuestos><cfdi:Traslados><cfdi:Traslado Base=\"" + pay.Amount + "\" Impuesto=\"002\" TipoFactor=\"Tasa\" TasaOCuota=\"0.160000\" Importe=\"" + pay.Tax + "\" /></cfdi:Traslados></cfdi:Impuestos>";
-                    xml = xml + "</cfdi:Concepto>";                    
-                }
-                else
-                {
-                    xml = xml + "</cfdi:Concepto>";
-                }
-            }
-            xml = xml + "</cfdi:Conceptos>";
-
-            //NODO: Impuestos
-            xml = xml + "<cfdi:Impuestos TotalImpuestosTrasladados =\"" + TrVM.transaction.tax + "\" />";
-
-            xml = xml + "</cfdi:Comprobante>";
-
-            //FIN DEL ARMADO DEL XML
-                        
-            string xmltimbre = string.Empty;
-            string stringXML = null;
-            try
-            {
-                XmlDocument doc = new XmlDocument();
-                doc.LoadXml(xml);
-                doc.Save(@"c:\Pruebas\XmlPrevio.xml");
-                //doc.Load("C:\\Pruebas\\XmlMau.xml");
-                stringXML = doc.OuterXml;
-            }
-            catch (Exception ex)
-            {
-
-            }
-
-        }
-
-        private async Task<string> armaXML(TransactionVM TrVM, Agreement Ag, int idDebt, Dictionary<string, string> dataCer, string origenKey, string OrigenCER, string origenPass, string CadenaOriginal)
-        {
-            string seriefolio = TrVM.transaction.transactionFolios.FirstOrDefault().folio.ToString();
-            string serie = seriefolio.Substring(0, 1);
-            string folio = seriefolio.Replace(serie, "");
-
-            //Se Obtienen los descuentos
-            decimal Descuento = 0;
-            if (TrVM.payment.OrderSaleId == 0) //Servicio
-            {
-                Descuento = TrVM.payment.PaymentDetails.Sum(x => x.Debt.DebtDiscounts.Where(y => y.CodeConcept == x.CodeConcept).Select(yy => yy.DiscountAmount).FirstOrDefault());
-            }
-            else                    //Producto
-            {
-                Descuento = TrVM.orderSale.OrderSaleDiscounts.Sum(x => x.DiscountAmount);
-            }
-
-            //se obtiene el metodo de pago
-            string MetodoPago = "PUE"; //PUE(Pago en una sola exhibición), PPD(Pago en parcialidades o diferido)
-            if (TrVM.payment.OrderSaleId == 0) //Servicio
-            {
-                decimal tmpTotalPagado = TrVM.payment.PaymentDetails.Sum(x => x.Amount);
-                decimal tmpTotalDebt = TrVM.payment.PaymentDetails.First().Debt.Amount;
-                MetodoPago = (tmpTotalPagado == tmpTotalDebt ? "PUE" : "PPD");
-            }
-            else                    //Producto
-            {
-                MetodoPago = "PUE";
-            }
-
-            opensslkey libssl = new opensslkey();
-            string SignedString = libssl.SignString(origenKey, origenPass, CadenaOriginal);
-            string Certificate = "";
-            string CertificateNumber = "";
-            libssl.CertificateData(OrigenCER, out Certificate, out CertificateNumber);
-
-            string fecha = DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ss");
-
-            //COMIENZA ARMADO DE XML
-            string xml = "<?xml version=\"1.0\" encoding=\"utf-8\"?>";
-
-            //NODO: Comprobante
-            xml = xml + "<cfdi:Comprobante xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://www.sat.gob.mx/cfd/3 http://www.sat.gob.mx/sitio_internet/cfd/3/cfdv33.xsd\" ";
-            xml = xml + "Version=\"3.3\" Serie=\"" + serie + "\" Folio=\"" + folio + "\" " + "Fecha =\"" + fecha + "\" ";
-            xml = xml + "Sello=\"" + SignedString + "\" ";
-            xml = xml + "FormaPago=\"" + TrVM.transaction.payMethod.code + "\" NoCertificado=\"" + CertificateNumber + "\" " + " Certificado=\"" + Certificate + "\" ";
-            xml = xml + "SubTotal=\"" + TrVM.transaction.amount + "\" Descuento=\"" + Descuento + "\" Moneda=\"MXN\" TipoCambio=\"1.0\" ";
-            xml = xml + "Total=\"" + TrVM.transaction.total + "\" TipoDeComprobante=\"I\" ";
-            xml = xml + "MetodoPago=\"" + MetodoPago + "\" ";
-            xml = xml + "LugarExpedicion=\"72700\" xmlns:cfdi=\"http://www.sat.gob.mx/cfd/3\">";
-
-            //Obtengo el primer pago relacionado si lo hay, para relacionarlo a esta pago.
-            if (MetodoPago == "PPD")
-            {
-                var tmplstPayments = await Requests.SendURIAsync(string.Format("api/Payments/fromDebt/{0}", idDebt), HttpMethod.Get, Variables.LoginModel.Token);
-                List<Model.Payment> lstPayments = JsonConvert.DeserializeObject<List<Model.Payment>>(tmplstPayments);
-
-                //remuevo el pago actual.
-                lstPayments.Remove(lstPayments.FirstOrDefault(x => x.TransactionFolio == TrVM.transaction.folio));
-
-                //Busco el primer pago con uuid para relacionarlo al actual
-                string primerUUID = "";
-                foreach (var item in lstPayments)
-                {
-                    if (item.HaveTaxReceipt)
-                    {
-                        var tmpUUID = await Requests.SendURIAsync(string.Format("api/TaxReceipt/UUIDFromTaxReceipt/{0}", item.Id), HttpMethod.Get, Variables.LoginModel.Token);
-                        primerUUID = JsonConvert.DeserializeObject<string>(tmplstPayments);
-                        break;
-                    }
-                }
-
-                //NODO: CfdiRelacionados (Para pagos parciales)
-                xml = xml + "<cfdi:CfdiRelacionados TipoRelacion=\"08\">";
-                xml = xml + "<cfdi:CfdiRelacionado UUID = \"" + primerUUID + "\" />";
-                xml = xml + "</cfdi:CfdiRelacionados>";
-            }
-
-            //NODO: Emisor   
-            xml = xml + "<cfdi:Emisor Rfc=\"" + dataCer["Subject"].Split(',')[2].Split('=')[1].Substring(0, 12) + "\" Nombre=\"" + dataCer["Subject"].Split(',')[4].Split('=')[1] + "\" RegimenFiscal=\"601\" />";
-            
-            //NODO: Receptor
-            if (Ag.Clients != null)
-                xml = xml + "<cfdi:Receptor Rfc=\"" + Ag.Clients.FirstOrDefault().rfc + "\" Nombre=\"" + Ag.Clients.FirstOrDefault().name + " " + Ag.Clients.FirstOrDefault().lastName + " " + Ag.Clients.FirstOrDefault().secondLastName + " \" UsoCFDI=\"P01\"/>";
-            else
-                xml = xml + "<cfdi:Receptor Rfc=\"TEST010203001\" Nombre=\"Pepe SA DE CV\" UsoCFDI=\"P01\"/>";
-            
-            //NODO: Conceptos
-            xml = xml + "<cfdi:Conceptos>";
-
-            foreach (var pay in TrVM.payment.PaymentDetails)
-            {
-                xml = xml + "<cfdi:Concepto ClaveProdServ=\"" + pay.AccountNumber + "\" Cantidad=\"1\" ClaveUnidad=\"" + pay.UnitMeasurement + "\" Unidad=\"Unidad de servicio\"  Descripcion=\"" + pay.Description + "\" ValorUnitario=\"" + pay.Amount + "\" Importe=\"" + pay.Amount + "\">";
-
-                if (pay.HaveTax == true)
-                {
-                    xml = xml + "<cfdi:Impuestos><cfdi:Traslados><cfdi:Traslado Base=\"" + pay.Amount + "\" Impuesto=\"002\" TipoFactor=\"Tasa\" TasaOCuota=\"0.160000\" Importe=\"" + pay.Tax + "\" /></cfdi:Traslados></cfdi:Impuestos>";
-                    xml = xml + "</cfdi:Concepto>";                    
-                }
-                else
-                {
-                    xml = xml + "</cfdi:Concepto>";
-                }
-            }
-            xml = xml + "</cfdi:Conceptos>";
-
-            //NODO: Impuestos
-            xml = xml + "<cfdi:Impuestos TotalImpuestosTrasladados =\"" + TrVM.transaction.tax + "\" />";
-
-            xml = xml + "</cfdi:Comprobante>";
-
-            //FIN DEL ARMADO DEL XML
-            return xml;
-        }
-
 
         //con Facturama PRODUCTIVO
         public async Task<string> generaFactura(string idTransaction, string status, string pSerialCajero = "")
@@ -848,21 +93,21 @@ namespace SOAPAP
                     var resulTaxUs = await Requests.SendURIAsync(string.Format("/api/TaxUsers/{0}", TraVM.orderSale.TaxUserId), HttpMethod.Get, Variables.LoginModel.Token);
                     tu = JsonConvert.DeserializeObject<Model.TaxUser>(resulTaxUs);
                 }
-                                
-                
+
+
                 //string registro = RegitraEmisor();
 
 
                 string seriefolio = TraVM.transaction.transactionFolios.FirstOrDefault().folio.ToString();
                 string serie = seriefolio.Substring(0, 1);
                 string folio = seriefolio.Replace(serie, "");
-                
+
                 //Se Obtienen los descuentos
                 decimal Descuento = 0;
                 string CondicionPago = "";
                 if (TraVM.payment.OrderSaleId == 0) //Servicio
                 {
-                    if(TraVM.payment.Type == "PAY04")
+                    if (TraVM.payment.Type == "PAY04")
                     {
                         Descuento = 0;
                         CondicionPago = "Pago Anticipado";
@@ -872,7 +117,7 @@ namespace SOAPAP
                         Descuento = TraVM.payment.PaymentDetails.Sum(x => x.Debt.DebtDiscounts.Where(y => y.CodeConcept == x.CodeConcept).Select(yy => yy.DiscountAmount).FirstOrDefault());
                         //Anexo el periodo de pago (Services)
                         CondicionPago = "Periodo de: " + TraVM.payment.PaymentDetails.Min(p => p.Debt.FromDate).ToString("yyyy-MM-dd") + " hasta: " + TraVM.payment.PaymentDetails.Max(p => p.Debt.UntilDate).ToString("yyyy-MM-dd");
-                    }                    
+                    }
                 }
                 else                    //Producto
                 {
@@ -883,19 +128,19 @@ namespace SOAPAP
 
                 //se obtiene el metodo de pago
                 string MetodoPago = "PUE"; //PUE(Pago en una sola exhibición), PPD(Pago en parcialidades o diferido)
-                //if (TraVM.payment.OrderSaleId == 0) //Servicio
-                //{
-                //    decimal tmpTotalPagado = TraVM.payment.PaymentDetails.Sum(x => x.Amount);
-                //    decimal tmpTotalDebt = TraVM.payment.PaymentDetails.First().Debt.Amount;
-                //    MetodoPago = (tmpTotalPagado == tmpTotalDebt ? "PUE" : "PPD");
-                //}
-                //else                    //Producto
-                //{
-                //    MetodoPago = "PUE";
-                //}
-                
+                                           //if (TraVM.payment.OrderSaleId == 0) //Servicio
+                                           //{
+                                           //    decimal tmpTotalPagado = TraVM.payment.PaymentDetails.Sum(x => x.Amount);
+                                           //    decimal tmpTotalDebt = TraVM.payment.PaymentDetails.First().Debt.Amount;
+                                           //    MetodoPago = (tmpTotalPagado == tmpTotalDebt ? "PUE" : "PPD");
+                                           //}
+                                           //else                    //Producto
+                                           //{
+                                           //    MetodoPago = "PUE";
+                                           //}
+
                 string fecha = DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ss");
-                
+
                 var cfdi = new CfdiMulti
                 {
                     Serie = serie,
@@ -911,8 +156,8 @@ namespace SOAPAP
 
 
                 //Anexo el periodo de pago (Services) o La fecha de espedicion (Orders)
-                
-                               
+
+
                 ////Obtengo el primer pago relacionado con factura si lo hay, para relacionarlo a esta pago.
                 //if (MetodoPago == "PPD")
                 //{                                                                                                        //Recordar que se elimino el compo idDebt
@@ -948,11 +193,11 @@ namespace SOAPAP
                 //        cfdi.Relations = cfdirelations;
                 //    }                    
                 //}
-                               
+
                 //////NODO: Emisor
                 Issuer issuer;
                 if (Variables.Configuration.IsMunicipal)
-                {                   
+                {
                     issuer = new Issuer
                     {
                         FiscalRegime = "603",
@@ -961,7 +206,7 @@ namespace SOAPAP
                     };
                 }
                 else
-                {                  
+                {
                     issuer = new Issuer
                     {
                         FiscalRegime = "601",
@@ -976,16 +221,16 @@ namespace SOAPAP
                 Receiver receptor;
                 if (TraVM.payment.OrderSaleId == 0)
                 {
-                    Client client = ms.Clients?.FirstOrDefault(x => x.typeUser == "CLI01");                    
+                    Client client = ms.Clients?.FirstOrDefault(x => x.typeUser == "CLI01");
                     if (client != null)
                     {
                         receptor = new Receiver
                         {
-                            Rfc = client.rfc,
+                            Rfc = string.IsNullOrEmpty(client.rfc) ? "XAXX010101000" : client.rfc,
                             Name = client.name + " " + client.lastName + " " + client.secondLastName,
                             CfdiUse = "P01"
                         };
-                        msgCorreo = string.IsNullOrEmpty(client.eMail) ? "": client.eMail;
+                        msgCorreo = string.IsNullOrEmpty(client.eMail) ? "" : client.eMail;
                     }
                     else
                     {
@@ -996,10 +241,10 @@ namespace SOAPAP
                             CfdiUse = "P01"
                         };
                         msgCorreo = "";
-                    }                    
+                    }
                 }
                 else
-                {                    
+                {
                     if (tu != null)
                     {
                         receptor = new Receiver
@@ -1021,14 +266,14 @@ namespace SOAPAP
                         msgCorreo = "";
                     }
                 }
-                
+
                 cfdi.Receiver = receptor;
-                
+
                 //NODO: Conceptos
                 //xml = xml + "<cfdi:Conceptos>";
                 string TipoFactura = "", msgPagoParcial = "";
                 List<Item> lstItems = new List<Item>();
-                if(TraVM.payment.Type == "PAY04")   //Pago Anticipado.
+                if (TraVM.payment.Type == "PAY04")   //Pago Anticipado.
                 {
                     TipoFactura = "CAT01";
                     SOAPAP.Model.PaymentDetail PD = TraVM.payment.PaymentDetails.FirstOrDefault();
@@ -1044,7 +289,7 @@ namespace SOAPAP
                         Subtotal = PD.Amount,
                         Discount = 0,
                         Total = PD.Amount
-                    };                    
+                    };
                     lstItems.Add(item);
                 }
                 else if (TraVM.payment.OrderSaleId == 0) //Servicio
@@ -1053,12 +298,12 @@ namespace SOAPAP
                     decimal AdeudoTotal = TraVM.payment.PaymentDetails.GroupBy(g => g.Debt.Id).Select(g => g.First()).Sum(gg => gg.Debt.Amount) + TraVM.payment.PaymentDetails.Sum(x => x.Tax);
 
                     if (AdeudoTotal == TraVM.payment.Total) //Pago total
-                    {                        
+                    {
                         foreach (var pay in TraVM.payment.PaymentDetails.ToList())
-                        {                           
+                        {
                             //Calculo del unit price.
                             decimal tmpSubtotal = 0, tmpQuantity = 1, tmpValorUnitario = 0, tmpDescuento = 0;
-                            if (pay.Debt.DebtDiscounts.ToList().Count > 0)
+                            if (pay.Debt.DebtDiscounts.ToList().Count > 0 && pay.Debt.DebtDiscounts.FirstOrDefault(DDis => DDis.DebtId == pay.DebtId && DDis.CodeConcept == pay.CodeConcept) != null)
                             {
                                 var OriginalAmount = pay.Debt.DebtDiscounts.FirstOrDefault(DDis => DDis.DebtId == pay.DebtId && DDis.CodeConcept == pay.CodeConcept).OriginalAmount;
                                 var DiscountAmount = pay.Debt.DebtDiscounts.FirstOrDefault(DDis => DDis.DebtId == pay.DebtId && DDis.CodeConcept == pay.CodeConcept).DiscountAmount;
@@ -1114,7 +359,7 @@ namespace SOAPAP
                         {
                             //Calculo del unit price.
                             decimal tmpSubtotal = 0, tmpQuantity = 1, tmpValorUnitario = 0, tmpDescuento = 0;
-                            if (pay.Debt.DebtDiscounts.ToList().Count > 0)
+                            if (pay.Debt.DebtDiscounts.ToList().Count > 0 && pay.Debt.DebtDiscounts.FirstOrDefault(DDis => DDis.DebtId == pay.DebtId && DDis.CodeConcept == pay.CodeConcept) != null)
                             {
                                 var OriginalAmount = pay.Debt.DebtDiscounts.FirstOrDefault(DDis => DDis.DebtId == pay.DebtId && DDis.CodeConcept == pay.CodeConcept).OriginalAmount;
                                 var DiscountAmount = pay.Debt.DebtDiscounts.FirstOrDefault(DDis => DDis.DebtId == pay.DebtId && DDis.CodeConcept == pay.CodeConcept).DiscountAmount;
@@ -1211,7 +456,7 @@ namespace SOAPAP
                                     Discount = tmpDescuentoAjustado,
                                     Total = Or.Amount + TraVM.payment.PaymentDetails.Where(x => x.CodeConcept == Or.CodeConcept && x.Amount == Or.Amount).FirstOrDefault().Tax
                                 };
-                            }                            
+                            }
                         }
                         else
                         {
@@ -1220,7 +465,7 @@ namespace SOAPAP
                             else if (Math.Round(Math.Round(Or.UnitPrice / Or.Quantity, 2) * Or.Quantity, 2) == tmpSubtotal)
                                 tmpUnitPrice = Math.Round(Or.UnitPrice / Or.Quantity, 2);
 
-                            if(tmpUnitPrice != 0)
+                            if (tmpUnitPrice != 0)
                             {
                                 item = new Item()
                                 {
@@ -1261,7 +506,7 @@ namespace SOAPAP
                                 item.Total = 0.01M;
                             }
 
-                        } 
+                        }
                         if (Or.HaveTax == true)
                         {
                             List<Tax> lstTaxs = new List<Tax>() {
@@ -1325,19 +570,23 @@ namespace SOAPAP
                 {
                     if (!string.IsNullOrEmpty(TraVM.payment.PaymentDetails.FirstOrDefault().Debt.observations))
                         msgObservacionFactura += (msgObservacionFactura != "" ? ", " + TraVM.payment.PaymentDetails.FirstOrDefault().Debt.observations : TraVM.payment.PaymentDetails.FirstOrDefault().Debt.observations);
-                }                    
+                }
                 else if (!string.IsNullOrEmpty(TraVM.orderSale.Observation))
                     msgObservacionFactura += msgObservacionFactura != "" ? ", " + TraVM.orderSale.Observation : TraVM.orderSale.Observation;
 
                 cfdi.Observations = msgObservacionFactura;
 
                 string path = GeneraCarpetaDescagasXML();
-                string nombreXML = string.Format("\\{0}_{1}_{2}.xml", issuer.Rfc, receptor.Rfc , seriefolio);
+                string nombreXML = string.Format("\\{0}_{1}_{2}.xml", issuer.Rfc, receptor.Rfc, seriefolio);
                 string nombrePDF = string.Format("\\{0}_{1}_{2}.pdf", issuer.Rfc, receptor.Rfc, seriefolio);
-                
+
 
                 object[] vs = TimbrarAnteFacturama(cfdi, path + nombreXML);
-                if(vs[0] != null)
+                //if (vs[0] == null)
+                //{
+                //    int res = await timbrarProvedorSecundario(cfdi);
+                //}
+                if (vs[0] != null)
                 {
                     //cfdiFacturama = (Facturama.Models.Response.Cfdi)vs[0];
                     cfdiFacturama = new ModFac.ResponseCFDI((Facturama.Models.Response.Cfdi)vs[0]);
@@ -1345,7 +594,7 @@ namespace SOAPAP
                     TaxReceipt resGuardado = await guardarXMLenBD(XML, cfdiFacturama.Complement.TaxStamp.Uuid, receptor.Rfc, TipoFactura, status, TraVM.payment.Id, cfdiFacturama.Id);
                     string resActPay = await actualizarPaymentConFactura(TraVM.payment, resGuardado);
 
-                    
+
                     CreatePDF pDF = new CreatePDF(cfdi, cfdiFacturama, ms.account, resGuardado, fecha, (TraVM.payment.PayMethod.code + ", " + TraVM.payment.PayMethod.Name), TraVM);
                     pDF.UsoCFDI = string.IsNullOrEmpty(msgUsos) ? "P01 - Por definir" : msgUsos;
                     pDF.SerialCajero = pSerialCajero;
@@ -1353,7 +602,7 @@ namespace SOAPAP
                     {
                         pDF.ObservacionCFDI = msgObservacionFactura;
                         //pDF.ObservacionCFDI = (string.IsNullOrEmpty(msgObservacionFactura) ? "" : msgObservacionFactura);
-                    }                        
+                    }
                     else
                     {
                         pDF.ObservacionCFDI = msgObservacionFactura;
@@ -1376,64 +625,62 @@ namespace SOAPAP
                     string error = (string)vs[1];
                     //return "{\"error\": \"El cobro fue registrado, pero no se genero el CFDI. Detalles: "+error+"\"}";
                     return "error: El cobro fue registrado, pero no se genero el CFDI. (" + error + ")";
-                }                
+                }
             }
             catch (Exception ex)
             {
-             
-                return "{\"error\": \"Error al intentar realizar el timbrado, favor de comunicarse con el administrador del sistema: "+ex.Message+"\"}";
-            }            
+
+                return "{\"error\": \"Error al intentar realizar el timbrado, favor de comunicarse con el administrador del sistema: " + ex.Message + "\"}";
+            }
         }
 
         public object[] TimbrarAnteFacturama(CfdiMulti cfdi, string path)
         {
             object[] cfdistatus = new object[2];
-            try
+
+            int intentos = 0;
+            while (intentos < 3)
             {
-
-                Facturama.Models.Response.Cfdi cfdiCreated = facturama.Cfdis.Create(cfdi);
-                               
-                //Descarga de XML
-                facturama.Cfdis.SaveXml(path, cfdiCreated.Id);
-                //facturama.Cfdis.Retrieve(cfdiCreated.Id);
-                //facturama.Cfdis.SaveXml()
-
-                ////Consultar facturas creadas
-                //facturama.Cfdis.List("Expresion en Software");
-
-                ////Cancelación
-                //facturama.Cfdis.Remove(cfdiCreated.Id);
-
-                cfdistatus[0] = cfdiCreated;
-                cfdistatus[1] = null;
-                return cfdistatus;
-            }
-            catch (FacturamaException ex)
-            {
-                string error = "";
-                if(ex.Model.Details.Count > 0)
+                try
                 {
-                    foreach (var messageDetail in ex.Model.Details)
-                    {
-                        //error = $"{messageDetail.Key}: {string.Join(",", messageDetail.Value)}";
-                        error += "(" + messageDetail.Value.Aggregate("", (current, next) => current + ", " + next).Substring(2) + ") ";
-                    }
-                }
-                else
-                    error = "Detalle: " + ex.Message;
+                    Facturama.Models.Response.Cfdi cfdiCreated = facturama.Cfdis.Create(cfdi);
 
-                cfdistatus[0] = null;
-                //cfdistatus[1] = "{\"error\": \"" + ex.Message + "\", " + error + "}";
-                cfdistatus[1] = error;
-                return cfdistatus;
+                    //Descarga de XML
+                    facturama.Cfdis.SaveXml(path, cfdiCreated.Id);
+
+                    cfdistatus[0] = cfdiCreated;
+                    cfdistatus[1] = null;
+                    return cfdistatus;
+                }
+                catch (FacturamaException ex)
+                {
+                    string error = "";
+                    if (ex.Model != null && ex.Model.Details != null && ex.Model.Details.Count > 0)
+                    {
+                        foreach (var messageDetail in ex.Model.Details)
+                        {
+                            error += "(" + messageDetail.Value.Aggregate("", (current, next) => current + ", " + next).Substring(2) + ") ";
+                        }
+                    }
+                    else
+                        error = "Detalle: " + ex.Message;
+
+                    cfdistatus[0] = null;
+                    cfdistatus[1] = error;
+                    if (error.Contains("El cálculo") || error.Contains("RFC"))
+                        return cfdistatus;
+                    else
+                        intentos++;
+                }
+                catch (Exception ex)
+                {
+                    cfdistatus[0] = null;
+                    cfdistatus[1] = "error: " + ex.Message;
+                    intentos++;
+                }
+                System.Threading.Thread.Sleep(1000 * (3 - intentos));
             }
-            catch (Exception ex)
-            {      
-                cfdistatus[0] = null;
-                //cfdistatus[1] = "{\"error\": " + ex.Message + "}";
-                cfdistatus[1] = "error: " + ex.Message ;
-                return cfdistatus;
-            }
+            return cfdistatus;
         }
 
         private string RegitraEmisor()
@@ -1483,7 +730,7 @@ namespace SOAPAP
                 facturama.Csds.Create(csdRequest);
                 return "regitro exitoso";
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return "Usuario ya esta registrado";
             }
@@ -1497,7 +744,7 @@ namespace SOAPAP
                 DirectoryInfo di;
                 if (!Directory.Exists(path))
                 {
-                    di = Directory.CreateDirectory(path);                    
+                    di = Directory.CreateDirectory(path);
                 }
 
                 //Se crea la una nueva carpeta por fecha
@@ -1531,20 +778,20 @@ namespace SOAPAP
             }
         }
 
-        private async Task<TaxReceipt> guardarXMLenBD(string pXML, string pUuid, string pRfcReceptor, string pTipo, string status, int pIdPayment, string idCFDI)        
+        private async Task<TaxReceipt> guardarXMLenBD(string pXML, string pUuid, string pRfcReceptor, string pTipo, string status, int pIdPayment, string idCFDI)
         {
             string json = string.Empty;
 
             try
-            {               
-                Model.TaxReceipt xMLS = new Model.TaxReceipt();               
+            {
+                Model.TaxReceipt xMLS = new Model.TaxReceipt();
                 xMLS.TaxReceiptDate = DateTime.Now;
                 xMLS.Xml = pXML;
                 xMLS.FielXML = pUuid;
                 xMLS.RFC = pRfcReceptor;
                 xMLS.Type = pTipo;
                 xMLS.Status = status;
-                xMLS.PaymentId = pIdPayment;                
+                xMLS.PaymentId = pIdPayment;
                 xMLS.UserId = isAdministrator == false ? Variables.Configuration.Terminal.TerminalUsers.FirstOrDefault().UserId : ActualUserId;
                 xMLS.IdXmlFacturama = idCFDI;
                 xMLS.UsoCFDI = string.IsNullOrEmpty(msgUsos) ? "P01 - Por definir" : msgUsos;
@@ -1568,17 +815,17 @@ namespace SOAPAP
             try
             {
                 pPay.HaveTaxReceipt = true;
-                pPay.ObservationInvoice = string.IsNullOrEmpty(msgObservacionFactura) ? "" : msgObservacionFactura;              
+                pPay.ObservationInvoice = string.IsNullOrEmpty(msgObservacionFactura) ? "" : msgObservacionFactura;
                 content = new StringContent(JsonConvert.SerializeObject(pPay), Encoding.UTF8, "application/json");
                 var updatePayment = await Requests.SendURIAsync(string.Format("/api/Payments/{0}", pPay.Id), HttpMethod.Put, Variables.LoginModel.Token, content);
                 return "ok";
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return "error: No se pudo actualizar Payment";
             }
         }
-        
+
         public async Task<string> CancelaFactura(string IdXmlFacturama)
         {
             try
@@ -1586,7 +833,7 @@ namespace SOAPAP
                 var list = facturama.Cfdis.List();
 
                 Facturama.Models.Response.Cfdi cfdiCancel = facturama.Cfdis.Remove(IdXmlFacturama);
-                if(cfdiCancel.Complement != null)
+                if (cfdiCancel.Complement != null)
                 {
                     //facturama.Cfdis.SaveXml(@"C:\Pruebas", cfdiCancel.Id);
                     return "Se cancelo exitosamente el cfdi con el folio fiscal: " + cfdiCancel.Complement.TaxStamp.Uuid;
@@ -1595,7 +842,7 @@ namespace SOAPAP
                 {
                     return "{\"error\": \"No se ha podido realizar la cancelación, favor de comunicarse con el administrador del sistema\"}";
                 }
-                
+
             }
             catch (FacturamaException ex)
             {
@@ -1604,12 +851,12 @@ namespace SOAPAP
                 {
                     error = $"{messageDetail.Key}: {string.Join(",", messageDetail.Value)}";
                 }
-                    return "{\"error\": " + ex.Message.Replace("\\", "").Replace("{", "").Replace("}", "").Split(':')[1] + " - " +error+ "}";
+                return "{\"error\": " + ex.Message.Replace("\\", "").Replace("{", "").Replace("}", "").Split(':')[1] + " - " + error + "}";
             }
             catch (Exception ex)
             {
-                
-                return "{\"error\": " + ex.Message.Replace("\\","").Replace("{","").Replace("}","").Split(':')[1] + "}";
+
+                return "{\"error\": " + ex.Message.Replace("\\", "").Replace("{", "").Replace("}", "").Split(':')[1] + "}";
 
             }
         }
@@ -1663,7 +910,7 @@ namespace SOAPAP
                     return "{\"error\": \"No se ha podido realizar la cancelación, favor de comunicarse con el administrador del sistema\"}";
                 }
 
-            }            
+            }
             catch (Exception ex)
             {
                 return "{\"error\": " + ex.Message.Replace("\\", "").Replace("{", "").Replace("}", "").Split(':')[1] + "}";
@@ -1683,7 +930,7 @@ namespace SOAPAP
 
             Model.TaxUser tu = null;
             if (TraVM.payment.OrderSaleId != 0)
-            {            
+            {
                 var resulTaxUs = await Requests.SendURIAsync(string.Format("/api/TaxUsers/{0}", TraVM.orderSale.TaxUserId), HttpMethod.Get, Variables.LoginModel.Token);
                 tu = JsonConvert.DeserializeObject<Model.TaxUser>(resulTaxUs);
             }
@@ -1697,21 +944,21 @@ namespace SOAPAP
             if (esCancelacion)
             {
                 cfdiGet = await ObterCfdiDesdeAPI(TraVM.payment.TaxReceipts.OrderBy(xx => xx.Id).LastOrDefault());
-                if(cfdiGet != null)
+                if (cfdiGet != null)
                 {
                     //Verifica el estatus, en caso de no estar cancelado, solicita la cancelacion.
-                    if(cfdiGet.Status == "active")
+                    if (cfdiGet.Status == "active")
                     {
                         MessageBoxForm mensaje = new MessageBoxForm("Advertencia", "Este CFDI continua activo, consulte al administrador.", TypeIcon.Icon.Warning);
                         var result = mensaje.ShowDialog();
                     }
                 }
-            }                
+            }
             else
                 cfdiGet = await ObterCfdiDesdeAPI(TraVM.payment.TaxReceipts.Where(x => x.Status == "ET001").FirstOrDefault());
 
             //Si esta campo viene vacio, es porque no existe el registro en facturama.
-            if(cfdiGet.Items == null)
+            if (cfdiGet.Items == null)
             {
                 //Actualiza el payment para que sea facturable.
                 SOAPAP.Model.Payment tmpPay = TraVM.payment;
@@ -1733,9 +980,9 @@ namespace SOAPAP
                 var resulTaxR = await Requests.SendURIAsync(string.Format("/api/TaxReceipt/{0}", TraVM.payment.TaxReceipts.FirstOrDefault(x => x.Status == "ET001")?.Id), HttpMethod.Put, Variables.LoginModel.Token, contentTR);
                 var resTax = JsonConvert.DeserializeObject<SOAPAP.Model.TaxReceipt>(resulTaxR);
 
-                return "Es necesario volver a facturar este pago.";
+                return "aviso: Es necesario volver a facturar este pago.";
             }
-            
+
             string fecha = DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ss");
             CreatePDF pDF = null;
             if (esCancelacion)
@@ -1781,10 +1028,10 @@ namespace SOAPAP
                     }
                     else
                     {
-                        if(TraVM.orderSale.Amount > TraVM.orderSale.OnAccount && cfdiGet.Status == "active")
+                        if (TraVM.orderSale.Amount > TraVM.orderSale.OnAccount && cfdiGet.Status == "active")
                             msgObservacionFactura += ", Esta factura es comprobante de un pago pacial";
                     }
-                    
+
                     ////Si hay observaciones en la Orden o el debt
                     //if (TraVM.payment.OrderSaleId == 0)
                     //    msgObservacionFactura += (string.IsNullOrEmpty(TraVM.payment.PaymentDetails.FirstOrDefault().Debt.observations) ? "" : ", " + TraVM.payment.PaymentDetails.FirstOrDefault().Debt.observations);
@@ -1792,19 +1039,26 @@ namespace SOAPAP
                     //{
                     //    msgObservacionFactura += (string.IsNullOrEmpty(TraVM.orderSale.Observation) ? "" : ", " + TraVM.orderSale.Observation);
                     //}
-                    pDF.ObservacionCFDI = msgObservacionFactura;                   
+                    pDF.ObservacionCFDI = msgObservacionFactura;
                 }
 
                 //Se obtiene el serial de un cajero elejido, esto cuando el reporte lo solicita un administrador.
                 string tmpSerialCajero = "";
-                var _resulSerial = await Requests.SendURIAsync(string.Format("/api/UserRolesManager/SerialFromUser/{0}", ActualUserId), HttpMethod.Get, Variables.LoginModel.Token);
-                if (_resulSerial.Contains("error"))
-                    tmpSerialCajero = "JdC";
+                if (Variables.LoginModel.RolName[0] == "Supervisor")
+                {
+                    var _resulSerial = await Requests.SendURIAsync(string.Format("/api/UserRolesManager/SerialFromUser/{0}", ActualUserId), HttpMethod.Get, Variables.LoginModel.Token);
+                    if (_resulSerial.Contains("error"))
+                        tmpSerialCajero = "JdC";
+                    else
+                    {
+                        tmpSerialCajero = JsonConvert.DeserializeObject<string>(_resulSerial);
+                        if (tmpSerialCajero == null)
+                            tmpSerialCajero = "JdC";
+                    }
+                }
                 else
                 {
-                    tmpSerialCajero = JsonConvert.DeserializeObject<string>(_resulSerial);
-                    if (tmpSerialCajero == null)
-                        tmpSerialCajero = "JdC";
+                    tmpSerialCajero = Variables.LoginModel.User;
                 }
                 pDF.SerialCajero = tmpSerialCajero;
 
@@ -1819,12 +1073,12 @@ namespace SOAPAP
                 if (resPdf.Contains("error"))
                     return resPdf;
                 else
-                    return "Actualizado correctamente.";
+                    return "aviso: Actualizado correctamente.";
             }
             else
             {
                 return "{\"error\": \"No se ha podido realizar la cancelación, favor de comunicarse con el administrador del sistema\"}";
-            }            
+            }
         }
 
         //public SOAPAP.Facturado.DocumentoXML DeserializerXML(string xmlString)
@@ -1835,6 +1089,15 @@ namespace SOAPAP
         //    return comprobante;
         //}
 
+
+        ////Timbrado secundario
+        public async Task<int> timbrarProvedorSecundario(CfdiMulti cfdiMulti)
+        {
+            //Facturador secundario.
+            TimbradoTimbox TT = new TimbradoTimbox();
+            int res = await TT.Facturar(cfdiMulti);
+            return 1;
+        }
     }
 
 }

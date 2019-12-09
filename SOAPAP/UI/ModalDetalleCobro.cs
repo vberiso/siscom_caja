@@ -92,11 +92,12 @@ namespace SOAPAP.UI
             this.applyMSI = applyMSI;
             this.descuento = descuento;
             this.DebsMSI = DebsMSI;
-            if (applyMSI ==false && descuento == 0)
-            {
-                this.DebsMSI = Debts.Select(x => x.Id).ToList();
-                isAnual = false;
-            }
+            if(Debts != null)
+                if (applyMSI ==false && descuento == 0)
+                {
+                    this.DebsMSI = Debts.Select(x => x.Id).ToList();
+                    isAnual = false;
+                }
         }
         private  void ModalDetalleCobro_Load(object sender, EventArgs e)
         {
@@ -1303,7 +1304,7 @@ namespace SOAPAP.UI
                         fs.setMsgs(tbxMensage.Text, Usos);
 
                         //Aplicar promocion de meses sin intereses
-                        if (checkBoxPromocion2.Checked)
+                        if (checkBoxPromocion2.Checked && DebsMSI != null)
                         {
                            string promotion = ((DataComboBox)comboPromocionMSI2.SelectedItem).keyString;
                             var content = new StringContent(JsonConvert.SerializeObject(DebsMSI), Encoding.UTF8, "application/json");

@@ -1375,11 +1375,10 @@ namespace SOAPAP.UI
                 discount.ShowDialog(this);
             }
             else
-            {
-               
-                tmpFiltros = tmpFiltros.Where(x => !AllDebtAnnual.Contains(x.Id)).ToList();
-                var ammo = tmpFiltros.Count == 0? 0: amount;
-                RequestDiscount discount = new RequestDiscount(ammo, tmpFiltros);
+            {               
+                //tmpFiltros = tmpFiltros.Where(x => !AllDebtAnnual.Contains(x.Id)).ToList();
+                //var ammo = tmpFiltros.Count == 0? 0: amount;
+                RequestDiscount discount = new RequestDiscount(amount, tmpFiltros);
                 discount.ShowDialog(this);
             }
 

@@ -16,7 +16,7 @@
     <TargetFrameworkProfile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
-    <PublishUrl>\\installer.cuautlancingo.gob.mx\caja\</PublishUrl>
+    <PublishUrl>\\installer.sosapac.gob.mx\caja\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Unc</InstallFrom>
     <UpdateEnabled>true</UpdateEnabled>
@@ -26,10 +26,10 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>true</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <UpdateUrl>\\installer.cuautlancingo.gob.mx\caja\</UpdateUrl>
-    <MinimumRequiredVersion>1.1.1.198</MinimumRequiredVersion>
+    <UpdateUrl>\\installer.sosapac.gob.mx\caja\</UpdateUrl>
+    <MinimumRequiredVersion>1.1.1.279</MinimumRequiredVersion>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>199</ApplicationRevision>
+    <ApplicationRevision>280</ApplicationRevision>
     <ApplicationVersion>1.1.1.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -88,30 +88,98 @@
     </AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.BonusSkins.v19.1, Version=19.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
-    <Reference Include="DevExpress.Charts.v19.1.Core, Version=19.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
-    <Reference Include="DevExpress.Data.v19.1, Version=19.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
-    <Reference Include="DevExpress.Pdf.v19.1.Core, Version=19.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
-    <Reference Include="DevExpress.Pdf.v19.1.Drawing, Version=19.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
-    <Reference Include="DevExpress.PivotGrid.v19.1.Core, Version=19.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
-    <Reference Include="DevExpress.Office.v19.1.Core, Version=19.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
-    <Reference Include="DevExpress.RichEdit.v19.1.Core, Version=19.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
-    <Reference Include="DevExpress.RichEdit.v19.1.Export, Version=19.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
-    <Reference Include="DevExpress.Printing.v19.1.Core, Version=19.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
-    <Reference Include="DevExpress.Utils.v19.1, Version=19.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
-    <Reference Include="DevExpress.XtraBars.v19.1, Version=19.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
-    <Reference Include="DevExpress.XtraCharts.v19.1, Version=19.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
-    <Reference Include="DevExpress.XtraCharts.v19.1.UI, Version=19.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
-    <Reference Include="DevExpress.XtraCharts.v19.1.Wizard, Version=19.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
-    <Reference Include="DevExpress.XtraEditors.v19.1, Version=19.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
-    <Reference Include="DevExpress.XtraGrid.v19.1, Version=19.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
-    <Reference Include="DevExpress.XtraLayout.v19.1, Version=19.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
-    <Reference Include="DevExpress.XtraPdfViewer.v19.1, Version=19.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
-    <Reference Include="DevExpress.XtraPivotGrid.v19.1, Version=19.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
-    <Reference Include="DevExpress.XtraPrinting.v19.1, Version=19.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
-    <Reference Include="DevExpress.XtraScheduler.v19.1, Version=19.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
-    <Reference Include="DevExpress.XtraScheduler.v19.1.Core, Version=19.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
-    <Reference Include="DevExpress.XtraTreeList.v19.1, Version=19.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Charts.v19.1.Core, Version=19.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\DevExpress 19.1\Components\Bin\Framework\DevExpress.Charts.v19.1.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.Data.v19.1, Version=19.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\DevExpress 19.1\Components\Bin\Framework\DevExpress.Data.v19.1.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.Office.v19.1.Core, Version=19.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\DevExpress 19.1\Components\Bin\Framework\DevExpress.Office.v19.1.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.Pdf.v19.1.Core, Version=19.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\DevExpress 19.1\Components\Bin\Framework\DevExpress.Pdf.v19.1.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.Pdf.v19.1.Drawing, Version=19.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\DevExpress 19.1\Components\Bin\Framework\DevExpress.Pdf.v19.1.Drawing.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.PivotGrid.v19.1.Core, Version=19.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\DevExpress 19.1\Components\Bin\Framework\DevExpress.PivotGrid.v19.1.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.Printing.v19.1.Core, Version=19.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\DevExpress 19.1\Components\Bin\Framework\DevExpress.Printing.v19.1.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.RichEdit.v19.1.Core, Version=19.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\DevExpress 19.1\Components\Bin\Framework\DevExpress.RichEdit.v19.1.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.RichEdit.v19.1.Export, Version=19.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\DevExpress 19.1\Components\Bin\Framework\DevExpress.RichEdit.v19.1.Export.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.Utils.v19.1, Version=19.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\DevExpress 19.1\Components\Bin\Framework\DevExpress.Utils.v19.1.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.XtraBars.v19.1, Version=19.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\DevExpress 19.1\Components\Bin\Framework\DevExpress.XtraBars.v19.1.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.XtraCharts.v19.1, Version=19.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\DevExpress 19.1\Components\Bin\Framework\DevExpress.XtraCharts.v19.1.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.XtraCharts.v19.1.UI, Version=19.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\DevExpress 19.1\Components\Bin\Framework\DevExpress.XtraCharts.v19.1.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.XtraCharts.v19.1.Wizard, Version=19.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\DevExpress 19.1\Components\Bin\Framework\DevExpress.XtraCharts.v19.1.Wizard.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.XtraEditors.v19.1, Version=19.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\DevExpress 19.1\Components\Bin\Framework\DevExpress.XtraEditors.v19.1.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.XtraGrid.v19.1, Version=19.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\DevExpress 19.1\Components\Bin\Framework\DevExpress.XtraGrid.v19.1.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.XtraLayout.v19.1, Version=19.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\DevExpress 19.1\Components\Bin\Framework\DevExpress.XtraLayout.v19.1.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.XtraPdfViewer.v19.1, Version=19.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\DevExpress 19.1\Components\Bin\Framework\DevExpress.XtraPdfViewer.v19.1.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.XtraPivotGrid.v19.1, Version=19.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\DevExpress 19.1\Components\Bin\Framework\DevExpress.XtraPivotGrid.v19.1.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.XtraPrinting.v19.1, Version=19.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\DevExpress 19.1\Components\Bin\Framework\DevExpress.XtraPrinting.v19.1.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.XtraScheduler.v19.1, Version=19.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\DevExpress 19.1\Components\Bin\Framework\DevExpress.XtraScheduler.v19.1.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.XtraScheduler.v19.1.Core, Version=19.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\DevExpress 19.1\Components\Bin\Framework\DevExpress.XtraScheduler.v19.1.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.XtraTreeList.v19.1, Version=19.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\DevExpress 19.1\Components\Bin\Framework\DevExpress.XtraTreeList.v19.1.dll</HintPath>
+    </Reference>
     <Reference Include="Facturama, Version=1.0.0.3, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Facturama.1.0.0.3\lib\net45\Facturama.dll</HintPath>
     </Reference>
@@ -123,7 +191,7 @@
       <HintPath>..\packages\QrCode.Net.0.4.0.0\lib\net45\Gma.QrCodeNet.Encoding.dll</HintPath>
     </Reference>
     <Reference Include="HiQPdf">
-      <HintPath>..\..\..\archivos-siscom\Librerias\HiQPdf_10.17_x64\HiQPdf.dll</HintPath>
+      <HintPath>..\..\..\..\Downloads\HQ2PDF\HiQPdf.dll</HintPath>
     </Reference>
     <Reference Include="Humanizer, Version=2.5.0.0, Culture=neutral, PublicKeyToken=979442b78dfc278e, processorArchitecture=MSIL">
       <HintPath>..\packages\Humanizer.Core.2.5.16\lib\netstandard2.0\Humanizer.dll</HintPath>
@@ -296,6 +364,11 @@
     <Compile Include="Enums\TypeIcon.cs" />
     <Compile Include="Enums\TypeStatus.cs" />
     <Compile Include="Facturacionagrupada.cs" />
+    <Compile Include="FacturadoTimbox\Model\cfdv33_tdCFDI_catCFDI.cs" />
+    <Compile Include="FacturadoTimbox\TimbradoTimbox.cs" />
+    <Compile Include="FacturadoTimbox\Utils\opensslkey.cs" />
+    <Compile Include="FacturadoTimbox\Utils\SelloDigital.cs" />
+    <Compile Include="FacturadoTimbox\Utils\StringWriterWithEncoding.cs" />
     <Compile Include="Facturado\CreatePDFromXML.cs" />
     <Compile Include="Facturado\Encoder.cs" />
     <Compile Include="Facturado\FIELCertificadeReader.cs" />
@@ -339,6 +412,7 @@
     <Compile Include="Model\OrderWork.cs" />
     <Compile Include="Model\OrderWorkReasonCatalog.cs" />
     <Compile Include="Model\OrderWorkStatus.cs" />
+    <Compile Include="Model\PagosAnuales.cs" />
     <Compile Include="Model\PartialPayment.cs" />
     <Compile Include="Model\PartialPaymentDebt.cs" />
     <Compile Include="Model\PartialPaymentDetail.cs" />
@@ -440,6 +514,12 @@
     </Compile>
     <Compile Include="UI\FacturacionAnticipada\PagosAnualesAyuntamiento.Designer.cs">
       <DependentUpon>PagosAnualesAyuntamiento.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Messages\msgSolicitudCancelacion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Messages\msgSolicitudCancelacion.Designer.cs">
+      <DependentUpon>msgSolicitudCancelacion.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\ReportesForms\Finanzas\Agua\Formatos\Formato2.cs">
       <SubType>Form</SubType>
@@ -1037,6 +1117,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\FacturacionAnticipada\PagosAnualesAyuntamiento.resx">
       <DependentUpon>PagosAnualesAyuntamiento.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Messages\msgSolicitudCancelacion.resx">
+      <DependentUpon>msgSolicitudCancelacion.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\ReportesForms\Finanzas\Agua\Formatos\Formato2.resx">
       <DependentUpon>Formato2.cs</DependentUpon>
@@ -1716,7 +1799,6 @@
     <WCFMetadataStorage Include="Connected Services\WsIntegral33Pruebas\" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="FacturadoTimbox\" />
     <Folder Include="PDFManager\HQhtml\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -276,9 +276,9 @@
             this.mstMenu.Dock = System.Windows.Forms.DockStyle.None;
             this.mstMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.stmiOpciones});
-            this.mstMenu.Location = new System.Drawing.Point(517, 9);
+            this.mstMenu.Location = new System.Drawing.Point(637, 9);
             this.mstMenu.Name = "mstMenu";
-            this.mstMenu.Size = new System.Drawing.Size(163, 31);
+            this.mstMenu.Size = new System.Drawing.Size(43, 31);
             this.mstMenu.TabIndex = 0;
             this.mstMenu.Text = "menuStrip1";
             // 
