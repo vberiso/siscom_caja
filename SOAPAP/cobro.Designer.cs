@@ -53,6 +53,8 @@
             this.numDerivades = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.debit = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.token = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.EndDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.NameDiscount = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tableLayoutPanel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox12)).BeginInit();
@@ -106,7 +108,9 @@
             this.type,
             this.numDerivades,
             this.debit,
-            this.token});
+            this.token,
+            this.EndDate,
+            this.NameDiscount});
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window;
             dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -313,6 +317,22 @@
             this.token.Name = "token";
             this.token.ReadOnly = true;
             // 
+            // EndDate
+            // 
+            this.EndDate.DataPropertyName = "EndDate";
+            this.EndDate.HeaderText = "EndDate";
+            this.EndDate.Name = "EndDate";
+            this.EndDate.ReadOnly = true;
+            this.EndDate.Visible = false;
+            // 
+            // NameDiscount
+            // 
+            this.NameDiscount.DataPropertyName = "NameDiscount";
+            this.NameDiscount.HeaderText = "NameDiscount";
+            this.NameDiscount.Name = "NameDiscount";
+            this.NameDiscount.ReadOnly = true;
+            this.NameDiscount.Visible = false;
+            // 
             // cobro
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -359,5 +379,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn numDerivades;
         private System.Windows.Forms.DataGridViewTextBoxColumn debit;
         private System.Windows.Forms.DataGridViewTextBoxColumn token;
+        private System.Windows.Forms.DataGridViewTextBoxColumn EndDate;
+        private System.Windows.Forms.DataGridViewTextBoxColumn NameDiscount;
     }
 }
