@@ -96,6 +96,8 @@
             this.Observation = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabConvenios = new System.Windows.Forms.TabPage();
             this.dataConvenios = new System.Windows.Forms.DataGridView();
+            this.tabOrdenes = new System.Windows.Forms.TabPage();
+            this.dataOrdenes = new System.Windows.Forms.DataGridView();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.lblTxtObservaciones = new System.Windows.Forms.Label();
             this.lblObservaciones = new System.Windows.Forms.Label();
@@ -119,8 +121,6 @@
             this.lblDetalle = new System.Windows.Forms.Label();
             this.dataGridViewButtonColumn1 = new System.Windows.Forms.DataGridViewButtonColumn();
             this.dataGridViewButtonColumn2 = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.tabOrdenes = new System.Windows.Forms.TabPage();
-            this.dataOrdenes = new System.Windows.Forms.DataGridView();
             this.pnlButtons.SuspendLayout();
             this.pnlContent.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
@@ -139,6 +139,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvObservaciones)).BeginInit();
             this.tabConvenios.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataConvenios)).BeginInit();
+            this.tabOrdenes.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataOrdenes)).BeginInit();
             this.tableLayoutPanel3.SuspendLayout();
             this.pnlEncabezado.SuspendLayout();
             this.tlbEncabezado.SuspendLayout();
@@ -147,8 +149,6 @@
             this.tlpCuenta.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
-            this.tabOrdenes.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataOrdenes)).BeginInit();
             this.SuspendLayout();
             // 
             // pnlButtons
@@ -843,6 +843,32 @@
             this.dataConvenios.Size = new System.Drawing.Size(895, 255);
             this.dataConvenios.TabIndex = 0;
             // 
+            // tabOrdenes
+            // 
+            this.tabOrdenes.Controls.Add(this.dataOrdenes);
+            this.tabOrdenes.Location = new System.Drawing.Point(4, 28);
+            this.tabOrdenes.Name = "tabOrdenes";
+            this.tabOrdenes.Size = new System.Drawing.Size(895, 255);
+            this.tabOrdenes.TabIndex = 7;
+            this.tabOrdenes.Text = "Ordenes";
+            this.tabOrdenes.UseVisualStyleBackColor = true;
+            // 
+            // dataOrdenes
+            // 
+            this.dataOrdenes.AllowUserToAddRows = false;
+            this.dataOrdenes.AllowUserToResizeColumns = false;
+            this.dataOrdenes.AllowUserToResizeRows = false;
+            this.dataOrdenes.BackgroundColor = System.Drawing.Color.White;
+            this.dataOrdenes.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.dataOrdenes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            this.dataOrdenes.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataOrdenes.Location = new System.Drawing.Point(0, 0);
+            this.dataOrdenes.MultiSelect = false;
+            this.dataOrdenes.Name = "dataOrdenes";
+            this.dataOrdenes.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataOrdenes.Size = new System.Drawing.Size(895, 255);
+            this.dataOrdenes.TabIndex = 1;
+            // 
             // tableLayoutPanel3
             // 
             this.tableLayoutPanel3.ColumnCount = 2;
@@ -1148,32 +1174,6 @@
             this.dataGridViewButtonColumn2.Name = "dataGridViewButtonColumn2";
             this.dataGridViewButtonColumn2.Width = 50;
             // 
-            // tabOrdenes
-            // 
-            this.tabOrdenes.Controls.Add(this.dataOrdenes);
-            this.tabOrdenes.Location = new System.Drawing.Point(4, 28);
-            this.tabOrdenes.Name = "tabOrdenes";
-            this.tabOrdenes.Size = new System.Drawing.Size(895, 255);
-            this.tabOrdenes.TabIndex = 7;
-            this.tabOrdenes.Text = "Ordenes";
-            this.tabOrdenes.UseVisualStyleBackColor = true;
-            // 
-            // dataOrdenes
-            // 
-            this.dataOrdenes.AllowUserToAddRows = false;
-            this.dataOrdenes.AllowUserToResizeColumns = false;
-            this.dataOrdenes.AllowUserToResizeRows = false;
-            this.dataOrdenes.BackgroundColor = System.Drawing.Color.White;
-            this.dataOrdenes.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.dataOrdenes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            this.dataOrdenes.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataOrdenes.Location = new System.Drawing.Point(0, 0);
-            this.dataOrdenes.Name = "dataOrdenes";
-            this.dataOrdenes.ReadOnly = true;
-            this.dataOrdenes.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataOrdenes.Size = new System.Drawing.Size(895, 255);
-            this.dataOrdenes.TabIndex = 1;
-            // 
             // ModalFicha
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
@@ -1206,6 +1206,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvObservaciones)).EndInit();
             this.tabConvenios.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataConvenios)).EndInit();
+            this.tabOrdenes.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataOrdenes)).EndInit();
             this.tableLayoutPanel3.ResumeLayout(false);
             this.pnlEncabezado.ResumeLayout(false);
             this.tlbEncabezado.ResumeLayout(false);
@@ -1215,8 +1217,6 @@
             this.tlpCuenta.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.tableLayoutPanel1.ResumeLayout(false);
-            this.tabOrdenes.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataOrdenes)).EndInit();
             this.ResumeLayout(false);
 
         }

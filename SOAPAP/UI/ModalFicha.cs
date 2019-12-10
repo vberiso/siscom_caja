@@ -153,8 +153,8 @@ namespace SOAPAP.UI
             var resultPayment = await Requests.SendURIAsync(string.Format("/api/PaymentHistory/{0}", Variables.Agreement.Id), HttpMethod.Get, Variables.LoginModel.Token);
             if (resultPayment.Contains("error"))
             {
-                mensaje = new MessageBoxForm("Error", resultPayment.Split(':')[1].Replace("}", ""), TypeIcon.Icon.Cancel);
-                result = mensaje.ShowDialog();
+                //mensaje = new MessageBoxForm("Información", resultPayment.Split(':')[1].Replace("}", ""), TypeIcon.Icon.);
+                //result = mensaje.ShowDialog();
             }
             else
                 _payments = JsonConvert.DeserializeObject<List<Model.Payment>>(resultPayment);
@@ -409,7 +409,7 @@ namespace SOAPAP.UI
                 if (dgvRecibos.Rows.Count > 1) {
                     //dgvRecibos.Rows.in
                 }
-                dgvRecibos.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+                //dgvRecibos.ScrollBars = System.Windows.Forms.ScrollBars.Both;
                 
                 //lCollectDebs = _debts.ToList()
                 //                    .Select(x => new CollectDebSumary
@@ -567,7 +567,7 @@ namespace SOAPAP.UI
             dgvObservaciones.DataSource = source;
         }
 
-        private void CargarConvenios()
+        private async void CargarConvenios()
         {
             // Variables.Agreement.PartialPayments.
             if (Variables.Agreement !=  null && Variables.Agreement.PartialPayments.Count > 0)
@@ -583,6 +583,8 @@ namespace SOAPAP.UI
                 dataConvenios.Columns.Add("colum7", "# CUOTAS");
                 dataConvenios.Columns.Add("colum8", "STATUS");
                 dataConvenios.Columns.Add("colum9", "EXPIRACIÓN");
+                dataConvenios.ReadOnly = true;
+                
                 Variables.Agreement.PartialPayments.OrderBy(x => x.Status).ToList().ForEach(x =>
                 {
                     var data = new List<object>() { 
@@ -676,7 +678,7 @@ namespace SOAPAP.UI
 
         }
 
-        private void cargarOrdenes()
+        private async void cargarOrdenes()
         {
             if (Variables.Agreement != null && Variables.Agreement.OrderWork!= null && Variables.Agreement.OrderWork.Count >0)
             {
@@ -698,6 +700,7 @@ namespace SOAPAP.UI
                 };
 
                 List<string> data;
+                //dataOrdenes.Enabled = false;
                 dataOrdenes.Columns.Add("column1", "FOLIO");
                 dataOrdenes.Columns.Add("column2", "FECHA ORDEN");
                 dataOrdenes.Columns.Add("column3", "APLICO");
@@ -706,11 +709,16 @@ namespace SOAPAP.UI
                 dataOrdenes.Columns.Add("column6", "TIPO");
                 dataOrdenes.Columns.Add("column7", "ESTADO");
                 
+                dataOrdenes.ReadOnly = true;
+
+
+
                 dataOrdenes.Columns[0].Width = dataOrdenes.Columns[0].Width - 40;
                 dataOrdenes.Columns[2].Width = dataOrdenes.Columns[2].Width + 40;
                 dataOrdenes.Columns[3].Width = dataOrdenes.Columns[3].Width + 40;
                 dataOrdenes.Columns[4].Width = dataOrdenes.Columns[4].Width + 100;
                 dataOrdenes.Columns[5].Width = dataOrdenes.Columns[5].Width - 50;
+                dataOrdenes.Columns[5].Width = dataOrdenes.Columns[6].Width + 10;
                 Variables.Agreement.OrderWork.ToList().ForEach(x =>
                 {
                     var tt = JObject.Parse(JsonConvert.SerializeObject(TypeOrders.Where(t => JObject.Parse(JsonConvert.SerializeObject(t))["Type"].ToString() == x.Type).ToList().First()))["Value"].ToString();
@@ -729,6 +737,7 @@ namespace SOAPAP.UI
 
 
                     dataOrdenes.Rows.Add(data.ToArray());
+                
 
                 });
             }
