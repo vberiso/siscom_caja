@@ -16,6 +16,7 @@ using System.Linq.Expressions;
 using System.Reflection;
 using System.Xml;
 using SOAPAP.UI.Email;
+using Newtonsoft.Json.Linq;
 
 namespace SOAPAP.UI
 {
@@ -70,10 +71,13 @@ namespace SOAPAP.UI
                     CargaAnticipos();
                     CargaPagos();
                     CargaObservaciones();
+                    CargarConvenios();
+                    cargarOrdenes();
                     loading.Close();
                     break;
                 case Search.Type.Folio:
-                    
+                    tbcInformacion.Controls.Remove(tabConvenios);
+                    tbcInformacion.Controls.Remove(tabOrdenes);
                     ConfiguracionInicial(Search.Type.Folio);
                     ObtenerFolio();
                     
@@ -383,14 +387,16 @@ namespace SOAPAP.UI
             List<CollectDebSumary> lCollectDebs = null;
             dgvRecibos.ColumnCount = 5;
             dgvRecibos.Columns[4].Name = "ID";
-            dgvAnticipos.ScrollBars = System.Windows.Forms.ScrollBars.Horizontal;
+            int index = 0;
+            
             
 
             if (_debts != null && _debts.Count > 0)
             {
+               
                 _debts.Where(d => d.Status != "ED006").ToList().ForEach(x =>
                 {
-                    dgvRecibos.Rows.Add(new string[] {
+                    dgvRecibos.Rows.Insert(index,new string[] {
                             x.DescriptionType,
                             x.FromDate.Date.ToString("dd-MM-yyyy") + " al " + x.UntilDate.Date.ToString("dd-MM-yyyy"),
                             x.DescriptionStatus,
@@ -398,7 +404,13 @@ namespace SOAPAP.UI
                             x.Id.ToString()
 
                     });
+                    index++;
                 });
+                if (dgvRecibos.Rows.Count > 1) {
+                    //dgvRecibos.Rows.in
+                }
+                dgvRecibos.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+                
                 //lCollectDebs = _debts.ToList()
                 //                    .Select(x => new CollectDebSumary
                 //                    {
@@ -555,6 +567,202 @@ namespace SOAPAP.UI
             dgvObservaciones.DataSource = source;
         }
 
+        private void CargarConvenios()
+        {
+            // Variables.Agreement.PartialPayments.
+            if (Variables.Agreement !=  null && Variables.Agreement.PartialPayments.Count > 0)
+            {
+                decimal ivaConvenio = 0, restaConvenio = 0, cuotaIvaConvenio = 0, cuotaConvenio = 0;
+                int numConvenios = 0;
+                dataConvenios.Columns.Add("colum1", "ID");
+                dataConvenios.Columns.Add("colum2", "CUENTA");
+                dataConvenios.Columns.Add("colum3", "FOLIO");
+                dataConvenios.Columns.Add("colum4", "FECHA");
+                dataConvenios.Columns.Add("colum5", "MONTO");
+                dataConvenios.Columns.Add("colum6", "IVA");
+                dataConvenios.Columns.Add("colum7", "# CUOTAS");
+                dataConvenios.Columns.Add("colum8", "STATUS");
+                dataConvenios.Columns.Add("colum9", "EXPIRACIÓN");
+                Variables.Agreement.PartialPayments.OrderBy(x => x.Status).ToList().ForEach(x =>
+                {
+                    var data = new List<object>() { 
+                        x.Id,
+                        Variables.Agreement.Account,
+                        x.Folio,
+                        x.PartialPaymentDate.ToString("dd-MM-yyyy"),
+                       
+                        string.Format(new CultureInfo("es-MX"), "{0:C2}", x.Amount),
+                        12,
+                        x.NumberOfPayments,
+                        (x.Status =="COV01") ? "ACTIVO": "INACTIVO",
+                        x.ExpirationDate.ToString("dd-MM-yyyy")
+                    };
+                    dataConvenios.Rows.Add(data.ToArray());
+                   
+
+                });
+                ////foreach para obtener el iva de todo el convenio
+                //Variables.Agreement.PartialPayments.FirstOrDefault().PartialPaymentDetails.ToList().ForEach(x =>
+                //{
+                //    //if(x.PartialPaymentDetailConcepts.Any(y => y.HaveTax))
+                //    //{
+                //    //    ivaConvenio = ivaConvenio +
+                //    //}
+                //    if (x.Status == "CUT01")
+                //    {
+                //        x.PartialPaymentDetailConcepts.ToList().ForEach(y =>
+                //        {
+                //            if (y.HaveTax)
+                //            {
+                //                ivaConvenio = ivaConvenio + Math.Round(((y.Amount * 16) / 100), 2);
+                //            }
+                //            restaConvenio = restaConvenio + y.Amount;
+                //        });
+                //    }
+                //});
+
+
+                var payment = Variables.Agreement.PartialPayments.FirstOrDefault().PartialPaymentDetails.ToList();
+                if (payment.Count > 0)
+                {
+                    //dataConvenios.Columns.Add("colum1","Convenio");
+                    //dataConvenios.Columns.Add("colum2", "Pendiente");
+                    //dataConvenios.Columns.Add("colum3", "Subtotal");
+                    //if (!Variables.Configuration.IsMunicipal) {
+                    //    dataConvenios.Columns.Add("colum4", "iva");
+                    //    dataConvenios.Columns.Add("colum5", "Total");
+                    //}
+                    //else
+                    //{
+                    //    dataConvenios.Columns.Add("colum4", "Total");
+                    //}
+                    //payment.Last().PartialPaymentDetailConcepts.ToList().ForEach(y =>
+                    //{
+                    //    if (y.HaveTax)
+                    //    {
+                    //        cuotaIvaConvenio = cuotaIvaConvenio + Math.Round(((y.Amount * 16) / 100), 2);
+                    //    }
+                    //    cuotaConvenio = cuotaConvenio + y.Amount;
+                    //});
+
+                    //numConvenios = Variables.Agreement.PartialPayments.FirstOrDefault().NumberOfPayments;
+                    //var data = new List<object>(){ Variables.Agreement.PartialPayments.FirstOrDefault().Folio,
+
+                    // "Pendiente - "+ (string.Format(new CultureInfo("es-MX"), "{0:C2}", (restaConvenio + ivaConvenio))) +" / Pago "+ (Variables.Agreement.PartialPayments.FirstOrDefault().PartialPaymentDetails.Where(x => x.Status == "CUT02").Count() + Variables.Agreement.PartialPayments.FirstOrDefault().PartialPaymentDetails.Where(x => x.Status == "CUT03").Count()) +" de "+ numConvenios
+                    // ,
+                    // string.Format(new CultureInfo("es-MX"), "{0:C2}", (cuotaConvenio))
+                    //};
+                    //if (!Variables.Configuration.IsMunicipal) {
+                    //    data.Add((string.Format(new CultureInfo("es-MX"), "{0:C2}", cuotaIvaConvenio)));
+                    //}
+                    //data.Add(string.Format(new CultureInfo("es-MX"), "{0:C2}", (cuotaConvenio + cuotaIvaConvenio)));
+
+
+                    //int index = dataConvenios.Rows.Add(data.ToArray());
+
+
+                    this.dataConvenios.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataConvenios_CellDoubleClick);
+                    
+
+                }
+
+
+
+            }
+            else
+            {
+                tbcInformacion.Controls.Remove(tabConvenios);
+            }
+
+        }
+
+        private void cargarOrdenes()
+        {
+            if (Variables.Agreement != null && Variables.Agreement.OrderWork!= null && Variables.Agreement.OrderWork.Count >0)
+            {
+                var TypeOrders = new List<object>() {
+                    new { Type = "OT001", Value = "Inspeccion / Verificacion" },
+                    new { Type = "OT002", Value = "Corte" },
+                    new { Type = "OT003"  ,Value = "Reconexion" },
+                    new {Type =  "OT004", Value = "Mantenimiento / Sustitucion" },
+                    new { Type = "OT004", Value = "Mantenimiento / Sustitucion" },
+                    new {Type = "OT004", Value = "Mantenimiento / Sustitucion" }
+                };
+                var StatusOrder = new List<object>()
+                {
+                    new { Status = "EOT01", Value = "GENERADA" },
+                    new { Status = "EOT02", Value = "ASIGNADA" },
+                    new { Status = "EOT03" , Value= "EJECUTADA" },
+                    new { Status = "EOT04" , Value= "NO EJECUTADA" },
+                    new { Status = "EOT05" , Value= "CANCELADA" },
+                };
+
+                List<string> data;
+                dataOrdenes.Columns.Add("column1", "FOLIO");
+                dataOrdenes.Columns.Add("column2", "FECHA ORDEN");
+                dataOrdenes.Columns.Add("column3", "APLICO");
+                dataOrdenes.Columns.Add("column4", "FECHA REALIZACIÓN");
+                dataOrdenes.Columns.Add("column5", "ACTIVIDADES");
+                dataOrdenes.Columns.Add("column6", "TIPO");
+                dataOrdenes.Columns.Add("column7", "ESTADO");
+                
+                dataOrdenes.Columns[0].Width = dataOrdenes.Columns[0].Width - 40;
+                dataOrdenes.Columns[2].Width = dataOrdenes.Columns[2].Width + 40;
+                dataOrdenes.Columns[3].Width = dataOrdenes.Columns[3].Width + 40;
+                dataOrdenes.Columns[4].Width = dataOrdenes.Columns[4].Width + 100;
+                dataOrdenes.Columns[5].Width = dataOrdenes.Columns[5].Width - 50;
+                Variables.Agreement.OrderWork.ToList().ForEach(x =>
+                {
+                    var tt = JObject.Parse(JsonConvert.SerializeObject(TypeOrders.Where(t => JObject.Parse(JsonConvert.SerializeObject(t))["Type"].ToString() == x.Type).ToList().First()))["Value"].ToString();
+                    var ss = JObject.Parse(JsonConvert.SerializeObject(StatusOrder.Where(t => JObject.Parse(JsonConvert.SerializeObject(t))["Status"].ToString() == x.Status).ToList().First()))["Value"].ToString();
+
+
+                    data = new List<string>(){
+                    x.Folio,
+                    x.DateOrder.ToString("dd-MM-yyyy"),
+                    x.Applicant,
+                    x.DateRealization.ToString("dd-MM-yyyy") == "01-01-0001" ? "---": x.DateRealization.ToString("dd-MM-yyyy"),
+                    x.Activities,
+                     tt,
+                     ss,
+                };
+
+
+                    dataOrdenes.Rows.Add(data.ToArray());
+
+                });
+            }
+            else
+            {
+                tbcInformacion.Controls.Remove(tabOrdenes);
+            }
+        }
+
+        private void dataConvenios_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex == -1)
+            {
+                return;
+            }
+            var row = dataConvenios.Rows[e.RowIndex];
+            var partialdebt = Variables.Agreement.PartialPayments.Where(x => x.Id.ToString() == row.Cells[0].Value.ToString()).FirstOrDefault();
+            if (row.Cells[7].Value.ToString() != "ACTIVO")
+            {
+                return ;
+            }
+            if (partialdebt != null) {
+                var ListPaymentsConvenio = new ListPaymentsConvenio(partialdebt.PartialPaymentDetails.ToList(), partialdebt.Folio, Variables.Agreement);
+                var result = ListPaymentsConvenio.ShowDialog();
+                
+                ListPaymentsConvenio.Close();
+                if (result == DialogResult.OK)
+                {
+                    this.DialogResult = DialogResult.Yes;
+                    this.Close();
+                }
+            }
+
+        }
 
         #endregion
 
@@ -715,7 +923,7 @@ namespace SOAPAP.UI
             }
         }
     }
-
+ 
     public partial class CollectConceptsSumary
     {
         public string Description { get; set; }

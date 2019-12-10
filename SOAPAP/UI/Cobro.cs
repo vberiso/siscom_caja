@@ -254,6 +254,10 @@ namespace SOAPAP.UI
                     }
                     break;
             }
+            if (result == DialogResult.Yes)
+            {
+                ObtenerInformacion();
+            }
 
         }
 
@@ -626,7 +630,7 @@ namespace SOAPAP.UI
                                 else
                                 {
                                     Agreement agree = JsonConvert.DeserializeObject<Agreement>(resultadoAgreement);
-
+                                    Variables.Agreement.OrderWork = agree.OrderWork;
                                     //La cuenta aun no ha sido cortada.
                                     if (Variables.Agreement.TypeStateServiceId == 1)
                                     {

@@ -25,7 +25,9 @@ namespace SOAPAP.Model
         public string Status { get; set; }
         
         public DateTime RelaseDate { get; set; }
+        public DateTime ReleasePeriod { get; set; }
         
+
         public int RelaseDebtId { get; set; }
        
         public DateTime PaymentDate { get; set; }

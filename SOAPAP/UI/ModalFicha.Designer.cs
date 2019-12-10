@@ -94,6 +94,8 @@
             this.dgvObservaciones = new System.Windows.Forms.DataGridView();
             this.DateObservation = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Observation = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tabConvenios = new System.Windows.Forms.TabPage();
+            this.dataConvenios = new System.Windows.Forms.DataGridView();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.lblTxtObservaciones = new System.Windows.Forms.Label();
             this.lblObservaciones = new System.Windows.Forms.Label();
@@ -117,6 +119,8 @@
             this.lblDetalle = new System.Windows.Forms.Label();
             this.dataGridViewButtonColumn1 = new System.Windows.Forms.DataGridViewButtonColumn();
             this.dataGridViewButtonColumn2 = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.tabOrdenes = new System.Windows.Forms.TabPage();
+            this.dataOrdenes = new System.Windows.Forms.DataGridView();
             this.pnlButtons.SuspendLayout();
             this.pnlContent.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
@@ -133,6 +137,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvPayment)).BeginInit();
             this.Observaciones.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvObservaciones)).BeginInit();
+            this.tabConvenios.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataConvenios)).BeginInit();
             this.tableLayoutPanel3.SuspendLayout();
             this.pnlEncabezado.SuspendLayout();
             this.tlbEncabezado.SuspendLayout();
@@ -141,6 +147,8 @@
             this.tlpCuenta.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
+            this.tabOrdenes.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataOrdenes)).BeginInit();
             this.SuspendLayout();
             // 
             // pnlButtons
@@ -206,6 +214,8 @@
             this.tbcInformacion.Controls.Add(this.Descuentos);
             this.tbcInformacion.Controls.Add(this.Pagos);
             this.tbcInformacion.Controls.Add(this.Observaciones);
+            this.tbcInformacion.Controls.Add(this.tabConvenios);
+            this.tbcInformacion.Controls.Add(this.tabOrdenes);
             this.tbcInformacion.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tbcInformacion.Location = new System.Drawing.Point(3, 71);
             this.tbcInformacion.Name = "tbcInformacion";
@@ -807,6 +817,32 @@
             this.Observation.Name = "Observation";
             this.Observation.ReadOnly = true;
             // 
+            // tabConvenios
+            // 
+            this.tabConvenios.Controls.Add(this.dataConvenios);
+            this.tabConvenios.Location = new System.Drawing.Point(4, 28);
+            this.tabConvenios.Name = "tabConvenios";
+            this.tabConvenios.Size = new System.Drawing.Size(895, 255);
+            this.tabConvenios.TabIndex = 6;
+            this.tabConvenios.Text = "Convenios";
+            this.tabConvenios.UseVisualStyleBackColor = true;
+            // 
+            // dataConvenios
+            // 
+            this.dataConvenios.AllowUserToAddRows = false;
+            this.dataConvenios.AllowUserToResizeColumns = false;
+            this.dataConvenios.AllowUserToResizeRows = false;
+            this.dataConvenios.BackgroundColor = System.Drawing.Color.White;
+            this.dataConvenios.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.dataConvenios.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            this.dataConvenios.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataConvenios.Location = new System.Drawing.Point(0, 0);
+            this.dataConvenios.Name = "dataConvenios";
+            this.dataConvenios.ReadOnly = true;
+            this.dataConvenios.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataConvenios.Size = new System.Drawing.Size(895, 255);
+            this.dataConvenios.TabIndex = 0;
+            // 
             // tableLayoutPanel3
             // 
             this.tableLayoutPanel3.ColumnCount = 2;
@@ -1112,6 +1148,32 @@
             this.dataGridViewButtonColumn2.Name = "dataGridViewButtonColumn2";
             this.dataGridViewButtonColumn2.Width = 50;
             // 
+            // tabOrdenes
+            // 
+            this.tabOrdenes.Controls.Add(this.dataOrdenes);
+            this.tabOrdenes.Location = new System.Drawing.Point(4, 28);
+            this.tabOrdenes.Name = "tabOrdenes";
+            this.tabOrdenes.Size = new System.Drawing.Size(895, 255);
+            this.tabOrdenes.TabIndex = 7;
+            this.tabOrdenes.Text = "Ordenes";
+            this.tabOrdenes.UseVisualStyleBackColor = true;
+            // 
+            // dataOrdenes
+            // 
+            this.dataOrdenes.AllowUserToAddRows = false;
+            this.dataOrdenes.AllowUserToResizeColumns = false;
+            this.dataOrdenes.AllowUserToResizeRows = false;
+            this.dataOrdenes.BackgroundColor = System.Drawing.Color.White;
+            this.dataOrdenes.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.dataOrdenes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            this.dataOrdenes.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataOrdenes.Location = new System.Drawing.Point(0, 0);
+            this.dataOrdenes.Name = "dataOrdenes";
+            this.dataOrdenes.ReadOnly = true;
+            this.dataOrdenes.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataOrdenes.Size = new System.Drawing.Size(895, 255);
+            this.dataOrdenes.TabIndex = 1;
+            // 
             // ModalFicha
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
@@ -1142,6 +1204,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvPayment)).EndInit();
             this.Observaciones.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvObservaciones)).EndInit();
+            this.tabConvenios.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataConvenios)).EndInit();
             this.tableLayoutPanel3.ResumeLayout(false);
             this.pnlEncabezado.ResumeLayout(false);
             this.tlbEncabezado.ResumeLayout(false);
@@ -1151,6 +1215,8 @@
             this.tlpCuenta.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.tableLayoutPanel1.ResumeLayout(false);
+            this.tabOrdenes.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataOrdenes)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1221,5 +1287,9 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn DateObservation;
         private System.Windows.Forms.DataGridViewTextBoxColumn Observation;
         private System.Windows.Forms.Label lblDetalle;
+        private System.Windows.Forms.TabPage tabConvenios;
+        private System.Windows.Forms.DataGridView dataConvenios;
+        private System.Windows.Forms.TabPage tabOrdenes;
+        private System.Windows.Forms.DataGridView dataOrdenes;
     }
 }
