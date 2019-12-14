@@ -191,7 +191,7 @@
       <HintPath>..\packages\QrCode.Net.0.4.0.0\lib\net45\Gma.QrCodeNet.Encoding.dll</HintPath>
     </Reference>
     <Reference Include="HiQPdf">
-      <HintPath>..\..\..\..\Downloads\HQ2PDF\HiQPdf.dll</HintPath>
+      <HintPath>..\..\..\archivos-siscom\Librerias\HiQPdf_10.17_x64\HiQPdf.dll</HintPath>
     </Reference>
     <Reference Include="Humanizer, Version=2.5.0.0, Culture=neutral, PublicKeyToken=979442b78dfc278e, processorArchitecture=MSIL">
       <HintPath>..\packages\Humanizer.Core.2.5.16\lib\netstandard2.0\Humanizer.dll</HintPath>
@@ -331,6 +331,12 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="WindowsBase" />
+    <Reference Include="zxing, Version=0.16.5.0, Culture=neutral, PublicKeyToken=4e88037ac681fe60, processorArchitecture=MSIL">
+      <HintPath>..\packages\ZXing.Net.0.16.5\lib\net461\zxing.dll</HintPath>
+    </Reference>
+    <Reference Include="zxing.presentation, Version=0.16.5.0, Culture=neutral, PublicKeyToken=4e88037ac681fe60, processorArchitecture=MSIL">
+      <HintPath>..\packages\ZXing.Net.0.16.5\lib\net461\zxing.presentation.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Adeudos.cs" />
@@ -502,6 +508,7 @@
     <Compile Include="Reportes\Finanzas\Formato1.cs" />
     <Compile Include="Reportes\Finanzas\Formato2.cs" />
     <Compile Include="Reportes\Finanzas\Formato23Desgloce.cs" />
+    <Compile Include="Tools\TagQRCode.cs" />
     <Compile Include="UI\Email\EnvioEmail.cs" />
     <Compile Include="UI\FactPasada\DescargarFacturas.cs">
       <SubType>Form</SubType>
@@ -514,6 +521,12 @@
     </Compile>
     <Compile Include="UI\FacturacionAnticipada\PagosAnualesAyuntamiento.Designer.cs">
       <DependentUpon>PagosAnualesAyuntamiento.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\ListPaymentsConvenio.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\ListPaymentsConvenio.Designer.cs">
+      <DependentUpon>ListPaymentsConvenio.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\Messages\msgSolicitudCancelacion.cs">
       <SubType>Form</SubType>
@@ -1006,6 +1019,12 @@
     <Compile Include="UI\Splash.Designer.cs">
       <DependentUpon>Splash.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\UpdateDataContactsAgremment.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\UpdateDataContactsAgremment.Designer.cs">
+      <DependentUpon>UpdateDataContactsAgremment.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\Visualizador\Preview.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -1117,6 +1136,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\FacturacionAnticipada\PagosAnualesAyuntamiento.resx">
       <DependentUpon>PagosAnualesAyuntamiento.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\ListPaymentsConvenio.resx">
+      <DependentUpon>ListPaymentsConvenio.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Messages\msgSolicitudCancelacion.resx">
       <DependentUpon>msgSolicitudCancelacion.cs</DependentUpon>
@@ -1306,6 +1328,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Splash.resx">
       <DependentUpon>Splash.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\UpdateDataContactsAgremment.resx">
+      <DependentUpon>UpdateDataContactsAgremment.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Visualizador\Preview.resx">
       <DependentUpon>Preview.cs</DependentUpon>

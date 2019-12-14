@@ -1556,6 +1556,14 @@ namespace SOAPAP.UI
         {
 
         }
+
+        private void btnUpdateContact_Click(object sender, EventArgs e)
+        {
+            if (Variables.Agreement != null) {
+                UpdateDataContactsAgremment UpdateDataContactsAgremment = new UpdateDataContactsAgremment(Variables.Agreement.Clients.ToList());
+                UpdateDataContactsAgremment.ShowDialog();
+            }
+        }
     }
 
     public partial class CollectConcepts

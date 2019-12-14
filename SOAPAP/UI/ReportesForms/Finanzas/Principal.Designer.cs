@@ -63,7 +63,6 @@
             this.label4 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.lblTitulo = new System.Windows.Forms.Label();
-            this.Cedula = new System.Windows.Forms.TabPage();
             this.panel1.SuspendLayout();
             this.PanelContent.SuspendLayout();
             this.tabAyuntamiento.SuspendLayout();
@@ -104,7 +103,6 @@
             this.tabAyuntamiento.Controls.Add(this.tabFormato1Ayuntamiento);
             this.tabAyuntamiento.Controls.Add(this.tabFormato2Ayuntamiento);
             this.tabAyuntamiento.Controls.Add(this.tabFormato3Ayuntamiento);
-            this.tabAyuntamiento.Controls.Add(this.Cedula);
             this.tabAyuntamiento.Cursor = System.Windows.Forms.Cursors.Hand;
             this.tabAyuntamiento.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabAyuntamiento.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -422,16 +420,6 @@
             this.lblTitulo.Text = "Reportes";
             this.lblTitulo.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // Cedula
-            // 
-            this.Cedula.Location = new System.Drawing.Point(4, 54);
-            this.Cedula.Name = "Cedula";
-            this.Cedula.Size = new System.Drawing.Size(1052, 411);
-            this.Cedula.TabIndex = 3;
-            this.Cedula.Tag = "Cedula";
-            this.Cedula.Text = "Cedula";
-            this.Cedula.UseVisualStyleBackColor = true;
-            // 
             // Principal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -490,6 +478,5 @@
         private System.Windows.Forms.TabPage tabFormato1Ayuntamiento;
         private System.Windows.Forms.TabPage tabFormato2Ayuntamiento;
         private System.Windows.Forms.TabPage tabFormato3Ayuntamiento;
-        private System.Windows.Forms.TabPage Cedula;
     }
 }

@@ -8,6 +8,10 @@ namespace SOAPAP.Model
 {
     public class Client
     {
+        public object Clone()
+        {
+            return this.MemberwiseClone();
+        }
         public Client()
         {
             Contacts = new HashSet<Contact>();

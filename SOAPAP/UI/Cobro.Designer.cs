@@ -116,7 +116,6 @@
             this.panel6 = new System.Windows.Forms.Panel();
             this.dgvConceptosCobro = new System.Windows.Forms.DataGridView();
             this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.detail = new System.Windows.Forms.DataGridViewButtonColumn();
             this.Select = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.Type = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Description = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -139,7 +138,12 @@
             this.lblSubtotal = new System.Windows.Forms.Label();
             this.lblTxtIva = new System.Windows.Forms.Label();
             this.lblTxtSubtotal = new System.Windows.Forms.Label();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.tableLayoutPanel10 = new System.Windows.Forms.TableLayoutPanel();
+            this.btnUpdateContact = new System.Windows.Forms.Button();
+            this.tableLayoutPanel11 = new System.Windows.Forms.TableLayoutPanel();
             this.dataGridViewButtonColumn1 = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.detail = new System.Windows.Forms.DataGridViewButtonColumn();
             this.pnlHeader.SuspendLayout();
             this.pnlHeaderBuscar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbBuscar)).BeginInit();
@@ -193,6 +197,9 @@
             this.panelDescripciones.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.datadescripcion)).BeginInit();
             this.tlpTotales.SuspendLayout();
+            this.groupBox4.SuspendLayout();
+            this.tableLayoutPanel10.SuspendLayout();
+            this.tableLayoutPanel11.SuspendLayout();
             this.SuspendLayout();
             // 
             // txtCuenta
@@ -461,6 +468,7 @@
             // pnlDatos
             // 
             this.pnlDatos.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.pnlDatos.Controls.Add(this.groupBox4);
             this.pnlDatos.Controls.Add(this.tableLayoutPanel3);
             this.pnlDatos.Dock = System.Windows.Forms.DockStyle.Left;
             this.pnlDatos.Location = new System.Drawing.Point(0, 124);
@@ -1262,15 +1270,6 @@
             this.Id.Name = "Id";
             this.Id.Visible = false;
             // 
-            // detail
-            // 
-            this.detail.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.detail.FillWeight = 50.76143F;
-            this.detail.HeaderText = "";
-            this.detail.Name = "detail";
-            this.detail.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.detail.Width = 30;
-            // 
             // Select
             // 
             this.Select.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
@@ -1533,6 +1532,64 @@
             this.lblTxtSubtotal.Text = "Subtotal:";
             this.lblTxtSubtotal.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
+            // groupBox4
+            // 
+            this.groupBox4.AutoSize = true;
+            this.groupBox4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.groupBox4.Controls.Add(this.tableLayoutPanel10);
+            this.groupBox4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox4.Location = new System.Drawing.Point(0, 673);
+            this.groupBox4.Margin = new System.Windows.Forms.Padding(20);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(344, 227);
+            this.groupBox4.TabIndex = 19;
+            this.groupBox4.TabStop = false;
+            // 
+            // tableLayoutPanel10
+            // 
+            this.tableLayoutPanel10.ColumnCount = 2;
+            this.tableLayoutPanel10.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 10.17442F));
+            this.tableLayoutPanel10.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 89.82558F));
+            this.tableLayoutPanel10.Controls.Add(this.tableLayoutPanel11, 1, 0);
+            this.tableLayoutPanel10.Dock = System.Windows.Forms.DockStyle.Top;
+            this.tableLayoutPanel10.Location = new System.Drawing.Point(3, 16);
+            this.tableLayoutPanel10.Name = "tableLayoutPanel10";
+            this.tableLayoutPanel10.RowCount = 1;
+            this.tableLayoutPanel10.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel10.Size = new System.Drawing.Size(338, 66);
+            this.tableLayoutPanel10.TabIndex = 2;
+            // 
+            // btnUpdateContact
+            // 
+            this.btnUpdateContact.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(3)))), ((int)(((byte)(155)))), ((int)(((byte)(229)))));
+            this.btnUpdateContact.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnUpdateContact.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(3)))), ((int)(((byte)(155)))), ((int)(((byte)(250)))));
+            this.btnUpdateContact.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnUpdateContact.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnUpdateContact.ForeColor = System.Drawing.Color.White;
+            this.btnUpdateContact.Location = new System.Drawing.Point(3, 33);
+            this.btnUpdateContact.Name = "btnUpdateContact";
+            this.btnUpdateContact.Size = new System.Drawing.Size(292, 24);
+            this.btnUpdateContact.TabIndex = 1;
+            this.btnUpdateContact.Text = "Actualizar datos de contacto";
+            this.btnUpdateContact.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.btnUpdateContact.UseVisualStyleBackColor = false;
+            this.btnUpdateContact.Click += new System.EventHandler(this.btnUpdateContact_Click);
+            // 
+            // tableLayoutPanel11
+            // 
+            this.tableLayoutPanel11.ColumnCount = 1;
+            this.tableLayoutPanel11.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel11.Controls.Add(this.btnUpdateContact, 0, 1);
+            this.tableLayoutPanel11.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel11.Location = new System.Drawing.Point(37, 3);
+            this.tableLayoutPanel11.Name = "tableLayoutPanel11";
+            this.tableLayoutPanel11.RowCount = 2;
+            this.tableLayoutPanel11.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel11.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel11.Size = new System.Drawing.Size(298, 60);
+            this.tableLayoutPanel11.TabIndex = 39;
+            // 
             // dataGridViewButtonColumn1
             // 
             this.dataGridViewButtonColumn1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
@@ -1541,6 +1598,15 @@
             this.dataGridViewButtonColumn1.Name = "dataGridViewButtonColumn1";
             this.dataGridViewButtonColumn1.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.dataGridViewButtonColumn1.Width = 30;
+            // 
+            // detail
+            // 
+            this.detail.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.detail.FillWeight = 50.76143F;
+            this.detail.HeaderText = "";
+            this.detail.Name = "detail";
+            this.detail.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.detail.Width = 30;
             // 
             // Cobro
             // 
@@ -1621,6 +1687,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.datadescripcion)).EndInit();
             this.tlpTotales.ResumeLayout(false);
             this.tlpTotales.PerformLayout();
+            this.groupBox4.ResumeLayout(false);
+            this.tableLayoutPanel10.ResumeLayout(false);
+            this.tableLayoutPanel11.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -1733,5 +1802,9 @@
         private System.Windows.Forms.Button btnAnual;
         private System.Windows.Forms.TextBox lblDireccionF;
         private System.Windows.Forms.Label lblDescuentoT;
+        private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel10;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel11;
+        private System.Windows.Forms.Button btnUpdateContact;
     }
 }
