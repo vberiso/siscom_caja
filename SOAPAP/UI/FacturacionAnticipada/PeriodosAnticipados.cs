@@ -143,6 +143,7 @@ namespace SOAPAP.UI.FacturacionAnticipada
                 lbldescuentoT.Visible = true;
                 lblYear.Text = year.ToString();
             }
+           
 
         }
 
@@ -309,6 +310,13 @@ namespace SOAPAP.UI.FacturacionAnticipada
                 Variables.Configuration.Descuento = CurrentDescuento;
             }
             lblMSI.Visible = checkPaymentTarget.Checked;
+        }
+
+        private void PeriodosAnticipados_Load(object sender, EventArgs e)
+        {
+            mensaje = new MessageBoxForm("Información", @"Si va a aplicar un descuento de población vulnerable, favor de primero aplicar el descuento al contrato desde la WEB, Actualizar la información de está cuenta, y ahora si aplicar el adelanto anual", TypeIcon.Icon.Info);
+
+            result = mensaje.ShowDialog(this);
         }
     }
 

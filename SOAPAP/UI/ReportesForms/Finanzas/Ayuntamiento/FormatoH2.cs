@@ -86,11 +86,18 @@ namespace SOAPAP.UI.ReportesForms.Finanzas.Ayuntamiento
             TotalAc = 0;
             TotalAn = 0;
             TotalAm = 0;
+            
             List<SOAPAP.Reportes.Finanzas.Ayuntamiento.AccountsPay> OData = JsonConvert.DeserializeObject<List<SOAPAP.Reportes.Finanzas.Ayuntamiento.AccountsPay>>(data.ToString());
             
             DateTime dateEnd;
             var dateStart = Convert.ToDateTime("01-" + mes + "-" + year);
-            dateEnd = Convert.ToDateTime("01-" + (int.Parse(mes) + 1) + "-" + year).AddDays(-1);
+            if (mes == "12") {
+                dateEnd = Convert.ToDateTime("01-01-" + (int.Parse(year)+1).ToString());
+            }
+            else
+            {
+                dateEnd = Convert.ToDateTime("01-" + (int.Parse(mes) + 1) + "-" + year);
+            }
             List<SOAPAP.Reportes.Finanzas.Ayuntamiento.AccountsPay> Periods;
             Periods = OData.Where(x => x.payment_date >= dateStart && x.payment_date <= dateEnd).ToList();
             if (!IsCurrentMonth)
@@ -99,13 +106,13 @@ namespace SOAPAP.UI.ReportesForms.Finanzas.Ayuntamiento
                 Periods = OData;
 
             }
-        
-            
+
+            Periods = Periods.Where(x => x.from_date <= int.Parse(year)).ToList();
             var Distict = Periods.Select(x => x.id_agreement).Distinct().ToList();
             Distict.ForEach(x =>
             {
-                var Actual = Periods.Where(c => c.id_agreement == x && c.from_date == int.Parse(year) && c.until_date == int.Parse(year)).FirstOrDefault();
-                var Anteriores = Periods.Where(c => c.id_agreement == x && c.from_date < int.Parse(year) && c.until_date < int.Parse(year)).FirstOrDefault();
+                var Actual = Periods.Where(c => c.id_agreement == x && c.from_date == int.Parse(year)).FirstOrDefault();
+                var Anteriores = Periods.Where(c => c.id_agreement == x && c.from_date < int.Parse(year) ).FirstOrDefault();
                 if (Actual != null && Anteriores == null)
                 {
                     TotalAc = TotalAc + 1;
@@ -130,7 +137,8 @@ namespace SOAPAP.UI.ReportesForms.Finanzas.Ayuntamiento
            var JdDta = JObject.Parse(data.ToString());
            
             data = JsonConvert.SerializeObject(JdDta["data"]);
-            SetDataVariablesA(data, true, mes, year);
+            var Odata = JsonConvert.DeserializeObject<List<object>>(data.ToString());
+            SetDataVariablesA(Odata.First(), true, mes, year);
            
             label11.Text = "NO. DE CUENTAS QUE REALIZARON ÚNICAMENTE PAGOS DE " + year;
             label14.Text = "NO. DE CUENTAS QUE REALIZARON ÚNICAMENTE PAGOS DE EJERCICIOS ANTERIORES " + year;
@@ -161,15 +169,26 @@ namespace SOAPAP.UI.ReportesForms.Finanzas.Ayuntamiento
             //lblTotalMes.Text = (int.Parse(lblAmbosMes.Text) + int.Parse(lblAnterioresMes.Text) + int.Parse(lblUActualMes.Text)).ToString();
 
             //Desde el primero de enero
-            SetDataVariablesA(data, false, mes, year);
+            //SetDataVariablesA(data, false, mes, year);
             label21.Text = "NO. DE CUENTAS QUE REALIZARON ÚNICAMENTE PAGOS DE " + year;
             label23.Text = "NO. DE CUENTAS QUE REALIZARON ÚNICAMENTE PAGOS DE EJERCICIOS ANTERIORES " + year;
             label25.Text = "NO. DE CUENTAS QUE REALIZARON TANTO PAGOS DE " + year + " Y ANTERIORES A " + year;
 
+
+
+            var EneroActual = JsonConvert.DeserializeObject<List<object>>(JsonConvert.SerializeObject(Odata.Last()));
+            TotalAc = bool.Parse(Odata.ElementAt(1).ToString()) == true ? int.Parse(EneroActual.First().ToString()) + TotalAc : int.Parse(EneroActual.First().ToString());
+            TotalAn = bool.Parse(Odata.ElementAt(1).ToString()) == true ? int.Parse(EneroActual.ElementAt(1).ToString()) + TotalAn : int.Parse(EneroActual.ElementAt(1).ToString());
+            TotalAm = bool.Parse(Odata.ElementAt(1).ToString()) == true ? int.Parse(EneroActual.ElementAt(2).ToString()) + TotalAm : int.Parse(EneroActual.ElementAt(2).ToString());
+
+
             lblUActualEnero.Text = TotalAc.ToString();
             lblAnterioresEnero.Text = TotalAn.ToString();
             lblAmbosEnero.Text = TotalAm.ToString();
-            lblTotalEnero.Text = (TotalAc + TotalAn + TotalAm).ToString();
+            lblTotalEnero.Text = (int.Parse(lblUActualEnero.Text) + int.Parse(lblAnterioresEnero.Text) + int.Parse(lblAmbosEnero.Text)).ToString();
+
+
+      
             //dateStart = Convert.ToDateTime("01-01-" + year);
             //lblUActualEnero.Text =  OData.Where(x => x.from_date == int.Parse(year) && x.until_date == int.Parse(year)).Select(x => x.id_agreement).Distinct().ToList().Count().ToString();
             //lblAnterioresEnero.Text = OData.Where(x => x.from_date < int.Parse(year) && x.until_date < int.Parse(year)).Select(x => x.id_agreement).Distinct().ToList().Count().ToString();

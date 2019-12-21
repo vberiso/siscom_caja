@@ -68,5 +68,8 @@ namespace SOAPAP.Model
         public ICollection<PartialPayment> PartialPayments { get; set; }
         public ICollection<AccountStatusInFile> AccountStatusInFiles { get; set; }
 
+
+        public ICollection<AgreementRulerCalculation> AgreementRulerCalculations { get; set; }
+
     }
 }

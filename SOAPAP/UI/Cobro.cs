@@ -382,6 +382,10 @@ namespace SOAPAP.UI
             lblUtimoAvaluo.Text = string.Empty;
             lblTipoPredio.Text = string.Empty;
             lblTipoPredioEncabezado.Text = string.Empty;
+            lblDescuentoT.Text = "";
+            lblDescuentoT.Visible = false;
+            lblVulnerable.Text = "";
+            lblVulnerableInfo.Text = "";
         }
 
         private async void ObtenerInformacion()
@@ -392,7 +396,7 @@ namespace SOAPAP.UI
             {
                 string _cuenta = txtCuenta.Text.Trim();
                 txtCuenta.Text = _cuenta;
-
+               
                 if (_cuenta.Length > 2 && char.IsLetter(Convert.ToChar(_cuenta.Substring(0, 1))) && _cuenta.Contains("-"))
                 {
                     gbxCampaign.Visible = false;
@@ -529,7 +533,14 @@ namespace SOAPAP.UI
                             Variables.Agreement = OCobroBuscarCuentaSelectOne.getAgreement();
 
                         }
-
+                       
+                        var isVulnerable = Variables.Agreement.AgreementDiscounts.Where(x => x.IsActive).FirstOrDefault();
+                        if (isVulnerable != null) {
+                            lblVulnerable.Visible = true;
+                            lblVulnerableInfo.Visible = true;
+                            lblVulnerableInfo.Text = "Población vulnerable";
+                            lblVulnerable.Text = isVulnerable.Discount?.Name;
+                        }
 
                         if (Variables.Configuration.IsMunicipal && Variables.Agreement.AgreementDetails.Count() > 0)
                         {
@@ -979,7 +990,7 @@ namespace SOAPAP.UI
             if (descuento > 0 && (Variables.Agreement.TypeIntakeId != 2   && Variables.Agreement.TypeIntakeId != 3))
             {
                 lblDescuentoT.Visible = true;
-                lblDescuentoT.Text = "Por promoción anual se aplico un descuento de " + string.Format(new CultureInfo("es-MX"), "{0:C2}", (total * Variables.Configuration.Descuento) / (100 - Variables.Configuration.Descuento)) + " Pesos.\nNo aplica para pagos con targeta de credito a MSI";
+                lblDescuentoT.Text = "Por promoción anual se aplicó un descuento de " + string.Format(new CultureInfo("es-MX"), "{0:C2}", (total * Variables.Configuration.Descuento) / (100 - Variables.Configuration.Descuento)) + " Pesos.\nNo aplica para pagos con tarjeta de credito a MSI";
             }
             else
             {

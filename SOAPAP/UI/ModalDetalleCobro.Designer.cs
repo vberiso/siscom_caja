@@ -468,7 +468,7 @@
             this.tabTarjeta.Location = new System.Drawing.Point(4, 4);
             this.tabTarjeta.Name = "tabTarjeta";
             this.tabTarjeta.Padding = new System.Windows.Forms.Padding(3);
-            this.tabTarjeta.Size = new System.Drawing.Size(462, 176);
+            this.tabTarjeta.Size = new System.Drawing.Size(462, 177);
             this.tabTarjeta.TabIndex = 1;
             this.tabTarjeta.Text = "Tarjeta";
             // 

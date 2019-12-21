@@ -49,9 +49,8 @@ namespace SOAPAP.UI.ReportesForms.Finanzas.Agua.Formatos
             {
                 NumCallGetParams++;
             }
+
             LParams.Add(new { Key = "IsCurrentYear", Value = NumCallGetParams, DbType = DbType.Int32 });
-
-
 
             return LParams;
         }

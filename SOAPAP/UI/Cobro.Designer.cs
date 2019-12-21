@@ -36,6 +36,8 @@
             this.txtCuenta = new System.Windows.Forms.TextBox();
             this.pnlHeader = new System.Windows.Forms.Panel();
             this.pnlHeaderBuscar = new System.Windows.Forms.Panel();
+            this.lblVulnerable = new System.Windows.Forms.Label();
+            this.lblVulnerableInfo = new System.Windows.Forms.Label();
             this.lblTipoPredioEncabezado = new System.Windows.Forms.Label();
             this.lblEti_TipoPredioEncabezado = new System.Windows.Forms.Label();
             this.pbBuscar = new System.Windows.Forms.PictureBox();
@@ -57,6 +59,10 @@
             this.lblTitulo = new System.Windows.Forms.Label();
             this.pbxIcon = new System.Windows.Forms.PictureBox();
             this.pnlDatos = new System.Windows.Forms.Panel();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.tableLayoutPanel10 = new System.Windows.Forms.TableLayoutPanel();
+            this.tableLayoutPanel11 = new System.Windows.Forms.TableLayoutPanel();
+            this.btnUpdateContact = new System.Windows.Forms.Button();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.panel1 = new System.Windows.Forms.Panel();
             this.gbxCampaign = new System.Windows.Forms.GroupBox();
@@ -116,6 +122,7 @@
             this.panel6 = new System.Windows.Forms.Panel();
             this.dgvConceptosCobro = new System.Windows.Forms.DataGridView();
             this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.detail = new System.Windows.Forms.DataGridViewButtonColumn();
             this.Select = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.Type = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Description = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -138,12 +145,7 @@
             this.lblSubtotal = new System.Windows.Forms.Label();
             this.lblTxtIva = new System.Windows.Forms.Label();
             this.lblTxtSubtotal = new System.Windows.Forms.Label();
-            this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.tableLayoutPanel10 = new System.Windows.Forms.TableLayoutPanel();
-            this.btnUpdateContact = new System.Windows.Forms.Button();
-            this.tableLayoutPanel11 = new System.Windows.Forms.TableLayoutPanel();
             this.dataGridViewButtonColumn1 = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.detail = new System.Windows.Forms.DataGridViewButtonColumn();
             this.pnlHeader.SuspendLayout();
             this.pnlHeaderBuscar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbBuscar)).BeginInit();
@@ -156,6 +158,9 @@
             this.pnlHeaderLeft.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbxIcon)).BeginInit();
             this.pnlDatos.SuspendLayout();
+            this.groupBox4.SuspendLayout();
+            this.tableLayoutPanel10.SuspendLayout();
+            this.tableLayoutPanel11.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
             this.panel1.SuspendLayout();
             this.gbxCampaign.SuspendLayout();
@@ -197,9 +202,6 @@
             this.panelDescripciones.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.datadescripcion)).BeginInit();
             this.tlpTotales.SuspendLayout();
-            this.groupBox4.SuspendLayout();
-            this.tableLayoutPanel10.SuspendLayout();
-            this.tableLayoutPanel11.SuspendLayout();
             this.SuspendLayout();
             // 
             // txtCuenta
@@ -227,6 +229,8 @@
             // 
             // pnlHeaderBuscar
             // 
+            this.pnlHeaderBuscar.Controls.Add(this.lblVulnerable);
+            this.pnlHeaderBuscar.Controls.Add(this.lblVulnerableInfo);
             this.pnlHeaderBuscar.Controls.Add(this.lblTipoPredioEncabezado);
             this.pnlHeaderBuscar.Controls.Add(this.lblEti_TipoPredioEncabezado);
             this.pnlHeaderBuscar.Controls.Add(this.pbBuscar);
@@ -238,6 +242,29 @@
             this.pnlHeaderBuscar.Name = "pnlHeaderBuscar";
             this.pnlHeaderBuscar.Size = new System.Drawing.Size(689, 74);
             this.pnlHeaderBuscar.TabIndex = 47;
+            // 
+            // lblVulnerable
+            // 
+            this.lblVulnerable.AutoSize = true;
+            this.lblVulnerable.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblVulnerable.ForeColor = System.Drawing.SystemColors.Window;
+            this.lblVulnerable.Location = new System.Drawing.Point(546, 33);
+            this.lblVulnerable.Name = "lblVulnerable";
+            this.lblVulnerable.Size = new System.Drawing.Size(68, 17);
+            this.lblVulnerable.TabIndex = 49;
+            this.lblVulnerable.Text = "**********";
+            this.lblVulnerable.Visible = false;
+            // 
+            // lblVulnerableInfo
+            // 
+            this.lblVulnerableInfo.AutoSize = true;
+            this.lblVulnerableInfo.ForeColor = System.Drawing.SystemColors.Window;
+            this.lblVulnerableInfo.Location = new System.Drawing.Point(541, 17);
+            this.lblVulnerableInfo.Name = "lblVulnerableInfo";
+            this.lblVulnerableInfo.Size = new System.Drawing.Size(109, 13);
+            this.lblVulnerableInfo.TabIndex = 48;
+            this.lblVulnerableInfo.Text = "Población vulnerable:";
+            this.lblVulnerableInfo.Visible = false;
             // 
             // lblTipoPredioEncabezado
             // 
@@ -475,6 +502,64 @@
             this.pnlDatos.Name = "pnlDatos";
             this.pnlDatos.Size = new System.Drawing.Size(344, 900);
             this.pnlDatos.TabIndex = 47;
+            // 
+            // groupBox4
+            // 
+            this.groupBox4.AutoSize = true;
+            this.groupBox4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.groupBox4.Controls.Add(this.tableLayoutPanel10);
+            this.groupBox4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox4.Location = new System.Drawing.Point(0, 673);
+            this.groupBox4.Margin = new System.Windows.Forms.Padding(20);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(344, 227);
+            this.groupBox4.TabIndex = 19;
+            this.groupBox4.TabStop = false;
+            // 
+            // tableLayoutPanel10
+            // 
+            this.tableLayoutPanel10.ColumnCount = 2;
+            this.tableLayoutPanel10.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 10.17442F));
+            this.tableLayoutPanel10.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 89.82558F));
+            this.tableLayoutPanel10.Controls.Add(this.tableLayoutPanel11, 1, 0);
+            this.tableLayoutPanel10.Dock = System.Windows.Forms.DockStyle.Top;
+            this.tableLayoutPanel10.Location = new System.Drawing.Point(3, 16);
+            this.tableLayoutPanel10.Name = "tableLayoutPanel10";
+            this.tableLayoutPanel10.RowCount = 1;
+            this.tableLayoutPanel10.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel10.Size = new System.Drawing.Size(338, 66);
+            this.tableLayoutPanel10.TabIndex = 2;
+            // 
+            // tableLayoutPanel11
+            // 
+            this.tableLayoutPanel11.ColumnCount = 1;
+            this.tableLayoutPanel11.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel11.Controls.Add(this.btnUpdateContact, 0, 1);
+            this.tableLayoutPanel11.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel11.Location = new System.Drawing.Point(37, 3);
+            this.tableLayoutPanel11.Name = "tableLayoutPanel11";
+            this.tableLayoutPanel11.RowCount = 2;
+            this.tableLayoutPanel11.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel11.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel11.Size = new System.Drawing.Size(298, 60);
+            this.tableLayoutPanel11.TabIndex = 39;
+            // 
+            // btnUpdateContact
+            // 
+            this.btnUpdateContact.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(3)))), ((int)(((byte)(155)))), ((int)(((byte)(229)))));
+            this.btnUpdateContact.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnUpdateContact.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(3)))), ((int)(((byte)(155)))), ((int)(((byte)(250)))));
+            this.btnUpdateContact.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnUpdateContact.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnUpdateContact.ForeColor = System.Drawing.Color.White;
+            this.btnUpdateContact.Location = new System.Drawing.Point(3, 33);
+            this.btnUpdateContact.Name = "btnUpdateContact";
+            this.btnUpdateContact.Size = new System.Drawing.Size(292, 24);
+            this.btnUpdateContact.TabIndex = 1;
+            this.btnUpdateContact.Text = "Actualizar datos de contacto";
+            this.btnUpdateContact.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.btnUpdateContact.UseVisualStyleBackColor = false;
+            this.btnUpdateContact.Click += new System.EventHandler(this.btnUpdateContact_Click);
             // 
             // tableLayoutPanel3
             // 
@@ -1270,6 +1355,15 @@
             this.Id.Name = "Id";
             this.Id.Visible = false;
             // 
+            // detail
+            // 
+            this.detail.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.detail.FillWeight = 50.76143F;
+            this.detail.HeaderText = "";
+            this.detail.Name = "detail";
+            this.detail.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.detail.Width = 30;
+            // 
             // Select
             // 
             this.Select.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
@@ -1532,64 +1626,6 @@
             this.lblTxtSubtotal.Text = "Subtotal:";
             this.lblTxtSubtotal.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // groupBox4
-            // 
-            this.groupBox4.AutoSize = true;
-            this.groupBox4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.groupBox4.Controls.Add(this.tableLayoutPanel10);
-            this.groupBox4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox4.Location = new System.Drawing.Point(0, 673);
-            this.groupBox4.Margin = new System.Windows.Forms.Padding(20);
-            this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(344, 227);
-            this.groupBox4.TabIndex = 19;
-            this.groupBox4.TabStop = false;
-            // 
-            // tableLayoutPanel10
-            // 
-            this.tableLayoutPanel10.ColumnCount = 2;
-            this.tableLayoutPanel10.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 10.17442F));
-            this.tableLayoutPanel10.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 89.82558F));
-            this.tableLayoutPanel10.Controls.Add(this.tableLayoutPanel11, 1, 0);
-            this.tableLayoutPanel10.Dock = System.Windows.Forms.DockStyle.Top;
-            this.tableLayoutPanel10.Location = new System.Drawing.Point(3, 16);
-            this.tableLayoutPanel10.Name = "tableLayoutPanel10";
-            this.tableLayoutPanel10.RowCount = 1;
-            this.tableLayoutPanel10.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel10.Size = new System.Drawing.Size(338, 66);
-            this.tableLayoutPanel10.TabIndex = 2;
-            // 
-            // btnUpdateContact
-            // 
-            this.btnUpdateContact.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(3)))), ((int)(((byte)(155)))), ((int)(((byte)(229)))));
-            this.btnUpdateContact.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnUpdateContact.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(3)))), ((int)(((byte)(155)))), ((int)(((byte)(250)))));
-            this.btnUpdateContact.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnUpdateContact.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnUpdateContact.ForeColor = System.Drawing.Color.White;
-            this.btnUpdateContact.Location = new System.Drawing.Point(3, 33);
-            this.btnUpdateContact.Name = "btnUpdateContact";
-            this.btnUpdateContact.Size = new System.Drawing.Size(292, 24);
-            this.btnUpdateContact.TabIndex = 1;
-            this.btnUpdateContact.Text = "Actualizar datos de contacto";
-            this.btnUpdateContact.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnUpdateContact.UseVisualStyleBackColor = false;
-            this.btnUpdateContact.Click += new System.EventHandler(this.btnUpdateContact_Click);
-            // 
-            // tableLayoutPanel11
-            // 
-            this.tableLayoutPanel11.ColumnCount = 1;
-            this.tableLayoutPanel11.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel11.Controls.Add(this.btnUpdateContact, 0, 1);
-            this.tableLayoutPanel11.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel11.Location = new System.Drawing.Point(37, 3);
-            this.tableLayoutPanel11.Name = "tableLayoutPanel11";
-            this.tableLayoutPanel11.RowCount = 2;
-            this.tableLayoutPanel11.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel11.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel11.Size = new System.Drawing.Size(298, 60);
-            this.tableLayoutPanel11.TabIndex = 39;
-            // 
             // dataGridViewButtonColumn1
             // 
             this.dataGridViewButtonColumn1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
@@ -1598,15 +1634,6 @@
             this.dataGridViewButtonColumn1.Name = "dataGridViewButtonColumn1";
             this.dataGridViewButtonColumn1.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.dataGridViewButtonColumn1.Width = 30;
-            // 
-            // detail
-            // 
-            this.detail.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.detail.FillWeight = 50.76143F;
-            this.detail.HeaderText = "";
-            this.detail.Name = "detail";
-            this.detail.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.detail.Width = 30;
             // 
             // Cobro
             // 
@@ -1636,6 +1663,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.pbxIcon)).EndInit();
             this.pnlDatos.ResumeLayout(false);
             this.pnlDatos.PerformLayout();
+            this.groupBox4.ResumeLayout(false);
+            this.tableLayoutPanel10.ResumeLayout(false);
+            this.tableLayoutPanel11.ResumeLayout(false);
             this.tableLayoutPanel3.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
@@ -1687,9 +1717,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.datadescripcion)).EndInit();
             this.tlpTotales.ResumeLayout(false);
             this.tlpTotales.PerformLayout();
-            this.groupBox4.ResumeLayout(false);
-            this.tableLayoutPanel10.ResumeLayout(false);
-            this.tableLayoutPanel11.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -1806,5 +1833,7 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel10;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel11;
         private System.Windows.Forms.Button btnUpdateContact;
+        private System.Windows.Forms.Label lblVulnerable;
+        private System.Windows.Forms.Label lblVulnerableInfo;
     }
 }

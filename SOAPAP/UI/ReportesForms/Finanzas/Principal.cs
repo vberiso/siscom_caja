@@ -151,7 +151,7 @@ namespace SOAPAP.UI.ReportesForms.Finanzas
         }
 
 
-        private void loadMeses()
+        private void loadMeses(int year = 0)
         {
             List<DataComboBox> lstMeses = new List<DataComboBox>();
             List<DataComboBox> lstMesesF = new List<DataComboBox>();
@@ -159,11 +159,18 @@ namespace SOAPAP.UI.ReportesForms.Finanzas
 
             foreach ((string oMes, Int32 i) in lOMeses.Select((value, i) => (value, i)))
             {
-                if (now.Month > i)
+                if ( year >=now.Year || year == 0) {
+                    if (now.Month > i)
+                    {
+                        lstMeses.Add(new DataComboBox() { keyString = (i + 1).ToString(), value = oMes });
+                        lstMesesF.Add(new DataComboBox() { keyString = (i + 1).ToString(), value = oMes });
+
+                    }
+                }
+                else
                 {
                     lstMeses.Add(new DataComboBox() { keyString = (i + 1).ToString(), value = oMes });
                     lstMesesF.Add(new DataComboBox() { keyString = (i + 1).ToString(), value = oMes });
-
                 }
 
             }
@@ -287,6 +294,14 @@ namespace SOAPAP.UI.ReportesForms.Finanzas
 
         private async void windowsUIButtonPanel1_ButtonClick(object sender, DevExpress.XtraBars.Docking2010.ButtonEventArgs e)
         {
+            string year = Convert.ToString(((DataComboBox)comboBoxEjercicios.SelectedItem).keyString);
+            string mes = Convert.ToString(((DataComboBox)comboBoxMeses.SelectedItem).keyString);
+            if ((int.Parse( year) == 2019 && int.Parse(mes) < 7) || int.Parse(year) < 2019)
+            {
+                mensaje = new MessageBoxForm("Error", "Los meses anteriores a Julio de 2019 no tienen datos", TypeIcon.Icon.Cancel);
+                mensaje.ShowDialog();
+                return;
+            }
             string tag = ((WindowsUIButton)e.Button).Tag.ToString();
 
             loading = new Loading();
@@ -613,6 +628,12 @@ namespace SOAPAP.UI.ReportesForms.Finanzas
                 mensaje = new MessageBoxForm("Error", "Ocurrio un error, Intentelo más tarde", TypeIcon.Icon.Cancel);
                 mensaje.ShowDialog();
             }
+        }
+
+        private void comboBoxEjercicios_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            int year = Convert.ToInt32(((DataComboBox)comboBoxEjercicios.SelectedItem).keyString);
+            loadMeses(year);
         }
     }
 }

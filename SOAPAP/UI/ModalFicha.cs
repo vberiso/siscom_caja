@@ -73,9 +73,12 @@ namespace SOAPAP.UI
                     CargaObservaciones();
                     CargarConvenios();
                     cargarOrdenes();
+                    cargarRegla();
                     loading.Close();
                     break;
                 case Search.Type.Folio:
+                    
+                    tbcInformacion.Controls.Remove(tabRegla);
                     tbcInformacion.Controls.Remove(tabConvenios);
                     tbcInformacion.Controls.Remove(tabOrdenes);
                     ConfiguracionInicial(Search.Type.Folio);
@@ -90,7 +93,31 @@ namespace SOAPAP.UI
             
             
         }
+        private void cargarRegla()
+        {
+            if (!Variables.Configuration.IsMunicipal && Variables.Agreement != null && Variables.Agreement.AgreementRulerCalculations.Where(x => x.IsActive).ToList().Count >0)
+            {
+                dataReglas.Columns.Add("column1", "Servicio");
+                dataReglas.Columns.Add("column2", "Monto fijo");
+                List<string> data;
+                Variables.Agreement.AgreementRulerCalculations.Where(x => x.IsActive).ToList().ForEach(x =>
+                {
+                    data = new List<string>(){
+                    x.ServiceId == 1 ? "Agua":(x.ServiceId == 2? "Drenaje": "Saneamiento"),
+                    string.Format(new CultureInfo("es-MX"), "{0:C2}", x.Amount)
+                    };
+                    dataReglas.Rows.Add(data.ToArray());
 
+                });
+
+
+
+            }
+            else
+            {
+                tbcInformacion.Controls.Remove(tabRegla);
+            }
+        }
         private void dgvRecibos_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             //if (e.RowIndex >= 0)

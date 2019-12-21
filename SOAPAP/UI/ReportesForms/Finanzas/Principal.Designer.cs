@@ -308,6 +308,7 @@
             this.comboBoxEjercicios.Name = "comboBoxEjercicios";
             this.comboBoxEjercicios.Size = new System.Drawing.Size(161, 21);
             this.comboBoxEjercicios.TabIndex = 56;
+            this.comboBoxEjercicios.SelectedIndexChanged += new System.EventHandler(this.comboBoxEjercicios_SelectedIndexChanged);
             // 
             // pictureBox2
             // 

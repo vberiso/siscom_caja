@@ -8,7 +8,7 @@ namespace SOAPAP.Reportes.Finanzas.Ayuntamiento
 {
     public class AccountsPay
     {
-        public int id_agreement { get; set; }
+        public string id_agreement { get; set; }
         public int from_date { get; set; }
         public int until_date { get; set; }
         public DateTime payment_date { get; set; }
