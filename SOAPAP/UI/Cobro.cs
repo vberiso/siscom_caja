@@ -534,7 +534,7 @@ namespace SOAPAP.UI
 
                         }
                        
-                        var isVulnerable = Variables.Agreement.AgreementDiscounts.Where(x => x.IsActive).FirstOrDefault();
+                        var isVulnerable = Variables.Agreement.AgreementDiscounts?.Where(x => x.IsActive).FirstOrDefault();
                         if (isVulnerable != null) {
                             lblVulnerable.Visible = true;
                             lblVulnerableInfo.Visible = true;
