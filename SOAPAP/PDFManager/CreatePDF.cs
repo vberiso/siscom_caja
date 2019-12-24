@@ -48,6 +48,8 @@ namespace SOAPAP.PDFManager
         public string Paymethod { get; set; }
         public string SerialCajero { get; set; }
 
+        public string ProveedorServicioFacturacion { get; set; }
+
         public CreatePDF(CfdiMulti CfdiMulti, ModFac.ResponseCFDI Cfdi, string Account, TaxReceipt TaxReceipt, string Date, string Paymethod, TransactionVM TraVM)
         {
             this.CfdiMulti = CfdiMulti;
@@ -580,7 +582,7 @@ namespace SOAPAP.PDFManager
             builder.Append(@"</div>");
             builder.Append(@"<div style='text-align: left; display: inline-block; width: 76%;'>");
             builder.Append(@"<div style='text-align: left;'>");
-            builder.Append(@"<p><b>RFCProvCert: ESO1202108R2</b></p></div>");
+            builder.Append(@"<p><b>RFCProvCert: " + ProveedorServicioFacturacion != null ? ProveedorServicioFacturacion : "ESO1202108R2" + "</b></p></div>");
             builder.Append(@"<div style='text-align: left;'>");
             builder.Append(@"<p style='margin-bottom: 0px;'><b>Sello del SAT</b></p>");
             builder.Append(@"</div>");

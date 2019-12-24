@@ -407,7 +407,7 @@ namespace SOAPAP.UI
                     loading.Show(this);
                     var resultOrder = await Requests.SendURIAsync(string.Format("/api/OrderSales/Folio/{0}", _cuenta), HttpMethod.Get, Variables.LoginModel.Token);
                     loading.Close();
-                    if (resultOrder.Contains("error"))
+                    if (resultOrder.Contains("error\\"))
                     {
                         mensaje = new MessageBoxForm("Error", JsonConvert.DeserializeObject<Error>(resultOrder).error, TypeIcon.Icon.Cancel);
                         result = mensaje.ShowDialog();
@@ -509,7 +509,7 @@ namespace SOAPAP.UI
                     var resultAgreement = await Requests.SendURIAsync(string.Format("/api/Agreements/AgreementByAccount/Cash/{0}/{1}", _cuenta, Variables.cuentaID == -1 ? "" : Variables.cuentaID.ToString()), HttpMethod.Get, Variables.LoginModel.Token);
                     Variables.cuentaID = -1;
                     loading.Close();
-                    if (resultAgreement.Contains("error"))
+                    if (resultAgreement.Contains("error\\"))
                     {
                         mensaje = new MessageBoxForm("Error", JsonConvert.DeserializeObject<Error>(resultAgreement).error, TypeIcon.Icon.Cancel);
                         result = mensaje.ShowDialog();
@@ -635,7 +635,7 @@ namespace SOAPAP.UI
                             {
                                 //Aviso previo a corte de servicio
                                 var resultadoAgreement = await Requests.SendURIAsync(string.Format("/api/OrderWork/FromAccount/{0}", Variables.Agreement.Account), HttpMethod.Get, Variables.LoginModel.Token);
-                                if (resultadoAgreement.Contains("error") || string.IsNullOrEmpty(resultadoAgreement))
+                                if (resultadoAgreement.Contains("error\\") || string.IsNullOrEmpty(resultadoAgreement))
                                 {
                                 }
                                 else
@@ -682,7 +682,7 @@ namespace SOAPAP.UI
                                 loading.Show(this);
                                 var resultDeb = await Requests.SendURIAsync(string.Format("/api/Debts/{0}", Variables.Agreement.Id), HttpMethod.Get, Variables.LoginModel.Token);
                                 loading.Close();
-                                if (resultDeb.Contains("error"))
+                                if (resultDeb.Contains("error\\"))
                                 {
                                     mensaje = new MessageBoxForm("Error", JsonConvert.DeserializeObject<Error>(resultDeb).error, TypeIcon.Icon.Cancel);
                                     result = mensaje.ShowDialog();
@@ -921,7 +921,7 @@ namespace SOAPAP.UI
 
             var content = new StringContent(JsonConvert.SerializeObject(debtId), Encoding.UTF8, "application/json");
             var result =  await Requests.SendURIAsync(string.Format("/api/Debts/GetDiscountAnnual/" + Variables.Configuration.Descuento), HttpMethod.Post, Variables.LoginModel.Token, content);
-            if (!result.Contains("error"))
+            if (!result.Contains("error\\"))
             {
                 
                 var resultO = JObject.Parse(result);
@@ -1276,7 +1276,7 @@ namespace SOAPAP.UI
                 loading.Close();
                 if (resultado != null)
                 {
-                    if (resultado.Contains("error"))
+                    if (resultado.Contains("error\\"))
                     {
                         mensaje = new MessageBoxForm("Error", JsonConvert.DeserializeObject<Error>(resultado).error, TypeIcon.Icon.Cancel);
                         result = mensaje.ShowDialog();
@@ -1428,7 +1428,7 @@ namespace SOAPAP.UI
             loading = new Loading();
             loading.Show(this);
             var resultCampaign = await Requests.SendURIAsync(string.Format("/api/Discounts/{0}", Variables.Agreement.Id), HttpMethod.Post, Variables.LoginModel.Token);
-            if (resultCampaign.Contains("error"))
+            if (resultCampaign.Contains("error\\"))
             {
                 try
                 {
@@ -1513,7 +1513,7 @@ namespace SOAPAP.UI
             loading.Show(this);
 
             var resultCampaign = await Requests.SendURIAsync(string.Format("/api/CondonationCampaing/{0}/{1}", Variables.Agreement.Id, Variables.Configuration.CondonationCampaings.FirstOrDefault().Id), HttpMethod.Post, Variables.LoginModel.Token);
-            if (resultCampaign.Contains("error"))
+            if (resultCampaign.Contains("error\\"))
             {
                 try
                 {

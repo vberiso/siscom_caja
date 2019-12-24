@@ -177,7 +177,7 @@ namespace SOAPAP.UI
         {
             var promotionsS = await Requests.SendURIAsync("/api/Promotions/1", HttpMethod.Get, Variables.LoginModel.Token);
 
-            if (promotionsS.Contains("error"))
+            if (promotionsS.Contains("error\\"))
             {
                 return;
             }
@@ -221,7 +221,7 @@ namespace SOAPAP.UI
             loading.Show(this);
             var getPaymentMethods = await Requests.SendURIAsync("/api/PayMethod", HttpMethod.Get, Variables.LoginModel.Token);
            
-            if (getPaymentMethods.Contains("error"))
+            if (getPaymentMethods.Contains("error\\"))
             {
                 pnlEfectivo.Visible = true;
                 groupBox1.Visible = true;
@@ -315,7 +315,7 @@ namespace SOAPAP.UI
                 loading = new Loading();
                 loading.Show(this);
                 var getBanks = await Requests.SendURIAsync("/api/ExternalOriginPayments", HttpMethod.Get, Variables.LoginModel.Token);
-                if (getBanks.Contains("error"))
+                if (getBanks.Contains("error\\"))
                 {
                     pnlOtros.Visible = true;
                     txtTarjetaCheque.Visible = false;
@@ -383,7 +383,7 @@ namespace SOAPAP.UI
                 loading = new Loading();
                 loading.Show(this);
                 var getBanks = await Requests.SendURIAsync("/api/ExternalOriginPayments", HttpMethod.Get, Variables.LoginModel.Token);
-                if (getBanks.Contains("error"))
+                if (getBanks.Contains("error\\"))
                 {
                     loading.Close();
                     try
@@ -430,7 +430,7 @@ namespace SOAPAP.UI
             loading = new Loading();
             loading.Show(this);
             var getBanks = await Requests.SendURIAsync("/api/ExternalOriginPayments", HttpMethod.Get, Variables.LoginModel.Token);
-            if (getBanks.Contains("error"))
+            if (getBanks.Contains("error\\"))
             {
                 pnlOtros.Visible = true;
                 txtTarjetaCheque.Visible = true;
@@ -870,7 +870,7 @@ namespace SOAPAP.UI
                     //TODO
                     resultados = await Requests.SendURIAsync("/api/Transaction/Prepaid/" + Variables.Agreement.Id, HttpMethod.Post, Variables.LoginModel.Token, content);
 
-                    if (resultados.Contains("error"))
+                    if (resultados.Contains("error\\"))
                     {
                         loading.Close();
                         try
@@ -909,7 +909,7 @@ namespace SOAPAP.UI
                     //TODO
                     resultados = await Requests.SendURIAsync("/api/Transaction/Prepaid/" + Variables.Agreement.Id, HttpMethod.Post, Variables.LoginModel.Token, content);
 
-                    if (resultados.Contains("error"))
+                    if (resultados.Contains("error\\"))
                     {
                         loading.Close();
                         try
@@ -936,7 +936,7 @@ namespace SOAPAP.UI
                 {
                     //Validate that there is a discount at the time of making a payment
                     resultados = await Requests.SendURIAsync($"/api/DiscountAuthorizations/GetDiscountAuthorizationByAccount/{Variables.Agreement.Account}", HttpMethod.Get, Variables.LoginModel.Token);
-                    if (resultados.Contains("error"))
+                    if (resultados.Contains("error\\"))
                     {
                         loading.Close();
                         try
@@ -976,7 +976,7 @@ namespace SOAPAP.UI
                                 };
                                 HttpContent httpContent = new StringContent(JsonConvert.SerializeObject(discountVM), Encoding.UTF8, "application/json");
                                 resultados = await Requests.SendURIAsync($"/api/DiscountAuthorizations/{discounts.FirstOrDefault().Id}", HttpMethod.Post, Variables.LoginModel.Token, httpContent);
-                                if (resultados.Contains("error"))
+                                if (resultados.Contains("error\\"))
                                 {
                                     loading.Close();
                                     try
@@ -1267,7 +1267,7 @@ namespace SOAPAP.UI
                     HttpContent content = new StringContent(a, Encoding.UTF8, "application/json");
                     //TODO
                     resultados = await Requests.SendURIAsync("/api/Transaction", HttpMethod.Post, Variables.LoginModel.Token, content);
-                    if (resultados.Contains("error"))
+                    if (resultados.Contains("error\\"))
                     {
                         loading.Close();
                         try
@@ -1421,7 +1421,7 @@ namespace SOAPAP.UI
 
                         string resOrWo = string.Empty;
                         resOrWo = await Requests.SendURIAsync("/api/OrderWork/OrderWorks", HttpMethod.Post, Variables.LoginModel.Token, content);
-                        if (resOrWo.Contains("error") || resOrWo.Contains("reazon"))
+                        if (resOrWo.Contains("error\\") || resOrWo.Contains("reazon"))
                         {
                             mensaje = new MessageBoxForm("Error", "No se pudo generar la orden de reconexión", TypeIcon.Icon.Warning);
                             result = mensaje.ShowDialog();
@@ -1728,7 +1728,7 @@ namespace SOAPAP.UI
             //TODO
             var resultados = await Requests.SendURIAsync("/api/Transaction/OrderTransaction", HttpMethod.Post, Variables.LoginModel.Token, content);
 
-            if (resultados.Contains("error"))
+            if (resultados.Contains("error\\"))
             {
                 loading.Close();
                 try

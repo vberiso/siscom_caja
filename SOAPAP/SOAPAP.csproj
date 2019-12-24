@@ -16,21 +16,21 @@
     <TargetFrameworkProfile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
-    <PublishUrl>\\installer.sosapac.gob.mx\caja\</PublishUrl>
+    <PublishUrl>C:\Users\OEM\Documents\Publish\</PublishUrl>
     <Install>true</Install>
-    <InstallFrom>Unc</InstallFrom>
-    <UpdateEnabled>true</UpdateEnabled>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
     <UpdateMode>Foreground</UpdateMode>
     <UpdateInterval>7</UpdateInterval>
     <UpdateIntervalUnits>Days</UpdateIntervalUnits>
     <UpdatePeriodically>false</UpdatePeriodically>
-    <UpdateRequired>true</UpdateRequired>
+    <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
     <UpdateUrl>\\installer.sosapac.gob.mx\caja\</UpdateUrl>
-    <MinimumRequiredVersion>1.1.1.279</MinimumRequiredVersion>
+    <MinimumRequiredVersion>1.1.1.291</MinimumRequiredVersion>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>280</ApplicationRevision>
-    <ApplicationVersion>1.1.1.%2a</ApplicationVersion>
+    <ApplicationRevision>292</ApplicationRevision>
+    <ApplicationVersion>1.1.1.292</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
@@ -191,7 +191,7 @@
       <HintPath>..\packages\QrCode.Net.0.4.0.0\lib\net45\Gma.QrCodeNet.Encoding.dll</HintPath>
     </Reference>
     <Reference Include="HiQPdf">
-      <HintPath>..\..\..\archivos-siscom\Librerias\HiQPdf_10.17_x64\HiQPdf.dll</HintPath>
+      <HintPath>..\..\..\..\Downloads\HQ2PDF\HiQPdf.dll</HintPath>
     </Reference>
     <Reference Include="Humanizer, Version=2.5.0.0, Culture=neutral, PublicKeyToken=979442b78dfc278e, processorArchitecture=MSIL">
       <HintPath>..\packages\Humanizer.Core.2.5.16\lib\netstandard2.0\Humanizer.dll</HintPath>
@@ -353,6 +353,16 @@
       <DependentUpon>Anticipo.cs</DependentUpon>
     </Compile>
     <Compile Include="Anticipos.cs" />
+    <Compile Include="Connected Services\TimboxSandboxWS\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Connected Services\TimboxWS\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
     <Compile Include="Connected Services\WSCFDI33\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -386,6 +396,7 @@
     <Compile Include="Model\AdressVM.cs" />
     <Compile Include="Model\AgreementComent.cs" />
     <Compile Include="Model\AgreementProductVM.cs" />
+    <Compile Include="Model\AgreementRulerCalculation.cs" />
     <Compile Include="Model\AuthorizationDiscountVM.cs" />
     <Compile Include="Model\Breach.cs" />
     <Compile Include="Model\BreachArticle.cs" />
@@ -409,6 +420,7 @@
     <Compile Include="Model\DiscountAuthorizationVM.cs" />
     <Compile Include="Model\DiscountCampaign.cs" />
     <Compile Include="Model\Division.cs" />
+    <Compile Include="Model\FolioCancelacionTimbox.cs" />
     <Compile Include="Model\GroupCataloguesVM.cs" />
     <Compile Include="Model\LogginLog.cs" />
     <Compile Include="Model\NotificacionOrderWork.cs" />
@@ -1338,6 +1350,62 @@
     <EmbeddedResource Include="viewdetails.resx">
       <DependentUpon>viewdetails.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="Connected Services\TimboxSandboxWS\SOAPAP.TimboxSandboxWS.buscar_acuse_recepcion_result.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\TimboxSandboxWS\SOAPAP.TimboxSandboxWS.buscar_cfdis_result.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\TimboxSandboxWS\SOAPAP.TimboxSandboxWS.consulta_rfc_result.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\TimboxSandboxWS\SOAPAP.TimboxSandboxWS.obtener_consumo_result.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\TimboxSandboxWS\SOAPAP.TimboxSandboxWS.recuperar_comprobante_referencia.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\TimboxSandboxWS\SOAPAP.TimboxSandboxWS.recuperar_comprobante_result.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\TimboxSandboxWS\SOAPAP.TimboxSandboxWS.timbrar_cfdi_referencia_result.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\TimboxSandboxWS\SOAPAP.TimboxSandboxWS.timbrar_cfdi_result.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\TimboxSandboxWS\SOAPAP.TimboxSandboxWS.timbrar_zip_result.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\TimboxSandboxWS\timbrado_cfdi33.wsdl" />
+    <None Include="Connected Services\TimboxWS\SOAPAP.TimboxWS.buscar_acuse_recepcion_result.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\TimboxWS\SOAPAP.TimboxWS.buscar_cfdis_result.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\TimboxWS\SOAPAP.TimboxWS.consulta_rfc_result.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\TimboxWS\SOAPAP.TimboxWS.obtener_consumo_result.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\TimboxWS\SOAPAP.TimboxWS.recuperar_comprobante_referencia.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\TimboxWS\SOAPAP.TimboxWS.recuperar_comprobante_result.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\TimboxWS\SOAPAP.TimboxWS.timbrar_cfdi_referencia_result.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\TimboxWS\SOAPAP.TimboxWS.timbrar_cfdi_result.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\TimboxWS\SOAPAP.TimboxWS.timbrar_zip_result.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\TimboxWS\timbrado_cfdi33.wsdl" />
     <None Include="Connected Services\WSCFDI33\SOAPAP.WSCFDI33.RespuestaAceptacionRechazo.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
@@ -1489,6 +1557,18 @@
     <None Include="Connected Services\WSCFDI33\configuration91.svcinfo" />
     <None Include="Connected Services\WSCFDI33\configuration.svcinfo" />
     <None Include="Connected Services\WSCFDI33\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Connected Services\TimboxSandboxWS\configuration91.svcinfo" />
+    <None Include="Connected Services\TimboxSandboxWS\configuration.svcinfo" />
+    <None Include="Connected Services\TimboxSandboxWS\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Connected Services\TimboxWS\configuration91.svcinfo" />
+    <None Include="Connected Services\TimboxWS\configuration.svcinfo" />
+    <None Include="Connected Services\TimboxWS\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
@@ -1820,6 +1900,8 @@
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <ItemGroup>
+    <WCFMetadataStorage Include="Connected Services\TimboxSandboxWS\" />
+    <WCFMetadataStorage Include="Connected Services\TimboxWS\" />
     <WCFMetadataStorage Include="Connected Services\WSCFDI33\" />
     <WCFMetadataStorage Include="Connected Services\WsIntegral33Pruebas\" />
   </ItemGroup>

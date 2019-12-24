@@ -307,25 +307,7 @@ namespace SOAPAP.UI.FactPasada
                         mensaje = new MessageBoxForm("Error", ex.Message, TypeIcon.Icon.Cancel);
                         mensaje.ShowDialog();
                     }
-                    //PdfPrint.IsContentCentered = true;
-                    //PdfPrint.Scale = PdfPrint.ScaleTypes.None;
-                    //PdfPrint.Status result = PdfPrint.Status.OK;
-                    //PrintDialog printDialog = new PrintDialog();
-                    //if (printDialog.ShowDialog() == DialogResult.OK)
-                    //{
-                    //    try
-                    //    {
-                    //        result = PdfPrint.Print(xmltimbrado, printDialog.PrinterSettings);
-                    //    }
-                    //    catch (Exception ex)
-                    //    {
-                    //        result = PdfPrint.Status.UNKNOWN_ERROR;
-                    //        mensaje = new MessageBoxForm("Error", ex.Message, TypeIcon.Icon.Cancel);
-                    //        mensaje.ShowDialog();
-                    //    }
-                    //}
-
-
+                    
                     btnActualizar_Click(new object(), new EventArgs());
 
                     loadings.Close();
@@ -340,10 +322,18 @@ namespace SOAPAP.UI.FactPasada
             loadings.Show(this);
             if (!EstaFacturado)
             {
-                Form mensaje = new MessageBoxForm("Aviso", "Es necesario facturar previamente.", TypeIcon.Icon.Info);
-                result = mensaje.ShowDialog();                
+                if (Operacion.Contains("Cobro"))
+                {
+                    Form mensaje = new MessageBoxForm("Aviso", "Es necesario facturar previamente.", TypeIcon.Icon.Info);
+                    result = mensaje.ShowDialog();
+                }
+                if (Operacion.Contains("Cancela"))
+                {
+                    Form mensaje = new MessageBoxForm("Aviso", "Este pago nunca se facturó, no puede ser actualizado.", TypeIcon.Icon.Info);
+                    result = mensaje.ShowDialog();
+                }                             
             }
-            if (Operacion != "Cobro")
+            if (Operacion != "Cobro" && !Operacion.Contains("Cancela") )
             {
                 Form mensaje = new MessageBoxForm("Aviso", "No se puede generar factura para este tipo de movimiento", TypeIcon.Icon.Info);
                 result = mensaje.ShowDialog();                

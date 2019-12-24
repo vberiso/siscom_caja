@@ -35,6 +35,7 @@ using HiQPdf;
 using Firebase.Database;
 using Firebase.Database.Query;
 using SOAPAP.UI.Messages;
+using SOAPAP.FacturadoTimbox;
 
 namespace SOAPAP
 {
@@ -1115,7 +1116,7 @@ namespace SOAPAP
 
                     if (row.Cells["typeTransactionId"].Value.ToString() == "3")
                     {
-                          
+                        #region  Codigo de solicitid de cancelacion.  (Pendiente de aplicar.)
                         //loading = new Loading();
                         //loading.Show(this);
                         //TransactionCancellationRequest TCR = new TransactionCancellationRequest()
@@ -1129,7 +1130,6 @@ namespace SOAPAP
                         //    msgObs.ShowDialog();
                         //    TCR.Reason = msgObs.TextoMotivo;                            
                         //}
-
                         //if (!string.IsNullOrEmpty(TCR.Reason))
                         //{
                         //    //Se genera el registro en BD de la solicitud de cancelacion.
@@ -1168,7 +1168,7 @@ namespace SOAPAP
                         //{
                         //    loading.Close();
                         //}
-
+                        #endregion
                         mensaje = new MessageBoxForm("¿Deseas cancelar la operación?", "Se enviará una solictud de autorización", TypeIcon.Icon.Warning, true);
                         result = mensaje.ShowDialog();
                         if (result == DialogResult.OK)
@@ -1238,7 +1238,7 @@ namespace SOAPAP
 
                                         if (payment.TaxReceipts.FirstOrDefault(x => x.Status == "ET002").Xml != null)
                                         {
-                                            mensaje = new MessageBoxForm(Variables.titleprincipal, "Esta trasaccion esta timbrada", TypeIcon.Icon.Cancel);
+                                            mensaje = new MessageBoxForm(Variables.titleprincipal, "Esta trasaccion ya fue cancelada.", TypeIcon.Icon.Cancel);
                                             mensaje.ShowDialog();
                                         }
 
@@ -1253,8 +1253,34 @@ namespace SOAPAP
                                             try
                                             {
                                                 Facturaelectronica fst = new Facturaelectronica();
-                                                string key = payment.TaxReceipts.Where(x => x.Status == "ET001").FirstOrDefault().IdXmlFacturama;
-                                                var response = await fst.CancelarFacturaDesdeAPI(key);
+                                                TimbradoTimbox timbradoTimbox = new TimbradoTimbox();
+                                                var key = payment.TaxReceipts.Where(x => x.Status == "ET001").FirstOrDefault();
+
+                                                ////Valida que provedor facturo el pago
+                                                string response = "";
+                                                if (key.IdXmlFacturama.Contains("Timbox"))
+                                                {
+                                                    //string res = timbradoTimbox.CancelarFactura(payment);    
+
+                                                    FolioCancelacionTimbox FCT = new FolioCancelacionTimbox();
+                                                    FCT.UUID = key.FielXML;
+                                                    FCT.ReceptorRFC = key.RFC;
+                                                    FCT.Total = payment.Total;
+                                                    FCT.PaymentId = payment.Id;
+                                                    FCT.TaxReceiptId = key.Id;
+
+                                                    List<FolioCancelacionTimbox> lstFCT = new List<FolioCancelacionTimbox>();
+                                                    lstFCT.Add(FCT);
+
+                                                    var a = JsonConvert.SerializeObject(lstFCT);
+                                                    HttpContent content = new StringContent(a, Encoding.UTF8, "application/json");
+                                                    response = await Requests.SendURIAsync("/api/Facturacion/CancelarFacturasTimbox", HttpMethod.Post, Variables.LoginModel.Token, content);
+                                                }
+                                                else
+                                                {
+                                                    response = await fst.CancelarFacturaDesdeAPI(key.IdXmlFacturama);
+                                                }
+
                                                 if (response.Contains("error"))
                                                 {
                                                     mensaje = new MessageBoxForm("Error", "Es posible que el CFDI no haya sido cancelado. Consulte al administrador. " + response, TypeIcon.Icon.Warning);

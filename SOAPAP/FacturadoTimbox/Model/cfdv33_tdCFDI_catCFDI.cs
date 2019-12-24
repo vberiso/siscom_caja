@@ -1099,6 +1099,7 @@ namespace SOAPAP.FacturadoTimbox.Model
             }
             set
             {
+                tasaOCuotaFieldSpecified = true;
                 this.tasaOCuotaField = value;
             }
         }
@@ -1127,6 +1128,7 @@ namespace SOAPAP.FacturadoTimbox.Model
             }
             set
             {
+                importeFieldSpecified = true;
                 this.importeField = value;
             }
         }
@@ -1602,6 +1604,7 @@ namespace SOAPAP.FacturadoTimbox.Model
             }
             set
             {
+                totalImpuestosTrasladadosFieldSpecified = true;
                 this.totalImpuestosTrasladadosField = value;
             }
         }
