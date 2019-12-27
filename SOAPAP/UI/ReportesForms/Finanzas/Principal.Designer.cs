@@ -49,6 +49,7 @@
             this.tabFormato4 = new System.Windows.Forms.TabPage();
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel7 = new System.Windows.Forms.Panel();
+            this.button1 = new System.Windows.Forms.Button();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.label1 = new System.Windows.Forms.Label();
             this.comboBoxMeses = new System.Windows.Forms.ComboBox();
@@ -227,6 +228,7 @@
             // 
             // panel7
             // 
+            this.panel7.Controls.Add(this.button1);
             this.panel7.Controls.Add(this.tableLayoutPanel2);
             this.panel7.Controls.Add(this.tableLayoutPanel1);
             this.panel7.Controls.Add(this.pictureBox2);
@@ -234,8 +236,21 @@
             this.panel7.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel7.Location = new System.Drawing.Point(150, 0);
             this.panel7.Name = "panel7";
-            this.panel7.Size = new System.Drawing.Size(705, 94);
+            this.panel7.Size = new System.Drawing.Size(778, 94);
             this.panel7.TabIndex = 2;
+            // 
+            // button1
+            // 
+            this.button1.BackColor = System.Drawing.Color.Green;
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.button1.ForeColor = System.Drawing.Color.White;
+            this.button1.Location = new System.Drawing.Point(684, 37);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 52;
+            this.button1.Text = "Cedula";
+            this.button1.UseVisualStyleBackColor = false;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // tableLayoutPanel2
             // 
@@ -246,7 +261,7 @@
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 2.631579F));
             this.tableLayoutPanel2.Controls.Add(this.label1, 0, 0);
             this.tableLayoutPanel2.Controls.Add(this.comboBoxMeses, 0, 1);
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(390, 22);
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(427, 22);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 2;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
@@ -282,7 +297,7 @@
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 2.631579F));
             this.tableLayoutPanel1.Controls.Add(this.label7, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.comboBoxEjercicios, 0, 1);
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(138, 22);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(175, 22);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 2;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
@@ -316,7 +331,7 @@
             this.pictureBox2.BackColor = System.Drawing.Color.Transparent;
             this.pictureBox2.Image = global::SOAPAP.Properties.Resources.bg;
             this.pictureBox2.InitialImage = global::SOAPAP.Properties.Resources.bg;
-            this.pictureBox2.Location = new System.Drawing.Point(362, 16);
+            this.pictureBox2.Location = new System.Drawing.Point(399, 16);
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.Size = new System.Drawing.Size(235, 59);
             this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -329,7 +344,7 @@
             this.pbBG.BackColor = System.Drawing.Color.Transparent;
             this.pbBG.Image = global::SOAPAP.Properties.Resources.bg;
             this.pbBG.InitialImage = global::SOAPAP.Properties.Resources.bg;
-            this.pbBG.Location = new System.Drawing.Point(105, 16);
+            this.pbBG.Location = new System.Drawing.Point(142, 16);
             this.pbBG.Name = "pbBG";
             this.pbBG.Size = new System.Drawing.Size(235, 59);
             this.pbBG.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -340,9 +355,9 @@
             // 
             this.panel6.Controls.Add(this.windowsUIButtonPanel1);
             this.panel6.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panel6.Location = new System.Drawing.Point(855, 0);
+            this.panel6.Location = new System.Drawing.Point(928, 0);
             this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(205, 94);
+            this.panel6.Size = new System.Drawing.Size(132, 94);
             this.panel6.TabIndex = 1;
             // 
             // windowsUIButtonPanel1
@@ -364,11 +379,11 @@
             new DevExpress.XtraBars.Docking2010.WindowsUIButton("", true, windowsUIButtonImageOptions1, DevExpress.XtraBars.Docking2010.ButtonStyle.PushButton, "", -1, true, superToolTip1, true, false, true, "GE", -1, false),
             new DevExpress.XtraBars.Docking2010.WindowsUIButton("", true, windowsUIButtonImageOptions2, DevExpress.XtraBars.Docking2010.ButtonStyle.PushButton, "", -1, true, superToolTip2, true, false, true, "PR", -1, false)});
             this.windowsUIButtonPanel1.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.windowsUIButtonPanel1.Dock = System.Windows.Forms.DockStyle.Right;
+            this.windowsUIButtonPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.windowsUIButtonPanel1.ForeColor = System.Drawing.SystemColors.ControlLight;
-            this.windowsUIButtonPanel1.Location = new System.Drawing.Point(2, 0);
+            this.windowsUIButtonPanel1.Location = new System.Drawing.Point(0, 0);
             this.windowsUIButtonPanel1.Name = "windowsUIButtonPanel1";
-            this.windowsUIButtonPanel1.Size = new System.Drawing.Size(203, 94);
+            this.windowsUIButtonPanel1.Size = new System.Drawing.Size(132, 94);
             this.windowsUIButtonPanel1.TabIndex = 59;
             this.windowsUIButtonPanel1.Text = "windowsUIButtonPanel1";
             this.windowsUIButtonPanel1.ButtonClick += new DevExpress.XtraBars.Docking2010.ButtonEventHandler(this.windowsUIButtonPanel1_ButtonClick);
@@ -479,5 +494,6 @@
         private System.Windows.Forms.TabPage tabFormato1Ayuntamiento;
         private System.Windows.Forms.TabPage tabFormato2Ayuntamiento;
         private System.Windows.Forms.TabPage tabFormato3Ayuntamiento;
+        private System.Windows.Forms.Button button1;
     }
 }

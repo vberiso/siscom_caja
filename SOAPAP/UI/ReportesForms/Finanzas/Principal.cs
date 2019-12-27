@@ -4,6 +4,7 @@ using Newtonsoft.Json.Linq;
 using SOAPAP.Enums;
 using SOAPAP.Model;
 using SOAPAP.Reportes;
+using SOAPAP.Reportes.Finanzas.Ayuntamiento;
 using SOAPAP.Services;
 using SOAPAP.UI.ReportesForms.Finanzas.Agua.Formatos;
 using System;
@@ -18,6 +19,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Excel = Microsoft.Office.Interop.Excel;
 
 namespace SOAPAP.UI.ReportesForms.Finanzas
 {
@@ -123,6 +125,7 @@ namespace SOAPAP.UI.ReportesForms.Finanzas
 
         private async void Principal_Load(object sender, EventArgs e)
         {
+
             loading = new Loading();
             loading.Show(this);
             GroupsServices = await GetGroupsCtalogues();
@@ -130,11 +133,13 @@ namespace SOAPAP.UI.ReportesForms.Finanzas
             if (!Variables.Configuration.IsMunicipal) {
                 
                 this.tab = tabFormato1;
+                button1.Visible = false;
                 tabAyuntamiento.Visible = false;
                 ShowForm("SOAPAP", "UI.ReportesForms.Finanzas.Agua.Formatos.Formato1");
             }
             else
             {
+                button1.Visible = true;
                 this.tab = tabFormato1Ayuntamiento;
                 tabAgua.Visible = false;
                 
@@ -214,7 +219,7 @@ namespace SOAPAP.UI.ReportesForms.Finanzas
             return result;
         }
 
-        private async Task<string> Getdata()
+        private async Task<string> Getdata(string formatoP = null)
         {
             int mes = Convert.ToInt32(((DataComboBox)comboBoxMeses.SelectedItem).keyString);
             int year = Convert.ToInt32(((DataComboBox)comboBoxEjercicios.SelectedItem).keyString);
@@ -223,7 +228,7 @@ namespace SOAPAP.UI.ReportesForms.Finanzas
             object result = GetparameterFromInstanceForm(this.InstanceForm);
 
             var data = JsonConvert.SerializeObject(result);
-
+            
             List<object> content = JsonConvert.DeserializeObject<List<object>>(data);
 
             content.Add(new { Key = "mesPresentar", Value = mes, DbType = DbType.Int32 });
@@ -234,7 +239,7 @@ namespace SOAPAP.UI.ReportesForms.Finanzas
 
 
             var StringContent = new StringContent(json, Encoding.UTF8, "application/json");
-            url = string.Format("/api/StoreProcedure/runFormatos/{0}", "fza_" + formato);
+            url = string.Format("/api/StoreProcedure/runFormatos/{0}", "fza_" + (formatoP == null ? formato : formatoP));
 
 
 
@@ -634,6 +639,169 @@ namespace SOAPAP.UI.ReportesForms.Finanzas
         {
             int year = Convert.ToInt32(((DataComboBox)comboBoxEjercicios.SelectedItem).keyString);
             loadMeses(year);
+        }
+
+        private async void button1_Click(object sender, EventArgs e)
+        {
+
+            loading = new Loading();
+            loading.Show(this);
+            int year = Convert.ToInt32(((DataComboBox)comboBoxEjercicios.SelectedItem).keyString);
+            int mes = Convert.ToInt32(((DataComboBox)comboBoxMeses.SelectedItem).keyString);
+
+            string fullFileName = @"C:\Users\OEM\Documents\Cedula.xlsx";
+           
+            var result = JObject.Parse(await Getdata("cedula"))["data"].ToString();
+            var data =JsonConvert.DeserializeObject<List<Cedula>>(result);
+            //fullFileName = Path.GetFullPath(fullFileName);
+            Excel.Application ExApp;
+            ExApp = new Excel.Application();
+            Excel._Workbook oWBook;
+            Excel._Worksheet oSheet;
+            oWBook = ExApp.Workbooks.Open(fullFileName, 0, true, 5, "", "", true, Microsoft.Office.Interop.Excel.XlPlatform.xlWindows, "\t", false, false, 0, true, 1, 0);
+            int index = 1;
+            int month = 1;
+            if (year == 2019)
+            {
+                index = 2;
+                month = 7;
+            }
+
+            decimal Actual = 0;
+            decimal DescuentoUrbano = 0, DescuentoUrbanoSC = 0, DescuentoRural = 0, DescuentoVulnerable = 0, DescuentoRecargos = 0;
+            decimal Anteriores = 0;
+          
+            while (index <= 2)
+            {
+                int colum = 3;
+                oSheet = (Excel._Worksheet)oWBook.Sheets[index];
+                for (int i = month; i <= mes; i++)
+                {
+                    oSheet.Cells[21, colum] = "EJERCICIO " + year;
+                    oSheet.Cells[21, colum + 1] = "EJERCICIOS ANTERIORES A " + year;
+                    //Montos actuales y anteriores de urbano con construcción
+                    Actual = data.Where(x => x.type_intake == "URBANO" && x.month_payment == i && string.IsNullOrEmpty(x.descuento) && x.construccion_no != 1 && x.inicio == year && x.code_concept == 1).ToList().Sum(x => x.monto);
+                    //TActuales =  Actual;
+
+                    Anteriores = data.Where(x => x.type_intake == "URBANO" && x.month_payment == i && string.IsNullOrEmpty(x.descuento) && x.construccion_no != 1 && x.inicio < year && x.code_concept == 1).ToList().Sum(x => x.monto);
+                    //TAnteriores =  Anteriores;
+
+                    DescuentoUrbano = DescuentoUrbano + data.Where(x => x.type_intake == "URBANO" && string.IsNullOrEmpty(x.descuento) && x.month_payment == i && x.construccion_no != 1 && x.code_concept == 1).ToList().Sum(x => x.discount_amount);
+
+
+
+                    //TUrbano = TUrbano+ Anteriores + Actual;
+                    oSheet.Cells[23, colum] = Actual;
+                    oSheet.Cells[23, colum + 1] = Anteriores;
+
+
+
+                    //Montos actuales y anteriores de urbano sin construcción
+                    Actual = data.Where(x => x.type_intake == "URBANO" && x.month_payment == i && string.IsNullOrEmpty(x.descuento) && x.construccion_no == 1 && x.inicio == year && x.code_concept == 1).ToList().Sum(x => x.monto);
+                    //TActuales = TActuales + Actual;
+
+                    Anteriores = data.Where(x => x.type_intake == "URBANO" && x.month_payment == i && string.IsNullOrEmpty(x.descuento) && x.construccion_no == 1 && x.inicio < year && x.code_concept == 1).ToList().Sum(x => x.monto);
+                    //TAnteriores = TAnteriores + Anteriores;
+
+
+                    DescuentoUrbanoSC = DescuentoUrbanoSC + data.Where(x => x.type_intake == "URBANO" && x.month_payment == i && string.IsNullOrEmpty(x.descuento) && x.construccion_no == 1 && x.code_concept == 1).ToList().Sum(x => x.discount_amount);
+                    //TurbanoSinConstraccion = TurbanoSinConstraccion + Anteriores + Actual;
+                    oSheet.Cells[24, colum] = Actual;
+                    oSheet.Cells[24, colum + 1] = Anteriores;
+
+
+
+                    //Montos actuales y anteriores de rurales
+                    Actual = data.Where(x => x.type_intake == "RUSTICO" && x.month_payment == i && string.IsNullOrEmpty(x.descuento) && x.inicio == year && x.code_concept == 1).ToList().Sum(x => x.monto);
+                    //TActuales = TActuales +Actual;
+
+                    Anteriores = data.Where(x => x.type_intake == "RUSTICO" && x.month_payment == i && string.IsNullOrEmpty(x.descuento) && x.inicio < year && x.code_concept == 1).ToList().Sum(x => x.monto);
+                    //TAnteriores = TAnteriores +  Anteriores;
+
+                    DescuentoRural = DescuentoRural + data.Where(x => x.type_intake == "RUSTICO" && x.month_payment == i && string.IsNullOrEmpty(x.descuento) && x.code_concept == 1).ToList().Sum(x => x.discount_amount);
+                    //TRural = TRural + Anteriores + Actual;
+                    oSheet.Cells[26, colum] = Actual;
+                    oSheet.Cells[26, colum + 1] = Anteriores;
+
+
+                    //Montos actuales y anteriores de descuento vulnerable
+                    Actual = data.Where(x => !string.IsNullOrEmpty(x.descuento) && x.month_payment == i && x.inicio == year && x.code_concept == 1).ToList().Sum(x => x.monto);
+                    //TActuales = TActuales + Actual;
+
+                    Anteriores = data.Where(x => !string.IsNullOrEmpty(x.descuento) && x.month_payment == i && x.inicio < year && x.code_concept == 1).ToList().Sum(x => x.monto);
+                    //TAnteriores = TAnteriores + Anteriores;
+
+                    DescuentoVulnerable = DescuentoVulnerable + data.Where(x => !string.IsNullOrEmpty(x.descuento) && x.month_payment == i && x.code_concept == 1).ToList().Sum(x => x.discount_amount);
+                    //TVulnerable = TVulnerable + Anteriores + Actual;
+                    oSheet.Cells[28, colum] = Actual;
+                    oSheet.Cells[28, colum + 1] = Anteriores;
+
+
+                    //Montos actuales y anteriores de recargos
+                    Actual = data.Where(x => x.month_payment == i && x.inicio == year && x.code_concept == 3).ToList().Sum(x => x.monto);
+                    //TActuales = TActuales + Actual;
+
+                    Anteriores = data.Where(x => x.month_payment == i && x.inicio < year && x.code_concept == 3).ToList().Sum(x => x.monto);
+                    //TAnteriores = TAnteriores + Anteriores;
+
+                    DescuentoRecargos = DescuentoRecargos +data.Where(x => x.month_payment == i  && x.code_concept == 3).ToList().Sum(x => x.discount_amount);
+                    //TRecargos = TRecargos + Anteriores + Actual;
+                    oSheet.Cells[29, colum] = Actual;
+                    oSheet.Cells[29, colum + 1] = Anteriores;
+                
+
+
+
+                    //oSheet.Cells[30, colum] = TActuales;
+                    //oSheet.Cells[30, colum + 1] = TAnteriores;
+
+
+                    colum = colum +2;
+                }
+                oSheet.Cells[23, 16] = DescuentoUrbano;
+                oSheet.Cells[24, 16] = DescuentoUrbanoSC;
+                oSheet.Cells[26, 16] = DescuentoRural;
+                oSheet.Cells[28, 16] = DescuentoVulnerable;
+                oSheet.Cells[29, 16] = DescuentoRecargos;
+                //oSheet.Cells[23, 23] = TUrbano;
+                //oSheet.Cells[24, 23] = TurbanoSinConstraccion;
+                //oSheet.Cells[26, 23] = TRural;
+                //oSheet.Cells[28, 23] = TVulnerable;
+                //oSheet.Cells[29, 23] = TVulnerable;
+
+
+
+
+
+                index++;
+            }
+           
+
+            
+
+            
+            ExApp.Visible = false;
+            ExApp.UserControl = true;
+            FolderBrowserDialog fbd = new FolderBrowserDialog();
+           
+            fbd.Description = "Selecciona el directorio destino.";
+
+            if (fbd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                string NombreFile = "Cedula" + "_" + DateTime.Now.ToString("yyyy-MM-dd HH-mm-ss");
+                NombreFile = NombreFile.Replace(" ", "");
+                oWBook.SaveAs(fbd.SelectedPath + "\\" + NombreFile + ".xlsx");
+                MessageBox.Show("Archivo " + NombreFile + ".xlsx" + " guardado.");
+
+                ExApp.ActiveWorkbook.Close(true, fullFileName, Type.Missing);
+            }
+           
+            
+            
+            
+            ExApp.Quit();
+            ExApp = null;
+            loading.Close();
         }
     }
 }
