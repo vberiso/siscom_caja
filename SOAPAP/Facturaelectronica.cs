@@ -54,7 +54,7 @@ namespace SOAPAP
         {
 
             Requests = new RequestsAPI(UrlBase);
-            facturama = new FacturamaApiMultiemisor("gfdsystems", "gfds1st9");
+            facturama = new FacturamaApiMultiemisor("gfdsystems", "gfds1st95");
             //facturama = new FacturamaApiMultiemisor("pruebas", "pruebas2011");
         }
         public void setMsgs(string msgObservacionFactura, string msgUsos)
@@ -452,7 +452,7 @@ namespace SOAPAP
                                     Description = Or.Description,
                                     UnitPrice = Or.UnitPrice,
                                     Quantity = Or.Quantity,
-                                    Subtotal = (Or.Quantity * Or.UnitPrice),
+                                    Subtotal = decimal.Round(Or.Quantity * Or.UnitPrice, 2),
                                     Discount = tmpDescuentoAjustado,
                                     Total = Or.Amount + TraVM.payment.PaymentDetails.Where(x => x.CodeConcept == Or.CodeConcept && x.Amount == Or.Amount).FirstOrDefault().Tax
                                 };
@@ -580,12 +580,18 @@ namespace SOAPAP
                 string nombreXML = string.Format("\\{0}_{1}_{2}.xml", issuer.Rfc, receptor.Rfc, seriefolio);
                 string nombrePDF = string.Format("\\{0}_{1}_{2}.pdf", issuer.Rfc, receptor.Rfc, seriefolio);
 
-
-                object[] vs = TimbrarAnteFacturama(cfdi, path + nombreXML);
-                //if (vs[0] == null)
-                //{
-                //    int res = await timbrarProvedorSecundario(cfdi);
-                //}
+                bool TimbroFacturama = true;
+                object[] vs = solicitarTimbradoAProveedores(cfdi, path + nombreXML);
+                if (vs[0] == null)
+                {
+                    TimbroFacturama = false;
+                    if (((string)vs[1]).Contains("El cálculo") || ((string)vs[1]).Contains("RFC"))
+                    { }
+                    else
+                    {                       
+                        vs[0] = await timbrarProvedorSecundario(cfdi);
+                    }
+                }
                 if (vs[0] != null)
                 {
                     //cfdiFacturama = (Facturama.Models.Response.Cfdi)vs[0];
@@ -598,6 +604,7 @@ namespace SOAPAP
                     CreatePDF pDF = new CreatePDF(cfdi, cfdiFacturama, ms.account, resGuardado, fecha, (TraVM.payment.PayMethod.code + ", " + TraVM.payment.PayMethod.Name), TraVM);
                     pDF.UsoCFDI = string.IsNullOrEmpty(msgUsos) ? "P01 - Por definir" : msgUsos;
                     pDF.SerialCajero = pSerialCajero;
+                    pDF.ProveedorServicioFacturacion = TimbroFacturama ? "ESO1202108R2" : "IAD121214B34";
                     if (TraVM.payment.OrderSaleId == 0)
                     {
                         pDF.ObservacionCFDI = msgObservacionFactura;
@@ -634,52 +641,44 @@ namespace SOAPAP
             }
         }
 
-        public object[] TimbrarAnteFacturama(CfdiMulti cfdi, string path)
+        public object[] solicitarTimbradoAProveedores(CfdiMulti cfdi, string path)
         {
             object[] cfdistatus = new object[2];
-
-            int intentos = 0;
-            while (intentos < 3)
+                        
+            try
             {
-                try
-                {
-                    Facturama.Models.Response.Cfdi cfdiCreated = facturama.Cfdis.Create(cfdi);
+                //Facturar con Facturama.
+                Facturama.Models.Response.Cfdi cfdiCreated = facturama.Cfdis.Create(cfdi);                
+                facturama.Cfdis.SaveXml(path, cfdiCreated.Id);
 
-                    //Descarga de XML
-                    facturama.Cfdis.SaveXml(path, cfdiCreated.Id);
-
-                    cfdistatus[0] = cfdiCreated;
-                    cfdistatus[1] = null;
-                    return cfdistatus;
-                }
-                catch (FacturamaException ex)
-                {
-                    string error = "";
-                    if (ex.Model != null && ex.Model.Details != null && ex.Model.Details.Count > 0)
-                    {
-                        foreach (var messageDetail in ex.Model.Details)
-                        {
-                            error += "(" + messageDetail.Value.Aggregate("", (current, next) => current + ", " + next).Substring(2) + ") ";
-                        }
-                    }
-                    else
-                        error = "Detalle: " + ex.Message;
-
-                    cfdistatus[0] = null;
-                    cfdistatus[1] = error;
-                    if (error.Contains("El cálculo") || error.Contains("RFC"))
-                        return cfdistatus;
-                    else
-                        intentos++;
-                }
-                catch (Exception ex)
-                {
-                    cfdistatus[0] = null;
-                    cfdistatus[1] = "error: " + ex.Message;
-                    intentos++;
-                }
-                System.Threading.Thread.Sleep(1000 * (3 - intentos));
+                cfdistatus[0] = cfdiCreated;
+                cfdistatus[1] = null;
+                return cfdistatus;
             }
+            catch (FacturamaException ex)
+            {
+                string error = "";
+                if (ex.Model != null && ex.Model.Details != null && ex.Model.Details.Count > 0)
+                {
+                    foreach (var messageDetail in ex.Model.Details)
+                    {
+                        error += "(" + messageDetail.Value.Aggregate("", (current, next) => current + ", " + next).Substring(2) + ") ";
+                    }
+                }
+                else
+                    error = "Detalle: " + ex.Message;
+
+                cfdistatus[0] = null;
+                cfdistatus[1] = error;
+                if (error.Contains("El cálculo") || error.Contains("RFC"))
+                    return cfdistatus;                
+            }
+            catch (Exception ex)
+            {
+                cfdistatus[0] = null;
+                cfdistatus[1] = "error: " + ex.Message;                
+            }
+           
             return cfdistatus;
         }
 
@@ -934,16 +933,21 @@ namespace SOAPAP
                 var resulTaxUs = await Requests.SendURIAsync(string.Format("/api/TaxUsers/{0}", TraVM.orderSale.TaxUserId), HttpMethod.Get, Variables.LoginModel.Token);
                 tu = JsonConvert.DeserializeObject<Model.TaxUser>(resulTaxUs);
             }
-
-            //var resultadoXML = await Requests.SendURIAsync(string.Format("/api/TaxReceipt/XmlFromPaymentId/{0}", TraVM.payment.Id), HttpMethod.Get, Variables.LoginModel.Token);
-            //string tmpXML = JsonConvert.DeserializeObject<string>(resultadoXML);
-            //SOAPAP.Facturado.DocumentoXML comprobante = DeserializerXML(tmpXML);
-
+                        
             //Facturama.Models.Response.Cfdi cfdiGet = null;
             ModFac.ResponseCFDI cfdiGet = null;
             if (esCancelacion)
             {
-                cfdiGet = await ObterCfdiDesdeAPI(TraVM.payment.TaxReceipts.OrderBy(xx => xx.Id).LastOrDefault());
+                TaxReceipt tmpTR = TraVM.payment.TaxReceipts.OrderBy(xx => xx.Id).LastOrDefault();
+                if (tmpTR.IdXmlFacturama.Contains("Timbox"))
+                {
+                    cfdiGet = await ObterCfdiDesdeTIMBOX(tmpTR);
+                }
+                else
+                {
+                    cfdiGet = await ObterCfdiDesdeAPI(tmpTR);
+                }
+                
                 if (cfdiGet != null)
                 {
                     //Verifica el estatus, en caso de no estar cancelado, solicita la cancelacion.
@@ -955,7 +959,14 @@ namespace SOAPAP
                 }
             }
             else
-                cfdiGet = await ObterCfdiDesdeAPI(TraVM.payment.TaxReceipts.Where(x => x.Status == "ET001").FirstOrDefault());
+            {
+                TaxReceipt taxReceipt = TraVM.payment.TaxReceipts.Where(x => x.Status == "ET001").FirstOrDefault();
+                //if (taxReceipt.IdXmlFacturama.Contains("Timbox"))
+                //    cfdiGet = await ObterCfdiDesdeTIMBOX(taxReceipt);
+                //else
+                    cfdiGet = await ObterCfdiDesdeAPI(taxReceipt);
+            }
+                
 
             //Si esta campo viene vacio, es porque no existe el registro en facturama.
             if (cfdiGet.Items == null)
@@ -1091,12 +1102,27 @@ namespace SOAPAP
 
 
         ////Timbrado secundario
-        public async Task<int> timbrarProvedorSecundario(CfdiMulti cfdiMulti)
+        public async Task<Facturama.Models.Response.Cfdi> timbrarProvedorSecundario(CfdiMulti cfdiMulti)
         {
             //Facturador secundario.
             TimbradoTimbox TT = new TimbradoTimbox();
-            int res = await TT.Facturar(cfdiMulti);
-            return 1;
+            Facturama.Models.Response.Cfdi resCfdi = await TT.Facturar(cfdiMulti);
+            if (resCfdi == null)
+            {
+                return null;
+            }
+            else
+            {
+                return resCfdi;
+            }            
+        }
+
+        public async Task<ModFac.ResponseCFDI> ObterCfdiDesdeTIMBOX(TaxReceipt taxReceipt)
+        {
+            //Facturador secundario.
+            TimbradoTimbox TT = new TimbradoTimbox();
+            ModFac.ResponseCFDI resCfdi = await TT.getCFDI(taxReceipt);           
+            return resCfdi;            
         }
     }
 
