@@ -139,7 +139,7 @@ namespace SOAPAP.UI.ReportesForms.Finanzas
             }
             else
             {
-                button1.Visible = false;
+                button1.Visible = true;
                 this.tab = tabFormato1Ayuntamiento;
                 tabAgua.Visible = false;
                 

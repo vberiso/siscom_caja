@@ -16,9 +16,9 @@
     <TargetFrameworkProfile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
-    <PublishUrl>\\installer.sosapac.gob.mx\caja\</PublishUrl>
+    <PublishUrl>C:\Users\OEM\Videos\Captures\</PublishUrl>
     <Install>true</Install>
-    <InstallFrom>Unc</InstallFrom>
+    <InstallFrom>Disk</InstallFrom>
     <UpdateEnabled>true</UpdateEnabled>
     <UpdateMode>Foreground</UpdateMode>
     <UpdateInterval>7</UpdateInterval>
@@ -190,14 +190,19 @@
     <Reference Include="Gma.QrCodeNet.Encoding, Version=0.4.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\QrCode.Net.0.4.0.0\lib\net45\Gma.QrCodeNet.Encoding.dll</HintPath>
     </Reference>
-    <Reference Include="HiQPdf">
-      <HintPath>..\..\..\..\Downloads\HQ2PDF\HiQPdf.dll</HintPath>
+    <Reference Include="HiQPdf, Version=10.17.0.0, Culture=neutral, PublicKeyToken=acd8b62594985b24, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Documents\archivos-siscom\Librerias\HiQPdf_10.17_x64\HiQPdf.dll</HintPath>
     </Reference>
     <Reference Include="Humanizer, Version=2.5.0.0, Culture=neutral, PublicKeyToken=979442b78dfc278e, processorArchitecture=MSIL">
       <HintPath>..\packages\Humanizer.Core.2.5.16\lib\netstandard2.0\Humanizer.dll</HintPath>
     </Reference>
     <Reference Include="LiteDB, Version=4.1.4.0, Culture=neutral, PublicKeyToken=4ee40123013c9f27, processorArchitecture=MSIL">
       <HintPath>..\packages\LiteDB.4.1.4\lib\net40\LiteDB.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Office.Interop.Excel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Office.Interop.Excel.15.0.4795.1000\lib\net20\Microsoft.Office.Interop.Excel.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
     <Reference Include="Microsoft.ReportViewer.Common, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.ReportViewer.2015.12.0.2.2403\lib\net40\Microsoft.ReportViewer.Common.dll</HintPath>
@@ -516,6 +521,7 @@
     <Compile Include="Reportes\DataTaxpayerOrderSale.cs" />
     <Compile Include="Reportes\DataTaxpayerPrepaid.cs" />
     <Compile Include="Reportes\Finanzas\Ayuntamiento\AccountsPay.cs" />
+    <Compile Include="Reportes\Finanzas\Ayuntamiento\Cedula.cs" />
     <Compile Include="Reportes\Finanzas\Ayuntamiento\Cuentas.cs" />
     <Compile Include="Reportes\Finanzas\Formato1.cs" />
     <Compile Include="Reportes\Finanzas\Formato2.cs" />
@@ -1546,6 +1552,7 @@
     <Service Include="{C0C07587-41A7-46C8-8FBD-3F9C8EBE2DDC}" />
   </ItemGroup>
   <ItemGroup>
+    
     <None Include="Resources\xmlBCO.png" />
     <None Include="Connected Services\WsIntegral33Pruebas\configuration91.svcinfo" />
     <None Include="Connected Services\WsIntegral33Pruebas\configuration.svcinfo" />
@@ -1625,6 +1632,10 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="OutputTem\sosapac.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+
+    <Content Include="OutputTem\Cedula.xlsx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\abrir-caja.png" />
