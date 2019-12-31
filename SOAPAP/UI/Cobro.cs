@@ -94,6 +94,10 @@ namespace SOAPAP.UI
             tableLayoutPanel3.RowStyles[0] = new RowStyle(SizeType.Percent, 0);
             tableLayoutPanel3.RowStyles[tableLayoutPanel3.RowCount - 1] = new RowStyle(SizeType.Percent, 0);
             tableLayoutPanel3.Size = new Size(344, 350);
+
+
+          
+
         }
 
         private void pbBuscar_Click(object sender, EventArgs e)
@@ -386,6 +390,7 @@ namespace SOAPAP.UI
             lblDescuentoT.Visible = false;
             lblVulnerable.Text = "";
             lblVulnerableInfo.Text = "";
+            layoutAnual.Visible = false;
         }
 
         private async void ObtenerInformacion()
@@ -533,7 +538,7 @@ namespace SOAPAP.UI
                             Variables.Agreement = OCobroBuscarCuentaSelectOne.getAgreement();
 
                         }
-                       
+
                         var isVulnerable = Variables.Agreement.AgreementDiscounts?.Where(x => x.IsActive).FirstOrDefault();
                         if (isVulnerable != null) {
                             lblVulnerable.Visible = true;
@@ -770,7 +775,17 @@ namespace SOAPAP.UI
                             mensaje = new MessageBoxForm("Sin dato", "No se encontraron datos para este número de cuenta", TypeIcon.Icon.Warning);
                             result = mensaje.ShowDialog();
                         }
-
+                        if (!Variables.Configuration.IsMunicipal) {
+                            DateTime current = DateTime.Now;
+                            if (current.Month == 1 && Variables.Agreement.Debts.Count() == 1 && Variables.Agreement.Debts.Where(x => x.FromDate.Month == 1).ToList().Count() == 1)
+                            {
+                                layoutAnual.Visible = true;
+                            }
+                            if (current.Month == 2 && Variables.Agreement.Debts.Count() == 2 && Variables.Agreement.Debts.Where(x => x.FromDate.Month == 2).ToList().Count() == 1)
+                            {
+                                layoutAnual.Visible = true;
+                            }
+                        }
                         //Valida si hay campañas de descuentos adicionales.
                         if (Variables.Agreement != null && Variables.Configuration.CondonationCampaings.Count > 0 && Variables.Agreement.Addresses.FirstOrDefault().Suburbs.ApplyAnnualPromotion == true)
                         {
@@ -1574,6 +1589,19 @@ namespace SOAPAP.UI
                 UpdateDataContactsAgremment UpdateDataContactsAgremment = new UpdateDataContactsAgremment(Variables.Agreement.Clients.ToList());
                 UpdateDataContactsAgremment.ShowDialog();
             }
+        }
+
+        private void btnAnuall_Click(object sender, EventArgs e)
+        {
+            Variables.Configuration.Anual = true;
+            var Uiperiodos = new PeriodosAnticipados(Variables.Agreement, true);
+
+            var result = Uiperiodos.ShowDialog(this);
+            Uiperiodos.Close();
+            if (result != DialogResult.Cancel ) {
+                ObtenerInformacion();
+            }
+
         }
     }
 

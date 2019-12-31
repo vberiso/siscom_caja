@@ -49,7 +49,10 @@
             this.tabFormato4 = new System.Windows.Forms.TabPage();
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel7 = new System.Windows.Forms.Panel();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.panel8 = new System.Windows.Forms.Panel();
             this.button1 = new System.Windows.Forms.Button();
+            this.panel4 = new System.Windows.Forms.Panel();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.label1 = new System.Windows.Forms.Label();
             this.comboBoxMeses = new System.Windows.Forms.ComboBox();
@@ -70,6 +73,8 @@
             this.tabAgua.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel7.SuspendLayout();
+            this.panel3.SuspendLayout();
+            this.panel8.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
@@ -228,7 +233,7 @@
             // 
             // panel7
             // 
-            this.panel7.Controls.Add(this.button1);
+            this.panel7.Controls.Add(this.panel3);
             this.panel7.Controls.Add(this.tableLayoutPanel2);
             this.panel7.Controls.Add(this.tableLayoutPanel1);
             this.panel7.Controls.Add(this.pictureBox2);
@@ -239,18 +244,47 @@
             this.panel7.Size = new System.Drawing.Size(778, 94);
             this.panel7.TabIndex = 2;
             // 
+            // panel3
+            // 
+            this.panel3.Controls.Add(this.panel8);
+            this.panel3.Controls.Add(this.panel4);
+            this.panel3.Dock = System.Windows.Forms.DockStyle.Right;
+            this.panel3.Location = new System.Drawing.Point(687, 0);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(91, 94);
+            this.panel3.TabIndex = 52;
+            // 
+            // panel8
+            // 
+            this.panel8.Controls.Add(this.button1);
+            this.panel8.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel8.Location = new System.Drawing.Point(0, 33);
+            this.panel8.Name = "panel8";
+            this.panel8.Size = new System.Drawing.Size(91, 34);
+            this.panel8.TabIndex = 1;
+            // 
             // button1
             // 
             this.button1.BackColor = System.Drawing.Color.Green;
+            this.button1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.button1.ForeColor = System.Drawing.Color.White;
-            this.button1.Location = new System.Drawing.Point(684, 37);
+            this.button1.Location = new System.Drawing.Point(0, 0);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 52;
+            this.button1.Size = new System.Drawing.Size(91, 34);
+            this.button1.TabIndex = 53;
             this.button1.Text = "Cedula";
             this.button1.UseVisualStyleBackColor = false;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.button1.Visible = false;
+            this.button1.Click += new System.EventHandler(this.button1_Click_1);
+            // 
+            // panel4
+            // 
+            this.panel4.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel4.Location = new System.Drawing.Point(0, 0);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(91, 33);
+            this.panel4.TabIndex = 0;
             // 
             // tableLayoutPanel2
             // 
@@ -451,6 +485,8 @@
             this.tabAgua.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
             this.panel7.ResumeLayout(false);
+            this.panel3.ResumeLayout(false);
+            this.panel8.ResumeLayout(false);
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel2.PerformLayout();
             this.tableLayoutPanel1.ResumeLayout(false);
@@ -494,6 +530,9 @@
         private System.Windows.Forms.TabPage tabFormato1Ayuntamiento;
         private System.Windows.Forms.TabPage tabFormato2Ayuntamiento;
         private System.Windows.Forms.TabPage tabFormato3Ayuntamiento;
+        private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.Panel panel8;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Panel panel4;
     }
 }

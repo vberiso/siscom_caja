@@ -196,12 +196,25 @@ namespace SOAPAP.UI.FacturacionAnticipada
             }
             else
             {
+                mesInicio = 1;
+                mesFin = 12;
+                //if (IsAnual)
+                //{
+                //    mesInicio = 1;
+                //    mesFin = 12;
+                //}
 
-                if (IsAnual)
+                DateTime current = DateTime.Now;
+                if (current.Month == 1 && Agreement.Debts.Count() == 1 && Agreement.Debts.Where(x => x.FromDate.Month == 1).ToList().Count() == 1)
                 {
-                    mesInicio = 1;
-                    mesFin = 12;
+                    
+                    mesInicio = 2;
                 }
+                if (current.Month == 2 && Agreement.Debts.Count() == 2 && Agreement.Debts.Where(x => x.FromDate.Month == 2).ToList().Count() == 1)
+                {
+                    mesInicio = 3;
+                }
+
                 Variables.Configuration.Anual = IsAnual;
                
                 Simular uiSimular = new Simular(Agreement, mesInicio, mesFin, Convert.ToInt32(lblYear.Text));
@@ -238,14 +251,18 @@ namespace SOAPAP.UI.FacturacionAnticipada
                 mesFin = Convert.ToInt32(((DataComboBox)comboMesFin2.SelectedItem).keyString);
                 mesInicio = Convert.ToInt32(((DataComboBox)comboMesInicio.SelectedItem).keyString);
             }
-            DateTime current = DateTime.Now;
-            if (current.Month == 1)
+            else
             {
-                mesInicio = 1;
-            }
-            if (current.Month == 2)
-            {
-                mesInicio = 1;
+                
+                DateTime current = DateTime.Now;
+                if (current.Month == 1 && Agreement.Debts.Count() == 1 && Agreement.Debts.Where(x => x.FromDate.Month == 1).ToList().Count() == 1)
+                {
+                    mesInicio = 2;
+                }
+                if (current.Month == 2 && Agreement.Debts.Count() == 2 && Agreement.Debts.Where(x => x.FromDate.Month == 2).ToList().Count() == 1)
+                {
+                    mesInicio = 3;
+                }
             }
             
 
@@ -272,9 +289,14 @@ namespace SOAPAP.UI.FacturacionAnticipada
             {
                 if (Variables.Configuration.Anual)
                 {
+                    List<int> debts = JsonConvert.DeserializeObject<List<int>>(JsonConvert.SerializeObject(jsonResult["data"]));
+                    if (Variables.Agreement.Debts.Count >0)
+                    {
+                        debts.AddRange(Variables.Agreement.Debts.Select(x => x.Id));
+                    }
                     var des = Variables.Configuration.Descuento == 50 ? 0 : Variables.Configuration.Descuento;
                      url = string.Format("/api/Agreements/GeneratePagosAnuales/{0}/{1}/{2}/{3}/{4}", Convert.ToInt32(agreement_id), des, Variables.LoginModel.FullName, Variables.LoginModel.User, checkPaymentTarget.Checked);
-                    stringContent = new StringContent(JsonConvert.SerializeObject(jsonResult["data"]), Encoding.UTF8, "application/json");
+                    stringContent = new StringContent(JsonConvert.SerializeObject(debts), Encoding.UTF8, "application/json");
                     results = await Requests.SendURIAsync(url, HttpMethod.Post, Variables.LoginModel.Token, stringContent);
                 }
                 mensaje = new MessageBoxForm("Éxito", jsonResult["message"].ToString(), TypeIcon.Icon.Success);
