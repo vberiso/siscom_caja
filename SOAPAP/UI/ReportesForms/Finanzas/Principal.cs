@@ -644,10 +644,11 @@ namespace SOAPAP.UI.ReportesForms.Finanzas
        
         private async void button1_Click_1(object sender, EventArgs e)
         {
+            loading = new Loading();
+            loading.Show(this);
             try
             {
-                loading = new Loading();
-                loading.Show(this);
+                
                 int year = Convert.ToInt32(((DataComboBox)comboBoxEjercicios.SelectedItem).keyString);
                 int mes = Convert.ToInt32(((DataComboBox)comboBoxMeses.SelectedItem).keyString);
                 // var asas = File.OpenRead("./Resources/Cedula.xlsx");
@@ -811,13 +812,15 @@ namespace SOAPAP.UI.ReportesForms.Finanzas
 
                 ExApp.Quit();
                 ExApp = null;
-                loading.Close();
+               
             }
             catch (Exception ex)
             {
                 mensaje = new MessageBoxForm("Error", "Ocurrio un error, por favor comunicase con el administrador ", TypeIcon.Icon.Cancel);
                 mensaje.ShowDialog();
             }
+
+            loading.Close();
 
         }
     }
