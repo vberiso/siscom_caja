@@ -55,26 +55,26 @@ namespace SOAPAP.UI.ReportesForms.Finanzas.Ayuntamiento
 
             return LParams;
         }
-        private void setDatatovariables(List<SOAPAP.Reportes.Finanzas.Formato1> OData)
+        private void setDatatovariables(List<SOAPAP.Reportes.Finanzas.Formato1> OData, int year)
         {
            
             Catalogues = Groups.Where(g => g.Id == 3).First().Catalogues;
-            TImpuesto = OData.Where(x => Catalogues.Any(c => c.Value.Equals(x.code_concept.ToString().Trim()))).ToList().Sum(x => formato == "formato1" ? x.importe : x.descuento);
+            TImpuesto = OData.Where(x =>x.datePayment == year &&  Catalogues.Any(c => c.Value.Equals(x.code_concept.ToString().Trim()))).ToList().Sum(x => formato == "formato1" ? x.importe : x.descuento);
        
             Catalogues = Groups.Where(g => g.Id == 5).First().Catalogues;
-            TRecargos = OData.Where(x => Catalogues.Any(c => c.Value.Equals(x.code_concept.ToString().Trim()))).ToList().Sum(x => formato == "formato1" ? x.importe : x.descuento);
+            TRecargos = OData.Where(x => x.datePayment == year && Catalogues.Any(c => c.Value.Equals(x.code_concept.ToString().Trim()))).ToList().Sum(x => formato == "formato1" ? x.importe : x.descuento);
 
             Catalogues = Groups.Where(g => g.Id == 7).First().Catalogues;
-            TMultas = OData.Where(x => Catalogues.Any(c => c.Value.Equals(x.code_concept.ToString().Trim()))).ToList().Sum(x => formato == "formato1" ? x.importe : x.descuento);
+            TMultas = OData.Where(x => x.datePayment == year &&  Catalogues.Any(c => c.Value.Equals(x.code_concept.ToString().Trim()))).ToList().Sum(x => formato == "formato1" ? x.importe : x.descuento);
 
             Catalogues = Groups.Where(g => g.Id == 8).First().Catalogues;
-            TGastos = OData.Where(x => Catalogues.Any(c => c.Value.Equals(x.code_concept.ToString().Trim()))).ToList().Sum(x => formato == "formato1" ? x.importe : x.descuento);
+            TGastos = OData.Where(x => x.datePayment == year && Catalogues.Any(c => c.Value.Equals(x.code_concept.ToString().Trim()))).ToList().Sum(x => formato == "formato1" ? x.importe : x.descuento);
 
             Catalogues = Groups.Where(g => g.Id == 9).First().Catalogues;
-            TIntereses = OData.Where(x => Catalogues.Any(c => c.Value.Equals(x.code_concept.ToString().Trim()))).ToList().Sum(x => formato == "formato1" ? x.importe : x.descuento);
+            TIntereses = OData.Where(x => x.datePayment == year && Catalogues.Any(c => c.Value.Equals(x.code_concept.ToString().Trim()))).ToList().Sum(x => formato == "formato1" ? x.importe : x.descuento);
 
             Catalogues = Groups.Where(g => g.Id == 10).First().Catalogues;
-            TIndemnizaciones = OData.Where(x => Catalogues.Any(c => c.Value.Equals(x.code_concept.ToString().Trim()))).ToList().Sum(x => formato == "formato1" ? x.importe : x.descuento);
+            TIndemnizaciones = OData.Where(x => x.datePayment == year && Catalogues.Any(c => c.Value.Equals(x.code_concept.ToString().Trim()))).ToList().Sum(x => formato == "formato1" ? x.importe : x.descuento);
 
          
         }
@@ -84,7 +84,7 @@ namespace SOAPAP.UI.ReportesForms.Finanzas.Ayuntamiento
             var JdDta = JObject.Parse(data.ToString());
             data = JsonConvert.SerializeObject(JdDta["data"]);
             List<SOAPAP.Reportes.Finanzas.Formato1> OData = JsonConvert.DeserializeObject<List<SOAPAP.Reportes.Finanzas.Formato1>>(data.ToString());
-            setDatatovariables(OData);
+            setDatatovariables(OData, int.Parse(year));
 
 
             GranTotal = TImpuesto + TRecargos + TMultas + TGastos + TIntereses + TIndemnizaciones;
@@ -103,27 +103,52 @@ namespace SOAPAP.UI.ReportesForms.Finanzas.Ayuntamiento
 
 
         }
-        private void SetDataVariablesA(List<SOAPAP.Reportes.Finanzas.Formato1> OData)
+        private void SetDataVariablesA(List<SOAPAP.Reportes.Finanzas.Formato1> OData, int year)
         {
 
 
             Catalogues = Groups.Where(g => g.Id == 3).First().Catalogues;
-            TImpuesto = OData.Where(x => Catalogues.Any(c => c.Value.Equals(x.code_concept.ToString().Trim()))).ToList().Sum(x => formato == "formato1" ? x.importe : x.descuento) - TImpuesto;
+            TImpuesto = OData.Where(x => x.datePayment < year &&  Catalogues.Any(c => c.Value.Equals(x.code_concept.ToString().Trim()))).ToList().Sum(x => formato == "formato1" ? x.importe : x.descuento) ;
 
             Catalogues = Groups.Where(g => g.Id == 5).First().Catalogues;
-            TRecargos = OData.Where(x => Catalogues.Any(c => c.Value.Equals(x.code_concept.ToString().Trim()))).ToList().Sum(x => formato == "formato1" ? x.importe : x.descuento) -TRecargos;
+            TRecargos = OData.Where(x => x.datePayment < year && Catalogues.Any(c => c.Value.Equals(x.code_concept.ToString().Trim()))).ToList().Sum(x => formato == "formato1" ? x.importe : x.descuento) ;
 
             Catalogues = Groups.Where(g => g.Id == 7).First().Catalogues;
-            TMultas = OData.Where(x => Catalogues.Any(c => c.Value.Equals(x.code_concept.ToString().Trim()))).ToList().Sum(x => formato == "formato1" ? x.importe : x.descuento) - TMultas;
+            TMultas = OData.Where(x => x.datePayment < year && Catalogues.Any(c => c.Value.Equals(x.code_concept.ToString().Trim()))).ToList().Sum(x => formato == "formato1" ? x.importe : x.descuento) ;
 
             Catalogues = Groups.Where(g => g.Id == 8).First().Catalogues;
-            TGastos = OData.Where(x => Catalogues.Any(c => c.Value.Equals(x.code_concept.ToString().Trim()))).ToList().Sum(x => formato == "formato1" ? x.importe : x.descuento) - TGastos;
+            TGastos = OData.Where(x => x.datePayment < year && Catalogues.Any(c => c.Value.Equals(x.code_concept.ToString().Trim()))).ToList().Sum(x => formato == "formato1" ? x.importe : x.descuento);
 
             Catalogues = Groups.Where(g => g.Id == 9).First().Catalogues;
-            TIntereses = OData.Where(x => Catalogues.Any(c => c.Value.Equals(x.code_concept.ToString().Trim()))).ToList().Sum(x => formato == "formato1" ? x.importe : x.descuento) -TIntereses;
+            TIntereses = OData.Where(x => x.datePayment < year && Catalogues.Any(c => c.Value.Equals(x.code_concept.ToString().Trim()))).ToList().Sum(x => formato == "formato1" ? x.importe : x.descuento) ;
 
             Catalogues = Groups.Where(g => g.Id == 10).First().Catalogues;
-            TIndemnizaciones = OData.Where(x => Catalogues.Any(c => c.Value.Equals(x.code_concept.ToString().Trim()))).ToList().Sum(x => formato == "formato1" ? x.importe : x.descuento) - TIndemnizaciones;
+            TIndemnizaciones = OData.Where(x => x.datePayment < year && Catalogues.Any(c => c.Value.Equals(x.code_concept.ToString().Trim()))).ToList().Sum(x => formato == "formato1" ? x.importe : x.descuento) ;
+
+
+        }
+
+        private void SetDataVariablesAd(List<SOAPAP.Reportes.Finanzas.Formato1> OData, int year)
+        {
+
+
+            Catalogues = Groups.Where(g => g.Id == 3).First().Catalogues;
+            TImpuesto = OData.Where(x => x.datePayment > year && Catalogues.Any(c => c.Value.Equals(x.code_concept.ToString().Trim()))).ToList().Sum(x => formato == "formato1" ? x.importe : x.descuento) ;
+
+            Catalogues = Groups.Where(g => g.Id == 5).First().Catalogues;
+            TRecargos = OData.Where(x => x.datePayment > year && Catalogues.Any(c => c.Value.Equals(x.code_concept.ToString().Trim()))).ToList().Sum(x => formato == "formato1" ? x.importe : x.descuento) ;
+
+            Catalogues = Groups.Where(g => g.Id == 7).First().Catalogues;
+            TMultas = OData.Where(x => x.datePayment > year && Catalogues.Any(c => c.Value.Equals(x.code_concept.ToString().Trim()))).ToList().Sum(x => formato == "formato1" ? x.importe : x.descuento) ;
+
+            Catalogues = Groups.Where(g => g.Id == 8).First().Catalogues;
+            TGastos = OData.Where(x => x.datePayment > year && Catalogues.Any(c => c.Value.Equals(x.code_concept.ToString().Trim()))).ToList().Sum(x => formato == "formato1" ? x.importe : x.descuento) ;
+
+            Catalogues = Groups.Where(g => g.Id == 9).First().Catalogues;
+            TIntereses = OData.Where(x => x.datePayment > year && Catalogues.Any(c => c.Value.Equals(x.code_concept.ToString().Trim()))).ToList().Sum(x => formato == "formato1" ? x.importe : x.descuento) ;
+
+            Catalogues = Groups.Where(g => g.Id == 10).First().Catalogues;
+            TIndemnizaciones = OData.Where(x => x.datePayment > year && Catalogues.Any(c => c.Value.Equals(x.code_concept.ToString().Trim()))).ToList().Sum(x => formato == "formato1" ? x.importe : x.descuento) ;
 
 
         }
@@ -133,7 +158,7 @@ namespace SOAPAP.UI.ReportesForms.Finanzas.Ayuntamiento
             data = JsonConvert.SerializeObject(JdDta["data"]);
 
             List<SOAPAP.Reportes.Finanzas.Formato1> OData = JsonConvert.DeserializeObject<List<SOAPAP.Reportes.Finanzas.Formato1>>(data.ToString());
-            SetDataVariablesA(OData);
+            SetDataVariablesA(OData, int.Parse(year));
              GranTotal += TImpuesto + TRecargos + TMultas + TGastos + TIntereses + TIndemnizaciones;
             textImpuestoA.Text = string.Format(new CultureInfo("es-MX"), "{0:C2}", TImpuesto);
             textRecargosA.Text = string.Format(new CultureInfo("es-MX"), "{0:C2}", TRecargos);
@@ -145,13 +170,25 @@ namespace SOAPAP.UI.ReportesForms.Finanzas.Ayuntamiento
           
             textBoxTotal.Text = string.Format(new CultureInfo("es-MX"), "{0:C2}", GranTotal);
 
+            SetDataVariablesAd(OData, int.Parse(year));
+            GranTotal += TImpuesto + TRecargos + TMultas + TGastos + TIntereses + TIndemnizaciones;
+            txtImpuestoAde.Text = string.Format(new CultureInfo("es-MX"), "{0:C2}", TImpuesto);
+            txtRecargoAde.Text = string.Format(new CultureInfo("es-MX"), "{0:C2}", TRecargos);
+            txtMultaAde.Text = string.Format(new CultureInfo("es-MX"), "{0:C2}", TMultas);
+            txtgastoAde.Text = string.Format(new CultureInfo("es-MX"), "{0:C2}", TGastos);
+            txtInteresesAde.Text = string.Format(new CultureInfo("es-MX"), "{0:C2}", TIntereses);
+            txtIndemnizacionesAde.Text = string.Format(new CultureInfo("es-MX"), "{0:C2}", TIndemnizaciones);
+
+
+            textBoxTotal.Text = string.Format(new CultureInfo("es-MX"), "{0:C2}", GranTotal);
+
             //textToTaoGeneral.Text = (decimal.Parse(textToTaoGeneral.Text) + OData.Sum(x => x.importe).ToString()).ToString();
 
 
             lblEjercicio.Text = $"EJERCICIO {year}";
 
             lblAnteriores.Text = $"EJERCICIOS ANTERIORES A {year}";
-
+            lblAdelantado.Text = $"EJERCICIOS ADELANTADOS A {year}";
 
 
         }
@@ -161,7 +198,7 @@ namespace SOAPAP.UI.ReportesForms.Finanzas.Ayuntamiento
             var JdDta = JObject.Parse(data.ToString());
             data = JsonConvert.SerializeObject(JdDta["data"]);
             List<SOAPAP.Reportes.Finanzas.Formato1> OData = JsonConvert.DeserializeObject<List<SOAPAP.Reportes.Finanzas.Formato1>>(data.ToString());
-            setDatatovariables(OData);
+            setDatatovariables(OData, int.Parse(year));
             GranTotal = TImpuesto + TRecargos + TMultas + TGastos + TIntereses + TIndemnizaciones;
             StringBuilder builder = new StringBuilder();
 
@@ -225,13 +262,57 @@ namespace SOAPAP.UI.ReportesForms.Finanzas.Ayuntamiento
             data = JsonConvert.SerializeObject(JdDta["data"]);
 
             List<SOAPAP.Reportes.Finanzas.Formato1> OData = JsonConvert.DeserializeObject<List<SOAPAP.Reportes.Finanzas.Formato1>>(data.ToString());
-            SetDataVariablesA(OData);
+            SetDataVariablesA(OData, int.Parse(year));
 
             GranTotal += TImpuesto + TRecargos + TMultas + TGastos + TIntereses + TIndemnizaciones;
             StringBuilder builder = new StringBuilder();
 
             builder.Append(@"<table id='datos' style='width: 99%' class='anteriores'>");
             builder.Append($@"<caption style='background:#f1eeec'>EJERCICIOS ANTERIORES A {year}</caption>");
+            builder.Append(@"<tbody>");
+            builder.Append($@"<tr>
+                            <td style='width: 50%' class='left'>IMPUESTOCOBRADO</td>
+                            <td style='width: 50%'>{ string.Format(new CultureInfo("es-MX"), "{0:C2}", TImpuesto) }</td>
+                            </tr>");
+
+
+
+            builder.Append($@"<tr>
+                            <td style='width: 50%' class='left'>RECARGOS</td>
+                            <td style='width: 50%'>{ string.Format(new CultureInfo("es-MX"), "{0:C2}", TRecargos) }</td>
+                            </tr>");
+            builder.Append($@"<tr>
+                            <td style='width: 50%' class='left'>MULTAS</td>
+                            <td style='width: 50%'>{ string.Format(new CultureInfo("es-MX"), "{0:C2}", TMultas) }</td>
+                            </tr>");
+            builder.Append($@"<tr>
+                            <td style='width: 50%' class='left'>GASTOS DE EJECUCIÓN</td>
+                            <td style='width: 50%'>{ string.Format(new CultureInfo("es-MX"), "{0:C2}", TGastos) }</td>
+                            </tr>");
+
+
+            builder.Append($@"<tr>
+                            <td style='width: 50%' class='left'>INTERESES (NO BANCARIOS)</td>
+                             <td style='width: 50%'>{ string.Format(new CultureInfo("es-MX"), "{0:C2}", TIntereses) }</td>
+                            </tr>");
+            builder.Append($@"<tr>
+                            <td style='width: 50%' class='left'>INDEMNIZACIONES</td>
+                             <td style='width: 50%'>{ string.Format(new CultureInfo("es-MX"), "{0:C2}", TIndemnizaciones) }</td>
+                            </tr>");
+            //builder.Append($@"<tr>
+            //                <td style='width: 50%; background:#f1eeec;' class='centro'>TOTAL</td>
+            //                <td style='width: 50%'>{string.Format(new CultureInfo("es-MX"), "{0:C2}", GranTotal) }</td>
+            //                </tr>");
+            builder.Append($@"</tbody>
+                            </table>");
+
+
+            SetDataVariablesAd(OData, int.Parse(year));
+
+            GranTotal += TImpuesto + TRecargos + TMultas + TGastos + TIntereses + TIndemnizaciones;
+
+            builder.Append(@"<table id='datos' style='width: 99%' class='anteriores'>");
+            builder.Append($@"<caption style='background:#f1eeec'>EJERCICIOS ADELANTADOS A {year}</caption>");
             builder.Append(@"<tbody>");
             builder.Append($@"<tr>
                             <td style='width: 50%' class='left'>IMPUESTOCOBRADO</td>
@@ -269,7 +350,6 @@ namespace SOAPAP.UI.ReportesForms.Finanzas.Ayuntamiento
             builder.Append($@"</tbody>
                             </table>");
 
-
             builder.Append("</div>");
             builder.Append("</div>");
 
@@ -277,6 +357,8 @@ namespace SOAPAP.UI.ReportesForms.Finanzas.Ayuntamiento
 
             return builder.ToString();
         }
+
+
 
 
 

@@ -12,5 +12,6 @@ namespace SOAPAP.Reportes.Finanzas
         public string concepto { get; set; }
         public int code_concept { get; set; }
         public decimal descuento { get; set; }
+        public int datePayment { get; set; }
     }
 }

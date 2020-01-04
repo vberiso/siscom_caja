@@ -316,6 +316,7 @@
             // 
             // comboBoxMeses
             // 
+            this.comboBoxMeses.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxMeses.FormattingEnabled = true;
             this.comboBoxMeses.Location = new System.Drawing.Point(3, 19);
             this.comboBoxMeses.Name = "comboBoxMeses";
@@ -352,6 +353,7 @@
             // 
             // comboBoxEjercicios
             // 
+            this.comboBoxEjercicios.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxEjercicios.FormattingEnabled = true;
             this.comboBoxEjercicios.Location = new System.Drawing.Point(3, 19);
             this.comboBoxEjercicios.Name = "comboBoxEjercicios";
