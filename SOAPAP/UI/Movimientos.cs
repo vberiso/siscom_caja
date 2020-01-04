@@ -970,7 +970,7 @@ namespace SOAPAP
         {
             string[] separadas;
             DataTable dt1 = new DataTable();
-
+            TransactionCancellationRequestVM tcrVM;
 
             if (e.RowIndex >= 0)
             {
@@ -1116,63 +1116,99 @@ namespace SOAPAP
 
                     if (row.Cells["typeTransactionId"].Value.ToString() == "3")
                     {
-                        #region  Codigo de solicitid de cancelacion.  (Pendiente de aplicar.)
-                        //loading = new Loading();
-                        //loading.Show(this);
-                        //TransactionCancellationRequest TCR = new TransactionCancellationRequest()
-                        //{
-                        //    DateRequest = DateTime.Now,
-                        //    Status = "ESC01",
-                        //    TransactionId = transactionSelect.Transaction.Id
-                        //};
-                        //using (msgSolicitudCancelacion msgObs = new msgSolicitudCancelacion())
-                        //{
-                        //    msgObs.ShowDialog();
-                        //    TCR.Reason = msgObs.TextoMotivo;                            
-                        //}
-                        //if (!string.IsNullOrEmpty(TCR.Reason))
-                        //{
-                        //    //Se genera el registro en BD de la solicitud de cancelacion.
-                        //    HttpContent content;          
-                        //    content = new StringContent(JsonConvert.SerializeObject(TCR), Encoding.UTF8, "application/json");
-                        //    var ResultAddCancelReq = await Requests.SendURIAsync("/api/TransactionCancelationRequest", HttpMethod.Post, Variables.LoginModel.Token, content);
-                        //    if (ResultAddCancelReq.Contains("error"))
-                        //    {
-                        //        mensaje = new MessageBoxForm("Error", JsonConvert.DeserializeObject<Error>(ResultAddCancelReq).error, TypeIcon.Icon.Cancel);
-                        //        result = mensaje.ShowDialog();
-                        //    }
-                        //    else
-                        //    {
-                        //        TransactionCancellationRequest TCRregistro = JsonConvert.DeserializeObject<TransactionCancellationRequest>(ResultAddCancelReq);
-                        //        //Se lanza la notificación de la order work
-                        //        FirebaseObject<TransactionCancellationRequest> @object = await firebase
-                        //                                                     .Child("CancelRequest")
-                        //                                                     .PostAsync(TCRregistro, true);
-                        //        TCRregistro.KeyFirebase = @object.Key;
-                        //        HttpContent contUpdate = new StringContent(JsonConvert.SerializeObject(TCRregistro), Encoding.UTF8, "application/json");
-                        //        var ResultUpdateCancelReq = await Requests.SendURIAsync(string.Format("/api/TransactionCancelationRequest/{0}", TCRregistro.Id), HttpMethod.Put, Variables.LoginModel.Token, contUpdate);
-                        //        if (ResultUpdateCancelReq.Contains("error"))
-                        //        {
-                        //            mensaje = new MessageBoxForm("Error", JsonConvert.DeserializeObject<Error>(ResultAddCancelReq).error, TypeIcon.Icon.Cancel);
-                        //            result = mensaje.ShowDialog();
-                        //        }
-                        //        else
-                        //        {
-                        //            mensaje = new MessageBoxForm("Solicitud enviada.", "Se ha enviado la solitud de descuento.", TypeIcon.Icon.Success);
-                        //            result = mensaje.ShowDialog();
-                        //        }
-                        //    }
-                        //    loading.Close();
-                        //}
-                        //else
-                        //{
-                        //    loading.Close();
-                        //}
+                        #region Codigo original del cancelacion
+                        //mensaje = new MessageBoxForm("¿Deseas cancelar la operación?", "Se enviará una solictud de autorización", TypeIcon.Icon.Warning, true);
+                        //result = mensaje.ShowDialog();
+                        //if (result == DialogResult.OK)
                         #endregion
-                        mensaje = new MessageBoxForm("¿Deseas cancelar la operación?", "Se enviará una solictud de autorización", TypeIcon.Icon.Warning, true);
-                        result = mensaje.ShowDialog();
-                        if (result == DialogResult.OK)
-                        //if (!string.IsNullOrEmpty(TCR.Reason))
+                        #region  Codigo de solicitid de cancelacion.  (Pendiente de aplicar.)
+                        loading = new Loading();
+                        loading.Show(this);
+
+                        //Valido si ya existe una solicitud de cancelacion.                        
+                        var ResultgetCancelReq = await Requests.SendURIAsync("/api/TransactionCancelationRequest/" + transactionSelect.Transaction.Id, HttpMethod.Get, Variables.LoginModel.Token);
+                        if (ResultgetCancelReq.Contains("error"))
+                        {                            
+                            tcrVM = null;
+                        }
+                        else
+                        {
+                            tcrVM = JsonConvert.DeserializeObject<TransactionCancellationRequestVM>(ResultgetCancelReq);
+                        }
+
+                        if(tcrVM == null) //Aun no existe ningua solicitud de cancelación para este movimiento.
+                        {
+                            TransactionCancellationRequest TCR = new TransactionCancellationRequest()
+                            {
+                                DateRequest = DateTime.Now,
+                                Status = "ESC01",
+                                TransactionId = transactionSelect.Transaction.Id
+                            };
+                            using (msgSolicitudCancelacion msgObs = new msgSolicitudCancelacion())
+                            {
+                                msgObs.ShowDialog();
+                                TCR.Reason = msgObs.TextoMotivo;
+                            }
+                            if (!string.IsNullOrEmpty(TCR.Reason))
+                            {
+                                //Se genera el registro en BD de la solicitud de cancelacion.
+                                HttpContent content;
+                                content = new StringContent(JsonConvert.SerializeObject(TCR), Encoding.UTF8, "application/json");
+                                var ResultAddCancelReq = await Requests.SendURIAsync("/api/TransactionCancelationRequest", HttpMethod.Post, Variables.LoginModel.Token, content);
+                                if (ResultAddCancelReq.Contains("error"))
+                                {
+                                    mensaje = new MessageBoxForm("Error", JsonConvert.DeserializeObject<Error>(ResultAddCancelReq).error, TypeIcon.Icon.Cancel);
+                                    result = mensaje.ShowDialog();
+                                }
+                                else
+                                {
+                                    TransactionCancellationRequest TCRregistro = JsonConvert.DeserializeObject<TransactionCancellationRequest>(ResultAddCancelReq);
+                                    ////Se lanza la notificación de la order work
+                                    //FirebaseObject<TransactionCancellationRequest> @object = await firebase
+                                    //                                             .Child("CancelRequest")
+                                    //                                             .PostAsync(TCRregistro, true);
+                                    //TCRregistro.KeyFirebase = @object.Key;
+                                    //HttpContent contUpdate = new StringContent(JsonConvert.SerializeObject(TCRregistro), Encoding.UTF8, "application/json");
+                                    //var ResultUpdateCancelReq = await Requests.SendURIAsync(string.Format("/api/TransactionCancelationRequest/{0}", TCRregistro.Id), HttpMethod.Put, Variables.LoginModel.Token, contUpdate);
+                                    //if (ResultUpdateCancelReq.Contains("error"))
+                                    //{
+                                    //    mensaje = new MessageBoxForm("Error", JsonConvert.DeserializeObject<Error>(ResultAddCancelReq).error, TypeIcon.Icon.Cancel);
+                                    //    result = mensaje.ShowDialog();
+                                    //}
+                                    //else
+                                    //{
+                                    //    mensaje = new MessageBoxForm("Solicitud enviada.", "Se ha enviado la solitud de cancelación.", TypeIcon.Icon.Success);
+                                    //    result = mensaje.ShowDialog();
+                                    //}
+                                }
+                                loading.Close();
+                            }
+                            else
+                            {
+                                loading.Close();
+                            }
+                        }
+
+                        if (tcrVM != null && tcrVM.Status == "ESC01")
+                        {
+                            mensaje = new MessageBoxForm("Solicitud enviada", "Este proceso tiene una solicitud de cancelación aun no resuelta. Contacta a tu supervisor.", TypeIcon.Icon.Info, true);
+                            result = mensaje.ShowDialog();
+                            loading.Close();
+                        }
+                        else if (tcrVM != null && tcrVM.Status == "ESC03")
+                        {
+                            mensaje = new MessageBoxForm("Movimiento ya fue cancelado", "Este movimiento ya fue cancelado previamente.", TypeIcon.Icon.Warning, true);
+                            result = mensaje.ShowDialog();
+                            loading.Close();
+                        }
+                        else if (tcrVM != null && tcrVM.Status == "ESC04")
+                        {
+                            mensaje = new MessageBoxForm("Solicitud rechazada", "La solicitud de cancelación fue rechazada.", TypeIcon.Icon.Success, true);
+                            result = mensaje.ShowDialog();
+                            loading.Close();
+                        }
+                        else if (tcrVM != null && tcrVM.Status == "ESC02")
+                        #endregion                        
                         {
                             mensaje = new MessageBoxForm("¿Seguro de cancelar movimiento?", "Este proceso será irreversible", TypeIcon.Icon.Warning, true);
                             result = mensaje.ShowDialog();
@@ -1381,13 +1417,41 @@ namespace SOAPAP
                                     }
                                     await Total();
                                     await cargar();
+                                    await actualizaSolicitudCancelacion(tcrVM);
                                 }
+                                loading.Close();
+                            }
+                            else
+                            {
                                 loading.Close();
                             }
                         }
                     }
                 }
             }
+        }
+
+        private async Task<int> actualizaSolicitudCancelacion(TransactionCancellationRequestVM transactionCancellationRequestVM)
+        {
+            TransactionCancellationRequest TCR = new TransactionCancellationRequest();
+            TCR.Id = transactionCancellationRequestVM.Id;
+            TCR.Status = "ESC03";
+            TCR.DateRequest = transactionCancellationRequestVM.DateRequest;
+            TCR.Reason = transactionCancellationRequestVM.Reason;
+            TCR.Manager = transactionCancellationRequestVM.Manager;
+            TCR.DateAuthorization = transactionCancellationRequestVM.DateAuthorization;
+            TCR.ManagerObservation = transactionCancellationRequestVM.ManagerObservation;
+            TCR.KeyFirebase = transactionCancellationRequestVM.KeyFirebase;
+            TCR.TransactionId = transactionCancellationRequestVM.TransactionId;
+
+            var a = JsonConvert.SerializeObject(TCR);
+            HttpContent content = new StringContent(a, Encoding.UTF8, "application/json");
+            var response = await Requests.SendURIAsync("/api/TransactionCancelationRequest/" + transactionCancellationRequestVM.Id, HttpMethod.Post, Variables.LoginModel.Token, content);
+            if (response.Contains("error"))
+            {
+                return -1;
+            }
+            return 1;
         }
 
         private void dgvMovimientos_CellDoubleClick(object sender, DataGridViewCellEventArgs e)

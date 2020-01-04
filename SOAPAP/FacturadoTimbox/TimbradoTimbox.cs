@@ -209,7 +209,7 @@ namespace SOAPAP.FacturadoTimbox
                         var defDataUser = new { User = "", Pass = "" };
                         var resDataUser = JsonConvert.DeserializeAnonymousType(dataUser, defDataUser);
 
-                        if(Variables.Configuration.CFDITest.Contains("Falso"))
+                        if(Variables.Configuration.CFDITest.Contains("F") || Variables.Configuration.CFDITest.Contains("f"))
                         {
                             responseWsProd = cliente_timbrarProd.timbrar_cfdi(resDataUser.User, resDataUser.Pass, xmlBase64);
                             resultadoFinal = responseWsProd.xml.Replace("\n", "").Replace("\\\"", "\"");
@@ -378,7 +378,7 @@ namespace SOAPAP.FacturadoTimbox
                     var defDataUser = new { User = "", Pass = "" };
                     var resDataUser = JsonConvert.DeserializeAnonymousType(dataUser, defDataUser);
 
-                    if (Variables.Configuration.CFDITest.Contains("Falso"))
+                    if (Variables.Configuration.CFDITest.Contains("F") || Variables.Configuration.CFDITest.Contains("f"))
                     {
                         TimboxWS.uuid uuids = new TimboxWS.uuid();
                         uuids.uuid1 = new string[] { taxReceipt.FielXML };
@@ -387,7 +387,8 @@ namespace SOAPAP.FacturadoTimbox
                         if (rcr.estatus.Contains("200"))
                         {
                             XmlDocument doc = new XmlDocument();
-                            doc.LoadXml(rcr.comprobantes.Replace("\n", "").Replace("\\\"", "\""));
+                            string xmlCadena = rcr.comprobantes.Replace("\n", "").Replace("\\\"", "\"");
+                            doc.LoadXml(xmlCadena);
                             string json = JsonConvert.SerializeXmlNode(doc);
 
                             //fillData(json);
