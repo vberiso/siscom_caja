@@ -54,29 +54,29 @@ namespace SOAPAP.UI.ReportesForms.Finanzas.Agua.Formatos
 
             return LParams;
         }
-        private void setDatatovariables(List<SOAPAP.Reportes.Finanzas.Formato1> OData)
+        private void setDatatovariables(List<SOAPAP.Reportes.Finanzas.Formato1> OData, int year)
         {
             Catalogues = Groups.Where(g => g.Id == 1).First().Catalogues;
-            Tagua = OData.Where(x => Catalogues.Any(c => c.Value.Equals(x.code_concept.ToString()))).ToList().Sum(x => formato == "formato1" ? x.importe : x.descuento);
+            Tagua = OData.Where(x => x.datePayment >= year && Catalogues.Any(c => c.Value.Equals(x.code_concept.ToString()))).ToList().Sum(x => formato == "formato1" ? x.importe : x.descuento);
             Catalogues = Groups.Where(g => g.Id == 2).First().Catalogues;
-            TDrenaje = OData.Where(x => Catalogues.Any(c => c.Value.Equals(x.code_concept.ToString()))).ToList().Sum(x => formato == "formato1" ? x.importe : x.descuento);
+            TDrenaje = OData.Where(x => x.datePayment >= year && Catalogues.Any(c => c.Value.Equals(x.code_concept.ToString()))).ToList().Sum(x => formato == "formato1" ? x.importe : x.descuento);
             Catalogues = Groups.Where(g => g.Id == 7).First().Catalogues;
-            TRecargos = OData.Where(x => Catalogues.Any(c => c.Value.Equals(x.code_concept.ToString()))).ToList().Sum(x => formato == "formato1" ? x.importe : x.descuento);
+            TRecargos = OData.Where(x => x.datePayment >= year && Catalogues.Any(c => c.Value.Equals(x.code_concept.ToString()))).ToList().Sum(x => formato == "formato1" ? x.importe : x.descuento);
             Catalogues = Groups.Where(g => g.Id == 3).First().Catalogues;
-            TSaneamiento = OData.Where(x => Catalogues.Any(c => c.Value.Equals(x.code_concept.ToString()))).ToList().Sum(x => formato == "formato1" ? x.importe : x.descuento);
+            TSaneamiento = OData.Where(x => x.datePayment >= year &&  Catalogues.Any(c => c.Value.Equals(x.code_concept.ToString()))).ToList().Sum(x => formato == "formato1" ? x.importe : x.descuento);
             Catalogues = Groups.Where(g => g.Id == 5).First().Catalogues;
-            TReconexion = OData.Where(x => Catalogues.Any(c => c.Value.Equals(x.code_concept.ToString()))).ToList().Sum(x => formato == "formato1" ? x.importe : x.descuento);
+            TReconexion = OData.Where(x => x.datePayment >= year && Catalogues.Any(c => c.Value.Equals(x.code_concept.ToString()))).ToList().Sum(x => formato == "formato1" ? x.importe : x.descuento);
             Catalogues = Groups.Where(g => g.Id == 4).First().Catalogues;
-            TConexion = OData.Where(x => Catalogues.Any(c => c.Value.Equals(x.code_concept.ToString()))).ToList().Sum(x => formato == "formato1" ? x.importe : x.descuento);
+            TConexion = OData.Where(x => x.datePayment >= year && Catalogues.Any(c => c.Value.Equals(x.code_concept.ToString()))).ToList().Sum(x => formato == "formato1" ? x.importe : x.descuento);
 
             Catalogues = Groups.Where(g => g.Id == 9).First().Catalogues;
-            TEjeciciones = OData.Where(x => Catalogues.Any(c => c.Value.Equals(x.code_concept.ToString()))).ToList().Sum(x => formato == "formato1" ? x.importe : x.descuento);
+            TEjeciciones = OData.Where(x => x.datePayment >= year && Catalogues.Any(c => c.Value.Equals(x.code_concept.ToString()))).ToList().Sum(x => formato == "formato1" ? x.importe : x.descuento);
 
             Catalogues = Groups.Where(g => g.Id == 8).First().Catalogues;
-            TMulta = OData.Where(x => Catalogues.Any(c => c.Value.Equals(x.code_concept.ToString()))).ToList().Sum(x => formato == "formato1" ? x.importe : x.descuento);
+            TMulta = OData.Where(x => Catalogues.Any(c => x.datePayment >= year && c.Value.Equals(x.code_concept.ToString()))).ToList().Sum(x => formato == "formato1" ? x.importe : x.descuento);
 
             Catalogues = Groups.Where(g => g.Id == 6).First().Catalogues;
-            TAlcantarillado = OData.Where(x => Catalogues.Any(c => c.Value.Equals(x.code_concept.ToString()))).ToList().Sum(x => formato == "formato1" ? x.importe : x.descuento);
+            TAlcantarillado = OData.Where(x => x.datePayment >= year && Catalogues.Any(c => c.Value.Equals(x.code_concept.ToString()))).ToList().Sum(x => formato == "formato1" ? x.importe : x.descuento);
 
         }
         public void DrawData(object data, string mes, string year)
@@ -85,7 +85,7 @@ namespace SOAPAP.UI.ReportesForms.Finanzas.Agua.Formatos
             var JdDta = JObject.Parse(data.ToString());
             data = JsonConvert.SerializeObject(JdDta["data"]);
             List<SOAPAP.Reportes.Finanzas.Formato1> OData = JsonConvert.DeserializeObject<List<SOAPAP.Reportes.Finanzas.Formato1>>(data.ToString());
-            setDatatovariables(OData);
+            setDatatovariables(OData, int.Parse(year));
 
 
             GranTotal = Tagua + TDrenaje + TRecargos + TReconexion + TConexion + TEjeciciones + TMulta + TAlcantarillado;
@@ -109,30 +109,30 @@ namespace SOAPAP.UI.ReportesForms.Finanzas.Agua.Formatos
 
 
         }
-        private void SetDataVariablesA(List<SOAPAP.Reportes.Finanzas.Formato1> OData)
+        private void SetDataVariablesA(List<SOAPAP.Reportes.Finanzas.Formato1> OData, int year)
         {
 
             Catalogues = Groups.Where(g => g.Id == 1).First().Catalogues;
-            Tagua = OData.Where(x => Catalogues.Any(c => c.Value.Equals(x.code_concept.ToString()))).ToList().Sum(x => formato == "formato1" ? x.importe : x.descuento) - Tagua;
+            Tagua = OData.Where(x => x.datePayment < year && Catalogues.Any(c => c.Value.Equals(x.code_concept.ToString()))).ToList().Sum(x => formato == "formato1" ? x.importe : x.descuento) /*- Tagua*/;
             Catalogues = Groups.Where(g => g.Id == 2).First().Catalogues;
-            TDrenaje = OData.Where(x => Catalogues.Any(c => c.Value.Equals(x.code_concept.ToString()))).ToList().Sum(x => formato == "formato1" ? x.importe : x.descuento) - TDrenaje;
+            TDrenaje = OData.Where(x => x.datePayment < year && Catalogues.Any(c => c.Value.Equals(x.code_concept.ToString()))).ToList().Sum(x => formato == "formato1" ? x.importe : x.descuento) /*- TDrenaje*/;
             Catalogues = Groups.Where(g => g.Id == 7).First().Catalogues;
-            TRecargos = OData.Where(x => Catalogues.Any(c => c.Value.Equals(x.code_concept.ToString()))).ToList().Sum(x => formato == "formato1" ? x.importe : x.descuento) - TRecargos;
+            TRecargos = OData.Where(x => x.datePayment < year && Catalogues.Any(c => c.Value.Equals(x.code_concept.ToString()))).ToList().Sum(x => formato == "formato1" ? x.importe : x.descuento) /*- TRecargos*/;
             Catalogues = Groups.Where(g => g.Id == 3).First().Catalogues;
-            TSaneamientA = OData.Where(x => Catalogues.Any(c => c.Value.Equals(x.code_concept.ToString()))).ToList().Sum(x => formato == "formato1" ? x.importe : x.descuento) - TSaneamiento;
+            TSaneamientA = OData.Where(x => x.datePayment < year && Catalogues.Any(c => c.Value.Equals(x.code_concept.ToString()))).ToList().Sum(x => formato == "formato1" ? x.importe : x.descuento) /*- TSaneamiento*/;
             Catalogues = Groups.Where(g => g.Id == 5).First().Catalogues;
-            TReconexion = OData.Where(x => Catalogues.Any(c => c.Value.Equals(x.code_concept.ToString()))).ToList().Sum(x => formato == "formato1" ? x.importe : x.descuento) - TReconexion;
+            TReconexion = OData.Where(x => x.datePayment < year && Catalogues.Any(c => c.Value.Equals(x.code_concept.ToString()))).ToList().Sum(x => formato == "formato1" ? x.importe : x.descuento) /*- TReconexion*/;
             Catalogues = Groups.Where(g => g.Id == 4).First().Catalogues;
-            TConexion = OData.Where(x => Catalogues.Any(c => c.Value.Equals(x.code_concept.ToString()))).ToList().Sum(x => formato == "formato1" ? x.importe : x.descuento) - TConexion;
+            TConexion = OData.Where(x => x.datePayment < year && Catalogues.Any(c => c.Value.Equals(x.code_concept.ToString()))).ToList().Sum(x => formato == "formato1" ? x.importe : x.descuento)/* - TConexion*/;
 
             Catalogues = Groups.Where(g => g.Id == 9).First().Catalogues;
-            TEjeciciones = OData.Where(x => Catalogues.Any(c => c.Value.Equals(x.code_concept.ToString()))).ToList().Sum(x => formato == "formato1" ? x.importe : x.descuento) - TEjeciciones;
+            TEjeciciones = OData.Where(x => x.datePayment < year && Catalogues.Any(c => c.Value.Equals(x.code_concept.ToString()))).ToList().Sum(x => formato == "formato1" ? x.importe : x.descuento) /*- TEjeciciones*/;
 
             Catalogues = Groups.Where(g => g.Id == 8).First().Catalogues;
-            TMulta = OData.Where(x => Catalogues.Any(c => c.Value.Equals(x.code_concept.ToString()))).ToList().Sum(x => formato == "formato1" ? x.importe : x.descuento) - TMulta;
+            TMulta = OData.Where(x => x.datePayment < year && Catalogues.Any(c => c.Value.Equals(x.code_concept.ToString()))).ToList().Sum(x => formato == "formato1" ? x.importe : x.descuento) /*- TMulta*/;
 
             Catalogues = Groups.Where(g => g.Id == 6).First().Catalogues;
-            TAlcantarillado = OData.Where(x => Catalogues.Any(c => c.Value.Equals(x.code_concept.ToString()))).ToList().Sum(x => formato == "formato1" ? x.importe : x.descuento) - TAlcantarillado;
+            TAlcantarillado = OData.Where(x => x.datePayment < year && Catalogues.Any(c => c.Value.Equals(x.code_concept.ToString()))).ToList().Sum(x => formato == "formato1" ? x.importe : x.descuento)/* - TAlcantarillado*/;
 
 
         }
@@ -142,7 +142,7 @@ namespace SOAPAP.UI.ReportesForms.Finanzas.Agua.Formatos
             data = JsonConvert.SerializeObject(JdDta["data"]);
 
             List<SOAPAP.Reportes.Finanzas.Formato1> OData = JsonConvert.DeserializeObject<List<SOAPAP.Reportes.Finanzas.Formato1>>(data.ToString());
-            SetDataVariablesA(OData);
+            SetDataVariablesA(OData, int.Parse(year));
             GranTotal += Tagua + TDrenaje + TRecargos + TReconexion + TConexion + TEjeciciones + TAlcantarillado + TMulta;
             GranTotalSaneamiento += TSaneamientA;
 
@@ -174,7 +174,7 @@ namespace SOAPAP.UI.ReportesForms.Finanzas.Agua.Formatos
             var JdDta = JObject.Parse(data.ToString());
             data = JsonConvert.SerializeObject(JdDta["data"]);
             List<SOAPAP.Reportes.Finanzas.Formato1> OData = JsonConvert.DeserializeObject<List<SOAPAP.Reportes.Finanzas.Formato1>>(data.ToString());
-            setDatatovariables(OData);
+            setDatatovariables(OData, int.Parse(year));
             GranTotal = Tagua + TDrenaje + TRecargos + TReconexion + TConexion + TEjeciciones + TMulta + TAlcantarillado;
             GranTotalSaneamiento = TSaneamiento;
             StringBuilder builder = new StringBuilder();
@@ -247,7 +247,7 @@ namespace SOAPAP.UI.ReportesForms.Finanzas.Agua.Formatos
             data = JsonConvert.SerializeObject(JdDta["data"]);
 
             List<SOAPAP.Reportes.Finanzas.Formato1> OData = JsonConvert.DeserializeObject<List<SOAPAP.Reportes.Finanzas.Formato1>>(data.ToString());
-            SetDataVariablesA(OData);
+            SetDataVariablesA(OData, int.Parse(year));
 
             GranTotal += Tagua + TDrenaje + TRecargos + TReconexion + TConexion + TEjeciciones;
             GranTotalSaneamiento += TSaneamientA;
