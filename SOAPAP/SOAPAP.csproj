@@ -16,9 +16,9 @@
     <TargetFrameworkProfile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
-    <PublishUrl>C:\Users\OEM\Videos\Captures\</PublishUrl>
+    <PublishUrl>\\installer.sosapac.gob.mx\caja\</PublishUrl>
     <Install>true</Install>
-    <InstallFrom>Disk</InstallFrom>
+    <InstallFrom>Unc</InstallFrom>
     <UpdateEnabled>true</UpdateEnabled>
     <UpdateMode>Foreground</UpdateMode>
     <UpdateInterval>7</UpdateInterval>
@@ -27,9 +27,9 @@
     <UpdateRequired>true</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
     <UpdateUrl>\\installer.sosapac.gob.mx\caja\</UpdateUrl>
-    <MinimumRequiredVersion>1.1.1.294</MinimumRequiredVersion>
+    <MinimumRequiredVersion>1.1.1.300</MinimumRequiredVersion>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>295</ApplicationRevision>
+    <ApplicationRevision>301</ApplicationRevision>
     <ApplicationVersion>1.1.1.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -96,6 +96,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\..\Program Files (x86)\DevExpress 19.1\Components\Bin\Framework\DevExpress.Data.v19.1.dll</HintPath>
     </Reference>
+    <Reference Include="DevExpress.Docs.v19.1, Version=19.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Office.v19.1.Core, Version=19.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\..\Program Files (x86)\DevExpress 19.1\Components\Bin\Framework\DevExpress.Office.v19.1.Core.dll</HintPath>
@@ -192,7 +193,7 @@
     </Reference>
     <Reference Include="HiQPdf, Version=10.17.0.0, Culture=neutral, PublicKeyToken=acd8b62594985b24, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Documents\archivos-siscom\Librerias\HiQPdf_10.17_x64\HiQPdf.dll</HintPath>
+      <HintPath>..\..\..\..\Downloads\HQ2PDF\HiQPdf.dll</HintPath>
     </Reference>
     <Reference Include="Humanizer, Version=2.5.0.0, Culture=neutral, PublicKeyToken=979442b78dfc278e, processorArchitecture=MSIL">
       <HintPath>..\packages\Humanizer.Core.2.5.16\lib\netstandard2.0\Humanizer.dll</HintPath>
@@ -459,6 +460,7 @@
     <Compile Include="Model\TaxUser.cs" />
     <Compile Include="Model\TechnicalStaff.cs" />
     <Compile Include="Model\TransactionCancellationRequest.cs" />
+    <Compile Include="Model\TransactionCancellationRequestVM.cs" />
     <Compile Include="Model\TransactionMovimientosCaja.cs" />
     <Compile Include="Model\TransactionPaymentVM.cs" />
     <Compile Include="Model\TransactionVM.cs" />
@@ -1552,7 +1554,6 @@
     <Service Include="{C0C07587-41A7-46C8-8FBD-3F9C8EBE2DDC}" />
   </ItemGroup>
   <ItemGroup>
-    
     <None Include="Resources\xmlBCO.png" />
     <None Include="Connected Services\WsIntegral33Pruebas\configuration91.svcinfo" />
     <None Include="Connected Services\WsIntegral33Pruebas\configuration.svcinfo" />
@@ -1634,7 +1635,6 @@
     <Content Include="OutputTem\sosapac.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-
     <Content Include="OutputTem\Cedula.xlsx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

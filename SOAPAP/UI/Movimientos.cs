@@ -1121,7 +1121,7 @@ namespace SOAPAP
                         //result = mensaje.ShowDialog();
                         //if (result == DialogResult.OK)
                         #endregion
-                        #region  Codigo de solicitid de cancelacion.  (Pendiente de aplicar.)
+                        #region  Codigo de solicitid de cancelacion.
                         loading = new Loading();
                         loading.Show(this);
 
@@ -1163,23 +1163,23 @@ namespace SOAPAP
                                 else
                                 {
                                     TransactionCancellationRequest TCRregistro = JsonConvert.DeserializeObject<TransactionCancellationRequest>(ResultAddCancelReq);
-                                    ////Se lanza la notificación de la order work
-                                    //FirebaseObject<TransactionCancellationRequest> @object = await firebase
-                                    //                                             .Child("CancelRequest")
-                                    //                                             .PostAsync(TCRregistro, true);
-                                    //TCRregistro.KeyFirebase = @object.Key;
-                                    //HttpContent contUpdate = new StringContent(JsonConvert.SerializeObject(TCRregistro), Encoding.UTF8, "application/json");
-                                    //var ResultUpdateCancelReq = await Requests.SendURIAsync(string.Format("/api/TransactionCancelationRequest/{0}", TCRregistro.Id), HttpMethod.Put, Variables.LoginModel.Token, contUpdate);
-                                    //if (ResultUpdateCancelReq.Contains("error"))
-                                    //{
-                                    //    mensaje = new MessageBoxForm("Error", JsonConvert.DeserializeObject<Error>(ResultAddCancelReq).error, TypeIcon.Icon.Cancel);
-                                    //    result = mensaje.ShowDialog();
-                                    //}
-                                    //else
-                                    //{
-                                    //    mensaje = new MessageBoxForm("Solicitud enviada.", "Se ha enviado la solitud de cancelación.", TypeIcon.Icon.Success);
-                                    //    result = mensaje.ShowDialog();
-                                    //}
+                                    //Se lanza la notificación de la order work
+                                    FirebaseObject<TransactionCancellationRequest> @object = await firebase
+                                                                                 .Child("CancelRequest")
+                                                                                 .PostAsync(TCRregistro, true);
+                                    TCRregistro.KeyFirebase = @object.Key;
+                                    HttpContent contUpdate = new StringContent(JsonConvert.SerializeObject(TCRregistro), Encoding.UTF8, "application/json");
+                                    var ResultUpdateCancelReq = await Requests.SendURIAsync(string.Format("/api/TransactionCancelationRequest/{0}", TCRregistro.Id), HttpMethod.Put, Variables.LoginModel.Token, contUpdate);
+                                    if (ResultUpdateCancelReq.Contains("error"))
+                                    {
+                                        mensaje = new MessageBoxForm("Error", JsonConvert.DeserializeObject<Error>(ResultAddCancelReq).error, TypeIcon.Icon.Cancel);
+                                        result = mensaje.ShowDialog();
+                                    }
+                                    else
+                                    {
+                                        mensaje = new MessageBoxForm("Solicitud enviada.", "Se ha enviado la solitud de cancelación.", TypeIcon.Icon.Success);
+                                        result = mensaje.ShowDialog();
+                                    }
                                 }
                                 loading.Close();
                             }
@@ -1282,8 +1282,6 @@ namespace SOAPAP
                                     catch (Exception)
                                     {
 
-                                        //mensaje = new MessageBoxForm(Variables.titleprincipal, "No se ha podido cancelar el CFDI del pago, pero se ha registrado en base de datos, para mayor información contactar al administrador", TypeIcon.Icon.Cancel);
-                                        //mensaje.ShowDialog();
                                         if (payment.HaveTaxReceipt)
                                         {
                                             try
@@ -1292,7 +1290,7 @@ namespace SOAPAP
                                                 TimbradoTimbox timbradoTimbox = new TimbradoTimbox();
                                                 var key = payment.TaxReceipts.Where(x => x.Status == "ET001").FirstOrDefault();
 
-                                                ////Valida que provedor facturo el pago
+                                                ////Valida que provedor facturo el pago y cancela los registros en BD.
                                                 string response = "";
                                                 if (key.IdXmlFacturama.Contains("Timbox"))
                                                 {
@@ -1324,7 +1322,8 @@ namespace SOAPAP
                                                 }
                                                 else
                                                 {
-                                                    string temp = await fst.actualizaPdf(transactionSelect.Transaction.Id.ToString(), true);
+                                                    //string temp = await fst.actualizaPdf(transactionSelect.Transaction.Id.ToString(), true);
+                                                    string temp = await fst.actualizaCanceladoPDF(transactionSelect.Transaction.Id.ToString());
 
                                                     if (temp.Contains("error"))
                                                     {

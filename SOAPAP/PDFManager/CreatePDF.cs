@@ -454,19 +454,22 @@ namespace SOAPAP.PDFManager
                         tmpSubtotal = pd.Amount;
                         tmpDescuento = 0;
                     }
-                                       
-                    string ProductCode = TraVM.ClavesProdServ.Where(c => c.CodeConcep == pd.CodeConcept).FirstOrDefault().ClaveProdServ;
-                    string UnitCode = TraVM.payment.PaymentDetails.Where(p => p.CodeConcept == pd.CodeConcept).FirstOrDefault().UnitMeasurement;
-                    
-                    builder.Append(@"<tr>");
-                    builder.Append(@"<td>" + ProductCode + "</td>");
-                    builder.Append(@"<td>" + UnitCode + "</td>");
-                    builder.Append(@"<td>" + Cfdi.Items[cont].Description + "</td>");
-                    builder.Append(@"<td>" + tmpQuantity + "</td>");
-                    builder.Append(@"<td>" + string.Format(new CultureInfo("es-MX"), "{0:C2}", tmpValorUnitario) + "</td>");
-                    builder.Append(@"<td>" + string.Format(new CultureInfo("es-MX"), "{0:C2}", tmpDescuento) + "</td>");
-                    builder.Append(@"<td>" + string.Format(new CultureInfo("es-MX"), "{0:C2}", tmpSubtotal - tmpDescuento) + "</td>");
-                    builder.Append(@"</tr>");
+                    //Para eviatar agregar conceptos en cero.
+                    if(tmpSubtotal > 0)
+                    {
+                        string ProductCode = TraVM.ClavesProdServ.Where(c => c.CodeConcep == pd.CodeConcept).FirstOrDefault().ClaveProdServ;
+                        string UnitCode = TraVM.payment.PaymentDetails.Where(p => p.CodeConcept == pd.CodeConcept).FirstOrDefault().UnitMeasurement;
+
+                        builder.Append(@"<tr>");
+                        builder.Append(@"<td>" + ProductCode + "</td>");
+                        builder.Append(@"<td>" + UnitCode + "</td>");
+                        builder.Append(@"<td>" + Cfdi.Items[cont].Description + "</td>");
+                        builder.Append(@"<td>" + tmpQuantity + "</td>");
+                        builder.Append(@"<td>" + string.Format(new CultureInfo("es-MX"), "{0:C2}", tmpValorUnitario) + "</td>");
+                        builder.Append(@"<td>" + string.Format(new CultureInfo("es-MX"), "{0:C2}", tmpDescuento) + "</td>");
+                        builder.Append(@"<td>" + string.Format(new CultureInfo("es-MX"), "{0:C2}", tmpSubtotal - tmpDescuento) + "</td>");
+                        builder.Append(@"</tr>");
+                    }                    
                     cont++;                    
                 });
             }             

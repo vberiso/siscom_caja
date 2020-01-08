@@ -224,8 +224,11 @@ namespace SOAPAP.UI.FactPasada
                             result = mensaje.ShowDialog();
                         }
                         mostrarInfoPay(payment);
-                        visualizaPDFActual(payment.TaxReceipts.LastOrDefault(p => p.Status == "ET001"));
-                    }
+                        if(Operacion.Contains("Cobro"))
+                            visualizaPDFActual(payment.TaxReceipts.LastOrDefault(p => p.Status == "ET001"));
+                        else if (Operacion.Contains("Cancela"))
+                            visualizaPDFActual(payment.TaxReceipts.LastOrDefault(p => p.Status == "ET002"));
+                }
                 //}
                 //else
                 //    dgvDetallesPago.Visible = false;
@@ -373,7 +376,7 @@ namespace SOAPAP.UI.FactPasada
                     Fac.ActualUserId = ((DataComboBox)cbxUsuario.SelectedItem).keyString;
                 }
 
-                string temp = await Fac.actualizaPdf(transactionId, true);
+                string temp = await Fac.actualizaCanceladoPDF(transactionId);
 
                 if (temp.Contains("error"))
                 {
@@ -409,16 +412,17 @@ namespace SOAPAP.UI.FactPasada
                     mensaje = new MessageBoxForm("Aviso", "Es necesario facturar previamente.", TypeIcon.Icon.Info);
                     result = mensaje.ShowDialog();
                 }
-                if (Operacion != "Cobro")
+                if (!Operacion.Contains("Cobro") && !Operacion.Contains("Cancela"))
                 {
                     mensaje = new MessageBoxForm("Aviso", "No se puede generar factura para este tipo de movimiento", TypeIcon.Icon.Info);
                     result = mensaje.ShowDialog();
                 }
-                if (EstaFacturado && Operacion == "Cobro")
+                if (EstaFacturado && (Operacion == "Cobro" || Operacion.Contains("Cancela")))
                 {                    
-                    loadingMail.Show(this);                    
-                    var _resulTransaction = await Requests.SendURIAsync(string.Format("/api/TaxReceipt/FromPaymentId/{0}", PaymentId), HttpMethod.Get, Variables.LoginModel.Token);
-                    
+                    loadingMail.Show(this);
+                    string ruta = Operacion == "Cobro" ? "/api/TaxReceipt/FromPaymentId" : "/api/TaxReceipt/FromPaymentId/Canceled";
+                    var _resulTransaction = await Requests.SendURIAsync(string.Format("{0}/{1}", ruta, PaymentId), HttpMethod.Get, Variables.LoginModel.Token);
+
                     if (_resulTransaction.Contains("error"))
                     {
                         mensaje = new MessageBoxForm("Error", _resulTransaction.Split(':')[1].Replace("}", ""), TypeIcon.Icon.Cancel);
@@ -468,15 +472,16 @@ namespace SOAPAP.UI.FactPasada
                     mensaje = new MessageBoxForm("Aviso", "Es necesario facturar previamente.", TypeIcon.Icon.Info);
                     result = mensaje.ShowDialog();
                 }
-                if (Operacion != "Cobro")
+                if (!Operacion.Contains("Cobro") && !Operacion.Contains("Cancela"))
                 {
                     mensaje = new MessageBoxForm("Aviso", "No se puede generar factura para este tipo de movimiento", TypeIcon.Icon.Info);
                     result = mensaje.ShowDialog();
                 }
-                if (EstaFacturado && Operacion == "Cobro")
+                if (EstaFacturado && (Operacion == "Cobro" || Operacion.Contains("Cancela")))
                 {
                     loadingMail.Show(this);
-                    var _resulTransaction = await Requests.SendURIAsync(string.Format("/api/TaxReceipt/FromPaymentId/{0}", PaymentId), HttpMethod.Get, Variables.LoginModel.Token);
+                    string ruta = Operacion == "Cobro" ? "/api/TaxReceipt/FromPaymentId" : "/api/TaxReceipt/FromPaymentId/Canceled";                   
+                    var _resulTransaction = await Requests.SendURIAsync(string.Format("{0}/{1}",ruta, PaymentId), HttpMethod.Get, Variables.LoginModel.Token);
 
                     if (_resulTransaction.Contains("error"))
                     {

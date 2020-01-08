@@ -31,6 +31,9 @@ using Tax = Facturama.Models.Request.Tax;
 using SOAPAP.UI;
 using SOAPAP.Enums;
 using SOAPAP.FacturadoTimbox;
+using DevExpress.Pdf;
+using DevExpress.Pdf.ContentGeneration;
+using System.Drawing;
 
 namespace SOAPAP
 {
@@ -51,10 +54,10 @@ namespace SOAPAP
         public string ActualUserId { get; set; }    //Es necesario inicializar esta propiedad, si esta facturando un administrador
 
         public Facturaelectronica()
-        {
+        { 
 
             Requests = new RequestsAPI(UrlBase);
-            facturama = new FacturamaApiMultiemisor("gfdsystems", "gfds1st9");
+            facturama = new FacturamaApiMultiemisor("gfdsystems", "gfds1st95", false);
             //facturama = new FacturamaApiMultiemisor("pruebas", "pruebas2011");
         }
         public void setMsgs(string msgObservacionFactura, string msgUsos)
@@ -376,23 +379,25 @@ namespace SOAPAP
                                 tmpValorUnitario = tmpSubtotal;
                                 tmpDescuento = 0;
                             }
-
-                            Item item = new Item()
+                            //Para evitar que pasen conceptos en cero.
+                            if(tmpSubtotal > 0)
                             {
-                                ProductCode = TraVM.ClavesProdServ.Where(x => x.CodeConcep == pay.CodeConcept && x.Tipo == pay.Type).Select(y => y.ClaveProdServ).FirstOrDefault(),
-                                IdentificationNumber = "S" + pay.CodeConcept,
-                                UnitCode = pay.UnitMeasurement,
-                                Unit = "NO APLICA",
-                                Description = pay.Description + " Periodo de: " + pay.Debt.FromDate.ToString("yyyy-MM-dd") + " hasta: " + pay.Debt.UntilDate.ToString("yyyy-MM-dd"),
-                                UnitPrice = tmpValorUnitario,
-                                Quantity = tmpQuantity,
-                                Subtotal = tmpSubtotal,
-                                Discount = tmpDescuento > 0 ? tmpDescuento : 0,
-                                Total = pay.Amount + pay.Tax
-                            };
-                            if (pay.HaveTax == true)
-                            {
-                                List<Tax> lstTaxs = new List<Tax>() {
+                                Item item = new Item()
+                                {
+                                    ProductCode = TraVM.ClavesProdServ.Where(x => x.CodeConcep == pay.CodeConcept && x.Tipo == pay.Type).Select(y => y.ClaveProdServ).FirstOrDefault(),
+                                    IdentificationNumber = "S" + pay.CodeConcept,
+                                    UnitCode = pay.UnitMeasurement,
+                                    Unit = "NO APLICA",
+                                    Description = pay.Description + " Periodo de: " + pay.Debt.FromDate.ToString("yyyy-MM-dd") + " hasta: " + pay.Debt.UntilDate.ToString("yyyy-MM-dd"),
+                                    UnitPrice = tmpValorUnitario,
+                                    Quantity = tmpQuantity,
+                                    Subtotal = tmpSubtotal,
+                                    Discount = tmpDescuento > 0 ? tmpDescuento : 0,
+                                    Total = pay.Amount + pay.Tax
+                                };
+                                if (pay.HaveTax == true)
+                                {
+                                    List<Tax> lstTaxs = new List<Tax>() {
                                     new Tax()
                                     {
                                         Base = pay.Amount,
@@ -402,9 +407,10 @@ namespace SOAPAP
                                         IsRetention = false
                                     }
                                 };
-                                item.Taxes = lstTaxs;
-                            }
-                            lstItems.Add(item);
+                                    item.Taxes = lstTaxs;
+                                }
+                                lstItems.Add(item);
+                            }                            
                         }
                     }
 
@@ -1100,6 +1106,110 @@ namespace SOAPAP
         //    return comprobante;
         //}
 
+
+        public async Task<string> actualizaCanceladoPDF(string idTransaction)
+        {
+            string respuesta = string.Empty;
+            string rutas = string.Empty;
+            string json = string.Empty;
+            try
+            {
+                var resultado = await Requests.SendURIAsync(string.Format("/api/Transaction/{0}", idTransaction), HttpMethod.Get, Variables.LoginModel.Token);
+                TransactionVM TraVM = JsonConvert.DeserializeObject<TransactionVM>(resultado);
+
+                TaxReceipt taxReceipt = TraVM.payment.TaxReceipts.LastOrDefault(x => x.Status == "ET002");
+
+                string path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Facturas";                            
+                DirectoryInfo di;
+                if (!Directory.Exists(path))
+                {
+                    di = Directory.CreateDirectory(path);
+                }
+                //Se guarda el pdf del timbre.
+                string NombreFile = string.Format("{0}\\{1}_{2}_{3}.pdf", path, Variables.Configuration.RFC ,taxReceipt.RFC, TraVM.transaction.transactionFolios != null ? TraVM.transaction.transactionFolios.FirstOrDefault().folio : "AXXXXX1");
+                System.IO.File.WriteAllBytes( NombreFile, taxReceipt.PDFInvoce);
+
+                //Se edita el Pdf
+                using (PdfDocumentProcessor processor = new PdfDocumentProcessor())
+                {
+                    processor.LoadDocument(NombreFile);
+                    using (SolidBrush textBrush = new SolidBrush(Color.FromArgb(150, Color.Red)))
+                        AddGraphics(processor, "F A C T U R A   _ _   C A N C E L A D A", textBrush);                    
+                    processor.SaveDocument(NombreFile);
+                }
+
+                //Se guarda el archivo en BD.
+                StringContent @string = new StringContent(JsonConvert.SerializeObject(taxReceipt), Encoding.UTF8, "application/json");
+                var UploadPDF = await Requests.UploadImageToServer("/api/TaxReceipt/AddPDF", Variables.LoginModel.Token, NombreFile, @string);
+                if (UploadPDF.Contains("error"))
+                {
+                    MessageBoxForm mensaje = new MessageBoxForm("Error", JsonConvert.DeserializeObject<Error>(UploadPDF).error, TypeIcon.Icon.Cancel);
+                    var result = mensaje.ShowDialog();                    
+                }
+
+                ////Se elimina el archivo temporal.
+                //if (System.IO.File.Exists(NombreFile))
+                //    System.IO.File.Delete(NombreFile);
+                return NombreFile;
+            }
+            catch (Exception ex)
+            {
+                return "error: No se pudo actualizar el PDF.";
+            }
+
+        }
+
+        const float DrawingDpi = 72f;
+        static void AddGraphics(PdfDocumentProcessor processor, string text, SolidBrush textBrush)
+        {
+            IList<PdfPage> pages = processor.Document.Pages;
+            for (int i = 0; i < pages.Count; i++)
+            {
+                PdfPage page = pages[i];
+                using (PdfGraphics graphics = processor.CreateGraphics())
+                {
+                    SizeF actualPageSize = PrepareGraphics(page, graphics);
+                    using (Font font = new Font("Segoe UI", 22, FontStyle.Regular))
+                    {
+                        SizeF textSize = graphics.MeasureString(text, font, PdfStringFormat.GenericDefault);
+                        //PointF topLeft = new PointF(0, 0);
+                        //PointF bottomRight = new PointF(actualPageSize.Width - textSize.Width, actualPageSize.Height - textSize.Height);
+                        //graphics.DrawString(text, font, textBrush, topLeft);
+                        //graphics.DrawString(text, font, textBrush, bottomRight);
+
+                        PointF centerPage = new PointF((actualPageSize.Width / 2) - (textSize.Width / 2), (actualPageSize.Height / 2) - (textSize.Height / 2));
+                        graphics.RotateTransform(-20);
+                        graphics.DrawString(text, font, textBrush, centerPage);
+
+                        graphics.AddToPageForeground(page, DrawingDpi, DrawingDpi);
+                    }
+                }
+            }
+        }
+
+        static SizeF PrepareGraphics(PdfPage page, PdfGraphics graphics)
+        {
+            PdfRectangle cropBox = page.CropBox;
+            float cropBoxWidth = (float)cropBox.Width;
+            float cropBoxHeight = (float)cropBox.Height;
+
+            switch (page.Rotate)
+            {
+                case 90:
+                    graphics.RotateTransform(-90);
+                    graphics.TranslateTransform(-cropBoxHeight, 0);
+                    return new SizeF(cropBoxHeight, cropBoxWidth);
+                case 180:
+                    graphics.RotateTransform(-180);
+                    graphics.TranslateTransform(-cropBoxWidth, -cropBoxHeight);
+                    return new SizeF(cropBoxWidth, cropBoxHeight);
+                case 270:
+                    graphics.RotateTransform(-270);
+                    graphics.TranslateTransform(0, -cropBoxWidth);
+                    return new SizeF(cropBoxHeight, cropBoxWidth);
+            }
+            return new SizeF(cropBoxWidth, cropBoxHeight);
+        }
 
         ////Timbrado secundario
         public async Task<Facturama.Models.Response.Cfdi> timbrarProvedorSecundario(CfdiMulti cfdiMulti)
