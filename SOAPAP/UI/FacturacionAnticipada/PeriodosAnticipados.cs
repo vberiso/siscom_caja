@@ -153,7 +153,7 @@ namespace SOAPAP.UI.FacturacionAnticipada
 
         }
 
-        private void btnGenerar_Click(object sender, EventArgs e)
+        private async void btnGenerar_Click(object sender, EventArgs e)
         {
             loading = new Loading();
             loading.Show(this);
@@ -174,7 +174,7 @@ namespace SOAPAP.UI.FacturacionAnticipada
             }
             else
             {
-                generarFacturaAdelantada();
+                await generarFacturaAdelantada();
             }
             loading.Close();
 
@@ -237,10 +237,10 @@ namespace SOAPAP.UI.FacturacionAnticipada
         }
 
 
-        private async void generarFacturaAdelantada()
+        private async Task<string> generarFacturaAdelantada()
         {
-            loading = new Loading();
-            loading.Show(this);
+            //loading = new Loading();
+            //loading.Show(this);
 
             int mesFin =12;
             int mesInicio = 1;
@@ -271,12 +271,12 @@ namespace SOAPAP.UI.FacturacionAnticipada
             var results = await Requests.SendURIAsync(url, HttpMethod.Post, Variables.LoginModel.Token, stringContent);
             var jsonResult = JObject.Parse(results);
 
-            bool is_null_error = jsonResult.ContainsKey("error");
+            bool is_null_error = results.Contains("error");
             if (!is_null_error  && jsonResult.ContainsKey("paramsOut")) {
                 is_null_error = is_null_error == true ? is_null_error : !string.IsNullOrEmpty(jsonResult["data"]["paramsOut"][0]["value"].ToString().Trim());
             }
 
-            loading.Close();
+       
             if (is_null_error)
             {
                 string error = JsonConvert.DeserializeObject<Error>(results).error;
@@ -295,7 +295,12 @@ namespace SOAPAP.UI.FacturacionAnticipada
                         debts.AddRange(Variables.Agreement.Debts.Select(x => x.Id));
                     }
                     var des = Variables.Configuration.Descuento == 50 ? 0 : Variables.Configuration.Descuento;
-                     url = string.Format("/api/Agreements/GeneratePagosAnuales/{0}/{1}/{2}/{3}/{4}", Convert.ToInt32(agreement_id), des, Variables.LoginModel.FullName, Variables.LoginModel.User, checkPaymentTarget.Checked);
+                    if (Agreement.TypeIntakeId == 2 || Agreement.TypeIntakeId == 3)
+                    {
+                        des = -1;
+                     
+                    }
+                    url = string.Format("/api/Agreements/GeneratePagosAnuales/{0}/{1}/{2}/{3}/{4}", Convert.ToInt32(agreement_id), des, Variables.LoginModel.FullName, Variables.LoginModel.User, checkPaymentTarget.Checked);
                     stringContent = new StringContent(JsonConvert.SerializeObject(debts), Encoding.UTF8, "application/json");
                     results = await Requests.SendURIAsync(url, HttpMethod.Post, Variables.LoginModel.Token, stringContent);
                 }
@@ -304,13 +309,14 @@ namespace SOAPAP.UI.FacturacionAnticipada
             
             result = mensaje.ShowDialog();
             mensaje.Close();
+           // loading.Close();
             if (!is_null_error)
             {
                 Variables.Agreement = Agreement;
                 this.DialogResult = DialogResult.OK;
                 this.Close();
             }
-
+            return "";
 
         }
 

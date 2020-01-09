@@ -677,11 +677,12 @@ namespace SOAPAP.UI.ReportesForms.Finanzas
                     index = 2;
                     month = 7;
                 }
+               // month = mes >= 7 ? 7 : 1;
 
                 decimal Actual = 0;
                 decimal DescuentoUrbano = 0, DescuentoUrbanoSC = 0, DescuentoRural = 0, DescuentoVulnerable = 0, DescuentoRecargos = 0;
-                decimal Anteriores = 0;
-
+                decimal Anteriores = 0, Adelantado= 0;
+                
                 while (index <= 2)
                 {
                     int colum = 3;
@@ -690,11 +691,15 @@ namespace SOAPAP.UI.ReportesForms.Finanzas
                     {
                         oSheet.Cells[21, colum] = "EJERCICIO " + year;
                         oSheet.Cells[21, colum + 1] = "EJERCICIOS ANTERIORES A " + year;
+                        oSheet.Cells[21, colum + 2] = "EJERCICIOS ADELANTADOS A " + year;
                         //Montos actuales y anteriores de urbano con construcción
                         Actual = data.Where(x => x.type_intake == "URBANO" && x.month_payment == i && string.IsNullOrEmpty(x.descuento) && x.construccion_no != 1 && x.inicio == year && x.code_concept == 1).ToList().Sum(x => x.monto);
                         //TActuales =  Actual;
 
                         Anteriores = data.Where(x => x.type_intake == "URBANO" && x.month_payment == i && string.IsNullOrEmpty(x.descuento) && x.construccion_no != 1 && x.inicio < year && x.code_concept == 1).ToList().Sum(x => x.monto);
+
+                        Adelantado = data.Where(x => x.type_intake == "URBANO" && x.month_payment == i && string.IsNullOrEmpty(x.descuento) && x.construccion_no != 1 && x.inicio > year && x.code_concept == 1).ToList().Sum(x => x.monto);
+
                         //TAnteriores =  Anteriores;
 
                         DescuentoUrbano = DescuentoUrbano + data.Where(x => x.type_intake == "URBANO" && string.IsNullOrEmpty(x.descuento) && x.month_payment == i && x.construccion_no != 1 && x.code_concept == 1).ToList().Sum(x => x.discount_amount);
@@ -704,6 +709,7 @@ namespace SOAPAP.UI.ReportesForms.Finanzas
                         //TUrbano = TUrbano+ Anteriores + Actual;
                         oSheet.Cells[23, colum] = Actual;
                         oSheet.Cells[23, colum + 1] = Anteriores;
+                        oSheet.Cells[23, colum + 2] = Adelantado;
 
 
 
@@ -712,6 +718,7 @@ namespace SOAPAP.UI.ReportesForms.Finanzas
                         //TActuales = TActuales + Actual;
 
                         Anteriores = data.Where(x => x.type_intake == "URBANO" && x.month_payment == i && string.IsNullOrEmpty(x.descuento) && x.construccion_no == 1 && x.inicio < year && x.code_concept == 1).ToList().Sum(x => x.monto);
+                        Adelantado = data.Where(x => x.type_intake == "URBANO" && x.month_payment == i && string.IsNullOrEmpty(x.descuento) && x.construccion_no == 1 && x.inicio > year && x.code_concept == 1).ToList().Sum(x => x.monto);
                         //TAnteriores = TAnteriores + Anteriores;
 
 
@@ -719,6 +726,7 @@ namespace SOAPAP.UI.ReportesForms.Finanzas
                         //TurbanoSinConstraccion = TurbanoSinConstraccion + Anteriores + Actual;
                         oSheet.Cells[24, colum] = Actual;
                         oSheet.Cells[24, colum + 1] = Anteriores;
+                        oSheet.Cells[24, colum + 2] = Adelantado;
 
 
 
@@ -727,12 +735,14 @@ namespace SOAPAP.UI.ReportesForms.Finanzas
                         //TActuales = TActuales +Actual;
 
                         Anteriores = data.Where(x => x.type_intake == "RUSTICO" && x.month_payment == i && string.IsNullOrEmpty(x.descuento) && x.inicio < year && x.code_concept == 1).ToList().Sum(x => x.monto);
+                        Adelantado = data.Where(x => x.type_intake == "RUSTICO" && x.month_payment == i && string.IsNullOrEmpty(x.descuento) && x.inicio > year && x.code_concept == 1).ToList().Sum(x => x.monto);
                         //TAnteriores = TAnteriores +  Anteriores;
 
                         DescuentoRural = DescuentoRural + data.Where(x => x.type_intake == "RUSTICO" && x.month_payment == i && string.IsNullOrEmpty(x.descuento) && x.code_concept == 1).ToList().Sum(x => x.discount_amount);
                         //TRural = TRural + Anteriores + Actual;
                         oSheet.Cells[26, colum] = Actual;
                         oSheet.Cells[26, colum + 1] = Anteriores;
+                        oSheet.Cells[26, colum + 2] = Adelantado;
 
 
                         //Montos actuales y anteriores de descuento vulnerable
@@ -740,12 +750,14 @@ namespace SOAPAP.UI.ReportesForms.Finanzas
                         //TActuales = TActuales + Actual;
 
                         Anteriores = data.Where(x => !string.IsNullOrEmpty(x.descuento) && x.month_payment == i && x.inicio < year && x.code_concept == 1).ToList().Sum(x => x.monto);
+                        Adelantado = data.Where(x => !string.IsNullOrEmpty(x.descuento) && x.month_payment == i && x.inicio > year && x.code_concept == 1).ToList().Sum(x => x.monto);
                         //TAnteriores = TAnteriores + Anteriores;
 
                         DescuentoVulnerable = DescuentoVulnerable + data.Where(x => !string.IsNullOrEmpty(x.descuento) && x.month_payment == i && x.code_concept == 1).ToList().Sum(x => x.discount_amount);
                         //TVulnerable = TVulnerable + Anteriores + Actual;
                         oSheet.Cells[28, colum] = Actual;
                         oSheet.Cells[28, colum + 1] = Anteriores;
+                        oSheet.Cells[28, colum + 2] = Adelantado;
 
 
                         //Montos actuales y anteriores de recargos
@@ -753,12 +765,14 @@ namespace SOAPAP.UI.ReportesForms.Finanzas
                         //TActuales = TActuales + Actual;
 
                         Anteriores = data.Where(x => x.month_payment == i && x.inicio < year && x.code_concept == 3).ToList().Sum(x => x.monto);
+                        Adelantado = data.Where(x => x.month_payment == i && x.inicio > year && x.code_concept == 3).ToList().Sum(x => x.monto);
                         //TAnteriores = TAnteriores + Anteriores;
 
                         DescuentoRecargos = DescuentoRecargos + data.Where(x => x.month_payment == i && x.code_concept == 3).ToList().Sum(x => x.discount_amount);
                         //TRecargos = TRecargos + Anteriores + Actual;
                         oSheet.Cells[29, colum] = Actual;
                         oSheet.Cells[29, colum + 1] = Anteriores;
+                        oSheet.Cells[29, colum + 2] = Adelantado;
 
 
 
@@ -767,20 +781,29 @@ namespace SOAPAP.UI.ReportesForms.Finanzas
                         //oSheet.Cells[30, colum + 1] = TAnteriores;
 
 
-                        colum = colum + 2;
+                        colum = colum + 3;
+                        if (i == 6)
+                        {
+                            month = 7;
+                            break;
+
+                        }
                     }
-                    oSheet.Cells[23, 16] = DescuentoUrbano;
-                    oSheet.Cells[24, 16] = DescuentoUrbanoSC;
-                    oSheet.Cells[26, 16] = DescuentoRural;
-                    oSheet.Cells[28, 16] = DescuentoVulnerable;
-                    oSheet.Cells[29, 16] = DescuentoRecargos;
+                    oSheet.Cells[23, 22] = DescuentoUrbano;
+                    oSheet.Cells[24, 22] = DescuentoUrbanoSC;
+                    oSheet.Cells[26, 22] = DescuentoRural;
+                    oSheet.Cells[28, 22] = DescuentoVulnerable;
+                    oSheet.Cells[29, 22] = DescuentoRecargos;
                     //oSheet.Cells[23, 23] = TUrbano;
                     //oSheet.Cells[24, 23] = TurbanoSinConstraccion;
                     //oSheet.Cells[26, 23] = TRural;
                     //oSheet.Cells[28, 23] = TVulnerable;
                     //oSheet.Cells[29, 23] = TVulnerable;
 
-
+                    if (mes < 7)
+                    {
+                        break;
+                    }
 
 
 

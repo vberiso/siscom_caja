@@ -775,7 +775,7 @@ namespace SOAPAP.UI
                             mensaje = new MessageBoxForm("Sin dato", "No se encontraron datos para este número de cuenta", TypeIcon.Icon.Warning);
                             result = mensaje.ShowDialog();
                         }
-                        if (!Variables.Configuration.IsMunicipal) {
+                        if (!Variables.Configuration.IsMunicipal && Variables.Agreement != null) {
                             DateTime current = DateTime.Now;
                             if (current.Month == 1 && Variables.Agreement.Debts.Count() == 1 && Variables.Agreement.Debts.Where(x => x.FromDate.Month == 1).ToList().Count() == 1)
                             {
