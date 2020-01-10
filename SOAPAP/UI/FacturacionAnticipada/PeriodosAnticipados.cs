@@ -290,8 +290,10 @@ namespace SOAPAP.UI.FacturacionAnticipada
                 if (Variables.Configuration.Anual)
                 {
                     List<int> debts = JsonConvert.DeserializeObject<List<int>>(JsonConvert.SerializeObject(jsonResult["data"]));
+                    int HaveMes = 0;
                     if (Variables.Agreement.Debts.Count >0)
                     {
+                        HaveMes = 1;
                         debts.AddRange(Variables.Agreement.Debts.Select(x => x.Id));
                     }
                     var des = Variables.Configuration.Descuento == 50 ? 0 : Variables.Configuration.Descuento;
@@ -300,7 +302,7 @@ namespace SOAPAP.UI.FacturacionAnticipada
                         des = -1;
                      
                     }
-                    url = string.Format("/api/Agreements/GeneratePagosAnuales/{0}/{1}/{2}/{3}/{4}", Convert.ToInt32(agreement_id), des, Variables.LoginModel.FullName, Variables.LoginModel.User, checkPaymentTarget.Checked);
+                    url = string.Format("/api/Agreements/GeneratePagosAnuales/{0}/{1}/{2}/{3}/{4}/{5}", Convert.ToInt32(agreement_id), des, Variables.LoginModel.FullName, Variables.LoginModel.User, checkPaymentTarget.Checked, HaveMes);
                     stringContent = new StringContent(JsonConvert.SerializeObject(debts), Encoding.UTF8, "application/json");
                     results = await Requests.SendURIAsync(url, HttpMethod.Post, Variables.LoginModel.Token, stringContent);
                 }
