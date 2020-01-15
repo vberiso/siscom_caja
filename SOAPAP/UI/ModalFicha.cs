@@ -714,8 +714,9 @@ namespace SOAPAP.UI
                     new { Type = "OT002", Value = "Corte" },
                     new { Type = "OT003"  ,Value = "Reconexion" },
                     new {Type =  "OT004", Value = "Mantenimiento / Sustitucion" },
-                    new { Type = "OT004", Value = "Mantenimiento / Sustitucion" },
-                    new {Type = "OT004", Value = "Mantenimiento / Sustitucion" }
+                    new {Type = "OT005", Value = "Notificación" },
+                    new { Type = "OT007", Value = "Cultura de agua" },
+                   
                 };
                 var StatusOrder = new List<object>()
                 {
