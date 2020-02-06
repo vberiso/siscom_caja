@@ -384,10 +384,19 @@ namespace SOAPAP.UI.ReportesForms.Finanzas.Ayuntamiento
             builder.Append(@" </div>");
             builder.Append(@"</div>");
             // SetDataVariablesA(data, false, mes, year);
-            var EneroActual = JsonConvert.DeserializeObject<List<object>>(JsonConvert.SerializeObject(Odata.Last()));
-            TotalAc = bool.Parse(Odata.ElementAt(1).ToString()) == true ? int.Parse(EneroActual.First().ToString()) + TotalAc : int.Parse(EneroActual.First().ToString());
-            TotalAn = bool.Parse(Odata.ElementAt(1).ToString()) == true ? int.Parse(EneroActual.ElementAt(1).ToString()) + TotalAn : int.Parse(EneroActual.ElementAt(1).ToString());
-            TotalAm = bool.Parse(Odata.ElementAt(1).ToString()) == true ? int.Parse(EneroActual.ElementAt(2).ToString()) + TotalAm : int.Parse(EneroActual.ElementAt(2).ToString());
+            if (int.Parse(year) == 2019)
+            {
+
+                var EneroActual = JsonConvert.DeserializeObject<List<object>>(JsonConvert.SerializeObject(Odata.Last()));
+                TotalAc = bool.Parse(Odata.ElementAt(1).ToString()) == true ? int.Parse(EneroActual.First().ToString()) + TotalAc : int.Parse(EneroActual.First().ToString());
+                TotalAn = bool.Parse(Odata.ElementAt(1).ToString()) == true ? int.Parse(EneroActual.ElementAt(1).ToString()) + TotalAn : int.Parse(EneroActual.ElementAt(1).ToString());
+                TotalAm = bool.Parse(Odata.ElementAt(1).ToString()) == true ? int.Parse(EneroActual.ElementAt(2).ToString()) + TotalAm : int.Parse(EneroActual.ElementAt(2).ToString());
+            }
+            else
+            {
+                SetDataVariablesA(Odata.First(), false, mes, year);
+            }
+
 
             builder.Append(@"<br><br><div class='cuadro_f2_B'>");
             builder.Append(@"<div style='text-align: center; display: inline - block; width: 100 %; '>");

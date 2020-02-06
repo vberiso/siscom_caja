@@ -74,15 +74,22 @@ namespace SOAPAP.UI.ReportesForms.Finanzas
             return JsonConvert.DeserializeObject<List<GroupCataloguesVM>>(results);
 
         }
-        public void ShowForm(string nameSpace, string nameForm)
+        private Form GetInstanceForm(string nameSpace, string nameForm)
         {
             Type t = Type.GetType(nameSpace + "." + nameForm);
             Form newForm = Activator.CreateInstance(t) as Form;
-            InstanceForm = newForm;
+
+
+            return newForm;
+        }
+        public void ShowForm(string nameSpace, string nameForm)
+        {
+           
+            InstanceForm = GetInstanceForm(nameSpace, nameForm);
             invokeMethod(InstanceForm, "SetGroups", new object[] { GroupsServices });
 
-            newForm.Owner = this;
-            AddFormInPanel(newForm);
+            ((Form)InstanceForm).Owner = this;
+            AddFormInPanel(((Form)InstanceForm));
         }
 
         private void AddFormInPanel(Form fh)
@@ -225,7 +232,8 @@ namespace SOAPAP.UI.ReportesForms.Finanzas
             int year = Convert.ToInt32(((DataComboBox)comboBoxEjercicios.SelectedItem).keyString);
 
             string url = "";
-            object result = GetparameterFromInstanceForm(this.InstanceForm);
+            
+            object result = GetparameterFromInstanceForm(formatoP == null ? this.InstanceForm : GetInstanceForm("SOAPAP", "UI.ReportesForms.Finanzas.Ayuntamiento.Formato1"));
 
             var data = JsonConvert.SerializeObject(result);
             
