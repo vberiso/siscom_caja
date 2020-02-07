@@ -129,7 +129,7 @@ namespace SOAPAP.UI.ReportesForms.Finanzas.Agua.Formatos
 
             textGTI.Text = string.Format(new CultureInfo("es-MX"), "{0:C2}", decimal.Parse(textGTI.Text));
             var totalO = OData.Where(x => x.uso == "NO").ToList();
-            textTISM.Text = string.Format(new CultureInfo("es-MX"), "{0:C2}", decimal.Parse(textTISM.Text) + totalO.Sum(x => x.importe));
+            textTISM.Text = string.Format(new CultureInfo("es-MX"), "{0:C2}", decimal.Parse(textTISM.Text)/* + totalO.Sum(x => x.importe)*/);
 
             lblC.Text = $@"No DE USUARIOS Y No DE TOMAS QUE REALIZARON ÚNICAMENTE PAGOS DE {year}
                         (C)";
@@ -431,7 +431,7 @@ namespace SOAPAP.UI.ReportesForms.Finanzas.Agua.Formatos
                                             <td style='width: 40%' class='left'>TOTAL</td>
                                             <td style='width: 15%'><b>{GTU + totalConMedidorU}</b></td>
                                             <td style='width: 15%'><b>{GTT + totalConMedidorT}</b></td>
-                                            <td style='width: 15%'><b>{string.Format(new CultureInfo("es-MX"), "{0:C2}",GTI+totalConMedidorI + totalO.Sum(x => x.importe))}</b></td>    
+                                            <td style='width: 15%'><b>{string.Format(new CultureInfo("es-MX"), "{0:C2}",GTI+totalConMedidorI /*+ totalO.Sum(x => x.importe)*/)}</b></td>    
                                     </tr>       
                                 </tbody>
                                 </table>");
