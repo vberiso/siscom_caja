@@ -271,7 +271,7 @@ namespace SOAPAP.UI.ReportesForms.Finanzas.Ayuntamiento
             builder.Append($@"<caption style='background:#f1eeec'>EJERCICIOS ANTERIORES A {year}</caption>");
             builder.Append(@"<tbody>");
             builder.Append($@"<tr>
-                            <td style='width: 50%' class='left'>IMPUESTOCOBRADO</td>
+                            <td style='width: 50%' class='left'>IMPUESTO COBRADO</td>
                             <td style='width: 50%'>{ string.Format(new CultureInfo("es-MX"), "{0:C2}", TImpuesto) }</td>
                             </tr>");
 

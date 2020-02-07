@@ -369,10 +369,10 @@ namespace SOAPAP.UI.ReportesForms.Finanzas.Ayuntamiento
             builder.Append(@"<div class='datos_conceptos' style='margin-bottom: 30px; text-align: center; '>");
             builder.Append(@"<table id='datos' style='width: 100%; margin-bottom: 50px; margin: auto; '>");
             builder.Append(@"<tr>");
-            builder.Append(@"<td class='cuadros' style='background: darkgray;'>N° DE CUENTAS QUE REALIZARON ÚNICAMENTE 2019 PAGOS DE<br>(A)</td>");
-            builder.Append(@"<td class='cuadros' style='background: darkgray;'>N° DE CUENTAS QUE REALIZARON ÚNICAMENTE PAGOS DE EJERCICIOS ANTERIORES A 2019 <br>(B)</td>");
-            builder.Append(@"<td class='cuadros' style='background: darkgray;'>N° DE CUENTAS QUE REALIZARON TANTO PAGOS DE 2019 COMO DE EJERCICIOS ANTERIORES A 2019 <br>(C)</td>");
-            builder.Append(@"<td class='cuadros' style='background: darkgray;'>N° DE CUENTAS QUE REALIZARON PAGOS EN EL MES <br>(D=A+B+C)</td>");
+            builder.Append($@"<td class='cuadros' style='background: darkgray;'>N° DE CUENTAS QUE REALIZARON ÚNICAMENTE  PAGOS DE {year}<br>(A)</td>");
+            builder.Append($@"<td class='cuadros' style='background: darkgray;'>N° DE CUENTAS QUE REALIZARON ÚNICAMENTE PAGOS DE EJERCICIOS ANTERIORES A {year} <br>(B)</td>");
+            builder.Append($@"<td class='cuadros' style='background: darkgray;'>N° DE CUENTAS QUE REALIZARON TANTO PAGOS DE {year} COMO DE EJERCICIOS ANTERIORES A {year} <br>(C)</td>");
+            builder.Append($@"<td class='cuadros' style='background: darkgray;'>N° DE CUENTAS QUE REALIZARON PAGOS EN EL MES <br>(D=A+B+C)</td>");
             builder.Append(@"<tr>");
             builder.Append(@"<td class='right'>" + TotalAc + "</td>");
             builder.Append(@"<td class='right'>" + TotalAn + "</td>");
@@ -407,9 +407,9 @@ namespace SOAPAP.UI.ReportesForms.Finanzas.Ayuntamiento
             builder.Append(@"<div class='datos_conceptos' style='margin-bottom: 30px; text-align: center; '>");
             builder.Append(@"<table id='datos' style='width: 100%; margin-bottom: 50px; margin: auto; '>");
             builder.Append(@"<tr>");
-            builder.Append(@"<td class='cuadros' style='background: darkgray;'>N° DE CUENTAS QUE REALIZARON ÚNICAMENTE 2019 PAGOS DE<br>(A)</td>");
-            builder.Append(@"<td class='cuadros' style='background: darkgray;'>N° DE CUENTAS QUE REALIZARON ÚNICAMENTE PAGOS DE EJERCICIOS ANTERIORES A 2019 <br>(B)</td>");
-            builder.Append(@"<td class='cuadros' style='background: darkgray;'>N° DE CUENTAS QUE REALIZARON TANTO PAGOS DE 2019 COMO DE EJERCICIOS ANTERIORES A 2019 <br>(C)</td>");
+            builder.Append($@"<td class='cuadros' style='background: darkgray;'>N° DE CUENTAS QUE REALIZARON ÚNICAMENTE PAGOS DE {year} <br>(A)</td>");
+            builder.Append($@"<td class='cuadros' style='background: darkgray;'>N° DE CUENTAS QUE REALIZARON ÚNICAMENTE PAGOS DE EJERCICIOS ANTERIORES A {year} <br>(B)</td>");
+            builder.Append($@"<td class='cuadros' style='background: darkgray;'>N° DE CUENTAS QUE REALIZARON TANTO PAGOS DE {year} COMO DE EJERCICIOS ANTERIORES A {year} <br>(C)</td>");
             builder.Append(@"<td class='cuadros' style='background: darkgray;'>N° DE CUENTAS QUE REALIZARON PAGOS EN EL MES <br>(D=A+B+C)</td>");
             builder.Append(@"<tr>");
             builder.Append(@"<td class='right'>" + TotalAc + "</td>");
