@@ -400,7 +400,7 @@ namespace SOAPAP.UI.ReportesForms.Finanzas.Ayuntamiento
 
             builder.Append(@"<br><br><div class='cuadro_f2_B'>");
             builder.Append(@"<div style='text-align: center; display: inline - block; width: 100 %; '>");
-            builder.Append(@"<p style='margin-bottom: 0px'>CUADRO F2-B</p>");
+            builder.Append(@"<p style='margin-bottom: 0px'>CUADRO F2-C</p>");
             builder.Append(@"<p style='margin-top: 0px; margin-bottom: 0px'>NO. DE CUENTAS QUE REALIZARON PAGOS DEL 1 DE ENERO AL ÚLTIMO DÍA DEL MES POR CONCEPTO</p>");
             builder.Append(@"<p style='margin-top: 0px'>DE IMPUESTO PREDIAL</p>");
             builder.Append(@"</div>");
