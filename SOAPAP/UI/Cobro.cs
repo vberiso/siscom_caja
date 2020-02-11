@@ -777,13 +777,16 @@ namespace SOAPAP.UI
                         }
                         if (!Variables.Configuration.IsMunicipal && Variables.Agreement != null) {
                             DateTime current = DateTime.Now;
-                            if (current.Month == 1 && Variables.Agreement.Debts.Count() == 1 && Variables.Agreement.Debts.Where(x => x.FromDate.Month == 1).ToList().Count() == 1)
-                            {
-                                layoutAnual.Visible = true;
-                            }
-                            if (current.Month == 2 && Variables.Agreement.Debts.Count() == 2 && Variables.Agreement.Debts.Where(x => x.FromDate.Month == 2).ToList().Count() == 1)
-                            {
-                                layoutAnual.Visible = true;
+                            int HaveDebtBefore = Variables.Agreement.Debts.Where(x => x.FromDate.Year < DateTime.Now.Year).ToList().Count;
+                            if (HaveDebtBefore == 0) {
+                                if (current.Month == 1 && Variables.Agreement.Debts.Count() >= 1 && Variables.Agreement.Debts.Where(x => x.FromDate.Month == 1).ToList().Count() == 1)
+                                {
+                                    layoutAnual.Visible = true;
+                                }
+                                if (current.Month == 2 && Variables.Agreement.Debts.Count() >= 2 && Variables.Agreement.Debts.Where(x => x.FromDate.Month == 2).ToList().Count() == 1)
+                                {
+                                    layoutAnual.Visible = true;
+                                }
                             }
                         }
                         //Valida si hay campañas de descuentos adicionales.

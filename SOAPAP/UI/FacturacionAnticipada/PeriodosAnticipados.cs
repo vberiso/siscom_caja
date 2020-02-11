@@ -205,12 +205,12 @@ namespace SOAPAP.UI.FacturacionAnticipada
                 //}
 
                 DateTime current = DateTime.Now;
-                if (current.Month == 1 && Agreement.Debts.Count() == 1 && Agreement.Debts.Where(x => x.FromDate.Month == 1).ToList().Count() == 1)
+                if (current.Month == 1 && Agreement.Debts.Count() > 1 && Agreement.Debts.Where(x => x.FromDate.Month == 1).ToList().Count() == 1)
                 {
                     
                     mesInicio = 2;
                 }
-                if (current.Month == 2 && Agreement.Debts.Count() == 2 && Agreement.Debts.Where(x => x.FromDate.Month == 2).ToList().Count() == 1)
+                if (current.Month == 2 && Agreement.Debts.Count() > 2 && Agreement.Debts.Where(x => x.FromDate.Month == 2).ToList().Count() == 1)
                 {
                     mesInicio = 3;
                 }
@@ -255,11 +255,11 @@ namespace SOAPAP.UI.FacturacionAnticipada
             {
                 
                 DateTime current = DateTime.Now;
-                if (current.Month == 1 && Agreement.Debts.Count() == 1 && Agreement.Debts.Where(x => x.FromDate.Month == 1).ToList().Count() == 1)
+                if (current.Month == 1 && Agreement.Debts.Count() >= 1 && Agreement.Debts.Where(x => x.FromDate.Month == 1).ToList().Count() == 1)
                 {
                     mesInicio = 2;
                 }
-                if (current.Month == 2 && Agreement.Debts.Count() == 2 && Agreement.Debts.Where(x => x.FromDate.Month == 2).ToList().Count() == 1)
+                if (current.Month == 2 && Agreement.Debts.Count() >= 2 && Agreement.Debts.Where(x => x.FromDate.Month == 2).ToList().Count() == 1)
                 {
                     mesInicio = 3;
                 }
@@ -291,10 +291,12 @@ namespace SOAPAP.UI.FacturacionAnticipada
                 {
                     List<int> debts = JsonConvert.DeserializeObject<List<int>>(JsonConvert.SerializeObject(jsonResult["data"]));
                     int HaveMes = 0;
-                    if (Variables.Agreement.Debts.Count >0)
+                    var debtsn = Variables.Agreement.Debts.Where(x => x.Type == "TIP01").ToList();
+                    if (debtsn.Count >0)
                     {
                         HaveMes = 1;
-                        debts.AddRange(Variables.Agreement.Debts.Select(x => x.Id));
+                       
+                        debts.AddRange(debtsn.Select(x => x.Id));
                     }
                     var des = Variables.Configuration.Descuento == 50 ? 0 : Variables.Configuration.Descuento;
                     if (Agreement.TypeIntakeId == 2 || Agreement.TypeIntakeId == 3)
