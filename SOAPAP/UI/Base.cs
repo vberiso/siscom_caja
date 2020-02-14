@@ -765,7 +765,8 @@ namespace SOAPAP
 
                 
             }
-            
+
+            cuentasContablesToolStripMenuItem.Visible = false;
 
             if (Variables.LoginModel.RolName.ToList().Find(x => x == "User") != null)
             {
@@ -870,6 +871,7 @@ namespace SOAPAP
             }
             if (Variables.LoginModel.RolName.ToList().Find(x => x == "Supervisor") != null)
             {
+                cuentasContablesToolStripMenuItem.Visible = true;
                 opcionesToolStripMenuItem.Visible = true;
                 if (Variables.Configuration.Terminal != null)
                 {
@@ -1008,6 +1010,11 @@ namespace SOAPAP
             ShowForm("SOAPAP", "UI.ReportesForms.RepIbyC");
         }
 
+        private void ingresosDeContabilidadToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ShowForm("SOAPAP", "UI.ReportesForms.RepIAcc");
+        }
+
         private void buscarContribuyenteToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ShowForm("SOAPAP", "UI.ReportesForms.RepTaxpayer");
@@ -1061,7 +1068,10 @@ namespace SOAPAP
             ShowForm("SOAPAP", "UI.ReportesForms.Finanzas.Principal");
         }
 
-        
+        private void parametrizaciónToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ShowForm("SOAPAP", "UI.CuentasContables.CuentaContable");
+        }
     }
 }
 #endregion

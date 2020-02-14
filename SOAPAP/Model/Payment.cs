@@ -32,6 +32,10 @@ namespace SOAPAP.Model
         public string PayMethodNumber { get; set; }
         public bool HaveTaxReceipt { get; set; }
         public string ObservationInvoice { get; set; }
+
+        public int TerminalUserId { get; set; }        
+        public string ImpressionSheet { get; set; }
+
         public string Account { get; set; }
         public int OrderSaleId { get; set; }
         public int OriginPaymentId { get; set; }

@@ -181,7 +181,7 @@ namespace SOAPAP.UI.ReportesForms
         {
             //Busqueda por numero de cuenta
             var resultTypeTransaction = await Requests.SendURIAsync("/api/Agreements/GetSummary/" + tbxCuenta.Text, HttpMethod.Get, Variables.LoginModel.Token);
-            if (resultTypeTransaction.Contains("error"))
+            if (resultTypeTransaction.Contains("error:"))
             {
                 mensaje = new MessageBoxForm("Error", resultTypeTransaction.Split(':')[1].Replace("}", ""), TypeIcon.Icon.Cancel);
                 result = mensaje.ShowDialog();
@@ -211,7 +211,7 @@ namespace SOAPAP.UI.ReportesForms
         {
             //Busqueda por numero de cuenta
             var resultTypeTransaction = await Requests.SendURIAsync("/api/Payments/Resume/" + tbxCuenta.Text, HttpMethod.Get, Variables.LoginModel.Token);
-            if (resultTypeTransaction.Contains("error"))
+            if (resultTypeTransaction.Contains("error:"))
             {
                 mensaje = new MessageBoxForm("Error", resultTypeTransaction.Split(':')[1].Replace("}", ""), TypeIcon.Icon.Cancel);
                 result = mensaje.ShowDialog();
@@ -396,7 +396,7 @@ namespace SOAPAP.UI.ReportesForms
                 {
                     //Busqueda por numero de cuenta
                     var resultTypeTransaction = await Requests.SendURIAsync("/api/Agreements/GetSummary/" + cf.Cuenta, HttpMethod.Get, Variables.LoginModel.Token);
-                    if (resultTypeTransaction.Contains("error"))
+                    if (resultTypeTransaction.Contains("error:"))
                     {
                         mensaje = new MessageBoxForm("Error", resultTypeTransaction.Split(':')[1].Replace("}", ""), TypeIcon.Icon.Cancel);
                         result = mensaje.ShowDialog();
@@ -417,7 +417,7 @@ namespace SOAPAP.UI.ReportesForms
                 {
                     //Busqueda por numero de cuenta
                     var resultTypeTransaction = await Requests.SendURIAsync("/api/Payments/Resume/" + cf.Cuenta, HttpMethod.Get, Variables.LoginModel.Token);
-                    if (resultTypeTransaction.Contains("error"))
+                    if (resultTypeTransaction.Contains("error:"))
                     {
                         mensaje = new MessageBoxForm("Error", resultTypeTransaction.Split(':')[1].Replace("}", ""), TypeIcon.Icon.Cancel);
                         result = mensaje.ShowDialog();

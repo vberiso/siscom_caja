@@ -656,5 +656,56 @@ namespace SOAPAP.UI.FactPasada
             GC.WaitForPendingFinalizers();
             SetProcessWorkingSetSize(System.Diagnostics.Process.GetCurrentProcess().Handle, -1, -1);
         }
+
+        //Agrege este metodo para actualizar todas las facturas canceladas, (agregar leyenda de cancelado.)
+        private async void btnActualizaCancelados_Click(object sender, EventArgs e)
+        {
+            Form loadings = new Loading();
+            loadings.Show(this);
+
+            Fac = new Facturaelectronica();
+
+            if (Variables.LoginModel.RolName[0] == "Supervisor")
+            {
+                Fac.isAdministrator = true;
+                Fac.ActualUserId = ((DataComboBox)cbxUsuario.SelectedItem).keyString;
+            }
+
+            string idsPayments = "364990,365013,365030,365048,365053,365126,365147,365159,365173,365229,365243,365247,365282,365303,365336,365344,365377,365448,365452,365462,365489,365509,365641,365654,365683,365700,365703,365716,365721,365776,365853,364904,364909,364965,365031,365051,365090,365094,365100,365141,365252,365275,365338,365347,365372,365378,365427,365459,365474,365493,365540,365553,365566,365573,365628,365689,365705,365718,365723,365751,365782,365833,365862,365871,364955,365005,365042,365076,365089,365132,365165,365246,365362,365391,365461,365473,365494,365516,365559,365639,365647,365658,365669,365709,365813,364987,365106,364899,364903,364917,364954,364974,365015,365019,365113,365214,365280,365345,365395,365429,365488,365505,365521,365625,365728,365760,365769,365785,365821,365020,365138,365251,365294,365398,365404,365408,365503,365545,365590,365610,365837,365848,365078,365091,365127,365129,365161,365187,365207,365253,365328,365417,365426,365435,365464,365469,365472,365487,365495,365508,365701,365715,365727,365763,365827,365846,364995,365095,365238,365667,365164,365186,365245,365608,365747,365847,365861";
+
+            var ids = idsPayments.Split(',');
+            int TotalPeticiones = ids.Count(), TotalCanceladas = 0, TotalPendientes = 0;
+            string idsRechazados = "";
+            foreach (var id in ids)
+            {
+                string temp = await Fac.actualizaCanceladoPDFwithIdpayment(id);
+
+                if (temp.Contains("error"))
+                {
+                    TotalPendientes++;
+                    idsRechazados += id + ",";
+                }                                  
+                else                 
+                    TotalCanceladas++;                
+            }
+
+            //Se guardan los ids de payment que no fueron actualizados.
+            if(idsRechazados != "")
+            {
+                byte[] bytes = Encoding.ASCII.GetBytes(idsRechazados);
+                string path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Facturas";
+                DirectoryInfo di;
+                if (!Directory.Exists(path))
+                {
+                    di = Directory.CreateDirectory(path);
+                }
+                //Se guarda el pdf del timbre.
+                string NombreFile = string.Format("{0}\\{1}.txt", path, "IdsRechazados" );
+                System.IO.File.WriteAllBytes(NombreFile, bytes);
+            }
+
+            loadings.Close();
+        }
+
     }
 }

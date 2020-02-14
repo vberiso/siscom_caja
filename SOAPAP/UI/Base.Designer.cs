@@ -51,6 +51,7 @@
             this.ingresosDeTesoreríaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ingresosPorConceptoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.recaudaciónToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ingresosDeContabilidadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmOrdenes = new System.Windows.Forms.ToolStripMenuItem();
             this.ordenesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmPadron = new System.Windows.Forms.ToolStripMenuItem();
@@ -90,6 +91,8 @@
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.xxxToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.cuentasContablesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.parametrizaciónToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pnlContenido.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.pnlBottom.SuspendLayout();
@@ -225,7 +228,8 @@
             this.usuarioToolStripMenuItem,
             this.reportesToolStripMenuItem,
             this.opcionesToolStripMenuItem,
-            this.notificacionesToolStripMenuItem});
+            this.notificacionesToolStripMenuItem,
+            this.cuentasContablesToolStripMenuItem});
             this.msPrincipal.Location = new System.Drawing.Point(0, 0);
             this.msPrincipal.Name = "msPrincipal";
             this.msPrincipal.Padding = new System.Windows.Forms.Padding(6, 2, 20, 2);
@@ -297,7 +301,8 @@
             this.ingresosDeCajaToolStripMenuItem,
             this.ingresosDeTesoreríaToolStripMenuItem,
             this.ingresosPorConceptoToolStripMenuItem,
-            this.recaudaciónToolStripMenuItem});
+            this.recaudaciónToolStripMenuItem,
+            this.ingresosDeContabilidadToolStripMenuItem});
             this.ingresosToolStripMenuItem.Name = "ingresosToolStripMenuItem";
             this.ingresosToolStripMenuItem.Size = new System.Drawing.Size(180, 26);
             this.ingresosToolStripMenuItem.Text = "Ingresos";
@@ -306,7 +311,7 @@
             // 
             this.ingresosDeCajaToolStripMenuItem.ForeColor = System.Drawing.Color.DimGray;
             this.ingresosDeCajaToolStripMenuItem.Name = "ingresosDeCajaToolStripMenuItem";
-            this.ingresosDeCajaToolStripMenuItem.Size = new System.Drawing.Size(237, 26);
+            this.ingresosDeCajaToolStripMenuItem.Size = new System.Drawing.Size(252, 26);
             this.ingresosDeCajaToolStripMenuItem.Text = "Ingresos de Caja";
             this.ingresosDeCajaToolStripMenuItem.Click += new System.EventHandler(this.ingresosDeCajaToolStripMenuItem_Click);
             // 
@@ -314,7 +319,7 @@
             // 
             this.ingresosDeTesoreríaToolStripMenuItem.ForeColor = System.Drawing.Color.DimGray;
             this.ingresosDeTesoreríaToolStripMenuItem.Name = "ingresosDeTesoreríaToolStripMenuItem";
-            this.ingresosDeTesoreríaToolStripMenuItem.Size = new System.Drawing.Size(237, 26);
+            this.ingresosDeTesoreríaToolStripMenuItem.Size = new System.Drawing.Size(252, 26);
             this.ingresosDeTesoreríaToolStripMenuItem.Text = "Ingresos de Tesorería";
             this.ingresosDeTesoreríaToolStripMenuItem.Click += new System.EventHandler(this.ingresosDeTesoreríaToolStripMenuItem_Click);
             // 
@@ -322,7 +327,7 @@
             // 
             this.ingresosPorConceptoToolStripMenuItem.ForeColor = System.Drawing.Color.DimGray;
             this.ingresosPorConceptoToolStripMenuItem.Name = "ingresosPorConceptoToolStripMenuItem";
-            this.ingresosPorConceptoToolStripMenuItem.Size = new System.Drawing.Size(237, 26);
+            this.ingresosPorConceptoToolStripMenuItem.Size = new System.Drawing.Size(252, 26);
             this.ingresosPorConceptoToolStripMenuItem.Text = "Ingresos agrupados";
             this.ingresosPorConceptoToolStripMenuItem.Visible = false;
             this.ingresosPorConceptoToolStripMenuItem.Click += new System.EventHandler(this.ingresosPorConceptoToolStripMenuItem_Click);
@@ -331,9 +336,17 @@
             // 
             this.recaudaciónToolStripMenuItem.ForeColor = System.Drawing.Color.DimGray;
             this.recaudaciónToolStripMenuItem.Name = "recaudaciónToolStripMenuItem";
-            this.recaudaciónToolStripMenuItem.Size = new System.Drawing.Size(237, 26);
+            this.recaudaciónToolStripMenuItem.Size = new System.Drawing.Size(252, 26);
             this.recaudaciónToolStripMenuItem.Text = "Ingresos por Concepto";
             this.recaudaciónToolStripMenuItem.Click += new System.EventHandler(this.recaudaciónToolStripMenuItem_Click);
+            // 
+            // ingresosDeContabilidadToolStripMenuItem
+            // 
+            this.ingresosDeContabilidadToolStripMenuItem.ForeColor = System.Drawing.Color.DimGray;
+            this.ingresosDeContabilidadToolStripMenuItem.Name = "ingresosDeContabilidadToolStripMenuItem";
+            this.ingresosDeContabilidadToolStripMenuItem.Size = new System.Drawing.Size(252, 26);
+            this.ingresosDeContabilidadToolStripMenuItem.Text = "Ingresos de Contabilidad";
+            this.ingresosDeContabilidadToolStripMenuItem.Click += new System.EventHandler(this.ingresosDeContabilidadToolStripMenuItem_Click);
             // 
             // tsmOrdenes
             // 
@@ -789,6 +802,23 @@
             this.xxxToolStripMenuItem.Name = "xxxToolStripMenuItem";
             this.xxxToolStripMenuItem.Size = new System.Drawing.Size(32, 19);
             // 
+            // cuentasContablesToolStripMenuItem
+            // 
+            this.cuentasContablesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.parametrizaciónToolStripMenuItem});
+            this.cuentasContablesToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 12F);
+            this.cuentasContablesToolStripMenuItem.ForeColor = System.Drawing.Color.DimGray;
+            this.cuentasContablesToolStripMenuItem.Name = "cuentasContablesToolStripMenuItem";
+            this.cuentasContablesToolStripMenuItem.Size = new System.Drawing.Size(151, 45);
+            this.cuentasContablesToolStripMenuItem.Text = "Cuentas Contables";
+            // 
+            // parametrizaciónToolStripMenuItem
+            // 
+            this.parametrizaciónToolStripMenuItem.Name = "parametrizaciónToolStripMenuItem";
+            this.parametrizaciónToolStripMenuItem.Size = new System.Drawing.Size(191, 26);
+            this.parametrizaciónToolStripMenuItem.Text = "Parametrización";
+            this.parametrizaciónToolStripMenuItem.Click += new System.EventHandler(this.parametrizaciónToolStripMenuItem_Click);
+            // 
             // Base
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -892,5 +922,8 @@
         private System.Windows.Forms.ToolStripMenuItem facturacionPasadaToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem finanzasToolStripMenuItemAyuntamiento;
         private System.Windows.Forms.ToolStripMenuItem tsmDescargarFacturas;
+        private System.Windows.Forms.ToolStripMenuItem ingresosDeContabilidadToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem cuentasContablesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem parametrizaciónToolStripMenuItem;
     }
 }

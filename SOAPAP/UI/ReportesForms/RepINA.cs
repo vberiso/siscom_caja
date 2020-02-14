@@ -85,7 +85,7 @@ namespace SOAPAP.UI.ReportesForms
             {
                 var _resulTransaction = await Requests.SendURIAsync("/api/Reports/IncomeNewAccounts/" + Fechas, HttpMethod.Get, Variables.LoginModel.Token);
             
-                if (_resulTransaction.Contains("error"))
+                if (_resulTransaction.Contains("error:"))
                 {
                     mensaje = new MessageBoxForm("Error", _resulTransaction.Split(':')[1].Replace("}", ""), TypeIcon.Icon.Cancel);
                     result = mensaje.ShowDialog();
@@ -200,7 +200,7 @@ namespace SOAPAP.UI.ReportesForms
             {
                 var _resulTransaction = await Requests.SendURIAsync("/api/Reports/IncomeNewAccounts/" + Fechas, HttpMethod.Get, Variables.LoginModel.Token);
 
-                if (_resulTransaction.Contains("error"))
+                if (_resulTransaction.Contains("error:"))
                 {
                     mensaje = new MessageBoxForm("Error", _resulTransaction.Split(':')[1].Replace("}", ""), TypeIcon.Icon.Cancel);
                     result = mensaje.ShowDialog();

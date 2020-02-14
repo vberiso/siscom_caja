@@ -440,17 +440,17 @@ namespace SOAPAP.PDFManager
                         tmpQuantity = pd.Debt.DebtDetails.FirstOrDefault(DDis => DDis.DebtId == pd.DebtId && DDis.CodeConcept == pd.CodeConcept).quantity;
                         var OriginalAmount = pd.Debt.DebtDiscounts.FirstOrDefault(DDis => DDis.DebtId == pd.DebtId && DDis.CodeConcept == pd.CodeConcept).OriginalAmount;
                         var DiscountAmount = pd.Debt.DebtDiscounts.FirstOrDefault(DDis => DDis.DebtId == pd.DebtId && DDis.CodeConcept == pd.CodeConcept).DiscountAmount;
-                        var DescuentoProporcion = (DiscountAmount * pd.Amount) / (OriginalAmount - DiscountAmount);
-                        tmpSubtotal = pd.Amount + DiscountAmount; 
-                        tmpValorUnitario = OriginalAmount/tmpQuantity;
-                        tmpDescuento = DiscountAmount;
+                        var DescuentoProporcion = decimal.Round((DiscountAmount * pd.Amount) / (OriginalAmount - DiscountAmount), 2);
+                        tmpSubtotal = pd.Amount + DescuentoProporcion; //pd.Amount + DiscountAmount; 
+                        tmpValorUnitario = (pd.Amount + DescuentoProporcion) / tmpQuantity; //OriginalAmount/tmpQuantity;
+                        tmpDescuento = DescuentoProporcion; //DiscountAmount;
 
                         totalDescuento += DescuentoProporcion;
                     }
                     else
                     {
                         tmpQuantity = pd.Debt.DebtDetails.FirstOrDefault(DDis => DDis.DebtId == pd.DebtId && DDis.CodeConcept == pd.CodeConcept).quantity;
-                        tmpValorUnitario = pd.Debt.DebtDetails.FirstOrDefault(dd => dd.DebtId == pd.DebtId && dd.CodeConcept == pd.CodeConcept).Amount / tmpQuantity;
+                        tmpValorUnitario = pd.Amount; //pd.Debt.DebtDetails.FirstOrDefault(dd => dd.DebtId == pd.DebtId && dd.CodeConcept == pd.CodeConcept).Amount / tmpQuantity;
                         tmpSubtotal = pd.Amount;
                         tmpDescuento = 0;
                     }

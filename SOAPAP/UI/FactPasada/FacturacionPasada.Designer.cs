@@ -43,6 +43,21 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.lblTitulo = new System.Windows.Forms.Label();
             this.dgvMovimientos = new System.Windows.Forms.DataGridView();
+            this.idTransactionDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.folioTransaccionDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.idPaymentDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.operacionDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.folioImpresionDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.horaDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.totalDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cuentaDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clienteDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.signoDataGridViewCheckBoxColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.haveInvoiceDataGridViewCheckBoxColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.Facturar = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.ActualizaPdf = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.Enviar = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.Descargar = new System.Windows.Forms.DataGridViewButtonColumn();
             this.transactionMovimientosCajaBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.pnlDetalle = new System.Windows.Forms.Panel();
             this.pdfVwrDetalle = new DevExpress.XtraPdfViewer.PdfViewer();
@@ -108,21 +123,7 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.lblSucursal = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.idTransactionDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.folioTransaccionDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.idPaymentDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.operacionDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.folioImpresionDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.horaDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.totalDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cuentaDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.clienteDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.signoDataGridViewCheckBoxColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.haveInvoiceDataGridViewCheckBoxColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.Facturar = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.ActualizaPdf = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.Enviar = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.Descargar = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.btnActualizaCancelados = new System.Windows.Forms.Button();
             this.pnlHeader.SuspendLayout();
             this.tlpUsuario.SuspendLayout();
             this.tlpFecha.SuspendLayout();
@@ -142,6 +143,7 @@
             // pnlHeader
             // 
             this.pnlHeader.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(3)))), ((int)(((byte)(155)))), ((int)(((byte)(229)))));
+            this.pnlHeader.Controls.Add(this.btnActualizaCancelados);
             this.pnlHeader.Controls.Add(this.tlpUsuario);
             this.pnlHeader.Controls.Add(this.panel1);
             this.pnlHeader.Controls.Add(this.tlpFecha);
@@ -248,7 +250,7 @@
             this.btnActualizar.Name = "btnActualizar";
             this.btnActualizar.Size = new System.Drawing.Size(133, 39);
             this.btnActualizar.TabIndex = 18;
-            this.btnActualizar.Text = "ACTUALIZAR";
+            this.btnActualizar.Text = "RECARGAR";
             this.btnActualizar.UseVisualStyleBackColor = false;
             this.btnActualizar.Click += new System.EventHandler(this.btnActualizar_Click);
             // 
@@ -340,6 +342,121 @@
             this.dgvMovimientos.Size = new System.Drawing.Size(1055, 187);
             this.dgvMovimientos.TabIndex = 51;
             this.dgvMovimientos.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvMovimientos_CellContentClick);
+            // 
+            // idTransactionDataGridViewTextBoxColumn
+            // 
+            this.idTransactionDataGridViewTextBoxColumn.DataPropertyName = "IdTransaction";
+            this.idTransactionDataGridViewTextBoxColumn.HeaderText = "IdTransaction";
+            this.idTransactionDataGridViewTextBoxColumn.Name = "idTransactionDataGridViewTextBoxColumn";
+            this.idTransactionDataGridViewTextBoxColumn.ReadOnly = true;
+            this.idTransactionDataGridViewTextBoxColumn.Visible = false;
+            // 
+            // folioTransaccionDataGridViewTextBoxColumn
+            // 
+            this.folioTransaccionDataGridViewTextBoxColumn.DataPropertyName = "FolioTransaccion";
+            this.folioTransaccionDataGridViewTextBoxColumn.HeaderText = "FolioTransaccion";
+            this.folioTransaccionDataGridViewTextBoxColumn.Name = "folioTransaccionDataGridViewTextBoxColumn";
+            this.folioTransaccionDataGridViewTextBoxColumn.ReadOnly = true;
+            this.folioTransaccionDataGridViewTextBoxColumn.Visible = false;
+            // 
+            // idPaymentDataGridViewTextBoxColumn
+            // 
+            this.idPaymentDataGridViewTextBoxColumn.DataPropertyName = "IdPayment";
+            this.idPaymentDataGridViewTextBoxColumn.HeaderText = "IdPayment";
+            this.idPaymentDataGridViewTextBoxColumn.Name = "idPaymentDataGridViewTextBoxColumn";
+            this.idPaymentDataGridViewTextBoxColumn.ReadOnly = true;
+            this.idPaymentDataGridViewTextBoxColumn.Visible = false;
+            // 
+            // operacionDataGridViewTextBoxColumn
+            // 
+            this.operacionDataGridViewTextBoxColumn.DataPropertyName = "Operacion";
+            this.operacionDataGridViewTextBoxColumn.HeaderText = "Operacion";
+            this.operacionDataGridViewTextBoxColumn.Name = "operacionDataGridViewTextBoxColumn";
+            this.operacionDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // folioImpresionDataGridViewTextBoxColumn
+            // 
+            this.folioImpresionDataGridViewTextBoxColumn.DataPropertyName = "FolioImpresion";
+            this.folioImpresionDataGridViewTextBoxColumn.HeaderText = "Folio";
+            this.folioImpresionDataGridViewTextBoxColumn.Name = "folioImpresionDataGridViewTextBoxColumn";
+            this.folioImpresionDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // horaDataGridViewTextBoxColumn
+            // 
+            this.horaDataGridViewTextBoxColumn.DataPropertyName = "Hora";
+            this.horaDataGridViewTextBoxColumn.HeaderText = "Hora";
+            this.horaDataGridViewTextBoxColumn.Name = "horaDataGridViewTextBoxColumn";
+            this.horaDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // totalDataGridViewTextBoxColumn
+            // 
+            this.totalDataGridViewTextBoxColumn.DataPropertyName = "Total";
+            this.totalDataGridViewTextBoxColumn.HeaderText = "Total";
+            this.totalDataGridViewTextBoxColumn.Name = "totalDataGridViewTextBoxColumn";
+            this.totalDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // cuentaDataGridViewTextBoxColumn
+            // 
+            this.cuentaDataGridViewTextBoxColumn.DataPropertyName = "Cuenta";
+            this.cuentaDataGridViewTextBoxColumn.HeaderText = "Cuenta";
+            this.cuentaDataGridViewTextBoxColumn.Name = "cuentaDataGridViewTextBoxColumn";
+            this.cuentaDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // clienteDataGridViewTextBoxColumn
+            // 
+            this.clienteDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.clienteDataGridViewTextBoxColumn.DataPropertyName = "Cliente";
+            this.clienteDataGridViewTextBoxColumn.HeaderText = "Cliente";
+            this.clienteDataGridViewTextBoxColumn.MinimumWidth = 100;
+            this.clienteDataGridViewTextBoxColumn.Name = "clienteDataGridViewTextBoxColumn";
+            this.clienteDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // signoDataGridViewCheckBoxColumn
+            // 
+            this.signoDataGridViewCheckBoxColumn.DataPropertyName = "Signo";
+            this.signoDataGridViewCheckBoxColumn.HeaderText = "Signo";
+            this.signoDataGridViewCheckBoxColumn.Name = "signoDataGridViewCheckBoxColumn";
+            this.signoDataGridViewCheckBoxColumn.ReadOnly = true;
+            this.signoDataGridViewCheckBoxColumn.Visible = false;
+            // 
+            // haveInvoiceDataGridViewCheckBoxColumn
+            // 
+            this.haveInvoiceDataGridViewCheckBoxColumn.DataPropertyName = "HaveInvoice";
+            this.haveInvoiceDataGridViewCheckBoxColumn.HeaderText = "Esta facturado";
+            this.haveInvoiceDataGridViewCheckBoxColumn.Name = "haveInvoiceDataGridViewCheckBoxColumn";
+            this.haveInvoiceDataGridViewCheckBoxColumn.ReadOnly = true;
+            // 
+            // Facturar
+            // 
+            this.Facturar.HeaderText = "Facturar";
+            this.Facturar.Name = "Facturar";
+            this.Facturar.ReadOnly = true;
+            this.Facturar.Text = "Facturar";
+            this.Facturar.UseColumnTextForButtonValue = true;
+            // 
+            // ActualizaPdf
+            // 
+            this.ActualizaPdf.HeaderText = "Actualiza Pdf";
+            this.ActualizaPdf.Name = "ActualizaPdf";
+            this.ActualizaPdf.ReadOnly = true;
+            this.ActualizaPdf.Text = "Actualiza";
+            this.ActualizaPdf.UseColumnTextForButtonValue = true;
+            // 
+            // Enviar
+            // 
+            this.Enviar.HeaderText = "Enviar Mail";
+            this.Enviar.Name = "Enviar";
+            this.Enviar.ReadOnly = true;
+            this.Enviar.Text = "Enviar";
+            this.Enviar.UseColumnTextForButtonValue = true;
+            // 
+            // Descargar
+            // 
+            this.Descargar.HeaderText = "Descargar";
+            this.Descargar.Name = "Descargar";
+            this.Descargar.ReadOnly = true;
+            this.Descargar.Text = "Descarga";
+            this.Descargar.UseColumnTextForButtonValue = true;
             // 
             // transactionMovimientosCajaBindingSource
             // 
@@ -887,120 +1004,17 @@
             this.label3.TabIndex = 5;
             this.label3.Text = "Sucursal:";
             // 
-            // idTransactionDataGridViewTextBoxColumn
+            // btnActualizaCancelados
             // 
-            this.idTransactionDataGridViewTextBoxColumn.DataPropertyName = "IdTransaction";
-            this.idTransactionDataGridViewTextBoxColumn.HeaderText = "IdTransaction";
-            this.idTransactionDataGridViewTextBoxColumn.Name = "idTransactionDataGridViewTextBoxColumn";
-            this.idTransactionDataGridViewTextBoxColumn.ReadOnly = true;
-            this.idTransactionDataGridViewTextBoxColumn.Visible = false;
-            // 
-            // folioTransaccionDataGridViewTextBoxColumn
-            // 
-            this.folioTransaccionDataGridViewTextBoxColumn.DataPropertyName = "FolioTransaccion";
-            this.folioTransaccionDataGridViewTextBoxColumn.HeaderText = "FolioTransaccion";
-            this.folioTransaccionDataGridViewTextBoxColumn.Name = "folioTransaccionDataGridViewTextBoxColumn";
-            this.folioTransaccionDataGridViewTextBoxColumn.ReadOnly = true;
-            this.folioTransaccionDataGridViewTextBoxColumn.Visible = false;
-            // 
-            // idPaymentDataGridViewTextBoxColumn
-            // 
-            this.idPaymentDataGridViewTextBoxColumn.DataPropertyName = "IdPayment";
-            this.idPaymentDataGridViewTextBoxColumn.HeaderText = "IdPayment";
-            this.idPaymentDataGridViewTextBoxColumn.Name = "idPaymentDataGridViewTextBoxColumn";
-            this.idPaymentDataGridViewTextBoxColumn.ReadOnly = true;
-            this.idPaymentDataGridViewTextBoxColumn.Visible = false;
-            // 
-            // operacionDataGridViewTextBoxColumn
-            // 
-            this.operacionDataGridViewTextBoxColumn.DataPropertyName = "Operacion";
-            this.operacionDataGridViewTextBoxColumn.HeaderText = "Operacion";
-            this.operacionDataGridViewTextBoxColumn.Name = "operacionDataGridViewTextBoxColumn";
-            this.operacionDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // folioImpresionDataGridViewTextBoxColumn
-            // 
-            this.folioImpresionDataGridViewTextBoxColumn.DataPropertyName = "FolioImpresion";
-            this.folioImpresionDataGridViewTextBoxColumn.HeaderText = "Folio";
-            this.folioImpresionDataGridViewTextBoxColumn.Name = "folioImpresionDataGridViewTextBoxColumn";
-            this.folioImpresionDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // horaDataGridViewTextBoxColumn
-            // 
-            this.horaDataGridViewTextBoxColumn.DataPropertyName = "Hora";
-            this.horaDataGridViewTextBoxColumn.HeaderText = "Hora";
-            this.horaDataGridViewTextBoxColumn.Name = "horaDataGridViewTextBoxColumn";
-            this.horaDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // totalDataGridViewTextBoxColumn
-            // 
-            this.totalDataGridViewTextBoxColumn.DataPropertyName = "Total";
-            this.totalDataGridViewTextBoxColumn.HeaderText = "Total";
-            this.totalDataGridViewTextBoxColumn.Name = "totalDataGridViewTextBoxColumn";
-            this.totalDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // cuentaDataGridViewTextBoxColumn
-            // 
-            this.cuentaDataGridViewTextBoxColumn.DataPropertyName = "Cuenta";
-            this.cuentaDataGridViewTextBoxColumn.HeaderText = "Cuenta";
-            this.cuentaDataGridViewTextBoxColumn.Name = "cuentaDataGridViewTextBoxColumn";
-            this.cuentaDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // clienteDataGridViewTextBoxColumn
-            // 
-            this.clienteDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.clienteDataGridViewTextBoxColumn.DataPropertyName = "Cliente";
-            this.clienteDataGridViewTextBoxColumn.HeaderText = "Cliente";
-            this.clienteDataGridViewTextBoxColumn.MinimumWidth = 100;
-            this.clienteDataGridViewTextBoxColumn.Name = "clienteDataGridViewTextBoxColumn";
-            this.clienteDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // signoDataGridViewCheckBoxColumn
-            // 
-            this.signoDataGridViewCheckBoxColumn.DataPropertyName = "Signo";
-            this.signoDataGridViewCheckBoxColumn.HeaderText = "Signo";
-            this.signoDataGridViewCheckBoxColumn.Name = "signoDataGridViewCheckBoxColumn";
-            this.signoDataGridViewCheckBoxColumn.ReadOnly = true;
-            this.signoDataGridViewCheckBoxColumn.Visible = false;
-            // 
-            // haveInvoiceDataGridViewCheckBoxColumn
-            // 
-            this.haveInvoiceDataGridViewCheckBoxColumn.DataPropertyName = "HaveInvoice";
-            this.haveInvoiceDataGridViewCheckBoxColumn.HeaderText = "Esta facturado";
-            this.haveInvoiceDataGridViewCheckBoxColumn.Name = "haveInvoiceDataGridViewCheckBoxColumn";
-            this.haveInvoiceDataGridViewCheckBoxColumn.ReadOnly = true;
-            // 
-            // Facturar
-            // 
-            this.Facturar.HeaderText = "Facturar";
-            this.Facturar.Name = "Facturar";
-            this.Facturar.ReadOnly = true;
-            this.Facturar.Text = "Facturar";
-            this.Facturar.UseColumnTextForButtonValue = true;
-            // 
-            // ActualizaPdf
-            // 
-            this.ActualizaPdf.HeaderText = "Actualiza Pdf";
-            this.ActualizaPdf.Name = "ActualizaPdf";
-            this.ActualizaPdf.ReadOnly = true;
-            this.ActualizaPdf.Text = "Actualiza";
-            this.ActualizaPdf.UseColumnTextForButtonValue = true;
-            // 
-            // Enviar
-            // 
-            this.Enviar.HeaderText = "Enviar Mail";
-            this.Enviar.Name = "Enviar";
-            this.Enviar.ReadOnly = true;
-            this.Enviar.Text = "Enviar";
-            this.Enviar.UseColumnTextForButtonValue = true;
-            // 
-            // Descargar
-            // 
-            this.Descargar.HeaderText = "Descargar";
-            this.Descargar.Name = "Descargar";
-            this.Descargar.ReadOnly = true;
-            this.Descargar.Text = "Descarga";
-            this.Descargar.UseColumnTextForButtonValue = true;
+            this.btnActualizaCancelados.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnActualizaCancelados.Location = new System.Drawing.Point(803, 9);
+            this.btnActualizaCancelados.Name = "btnActualizaCancelados";
+            this.btnActualizaCancelados.Size = new System.Drawing.Size(75, 35);
+            this.btnActualizaCancelados.TabIndex = 55;
+            this.btnActualizaCancelados.Text = "Act Canceled";
+            this.btnActualizaCancelados.UseVisualStyleBackColor = true;
+            this.btnActualizaCancelados.Visible = false;
+            this.btnActualizaCancelados.Click += new System.EventHandler(this.btnActualizaCancelados_Click);
             // 
             // FacturacionPasada
             // 
@@ -1134,5 +1148,6 @@
         private System.Windows.Forms.DataGridViewButtonColumn ActualizaPdf;
         private System.Windows.Forms.DataGridViewButtonColumn Enviar;
         private System.Windows.Forms.DataGridViewButtonColumn Descargar;
+        private System.Windows.Forms.Button btnActualizaCancelados;
     }
 }

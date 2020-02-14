@@ -1267,6 +1267,7 @@ namespace SOAPAP
                                     mensaje = new MessageBoxForm("Transacción Exitosa", "La trasaccion se ha cancelado", TypeIcon.Icon.Success);
                                     result = mensaje.ShowDialog();
 
+                                    await actualizaSolicitudCancelacion(tcrVM);
                                     string xmltimbrado = string.Empty;
 
                                     try
@@ -1416,7 +1417,7 @@ namespace SOAPAP
                                     }
                                     await Total();
                                     await cargar();
-                                    await actualizaSolicitudCancelacion(tcrVM);
+                                    
                                 }
                                 loading.Close();
                             }

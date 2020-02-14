@@ -16,7 +16,7 @@
     <TargetFrameworkProfile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
-    <PublishUrl>\\installer.sosapac.gob.mx\caja\</PublishUrl>
+    <PublishUrl>\\installer.cuautlancingo.gob.mx\caja\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Unc</InstallFrom>
     <UpdateEnabled>true</UpdateEnabled>
@@ -26,11 +26,11 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>true</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <UpdateUrl>\\installer.sosapac.gob.mx\caja\</UpdateUrl>
-    <MinimumRequiredVersion>1.1.1.300</MinimumRequiredVersion>
+    <UpdateUrl>\\installer.cuautlancingo.gob.mx\caja\</UpdateUrl>
+    <MinimumRequiredVersion>1.1.2.1</MinimumRequiredVersion>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>301</ApplicationRevision>
-    <ApplicationVersion>1.1.1.%2a</ApplicationVersion>
+    <ApplicationRevision>2</ApplicationRevision>
+    <ApplicationVersion>1.1.2.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
@@ -529,6 +529,19 @@
     <Compile Include="Reportes\Finanzas\Formato2.cs" />
     <Compile Include="Reportes\Finanzas\Formato23Desgloce.cs" />
     <Compile Include="Tools\TagQRCode.cs" />
+    <Compile Include="UI\CuentasContables\AddCuentaContable.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\CuentasContables\AddCuentaContable.Designer.cs">
+      <DependentUpon>AddCuentaContable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\CuentasContables\CuentaContable.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\CuentasContables\CuentaContable.Designer.cs">
+      <DependentUpon>CuentaContable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\CuentasContables\TreeListItem.cs" />
     <Compile Include="UI\Email\EnvioEmail.cs" />
     <Compile Include="UI\FactPasada\DescargarFacturas.cs">
       <SubType>Form</SubType>
@@ -905,6 +918,12 @@
     <Compile Include="UI\ReportesForms\RepIAAyunt.Designer.cs">
       <DependentUpon>RepIAAyunt.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\ReportesForms\RepIAcc.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\ReportesForms\RepIAcc.Designer.cs">
+      <DependentUpon>RepIAcc.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\ReportesForms\RepIBC.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -1151,6 +1170,12 @@
     <EmbeddedResource Include="Report2.rdlc" />
     <EmbeddedResource Include="Report4.rdlc" />
     <EmbeddedResource Include="Reporte3.rdlc" />
+    <EmbeddedResource Include="UI\CuentasContables\AddCuentaContable.resx">
+      <DependentUpon>AddCuentaContable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\CuentasContables\CuentaContable.resx">
+      <DependentUpon>CuentaContable.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\FactPasada\DescargarFacturas.resx">
       <DependentUpon>DescargarFacturas.cs</DependentUpon>
     </EmbeddedResource>
@@ -1291,6 +1316,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\ReportesForms\RepIAAyunt.resx">
       <DependentUpon>RepIAAyunt.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\ReportesForms\RepIAcc.resx">
+      <DependentUpon>RepIAcc.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\ReportesForms\RepIBC.resx">
       <DependentUpon>RepIBC.cs</DependentUpon>
@@ -1533,6 +1561,7 @@
     <None Include="Properties\DataSources\SOAPAP.Reportes.DataTaxpayerOrderSale.datasource" />
     <None Include="Properties\DataSources\SOAPAP.Reportes.DataTaxpayerPrepaid.datasource" />
     <None Include="Properties\DataSources\SOAPAP.Reportes.IncomeByConceptVM.datasource" />
+    <None Include="Properties\DataSources\SOAPAP.UI.CuentasContables.TreeListItem.datasource" />
     <None Include="Properties\DataSources\SOAPAP.UI.HistorialTransacciones.DataHistorial.datasource" />
     <None Include="Properties\DataSources\SOAPAP.UI.HistorialTransacciones.DataHistorialElemento.datasource" />
     <None Include="Properties\Settings.settings">
@@ -1638,6 +1667,7 @@
     <Content Include="OutputTem\Cedula.xlsx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Properties\CuentasContables16.png" />
     <Content Include="Resources\abrir-caja.png" />
     <None Include="Resources\calcel.png" />
     <None Include="Resources\cash-register.png" />
@@ -1669,6 +1699,7 @@
     <None Include="Resources\descuento.png" />
     <None Include="Resources\comprobado.png" />
     <None Include="Resources\close.png" />
+    <None Include="Resources\CuentasContables16.png" />
     <Content Include="Resources\detalle.png" />
     <None Include="Resources\folder.png" />
     <None Include="Resources\file.ico" />

@@ -10,6 +10,9 @@ namespace SOAPAP.Reportes
     {
         public int id_payment { get; set; }
         public int id_PuO_detail { get; set; }
+        public string TipoPredio { get; set; }
+        public int year { get; set; }
+        public string Agrupado { get; set; }
         public string OFICINA { get; set; }        
         public string CAJERO { get; set; }
         public string FECHA_PAGO { get; set; }

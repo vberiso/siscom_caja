@@ -83,7 +83,7 @@ namespace SOAPAP.UI.ReportesForms
 
                 //Solicitud de Oficinas
                 var resultTypeTransactionOfi = await Requests.SendURIAsync("/api/BranchOffice/Terminals", HttpMethod.Get, Variables.LoginModel.Token);
-                if (resultTypeTransactionOfi.Contains("error"))
+                if (resultTypeTransactionOfi.Contains("error:"))
                 {
                     mensaje = new MessageBoxForm("Error", resultTypeTransactionOfi.Split(':')[1].Replace("}", ""), TypeIcon.Icon.Cancel);
                     result = mensaje.ShowDialog();
@@ -255,7 +255,7 @@ namespace SOAPAP.UI.ReportesForms
 
             var _resulTransaction = await Requests.SendURIAsync("/api/Reports/IncomeGrouped", HttpMethod.Post, Variables.LoginModel.Token, content);
 
-            if (_resulTransaction.Contains("error"))
+            if (_resulTransaction.Contains("error:"))
             {
                 mensaje = new MessageBoxForm("Error", _resulTransaction.Split(':')[1].Replace("}", ""), TypeIcon.Icon.Cancel);
                 result = mensaje.ShowDialog();

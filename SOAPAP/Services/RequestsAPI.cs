@@ -141,9 +141,9 @@ namespace SOAPAP.Services
                     };
                         httpRequest.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                         httpRequest.Headers.Authorization = new AuthenticationHeaderValue("Bearer", Token);
-                      
 
-                     httpResponse = await client.SendAsync(httpRequest);
+                        client.Timeout = TimeSpan.FromMinutes(10);
+                        httpResponse = await client.SendAsync(httpRequest);
                     }
                     else
                     {
@@ -155,7 +155,8 @@ namespace SOAPAP.Services
                         };
                         httpRequest.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                         httpRequest.Headers.Authorization = new AuthenticationHeaderValue("Bearer", Token);
-                        httpResponse = await client.SendAsync(httpRequest);
+                        client.Timeout = TimeSpan.FromMinutes(10);
+                        httpResponse = await client.SendAsync(httpRequest);                        
                     }
 
                     switch (httpResponse.StatusCode)
