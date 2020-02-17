@@ -175,7 +175,7 @@ namespace SOAPAP.UI.ReportesForms.Finanzas.Agua.Formatos
             data = JsonConvert.SerializeObject(JdDta["data"]);
             List<SOAPAP.Reportes.Finanzas.Formato1> OData = JsonConvert.DeserializeObject<List<SOAPAP.Reportes.Finanzas.Formato1>>(data.ToString());
             setDatatovariables(OData, int.Parse(year));
-            GranTotal = Tagua + TDrenaje + TRecargos + TReconexion + TConexion + TEjeciciones + TMulta + TAlcantarillado;
+            GranTotal = Tagua + TDrenaje + TRecargos + TReconexion + TConexion + TEjeciciones + TAlcantarillado + TMulta;
             GranTotalSaneamiento = TSaneamiento;
             StringBuilder builder = new StringBuilder();
             
@@ -249,7 +249,7 @@ namespace SOAPAP.UI.ReportesForms.Finanzas.Agua.Formatos
             List<SOAPAP.Reportes.Finanzas.Formato1> OData = JsonConvert.DeserializeObject<List<SOAPAP.Reportes.Finanzas.Formato1>>(data.ToString());
             SetDataVariablesA(OData, int.Parse(year));
 
-            GranTotal += Tagua + TDrenaje + TRecargos + TReconexion + TConexion + TEjeciciones;
+            GranTotal += Tagua + TDrenaje + TRecargos + TReconexion + TConexion + TEjeciciones + TAlcantarillado + TMulta;
             GranTotalSaneamiento += TSaneamientA;
             StringBuilder builder = new StringBuilder();
 

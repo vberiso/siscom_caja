@@ -98,9 +98,9 @@ namespace SOAPAP.UI.ReportesForms.Finanzas.Agua.Formatos
 
 
             //datos para otros usos
-            TUsuarios = OData.Where(x => x.uso != "CO" && x.uso != "HA").ToList().Count;
-            TTomas = OData.Where(x => x.uso != "CO" && x.uso != "HA" && x.type_agreement == "AGR01").ToList().Count;
-            TImporte = OData.Where(x => x.uso != "CO" && x.uso != "HA").ToList().Sum(x => x.importe);
+            TUsuarios = OData.Where(x => x.uso != "CO" && x.uso != "HA" && x.uso != "NO").ToList().Count;
+            TTomas = OData.Where(x => x.uso != "CO" && x.uso != "HA" && x.type_agreement == "AGR01" && x.uso != "NO").ToList().Count;
+            TImporte = OData.Where(x => x.uso != "CO" && x.uso != "HA" && x.uso != "NO").ToList().Sum(x => x.importe);
 
             textUOSM.Text = TUsuarios.ToString();
             textTOSM.Text = TTomas.ToString();
@@ -189,9 +189,9 @@ namespace SOAPAP.UI.ReportesForms.Finanzas.Agua.Formatos
 
 
             //datos para otros usos
-            TUsuarios = OData.Where(x => x.uso != "CO" && x.uso != "HA" && x.uso!= "NO").ToList().Count;
-            TTomas = OData.Where(x => x.uso != "CO" && x.uso != "HA" && x.uso != "NO"  && x.type_agreement == "AGR01").ToList().Count;
-            TImporte = OData.Where(x => x.uso != "CO" && x.uso != "HA" && x.uso != "NO").ToList().Sum(x => x.importe);
+            TUsuarios = OData.Where(x => x.uso != "CO" && x.uso != "HA" && x.uso!= "NO" && x.uso != "NO").ToList().Count;
+            TTomas = OData.Where(x => x.uso != "CO" && x.uso != "HA" && x.uso != "NO"  && x.type_agreement == "AGR01" && x.uso != "NO").ToList().Count;
+            TImporte = OData.Where(x => x.uso != "CO" && x.uso != "HA" && x.uso != "NO" && x.uso != "NO").ToList().Sum(x => x.importe);
 
             textUOCM.Text = TUsuarios.ToString();
             textTOCM.Text = TTomas.ToString();
@@ -259,8 +259,8 @@ namespace SOAPAP.UI.ReportesForms.Finanzas.Agua.Formatos
 
                         textC1.Text = Lusuarios.Where(x => x.tipo == "actuales").First().usuarios.ToString();
                         textC2.Text = Lusuarios.Where(x => x.tipo == "actuales").First().usuarios.ToString();
-                        textD1.Text = Lusuarios.Where(x => x.tipo == "anteriores").First().usuarios.ToString();
-                        textD2.Text = Lusuarios.Where(x => x.tipo == "anteriores").First().usuarios.ToString();
+                        textD1.Text = (Lusuarios.Where(x => x.tipo == "anteriores").First().usuarios).ToString();
+                        textD2.Text = (Lusuarios.Where(x => x.tipo == "anteriores").First().usuarios).ToString();
                         textE1.Text = Lusuarios.Where(x => x.tipo == "mixto").First().usuarios.ToString();
                         textE2.Text = Lusuarios.Where(x => x.tipo == "mixto").First().usuarios.ToString();
                         textF1.Text = (int.Parse(textC1.Text) + int.Parse(textD1.Text) + int.Parse(textE1.Text)).ToString();
@@ -370,9 +370,9 @@ namespace SOAPAP.UI.ReportesForms.Finanzas.Agua.Formatos
             data = JsonConvert.SerializeObject(JdDta["data"]);
             List<SOAPAP.Reportes.Finanzas.Formato2> OData = JsonConvert.DeserializeObject<List<SOAPAP.Reportes.Finanzas.Formato2>>(data.ToString());
             //datos para uso domestico
-            TUsuarios = OData.Where(x => x.uso == "HA").ToList().Count;
-            TTomas = OData.Where(x => x.uso == "HA" && x.type_agreement == "AGR01").ToList().Count;
-            TImporte = OData.Where(x => x.uso == "HA").ToList().Sum(x => x.importe);
+            TUsuarios = OData.Where(x => x.uso == "HA" || x.uso == "NO").ToList().Count;
+            TTomas = OData.Where(x => x.uso == "HA" && x.type_agreement == "AGR01" ||   x.uso == "NO").ToList().Count;
+            TImporte = OData.Where(x => x.uso == "HA" ||  x.uso == "NO").ToList().Sum(x => x.importe);
             GTU = totalConMedidorU;
             GTT = totalConMedidorT;
             GTI = totalConMedidorI;
@@ -403,6 +403,7 @@ namespace SOAPAP.UI.ReportesForms.Finanzas.Agua.Formatos
                                     <td style='width: 15%'>{TTomas}</td>
                                     <td style='width: 15%'>{string.Format(new CultureInfo("es-MX"), "{0:C2}", TImporte)}</td>
                                 </tr>");
+
             TUsuarios = OData.Where(x => x.uso != "CO" && x.uso != "HA" && x.uso != "NO").ToList().Count;
             TTomas = OData.Where(x => x.uso != "CO" && x.uso != "HA" && x.type_agreement == "AGR01" && x.uso != "NO").ToList().Count;
             TImporte = OData.Where(x => x.uso != "CO" && x.uso != "HA" && x.uso != "NO").ToList().Sum(x => x.importe);
@@ -441,7 +442,7 @@ namespace SOAPAP.UI.ReportesForms.Finanzas.Agua.Formatos
            
             int actuales = Result.Where(x => x.tipo == "actuales").First().usuarios;
 
-            int anteriores = Result.Where(x => x.tipo == "anteriores").First().usuarios;
+            int anteriores = Result.Where(x => x.tipo == "anteriores").First().usuarios +1;
 
             int mixto = Result.Where(x => x.tipo == "mixto").First().usuarios;
            
