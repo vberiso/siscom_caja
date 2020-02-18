@@ -38,6 +38,7 @@
             DevExpress.Utils.ToolTipTitleItem toolTipTitleItem4 = new DevExpress.Utils.ToolTipTitleItem();
             DevExpress.Utils.ToolTipItem toolTipItem4 = new DevExpress.Utils.ToolTipItem();
             this.pnlHeader = new System.Windows.Forms.Panel();
+            this.windowsUIButtonPanel1 = new DevExpress.XtraBars.Docking2010.WindowsUIButtonPanel();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.label3 = new System.Windows.Forms.Label();
             this.dtpFechaFin = new System.Windows.Forms.DateTimePicker();
@@ -74,10 +75,10 @@
             this.pgfMotivo = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfTipoPredio = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfAñoEjercicio = new DevExpress.XtraPivotGrid.PivotGridField();
-            this.windowsUIButtonPanel1 = new DevExpress.XtraBars.Docking2010.WindowsUIButtonPanel();
             this.pgfAgrupado = new DevExpress.XtraPivotGrid.PivotGridField();
-            this.dataCollectionBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.pgfCodeCon = new DevExpress.XtraPivotGrid.PivotGridField();
+            this.dataCollectionBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.pgfConstruccion = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pnlHeader.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -107,6 +108,34 @@
             this.pnlHeader.Name = "pnlHeader";
             this.pnlHeader.Size = new System.Drawing.Size(1054, 124);
             this.pnlHeader.TabIndex = 51;
+            // 
+            // windowsUIButtonPanel1
+            // 
+            this.windowsUIButtonPanel1.BackColor = System.Drawing.Color.Transparent;
+            windowsUIButtonImageOptions3.Image = global::SOAPAP.Properties.Resources.buscar;
+            toolTipTitleItem3.Text = "Generar";
+            toolTipItem3.LeftIndent = 6;
+            toolTipItem3.Text = "Carga los ingresos corespondientes a los filtros seleccionados.";
+            superToolTip3.Items.Add(toolTipTitleItem3);
+            superToolTip3.Items.Add(toolTipItem3);
+            windowsUIButtonImageOptions4.Image = global::SOAPAP.Properties.Resources.file;
+            toolTipTitleItem4.Text = "Exportar";
+            toolTipItem4.LeftIndent = 6;
+            toolTipItem4.Text = "Exporta los ingresos correspondientes a los filtros seleccionados.";
+            superToolTip4.Items.Add(toolTipTitleItem4);
+            superToolTip4.Items.Add(toolTipItem4);
+            this.windowsUIButtonPanel1.Buttons.AddRange(new DevExpress.XtraEditors.ButtonPanel.IBaseButton[] {
+            new DevExpress.XtraBars.Docking2010.WindowsUIButton("", true, windowsUIButtonImageOptions3, DevExpress.XtraBars.Docking2010.ButtonStyle.PushButton, "", -1, true, superToolTip3, true, false, true, "GE", -1, false),
+            new DevExpress.XtraBars.Docking2010.WindowsUIButton("", true, windowsUIButtonImageOptions4, DevExpress.XtraBars.Docking2010.ButtonStyle.PushButton, "Exportar", -1, true, superToolTip4, true, false, true, "EX", -1, false)});
+            this.windowsUIButtonPanel1.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.windowsUIButtonPanel1.Dock = System.Windows.Forms.DockStyle.Right;
+            this.windowsUIButtonPanel1.ForeColor = System.Drawing.SystemColors.ControlLight;
+            this.windowsUIButtonPanel1.Location = new System.Drawing.Point(913, 0);
+            this.windowsUIButtonPanel1.Name = "windowsUIButtonPanel1";
+            this.windowsUIButtonPanel1.Size = new System.Drawing.Size(141, 124);
+            this.windowsUIButtonPanel1.TabIndex = 66;
+            this.windowsUIButtonPanel1.Text = "windowsUIButtonPanel1";
+            this.windowsUIButtonPanel1.ButtonClick += new DevExpress.XtraBars.Docking2010.ButtonEventHandler(this.windowsUIButtonPanel1_ButtonClick);
             // 
             // tableLayoutPanel2
             // 
@@ -318,7 +347,8 @@
             this.pgfTipoPredio,
             this.pgfAñoEjercicio,
             this.pgfAgrupado,
-            this.pgfCodeCon});
+            this.pgfCodeCon,
+            this.pgfConstruccion});
             this.pgcCollection.Location = new System.Drawing.Point(2, 124);
             this.pgcCollection.Name = "pgcCollection";
             this.pgcCollection.OptionsData.DataProcessingEngine = DevExpress.XtraPivotGrid.PivotDataProcessingEngine.LegacyOptimized;
@@ -328,7 +358,7 @@
             // pgfDescripcion
             // 
             this.pgfDescripcion.Area = DevExpress.XtraPivotGrid.PivotArea.RowArea;
-            this.pgfDescripcion.AreaIndex = 4;
+            this.pgfDescripcion.AreaIndex = 5;
             this.pgfDescripcion.Caption = "CONCEPTO";
             this.pgfDescripcion.FieldName = "DESCRIPCION";
             this.pgfDescripcion.Name = "pgfDescripcion";
@@ -474,34 +504,6 @@
             this.pgfAñoEjercicio.FieldName = "year";
             this.pgfAñoEjercicio.Name = "pgfAñoEjercicio";
             // 
-            // windowsUIButtonPanel1
-            // 
-            this.windowsUIButtonPanel1.BackColor = System.Drawing.Color.Transparent;
-            windowsUIButtonImageOptions3.Image = global::SOAPAP.Properties.Resources.buscar;
-            toolTipTitleItem3.Text = "Generar";
-            toolTipItem3.LeftIndent = 6;
-            toolTipItem3.Text = "Carga los ingresos corespondientes a los filtros seleccionados.";
-            superToolTip3.Items.Add(toolTipTitleItem3);
-            superToolTip3.Items.Add(toolTipItem3);
-            windowsUIButtonImageOptions4.Image = global::SOAPAP.Properties.Resources.file;
-            toolTipTitleItem4.Text = "Exportar";
-            toolTipItem4.LeftIndent = 6;
-            toolTipItem4.Text = "Exporta los ingresos correspondientes a los filtros seleccionados.";
-            superToolTip4.Items.Add(toolTipTitleItem4);
-            superToolTip4.Items.Add(toolTipItem4);
-            this.windowsUIButtonPanel1.Buttons.AddRange(new DevExpress.XtraEditors.ButtonPanel.IBaseButton[] {
-            new DevExpress.XtraBars.Docking2010.WindowsUIButton("", true, windowsUIButtonImageOptions3, DevExpress.XtraBars.Docking2010.ButtonStyle.PushButton, "", -1, true, superToolTip3, true, false, true, "GE", -1, false),
-            new DevExpress.XtraBars.Docking2010.WindowsUIButton("", true, windowsUIButtonImageOptions4, DevExpress.XtraBars.Docking2010.ButtonStyle.PushButton, "Exportar", -1, true, superToolTip4, true, false, true, "EX", -1, false)});
-            this.windowsUIButtonPanel1.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.windowsUIButtonPanel1.Dock = System.Windows.Forms.DockStyle.Right;
-            this.windowsUIButtonPanel1.ForeColor = System.Drawing.SystemColors.ControlLight;
-            this.windowsUIButtonPanel1.Location = new System.Drawing.Point(913, 0);
-            this.windowsUIButtonPanel1.Name = "windowsUIButtonPanel1";
-            this.windowsUIButtonPanel1.Size = new System.Drawing.Size(141, 124);
-            this.windowsUIButtonPanel1.TabIndex = 66;
-            this.windowsUIButtonPanel1.Text = "windowsUIButtonPanel1";
-            this.windowsUIButtonPanel1.ButtonClick += new DevExpress.XtraBars.Docking2010.ButtonEventHandler(this.windowsUIButtonPanel1_ButtonClick);
-            // 
             // pgfAgrupado
             // 
             this.pgfAgrupado.Area = DevExpress.XtraPivotGrid.PivotArea.RowArea;
@@ -510,17 +512,25 @@
             this.pgfAgrupado.FieldName = "Agrupado";
             this.pgfAgrupado.Name = "pgfAgrupado";
             // 
-            // dataCollectionBindingSource
-            // 
-            this.dataCollectionBindingSource.DataSource = typeof(SOAPAP.Reportes.DataCollection);
-            // 
             // pgfCodeCon
             // 
             this.pgfCodeCon.Area = DevExpress.XtraPivotGrid.PivotArea.RowArea;
             this.pgfCodeCon.AreaIndex = 3;
             this.pgfCodeCon.Caption = "CODIGO";
-            this.pgfCodeCon.FieldName = "code_concept";
+            this.pgfCodeCon.FieldName = "AccountNumber";
             this.pgfCodeCon.Name = "pgfCodeCon";
+            // 
+            // dataCollectionBindingSource
+            // 
+            this.dataCollectionBindingSource.DataSource = typeof(SOAPAP.Reportes.DataCollection);
+            // 
+            // pgfConstruccion
+            // 
+            this.pgfConstruccion.Area = DevExpress.XtraPivotGrid.PivotArea.RowArea;
+            this.pgfConstruccion.AreaIndex = 4;
+            this.pgfConstruccion.Caption = "CONSTRUCCION";
+            this.pgfConstruccion.FieldName = "Construccion";
+            this.pgfConstruccion.Name = "pgfConstruccion";
             // 
             // RepIAcc
             // 
@@ -592,5 +602,6 @@
         private System.Windows.Forms.BindingSource dataCollectionBindingSource;
         private DevExpress.XtraPivotGrid.PivotGridField pgfAgrupado;
         private DevExpress.XtraPivotGrid.PivotGridField pgfCodeCon;
+        private DevExpress.XtraPivotGrid.PivotGridField pgfConstruccion;
     }
 }

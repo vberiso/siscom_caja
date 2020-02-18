@@ -309,8 +309,7 @@ namespace SOAPAP
                             if (pay.Debt.DebtDiscounts.ToList().Count > 0 && pay.Debt.DebtDiscounts.FirstOrDefault(DDis => DDis.DebtId == pay.DebtId && DDis.CodeConcept == pay.CodeConcept) != null)
                             {
                                 var OriginalAmount = pay.Debt.DebtDiscounts.FirstOrDefault(DDis => DDis.DebtId == pay.DebtId && DDis.CodeConcept == pay.CodeConcept).OriginalAmount;
-                                var DiscountAmount = pay.Debt.DebtDiscounts.FirstOrDefault(DDis => DDis.DebtId == pay.DebtId && DDis.CodeConcept == pay.CodeConcept).DiscountAmount;
-                                //var DescuentoProporcion = (DiscountAmount * pay.Amount) / (OriginalAmount - DiscountAmount);
+                                var DiscountAmount = pay.Debt.DebtDiscounts.FirstOrDefault(DDis => DDis.DebtId == pay.DebtId && DDis.CodeConcept == pay.CodeConcept).DiscountAmount;                                
                                 tmpSubtotal = pay.Amount + DiscountAmount;
                                 tmpQuantity = 1;
                                 tmpValorUnitario = tmpSubtotal;
@@ -357,7 +356,7 @@ namespace SOAPAP
                     else                                                                                 //Pago parcial
                     {
 
-                        msgPagoParcial = "Esta factura es comprobante de un pago pacial";
+                        msgPagoParcial = "Esta factura es comprobante de un pago pacial.";
                         foreach (PaymentDetail pay in TraVM.payment.PaymentDetails.ToList())
                         {
                             //Calculo del unit price.
@@ -1126,7 +1125,7 @@ namespace SOAPAP
                     di = Directory.CreateDirectory(path);
                 }
                 //Se guarda el pdf del timbre.
-                string NombreFile = string.Format("{0}\\{1}_{2}_{3}.pdf", path, Variables.Configuration.RFC ,taxReceipt.RFC, TraVM.transaction.transactionFolios != null ? TraVM.transaction.transactionFolios.FirstOrDefault().folio : "AXXXXX1");
+                string NombreFile = string.Format("{0}\\{1}_{2}_{3}_canceled.pdf", path, Variables.Configuration.RFC ,taxReceipt.RFC, TraVM.transaction.transactionFolios != null ? TraVM.transaction.transactionFolios.FirstOrDefault().folio : "AXXXXX1");
                 System.IO.File.WriteAllBytes( NombreFile, taxReceipt.PDFInvoce);
 
                 //Se edita el Pdf
@@ -1145,6 +1144,60 @@ namespace SOAPAP
                 {
                     MessageBoxForm mensaje = new MessageBoxForm("Error", JsonConvert.DeserializeObject<Error>(UploadPDF).error, TypeIcon.Icon.Cancel);
                     var result = mensaje.ShowDialog();                    
+                }
+
+                ////Se elimina el archivo temporal.
+                //if (System.IO.File.Exists(NombreFile))
+                //    System.IO.File.Delete(NombreFile);
+                return NombreFile;
+            }
+            catch (Exception ex)
+            {
+                return "error: No se pudo actualizar el PDF.";
+            }
+
+        }
+
+
+        public async Task<string> actualizaCanceladoPDFwithIdpayment(string idsPayment)
+        {
+            string respuesta = string.Empty;
+            string rutas = string.Empty;
+            string json = string.Empty;            
+            try
+            {
+
+                var resultado = await Requests.SendURIAsync(string.Format("/api/Payments/{0}", idsPayment), HttpMethod.Get, Variables.LoginModel.Token);
+                Payment payment = JsonConvert.DeserializeObject<Payment>(resultado);
+
+                TaxReceipt taxReceipt = payment.TaxReceipts.LastOrDefault(x => x.Status == "ET002");
+
+                string path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Facturas";
+                DirectoryInfo di;
+                if (!Directory.Exists(path))
+                {
+                    di = Directory.CreateDirectory(path);
+                }
+                //Se guarda el pdf del timbre.
+                string NombreFile = string.Format("{0}\\{1}_{2}_{3}_canceled.pdf", path, Variables.Configuration.RFC, taxReceipt.RFC, !string.IsNullOrEmpty(payment.ImpressionSheet) ? payment.ImpressionSheet : "AXXXXX1");
+                System.IO.File.WriteAllBytes(NombreFile, taxReceipt.PDFInvoce);
+
+                //Se edita el Pdf
+                using (PdfDocumentProcessor processor = new PdfDocumentProcessor())
+                {
+                    processor.LoadDocument(NombreFile);
+                    using (SolidBrush textBrush = new SolidBrush(Color.FromArgb(150, Color.Red)))
+                        AddGraphics(processor, "F A C T U R A   _ _   C A N C E L A D A", textBrush);
+                    processor.SaveDocument(NombreFile);
+                }
+
+                //Se guarda el archivo en BD.
+                StringContent @string = new StringContent(JsonConvert.SerializeObject(taxReceipt), Encoding.UTF8, "application/json");
+                var UploadPDF = await Requests.UploadImageToServer("/api/TaxReceipt/AddPDF", Variables.LoginModel.Token, NombreFile, @string);
+                if (UploadPDF.Contains("error"))
+                {
+                    MessageBoxForm mensaje = new MessageBoxForm("Error", JsonConvert.DeserializeObject<Error>(UploadPDF).error, TypeIcon.Icon.Cancel);
+                    var result = mensaje.ShowDialog();
                 }
 
                 ////Se elimina el archivo temporal.

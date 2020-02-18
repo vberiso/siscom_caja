@@ -65,6 +65,7 @@
             this.treeListCuentasContables.KeyFieldName = "Id";
             this.treeListCuentasContables.Location = new System.Drawing.Point(1, 80);
             this.treeListCuentasContables.Name = "treeListCuentasContables";
+            this.treeListCuentasContables.OptionsFind.AlwaysVisible = true;
             this.treeListCuentasContables.ParentFieldName = "ParentId";
             this.treeListCuentasContables.Size = new System.Drawing.Size(904, 343);
             this.treeListCuentasContables.TabIndex = 0;

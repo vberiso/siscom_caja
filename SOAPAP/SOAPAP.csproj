@@ -453,6 +453,7 @@
     <Compile Include="Model\ReasonCatalog.cs" />
     <Compile Include="Model\RequiredAttribute.cs" />
     <Compile Include="Model\ServiceParam.cs" />
+    <Compile Include="Model\SystemParameters.cs" />
     <Compile Include="Model\TariffProduct.cs" />
     <Compile Include="Model\TaxAddress.cs" />
     <Compile Include="Model\TaxReceiptCancel.cs" />

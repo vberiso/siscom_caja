@@ -112,6 +112,11 @@ namespace SOAPAP.UI.ReportesForms
                 chcbxOperador.CheckAll();
                 chcbxOficina.CheckAll();
             }
+
+            if(Variables.Configuration.IsMunicipal == true)
+                pgfConstruccion.Visible = true;
+            else
+                pgfConstruccion.Visible = false;
         }
 
         //private async void windowsUIButtonPanel1_Click(object sender, EventArgs e)

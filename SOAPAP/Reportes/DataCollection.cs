@@ -13,6 +13,8 @@ namespace SOAPAP.Reportes
         public string TipoPredio { get; set; }
         public int year { get; set; }
         public string Agrupado { get; set; }
+        public string AccountNumber { get; set; }
+        public string Construccion { get; set; }
         public string OFICINA { get; set; }        
         public string CAJERO { get; set; }
         public string FECHA_PAGO { get; set; }
