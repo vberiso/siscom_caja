@@ -231,7 +231,7 @@ namespace SOAPAP
                         {
                             Rfc = string.IsNullOrEmpty(client.rfc) ? "XAXX010101000" : client.rfc,
                             Name = client.name + " " + client.lastName + " " + client.secondLastName,
-                            CfdiUse = "P01"
+                            CfdiUse = string.IsNullOrEmpty(this.msgUsos) ? "P01" : this.msgUsos.Split('-')[0].Trim()
                         };
                         msgCorreo = string.IsNullOrEmpty(client.eMail) ? "" : client.eMail;
                     }
@@ -254,7 +254,7 @@ namespace SOAPAP
                         {
                             Rfc = tu.RFC,
                             Name = tu.Name,
-                            CfdiUse = "P01"
+                            CfdiUse = string.IsNullOrEmpty(this.msgUsos) ? "P01" : this.msgUsos.Split('-')[0].Trim()
                         };
                         msgCorreo = string.IsNullOrEmpty(tu.EMail) ? "" : tu.EMail;
                     }
@@ -545,7 +545,9 @@ namespace SOAPAP
                         msgCorreo = msgObs.tbxCorreo.Text;
                         enviarCorreo = msgObs.chbxEnviarCorreo.Checked;
                     }
-                }
+                    cfdi.Receiver.CfdiUse = this.msgUsos.Split('-')[0].Trim();
+                }                
+
                 //En caso de tener descuento de grupo vulnerable
                 var tipoDescuento = "";
                 if (TraVM.payment.OrderSaleId == 0)
@@ -883,37 +885,86 @@ namespace SOAPAP
             }
         }
 
-        public async Task<string> CancelarFacturaDesdeAPI(string idXmlFacturama)
+        public async Task<string> CancelarFacturaDesdeAPI(TaxReceipt idXmlFacturama)
         {
             RequestsAPI RequestsFacturama = null;
             try
             {
                 RequestsFacturama = new RequestsAPI("https://api.facturama.mx/");
-                var resultado = await RequestsFacturama.SendURIAsync(string.Format("api-lite/cfdis/{0}", idXmlFacturama), HttpMethod.Delete, Properties.Settings.Default.FacturamaUser, Properties.Settings.Default.FacturamaPassword);
-                var cfdiCancel = JsonConvert.DeserializeObject<SOAPAP.ModFac.RepuestaCancelacion>(resultado);
-                Byte[] bytes = Convert.FromBase64String(cfdiCancel.AcuseXmlBase64);
-                TaxReceiptCancel cancel = new TaxReceiptCancel
-                {
-                    CancelationDate = cfdiCancel.CancelationDate,
-                    AcuseXml = bytes,
-                    Message = cfdiCancel.Message,
-                    Status = cfdiCancel.Status,
-                    RequestDateCancel = cfdiCancel.RequestDate
-                };
-                var a = JsonConvert.SerializeObject(cancel);
-                HttpContent content = new StringContent(a, Encoding.UTF8, "application/json");
-                var response = await Requests.SendURIAsync(string.Format("/api/TaxReceipt/TaxReceiptCancel/{0}", idXmlFacturama), HttpMethod.Post, Variables.LoginModel.Token, content);
+                var resultado = await RequestsFacturama.SendURIAsync(string.Format("api-lite/cfdis/{0}", idXmlFacturama.IdXmlFacturama), HttpMethod.Delete, Properties.Settings.Default.FacturamaUser, Properties.Settings.Default.FacturamaPassword);
 
-                if (!response.Contains("error") && cfdiCancel != null)
+                if (resultado.Contains("Server Error"))
                 {
-                    //facturama.Cfdis.SaveXml(@"C:\Pruebas", cfdiCancel.Id);
-                    return "Cancelación en proceso. Estado actual: " + cfdiCancel.Message;
+                    return "{\"error\": \"No se ha podido realizar la cancelación, fallo la solicitud a facturama.\"}";
                 }
                 else
                 {
-                    return "{\"error\": \"No se ha podido realizar la cancelación, favor de comunicarse con el administrador del sistema\"}";
-                }
+                    string resultadoSolicitudCancelacion = "";
+                    SOAPAP.ModFac.RepuestaCancelacion cfdiCancel;
+                    try
+                    {                        
+                        cfdiCancel = JsonConvert.DeserializeObject<SOAPAP.ModFac.RepuestaCancelacion>(resultado);
+                    }
+                    catch (Exception exe) 
+                    {
+                        return "{\"error\": \"No se ha podido realizar la cancelación, fallo la solicitud a facturama.\"}";
+                    }
+                    
+                    switch (cfdiCancel.Status)
+                    {
+                        case "canceled":
+                            resultadoSolicitudCancelacion = "Cancelación exitosa. Estado actual: " + cfdiCancel.Message;
+                            break;
+                        case "active":
+                            resultadoSolicitudCancelacion = "{\"error\": \"No se pudo cancelar, hay facturas ligadas: " + cfdiCancel.Message + "\"}";
+                            break;
+                        case "pending":
+                            resultadoSolicitudCancelacion = "{\"error\": \"Cancelación Pendiente: " + cfdiCancel.Message + "\"}";
+                            break;
+                        case "acepted":
+                            resultadoSolicitudCancelacion = "Cancelación aceptada: " + cfdiCancel.Message;
+                            break;
+                        case "rejected":
+                            resultadoSolicitudCancelacion = "{\"error\": \"Cancelación rechazada: " + cfdiCancel.Message + "\"}";
+                            break;
+                        case "expired":
+                            resultadoSolicitudCancelacion = "Cancelación por expiración de 72hrs: " + cfdiCancel.Message;
+                            break;
+                    }
 
+                    if(cfdiCancel.Status.Contains("canceled") || cfdiCancel.Status.Contains("acepted") || cfdiCancel.Status.Contains("expired"))
+                    {
+                        Byte[] bytes = new byte[0];
+                        if (!string.IsNullOrEmpty(cfdiCancel.AcuseXmlBase64))
+                            bytes = Convert.FromBase64String(cfdiCancel.AcuseXmlBase64);
+                        TaxReceiptCancel cancel = new TaxReceiptCancel
+                        {
+                            CancelationDate = cfdiCancel.CancelationDate,
+                            AcuseXml = bytes,
+                            Message = cfdiCancel.Message,
+                            Status = cfdiCancel.Status,
+                            RequestDateCancel = cfdiCancel.RequestDate
+                        };
+
+                        //En este endpoint se actualiza el status del taxreceipt.
+                        var a = JsonConvert.SerializeObject(cancel);
+                        HttpContent content = new StringContent(a, Encoding.UTF8, "application/json");
+                        var response = await Requests.SendURIAsync(string.Format("/api/TaxReceipt/TaxReceiptCancel/{0}", idXmlFacturama.IdXmlFacturama), HttpMethod.Post, Variables.LoginModel.Token, content);
+                        if (!response.Contains("error:"))
+                        {
+                            return resultadoSolicitudCancelacion;
+                        }
+                        else
+                        {
+                            return "{\"error\": \"Se ralizó la cancelacion, pero no se pudo guardar el registro de cancelación en BD, contacte al administrador.\"}";
+                        }
+                    }
+                    else
+                    {
+                        return resultadoSolicitudCancelacion;
+                    }
+                    
+                }
             }
             catch (Exception ex)
             {
@@ -966,9 +1017,9 @@ namespace SOAPAP
             else
             {
                 TaxReceipt taxReceipt = TraVM.payment.TaxReceipts.Where(x => x.Status == "ET001").FirstOrDefault();
-                //if (taxReceipt.IdXmlFacturama.Contains("Timbox"))
-                //    cfdiGet = await ObterCfdiDesdeTIMBOX(taxReceipt);
-                //else
+                if (taxReceipt.IdXmlFacturama.Contains("Timbox"))
+                    cfdiGet = await ObterCfdiDesdeTIMBOX(taxReceipt);
+                else
                     cfdiGet = await ObterCfdiDesdeAPI(taxReceipt);
             }
                 

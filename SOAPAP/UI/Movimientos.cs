@@ -1212,6 +1212,7 @@ namespace SOAPAP
                         {
                             mensaje = new MessageBoxForm("¿Seguro de cancelar movimiento?", "Este proceso será irreversible", TypeIcon.Icon.Warning, true);
                             result = mensaje.ShowDialog();
+                            loading.Close();
                             if (result == DialogResult.OK)
                             {
                                 loading = new Loading();
@@ -1264,7 +1265,7 @@ namespace SOAPAP
                                 }
                                 else
                                 {
-                                    mensaje = new MessageBoxForm("Transacción Exitosa", "La trasaccion se ha cancelado", TypeIcon.Icon.Success);
+                                    mensaje = new MessageBoxForm("Transacción Exitosa", "La transacción se ha cancelado", TypeIcon.Icon.Success);
                                     result = mensaje.ShowDialog();
 
                                     await actualizaSolicitudCancelacion(tcrVM);
@@ -1273,16 +1274,14 @@ namespace SOAPAP
                                     try
                                     {
 
-                                        if (payment.TaxReceipts.FirstOrDefault(x => x.Status == "ET002").Xml != null)
+                                        if (payment.TaxReceipts.LastOrDefault(x => x.Status == "ET002").Xml != null)
                                         {
                                             mensaje = new MessageBoxForm(Variables.titleprincipal, "Esta trasaccion ya fue cancelada.", TypeIcon.Icon.Cancel);
                                             mensaje.ShowDialog();
                                         }
-
                                     }
                                     catch (Exception)
                                     {
-
                                         if (payment.HaveTaxReceipt)
                                         {
                                             try
@@ -1313,17 +1312,16 @@ namespace SOAPAP
                                                 }
                                                 else
                                                 {
-                                                    response = await fst.CancelarFacturaDesdeAPI(key.IdXmlFacturama);
+                                                    response = await fst.CancelarFacturaDesdeAPI(key);
                                                 }
 
                                                 if (response.Contains("error"))
                                                 {
-                                                    mensaje = new MessageBoxForm("Error", "Es posible que el CFDI no haya sido cancelado. Consulte al administrador. " + response, TypeIcon.Icon.Warning);
+                                                    mensaje = new MessageBoxForm("Error",  response, TypeIcon.Icon.Warning);
                                                     result = mensaje.ShowDialog();
                                                 }
                                                 else
-                                                {
-                                                    //string temp = await fst.actualizaPdf(transactionSelect.Transaction.Id.ToString(), true);
+                                                {                                                    
                                                     string temp = await fst.actualizaCanceladoPDF(transactionSelect.Transaction.Id.ToString());
 
                                                     if (temp.Contains("error"))
@@ -1446,7 +1444,7 @@ namespace SOAPAP
 
             var a = JsonConvert.SerializeObject(TCR);
             HttpContent content = new StringContent(a, Encoding.UTF8, "application/json");
-            var response = await Requests.SendURIAsync("/api/TransactionCancelationRequest/" + transactionCancellationRequestVM.Id, HttpMethod.Post, Variables.LoginModel.Token, content);
+            var response = await Requests.SendURIAsync("/api/TransactionCancelationRequest/" + transactionCancellationRequestVM.Id, HttpMethod.Put, Variables.LoginModel.Token, content);
             if (response.Contains("error"))
             {
                 return -1;
