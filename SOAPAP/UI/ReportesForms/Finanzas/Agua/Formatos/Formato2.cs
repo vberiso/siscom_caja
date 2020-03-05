@@ -370,9 +370,9 @@ namespace SOAPAP.UI.ReportesForms.Finanzas.Agua.Formatos
             data = JsonConvert.SerializeObject(JdDta["data"]);
             List<SOAPAP.Reportes.Finanzas.Formato2> OData = JsonConvert.DeserializeObject<List<SOAPAP.Reportes.Finanzas.Formato2>>(data.ToString());
             //datos para uso domestico
-            TUsuarios = OData.Where(x => x.uso == "HA" || x.uso == "NO").ToList().Count;
-            TTomas = OData.Where(x => x.uso == "HA" && x.type_agreement == "AGR01" ||   x.uso == "NO").ToList().Count;
-            TImporte = OData.Where(x => x.uso == "HA" ||  x.uso == "NO").ToList().Sum(x => x.importe);
+            TUsuarios = OData.Where(x => x.uso == "HA" ).ToList().Count;
+            TTomas = OData.Where(x => x.uso == "HA" && x.type_agreement == "AGR01" ).ToList().Count;
+            TImporte = OData.Where(x => x.uso == "HA" ).ToList().Sum(x => x.importe);
             GTU = totalConMedidorU;
             GTT = totalConMedidorT;
             GTI = totalConMedidorI;
@@ -442,7 +442,7 @@ namespace SOAPAP.UI.ReportesForms.Finanzas.Agua.Formatos
            
             int actuales = Result.Where(x => x.tipo == "actuales").First().usuarios;
 
-            int anteriores = Result.Where(x => x.tipo == "anteriores").First().usuarios +1;
+            int anteriores = Result.Where(x => x.tipo == "anteriores").First().usuarios ;
 
             int mixto = Result.Where(x => x.tipo == "mixto").First().usuarios;
            
