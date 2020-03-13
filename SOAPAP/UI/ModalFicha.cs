@@ -17,6 +17,7 @@ using System.Reflection;
 using System.Xml;
 using SOAPAP.UI.Email;
 using Newtonsoft.Json.Linq;
+using SOAPAP.Model;
 
 namespace SOAPAP.UI
 {
@@ -24,6 +25,9 @@ namespace SOAPAP.UI
     {
         DialogResult result = new DialogResult();
         Form mensaje;
+        List<Types> TypeOrders = new List<Types>();
+        List<Status> StatusOrder = new List<Status>();
+             
         Form loading;
         private RequestsAPI Requests = null;
         private string UrlBase = Properties.Settings.Default.URL;
@@ -36,10 +40,15 @@ namespace SOAPAP.UI
 
         public ModalFicha(string Title, string Message, TypeIcon.Icon TypeIcon, String AgreementId, Search.Type Type)
         {
-            InitializeComponent();
+          
+            
             Requests = new RequestsAPI(UrlBase);
+            TypeordersAndStatus();
+            InitializeComponent();
             this.agrementID = AgreementId;
             _typeSearchSelect = Type;
+            
+            
         }       
 
         #region Events
@@ -148,6 +157,24 @@ namespace SOAPAP.UI
             hijo.Location = new System.Drawing.Point(x, hijo.Location.Y);
         }
 
+        private async void TypeordersAndStatus()
+        {
+            try
+            {
+                var Result = await Requests.SendURIAsync("/api/OrderWork/getStatusTypeOrders", HttpMethod.Post, Variables.LoginModel.Token);
+
+                var Data = JArray.Parse(Result);
+                TypeOrders = JsonConvert.DeserializeObject<List<Types>>(Data.First().ToString());
+                StatusOrder = JsonConvert.DeserializeObject<List<Status>>(Data.Last().ToString());
+            }
+            catch (Exception e)
+            {
+
+            }
+
+
+
+        }
         private async Task ObtenerAgreement()
         {            
             await Task.Factory.StartNew(() =>
@@ -709,23 +736,7 @@ namespace SOAPAP.UI
         {
             if (Variables.Agreement != null && Variables.Agreement.OrderWork!= null && Variables.Agreement.OrderWork.Count >0)
             {
-                var TypeOrders = new List<object>() {
-                    new { Type = "OT001", Value = "Inspeccion / Verificacion" },
-                    new { Type = "OT002", Value = "Corte" },
-                    new { Type = "OT003"  ,Value = "Reconexion" },
-                    new {Type =  "OT004", Value = "Mantenimiento / Sustitucion" },
-                    new {Type = "OT005", Value = "Notificación" },
-                    new { Type = "OT007", Value = "Cultura de agua" },
-                   
-                };
-                var StatusOrder = new List<object>()
-                {
-                    new { Status = "EOT01", Value = "GENERADA" },
-                    new { Status = "EOT02", Value = "ASIGNADA" },
-                    new { Status = "EOT03" , Value= "EJECUTADA" },
-                    new { Status = "EOT04" , Value= "NO EJECUTADA" },
-                    new { Status = "EOT05" , Value= "CANCELADA" },
-                };
+             
 
                 List<string> data;
                 //dataOrdenes.Enabled = false;
@@ -747,13 +758,15 @@ namespace SOAPAP.UI
                 dataOrdenes.Columns[4].Width = dataOrdenes.Columns[4].Width + 100;
                 dataOrdenes.Columns[5].Width = dataOrdenes.Columns[5].Width - 50;
                 dataOrdenes.Columns[5].Width = dataOrdenes.Columns[6].Width + 10;
-                Variables.Agreement.OrderWork.ToList().ForEach(x =>
+                try
                 {
-                    var tt = JObject.Parse(JsonConvert.SerializeObject(TypeOrders.Where(t => JObject.Parse(JsonConvert.SerializeObject(t))["Type"].ToString() == x.Type).ToList().First()))["Value"].ToString();
-                    var ss = JObject.Parse(JsonConvert.SerializeObject(StatusOrder.Where(t => JObject.Parse(JsonConvert.SerializeObject(t))["Status"].ToString() == x.Status).ToList().First()))["Value"].ToString();
+                    Variables.Agreement.OrderWork.ToList().ForEach(x =>
+                    {
+                        var tt = TypeOrders.Where(t => t.CodeName == x.Type).FirstOrDefault()?.Description;
+                        var ss = StatusOrder.Where(t => t.CodeName == x.Status).FirstOrDefault()?.Description;
 
 
-                    data = new List<string>(){
+                        data = new List<string>(){
                     x.Folio,
                     x.DateOrder.ToString("dd-MM-yyyy"),
                     x.Applicant,
@@ -761,13 +774,18 @@ namespace SOAPAP.UI
                     x.Activities,
                      tt,
                      ss,
-                };
+                    };
 
 
-                    dataOrdenes.Rows.Add(data.ToArray());
-                
+                        dataOrdenes.Rows.Add(data.ToArray());
 
-                });
+
+                    });
+                }
+                catch (Exception e)
+                {
+
+                }
             }
             else
             {
