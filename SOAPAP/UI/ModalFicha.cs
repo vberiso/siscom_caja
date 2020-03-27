@@ -599,7 +599,7 @@ namespace SOAPAP.UI
             {
                 int _idetail = _agreement.AgreementDetails.Max(x => x.Id);
                 var _detail = _agreement.AgreementDetails.SingleOrDefault(x => x.Id == _idetail);
-                lblDetalle.SetPropertyValue(a => a.Text, string.Format("Base Gravable: " + _detail.TaxableBase.ToString() +  "{0}Construcción: " + _detail.Ground.ToString() + "m2.{0}Terreno: " + _detail.Built + "m2{0}Última Actualización: " + _detail.LastUpdate.ToShortDateString(),Environment.NewLine));
+                lblDetalle.SetPropertyValue(a => a.Text, string.Format("Base Gravable: " + _detail.TaxableBase.ToString() +  "{0}Construcción: " + _detail.Built + "m2.{0}Terreno: " + _detail.Ground.ToString() + "m2{0}Última Actualización: " + _detail.LastUpdate.ToShortDateString(),Environment.NewLine));
             }
 
             if (_agreement != null && _agreement.AgreementLogs != null && _agreement.AgreementLogs.Count > 0)
@@ -640,7 +640,7 @@ namespace SOAPAP.UI
                 dataConvenios.ReadOnly = true;
                 
                 Variables.Agreement.PartialPayments.OrderBy(x => x.Status).ToList().ForEach(x =>
-                {
+                {                    
                     var data = new List<object>() { 
                         x.Id,
                         Variables.Agreement.Account,
@@ -650,7 +650,7 @@ namespace SOAPAP.UI
                         string.Format(new CultureInfo("es-MX"), "{0:C2}", x.Amount),
                         12,
                         x.NumberOfPayments,
-                        (x.Status =="COV01") ? "ACTIVO": "INACTIVO",
+                        x.Status =="COV01" ? "ACTIVO": (x.Status == "COV02" ? "PAGADO" : "CANCELADO" ) ,
                         x.ExpirationDate.ToString("dd-MM-yyyy")
                     };
                     dataConvenios.Rows.Add(data.ToArray());
@@ -863,7 +863,7 @@ namespace SOAPAP.UI
                 {
                     //if()
                     var idPayment = Convert.ToInt32(row.Cells["ID"].FormattedValue.ToString());
-                    var payment = _payments.Where(x => x.Id == idPayment).FirstOrDefault().TaxReceipts;
+                    var payment = _payments.Where(x => x.Id == idPayment).LastOrDefault().TaxReceipts;
                     var xml = payment.FirstOrDefault();
                     if(xml != null)
                     {
@@ -878,7 +878,7 @@ namespace SOAPAP.UI
                 if(e.ColumnIndex == dgvPayment.Columns["PDF"].Index && e.RowIndex >= 0)
                 {
                     var idPayment = Convert.ToInt32(row.Cells["ID"].FormattedValue.ToString());
-                    var payment = _payments.Where(x => x.Id == idPayment).FirstOrDefault();
+                    var payment = _payments.Where(x => x.Id == idPayment).LastOrDefault();
                     var xml = payment.TaxReceipts.FirstOrDefault();
                     if (xml != null)
                     {
@@ -901,7 +901,7 @@ namespace SOAPAP.UI
                 if (e.ColumnIndex == dgvPayment.Columns["Email"].Index && e.RowIndex >= 0)
                 {
                     var idPayment = Convert.ToInt32(row.Cells["ID"].FormattedValue.ToString());
-                    var payment = _payments.Where(x => x.Id == idPayment).FirstOrDefault();
+                    var payment = _payments.Where(x => x.Id == idPayment).LastOrDefault();
                     var xml = payment.TaxReceipts.FirstOrDefault();
                     var account = _payments.FirstOrDefault().Account;
                     if (xml != null)

@@ -47,6 +47,7 @@
             this.descuentosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.estatusToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.registrarPeriodosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ajusteDeReciboToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pbBG = new System.Windows.Forms.PictureBox();
             this.pnlHeaderBottom = new System.Windows.Forms.Panel();
             this.pnlSubHead = new System.Windows.Forms.Panel();
@@ -125,7 +126,6 @@
             this.panel6 = new System.Windows.Forms.Panel();
             this.dgvConceptosCobro = new System.Windows.Forms.DataGridView();
             this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.detail = new System.Windows.Forms.DataGridViewButtonColumn();
             this.Select = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.Type = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Description = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -149,6 +149,7 @@
             this.lblTxtIva = new System.Windows.Forms.Label();
             this.lblTxtSubtotal = new System.Windows.Forms.Label();
             this.dataGridViewButtonColumn1 = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.detail = new System.Windows.Forms.DataGridViewButtonColumn();
             this.pnlHeader.SuspendLayout();
             this.pnlHeaderBuscar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbBuscar)).BeginInit();
@@ -315,9 +316,9 @@
             this.mstMenu.Dock = System.Windows.Forms.DockStyle.None;
             this.mstMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.stmiOpciones});
-            this.mstMenu.Location = new System.Drawing.Point(637, 9);
+            this.mstMenu.Location = new System.Drawing.Point(517, 9);
             this.mstMenu.Name = "mstMenu";
-            this.mstMenu.Size = new System.Drawing.Size(43, 31);
+            this.mstMenu.Size = new System.Drawing.Size(163, 31);
             this.mstMenu.TabIndex = 0;
             this.mstMenu.Text = "menuStrip1";
             // 
@@ -326,7 +327,8 @@
             this.stmiOpciones.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
             this.stmiOpciones.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsmiInformacion,
-            this.registrarPeriodosToolStripMenuItem});
+            this.registrarPeriodosToolStripMenuItem,
+            this.ajusteDeReciboToolStripMenuItem});
             this.stmiOpciones.Font = new System.Drawing.Font("Segoe UI", 12F);
             this.stmiOpciones.ForeColor = System.Drawing.Color.DimGray;
             this.stmiOpciones.Image = global::SOAPAP.Properties.Resources.config_blanco;
@@ -368,6 +370,15 @@
             this.registrarPeriodosToolStripMenuItem.Text = "Registrar Periodos";
             this.registrarPeriodosToolStripMenuItem.Visible = false;
             this.registrarPeriodosToolStripMenuItem.Click += new System.EventHandler(this.registrarPeriodosToolStripMenuItem_Click);
+            // 
+            // ajusteDeReciboToolStripMenuItem
+            // 
+            this.ajusteDeReciboToolStripMenuItem.ForeColor = System.Drawing.Color.DimGray;
+            this.ajusteDeReciboToolStripMenuItem.Name = "ajusteDeReciboToolStripMenuItem";
+            this.ajusteDeReciboToolStripMenuItem.Size = new System.Drawing.Size(207, 26);
+            this.ajusteDeReciboToolStripMenuItem.Text = "Ajuste de Recibo";
+            this.ajusteDeReciboToolStripMenuItem.Visible = false;
+            this.ajusteDeReciboToolStripMenuItem.Click += new System.EventHandler(this.ajusteDeReciboToolStripMenuItem_Click);
             // 
             // pbBG
             // 
@@ -1407,15 +1418,6 @@
             this.Id.Name = "Id";
             this.Id.Visible = false;
             // 
-            // detail
-            // 
-            this.detail.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.detail.FillWeight = 50.76143F;
-            this.detail.HeaderText = "";
-            this.detail.Name = "detail";
-            this.detail.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.detail.Width = 30;
-            // 
             // Select
             // 
             this.Select.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
@@ -1687,6 +1689,15 @@
             this.dataGridViewButtonColumn1.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.dataGridViewButtonColumn1.Width = 30;
             // 
+            // detail
+            // 
+            this.detail.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.detail.FillWeight = 50.76143F;
+            this.detail.HeaderText = "";
+            this.detail.Name = "detail";
+            this.detail.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.detail.Width = 30;
+            // 
             // Cobro
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1892,5 +1903,6 @@
         private System.Windows.Forms.TableLayoutPanel layoutAnual;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel13;
         private System.Windows.Forms.Button btnAnuall;
+        private System.Windows.Forms.ToolStripMenuItem ajusteDeReciboToolStripMenuItem;
     }
 }

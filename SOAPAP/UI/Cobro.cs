@@ -8,6 +8,7 @@ using SOAPAP.Enums;
 using SOAPAP.Model;
 using SOAPAP.Services;
 using SOAPAP.UI;
+using SOAPAP.UI.Condonations;
 using SOAPAP.UI.Descuentos;
 using SOAPAP.UI.FacturacionAnticipada;
 using System;
@@ -95,9 +96,10 @@ namespace SOAPAP.UI
             tableLayoutPanel3.RowStyles[tableLayoutPanel3.RowCount - 1] = new RowStyle(SizeType.Percent, 0);
             tableLayoutPanel3.Size = new Size(344, 350);
 
-
-          
-
+            if (Variables.LoginModel.RolName[0] == "Supervisor" || Variables.LoginModel.RolName[0] == "Supervisor")
+            {
+                ajusteDeReciboToolStripMenuItem.Visible = true;
+            }
         }
 
         private void pbBuscar_Click(object sender, EventArgs e)
@@ -708,9 +710,9 @@ namespace SOAPAP.UI
 
                                         if (!Variables.Configuration.IsMunicipal)
                                         {
-
+                                            var UltimaConvenio = Variables.Agreement.PartialPayments.LastOrDefault();
                                             //Si es convenio no debe decirle que puede dar pagos anticipados
-                                            if (Variables.Agreement.PartialPayments != null && Variables.Agreement.PartialPayments.Count > 0)
+                                            if (Variables.Agreement.PartialPayments != null && Variables.Agreement.PartialPayments.Count > 0 && UltimaConvenio.Status == "COV01")
                                             {
                                                 mensaje = new MessageBoxForm("Cuenta sin deuda y con convenio", "La cuenta proporcionada no tiene adeudo y tiene un convenio vigente.", TypeIcon.Icon.Info);
                                                 mensaje.ShowDialog();
@@ -1605,6 +1607,23 @@ namespace SOAPAP.UI
                 ObtenerInformacion();
             }
 
+        }
+
+        //Opcion de Ajuste de recibo.
+        private void ajusteDeReciboToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            decimal amount = Convert.ToDecimal((System.Text.RegularExpressions.Regex.Replace(lblSubtotal.Text, @"[^\d.]", "")));
+            if (orderSale)
+            {
+                Adjusment discount = new Adjusment(amount, orders);
+                discount.ShowDialog(this);
+            }
+            else
+            {
+                Adjusment discount = new Adjusment(amount, tmpFiltros);
+                discount.ShowDialog(this);
+            }
+            ObtenerInformacion();
         }
     }
 

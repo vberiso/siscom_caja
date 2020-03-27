@@ -13,7 +13,7 @@ namespace SOAPAP
         public int name { set; get; }
         public bool isVariable{ set; get; }
         public int timesFactor { set; get; }
-        public int accountNumber { set; get; }
+        public string accountNumber { set; get; }
         public bool haveTax { set; get; }
         public bool isActive { set; get; }
         public double amount { set; get; }

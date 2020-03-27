@@ -99,18 +99,20 @@ namespace SOAPAP.UI.FactPasada
                 {
                     mensaje = new MessageBoxForm("Error", _resulTransaction.Split(':')[1].Replace("}", ""), TypeIcon.Icon.Cancel);
                     result = mensaje.ShowDialog();
-                }
+                    lblResultado.Text = "";
+                }               
                 else
-                {
+                {                    
                     List<SOAPAP.Model.TaxReceipt> lstTaxR = JsonConvert.DeserializeObject<List<SOAPAP.Model.TaxReceipt>>(_resulTransaction);
 
-                    if (lstTaxR == null)
+                    if (lstTaxR == null || lstTaxR.Count == 0)
                     {
                         mensaje = new MessageBoxForm("Sin Operaciones", "No se han encontrado movimientos para esta terminal", TypeIcon.Icon.Warning);
                         result = mensaje.ShowDialog();
+                        lblResultado.Text = "";
                     }
 
-                    if (lstTaxR != null)
+                    if (lstTaxR != null && lstTaxR.Count > 0)
                     {
                         //Se genera la carpeta de descargas
                         string path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\FacturasDescargadas";
@@ -120,7 +122,7 @@ namespace SOAPAP.UI.FactPasada
                             di = Directory.CreateDirectory(path);
                         }
                         //Se genera la carpeta del usuario que realizo el cobro de la factura.
-                        path += "\\" + ((DataComboBox)itemsOpe).value;
+                        path += "\\" + ((DataComboBox)itemsOpe).value + "_" + dtpFecha.Value.ToString("dd-MM-yyyy") + "al" + dtFechaFin.Value.ToString("dd-MM-yyyy");
                         if (!Directory.Exists(path))
                         {
                             di = Directory.CreateDirectory(path);
@@ -157,11 +159,11 @@ namespace SOAPAP.UI.FactPasada
                         }
                         lblResultado.Text = "CFDIs descargados: " + Count;                        
                     }
-                    else
-                    {
-                        mensaje = new MessageBoxForm(Variables.titleprincipal, "Xml no disponible, posiblemente este pago no este facturado para mayor información contactarse con el administrador del sistema.", TypeIcon.Icon.Cancel);
-                        result = mensaje.ShowDialog();
-                    }
+                    //else
+                    //{
+                    //    mensaje = new MessageBoxForm(Variables.titleprincipal, "Xml no disponible, posiblemente este pago no este facturado para mayor información contactarse con el administrador del sistema.", TypeIcon.Icon.Cancel);
+                    //    result = mensaje.ShowDialog();
+                    //}
                 }
             }
             catch (Exception ex)
