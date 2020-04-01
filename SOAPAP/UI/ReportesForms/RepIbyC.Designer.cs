@@ -57,6 +57,7 @@
             this.pnlHRigth = new System.Windows.Forms.Panel();
             this.oanel = new System.Windows.Forms.Panel();
             this.PanelPredialLimpia = new System.Windows.Forms.Panel();
+            this.radioButton1 = new System.Windows.Forms.RadioButton();
             this.RadioLimpia = new System.Windows.Forms.RadioButton();
             this.RadioPredial = new System.Windows.Forms.RadioButton();
             this.radioTodo = new System.Windows.Forms.RadioButton();
@@ -68,6 +69,7 @@
             this.lblTitulo = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.pgcCollection = new DevExpress.XtraPivotGrid.PivotGridControl();
+            this.dataCollectionBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.pgfDescripcion = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfSubtotal = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfDescuento = new DevExpress.XtraPivotGrid.PivotGridField();
@@ -86,8 +88,6 @@
             this.pgfCliente = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfDivision = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfMotivo = new DevExpress.XtraPivotGrid.PivotGridField();
-            this.radioButton1 = new System.Windows.Forms.RadioButton();
-            this.dataCollectionBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.pnlHeader.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -116,7 +116,7 @@
             this.pnlHeader.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlHeader.Location = new System.Drawing.Point(0, 0);
             this.pnlHeader.Name = "pnlHeader";
-            this.pnlHeader.Size = new System.Drawing.Size(891, 124);
+            this.pnlHeader.Size = new System.Drawing.Size(1098, 124);
             this.pnlHeader.TabIndex = 49;
             // 
             // tableLayoutPanel2
@@ -131,7 +131,7 @@
             this.tableLayoutPanel2.Controls.Add(this.dtpFechaFin, 1, 1);
             this.tableLayoutPanel2.Controls.Add(this.label2, 0, 0);
             this.tableLayoutPanel2.Controls.Add(this.dtpFechaIni, 0, 1);
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(224, 64);
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(328, 64);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 2;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
@@ -188,7 +188,7 @@
             this.tableLayoutPanel1.Controls.Add(this.chcbxOficina, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.label6, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.label4, 1, 0);
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(225, 8);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(329, 8);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 2;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
@@ -244,7 +244,7 @@
             this.pcbIncomeByConcept.BackColor = System.Drawing.Color.Transparent;
             this.pcbIncomeByConcept.Image = global::SOAPAP.Properties.Resources.bg;
             this.pcbIncomeByConcept.InitialImage = global::SOAPAP.Properties.Resources.bg;
-            this.pcbIncomeByConcept.Location = new System.Drawing.Point(201, 63);
+            this.pcbIncomeByConcept.Location = new System.Drawing.Point(305, 63);
             this.pcbIncomeByConcept.Name = "pcbIncomeByConcept";
             this.pcbIncomeByConcept.Size = new System.Drawing.Size(441, 51);
             this.pcbIncomeByConcept.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -257,7 +257,7 @@
             this.pbBG.BackColor = System.Drawing.Color.Transparent;
             this.pbBG.Image = global::SOAPAP.Properties.Resources.bg;
             this.pbBG.InitialImage = global::SOAPAP.Properties.Resources.bg;
-            this.pbBG.Location = new System.Drawing.Point(201, 7);
+            this.pbBG.Location = new System.Drawing.Point(305, 7);
             this.pbBG.Name = "pbBG";
             this.pbBG.Size = new System.Drawing.Size(441, 50);
             this.pbBG.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -268,7 +268,7 @@
             // 
             this.pnlHRigth.Controls.Add(this.oanel);
             this.pnlHRigth.Dock = System.Windows.Forms.DockStyle.Right;
-            this.pnlHRigth.Location = new System.Drawing.Point(483, 0);
+            this.pnlHRigth.Location = new System.Drawing.Point(690, 0);
             this.pnlHRigth.Name = "pnlHRigth";
             this.pnlHRigth.Size = new System.Drawing.Size(408, 124);
             this.pnlHRigth.TabIndex = 44;
@@ -294,6 +294,18 @@
             this.PanelPredialLimpia.Name = "PanelPredialLimpia";
             this.PanelPredialLimpia.Size = new System.Drawing.Size(180, 124);
             this.PanelPredialLimpia.TabIndex = 60;
+            // 
+            // radioButton1
+            // 
+            this.radioButton1.AutoSize = true;
+            this.radioButton1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.radioButton1.Location = new System.Drawing.Point(4, 96);
+            this.radioButton1.Name = "radioButton1";
+            this.radioButton1.Size = new System.Drawing.Size(134, 20);
+            this.radioButton1.TabIndex = 60;
+            this.radioButton1.Text = "Const. No adeudo";
+            this.radioButton1.UseVisualStyleBackColor = true;
+            this.radioButton1.CheckedChanged += new System.EventHandler(this.RadioButton1_CheckedChanged);
             // 
             // RadioLimpia
             // 
@@ -381,7 +393,7 @@
             this.pnlHLeft.Controls.Add(this.pictureBox1);
             this.pnlHLeft.Location = new System.Drawing.Point(0, 0);
             this.pnlHLeft.Name = "pnlHLeft";
-            this.pnlHLeft.Size = new System.Drawing.Size(176, 144);
+            this.pnlHLeft.Size = new System.Drawing.Size(383, 144);
             this.pnlHLeft.TabIndex = 44;
             // 
             // label7
@@ -474,8 +486,12 @@
             this.pgcCollection.Location = new System.Drawing.Point(0, 121);
             this.pgcCollection.Name = "pgcCollection";
             this.pgcCollection.OptionsData.DataProcessingEngine = DevExpress.XtraPivotGrid.PivotDataProcessingEngine.LegacyOptimized;
-            this.pgcCollection.Size = new System.Drawing.Size(891, 298);
+            this.pgcCollection.Size = new System.Drawing.Size(1098, 298);
             this.pgcCollection.TabIndex = 50;
+            // 
+            // dataCollectionBindingSource
+            // 
+            this.dataCollectionBindingSource.DataSource = typeof(SOAPAP.Reportes.DataCollection);
             // 
             // pgfDescripcion
             // 
@@ -613,27 +629,11 @@
             this.pgfMotivo.FieldName = "MotivoDescuento";
             this.pgfMotivo.Name = "pgfMotivo";
             // 
-            // radioButton1
-            // 
-            this.radioButton1.AutoSize = true;
-            this.radioButton1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radioButton1.Location = new System.Drawing.Point(4, 96);
-            this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(134, 20);
-            this.radioButton1.TabIndex = 60;
-            this.radioButton1.Text = "Const. No adeudo";
-            this.radioButton1.UseVisualStyleBackColor = true;
-            this.radioButton1.CheckedChanged += new System.EventHandler(this.RadioButton1_CheckedChanged);
-            // 
-            // dataCollectionBindingSource
-            // 
-            this.dataCollectionBindingSource.DataSource = typeof(SOAPAP.Reportes.DataCollection);
-            // 
             // RepIbyC
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(891, 450);
+            this.ClientSize = new System.Drawing.Size(1098, 450);
             this.Controls.Add(this.pgcCollection);
             this.Controls.Add(this.pnlHeader);
             this.Name = "RepIbyC";

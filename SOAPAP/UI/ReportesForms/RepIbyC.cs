@@ -706,12 +706,12 @@ namespace SOAPAP.UI.ReportesForms
         {
             if (predialLimpia == 2)
             {
-                lstData = lstData.Where(x => x.type != "PAY02" && x.code_concept == "1" || x.code_concept == "3").ToList();
+                lstData = lstData.Where(x => x.type != "PAY02" && x.code_concept == "1" || x.code_concept == "3" || x.code_concept == "6" || x.code_concept == "7" || x.code_concept == "8" || x.code_concept == "9").ToList();
 
             }
             else if (predialLimpia == 3)
             {
-                lstData = lstData.Where(x => x.type != "PAY02" && x.code_concept == "2" || x.code_concept == "5").ToList();
+                lstData = lstData.Where(x => x.type != "PAY02" && x.code_concept == "2" || x.code_concept == "5" || x.code_concept == "11" || x.code_concept == "12" || x.code_concept == "13").ToList();
             }
             else if (predialLimpia == 4)
             {
