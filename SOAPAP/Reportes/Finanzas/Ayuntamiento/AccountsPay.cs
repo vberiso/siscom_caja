@@ -13,5 +13,7 @@ namespace SOAPAP.Reportes.Finanzas.Ayuntamiento
         public int until_date { get; set; }
         public DateTime payment_date { get; set; }
 
+        public int mes { get; set; }
+
     }
 }

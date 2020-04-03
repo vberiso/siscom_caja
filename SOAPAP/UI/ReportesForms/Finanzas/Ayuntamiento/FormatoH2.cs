@@ -100,7 +100,7 @@ namespace SOAPAP.UI.ReportesForms.Finanzas.Ayuntamiento
                 dateEnd = Convert.ToDateTime("01-" + (int.Parse(mes) + 1) + "-" + year);
             }
             List<SOAPAP.Reportes.Finanzas.Ayuntamiento.AccountsPay> Periods;
-            Periods = OData.Where(x => x.payment_date >= dateStart && x.payment_date <= dateEnd).ToList();
+            Periods = OData.Where(x => x.payment_date >= dateStart && x.payment_date < dateEnd).ToList();
             if (!IsCurrentMonth)
             {
 
@@ -109,11 +109,11 @@ namespace SOAPAP.UI.ReportesForms.Finanzas.Ayuntamiento
             }
 
             //Periods = Periods.Where(x => x.from_date <= int.Parse(year)+1).ToList();
-            var Distict = Periods.Select(x => x.id_agreement).Distinct().ToList();
+            var Distict = Periods.Select(x => (x.id_agreement , x.mes)).Distinct().ToList();
             Distict.ForEach(x =>
             {
-                var Actual = Periods.Where(c => c.id_agreement == x && c.from_date >= int.Parse(year)).FirstOrDefault();
-                var Anteriores = Periods.Where(c => c.id_agreement == x && c.from_date < int.Parse(year)).FirstOrDefault();
+                var Actual = Periods.Where(c => c.id_agreement == x.id_agreement && c.from_date >= int.Parse(year)).FirstOrDefault();
+                var Anteriores = Periods.Where(c => c.id_agreement == x.id_agreement && c.from_date < int.Parse(year)).FirstOrDefault();
                 if (Actual != null && Anteriores == null)
                 {
                     TotalAc = TotalAc + 1;
@@ -175,7 +175,7 @@ namespace SOAPAP.UI.ReportesForms.Finanzas.Ayuntamiento
             label23.Text = "NO. DE CUENTAS QUE REALIZARON ÚNICAMENTE PAGOS DE EJERCICIOS ANTERIORES " + year;
             label25.Text = "NO. DE CUENTAS QUE REALIZARON TANTO PAGOS DE " + year + " Y ANTERIORES A " + year;
 
-            if (int.Parse( year) == 2019)
+            if (int.Parse( year) >= 2019)
             {
 
                 var EneroActual = JsonConvert.DeserializeObject<List<object>>(JsonConvert.SerializeObject(Odata.Last()));
@@ -185,7 +185,8 @@ namespace SOAPAP.UI.ReportesForms.Finanzas.Ayuntamiento
             }
             else
             {
-                SetDataVariablesA(Odata.First(), false, mes, year);
+                SetDataVariablesA(Odata.First(), true, mes, year);
+                // SetDataVariablesA(Odata.First(), false, mes, year);
             }
 
 
@@ -384,7 +385,7 @@ namespace SOAPAP.UI.ReportesForms.Finanzas.Ayuntamiento
             builder.Append(@" </div>");
             builder.Append(@"</div>");
             // SetDataVariablesA(data, false, mes, year);
-            if (int.Parse(year) == 2019)
+            if (int.Parse(year) >= 2019)
             {
 
                 var EneroActual = JsonConvert.DeserializeObject<List<object>>(JsonConvert.SerializeObject(Odata.Last()));
