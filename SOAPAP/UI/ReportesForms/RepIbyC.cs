@@ -305,13 +305,25 @@ namespace SOAPAP.UI.ReportesForms
             DataReportes dRep = new DataReportes();
             dRep.FechaIni = dtpFechaIni.Value.ToString("yyyy-MM-dd");
             dRep.FechaFin = dtpFechaFin.Value.ToString("yyyy-MM-dd");
-            dRep.CajeroId = getUsersIDSelecionados();
-            if (string.IsNullOrEmpty(dRep.CajeroId))
+            string sp = "";
+            if (!checkLine.Checked)
             {
-                loading.Close();
-                return;
+                dRep.CajeroId = getUsersIDSelecionados();
+
+                if (string.IsNullOrEmpty(dRep.CajeroId))
+                {
+                    loading.Close();
+                    return;
+                }
+                dRep.Oficinas = getOficinasSeleccionadas();
             }
-            dRep.Oficinas = getOficinasSeleccionadas();
+            else
+            {
+                sp = "IncomeByConceptOnline";
+                dRep.Oficinas = "En Linea";
+                dRep.CajeroId = "edc58d0d-8c67-4daa-9a45-4f23e5fabe24";
+            }
+           
             if (string.IsNullOrEmpty(dRep.Oficinas))
             {
                 loading.Close();
@@ -344,7 +356,7 @@ namespace SOAPAP.UI.ReportesForms
             HttpContent content;
             json = JsonConvert.SerializeObject(dRep);
             content = new StringContent(json, Encoding.UTF8, "application/json");
-            var _resulTransaction = await Requests.SendURIAsync("/api/Reports/IncomeByConcept", HttpMethod.Post, Variables.LoginModel.Token, content);
+            var _resulTransaction = await Requests.SendURIAsync("/api/Reports/IncomeByConcept/"+sp, HttpMethod.Post, Variables.LoginModel.Token, content);
 
             //var _resulTransaction = await Requests.SendURIAsync("/api/Reports/IncomeFromBox", HttpMethod.Post, Variables.LoginModel.Token, content);
             if (_resulTransaction.Contains("error"))
