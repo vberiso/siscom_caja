@@ -71,6 +71,15 @@ namespace SOAPAP.UI.FactPasada
             {
                 lstCaj.Add(new DataComboBox() { keyString = Variables.LoginModel.User, value = Variables.LoginModel.FullName});
             }
+            if (Variables.Configuration.IsMunicipal)
+            {
+                checkPagos.Visible = false;
+
+            }
+            else
+            {
+                checkPagos.Visible = true;
+            }
             //Asignacion de combo cajeros.
             cbxUsuario.DataBindings.Clear();
             cbxUsuario.DataSource = null;
@@ -85,30 +94,38 @@ namespace SOAPAP.UI.FactPasada
             {
                 loading = new Loading();
                 loading.Show(this);
-
+                string endpoint = "FromUserInDay";
                 dgvMovimientos.DataSource = null;                
                 //Operadores seleccionados del combo de cajeros
                 var itemsOpe = cbxUsuario.SelectedItem;
                 string itemSeleccionado = "";
-                if (Variables.LoginModel.RolName[0] == "Supervisor")
+                if (!checkPagos.Checked)
                 {
-                    ////Se obtiene el cajero para filtrar la consulta
-                    if (itemsOpe == null)
+                    if (Variables.LoginModel.RolName[0] == "Supervisor")
                     {
-                        itemSeleccionado = "";
-                        mensaje = new MessageBoxForm("Advertencia: ", "Debe seleccionar un cajero.", TypeIcon.Icon.Cancel);
-                        result = mensaje.ShowDialog();
+                        ////Se obtiene el cajero para filtrar la consulta
+                        if (itemsOpe == null)
+                        {
+                            itemSeleccionado = "";
+                            mensaje = new MessageBoxForm("Advertencia: ", "Debe seleccionar un cajero.", TypeIcon.Icon.Cancel);
+                            result = mensaje.ShowDialog();
+                        }
+                        else
+                        {
+                            itemSeleccionado = ((DataComboBox)itemsOpe).keyString;
+                        }
                     }
                     else
                     {
-                        itemSeleccionado = ((DataComboBox)itemsOpe).keyString;                        
+                        itemSeleccionado = Variables.LoginModel.User;
                     }
                 }
                 else
                 {
-                    itemSeleccionado = Variables.LoginModel.User;
+                    itemSeleccionado = "edc58d0d-8c67-4daa-9a45-4f23e5fabe24";
+                    endpoint = "FromUserInDayEnlinea";
                 }
-                var _resulTransaction = await Requests.SendURIAsync(string.Format("/api/Transaction/FromUserInDay/{0}/{1}", dtpFecha.Value.ToString("yyyy-MM-dd"), itemSeleccionado), HttpMethod.Get, Variables.LoginModel.Token);
+                var _resulTransaction = await Requests.SendURIAsync(string.Format("/api/Transaction/"+ endpoint + "/{0}/{1}", dtpFecha.Value.ToString("yyyy-MM-dd"), itemSeleccionado), HttpMethod.Get, Variables.LoginModel.Token);
                 
                 if (_resulTransaction.Contains("error"))
                 {

@@ -370,7 +370,7 @@ namespace SOAPAP.UI.ReportesForms.Finanzas.Agua.Formatos
             data = JsonConvert.SerializeObject(JdDta["data"]);
             List<SOAPAP.Reportes.Finanzas.Formato2> OData = JsonConvert.DeserializeObject<List<SOAPAP.Reportes.Finanzas.Formato2>>(data.ToString());
             //datos para uso domestico
-            TUsuarios = OData.Where(x => x.uso == "HA" ).ToList().Count;
+            TUsuarios = OData.Where(x => x.uso == "HA"   ).ToList().Count;
             TTomas = OData.Where(x => x.uso == "HA" && x.type_agreement == "AGR01" ).ToList().Count;
             TImporte = OData.Where(x => x.uso == "HA" ).ToList().Sum(x => x.importe);
             GTU = totalConMedidorU;

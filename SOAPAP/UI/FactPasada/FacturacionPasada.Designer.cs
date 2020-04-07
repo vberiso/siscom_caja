@@ -30,6 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             this.pnlHeader = new System.Windows.Forms.Panel();
+            this.btnActualizaCancelados = new System.Windows.Forms.Button();
             this.tlpUsuario = new System.Windows.Forms.TableLayoutPanel();
             this.cbxUsuario = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -123,7 +124,7 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.lblSucursal = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.btnActualizaCancelados = new System.Windows.Forms.Button();
+            this.checkPagos = new System.Windows.Forms.CheckBox();
             this.pnlHeader.SuspendLayout();
             this.tlpUsuario.SuspendLayout();
             this.tlpFecha.SuspendLayout();
@@ -143,6 +144,7 @@
             // pnlHeader
             // 
             this.pnlHeader.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(3)))), ((int)(((byte)(155)))), ((int)(((byte)(229)))));
+            this.pnlHeader.Controls.Add(this.checkPagos);
             this.pnlHeader.Controls.Add(this.btnActualizaCancelados);
             this.pnlHeader.Controls.Add(this.tlpUsuario);
             this.pnlHeader.Controls.Add(this.panel1);
@@ -157,6 +159,18 @@
             this.pnlHeader.Name = "pnlHeader";
             this.pnlHeader.Size = new System.Drawing.Size(1055, 77);
             this.pnlHeader.TabIndex = 50;
+            // 
+            // btnActualizaCancelados
+            // 
+            this.btnActualizaCancelados.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnActualizaCancelados.Location = new System.Drawing.Point(803, 9);
+            this.btnActualizaCancelados.Name = "btnActualizaCancelados";
+            this.btnActualizaCancelados.Size = new System.Drawing.Size(75, 35);
+            this.btnActualizaCancelados.TabIndex = 55;
+            this.btnActualizaCancelados.Text = "Act Canceled";
+            this.btnActualizaCancelados.UseVisualStyleBackColor = true;
+            this.btnActualizaCancelados.Visible = false;
+            this.btnActualizaCancelados.Click += new System.EventHandler(this.btnActualizaCancelados_Click);
             // 
             // tlpUsuario
             // 
@@ -1004,17 +1018,15 @@
             this.label3.TabIndex = 5;
             this.label3.Text = "Sucursal:";
             // 
-            // btnActualizaCancelados
+            // checkPagos
             // 
-            this.btnActualizaCancelados.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnActualizaCancelados.Location = new System.Drawing.Point(803, 9);
-            this.btnActualizaCancelados.Name = "btnActualizaCancelados";
-            this.btnActualizaCancelados.Size = new System.Drawing.Size(75, 35);
-            this.btnActualizaCancelados.TabIndex = 55;
-            this.btnActualizaCancelados.Text = "Act Canceled";
-            this.btnActualizaCancelados.UseVisualStyleBackColor = true;
-            this.btnActualizaCancelados.Visible = false;
-            this.btnActualizaCancelados.Click += new System.EventHandler(this.btnActualizaCancelados_Click);
+            this.checkPagos.AutoSize = true;
+            this.checkPagos.Location = new System.Drawing.Point(190, 27);
+            this.checkPagos.Name = "checkPagos";
+            this.checkPagos.Size = new System.Drawing.Size(98, 17);
+            this.checkPagos.TabIndex = 56;
+            this.checkPagos.Text = "Pagos en línea";
+            this.checkPagos.UseVisualStyleBackColor = true;
             // 
             // FacturacionPasada
             // 
@@ -1149,5 +1161,6 @@
         private System.Windows.Forms.DataGridViewButtonColumn Enviar;
         private System.Windows.Forms.DataGridViewButtonColumn Descargar;
         private System.Windows.Forms.Button btnActualizaCancelados;
+        private System.Windows.Forms.CheckBox checkPagos;
     }
 }

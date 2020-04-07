@@ -41,11 +41,15 @@ namespace SOAPAP.UI.ReportesForms
         {
             if (Variables.Configuration.IsMunicipal)
             {
+                checkLine.Visible = false;
                 PanelPredialLimpia.Visible = true;
+                panelOnline.Visible = false;
             }
             else
             {
+                checkLine.Visible = true;
                 PanelPredialLimpia.Visible = false;
+                panelOnline.Visible = true;
             }
 
             loading = new Loading();
@@ -168,79 +172,89 @@ namespace SOAPAP.UI.ReportesForms
             string itemSeleccionado = "";
             //Oficinas seleccionadas del combo de oficinas.
             var itemsOfi = chcbxOficina.Properties.Items.ToList();
-            string OfiSeleccionado = "";
-            if (Variables.LoginModel.RolName[0] == "Supervisor")
+            string OfiSeleccionado = "sp_IncomeByConcept";
+            string sp = "";
+            if (!checkLine.Checked)
             {
-                ////Se obtiene el cajero para filtrar la consulta
-                if (itemsOpe.Where(x => x.CheckState == CheckState.Checked).Count() == 0)
+                if (Variables.LoginModel.RolName[0] == "Supervisor")
                 {
-                    itemSeleccionado = "";
-                    mensaje = new MessageBoxForm("Advertencia: ", "Debe seleccionar un cajero.", TypeIcon.Icon.Cancel);
-                    result = mensaje.ShowDialog();
-                }
-                else
-                {
-                    foreach (var item in itemsOpe)
+                    ////Se obtiene el cajero para filtrar la consulta
+                    if (itemsOpe.Where(x => x.CheckState == CheckState.Checked).Count() == 0)
                     {
-                        if (item.CheckState == CheckState.Checked)
-                            itemSeleccionado = itemSeleccionado + item.Value + ",";
+                        itemSeleccionado = "";
+                        mensaje = new MessageBoxForm("Advertencia: ", "Debe seleccionar un cajero.", TypeIcon.Icon.Cancel);
+                        result = mensaje.ShowDialog();
                     }
-                    itemSeleccionado = itemSeleccionado.Substring(0, itemSeleccionado.Length - 1);
-                    dRep.CajeroId = itemSeleccionado;
-                }
+                    else
+                    {
+                        foreach (var item in itemsOpe)
+                        {
+                            if (item.CheckState == CheckState.Checked)
+                                itemSeleccionado = itemSeleccionado + item.Value + ",";
+                        }
+                        itemSeleccionado = itemSeleccionado.Substring(0, itemSeleccionado.Length - 1);
+                        dRep.CajeroId = itemSeleccionado;
+                    }
 
-                ////Se la oficina para la consulta.
-                if (itemsOfi.Where(x => x.CheckState == CheckState.Checked).Count() == 0)
-                {
-                    OfiSeleccionado = "";
-                    mensaje = new MessageBoxForm("Advertencia: ", "Debe seleccionar una oficina.", TypeIcon.Icon.Cancel);
-                    result = mensaje.ShowDialog();
+                    ////Se la oficina para la consulta.
+                    if (itemsOfi.Where(x => x.CheckState == CheckState.Checked).Count() == 0)
+                    {
+                        OfiSeleccionado = "";
+                        mensaje = new MessageBoxForm("Advertencia: ", "Debe seleccionar una oficina.", TypeIcon.Icon.Cancel);
+                        result = mensaje.ShowDialog();
+                    }
+                    else
+                    {
+                        foreach (var item in itemsOfi)
+                        {
+                            if (item.CheckState == CheckState.Checked)
+                                OfiSeleccionado = OfiSeleccionado + item.Value + ",";
+                        }
+                        OfiSeleccionado = OfiSeleccionado.Substring(0, OfiSeleccionado.Length - 1);
+                        dRep.Oficinas = OfiSeleccionado;
+                    }
                 }
                 else
                 {
-                    foreach (var item in itemsOfi)
+                    ////Se obtiene el cajero para filtrar la consulta
+                    if (itemsOpe.Where(x => x.CheckState == CheckState.Checked).Count() == 0)
                     {
-                        if (item.CheckState == CheckState.Checked)
-                            OfiSeleccionado = OfiSeleccionado + item.Value + ",";
+                        itemSeleccionado = "";
+                        mensaje = new MessageBoxForm("Advertencia: ", "Debe seleccionar un cajero.", TypeIcon.Icon.Cancel);
+                        result = mensaje.ShowDialog();
                     }
-                    OfiSeleccionado = OfiSeleccionado.Substring(0, OfiSeleccionado.Length - 1);
-                    dRep.Oficinas = OfiSeleccionado;
+                    else
+                    {
+                        itemSeleccionado = itemsOpe.First().Value.ToString();
+                        dRep.CajeroId = itemSeleccionado;
+                    }
+
+                    ////Se la oficina para la consulta.
+                    if (itemsOfi.Where(x => x.CheckState == CheckState.Checked).Count() == 0)
+                    {
+                        OfiSeleccionado = "";
+                        mensaje = new MessageBoxForm("Advertencia: ", "Debe seleccionar una oficina.", TypeIcon.Icon.Cancel);
+                        result = mensaje.ShowDialog();
+                    }
+                    else
+                    {
+                        OfiSeleccionado = itemsOfi.First().Value.ToString();
+                        dRep.Oficinas = OfiSeleccionado;
+                    }
                 }
             }
             else
             {
-                ////Se obtiene el cajero para filtrar la consulta
-                if (itemsOpe.Where(x => x.CheckState == CheckState.Checked).Count() == 0)
-                {
-                    itemSeleccionado = "";
-                    mensaje = new MessageBoxForm("Advertencia: ", "Debe seleccionar un cajero.", TypeIcon.Icon.Cancel);
-                    result = mensaje.ShowDialog();
-                }
-                else
-                {
-                    itemSeleccionado = itemsOpe.First().Value.ToString();
-                    dRep.CajeroId = itemSeleccionado;
-                }
-
-                ////Se la oficina para la consulta.
-                if (itemsOfi.Where(x => x.CheckState == CheckState.Checked).Count() == 0)
-                {
-                    OfiSeleccionado = "";
-                    mensaje = new MessageBoxForm("Advertencia: ", "Debe seleccionar una oficina.", TypeIcon.Icon.Cancel);
-                    result = mensaje.ShowDialog();
-                }
-                else
-                {
-                    OfiSeleccionado = itemsOfi.First().Value.ToString();
-                    dRep.Oficinas = OfiSeleccionado;
-                }
+                sp = "IncomeByConceptOnline";
+                dRep.Oficinas = "En Linea";
+                dRep.CajeroId = "edc58d0d-8c67-4daa-9a45-4f23e5fabe24";
             }
 
             HttpContent content;
             json = JsonConvert.SerializeObject(dRep);
             content = new StringContent(json, Encoding.UTF8, "application/json");
 
-            var _resulTransaction = await Requests.SendURIAsync("/api/Reports/IncomeByConcept", HttpMethod.Post, Variables.LoginModel.Token, content);
+            var _resulTransaction = await Requests.SendURIAsync("/api/Reports/IncomeByConcept/"+sp, HttpMethod.Post, Variables.LoginModel.Token, content);
 
             if (_resulTransaction.Contains("error:"))
             {
@@ -924,6 +938,9 @@ namespace SOAPAP.UI.ReportesForms
 
         }
 
-        
+        private void windowsUIButtonPanel1_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

@@ -69,7 +69,6 @@
             this.lblTitulo = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.pgcCollection = new DevExpress.XtraPivotGrid.PivotGridControl();
-            this.dataCollectionBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.pgfDescripcion = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfSubtotal = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfDescuento = new DevExpress.XtraPivotGrid.PivotGridField();
@@ -88,6 +87,9 @@
             this.pgfCliente = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfDivision = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfMotivo = new DevExpress.XtraPivotGrid.PivotGridField();
+            this.dataCollectionBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.checkLine = new System.Windows.Forms.CheckBox();
+            this.panelOnline = new System.Windows.Forms.Panel();
             this.pnlHeader.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -285,6 +287,7 @@
             // 
             // PanelPredialLimpia
             // 
+            this.PanelPredialLimpia.Controls.Add(this.panelOnline);
             this.PanelPredialLimpia.Controls.Add(this.radioButton1);
             this.PanelPredialLimpia.Controls.Add(this.RadioLimpia);
             this.PanelPredialLimpia.Controls.Add(this.RadioPredial);
@@ -381,11 +384,13 @@
             this.windowsUIButtonPanel1.TabIndex = 56;
             this.windowsUIButtonPanel1.Text = "windowsUIButtonPanel1";
             this.windowsUIButtonPanel1.ButtonClick += new DevExpress.XtraBars.Docking2010.ButtonEventHandler(this.windowsUIButtonPanel1_ButtonClick);
+            this.windowsUIButtonPanel1.Click += new System.EventHandler(this.windowsUIButtonPanel1_Click);
             // 
             // pnlHLeft
             // 
             this.pnlHLeft.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.pnlHLeft.Controls.Add(this.checkLine);
             this.pnlHLeft.Controls.Add(this.label7);
             this.pnlHLeft.Controls.Add(this.label8);
             this.pnlHLeft.Controls.Add(this.label1);
@@ -488,10 +493,6 @@
             this.pgcCollection.OptionsData.DataProcessingEngine = DevExpress.XtraPivotGrid.PivotDataProcessingEngine.LegacyOptimized;
             this.pgcCollection.Size = new System.Drawing.Size(1098, 298);
             this.pgcCollection.TabIndex = 50;
-            // 
-            // dataCollectionBindingSource
-            // 
-            this.dataCollectionBindingSource.DataSource = typeof(SOAPAP.Reportes.DataCollection);
             // 
             // pgfDescripcion
             // 
@@ -629,6 +630,28 @@
             this.pgfMotivo.FieldName = "MotivoDescuento";
             this.pgfMotivo.Name = "pgfMotivo";
             // 
+            // dataCollectionBindingSource
+            // 
+            this.dataCollectionBindingSource.DataSource = typeof(SOAPAP.Reportes.DataCollection);
+            // 
+            // checkLine
+            // 
+            this.checkLine.AutoSize = true;
+            this.checkLine.Location = new System.Drawing.Point(201, 50);
+            this.checkLine.Name = "checkLine";
+            this.checkLine.Size = new System.Drawing.Size(98, 17);
+            this.checkLine.TabIndex = 0;
+            this.checkLine.Text = "Pagos en línea";
+            this.checkLine.UseVisualStyleBackColor = true;
+            // 
+            // panelOnline
+            // 
+            this.panelOnline.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelOnline.Location = new System.Drawing.Point(0, 0);
+            this.panelOnline.Name = "panelOnline";
+            this.panelOnline.Size = new System.Drawing.Size(180, 124);
+            this.panelOnline.TabIndex = 61;
+            // 
             // RepIbyC
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -710,5 +733,7 @@
         private System.Windows.Forms.RadioButton radioTodo;
         private System.Windows.Forms.Panel PanelPredialLimpia;
         private System.Windows.Forms.RadioButton radioButton1;
+        private System.Windows.Forms.Panel panelOnline;
+        private System.Windows.Forms.CheckBox checkLine;
     }
 }
