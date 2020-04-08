@@ -172,8 +172,8 @@ namespace SOAPAP.UI.ReportesForms
             string itemSeleccionado = "";
             //Oficinas seleccionadas del combo de oficinas.
             var itemsOfi = chcbxOficina.Properties.Items.ToList();
-            string OfiSeleccionado = "sp_IncomeByConcept";
-            string sp = "";
+            string OfiSeleccionado = "";
+            string sp = "sp_IncomeByConcept";
             if (!checkLine.Checked)
             {
                 if (Variables.LoginModel.RolName[0] == "Supervisor")
