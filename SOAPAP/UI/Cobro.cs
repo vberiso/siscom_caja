@@ -484,7 +484,11 @@ namespace SOAPAP.UI
                             {
                                 if (Variables.OrderSale.OrderSaleDiscounts.Count > 0 && Variables.OrderSale.OrderSaleDiscounts.FirstOrDefault().DiscountPercentage > 0)
                                 {
-                                    mensaje = new MessageBoxForm("Aviso", "Se ha aplicado un descuento del: " + Variables.OrderSale.OrderSaleDiscounts.FirstOrDefault().DiscountPercentage + "%", TypeIcon.Icon.Info);
+                                    var concept = Variables.OrderSale.OrderSaleDetails.First();
+                                    mensaje = new MessageBoxForm("Aviso", $"Se ha aplicado un descuento del: " + Variables.OrderSale.OrderSaleDiscounts.FirstOrDefault().DiscountPercentage + "%" +
+                                        " únicamente al concepto: "+ concept.NameConcept +" con importe original de  " + string.Format(new CultureInfo("es-MX"), "{0:C2}", concept.UnitPrice * concept.Quantity)
+
+                                        , TypeIcon.Icon.Info);
                                     result = mensaje.ShowDialog();
                                 }
                             }
