@@ -1,4 +1,5 @@
-﻿using DevExpress.XtraBars.Docking2010;
+﻿using DevExpress.Office.Utils;
+using DevExpress.XtraBars.Docking2010;
 using Newtonsoft.Json;
 using SOAPAP.Enums;
 using SOAPAP.Reportes;
@@ -516,9 +517,12 @@ namespace SOAPAP.UI.ReportesForms
             builder.Append(@"<div style='font-family: \""Roboto\"", sans-serif; height: 100px;'>");
             builder.Append(@" <div  class='datos_conceptos'> ");
 
-            Ldata = Ldata.GroupBy(x => (x.AccountNumber, x.Division)).Select(
+            Ldata = Ldata.GroupBy(x => ( x.AccountNumber.Trim(), x.Division.Trim())).Select(
             e => new DataCollection()
             {
+                TipoPredio = e.First().TipoPredio,
+                Agrupado = e.First().Agrupado,
+                DESCRIPCION = e.First().DESCRIPCION,
                 AccountNumber = e.First().AccountNumber,
 
                 Division = e.First().Division,
@@ -527,13 +531,15 @@ namespace SOAPAP.UI.ReportesForms
                 TOTAL = e.Sum(x => x.TOTAL),
                
 
-            }).OrderBy(x => x.AccountNumber).ToList();
+            }).OrderBy(x => (x.AccountNumber, x.Division)).ToList();
 
            
          
                 builder.Append(@"<table  id='datos' style='width: 100%; font-size: 15px;'>");
                 builder.Append(@"<thead>");
                 
+                //builder.Append(@"<th style='width: 14.2%;'>AGRUPACIÓN</th>");
+                //builder.Append(@"<th style='width: 14.2%;'>TIPO PREDIO</th>");
                 builder.Append(@"<th style='width: 20%;'>NUMERO DE CUENTA</th>");
                 builder.Append(@"<th style='width: 20%;'>UNIDAD ADMINISTRATIVA</th>");
                 builder.Append(@"<th style='width: 20%;'>MONTO</th>");
@@ -544,11 +550,15 @@ namespace SOAPAP.UI.ReportesForms
                 Ldata.ForEach(x =>
                 {
 
+                    string descripcion = x.Division == "Predial" ? x.DESCRIPCION : x.Division;
 
-
+                    //string agrupado = x.Agrupado == "Corriente" ? "" : CultureInfo.CurrentCulture.TextInfo.ToTitleCase(x.Agrupado.ToLower());
+                    //string tipoPredio = x.TipoPredio == "SIN PREDIO" ? "" : CultureInfo.CurrentCulture.TextInfo.ToTitleCase(x.TipoPredio.ToLower())+" ";
                     builder.Append(@"<tr>");
-                    builder.Append(@"<td style='width: 20%;' class='left'>" + x.AccountNumber + " </td>");
-                    builder.Append(@"<td style='width: 20%;' class='left'>" + x.Division + " </td>");
+                    //builder.Append(@"<td style='width: 14.2%;' class='left'>" + x.Agrupado + " </td>");
+                    //builder.Append(@"<td style='width: 14.2%;' class='left'>" + x.TipoPredio + " </td>");
+                    builder.Append(@"<td style='width:20%;' class='left'>" + x.AccountNumber + " </td>");
+                    builder.Append($@"<td style='width: 20%;' class='left'>{descripcion.ToUpper()}  </td>");
                     builder.Append(@"<td style='width: 20%;' class='left'>" + string.Format(new CultureInfo("es-MX"), "{0:C2}",x.MONTO) + " </td>");
                     builder.Append(@"<td style='width: 20%;' class='left'>" + string.Format(new CultureInfo("es-MX"), "{0:C2}",x.DESCUENTO) + " </td>");
                     builder.Append(@"<td style='width: 20%;' class='left'>" + string.Format(new CultureInfo("es-MX"), "{0:C2}",x.TOTAL) + " </td>");
@@ -559,11 +569,11 @@ namespace SOAPAP.UI.ReportesForms
                 });
 
             builder.Append(@"<tr>");
-            builder.Append(@"<td style='width: 20%;' class='left' colspan='2'> </td>");
+            builder.Append(@"<td style='width: 14.2%;' class='left' colspan='2'> </td>");
    
-            builder.Append(@"<td style='width: 20%;' class='left'>" + string.Format(new CultureInfo("es-MX"), "{0:C2}", Ldata.Sum(x =>x.MONTO)) + " </td>");
-            builder.Append(@"<td style='width: 20%;' class='left'>" + string.Format(new CultureInfo("es-MX"), "{0:C2}", Ldata.Sum(x => x.DESCUENTO)) + " </td>");
-            builder.Append(@"<td style='width: 20%;' class='left'>" + string.Format(new CultureInfo("es-MX"), "{0:C2}", Ldata.Sum(x => x.TOTAL)) + " </td>");
+            builder.Append(@"<td style='width: 14.2%;' class='left'><b>" + string.Format(new CultureInfo("es-MX"), "{0:C2}", Ldata.Sum(x =>x.MONTO)) + "</b> </td>");
+            builder.Append(@"<td style='width: 14.2%;' class='left'><b>" + string.Format(new CultureInfo("es-MX"), "{0:C2}", Ldata.Sum(x => x.DESCUENTO)) + "</b> </td>");
+            builder.Append(@"<td style='width: 14.2%;' class='left'><b>" + string.Format(new CultureInfo("es-MX"), "{0:C2}", Ldata.Sum(x => x.TOTAL)) + "</b> </td>");
 
 
             builder.Append(@"</tr>");

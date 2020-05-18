@@ -17,6 +17,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Excel = Microsoft.Office.Interop.Excel;
 
 namespace SOAPAP.UI.ReportesForms
 {
@@ -954,5 +955,8 @@ namespace SOAPAP.UI.ReportesForms
         {
 
         }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {    }
     }
 }
