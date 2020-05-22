@@ -10,13 +10,14 @@ namespace SOAPAP.Model
     {
         public GroupType()
         {
-            Types = new HashSet<Type>();
+            Types = new HashSet<Types>();
         }
 
         public int Id { get; set; }
      
         public string Name { get; set; }
+        public string Observations { get; set; }
 
-        public ICollection<Type> Types { get; set; }
+        public ICollection<Types> Types { get; set; }
     }
 }

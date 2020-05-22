@@ -126,6 +126,7 @@
             this.panel6 = new System.Windows.Forms.Panel();
             this.dgvConceptosCobro = new System.Windows.Forms.DataGridView();
             this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.detail = new System.Windows.Forms.DataGridViewButtonColumn();
             this.Select = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.Type = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Description = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -149,7 +150,6 @@
             this.lblTxtIva = new System.Windows.Forms.Label();
             this.lblTxtSubtotal = new System.Windows.Forms.Label();
             this.dataGridViewButtonColumn1 = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.detail = new System.Windows.Forms.DataGridViewButtonColumn();
             this.pnlHeader.SuspendLayout();
             this.pnlHeaderBuscar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbBuscar)).BeginInit();
@@ -316,9 +316,9 @@
             this.mstMenu.Dock = System.Windows.Forms.DockStyle.None;
             this.mstMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.stmiOpciones});
-            this.mstMenu.Location = new System.Drawing.Point(517, 9);
+            this.mstMenu.Location = new System.Drawing.Point(637, 9);
             this.mstMenu.Name = "mstMenu";
-            this.mstMenu.Size = new System.Drawing.Size(163, 31);
+            this.mstMenu.Size = new System.Drawing.Size(43, 31);
             this.mstMenu.TabIndex = 0;
             this.mstMenu.Text = "menuStrip1";
             // 
@@ -1418,6 +1418,15 @@
             this.Id.Name = "Id";
             this.Id.Visible = false;
             // 
+            // detail
+            // 
+            this.detail.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.detail.FillWeight = 50.76143F;
+            this.detail.HeaderText = "";
+            this.detail.Name = "detail";
+            this.detail.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.detail.Width = 30;
+            // 
             // Select
             // 
             this.Select.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
@@ -1688,15 +1697,6 @@
             this.dataGridViewButtonColumn1.Name = "dataGridViewButtonColumn1";
             this.dataGridViewButtonColumn1.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.dataGridViewButtonColumn1.Width = 30;
-            // 
-            // detail
-            // 
-            this.detail.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.detail.FillWeight = 50.76143F;
-            this.detail.HeaderText = "";
-            this.detail.Name = "detail";
-            this.detail.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.detail.Width = 30;
             // 
             // Cobro
             // 

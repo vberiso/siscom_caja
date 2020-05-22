@@ -37,6 +37,7 @@ namespace SOAPAP.UI
         List<CollectConcepts> lCollectConcepts = null;
         List<String> Seleccion = new List<string>();
         //List<Model.Debt> tmpFiltros = null;
+        List<GroupType> groupTypes = new List<GroupType>();
         List<TypeService> TypeServices = new List<TypeService>();
         List<Model.Debt> tmpFiltros = null;
         bool ApplyMSI = false;
@@ -350,7 +351,11 @@ namespace SOAPAP.UI
                 });
             }
             else
-                Seleccion.Add(cmbTipos.SelectedValue.ToString());
+            {
+                Seleccion.AddRange(groupTypes.Where(t => t.Id == int.Parse(cmbTipos.SelectedValue.ToString())).Select(x => x.Id.ToString()).ToList() );
+            }
+            //else
+                //Seleccion.Add(cmbTipos.SelectedValue.ToString());
             SeleccionarDeuda(Search.Type.Cuenta);
         }
         #endregion
@@ -819,21 +824,50 @@ namespace SOAPAP.UI
             }
         }
 
-        private void ObtenerSeleccion()
+        private async void ObtenerSeleccion()
         {
-            TypeServices = Variables.Agreement.Debts.ToList()
-                                           .GroupBy(x => new { x.Type, x.DescriptionType })
-                                           .Select(g => new TypeService
-                                           {
-                                               Id = g.Key.Type,
-                                               Description = g.Key.DescriptionType
-                                           }).ToList();
+            ////Codigo Original
+            //TypeServices = Variables.Agreement.Debts.ToList()
+            //                               .GroupBy(x => new { x.Type, x.DescriptionType })
+            //                               .Select(g => new TypeService
+            //                               {
+            //                                   Id = g.Key.Type,
+            //                                   Description = g.Key.DescriptionType
+            //                               }).ToList();
 
-            TypeServices.Add(new TypeService()
+            //TypeServices.Add(new TypeService()
+            //{
+            //    Id = "0",
+            //    Description = "Todos"
+            //});
+
+            //TypeServices.ForEach(x =>
+            //{
+            //    Seleccion.Add(x.Id);
+            //});
+
+            //Nuevo codigo
+            var resultGTypes = await Requests.SendURIAsync(string.Format("/api/Type/ByToolCode/{0}", "Caja_Cobro_cbxTipos"), HttpMethod.Get, Variables.LoginModel.Token);            
+            if (resultGTypes.Contains("error\\"))
             {
-                Id = "0",
-                Description = "Todos"
-            });
+                TypeServices = new List<TypeService>();
+                TypeServices.Add(new TypeService()
+                {
+                    Id = "0",
+                    Description = "Todos"
+                });
+            }
+            else
+            {
+                groupTypes = JsonConvert.DeserializeObject<List<GroupType>>(resultGTypes);
+                TypeServices = groupTypes.Select(gt => new TypeService() { Id = gt.Id.ToString(), Description = gt.Name }).ToList();
+
+                TypeServices.Add(new TypeService()
+                {
+                    Id = "0",
+                    Description = "Todos"
+                });                
+            }
 
             TypeServices.ForEach(x =>
             {
@@ -880,7 +914,14 @@ namespace SOAPAP.UI
                 case Search.Type.Cuenta:
                     if (Variables.Agreement != null && Variables.Agreement.Debts != null && Variables.Agreement.Debts.Count > 0)
                     {
-                        tmpFiltros = Variables.Agreement.Debts.Where(x => Seleccion.Contains(x.Type)).ToList();
+                        //tmpFiltros = Variables.Agreement.Debts.Where(x => Seleccion.Contains(x.Type)).ToList();
+                        var tmpTipos = new List<Types>();
+                        var tmpGrupos = groupTypes.Where(x => Seleccion.Contains(x.Id.ToString())).ToList();                        
+                        foreach (var item in tmpGrupos)
+                        {
+                            tmpTipos.AddRange(item.Types);
+                        }
+                        tmpFiltros = Variables.Agreement.Debts.Where(x => tmpTipos.Distinct().ToList().Select(t => t.CodeName).Contains(x.Type)).ToList();                        
 
                         lCollectConcepts = tmpFiltros
                                             .Select(d => new CollectConcepts
