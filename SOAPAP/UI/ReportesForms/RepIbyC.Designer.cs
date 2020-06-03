@@ -57,18 +57,21 @@
             this.pnlHRigth = new System.Windows.Forms.Panel();
             this.oanel = new System.Windows.Forms.Panel();
             this.PanelPredialLimpia = new System.Windows.Forms.Panel();
+            this.panelOnline = new System.Windows.Forms.Panel();
             this.radioButton1 = new System.Windows.Forms.RadioButton();
             this.RadioLimpia = new System.Windows.Forms.RadioButton();
             this.RadioPredial = new System.Windows.Forms.RadioButton();
             this.radioTodo = new System.Windows.Forms.RadioButton();
             this.windowsUIButtonPanel1 = new DevExpress.XtraBars.Docking2010.WindowsUIButtonPanel();
             this.pnlHLeft = new System.Windows.Forms.Panel();
+            this.checkLine = new System.Windows.Forms.CheckBox();
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.lblTitulo = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.pgcCollection = new DevExpress.XtraPivotGrid.PivotGridControl();
+            this.dataCollectionBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.pgfDescripcion = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfSubtotal = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfDescuento = new DevExpress.XtraPivotGrid.PivotGridField();
@@ -87,9 +90,6 @@
             this.pgfCliente = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfDivision = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfMotivo = new DevExpress.XtraPivotGrid.PivotGridField();
-            this.dataCollectionBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.checkLine = new System.Windows.Forms.CheckBox();
-            this.panelOnline = new System.Windows.Forms.Panel();
             this.pnlHeader.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -117,8 +117,9 @@
             this.pnlHeader.Controls.Add(this.pnlHLeft);
             this.pnlHeader.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlHeader.Location = new System.Drawing.Point(0, 0);
+            this.pnlHeader.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.pnlHeader.Name = "pnlHeader";
-            this.pnlHeader.Size = new System.Drawing.Size(1098, 124);
+            this.pnlHeader.Size = new System.Drawing.Size(1464, 153);
             this.pnlHeader.TabIndex = 49;
             // 
             // tableLayoutPanel2
@@ -128,26 +129,27 @@
             this.tableLayoutPanel2.ColumnCount = 2;
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 54.38596F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 45.61404F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 175F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 233F));
             this.tableLayoutPanel2.Controls.Add(this.label3, 1, 0);
             this.tableLayoutPanel2.Controls.Add(this.dtpFechaFin, 1, 1);
             this.tableLayoutPanel2.Controls.Add(this.label2, 0, 0);
             this.tableLayoutPanel2.Controls.Add(this.dtpFechaIni, 0, 1);
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(328, 64);
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(437, 79);
+            this.tableLayoutPanel2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 2;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 27F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(394, 46);
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 33F));
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(525, 57);
             this.tableLayoutPanel2.TabIndex = 53;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(217, 3);
-            this.label3.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
+            this.label3.Location = new System.Drawing.Point(289, 4);
+            this.label3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(59, 13);
+            this.label3.Size = new System.Drawing.Size(77, 17);
             this.label3.TabIndex = 51;
             this.label3.Text = "Fecha final";
             // 
@@ -155,18 +157,19 @@
             // 
             this.dtpFechaFin.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.dtpFechaFin.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpFechaFin.Location = new System.Drawing.Point(221, 22);
+            this.dtpFechaFin.Location = new System.Drawing.Point(295, 28);
+            this.dtpFechaFin.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.dtpFechaFin.Name = "dtpFechaFin";
-            this.dtpFechaFin.Size = new System.Drawing.Size(166, 20);
+            this.dtpFechaFin.Size = new System.Drawing.Size(220, 22);
             this.dtpFechaFin.TabIndex = 49;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(3, 3);
-            this.label2.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
+            this.label2.Location = new System.Drawing.Point(4, 4);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(66, 13);
+            this.label2.Size = new System.Drawing.Size(86, 17);
             this.label2.TabIndex = 50;
             this.label2.Text = "Fecha inicial";
             // 
@@ -174,9 +177,10 @@
             // 
             this.dtpFechaIni.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.dtpFechaIni.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpFechaIni.Location = new System.Drawing.Point(12, 22);
+            this.dtpFechaIni.Location = new System.Drawing.Point(16, 28);
+            this.dtpFechaIni.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.dtpFechaIni.Name = "dtpFechaIni";
-            this.dtpFechaIni.Size = new System.Drawing.Size(190, 20);
+            this.dtpFechaIni.Size = new System.Drawing.Size(252, 22);
             this.dtpFechaIni.TabIndex = 48;
             // 
             // tableLayoutPanel1
@@ -190,53 +194,56 @@
             this.tableLayoutPanel1.Controls.Add(this.chcbxOficina, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.label6, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.label4, 1, 0);
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(329, 8);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(439, 10);
+            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 2;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 29F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(393, 45);
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 36F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(524, 55);
             this.tableLayoutPanel1.TabIndex = 49;
             // 
             // chcbxOperador
             // 
             this.chcbxOperador.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.chcbxOperador.EditValue = "";
-            this.chcbxOperador.Location = new System.Drawing.Point(3, 20);
+            this.chcbxOperador.Location = new System.Drawing.Point(4, 26);
+            this.chcbxOperador.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.chcbxOperador.Name = "chcbxOperador";
             this.chcbxOperador.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.chcbxOperador.Size = new System.Drawing.Size(208, 20);
+            this.chcbxOperador.Size = new System.Drawing.Size(278, 22);
             this.chcbxOperador.TabIndex = 57;
             // 
             // chcbxOficina
             // 
             this.chcbxOficina.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.chcbxOficina.EditValue = "";
-            this.chcbxOficina.Location = new System.Drawing.Point(217, 20);
+            this.chcbxOficina.Location = new System.Drawing.Point(290, 26);
+            this.chcbxOficina.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.chcbxOficina.Name = "chcbxOficina";
             this.chcbxOficina.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.chcbxOficina.Size = new System.Drawing.Size(173, 20);
+            this.chcbxOficina.Size = new System.Drawing.Size(230, 22);
             this.chcbxOficina.TabIndex = 56;
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(3, 3);
-            this.label6.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
+            this.label6.Location = new System.Drawing.Point(4, 4);
+            this.label6.Margin = new System.Windows.Forms.Padding(4, 4, 4, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(46, 13);
+            this.label6.Size = new System.Drawing.Size(61, 15);
             this.label6.TabIndex = 52;
             this.label6.Text = "Usuario:";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(217, 3);
-            this.label4.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
+            this.label4.Location = new System.Drawing.Point(290, 4);
+            this.label4.Margin = new System.Windows.Forms.Padding(4, 4, 4, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(43, 13);
+            this.label4.Size = new System.Drawing.Size(56, 15);
             this.label4.TabIndex = 55;
             this.label4.Text = "Oficina:";
             // 
@@ -246,9 +253,10 @@
             this.pcbIncomeByConcept.BackColor = System.Drawing.Color.Transparent;
             this.pcbIncomeByConcept.Image = global::SOAPAP.Properties.Resources.bg;
             this.pcbIncomeByConcept.InitialImage = global::SOAPAP.Properties.Resources.bg;
-            this.pcbIncomeByConcept.Location = new System.Drawing.Point(305, 63);
+            this.pcbIncomeByConcept.Location = new System.Drawing.Point(407, 78);
+            this.pcbIncomeByConcept.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.pcbIncomeByConcept.Name = "pcbIncomeByConcept";
-            this.pcbIncomeByConcept.Size = new System.Drawing.Size(441, 51);
+            this.pcbIncomeByConcept.Size = new System.Drawing.Size(588, 63);
             this.pcbIncomeByConcept.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pcbIncomeByConcept.TabIndex = 52;
             this.pcbIncomeByConcept.TabStop = false;
@@ -259,9 +267,10 @@
             this.pbBG.BackColor = System.Drawing.Color.Transparent;
             this.pbBG.Image = global::SOAPAP.Properties.Resources.bg;
             this.pbBG.InitialImage = global::SOAPAP.Properties.Resources.bg;
-            this.pbBG.Location = new System.Drawing.Point(305, 7);
+            this.pbBG.Location = new System.Drawing.Point(407, 9);
+            this.pbBG.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.pbBG.Name = "pbBG";
-            this.pbBG.Size = new System.Drawing.Size(441, 50);
+            this.pbBG.Size = new System.Drawing.Size(588, 62);
             this.pbBG.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pbBG.TabIndex = 41;
             this.pbBG.TabStop = false;
@@ -270,9 +279,10 @@
             // 
             this.pnlHRigth.Controls.Add(this.oanel);
             this.pnlHRigth.Dock = System.Windows.Forms.DockStyle.Right;
-            this.pnlHRigth.Location = new System.Drawing.Point(690, 0);
+            this.pnlHRigth.Location = new System.Drawing.Point(920, 0);
+            this.pnlHRigth.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.pnlHRigth.Name = "pnlHRigth";
-            this.pnlHRigth.Size = new System.Drawing.Size(408, 124);
+            this.pnlHRigth.Size = new System.Drawing.Size(544, 153);
             this.pnlHRigth.TabIndex = 44;
             // 
             // oanel
@@ -280,9 +290,10 @@
             this.oanel.Controls.Add(this.PanelPredialLimpia);
             this.oanel.Controls.Add(this.windowsUIButtonPanel1);
             this.oanel.Dock = System.Windows.Forms.DockStyle.Right;
-            this.oanel.Location = new System.Drawing.Point(87, 0);
+            this.oanel.Location = new System.Drawing.Point(116, 0);
+            this.oanel.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.oanel.Name = "oanel";
-            this.oanel.Size = new System.Drawing.Size(321, 124);
+            this.oanel.Size = new System.Drawing.Size(428, 153);
             this.oanel.TabIndex = 45;
             // 
             // PanelPredialLimpia
@@ -294,17 +305,28 @@
             this.PanelPredialLimpia.Controls.Add(this.radioTodo);
             this.PanelPredialLimpia.Dock = System.Windows.Forms.DockStyle.Fill;
             this.PanelPredialLimpia.Location = new System.Drawing.Point(0, 0);
+            this.PanelPredialLimpia.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.PanelPredialLimpia.Name = "PanelPredialLimpia";
-            this.PanelPredialLimpia.Size = new System.Drawing.Size(180, 124);
+            this.PanelPredialLimpia.Size = new System.Drawing.Size(240, 153);
             this.PanelPredialLimpia.TabIndex = 60;
+            // 
+            // panelOnline
+            // 
+            this.panelOnline.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelOnline.Location = new System.Drawing.Point(0, 0);
+            this.panelOnline.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panelOnline.Name = "panelOnline";
+            this.panelOnline.Size = new System.Drawing.Size(240, 153);
+            this.panelOnline.TabIndex = 61;
             // 
             // radioButton1
             // 
             this.radioButton1.AutoSize = true;
             this.radioButton1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radioButton1.Location = new System.Drawing.Point(4, 96);
+            this.radioButton1.Location = new System.Drawing.Point(5, 118);
+            this.radioButton1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(134, 20);
+            this.radioButton1.Size = new System.Drawing.Size(163, 24);
             this.radioButton1.TabIndex = 60;
             this.radioButton1.Text = "Const. No adeudo";
             this.radioButton1.UseVisualStyleBackColor = true;
@@ -314,9 +336,10 @@
             // 
             this.RadioLimpia.AutoSize = true;
             this.RadioLimpia.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RadioLimpia.Location = new System.Drawing.Point(3, 68);
+            this.RadioLimpia.Location = new System.Drawing.Point(4, 84);
+            this.RadioLimpia.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.RadioLimpia.Name = "RadioLimpia";
-            this.RadioLimpia.Size = new System.Drawing.Size(66, 20);
+            this.RadioLimpia.Size = new System.Drawing.Size(80, 24);
             this.RadioLimpia.TabIndex = 58;
             this.RadioLimpia.Text = "Limpia";
             this.RadioLimpia.UseVisualStyleBackColor = true;
@@ -326,9 +349,10 @@
             // 
             this.RadioPredial.AutoSize = true;
             this.RadioPredial.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RadioPredial.Location = new System.Drawing.Point(3, 41);
+            this.RadioPredial.Location = new System.Drawing.Point(4, 50);
+            this.RadioPredial.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.RadioPredial.Name = "RadioPredial";
-            this.RadioPredial.Size = new System.Drawing.Size(69, 20);
+            this.RadioPredial.Size = new System.Drawing.Size(82, 24);
             this.RadioPredial.TabIndex = 57;
             this.RadioPredial.Text = "Predial";
             this.RadioPredial.UseVisualStyleBackColor = true;
@@ -339,9 +363,10 @@
             this.radioTodo.AutoSize = true;
             this.radioTodo.Checked = true;
             this.radioTodo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radioTodo.Location = new System.Drawing.Point(3, 16);
+            this.radioTodo.Location = new System.Drawing.Point(4, 20);
+            this.radioTodo.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.radioTodo.Name = "radioTodo";
-            this.radioTodo.Size = new System.Drawing.Size(59, 20);
+            this.radioTodo.Size = new System.Drawing.Size(67, 24);
             this.radioTodo.TabIndex = 59;
             this.radioTodo.TabStop = true;
             this.radioTodo.Text = "Todo";
@@ -378,9 +403,10 @@
             this.windowsUIButtonPanel1.Cursor = System.Windows.Forms.Cursors.Hand;
             this.windowsUIButtonPanel1.Dock = System.Windows.Forms.DockStyle.Right;
             this.windowsUIButtonPanel1.ForeColor = System.Drawing.SystemColors.ControlLight;
-            this.windowsUIButtonPanel1.Location = new System.Drawing.Point(180, 0);
+            this.windowsUIButtonPanel1.Location = new System.Drawing.Point(240, 0);
+            this.windowsUIButtonPanel1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.windowsUIButtonPanel1.Name = "windowsUIButtonPanel1";
-            this.windowsUIButtonPanel1.Size = new System.Drawing.Size(141, 124);
+            this.windowsUIButtonPanel1.Size = new System.Drawing.Size(188, 153);
             this.windowsUIButtonPanel1.TabIndex = 56;
             this.windowsUIButtonPanel1.Text = "windowsUIButtonPanel1";
             this.windowsUIButtonPanel1.ButtonClick += new DevExpress.XtraBars.Docking2010.ButtonEventHandler(this.windowsUIButtonPanel1_ButtonClick);
@@ -397,9 +423,21 @@
             this.pnlHLeft.Controls.Add(this.lblTitulo);
             this.pnlHLeft.Controls.Add(this.pictureBox1);
             this.pnlHLeft.Location = new System.Drawing.Point(0, 0);
+            this.pnlHLeft.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.pnlHLeft.Name = "pnlHLeft";
-            this.pnlHLeft.Size = new System.Drawing.Size(383, 144);
+            this.pnlHLeft.Size = new System.Drawing.Size(511, 177);
             this.pnlHLeft.TabIndex = 44;
+            // 
+            // checkLine
+            // 
+            this.checkLine.AutoSize = true;
+            this.checkLine.Location = new System.Drawing.Point(268, 62);
+            this.checkLine.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.checkLine.Name = "checkLine";
+            this.checkLine.Size = new System.Drawing.Size(124, 21);
+            this.checkLine.TabIndex = 0;
+            this.checkLine.Text = "Pagos en línea";
+            this.checkLine.UseVisualStyleBackColor = true;
             // 
             // label7
             // 
@@ -407,9 +445,10 @@
             this.label7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(3)))), ((int)(((byte)(155)))), ((int)(((byte)(229)))));
             this.label7.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label7.ForeColor = System.Drawing.Color.White;
-            this.label7.Location = new System.Drawing.Point(6, 50);
+            this.label7.Location = new System.Drawing.Point(8, 62);
+            this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(118, 21);
+            this.label7.Size = new System.Drawing.Size(146, 28);
             this.label7.TabIndex = 48;
             this.label7.Text = "por conceptos";
             this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -420,9 +459,10 @@
             this.label8.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(3)))), ((int)(((byte)(155)))), ((int)(((byte)(229)))));
             this.label8.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label8.ForeColor = System.Drawing.Color.White;
-            this.label8.Location = new System.Drawing.Point(50, 30);
+            this.label8.Location = new System.Drawing.Point(67, 37);
+            this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(74, 21);
+            this.label8.Size = new System.Drawing.Size(91, 28);
             this.label8.TabIndex = 47;
             this.label8.Text = "Ingresos";
             this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -433,9 +473,10 @@
             this.label1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(3)))), ((int)(((byte)(155)))), ((int)(((byte)(229)))));
             this.label1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(12, 41);
+            this.label1.Location = new System.Drawing.Point(16, 50);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(0, 21);
+            this.label1.Size = new System.Drawing.Size(0, 28);
             this.label1.TabIndex = 44;
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
@@ -445,9 +486,10 @@
             this.lblTitulo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(3)))), ((int)(((byte)(155)))), ((int)(((byte)(229)))));
             this.lblTitulo.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTitulo.ForeColor = System.Drawing.Color.White;
-            this.lblTitulo.Location = new System.Drawing.Point(32, 7);
+            this.lblTitulo.Location = new System.Drawing.Point(43, 9);
+            this.lblTitulo.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblTitulo.Name = "lblTitulo";
-            this.lblTitulo.Size = new System.Drawing.Size(92, 25);
+            this.lblTitulo.Size = new System.Drawing.Size(117, 32);
             this.lblTitulo.TabIndex = 36;
             this.lblTitulo.Text = "Reportes";
             this.lblTitulo.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -457,9 +499,10 @@
             this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
             this.pictureBox1.Image = global::SOAPAP.Properties.Resources.reportes;
             this.pictureBox1.InitialImage = global::SOAPAP.Properties.Resources.reportes;
-            this.pictureBox1.Location = new System.Drawing.Point(9, 9);
+            this.pictureBox1.Location = new System.Drawing.Point(12, 11);
+            this.pictureBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(20, 20);
+            this.pictureBox1.Size = new System.Drawing.Size(27, 25);
             this.pictureBox1.TabIndex = 37;
             this.pictureBox1.TabStop = false;
             // 
@@ -488,11 +531,16 @@
             this.pgfCliente,
             this.pgfDivision,
             this.pgfMotivo});
-            this.pgcCollection.Location = new System.Drawing.Point(0, 121);
+            this.pgcCollection.Location = new System.Drawing.Point(0, 149);
+            this.pgcCollection.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.pgcCollection.Name = "pgcCollection";
             this.pgcCollection.OptionsData.DataProcessingEngine = DevExpress.XtraPivotGrid.PivotDataProcessingEngine.LegacyOptimized;
-            this.pgcCollection.Size = new System.Drawing.Size(1098, 298);
+            this.pgcCollection.Size = new System.Drawing.Size(1464, 367);
             this.pgcCollection.TabIndex = 50;
+            // 
+            // dataCollectionBindingSource
+            // 
+            this.dataCollectionBindingSource.DataSource = typeof(SOAPAP.Reportes.DataCollection);
             // 
             // pgfDescripcion
             // 
@@ -500,8 +548,9 @@
             this.pgfDescripcion.AreaIndex = 2;
             this.pgfDescripcion.Caption = "CONCEPTO";
             this.pgfDescripcion.FieldName = "DESCRIPCION";
+            this.pgfDescripcion.MinWidth = 27;
             this.pgfDescripcion.Name = "pgfDescripcion";
-            this.pgfDescripcion.Width = 491;
+            this.pgfDescripcion.Width = 655;
             // 
             // pgfSubtotal
             // 
@@ -509,7 +558,9 @@
             this.pgfSubtotal.AreaIndex = 2;
             this.pgfSubtotal.Caption = "SUBTOTAL";
             this.pgfSubtotal.FieldName = "SUBTOTAL";
+            this.pgfSubtotal.MinWidth = 27;
             this.pgfSubtotal.Name = "pgfSubtotal";
+            this.pgfSubtotal.Width = 133;
             // 
             // pgfDescuento
             // 
@@ -517,7 +568,9 @@
             this.pgfDescuento.AreaIndex = 1;
             this.pgfDescuento.Caption = "DESCUENTO";
             this.pgfDescuento.FieldName = "DESCUENTO";
+            this.pgfDescuento.MinWidth = 27;
             this.pgfDescuento.Name = "pgfDescuento";
+            this.pgfDescuento.Width = 133;
             // 
             // pgfTotal
             // 
@@ -525,7 +578,9 @@
             this.pgfTotal.AreaIndex = 4;
             this.pgfTotal.Caption = "TOTAL";
             this.pgfTotal.FieldName = "TOTAL";
+            this.pgfTotal.MinWidth = 27;
             this.pgfTotal.Name = "pgfTotal";
+            this.pgfTotal.Width = 133;
             // 
             // pgfMonto
             // 
@@ -533,7 +588,9 @@
             this.pgfMonto.AreaIndex = 0;
             this.pgfMonto.Caption = "MONTO";
             this.pgfMonto.FieldName = "MONTO";
+            this.pgfMonto.MinWidth = 27;
             this.pgfMonto.Name = "pgfMonto";
+            this.pgfMonto.Width = 133;
             // 
             // pgfIva
             // 
@@ -541,21 +598,27 @@
             this.pgfIva.AreaIndex = 3;
             this.pgfIva.Caption = "IVA";
             this.pgfIva.FieldName = "IVA";
+            this.pgfIva.MinWidth = 27;
             this.pgfIva.Name = "pgfIva";
+            this.pgfIva.Width = 133;
             // 
             // pgfCajero
             // 
             this.pgfCajero.AreaIndex = 0;
             this.pgfCajero.Caption = "USUARIO";
             this.pgfCajero.FieldName = "CAJERO";
+            this.pgfCajero.MinWidth = 27;
             this.pgfCajero.Name = "pgfCajero";
+            this.pgfCajero.Width = 133;
             // 
             // pgfOficina
             // 
             this.pgfOficina.AreaIndex = 1;
             this.pgfOficina.Caption = "OFICINA";
             this.pgfOficina.FieldName = "OFICINA";
+            this.pgfOficina.MinWidth = 27;
             this.pgfOficina.Name = "pgfOficina";
+            this.pgfOficina.Width = 133;
             // 
             // pgfFecha
             // 
@@ -563,21 +626,27 @@
             this.pgfFecha.AreaIndex = 3;
             this.pgfFecha.Caption = "FECHA";
             this.pgfFecha.FieldName = "FECHA_PAGO";
+            this.pgfFecha.MinWidth = 27;
             this.pgfFecha.Name = "pgfFecha";
+            this.pgfFecha.Width = 133;
             // 
             // pgfFormaPago
             // 
             this.pgfFormaPago.AreaIndex = 2;
             this.pgfFormaPago.Caption = "FORMA PAGO";
             this.pgfFormaPago.FieldName = "MetodoPago";
+            this.pgfFormaPago.MinWidth = 27;
             this.pgfFormaPago.Name = "pgfFormaPago";
+            this.pgfFormaPago.Width = 133;
             // 
             // pgfBanco
             // 
             this.pgfBanco.AreaIndex = 3;
             this.pgfBanco.Caption = "BANCO";
             this.pgfBanco.FieldName = "OrigenPagoExterno";
+            this.pgfBanco.MinWidth = 27;
             this.pgfBanco.Name = "pgfBanco";
+            this.pgfBanco.Width = 133;
             // 
             // pgfCuenta
             // 
@@ -585,7 +654,9 @@
             this.pgfCuenta.AreaIndex = 0;
             this.pgfCuenta.Caption = "CUENTA";
             this.pgfCuenta.FieldName = "CUENTA";
+            this.pgfCuenta.MinWidth = 27;
             this.pgfCuenta.Name = "pgfCuenta";
+            this.pgfCuenta.Width = 133;
             // 
             // pgfFolio
             // 
@@ -593,72 +664,63 @@
             this.pgfFolio.AreaIndex = 1;
             this.pgfFolio.Caption = "FOLIO";
             this.pgfFolio.FieldName = "folio_impresion";
+            this.pgfFolio.MinWidth = 27;
             this.pgfFolio.Name = "pgfFolio";
+            this.pgfFolio.Width = 133;
             // 
             // pgfColonia
             // 
             this.pgfColonia.AreaIndex = 4;
             this.pgfColonia.Caption = "COLONIA";
             this.pgfColonia.FieldName = "ContribuyenteColonia";
+            this.pgfColonia.MinWidth = 27;
             this.pgfColonia.Name = "pgfColonia";
+            this.pgfColonia.Width = 133;
             // 
             // pgfDireccion
             // 
             this.pgfDireccion.AreaIndex = 5;
             this.pgfDireccion.Caption = "DIRECCION";
             this.pgfDireccion.FieldName = "ContribuyenteDireccion";
+            this.pgfDireccion.MinWidth = 27;
             this.pgfDireccion.Name = "pgfDireccion";
+            this.pgfDireccion.Width = 133;
             // 
             // pgfCliente
             // 
             this.pgfCliente.AreaIndex = 6;
             this.pgfCliente.Caption = "CLIENTE";
             this.pgfCliente.FieldName = "Contribuyente";
+            this.pgfCliente.MinWidth = 27;
             this.pgfCliente.Name = "pgfCliente";
+            this.pgfCliente.Width = 133;
             // 
             // pgfDivision
             // 
             this.pgfDivision.AreaIndex = 7;
             this.pgfDivision.Caption = "DIVISION";
             this.pgfDivision.FieldName = "Division";
+            this.pgfDivision.MinWidth = 27;
             this.pgfDivision.Name = "pgfDivision";
+            this.pgfDivision.Width = 133;
             // 
             // pgfMotivo
             // 
             this.pgfMotivo.AreaIndex = 8;
             this.pgfMotivo.Caption = "MOTIVO DESCUENTO";
             this.pgfMotivo.FieldName = "MotivoDescuento";
+            this.pgfMotivo.MinWidth = 27;
             this.pgfMotivo.Name = "pgfMotivo";
-            // 
-            // dataCollectionBindingSource
-            // 
-            this.dataCollectionBindingSource.DataSource = typeof(SOAPAP.Reportes.DataCollection);
-            // 
-            // checkLine
-            // 
-            this.checkLine.AutoSize = true;
-            this.checkLine.Location = new System.Drawing.Point(201, 50);
-            this.checkLine.Name = "checkLine";
-            this.checkLine.Size = new System.Drawing.Size(98, 17);
-            this.checkLine.TabIndex = 0;
-            this.checkLine.Text = "Pagos en línea";
-            this.checkLine.UseVisualStyleBackColor = true;
-            // 
-            // panelOnline
-            // 
-            this.panelOnline.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelOnline.Location = new System.Drawing.Point(0, 0);
-            this.panelOnline.Name = "panelOnline";
-            this.panelOnline.Size = new System.Drawing.Size(180, 124);
-            this.panelOnline.TabIndex = 61;
+            this.pgfMotivo.Width = 133;
             // 
             // RepIbyC
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1098, 450);
+            this.ClientSize = new System.Drawing.Size(1464, 554);
             this.Controls.Add(this.pgcCollection);
             this.Controls.Add(this.pnlHeader);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "RepIbyC";
             this.Text = "RepCollection";
             this.Load += new System.EventHandler(this.RepCollection_Load);

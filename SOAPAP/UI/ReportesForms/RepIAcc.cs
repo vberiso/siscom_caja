@@ -1,7 +1,10 @@
-﻿using DevExpress.Office.Utils;
+﻿using DevExpress.ClipboardSource.SpreadsheetML;
+using DevExpress.DataProcessing.InMemoryDataProcessor;
+using DevExpress.Office.Utils;
 using DevExpress.XtraBars.Docking2010;
 using Newtonsoft.Json;
 using SOAPAP.Enums;
+using SOAPAP.Model;
 using SOAPAP.Reportes;
 using SOAPAP.Services;
 using System;
@@ -473,10 +476,12 @@ namespace SOAPAP.UI.ReportesForms
             }
             loading.Close();
         }
-        private Task<string> getHtml(List<DataCollection> Ldata)
+        private async Task<string> getHtml(List<DataCollection> Ldata)
         {
 
             StringBuilder builder = new StringBuilder();
+            List<GroupCataloguesVM> Groups = await GetGroupsCtalogues();
+            List<CatalogueVM> CataloguesPredial = Groups.Where(x => x.Id == 3).FirstOrDefault().Catalogues;
 
 
             builder.Append(@"<html lang='es'><head>");
@@ -511,13 +516,15 @@ namespace SOAPAP.UI.ReportesForms
 
             
             </style>");
-        
+
             builder.Append(@"</head>");
             builder.Append(@"<body style='font-size: 8px;padding: 5px'>");
             builder.Append(@"<div style='font-family: \""Roboto\"", sans-serif; height: 100px;'>");
             builder.Append(@" <div  class='datos_conceptos'> ");
 
-            Ldata = Ldata.GroupBy(x => ( x.AccountNumber.Trim(), x.Division.Trim())).Select(
+            var idsPredial = CataloguesPredial.Select(x => x.Value).ToList();
+            var DataRezago = Ldata.Where(x => x.Agrupado == "Rezago" && idsPredial.Contains(x.code_concept)).ToList();
+            Ldata = Ldata.Where(x => (x.Agrupado == "Rezago" && !idsPredial.Contains(x.code_concept)) || x.Agrupado != "Rezago").GroupBy(x => (x.AccountNumber.Trim(), x.Division.Trim())).Select(
             e => new DataCollection()
             {
                 TipoPredio = e.First().TipoPredio,
@@ -529,13 +536,27 @@ namespace SOAPAP.UI.ReportesForms
                 MONTO = e.Sum(x => x.MONTO),
                 DESCUENTO = e.Sum(x => x.DESCUENTO),
                 TOTAL = e.Sum(x => x.TOTAL),
-               
 
-            }).OrderBy(x => (x.AccountNumber, x.Division)).ToList();
 
-           
-         
-                builder.Append(@"<table  id='datos' style='width: 100%; font-size: 15px;'>");
+            }).ToList();
+            Ldata.Add(new DataCollection() {
+                TipoPredio = "Predial",
+                Agrupado = "Rezago",
+                DESCRIPCION = "Predial Rezago",
+                AccountNumber = "4.1.1.2.1.5",
+
+                Division = "Predial",
+                MONTO = DataRezago.Sum(x => x.MONTO),
+                DESCUENTO = DataRezago.Sum(x => x.DESCUENTO),
+                TOTAL = DataRezago.Sum(x => x.TOTAL),
+
+            });
+            Ldata= Ldata.OrderBy(x => (x.AccountNumber, x.Division)).ToList();
+
+
+
+
+            builder.Append(@"<table  id='datos' style='width: 100%; font-size: 15px;'>");
                 builder.Append(@"<thead>");
                 
                 //builder.Append(@"<th style='width: 14.2%;'>AGRUPACIÓN</th>");
@@ -609,7 +630,7 @@ namespace SOAPAP.UI.ReportesForms
 
             builder.Append(@" </div>");
 
-            return Task.FromResult<string>(builder.ToString());
+            return builder.ToString();
 
         }
         private void SetHeader(HiQPdf.PdfDocument document, string FechaI, string FechaF)
@@ -706,6 +727,20 @@ namespace SOAPAP.UI.ReportesForms
 
             document.Footer.Layout(pageNumberingText);
 
+
+        }
+
+        private async Task<List<GroupCataloguesVM>> GetGroupsCtalogues()
+        {
+
+            var results = await Requests.SendURIAsync("/api/Services/GetCataloges", HttpMethod.Post, Variables.LoginModel.Token);
+            if (results.Contains("error"))
+            {
+                mensaje = new MessageBoxForm("Error", "No se pudiron obtener los grupos, por favor comunicase con el admin istrador", TypeIcon.Icon.Cancel);
+                mensaje.ShowDialog();
+                return null;
+            }
+            return JsonConvert.DeserializeObject<List<GroupCataloguesVM>>(results);
 
         }
 

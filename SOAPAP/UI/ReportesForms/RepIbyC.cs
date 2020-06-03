@@ -42,7 +42,7 @@ namespace SOAPAP.UI.ReportesForms
         {
             if (Variables.Configuration.IsMunicipal)
             {
-                checkLine.Visible = false;
+                checkLine.Visible = true;
                 PanelPredialLimpia.Visible = true;
                 panelOnline.Visible = false;
             }

@@ -71,15 +71,9 @@ namespace SOAPAP.UI.FactPasada
             {
                 lstCaj.Add(new DataComboBox() { keyString = Variables.LoginModel.User, value = Variables.LoginModel.FullName});
             }
-            if (Variables.Configuration.IsMunicipal)
-            {
-                checkPagos.Visible = false;
-
-            }
-            else
-            {
+            
                 checkPagos.Visible = true;
-            }
+            
             //Asignacion de combo cajeros.
             cbxUsuario.DataBindings.Clear();
             cbxUsuario.DataSource = null;
