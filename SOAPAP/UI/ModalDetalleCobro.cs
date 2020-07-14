@@ -1021,6 +1021,8 @@ namespace SOAPAP.UI
                         transaction.Type = "PAY02";
                     else if (Debts.Any(x => x.Type == "TIP06"))
                         transaction.Type = "PAY01";
+                    else if (Debts.Any(x => x.Type == "TIP05"))
+                        transaction.Type = "PAY01";
 
 
                     if (haveProduct)

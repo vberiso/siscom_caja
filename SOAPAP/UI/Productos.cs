@@ -888,7 +888,7 @@ namespace SOAPAP.UI
                             HaveTax = Convert.ToBoolean(row.Cells[5].Value),
                             Tax = Convert.ToDecimal(row.Cells[6].Value),
                             OnAccount = 0,
-                            NameConcept = row.Cells[2].Value.ToString().Split('-').Last(),
+                            NameConcept = row.Cells[2].Value.ToString(),
                             Quantity = Convert.ToInt32(row.Cells[7].Value),
                             Description = row.Cells[2].Value.ToString().Replace("\\", " - "),
                             UnitPrice = Convert.ToDecimal(row.Cells["UNITPRICE"].Value),

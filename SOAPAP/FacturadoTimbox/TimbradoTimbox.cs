@@ -383,11 +383,11 @@ namespace SOAPAP.FacturadoTimbox
                         TimboxWS.uuid uuids = new TimboxWS.uuid();
                         uuids.uuid1 = new string[] { taxReceipt.FielXML };
                         rcr = await cliente_timbrarProd.recuperar_comprobanteAsync(resDataUser.User, resDataUser.Pass, uuids);
-
+                       
                         if (rcr.estatus.Contains("200"))
                         {
                             XmlDocument doc = new XmlDocument();
-                            string xmlCadena = rcr.comprobantes.Replace("\n", "").Replace("\\\"", "\"");
+                            string xmlCadena = rcr.comprobantes.Replace("\n", "").Replace("\\\"", "\""); //.Replace("?","");
                             doc.LoadXml(xmlCadena);
                             string json = JsonConvert.SerializeXmlNode(doc);
 

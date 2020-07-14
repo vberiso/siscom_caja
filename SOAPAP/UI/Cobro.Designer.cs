@@ -516,7 +516,7 @@
             this.pnlDatos.Dock = System.Windows.Forms.DockStyle.Left;
             this.pnlDatos.Location = new System.Drawing.Point(0, 124);
             this.pnlDatos.Name = "pnlDatos";
-            this.pnlDatos.Size = new System.Drawing.Size(344, 900);
+            this.pnlDatos.Size = new System.Drawing.Size(344, 757);
             this.pnlDatos.TabIndex = 47;
             // 
             // groupBox4
@@ -529,7 +529,7 @@
             this.groupBox4.Location = new System.Drawing.Point(0, 673);
             this.groupBox4.Margin = new System.Windows.Forms.Padding(20);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(344, 227);
+            this.groupBox4.Size = new System.Drawing.Size(344, 84);
             this.groupBox4.TabIndex = 19;
             this.groupBox4.TabStop = false;
             // 
@@ -1334,7 +1334,7 @@
             this.pnlCobro.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlCobro.Location = new System.Drawing.Point(344, 124);
             this.pnlCobro.Name = "pnlCobro";
-            this.pnlCobro.Size = new System.Drawing.Size(556, 900);
+            this.pnlCobro.Size = new System.Drawing.Size(556, 757);
             this.pnlCobro.TabIndex = 89;
             // 
             // panel6
@@ -1345,7 +1345,7 @@
             this.panel6.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel6.Location = new System.Drawing.Point(0, 0);
             this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(556, 656);
+            this.panel6.Size = new System.Drawing.Size(556, 513);
             this.panel6.TabIndex = 91;
             // 
             // dgvConceptosCobro
@@ -1405,7 +1405,7 @@
             this.dgvConceptosCobro.RowTemplate.DefaultCellStyle.BackColor = System.Drawing.Color.White;
             this.dgvConceptosCobro.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.dgvConceptosCobro.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvConceptosCobro.Size = new System.Drawing.Size(556, 656);
+            this.dgvConceptosCobro.Size = new System.Drawing.Size(556, 513);
             this.dgvConceptosCobro.TabIndex = 89;
             this.dgvConceptosCobro.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvConceptosCobro_CellClick);
             this.dgvConceptosCobro.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvConceptosCobro_CellDoubleClick);
@@ -1465,7 +1465,7 @@
             this.panelConent.Controls.Add(this.panelDescripciones);
             this.panelConent.Controls.Add(this.tlpTotales);
             this.panelConent.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panelConent.Location = new System.Drawing.Point(0, 656);
+            this.panelConent.Location = new System.Drawing.Point(0, 513);
             this.panelConent.Name = "panelConent";
             this.panelConent.Size = new System.Drawing.Size(556, 244);
             this.panelConent.TabIndex = 90;
@@ -1703,7 +1703,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(900, 1024);
+            this.ClientSize = new System.Drawing.Size(900, 881);
             this.Controls.Add(this.pnlCobro);
             this.Controls.Add(this.pnlDatos);
             this.Controls.Add(this.pnlHeader);

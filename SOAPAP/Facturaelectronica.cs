@@ -57,7 +57,7 @@ namespace SOAPAP
         { 
 
             Requests = new RequestsAPI(UrlBase);
-            facturama = new FacturamaApiMultiemisor("gfdsystems", "gfds1st95");
+            facturama = new FacturamaApiMultiemisor("gfdsystems", "gfds1st95", true);
             //facturama = new FacturamaApiMultiemisor("pruebas", "pruebas2011");
         }
         public void setMsgs(string msgObservacionFactura, string msgUsos)
@@ -437,7 +437,7 @@ namespace SOAPAP
                                     IdentificationNumber = "P" + Or.CodeConcept,
                                     UnitCode = TraVM.payment.PaymentDetails.Where(x => x.CodeConcept == Or.CodeConcept && x.Amount == Or.Amount).FirstOrDefault().UnitMeasurement,
                                     Unit = "NO APLICA",
-                                    Description = Or.Description,
+                                    Description = Or.NameConcept,
                                     UnitPrice = Or.UnitPrice,
                                     Quantity = Or.Quantity,
                                     Subtotal = TraVM.orderSale.OrderSaleDiscounts.Where(x => x.OrderSaleDetailId == Or.Id).Count() == 0 ? Or.Amount : TraVM.orderSale.OrderSaleDiscounts.Where(x => x.OrderSaleDetailId == Or.Id).Select(y => y.OriginalAmount).FirstOrDefault(),
@@ -454,7 +454,7 @@ namespace SOAPAP
                                     IdentificationNumber = "P" + Or.CodeConcept,
                                     UnitCode = TraVM.payment.PaymentDetails.Where(x => x.CodeConcept == Or.CodeConcept && x.Amount == Or.Amount).FirstOrDefault().UnitMeasurement,
                                     Unit = "NO APLICA",
-                                    Description = Or.Description,
+                                    Description = Or.NameConcept,
                                     UnitPrice = Or.UnitPrice,
                                     Quantity = Or.Quantity,
                                     Subtotal = decimal.Round(Or.Quantity * Or.UnitPrice, 2),
@@ -478,7 +478,7 @@ namespace SOAPAP
                                     IdentificationNumber = "P" + Or.CodeConcept,
                                     UnitCode = TraVM.payment.PaymentDetails.Where(x => x.CodeConcept == Or.CodeConcept && x.Amount == Or.Amount).FirstOrDefault().UnitMeasurement,
                                     Unit = "NO APLICA",
-                                    Description = Or.Description,
+                                    Description = Or.NameConcept,
                                     UnitPrice = tmpUnitPrice,
                                     Quantity = Or.Quantity,
                                     Subtotal = Or.Amount + TraVM.orderSale.OrderSaleDiscounts.Where(x => x.CodeConcept == Or.CodeConcept).Select(y => y.DiscountAmount).FirstOrDefault(),
@@ -494,7 +494,7 @@ namespace SOAPAP
                                     IdentificationNumber = "P" + Or.CodeConcept,
                                     UnitCode = TraVM.payment.PaymentDetails.Where(x => x.CodeConcept == Or.CodeConcept && x.Amount == Or.Amount).FirstOrDefault().UnitMeasurement,
                                     Unit = "NO APLICA",
-                                    Description = Or.Description,
+                                    Description = Or.NameConcept,
                                     UnitPrice = Or.UnitPrice,
                                     Quantity = Or.Quantity,
                                     Subtotal = Or.Amount + TraVM.orderSale.OrderSaleDiscounts.Where(x => x.CodeConcept == Or.CodeConcept).Select(y => y.DiscountAmount).FirstOrDefault(),

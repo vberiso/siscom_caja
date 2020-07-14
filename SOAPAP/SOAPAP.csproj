@@ -16,20 +16,21 @@
     <TargetFrameworkProfile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
-    <PublishUrl>C:\Users\OEM\Documents\Publish\</PublishUrl>
+    <PublishUrl>\\installer.cuautlancingo.gob.mx\caja\</PublishUrl>
     <Install>true</Install>
-    <InstallFrom>Disk</InstallFrom>
-    <UpdateEnabled>false</UpdateEnabled>
+    <InstallFrom>Unc</InstallFrom>
+    <UpdateEnabled>true</UpdateEnabled>
     <UpdateMode>Foreground</UpdateMode>
     <UpdateInterval>7</UpdateInterval>
     <UpdateIntervalUnits>Days</UpdateIntervalUnits>
     <UpdatePeriodically>false</UpdatePeriodically>
-    <UpdateRequired>false</UpdateRequired>
+    <UpdateRequired>true</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <MinimumRequiredVersion>1.1.2.24</MinimumRequiredVersion>
+    <UpdateUrl>\\installer.cuautlancingo.gob.mx\caja\</UpdateUrl>
+    <MinimumRequiredVersion>1.1.2.30</MinimumRequiredVersion>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>25</ApplicationRevision>
-    <ApplicationVersion>1.1.2.25</ApplicationVersion>
+    <ApplicationRevision>31</ApplicationRevision>
+    <ApplicationVersion>1.1.2.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
@@ -429,6 +430,7 @@
     <Compile Include="Model\GroupCataloguesVM.cs" />
     <Compile Include="Model\GroupStatus.cs" />
     <Compile Include="Model\GroupType.cs" />
+    <Compile Include="Model\ImpresionFacturaModel.cs" />
     <Compile Include="Model\LogginLog.cs" />
     <Compile Include="Model\NotificacionOrderWork.cs" />
     <Compile Include="Model\OrderSale.cs" />

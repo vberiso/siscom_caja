@@ -469,6 +469,12 @@ namespace SOAPAP.UI
                 lblProgress.Text = "Obteniendo AIM ...";
                 RunProgress(progressn);
 
+                if (lstParametros.FirstOrDefault(x => x.Name.Contains("Herr_RecargoXConcepto")) != null)
+                {
+                    configuration.RecargosXConcepto = lstParametros.Where(x => x.Name.Contains("Herr_RecargoXConcepto")).Select(y => y.TextColumn).ToList();
+                    lblProgress.Text = "Obteniendo Tipo de Aplicación ...";
+                }
+                
                 return 1;
             }            
         }

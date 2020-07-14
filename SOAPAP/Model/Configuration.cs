@@ -36,5 +36,6 @@ namespace SOAPAP.Model
         public List<CondonationCampaing> CondonationCampaings { get; set; }
         public decimal Percentage { get; set; }
         public VersionApp VersionApp { get; set; }
+        public List<string> RecargosXConcepto { get; set; }
     }
 }

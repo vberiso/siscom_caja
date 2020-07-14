@@ -264,28 +264,24 @@ namespace SOAPAP.UI.ReportesForms
             }
             else
             {
-                var lstData = JsonConvert.DeserializeObject<List<DataCollection>>(_resulTransaction);
-                
-
-                if (lstData == null)
-                {
-                    mensaje = new MessageBoxForm("Sin Operaciones", "No se encontraron movimientos.", TypeIcon.Icon.Warning);
-                    result = mensaje.ShowDialog();
-                }
-                
-
                 try
                 {
+                    var lstData = JsonConvert.DeserializeObject<List<DataCollection>>(_resulTransaction);
 
+                    if (lstData == null)
+                    {
+                        mensaje = new MessageBoxForm("Sin Operaciones", "No se encontraron movimientos.", TypeIcon.Icon.Warning);
+                        result = mensaje.ShowDialog();
+                    }
                     //Filtros finales                    
                     pgcCollection.DataSource = ResolveConcepts(lstData);
-
                 }
                 catch (Exception e)
                 {
                     var res = e.Message;
+                    mensaje = new MessageBoxForm("Error", res, TypeIcon.Icon.Cancel);
+                    result = mensaje.ShowDialog();
                 }
-
             }
         }
 
