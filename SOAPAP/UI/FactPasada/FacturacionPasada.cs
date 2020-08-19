@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Facturama.Models;
+using Newtonsoft.Json;
 using PdfPrintingNet;
 using SOAPAP.Enums;
 using SOAPAP.Facturado;
@@ -718,5 +719,183 @@ namespace SOAPAP.UI.FactPasada
             loadings.Close();
         }
 
+        //Cree este metodo para facturar todas las facturas que se envian en la lista: idsTransactionUserId
+        private async void button1_Click(object sender, EventArgs e)
+        {
+            #region INSTRUCCIONES
+            //Este query lo utice para localizar las facturas resultado del endpoint
+            // api/Facturas/ValidateFrom/2020-07-20/2020-07-30
+            //Select
+            //T.id_transaction
+            //, SUBSTRING(TR.UsoCFDI, 1, 3) UsoCFDI
+            //, (Select U.serial from AspNetUsers U where U.Id = TR.UserId ) Serial
+            //--, P.id_payment
+            //--, TR.id_tax_receipt
+            //--, TR.tax_receipt_date
+            //--, TR.status
+            //--, TR.UserId
+            //--, TR.IdXmlFacturama
+            //--, P.have_tax_receipt
+            //--, P.id_agreement
+            //--, P.account
+            //from Tax_Receipt TR
+            //left join Payment P on P.id_payment = TR.PaymentId
+            //left join[Transaction] T on P.transaction_folio = T.folio
+            //where TR.tax_receipt_date > '2020-07-20'
+            //and TR.IdXmlFacturama <> 'Timbox'
+            //and TR.status = 'ET003'
+            //and TR.UserId <> 'e92eb5fc-a322-429f-a628-560097385005'
+            #endregion
+
+            Form loadings = new Loading();
+            loadings.Show(this);
+
+            int TotalPeticiones = 0, TotalFacturadas = 0, TotalPendientes = 0;
+            string idsRechazados = "";
+
+            var files = from line in File.ReadLines(@"C:\Users\GFD\Documents\Mau\FacturasACorregirSOSAPAC.txt")
+                            //where line.Contains("Microsoft")
+                        select new
+                        {
+                            Line = line
+                        };
+            TotalPeticiones = files.Count();
+            foreach (var f in files)
+            {
+                Facturaelectronica Factura = new Facturaelectronica();
+                if (Variables.LoginModel.RolName[0] == "Supervisor")
+                {
+                    Factura.isAdministrator = true;
+                    Factura.ActualUserId = ((DataComboBox)cbxUsuario.SelectedItem).keyString;
+                }
+
+                string idTransaction = f.Line.Split(',')[0];
+                string codigoTipoUso = f.Line.Split(',')[1];
+                string SerieCajero = f.Line.Split(',')[2];
+
+                string temp = await Factura.generaFactura(idTransaction, "ET001", SerieCajero, codigoTipoUso);
+
+                if (temp.Contains("error"))
+                {
+                    TotalPendientes++;
+                    idsRechazados += idTransaction + ",";
+                }
+                else
+                    TotalFacturadas++;                                
+            }
+            
+            //Se guardan los ids de payment que no fueron actualizados.
+            if (idsRechazados != "")
+            {
+                byte[] bytes = Encoding.ASCII.GetBytes(idsRechazados);
+                string path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Facturas";
+                DirectoryInfo di;
+                if (!Directory.Exists(path))
+                {
+                    di = Directory.CreateDirectory(path);
+                }
+                //Se guarda el pdf del timbre.
+                string NombreFile = string.Format("{0}\\{1}.txt", path, "IdsTransactionNOFacturados_" + DateTime.Now.ToString("dd-MM-yyyy"));
+                
+                // Create a file to write to.
+                using (StreamWriter sw = File.CreateText(NombreFile))
+                {
+                    sw.WriteLine("Ids de transaction rechazados");
+                    sw.WriteLine(idsRechazados);
+                    sw.WriteLine($"Total facturados: {TotalFacturadas}, Total Rechacazados: {TotalPendientes}, Total A Facturar: {TotalPeticiones}");
+                    sw.WriteLine("...");
+                }
+                
+            }
+
+            loadings.Close();
+        }
+
+        private async void Actualiza_Click(object sender, EventArgs e)
+        {
+            #region INSTRUCCIONES
+            //Este query lo utice para localizar las facturas resultado del endpoint
+            // api/Facturas/ValidateFrom/2020-07-20/2020-07-30
+            //Select
+            //T.id_transaction
+            //, SUBSTRING(TR.UsoCFDI, 1, 3) UsoCFDI
+            //, (Select U.serial from AspNetUsers U where U.Id = TR.UserId ) Serial
+            //--, P.id_payment
+            //--, TR.id_tax_receipt
+            //--, TR.tax_receipt_date
+            //--, TR.status
+            //--, TR.UserId
+            //--, TR.IdXmlFacturama
+            //--, P.have_tax_receipt
+            //--, P.id_agreement
+            //--, P.account
+            //from Tax_Receipt TR
+            //left join Payment P on P.id_payment = TR.PaymentId
+            //left join[Transaction] T on P.transaction_folio = T.folio
+            //where TR.tax_receipt_date > '2020-07-20'
+            //and TR.IdXmlFacturama <> 'Timbox'
+            //and TR.status = 'ET003'
+            //and TR.UserId <> 'e92eb5fc-a322-429f-a628-560097385005'
+            #endregion
+
+            Form loadings = new Loading();
+            loadings.Show(this);
+
+            //Genero el archivo para resultados del proceso
+            //byte[] bytes = Encoding.ASCII.GetBytes(idsRechazados);
+            string path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Facturas";
+            DirectoryInfo di;
+            if (!Directory.Exists(path))
+            {
+                di = Directory.CreateDirectory(path);
+            }            
+            string NombreFile = string.Format("{0}\\{1}.txt", path, "ResultadosActualizacionFacturas_" + DateTime.Now.ToString("dd-MM-yyyy"));
+
+            //Se obtienes los Id de transaction a procesar.
+            var files = from line in File.ReadLines(@"C:\Users\GFD\Documents\Mau\ToadTextFile_2020-07-31T22_21_132020-07-31 22-21-16.txt")
+                            //where line.Contains("Microsoft")
+                        select new
+                        {
+                            Line = line
+                        };
+            
+
+            int TotalPeticiones = 0, TotalFacturadas = 0, TotalPendientes = 0;
+            TotalPeticiones = files.Count();
+            // Create a file to write to.
+            using (StreamWriter sw = File.CreateText(NombreFile))
+            {
+                foreach (var f in files)
+                {
+                    string idTransaction = f.Line.Split(',')[0];
+                    string SerialCajero = f.Line.Split(',')[1];
+
+                    Facturaelectronica Factura = new Facturaelectronica();
+                    if (Variables.LoginModel.RolName[0] == "Supervisor")
+                    {
+                        Factura.isAdministrator = true;
+                        Factura.ActualUserId = SerialCajero;
+                    }                    
+
+                    string temp = await Factura.actualizaPdf(idTransaction);
+
+                    if (temp.Contains("error"))
+                    {
+                        sw.WriteLine($"Id: {idTransaction} - Error: ({temp})");
+                        TotalPendientes++;
+                    }
+                    else if (temp.Contains("aviso"))
+                    {
+                        sw.WriteLine($"Id: {idTransaction} - Aviso: ({temp})");
+                        TotalFacturadas++;
+                    }
+                }
+
+                sw.WriteLine($"Total Revizados: {TotalFacturadas}, Total Rechacazados: {TotalPendientes}, Total a revisar: {TotalPeticiones}");
+                sw.WriteLine("...");
+            }
+
+            loadings.Close();
+        }
     }
 }

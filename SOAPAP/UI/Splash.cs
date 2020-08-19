@@ -472,6 +472,16 @@ namespace SOAPAP.UI
                 if (lstParametros.FirstOrDefault(x => x.Name.Contains("Herr_RecargoXConcepto")) != null)
                 {
                     configuration.RecargosXConcepto = lstParametros.Where(x => x.Name.Contains("Herr_RecargoXConcepto")).Select(y => y.TextColumn).ToList();
+                }
+
+                if (lstParametros.FirstOrDefault(x => x.Name.Contains("Herr_ProdDescCOVID")) != null)
+                {
+                    //configuration.ProdDescCOVID = lstParametros.Where(x => x.Name.Contains("Herr_ProdDescCOVID")).Select(y => y.TextColumn).FirstOrDefault();
+                    configuration.ProductosDescCOVID = lstParametros.FirstOrDefault(x => x.Name.Contains("Herr_ProdDescCOVID"));
+                }
+                if (lstParametros.FirstOrDefault(x => x.Name.Contains("Herr_RecargoDescCOVID")) != null)
+                {
+                    configuration.RecargosDescCovid = lstParametros.Where(x => x.Name.Contains("Herr_RecargoDescCOVID")).Select(y => y.TextColumn).ToList();
                     lblProgress.Text = "Obteniendo Tipo de Aplicación ...";
                 }
                 

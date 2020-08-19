@@ -30,6 +30,7 @@ using Firebase.Database.Query;
 using System.Runtime.InteropServices;
 using SOAPAP.UI.Email;
 using System.Threading.Tasks;
+using Spire.Pdf.Exporting.XPS.Schema;
 
 namespace SOAPAP.UI
 {
@@ -1488,6 +1489,14 @@ namespace SOAPAP.UI
             List<Model.OrderSaleDetails> OrderDetailCollection = new List<Model.OrderSaleDetails>();
             Model.PaymentOrdersVM paymentVM = new Model.PaymentOrdersVM();
             List<Model.OrderSale> OrderSaleCollection = new List<Model.OrderSale>();
+
+            ////Si hay descuento a productos por contingenca COVID
+            //if (Variables.Configuration.ProductosDescCOVID != null && !Variables.OrderSale.Observation.Contains("COVID"))
+            //{                                                           
+            //    string resDesc = await aplicaDescuentoProductosCOVID();
+            //    if(resDesc.Contains("error"))
+            //        return;
+            //}
 
             decimal PorPagar = 0;
             decimal TotalIva = 0;

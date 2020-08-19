@@ -30,6 +30,9 @@
         {
             this.components = new System.ComponentModel.Container();
             this.pnlHeader = new System.Windows.Forms.Panel();
+            this.Actualiza = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
+            this.checkPagos = new System.Windows.Forms.CheckBox();
             this.btnActualizaCancelados = new System.Windows.Forms.Button();
             this.tlpUsuario = new System.Windows.Forms.TableLayoutPanel();
             this.cbxUsuario = new System.Windows.Forms.ComboBox();
@@ -124,7 +127,6 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.lblSucursal = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.checkPagos = new System.Windows.Forms.CheckBox();
             this.pnlHeader.SuspendLayout();
             this.tlpUsuario.SuspendLayout();
             this.tlpFecha.SuspendLayout();
@@ -144,6 +146,8 @@
             // pnlHeader
             // 
             this.pnlHeader.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(3)))), ((int)(((byte)(155)))), ((int)(((byte)(229)))));
+            this.pnlHeader.Controls.Add(this.Actualiza);
+            this.pnlHeader.Controls.Add(this.button1);
             this.pnlHeader.Controls.Add(this.checkPagos);
             this.pnlHeader.Controls.Add(this.btnActualizaCancelados);
             this.pnlHeader.Controls.Add(this.tlpUsuario);
@@ -156,16 +160,53 @@
             this.pnlHeader.Controls.Add(this.lblTitulo);
             this.pnlHeader.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlHeader.Location = new System.Drawing.Point(0, 0);
+            this.pnlHeader.Margin = new System.Windows.Forms.Padding(4);
             this.pnlHeader.Name = "pnlHeader";
-            this.pnlHeader.Size = new System.Drawing.Size(1055, 77);
+            this.pnlHeader.Size = new System.Drawing.Size(1407, 233);
             this.pnlHeader.TabIndex = 50;
+            // 
+            // Actualiza
+            // 
+            this.Actualiza.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.Actualiza.Location = new System.Drawing.Point(1071, 67);
+            this.Actualiza.Name = "Actualiza";
+            this.Actualiza.Size = new System.Drawing.Size(100, 23);
+            this.Actualiza.TabIndex = 58;
+            this.Actualiza.Text = "Actualiza";
+            this.Actualiza.UseVisualStyleBackColor = true;
+            this.Actualiza.Visible = false;
+            this.Actualiza.Click += new System.EventHandler(this.Actualiza_Click);
+            // 
+            // button1
+            // 
+            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.button1.Location = new System.Drawing.Point(1071, 40);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(100, 25);
+            this.button1.TabIndex = 57;
+            this.button1.Text = "Facturar";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Visible = false;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // checkPagos
+            // 
+            this.checkPagos.AutoSize = true;
+            this.checkPagos.Location = new System.Drawing.Point(253, 33);
+            this.checkPagos.Margin = new System.Windows.Forms.Padding(4);
+            this.checkPagos.Name = "checkPagos";
+            this.checkPagos.Size = new System.Drawing.Size(124, 21);
+            this.checkPagos.TabIndex = 56;
+            this.checkPagos.Text = "Pagos en línea";
+            this.checkPagos.UseVisualStyleBackColor = true;
             // 
             // btnActualizaCancelados
             // 
             this.btnActualizaCancelados.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnActualizaCancelados.Location = new System.Drawing.Point(803, 9);
+            this.btnActualizaCancelados.Location = new System.Drawing.Point(1071, 11);
+            this.btnActualizaCancelados.Margin = new System.Windows.Forms.Padding(4);
             this.btnActualizaCancelados.Name = "btnActualizaCancelados";
-            this.btnActualizaCancelados.Size = new System.Drawing.Size(75, 35);
+            this.btnActualizaCancelados.Size = new System.Drawing.Size(100, 26);
             this.btnActualizaCancelados.TabIndex = 55;
             this.btnActualizaCancelados.Text = "Act Canceled";
             this.btnActualizaCancelados.UseVisualStyleBackColor = true;
@@ -180,30 +221,32 @@
             this.tlpUsuario.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.tlpUsuario.Controls.Add(this.cbxUsuario, 0, 1);
             this.tlpUsuario.Controls.Add(this.label1, 0, 0);
-            this.tlpUsuario.Location = new System.Drawing.Point(536, 13);
+            this.tlpUsuario.Location = new System.Drawing.Point(715, 16);
+            this.tlpUsuario.Margin = new System.Windows.Forms.Padding(4);
             this.tlpUsuario.Name = "tlpUsuario";
             this.tlpUsuario.RowCount = 2;
             this.tlpUsuario.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tlpUsuario.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 27F));
-            this.tlpUsuario.Size = new System.Drawing.Size(212, 46);
+            this.tlpUsuario.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 33F));
+            this.tlpUsuario.Size = new System.Drawing.Size(283, 57);
             this.tlpUsuario.TabIndex = 54;
             // 
             // cbxUsuario
             // 
             this.cbxUsuario.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.cbxUsuario.FormattingEnabled = true;
-            this.cbxUsuario.Location = new System.Drawing.Point(3, 22);
+            this.cbxUsuario.Location = new System.Drawing.Point(4, 28);
+            this.cbxUsuario.Margin = new System.Windows.Forms.Padding(4);
             this.cbxUsuario.Name = "cbxUsuario";
-            this.cbxUsuario.Size = new System.Drawing.Size(206, 21);
+            this.cbxUsuario.Size = new System.Drawing.Size(275, 24);
             this.cbxUsuario.TabIndex = 55;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(3, 3);
-            this.label1.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
+            this.label1.Location = new System.Drawing.Point(4, 4);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(43, 13);
+            this.label1.Size = new System.Drawing.Size(57, 17);
             this.label1.TabIndex = 50;
             this.label1.Text = "Usuario";
             // 
@@ -212,9 +255,10 @@
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel1.Location = new System.Drawing.Point(0, 142);
+            this.panel1.Location = new System.Drawing.Point(0, 175);
+            this.panel1.Margin = new System.Windows.Forms.Padding(4);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1055, 337);
+            this.panel1.Size = new System.Drawing.Size(1407, 553);
             this.panel1.TabIndex = 50;
             // 
             // tlpFecha
@@ -225,21 +269,22 @@
             this.tlpFecha.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.tlpFecha.Controls.Add(this.label2, 0, 0);
             this.tlpFecha.Controls.Add(this.dtpFecha, 0, 1);
-            this.tlpFecha.Location = new System.Drawing.Point(334, 13);
+            this.tlpFecha.Location = new System.Drawing.Point(445, 16);
+            this.tlpFecha.Margin = new System.Windows.Forms.Padding(4);
             this.tlpFecha.Name = "tlpFecha";
             this.tlpFecha.RowCount = 2;
             this.tlpFecha.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tlpFecha.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 27F));
-            this.tlpFecha.Size = new System.Drawing.Size(196, 46);
+            this.tlpFecha.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 33F));
+            this.tlpFecha.Size = new System.Drawing.Size(261, 57);
             this.tlpFecha.TabIndex = 53;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(3, 3);
-            this.label2.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
+            this.label2.Location = new System.Drawing.Point(4, 4);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(37, 13);
+            this.label2.Size = new System.Drawing.Size(47, 17);
             this.label2.TabIndex = 50;
             this.label2.Text = "Fecha";
             // 
@@ -247,9 +292,10 @@
             // 
             this.dtpFecha.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.dtpFecha.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpFecha.Location = new System.Drawing.Point(5, 22);
+            this.dtpFecha.Location = new System.Drawing.Point(8, 28);
+            this.dtpFecha.Margin = new System.Windows.Forms.Padding(4);
             this.dtpFecha.Name = "dtpFecha";
-            this.dtpFecha.Size = new System.Drawing.Size(185, 20);
+            this.dtpFecha.Size = new System.Drawing.Size(245, 22);
             this.dtpFecha.TabIndex = 48;
             // 
             // btnActualizar
@@ -260,9 +306,10 @@
             this.btnActualizar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnActualizar.Font = new System.Drawing.Font("Segoe UI Black", 12F, System.Drawing.FontStyle.Bold);
             this.btnActualizar.ForeColor = System.Drawing.Color.Black;
-            this.btnActualizar.Location = new System.Drawing.Point(900, 9);
+            this.btnActualizar.Location = new System.Drawing.Point(1200, 11);
+            this.btnActualizar.Margin = new System.Windows.Forms.Padding(4);
             this.btnActualizar.Name = "btnActualizar";
-            this.btnActualizar.Size = new System.Drawing.Size(133, 39);
+            this.btnActualizar.Size = new System.Drawing.Size(177, 48);
             this.btnActualizar.TabIndex = 18;
             this.btnActualizar.Text = "RECARGAR";
             this.btnActualizar.UseVisualStyleBackColor = false;
@@ -274,9 +321,10 @@
             this.pcbIncomeByConcept.BackColor = System.Drawing.Color.Transparent;
             this.pcbIncomeByConcept.Image = global::SOAPAP.Properties.Resources.bg;
             this.pcbIncomeByConcept.InitialImage = global::SOAPAP.Properties.Resources.bg;
-            this.pcbIncomeByConcept.Location = new System.Drawing.Point(299, 12);
+            this.pcbIncomeByConcept.Location = new System.Drawing.Point(399, 15);
+            this.pcbIncomeByConcept.Margin = new System.Windows.Forms.Padding(4);
             this.pcbIncomeByConcept.Name = "pcbIncomeByConcept";
-            this.pcbIncomeByConcept.Size = new System.Drawing.Size(480, 51);
+            this.pcbIncomeByConcept.Size = new System.Drawing.Size(640, 63);
             this.pcbIncomeByConcept.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pcbIncomeByConcept.TabIndex = 52;
             this.pcbIncomeByConcept.TabStop = false;
@@ -287,9 +335,10 @@
             this.label4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(3)))), ((int)(((byte)(155)))), ((int)(((byte)(229)))));
             this.label4.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.ForeColor = System.Drawing.Color.White;
-            this.label4.Location = new System.Drawing.Point(30, 28);
+            this.label4.Location = new System.Drawing.Point(40, 34);
+            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(124, 21);
+            this.label4.Size = new System.Drawing.Size(154, 28);
             this.label4.TabIndex = 45;
             this.label4.Text = "fechas pasadas";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -299,9 +348,10 @@
             this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
             this.pictureBox1.Image = global::SOAPAP.Properties.Resources.reportes;
             this.pictureBox1.InitialImage = global::SOAPAP.Properties.Resources.reportes;
-            this.pictureBox1.Location = new System.Drawing.Point(3, 7);
+            this.pictureBox1.Location = new System.Drawing.Point(4, 9);
+            this.pictureBox1.Margin = new System.Windows.Forms.Padding(4);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(20, 20);
+            this.pictureBox1.Size = new System.Drawing.Size(27, 25);
             this.pictureBox1.TabIndex = 37;
             this.pictureBox1.TabStop = false;
             // 
@@ -311,9 +361,10 @@
             this.lblTitulo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(3)))), ((int)(((byte)(155)))), ((int)(((byte)(229)))));
             this.lblTitulo.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTitulo.ForeColor = System.Drawing.Color.White;
-            this.lblTitulo.Location = new System.Drawing.Point(29, 3);
+            this.lblTitulo.Location = new System.Drawing.Point(39, 4);
+            this.lblTitulo.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblTitulo.Name = "lblTitulo";
-            this.lblTitulo.Size = new System.Drawing.Size(115, 25);
+            this.lblTitulo.Size = new System.Drawing.Size(147, 32);
             this.lblTitulo.TabIndex = 36;
             this.lblTitulo.Text = "Facturación";
             this.lblTitulo.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -348,12 +399,14 @@
             this.Enviar,
             this.Descargar});
             this.dgvMovimientos.DataSource = this.transactionMovimientosCajaBindingSource;
-            this.dgvMovimientos.Location = new System.Drawing.Point(0, 77);
+            this.dgvMovimientos.Location = new System.Drawing.Point(0, 95);
+            this.dgvMovimientos.Margin = new System.Windows.Forms.Padding(4);
             this.dgvMovimientos.MultiSelect = false;
             this.dgvMovimientos.Name = "dgvMovimientos";
             this.dgvMovimientos.ReadOnly = true;
+            this.dgvMovimientos.RowHeadersWidth = 51;
             this.dgvMovimientos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvMovimientos.Size = new System.Drawing.Size(1055, 187);
+            this.dgvMovimientos.Size = new System.Drawing.Size(1407, 230);
             this.dgvMovimientos.TabIndex = 51;
             this.dgvMovimientos.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvMovimientos_CellContentClick);
             // 
@@ -361,60 +414,76 @@
             // 
             this.idTransactionDataGridViewTextBoxColumn.DataPropertyName = "IdTransaction";
             this.idTransactionDataGridViewTextBoxColumn.HeaderText = "IdTransaction";
+            this.idTransactionDataGridViewTextBoxColumn.MinimumWidth = 6;
             this.idTransactionDataGridViewTextBoxColumn.Name = "idTransactionDataGridViewTextBoxColumn";
             this.idTransactionDataGridViewTextBoxColumn.ReadOnly = true;
             this.idTransactionDataGridViewTextBoxColumn.Visible = false;
+            this.idTransactionDataGridViewTextBoxColumn.Width = 125;
             // 
             // folioTransaccionDataGridViewTextBoxColumn
             // 
             this.folioTransaccionDataGridViewTextBoxColumn.DataPropertyName = "FolioTransaccion";
             this.folioTransaccionDataGridViewTextBoxColumn.HeaderText = "FolioTransaccion";
+            this.folioTransaccionDataGridViewTextBoxColumn.MinimumWidth = 6;
             this.folioTransaccionDataGridViewTextBoxColumn.Name = "folioTransaccionDataGridViewTextBoxColumn";
             this.folioTransaccionDataGridViewTextBoxColumn.ReadOnly = true;
             this.folioTransaccionDataGridViewTextBoxColumn.Visible = false;
+            this.folioTransaccionDataGridViewTextBoxColumn.Width = 125;
             // 
             // idPaymentDataGridViewTextBoxColumn
             // 
             this.idPaymentDataGridViewTextBoxColumn.DataPropertyName = "IdPayment";
             this.idPaymentDataGridViewTextBoxColumn.HeaderText = "IdPayment";
+            this.idPaymentDataGridViewTextBoxColumn.MinimumWidth = 6;
             this.idPaymentDataGridViewTextBoxColumn.Name = "idPaymentDataGridViewTextBoxColumn";
             this.idPaymentDataGridViewTextBoxColumn.ReadOnly = true;
             this.idPaymentDataGridViewTextBoxColumn.Visible = false;
+            this.idPaymentDataGridViewTextBoxColumn.Width = 125;
             // 
             // operacionDataGridViewTextBoxColumn
             // 
             this.operacionDataGridViewTextBoxColumn.DataPropertyName = "Operacion";
             this.operacionDataGridViewTextBoxColumn.HeaderText = "Operacion";
+            this.operacionDataGridViewTextBoxColumn.MinimumWidth = 6;
             this.operacionDataGridViewTextBoxColumn.Name = "operacionDataGridViewTextBoxColumn";
             this.operacionDataGridViewTextBoxColumn.ReadOnly = true;
+            this.operacionDataGridViewTextBoxColumn.Width = 125;
             // 
             // folioImpresionDataGridViewTextBoxColumn
             // 
             this.folioImpresionDataGridViewTextBoxColumn.DataPropertyName = "FolioImpresion";
             this.folioImpresionDataGridViewTextBoxColumn.HeaderText = "Folio";
+            this.folioImpresionDataGridViewTextBoxColumn.MinimumWidth = 6;
             this.folioImpresionDataGridViewTextBoxColumn.Name = "folioImpresionDataGridViewTextBoxColumn";
             this.folioImpresionDataGridViewTextBoxColumn.ReadOnly = true;
+            this.folioImpresionDataGridViewTextBoxColumn.Width = 125;
             // 
             // horaDataGridViewTextBoxColumn
             // 
             this.horaDataGridViewTextBoxColumn.DataPropertyName = "Hora";
             this.horaDataGridViewTextBoxColumn.HeaderText = "Hora";
+            this.horaDataGridViewTextBoxColumn.MinimumWidth = 6;
             this.horaDataGridViewTextBoxColumn.Name = "horaDataGridViewTextBoxColumn";
             this.horaDataGridViewTextBoxColumn.ReadOnly = true;
+            this.horaDataGridViewTextBoxColumn.Width = 125;
             // 
             // totalDataGridViewTextBoxColumn
             // 
             this.totalDataGridViewTextBoxColumn.DataPropertyName = "Total";
             this.totalDataGridViewTextBoxColumn.HeaderText = "Total";
+            this.totalDataGridViewTextBoxColumn.MinimumWidth = 6;
             this.totalDataGridViewTextBoxColumn.Name = "totalDataGridViewTextBoxColumn";
             this.totalDataGridViewTextBoxColumn.ReadOnly = true;
+            this.totalDataGridViewTextBoxColumn.Width = 125;
             // 
             // cuentaDataGridViewTextBoxColumn
             // 
             this.cuentaDataGridViewTextBoxColumn.DataPropertyName = "Cuenta";
             this.cuentaDataGridViewTextBoxColumn.HeaderText = "Cuenta";
+            this.cuentaDataGridViewTextBoxColumn.MinimumWidth = 6;
             this.cuentaDataGridViewTextBoxColumn.Name = "cuentaDataGridViewTextBoxColumn";
             this.cuentaDataGridViewTextBoxColumn.ReadOnly = true;
+            this.cuentaDataGridViewTextBoxColumn.Width = 125;
             // 
             // clienteDataGridViewTextBoxColumn
             // 
@@ -429,48 +498,60 @@
             // 
             this.signoDataGridViewCheckBoxColumn.DataPropertyName = "Signo";
             this.signoDataGridViewCheckBoxColumn.HeaderText = "Signo";
+            this.signoDataGridViewCheckBoxColumn.MinimumWidth = 6;
             this.signoDataGridViewCheckBoxColumn.Name = "signoDataGridViewCheckBoxColumn";
             this.signoDataGridViewCheckBoxColumn.ReadOnly = true;
             this.signoDataGridViewCheckBoxColumn.Visible = false;
+            this.signoDataGridViewCheckBoxColumn.Width = 125;
             // 
             // haveInvoiceDataGridViewCheckBoxColumn
             // 
             this.haveInvoiceDataGridViewCheckBoxColumn.DataPropertyName = "HaveInvoice";
             this.haveInvoiceDataGridViewCheckBoxColumn.HeaderText = "Esta facturado";
+            this.haveInvoiceDataGridViewCheckBoxColumn.MinimumWidth = 6;
             this.haveInvoiceDataGridViewCheckBoxColumn.Name = "haveInvoiceDataGridViewCheckBoxColumn";
             this.haveInvoiceDataGridViewCheckBoxColumn.ReadOnly = true;
+            this.haveInvoiceDataGridViewCheckBoxColumn.Width = 125;
             // 
             // Facturar
             // 
             this.Facturar.HeaderText = "Facturar";
+            this.Facturar.MinimumWidth = 6;
             this.Facturar.Name = "Facturar";
             this.Facturar.ReadOnly = true;
             this.Facturar.Text = "Facturar";
             this.Facturar.UseColumnTextForButtonValue = true;
+            this.Facturar.Width = 125;
             // 
             // ActualizaPdf
             // 
             this.ActualizaPdf.HeaderText = "Actualiza Pdf";
+            this.ActualizaPdf.MinimumWidth = 6;
             this.ActualizaPdf.Name = "ActualizaPdf";
             this.ActualizaPdf.ReadOnly = true;
             this.ActualizaPdf.Text = "Actualiza";
             this.ActualizaPdf.UseColumnTextForButtonValue = true;
+            this.ActualizaPdf.Width = 125;
             // 
             // Enviar
             // 
             this.Enviar.HeaderText = "Enviar Mail";
+            this.Enviar.MinimumWidth = 6;
             this.Enviar.Name = "Enviar";
             this.Enviar.ReadOnly = true;
             this.Enviar.Text = "Enviar";
             this.Enviar.UseColumnTextForButtonValue = true;
+            this.Enviar.Width = 125;
             // 
             // Descargar
             // 
             this.Descargar.HeaderText = "Descargar";
+            this.Descargar.MinimumWidth = 6;
             this.Descargar.Name = "Descargar";
             this.Descargar.ReadOnly = true;
             this.Descargar.Text = "Descarga";
             this.Descargar.UseColumnTextForButtonValue = true;
+            this.Descargar.Width = 125;
             // 
             // transactionMovimientosCajaBindingSource
             // 
@@ -483,17 +564,19 @@
             this.pnlDetalle.BackColor = System.Drawing.SystemColors.Window;
             this.pnlDetalle.Controls.Add(this.pdfVwrDetalle);
             this.pnlDetalle.Controls.Add(this.ribbonControl1);
-            this.pnlDetalle.Location = new System.Drawing.Point(347, 270);
+            this.pnlDetalle.Location = new System.Drawing.Point(463, 332);
+            this.pnlDetalle.Margin = new System.Windows.Forms.Padding(4);
             this.pnlDetalle.Name = "pnlDetalle";
-            this.pnlDetalle.Size = new System.Drawing.Size(708, 292);
+            this.pnlDetalle.Size = new System.Drawing.Size(944, 359);
             this.pnlDetalle.TabIndex = 52;
             // 
             // pdfVwrDetalle
             // 
             this.pdfVwrDetalle.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pdfVwrDetalle.Location = new System.Drawing.Point(0, 141);
+            this.pdfVwrDetalle.Location = new System.Drawing.Point(0, 176);
+            this.pdfVwrDetalle.Margin = new System.Windows.Forms.Padding(4);
             this.pdfVwrDetalle.Name = "pdfVwrDetalle";
-            this.pdfVwrDetalle.Size = new System.Drawing.Size(708, 151);
+            this.pdfVwrDetalle.Size = new System.Drawing.Size(944, 183);
             this.pdfVwrDetalle.TabIndex = 5;
             // 
             // ribbonControl1
@@ -529,6 +612,7 @@
             this.pdfExportFormDataBarItem1,
             this.pdfImportFormDataBarItem1});
             this.ribbonControl1.Location = new System.Drawing.Point(0, 0);
+            this.ribbonControl1.Margin = new System.Windows.Forms.Padding(4);
             this.ribbonControl1.MaxItemId = 27;
             this.ribbonControl1.Name = "ribbonControl1";
             this.ribbonControl1.Pages.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPage[] {
@@ -537,7 +621,7 @@
             this.ribbonControl1.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
             this.repositoryItemPageNumberEdit1});
             this.ribbonControl1.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonControlStyle.Office2010;
-            this.ribbonControl1.Size = new System.Drawing.Size(708, 141);
+            this.ribbonControl1.Size = new System.Drawing.Size(944, 176);
             this.ribbonControl1.ToolbarLocation = DevExpress.XtraBars.Ribbon.RibbonQuickAccessToolbarLocation.Above;
             // 
             // pdfFileOpenBarItem1
@@ -779,15 +863,18 @@
             this.paymentIdDataGridViewTextBoxColumn,
             this.paymentDataGridViewTextBoxColumn});
             this.dgvDetallesPago.DataSource = this.paymentDetailBindingSource;
-            this.dgvDetallesPago.Location = new System.Drawing.Point(0, 31);
+            this.dgvDetallesPago.Location = new System.Drawing.Point(0, 38);
+            this.dgvDetallesPago.Margin = new System.Windows.Forms.Padding(4);
             this.dgvDetallesPago.Name = "dgvDetallesPago";
-            this.dgvDetallesPago.Size = new System.Drawing.Size(335, 255);
+            this.dgvDetallesPago.RowHeadersWidth = 51;
+            this.dgvDetallesPago.Size = new System.Drawing.Size(447, 314);
             this.dgvDetallesPago.TabIndex = 4;
             // 
             // descriptionDataGridViewTextBoxColumn
             // 
             this.descriptionDataGridViewTextBoxColumn.DataPropertyName = "Description";
             this.descriptionDataGridViewTextBoxColumn.HeaderText = "Descripción";
+            this.descriptionDataGridViewTextBoxColumn.MinimumWidth = 6;
             this.descriptionDataGridViewTextBoxColumn.Name = "descriptionDataGridViewTextBoxColumn";
             this.descriptionDataGridViewTextBoxColumn.Width = 200;
             // 
@@ -795,6 +882,7 @@
             // 
             this.taxDataGridViewTextBoxColumn.DataPropertyName = "Tax";
             this.taxDataGridViewTextBoxColumn.HeaderText = "Iva";
+            this.taxDataGridViewTextBoxColumn.MinimumWidth = 6;
             this.taxDataGridViewTextBoxColumn.Name = "taxDataGridViewTextBoxColumn";
             this.taxDataGridViewTextBoxColumn.Width = 50;
             // 
@@ -802,105 +890,135 @@
             // 
             this.amountDataGridViewTextBoxColumn.DataPropertyName = "Amount";
             this.amountDataGridViewTextBoxColumn.HeaderText = "Monto";
+            this.amountDataGridViewTextBoxColumn.MinimumWidth = 6;
             this.amountDataGridViewTextBoxColumn.Name = "amountDataGridViewTextBoxColumn";
+            this.amountDataGridViewTextBoxColumn.Width = 125;
             // 
             // idDataGridViewTextBoxColumn
             // 
             this.idDataGridViewTextBoxColumn.DataPropertyName = "Id";
             this.idDataGridViewTextBoxColumn.HeaderText = "Id";
+            this.idDataGridViewTextBoxColumn.MinimumWidth = 6;
             this.idDataGridViewTextBoxColumn.Name = "idDataGridViewTextBoxColumn";
             this.idDataGridViewTextBoxColumn.Visible = false;
+            this.idDataGridViewTextBoxColumn.Width = 125;
             // 
             // codeConceptDataGridViewTextBoxColumn
             // 
             this.codeConceptDataGridViewTextBoxColumn.DataPropertyName = "CodeConcept";
             this.codeConceptDataGridViewTextBoxColumn.HeaderText = "CodeConcept";
+            this.codeConceptDataGridViewTextBoxColumn.MinimumWidth = 6;
             this.codeConceptDataGridViewTextBoxColumn.Name = "codeConceptDataGridViewTextBoxColumn";
             this.codeConceptDataGridViewTextBoxColumn.Visible = false;
+            this.codeConceptDataGridViewTextBoxColumn.Width = 125;
             // 
             // accountNumberDataGridViewTextBoxColumn
             // 
             this.accountNumberDataGridViewTextBoxColumn.DataPropertyName = "AccountNumber";
             this.accountNumberDataGridViewTextBoxColumn.HeaderText = "AccountNumber";
+            this.accountNumberDataGridViewTextBoxColumn.MinimumWidth = 6;
             this.accountNumberDataGridViewTextBoxColumn.Name = "accountNumberDataGridViewTextBoxColumn";
             this.accountNumberDataGridViewTextBoxColumn.Visible = false;
+            this.accountNumberDataGridViewTextBoxColumn.Width = 125;
             // 
             // unitMeasurementDataGridViewTextBoxColumn
             // 
             this.unitMeasurementDataGridViewTextBoxColumn.DataPropertyName = "UnitMeasurement";
             this.unitMeasurementDataGridViewTextBoxColumn.HeaderText = "UnitMeasurement";
+            this.unitMeasurementDataGridViewTextBoxColumn.MinimumWidth = 6;
             this.unitMeasurementDataGridViewTextBoxColumn.Name = "unitMeasurementDataGridViewTextBoxColumn";
             this.unitMeasurementDataGridViewTextBoxColumn.Visible = false;
+            this.unitMeasurementDataGridViewTextBoxColumn.Width = 125;
             // 
             // typeDataGridViewTextBoxColumn
             // 
             this.typeDataGridViewTextBoxColumn.DataPropertyName = "Type";
             this.typeDataGridViewTextBoxColumn.HeaderText = "Type";
+            this.typeDataGridViewTextBoxColumn.MinimumWidth = 6;
             this.typeDataGridViewTextBoxColumn.Name = "typeDataGridViewTextBoxColumn";
             this.typeDataGridViewTextBoxColumn.Visible = false;
+            this.typeDataGridViewTextBoxColumn.Width = 125;
             // 
             // debtIdDataGridViewTextBoxColumn
             // 
             this.debtIdDataGridViewTextBoxColumn.DataPropertyName = "DebtId";
             this.debtIdDataGridViewTextBoxColumn.HeaderText = "DebtId";
+            this.debtIdDataGridViewTextBoxColumn.MinimumWidth = 6;
             this.debtIdDataGridViewTextBoxColumn.Name = "debtIdDataGridViewTextBoxColumn";
             this.debtIdDataGridViewTextBoxColumn.Visible = false;
+            this.debtIdDataGridViewTextBoxColumn.Width = 125;
             // 
             // debtDataGridViewTextBoxColumn
             // 
             this.debtDataGridViewTextBoxColumn.DataPropertyName = "Debt";
             this.debtDataGridViewTextBoxColumn.HeaderText = "Debt";
+            this.debtDataGridViewTextBoxColumn.MinimumWidth = 6;
             this.debtDataGridViewTextBoxColumn.Name = "debtDataGridViewTextBoxColumn";
             this.debtDataGridViewTextBoxColumn.Visible = false;
+            this.debtDataGridViewTextBoxColumn.Width = 125;
             // 
             // prepaidIdDataGridViewTextBoxColumn
             // 
             this.prepaidIdDataGridViewTextBoxColumn.DataPropertyName = "PrepaidId";
             this.prepaidIdDataGridViewTextBoxColumn.HeaderText = "PrepaidId";
+            this.prepaidIdDataGridViewTextBoxColumn.MinimumWidth = 6;
             this.prepaidIdDataGridViewTextBoxColumn.Name = "prepaidIdDataGridViewTextBoxColumn";
             this.prepaidIdDataGridViewTextBoxColumn.Visible = false;
+            this.prepaidIdDataGridViewTextBoxColumn.Width = 125;
             // 
             // prepaidDataGridViewTextBoxColumn
             // 
             this.prepaidDataGridViewTextBoxColumn.DataPropertyName = "Prepaid";
             this.prepaidDataGridViewTextBoxColumn.HeaderText = "Prepaid";
+            this.prepaidDataGridViewTextBoxColumn.MinimumWidth = 6;
             this.prepaidDataGridViewTextBoxColumn.Name = "prepaidDataGridViewTextBoxColumn";
             this.prepaidDataGridViewTextBoxColumn.Visible = false;
+            this.prepaidDataGridViewTextBoxColumn.Width = 125;
             // 
             // orderSaleIdDataGridViewTextBoxColumn
             // 
             this.orderSaleIdDataGridViewTextBoxColumn.DataPropertyName = "OrderSaleId";
             this.orderSaleIdDataGridViewTextBoxColumn.HeaderText = "OrderSaleId";
+            this.orderSaleIdDataGridViewTextBoxColumn.MinimumWidth = 6;
             this.orderSaleIdDataGridViewTextBoxColumn.Name = "orderSaleIdDataGridViewTextBoxColumn";
             this.orderSaleIdDataGridViewTextBoxColumn.Visible = false;
+            this.orderSaleIdDataGridViewTextBoxColumn.Width = 125;
             // 
             // orderSaleDataGridViewTextBoxColumn
             // 
             this.orderSaleDataGridViewTextBoxColumn.DataPropertyName = "OrderSale";
             this.orderSaleDataGridViewTextBoxColumn.HeaderText = "OrderSale";
+            this.orderSaleDataGridViewTextBoxColumn.MinimumWidth = 6;
             this.orderSaleDataGridViewTextBoxColumn.Name = "orderSaleDataGridViewTextBoxColumn";
             this.orderSaleDataGridViewTextBoxColumn.Visible = false;
+            this.orderSaleDataGridViewTextBoxColumn.Width = 125;
             // 
             // haveTaxDataGridViewCheckBoxColumn
             // 
             this.haveTaxDataGridViewCheckBoxColumn.DataPropertyName = "HaveTax";
             this.haveTaxDataGridViewCheckBoxColumn.HeaderText = "HaveTax";
+            this.haveTaxDataGridViewCheckBoxColumn.MinimumWidth = 6;
             this.haveTaxDataGridViewCheckBoxColumn.Name = "haveTaxDataGridViewCheckBoxColumn";
             this.haveTaxDataGridViewCheckBoxColumn.Visible = false;
+            this.haveTaxDataGridViewCheckBoxColumn.Width = 125;
             // 
             // paymentIdDataGridViewTextBoxColumn
             // 
             this.paymentIdDataGridViewTextBoxColumn.DataPropertyName = "PaymentId";
             this.paymentIdDataGridViewTextBoxColumn.HeaderText = "PaymentId";
+            this.paymentIdDataGridViewTextBoxColumn.MinimumWidth = 6;
             this.paymentIdDataGridViewTextBoxColumn.Name = "paymentIdDataGridViewTextBoxColumn";
             this.paymentIdDataGridViewTextBoxColumn.Visible = false;
+            this.paymentIdDataGridViewTextBoxColumn.Width = 125;
             // 
             // paymentDataGridViewTextBoxColumn
             // 
             this.paymentDataGridViewTextBoxColumn.DataPropertyName = "Payment";
             this.paymentDataGridViewTextBoxColumn.HeaderText = "Payment";
+            this.paymentDataGridViewTextBoxColumn.MinimumWidth = 6;
             this.paymentDataGridViewTextBoxColumn.Name = "paymentDataGridViewTextBoxColumn";
             this.paymentDataGridViewTextBoxColumn.Visible = false;
+            this.paymentDataGridViewTextBoxColumn.Width = 125;
             // 
             // paymentDetailBindingSource
             // 
@@ -913,12 +1031,14 @@
             this.dataGridViewButtonColumn1.FillWeight = 45.90965F;
             this.dataGridViewButtonColumn1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.dataGridViewButtonColumn1.HeaderText = "";
+            this.dataGridViewButtonColumn1.MinimumWidth = 6;
             this.dataGridViewButtonColumn1.Name = "dataGridViewButtonColumn1";
             this.dataGridViewButtonColumn1.ReadOnly = true;
             this.dataGridViewButtonColumn1.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.dataGridViewButtonColumn1.Text = "Facturar";
             this.dataGridViewButtonColumn1.ToolTipText = "Imprimir";
             this.dataGridViewButtonColumn1.UseColumnTextForButtonValue = true;
+            this.dataGridViewButtonColumn1.Width = 125;
             // 
             // dataGridViewButtonColumn2
             // 
@@ -927,12 +1047,14 @@
             this.dataGridViewButtonColumn2.FillWeight = 45.90965F;
             this.dataGridViewButtonColumn2.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.dataGridViewButtonColumn2.HeaderText = "";
+            this.dataGridViewButtonColumn2.MinimumWidth = 6;
             this.dataGridViewButtonColumn2.Name = "dataGridViewButtonColumn2";
             this.dataGridViewButtonColumn2.ReadOnly = true;
             this.dataGridViewButtonColumn2.Text = "Actualiza";
             this.dataGridViewButtonColumn2.ToolTipText = "Cancelar";
             this.dataGridViewButtonColumn2.UseColumnTextForButtonValue = true;
             this.dataGridViewButtonColumn2.Visible = false;
+            this.dataGridViewButtonColumn2.Width = 125;
             // 
             // dataGridViewButtonColumn3
             // 
@@ -940,6 +1062,7 @@
             this.dataGridViewButtonColumn3.FillWeight = 45.90965F;
             this.dataGridViewButtonColumn3.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.dataGridViewButtonColumn3.HeaderText = "";
+            this.dataGridViewButtonColumn3.MinimumWidth = 6;
             this.dataGridViewButtonColumn3.Name = "dataGridViewButtonColumn3";
             this.dataGridViewButtonColumn3.ReadOnly = true;
             this.dataGridViewButtonColumn3.Resizable = System.Windows.Forms.DataGridViewTriState.True;
@@ -947,14 +1070,17 @@
             this.dataGridViewButtonColumn3.Text = "Enviar";
             this.dataGridViewButtonColumn3.ToolTipText = "TIMBRAR";
             this.dataGridViewButtonColumn3.UseColumnTextForButtonValue = true;
+            this.dataGridViewButtonColumn3.Width = 125;
             // 
             // dataGridViewButtonColumn4
             // 
             this.dataGridViewButtonColumn4.HeaderText = "Descargar";
+            this.dataGridViewButtonColumn4.MinimumWidth = 6;
             this.dataGridViewButtonColumn4.Name = "dataGridViewButtonColumn4";
             this.dataGridViewButtonColumn4.ReadOnly = true;
             this.dataGridViewButtonColumn4.Text = "Descarga";
             this.dataGridViewButtonColumn4.UseColumnTextForButtonValue = true;
+            this.dataGridViewButtonColumn4.Width = 125;
             // 
             // pdfBarController1
             // 
@@ -993,18 +1119,20 @@
             this.panel2.Controls.Add(this.lblSucursal);
             this.panel2.Controls.Add(this.label3);
             this.panel2.Controls.Add(this.dgvDetallesPago);
-            this.panel2.Location = new System.Drawing.Point(3, 270);
+            this.panel2.Location = new System.Drawing.Point(4, 332);
+            this.panel2.Margin = new System.Windows.Forms.Padding(4);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(338, 289);
+            this.panel2.Size = new System.Drawing.Size(451, 356);
             this.panel2.TabIndex = 53;
             // 
             // lblSucursal
             // 
             this.lblSucursal.AutoSize = true;
             this.lblSucursal.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblSucursal.Location = new System.Drawing.Point(76, 9);
+            this.lblSucursal.Location = new System.Drawing.Point(101, 11);
+            this.lblSucursal.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblSucursal.Name = "lblSucursal";
-            this.lblSucursal.Size = new System.Drawing.Size(67, 17);
+            this.lblSucursal.Size = new System.Drawing.Size(80, 20);
             this.lblSucursal.TabIndex = 6;
             this.lblSucursal.Text = "Sucursal:";
             // 
@@ -1012,32 +1140,24 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(3, 9);
+            this.label3.Location = new System.Drawing.Point(4, 11);
+            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(67, 17);
+            this.label3.Size = new System.Drawing.Size(80, 20);
             this.label3.TabIndex = 5;
             this.label3.Text = "Sucursal:";
             // 
-            // checkPagos
-            // 
-            this.checkPagos.AutoSize = true;
-            this.checkPagos.Location = new System.Drawing.Point(190, 27);
-            this.checkPagos.Name = "checkPagos";
-            this.checkPagos.Size = new System.Drawing.Size(98, 17);
-            this.checkPagos.TabIndex = 56;
-            this.checkPagos.Text = "Pagos en línea";
-            this.checkPagos.UseVisualStyleBackColor = true;
-            // 
             // FacturacionPasada
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Highlight;
-            this.ClientSize = new System.Drawing.Size(1055, 587);
+            this.ClientSize = new System.Drawing.Size(1407, 722);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.pnlDetalle);
             this.Controls.Add(this.dgvMovimientos);
             this.Controls.Add(this.pnlHeader);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "FacturacionPasada";
             this.Text = "FacturacionPasada";
             this.Load += new System.EventHandler(this.FacturacionPasada_Load);
@@ -1162,5 +1282,7 @@
         private System.Windows.Forms.DataGridViewButtonColumn Descargar;
         private System.Windows.Forms.Button btnActualizaCancelados;
         private System.Windows.Forms.CheckBox checkPagos;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button Actualiza;
     }
 }

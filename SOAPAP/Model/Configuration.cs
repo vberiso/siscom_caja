@@ -37,5 +37,9 @@ namespace SOAPAP.Model
         public decimal Percentage { get; set; }
         public VersionApp VersionApp { get; set; }
         public List<string> RecargosXConcepto { get; set; }
+        public List<string> RecargosDescCovid { get; set; }
+        public decimal TotalDescuentoCOVID { get; set; }
+        //public string ProdDescCOVID { get; set; }
+        public Model.SystemParameters ProductosDescCOVID { get; set; }
     }
 }

@@ -55,10 +55,10 @@ namespace SOAPAP
 
         public Facturaelectronica()
         { 
-
+            //FACTURAMA: false - productivo
             Requests = new RequestsAPI(UrlBase);
-            facturama = new FacturamaApiMultiemisor("gfdsystems", "gfds1st95", true);
-            //facturama = new FacturamaApiMultiemisor("pruebas", "pruebas2011");
+            //facturama = new FacturamaApiMultiemisor("gfdsystems", "gfds1st95", false);
+            facturama = new FacturamaApiMultiemisor("pruebas", "pruebas2011");
         }
         public void setMsgs(string msgObservacionFactura, string msgUsos)
         {
@@ -68,7 +68,7 @@ namespace SOAPAP
         }
 
         //con Facturama PRODUCTIVO
-        public async Task<string> generaFactura(string idTransaction, string status, string pSerialCajero = "")
+        public async Task<string> generaFactura(string idTransaction, string status, string pSerialCajero = "", string pTipoUso = "")
         {
             try
             {
@@ -80,6 +80,10 @@ namespace SOAPAP
 
 
                 var resultado = await Requests.SendURIAsync(string.Format("/api/Transaction/{0}", idTransaction), HttpMethod.Get, Variables.LoginModel.Token);
+                if (resultado.Contains("error\\"))
+                {
+                    return resultado;
+                }
                 TransactionVM TraVM = JsonConvert.DeserializeObject<TransactionVM>(resultado);
 
                 Agreement ms = null;
@@ -534,20 +538,27 @@ namespace SOAPAP
 
                 //FIN DEL ARMADO DEL XML
 
-                //Se solicita una obsevacion para cada factura.                
-                if (showMsgObservacion)
+                //Se solicita una obsevacion para cada factura.   
+                if (!string.IsNullOrEmpty(pTipoUso))
                 {
-                    using (msgObservacionFactura msgObs = new msgObservacionFactura())
+                    cfdi.Receiver.CfdiUse = pTipoUso;
+                }
+                else
+                {
+                    if (showMsgObservacion)
                     {
-                        msgObs.ShowDialog();
-                        msgObservacionFactura = msgObs.TextoObservacion;
-                        msgUsos = msgObs.Usos;
-                        msgCorreo = msgObs.tbxCorreo.Text;
-                        enviarCorreo = msgObs.chbxEnviarCorreo.Checked;
+                        using (msgObservacionFactura msgObs = new msgObservacionFactura())
+                        {
+                            msgObs.ShowDialog();
+                            msgObservacionFactura = msgObs.TextoObservacion;
+                            msgUsos = msgObs.Usos;
+                            msgCorreo = msgObs.tbxCorreo.Text;
+                            enviarCorreo = msgObs.chbxEnviarCorreo.Checked;
+                        }
+                        cfdi.Receiver.CfdiUse = this.msgUsos.Split('-')[0].Trim();
                     }
-                    cfdi.Receiver.CfdiUse = this.msgUsos.Split('-')[0].Trim();
-                }                
-
+                }
+                
                 //En caso de tener descuento de grupo vulnerable
                 var tipoDescuento = "";
                 if (TraVM.payment.OrderSaleId == 0)
@@ -580,6 +591,19 @@ namespace SOAPAP
                 }
                 else if (!string.IsNullOrEmpty(TraVM.orderSale.Observation))
                     msgObservacionFactura += msgObservacionFactura != "" ? ", " + TraVM.orderSale.Observation : TraVM.orderSale.Observation;
+                //Mensaje por promocion COVID
+                if (ms.id != null && Variables.Configuration.RecargosDescCovid != null && ms.id != "0")
+                {   
+                    Variables.Configuration.TotalDescuentoCOVID = await VerificaDescuentoPorCOVID(int.Parse(ms.id), TraVM.payment.PaymentDetails.Select(x => x.Debt).ToList());
+                    //Se corrobora que hay a un monto de descuento, si no lo hay, no se agrega ningun mensaje.
+                    if(Variables.Configuration.TotalDescuentoCOVID != 0)
+                    {
+                        string MensajeObservacionFactura = Variables.Configuration.RecargosDescCovid.FirstOrDefault().Split('|')[1];
+                        MensajeObservacionFactura = string.Format(MensajeObservacionFactura, Variables.Configuration.TotalDescuentoCOVID.ToString());
+                        msgObservacionFactura += msgObservacionFactura != "" ? ", " + MensajeObservacionFactura : MensajeObservacionFactura;
+                    }                    
+                }
+                    
 
                 cfdi.Observations = msgObservacionFactura;
 
@@ -981,12 +1005,17 @@ namespace SOAPAP
             Facturama.Models.Response.Cfdi cfdiFacturama = null;
 
             var resultado = await Requests.SendURIAsync(string.Format("/api/Transaction/{0}", idTransaction), HttpMethod.Get, Variables.LoginModel.Token);
+            if (resultado.Contains("error"))
+                return resultado;
             TransactionVM TraVM = JsonConvert.DeserializeObject<TransactionVM>(resultado);
-
+            
+            
             Model.TaxUser tu = null;
             if (TraVM.payment.OrderSaleId != 0)
             {
                 var resulTaxUs = await Requests.SendURIAsync(string.Format("/api/TaxUsers/{0}", TraVM.orderSale.TaxUserId), HttpMethod.Get, Variables.LoginModel.Token);
+                if (resulTaxUs.Contains("error"))
+                    return resulTaxUs;
                 tu = JsonConvert.DeserializeObject<Model.TaxUser>(resulTaxUs);
             }
                         
@@ -1017,6 +1046,8 @@ namespace SOAPAP
             else
             {
                 TaxReceipt taxReceipt = TraVM.payment.TaxReceipts.Where(x => x.Status == "ET001").FirstOrDefault();
+                if (taxReceipt == null)
+                    return "error: sin factura";
                 if (taxReceipt.IdXmlFacturama.Contains("Timbox"))
                     cfdiGet = await ObterCfdiDesdeTIMBOX(taxReceipt);
                 else
@@ -1338,6 +1369,34 @@ namespace SOAPAP
             ModFac.ResponseCFDI resCfdi = await TT.getCFDI(taxReceipt);           
             return resCfdi;            
         }
+
+        //Verifica si a esta cueta se la condono deuda por COVID
+        private async Task<decimal> VerificaDescuentoPorCOVID(int idAgreement, List<Debt> debts)
+        {
+            try
+            {
+                decimal TotalDescuentoCOVID = 0;
+                string aniosDebt = string.Join("|", debts.Where(x => x.Type == "TIP01").Select(x => x.Year).ToList());
+                var resultDebDescuento = await Requests.SendURIAsync(string.Format("/api/Debts/promocionCOVID/{0}/{1}", idAgreement, aniosDebt), HttpMethod.Get, Variables.LoginModel.Token);
+                
+                if (resultDebDescuento.Contains("error\\"))
+                {
+                    var mensaje = new MessageBoxForm("Error", JsonConvert.DeserializeObject<Error>(resultDebDescuento).error, TypeIcon.Icon.Cancel);
+                    var result = mensaje.ShowDialog();
+                }
+                else
+                {
+                    //Variables.Agreement.Debts = JsonConvert.DeserializeObject<List<Model.Debt>>(resultDebDescuento);
+                    TotalDescuentoCOVID = JsonConvert.DeserializeObject<decimal>(resultDebDescuento);                                      
+                }
+                return TotalDescuentoCOVID;
+            }
+            catch (Exception ex)
+            {
+                return 0;
+            }
+        }
+
     }
 
 }

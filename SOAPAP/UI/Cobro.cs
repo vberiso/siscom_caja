@@ -238,6 +238,11 @@ namespace SOAPAP.UI
                         source.DataSource = lCollectConcepts ?? new List<CollectConcepts>();
                         dgvConceptosCobro.DataSource = source;
                     }
+
+                    //Verificacion de promocion por COVID
+                    if (Variables.Configuration.RecargosDescCovid.Count > 0)
+                        VerificaDescuentoPorCOVID(Variables.Agreement.Id, tmpFiltros);
+
                 }
             }
         }
@@ -497,6 +502,42 @@ namespace SOAPAP.UI
                                     result = mensaje.ShowDialog();
                                 }
                             }
+
+                            //Si hay descuento a productos por contingenca COVID
+                            if (Variables.Configuration.ProductosDescCOVID != null)
+                            {
+                                if (Variables.OrderSale.Observation != null && Variables.OrderSale.Observation.Contains("COVID"))
+                                {
+                                    mensaje = new MessageBoxForm("Orden sujeta a descuento", $"Esta orden ya tiene el descuento por contingencia COVID", TypeIcon.Icon.Success);
+                                    result = mensaje.ShowDialog();
+                                }
+                                else   //Se ejecuta el proceso para  calcular el descuento
+                                {
+                                    var lstConceptosDescCOVID = Variables.Configuration.ProductosDescCOVID.TextColumn.Substring(0, Variables.Configuration.ProductosDescCOVID.TextColumn.IndexOf(" => ")).Split('|').ToList();
+                                    var lstIdsToApliDesc = Variables.OrderSale.OrderSaleDetails.Where(x => lstConceptosDescCOVID.Contains(x.CodeConcept)).Select(x => x.Id).ToList();
+                                    if (lstIdsToApliDesc.Count > 0)
+                                    {
+                                        decimal totalAdeudo = Variables.OrderSale.OrderSaleDetails.Where(x => lstIdsToApliDesc.Contains(x.Id)).Sum(x => x.Amount - x.OnAccount);
+                                        decimal totalDescuento = Decimal.Round((Variables.Configuration.ProductosDescCOVID.NumberColumn / 100) * totalAdeudo, 2);
+
+                                        mensaje = new MessageBoxForm("Orden sujeta a descuento", $"Por motivo de la contingencia la orden cuenta con un descuento de ${totalDescuento}. ¿DESEA APLICAR EL DESCUENTO?.", TypeIcon.Icon.Info, true);
+                                        result = mensaje.ShowDialog();
+                                        if (result == DialogResult.OK)
+                                        {                                            
+                                            string resDesc = await aplicaDescuentoProductosCOVID();
+                                            if (resDesc.Contains("ok"))
+                                            {
+                                                ObtenerInformacion();
+                                                return;
+                                            }                                                
+                                            else
+                                                return;                                            
+                                        }
+
+                                    }
+                                }                                
+                            }
+
                         }
                         else
                         {
@@ -711,6 +752,9 @@ namespace SOAPAP.UI
                                     {
                                         ObtenerSeleccion();
                                         descuentosToolStripMenuItem.Enabled = true;
+                                        //Verificacion de promocion por COVID
+                                        if(Variables.Configuration.RecargosDescCovid != null && Variables.Configuration.RecargosDescCovid.Count > 0)
+                                            VerificaDescuentoPorCOVID(Variables.Agreement.Id, Variables.Agreement.Debts.ToList());
                                     }
                                     else
                                     {
@@ -1670,6 +1714,102 @@ namespace SOAPAP.UI
             }
             ObtenerInformacion();
         }
+
+        //Verifica si a esta cueta se la condono deuda por COVID
+        private async void VerificaDescuentoPorCOVID(int idAgreement, List<Debt> debts)
+        {
+            try
+            {
+                string aniosDebt = string.Join("|", debts.Where(x => x.Type == "TIP01").Select(x => x.Year).ToList());
+                var resultDebDescuento = await Requests.SendURIAsync(string.Format("/api/Debts/promocionCOVID/{0}/{1}", idAgreement, aniosDebt), HttpMethod.Get, Variables.LoginModel.Token);
+                loading.Close();
+                if (resultDebDescuento.Contains("error\\"))
+                {
+                    mensaje = new MessageBoxForm("Error", JsonConvert.DeserializeObject<Error>(resultDebDescuento).error, TypeIcon.Icon.Cancel);
+                    result = mensaje.ShowDialog();
+                }
+                else
+                {
+                    //Variables.Agreement.Debts = JsonConvert.DeserializeObject<List<Model.Debt>>(resultDebDescuento);
+                    decimal TotalDescuentoCOVID = JsonConvert.DeserializeObject<decimal>(resultDebDescuento);
+                    var Mensaje = Variables.Configuration.RecargosDescCovid.FirstOrDefault();
+
+                    if(TotalDescuentoCOVID > 0)
+                    {
+                        Variables.Configuration.TotalDescuentoCOVID = TotalDescuentoCOVID;
+                        string Titulo = Mensaje.Split('|')[0].Split('@')[0];
+                        string Cuerpo = Mensaje.Split('|')[0].Split('@')[1];
+
+                        mensaje = new MessageBoxForm(Titulo, string.Format(Cuerpo, TotalDescuentoCOVID), TypeIcon.Icon.Info);
+                        result = mensaje.ShowDialog();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }
+
+        //Descuento que se aplica al momento de cobrar, por contingencia COVID
+        private async Task<string> aplicaDescuentoProductosCOVID()
+        {
+            short pTypo = Variables.Configuration.ProductosDescCOVID.TypeColumn;
+            decimal pValor = Variables.Configuration.ProductosDescCOVID.NumberColumn;
+            int pIdOrder = Variables.OrderSale.Id;
+            string pIdsOSD = "";
+            HttpContent content;
+            try
+            {
+                var lstConceptosDescCOVID = Variables.Configuration.ProductosDescCOVID.TextColumn.Substring(0, Variables.Configuration.ProductosDescCOVID.TextColumn.IndexOf(" => ")).Split('|').ToList();
+                var lstIdsToApliDesc = Variables.OrderSale.OrderSaleDetails.Where(x => lstConceptosDescCOVID.Contains(x.CodeConcept)).Select(x => x.Id).ToList();
+                pIdsOSD = string.Join("|", lstIdsToApliDesc);
+                if (lstIdsToApliDesc.Count > 0)
+                {
+                    //Se lanza sp para modificar la orden en BD y aplicar descuento.
+                    var json = JsonConvert.SerializeObject(new { tipo = pTypo, valor = pValor, id = pIdOrder, idsOSD = pIdsOSD });
+                    var claseAnonima = new { tipo = pTypo, valor = pValor, id = pIdOrder, idsOSD = pIdsOSD };
+                    content = new StringContent(JsonConvert.SerializeObject(claseAnonima), Encoding.UTF8, "application/json");
+                    var _resulTransaction = await Requests.SendURIAsync("/api/Debts/ApplyDiscountProductsCOVID", HttpMethod.Post, Variables.LoginModel.Token, content);
+                    if (_resulTransaction.Contains("error:"))
+                    {
+                        mensaje = new MessageBoxForm("Error", _resulTransaction.Split(':')[1].Replace("}", ""), TypeIcon.Icon.Cancel);
+                        result = mensaje.ShowDialog();
+                        return "error";
+                    }
+                    int ValsActualizados = JsonConvert.DeserializeObject<int>(_resulTransaction);
+
+                    if (lstIdsToApliDesc.Count != ValsActualizados)
+                    {
+                        mensaje = new MessageBoxForm("Error", "No puedo aplicar los descuentos, se realizara el cobro sin descuento. CONSULTE SON EL ADMINSTRADOR.", TypeIcon.Icon.Cancel);
+                        result = mensaje.ShowDialog();
+                        return "Se cobrara sin descuento.";
+                    }
+                    else
+                    {
+                        //Se vuelve a cargar la orden
+                        var _cuenta = Variables.OrderSale.Folio;
+                        var resultOrder = await Requests.SendURIAsync(string.Format("/api/OrderSales/Folio/{0}", _cuenta), HttpMethod.Get, Variables.LoginModel.Token);
+                        loading.Close();
+                        if (resultOrder.Contains("error\\"))
+                        {
+                            mensaje = new MessageBoxForm("Error", JsonConvert.DeserializeObject<Error>(resultOrder).error, TypeIcon.Icon.Cancel);
+                            result = mensaje.ShowDialog();
+                        }
+                        else
+                        {
+                            Variables.OrderSale = JsonConvert.DeserializeObject<Model.OrderSale>(resultOrder);
+                        }
+                    }
+                }
+                return "ok";
+            }
+            catch (Exception ex)
+            {
+                return "error";
+            }
+        }
+
     }
 
     public partial class CollectConcepts
