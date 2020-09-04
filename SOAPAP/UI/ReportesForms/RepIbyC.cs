@@ -525,6 +525,29 @@ namespace SOAPAP.UI.ReportesForms
             builder.Append(@"</tr>");
             builder.Append(@"</table>");
             builder.Append(@"</div>");
+            builder.Append(@"<div>");
+            builder.Append(@"<br><br>");
+            builder.Append(@"<div style='width:95%; font-size:12px; text-align:center;'>");
+            builder.Append(@"<h5>Firmas:</h5>");
+            builder.Append(@"</div>");
+            builder.Append(@"<br><br><br>");
+            builder.Append(@"<div>");
+            builder.Append(@"<table style='width: 95%;font-size:10px;'>");
+            builder.Append(@"<tr>");
+            builder.Append(@"<td style='width: 44%'><hr style='margin:0 20%;'></td>");            
+            builder.Append(@"<td style='width: 45%'><hr style='margin:0 20%;'></td>");
+            builder.Append(@"</tr>");
+            builder.Append(@"<tr>");
+            builder.Append(@"<td style='width: 44%; text-align: center;'>Usuario receptor:</td>");
+            builder.Append(@"<td style='width: 45%; text-align: center;'>Usuario emisor:</td>");            
+            builder.Append(@"</tr>");
+            builder.Append(@"<tr>");
+            builder.Append(@"<td style='width: 44%; text-align: center;'></td>");
+            builder.Append($@"<td style='width: 45%; text-align: center;'>{getUsersNamesSelecionados()}</td>");            
+            builder.Append(@"</tr>");
+            builder.Append(@"</table>");
+            builder.Append(@"</div>");
+            builder.Append(@"</div>");
             builder.Append(@"</body>");
             builder.Append(@"</html>");
 
@@ -626,11 +649,37 @@ namespace SOAPAP.UI.ReportesForms
 
         }
 
-        private string getUsersIDSelecionados()
+        private string getUsersNamesSelecionados()
         {
+            //Operadores seleccionados del combo de cajeros
+            var temp = chcbxOperador.Properties.Items.ToList();
+            string itemSeleccionado = "";
 
-            //Se Obtiene el rango de fechas.
+            ////Se obtiene el cajero para filtrar la consulta
+            if (temp.Where(x => x.CheckState == CheckState.Checked).Count() == 0)
+            {
+                itemSeleccionado = "";
+                mensaje = new MessageBoxForm("Advertencia: ", "Debe seleccionar un cajero.", TypeIcon.Icon.Cancel);
+                result = mensaje.ShowDialog();
+                return null;
+            }
+            else
+            {
+                foreach (var item in temp)
+                {
+                    if (item.CheckState == CheckState.Checked)
+                    {
+                        itemSeleccionado = itemSeleccionado + item.Description + ",";
+                    }
+                }
+                itemSeleccionado = itemSeleccionado.Substring(0, itemSeleccionado.Length - 1);
 
+            }
+
+            return itemSeleccionado;
+        }
+        private string getUsersIDSelecionados()
+        {            
             //Operadores seleccionados del combo de cajeros
             var temp = chcbxOperador.Properties.Items.ToList();
             string itemSeleccionado = "";
@@ -655,9 +704,6 @@ namespace SOAPAP.UI.ReportesForms
                 itemSeleccionado = itemSeleccionado.Substring(0, itemSeleccionado.Length - 1);
 
             }
-
-
-
 
             return itemSeleccionado;
         }

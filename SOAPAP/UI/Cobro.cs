@@ -520,7 +520,7 @@ namespace SOAPAP.UI
                                         decimal totalAdeudo = Variables.OrderSale.OrderSaleDetails.Where(x => lstIdsToApliDesc.Contains(x.Id)).Sum(x => x.Amount - x.OnAccount);
                                         decimal totalDescuento = Decimal.Round((Variables.Configuration.ProductosDescCOVID.NumberColumn / 100) * totalAdeudo, 2);
 
-                                        mensaje = new MessageBoxForm("Orden sujeta a descuento", $"Por motivo de la contingencia la orden cuenta con un descuento de ${totalDescuento}. ¿DESEA APLICAR EL DESCUENTO?.", TypeIcon.Icon.Info, true);
+                                        mensaje = new MessageBoxForm("Orden sujeta a descuento", $"Por motivo de la contingencia la orden cuenta con un descuento de ${totalDescuento}. \n SE APLICARA EL DESCUENTO.", TypeIcon.Icon.Info);
                                         result = mensaje.ShowDialog();
                                         if (result == DialogResult.OK)
                                         {                                            
