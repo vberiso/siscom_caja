@@ -59,7 +59,6 @@
             this.label5 = new System.Windows.Forms.Label();
             this.lblTitulo = new System.Windows.Forms.Label();
             this.pgcCollection = new DevExpress.XtraPivotGrid.PivotGridControl();
-            this.dataCollectionBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.pgfDescripcion = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfSubtotal = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfDescuento = new DevExpress.XtraPivotGrid.PivotGridField();
@@ -83,6 +82,8 @@
             this.pgfAgrupado = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfCodeCon = new DevExpress.XtraPivotGrid.PivotGridField();
             this.pgfConstruccion = new DevExpress.XtraPivotGrid.PivotGridField();
+            this.pgfFolioFiscal = new DevExpress.XtraPivotGrid.PivotGridField();
+            this.dataCollectionBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.pnlHeader.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -109,7 +110,7 @@
             this.pnlHeader.Controls.Add(this.label5);
             this.pnlHeader.Controls.Add(this.lblTitulo);
             this.pnlHeader.Location = new System.Drawing.Point(1, 0);
-            this.pnlHeader.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pnlHeader.Margin = new System.Windows.Forms.Padding(4);
             this.pnlHeader.Name = "pnlHeader";
             this.pnlHeader.Size = new System.Drawing.Size(1405, 153);
             this.pnlHeader.TabIndex = 51;
@@ -144,7 +145,7 @@
             this.buttonName.Dock = System.Windows.Forms.DockStyle.Right;
             this.buttonName.ForeColor = System.Drawing.SystemColors.ControlLight;
             this.buttonName.Location = new System.Drawing.Point(1172, 0);
-            this.buttonName.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.buttonName.Margin = new System.Windows.Forms.Padding(4);
             this.buttonName.Name = "buttonName";
             this.buttonName.Size = new System.Drawing.Size(233, 153);
             this.buttonName.TabIndex = 66;
@@ -164,7 +165,7 @@
             this.tableLayoutPanel2.Controls.Add(this.label2, 0, 0);
             this.tableLayoutPanel2.Controls.Add(this.dtpFechaIni, 0, 1);
             this.tableLayoutPanel2.Location = new System.Drawing.Point(440, 82);
-            this.tableLayoutPanel2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tableLayoutPanel2.Margin = new System.Windows.Forms.Padding(4);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 2;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
@@ -187,7 +188,7 @@
             this.dtpFechaFin.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.dtpFechaFin.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.dtpFechaFin.Location = new System.Drawing.Point(295, 28);
-            this.dtpFechaFin.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.dtpFechaFin.Margin = new System.Windows.Forms.Padding(4);
             this.dtpFechaFin.Name = "dtpFechaFin";
             this.dtpFechaFin.Size = new System.Drawing.Size(220, 22);
             this.dtpFechaFin.TabIndex = 49;
@@ -207,7 +208,7 @@
             this.dtpFechaIni.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.dtpFechaIni.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.dtpFechaIni.Location = new System.Drawing.Point(16, 28);
-            this.dtpFechaIni.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.dtpFechaIni.Margin = new System.Windows.Forms.Padding(4);
             this.dtpFechaIni.Name = "dtpFechaIni";
             this.dtpFechaIni.Size = new System.Drawing.Size(252, 22);
             this.dtpFechaIni.TabIndex = 48;
@@ -224,7 +225,7 @@
             this.tableLayoutPanel1.Controls.Add(this.label6, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.label4, 1, 0);
             this.tableLayoutPanel1.Location = new System.Drawing.Point(441, 14);
-            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(4);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 2;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
@@ -237,7 +238,7 @@
             this.chcbxOperador.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.chcbxOperador.EditValue = "";
             this.chcbxOperador.Location = new System.Drawing.Point(4, 26);
-            this.chcbxOperador.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.chcbxOperador.Margin = new System.Windows.Forms.Padding(4);
             this.chcbxOperador.Name = "chcbxOperador";
             this.chcbxOperador.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
@@ -249,7 +250,7 @@
             this.chcbxOficina.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.chcbxOficina.EditValue = "";
             this.chcbxOficina.Location = new System.Drawing.Point(290, 26);
-            this.chcbxOficina.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.chcbxOficina.Margin = new System.Windows.Forms.Padding(4);
             this.chcbxOficina.Name = "chcbxOficina";
             this.chcbxOficina.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
@@ -283,7 +284,7 @@
             this.pcbIncomeByConcept.Image = global::SOAPAP.Properties.Resources.bg;
             this.pcbIncomeByConcept.InitialImage = global::SOAPAP.Properties.Resources.bg;
             this.pcbIncomeByConcept.Location = new System.Drawing.Point(409, 81);
-            this.pcbIncomeByConcept.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pcbIncomeByConcept.Margin = new System.Windows.Forms.Padding(4);
             this.pcbIncomeByConcept.Name = "pcbIncomeByConcept";
             this.pcbIncomeByConcept.Size = new System.Drawing.Size(588, 63);
             this.pcbIncomeByConcept.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -297,7 +298,7 @@
             this.pbBG.Image = global::SOAPAP.Properties.Resources.bg;
             this.pbBG.InitialImage = global::SOAPAP.Properties.Resources.bg;
             this.pbBG.Location = new System.Drawing.Point(409, 12);
-            this.pbBG.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pbBG.Margin = new System.Windows.Forms.Padding(4);
             this.pbBG.Name = "pbBG";
             this.pbBG.Size = new System.Drawing.Size(588, 62);
             this.pbBG.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -310,7 +311,7 @@
             this.pictureBox1.Image = global::SOAPAP.Properties.Resources.reportes;
             this.pictureBox1.InitialImage = global::SOAPAP.Properties.Resources.reportes;
             this.pictureBox1.Location = new System.Drawing.Point(20, 16);
-            this.pictureBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pictureBox1.Margin = new System.Windows.Forms.Padding(4);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(27, 25);
             this.pictureBox1.TabIndex = 59;
@@ -373,17 +374,14 @@
             this.pgfAñoEjercicio,
             this.pgfAgrupado,
             this.pgfCodeCon,
-            this.pgfConstruccion});
+            this.pgfConstruccion,
+            this.pgfFolioFiscal});
             this.pgcCollection.Location = new System.Drawing.Point(3, 153);
-            this.pgcCollection.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pgcCollection.Margin = new System.Windows.Forms.Padding(4);
             this.pgcCollection.Name = "pgcCollection";
             this.pgcCollection.OptionsData.DataProcessingEngine = DevExpress.XtraPivotGrid.PivotDataProcessingEngine.LegacyOptimized;
             this.pgcCollection.Size = new System.Drawing.Size(1404, 399);
             this.pgcCollection.TabIndex = 52;
-            // 
-            // dataCollectionBindingSource
-            // 
-            this.dataCollectionBindingSource.DataSource = typeof(SOAPAP.Reportes.DataCollection);
             // 
             // pgfDescripcion
             // 
@@ -603,6 +601,17 @@
             this.pgfConstruccion.Name = "pgfConstruccion";
             this.pgfConstruccion.Width = 133;
             // 
+            // pgfFolioFiscal
+            // 
+            this.pgfFolioFiscal.AreaIndex = 12;
+            this.pgfFolioFiscal.Caption = "FOLIO FISCAL";
+            this.pgfFolioFiscal.FieldName = "FolioFiscal";
+            this.pgfFolioFiscal.Name = "pgfFolioFiscal";
+            // 
+            // dataCollectionBindingSource
+            // 
+            this.dataCollectionBindingSource.DataSource = typeof(SOAPAP.Reportes.DataCollection);
+            // 
             // RepIAcc
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -610,7 +619,7 @@
             this.ClientSize = new System.Drawing.Size(1407, 583);
             this.Controls.Add(this.pgcCollection);
             this.Controls.Add(this.pnlHeader);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "RepIAcc";
             this.Text = "RepIAcc";
             this.Load += new System.EventHandler(this.RepIAcc_Load);
@@ -675,5 +684,6 @@
         private DevExpress.XtraPivotGrid.PivotGridField pgfAgrupado;
         private DevExpress.XtraPivotGrid.PivotGridField pgfCodeCon;
         private DevExpress.XtraPivotGrid.PivotGridField pgfConstruccion;
+        private DevExpress.XtraPivotGrid.PivotGridField pgfFolioFiscal;
     }
 }

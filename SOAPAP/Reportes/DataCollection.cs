@@ -45,5 +45,7 @@ namespace SOAPAP.Reportes
 
         public string MotivoDescuento { get { return DESCUENTO == 0 ? "" : (string.IsNullOrEmpty(discount) ? (string.IsNullOrEmpty(GrupoVulnerable) ? (discountAuto) : GrupoVulnerable) : discount); } }
 
+        public string FolioFiscal { get; set; }
+
     }
 }
