@@ -57,8 +57,8 @@ namespace SOAPAP
         { 
             //FACTURAMA: false - productivo
             Requests = new RequestsAPI(UrlBase);
-            //facturama = new FacturamaApiMultiemisor("gfdsystems", "gfds1st95", false);
-            facturama = new FacturamaApiMultiemisor("pruebas", "pruebas2011");
+            facturama = new FacturamaApiMultiemisor("gfdsystems", "gfds1st95", false);
+            //facturama = new FacturamaApiMultiemisor("pruebas", "pruebas2011");
         }
         public void setMsgs(string msgObservacionFactura, string msgUsos)
         {
@@ -919,7 +919,7 @@ namespace SOAPAP
 
                 if (resultado.Contains("Server Error"))
                 {
-                    return "{\"error\": \"No se ha podido realizar la cancelación, fallo la solicitud a facturama.\"}";
+                    return JsonConvert.SerializeObject(new { status = "error", message = "No se ha podido realizar la cancelación, fallo la solicitud a facturama." });                    
                 }
                 else
                 {
@@ -931,28 +931,28 @@ namespace SOAPAP
                     }
                     catch (Exception exe) 
                     {
-                        return "{\"error\": \"No se ha podido realizar la cancelación, fallo la solicitud a facturama.\"}";
+                        return JsonConvert.SerializeObject(new { status = "error", message = "No se ha podido realizar la cancelación, fallo la solicitud a facturama." });
                     }
                     
                     switch (cfdiCancel.Status)
                     {
                         case "canceled":
-                            resultadoSolicitudCancelacion = "Cancelación exitosa. Estado actual: " + cfdiCancel.Message;
+                            resultadoSolicitudCancelacion = JsonConvert.SerializeObject(new { status = "canceled", message = "Cancelación exitosa. Estado actual: " + cfdiCancel.Message }); 
                             break;
                         case "active":
-                            resultadoSolicitudCancelacion = "{\"error\": \"No se pudo cancelar, hay facturas ligadas: " + cfdiCancel.Message + "\"}";
+                            resultadoSolicitudCancelacion = JsonConvert.SerializeObject(new { status = "active", message = "No se pudo cancelar, hay facturas ligadas: " + cfdiCancel.Message });
                             break;
                         case "pending":
-                            resultadoSolicitudCancelacion = "{\"error\": \"Cancelación Pendiente: " + cfdiCancel.Message + "\"}";
+                            resultadoSolicitudCancelacion = JsonConvert.SerializeObject(new { status = "pending", message = "Cancelación Pendiente: " + cfdiCancel.Message });
                             break;
                         case "acepted":
-                            resultadoSolicitudCancelacion = "Cancelación aceptada: " + cfdiCancel.Message;
+                            resultadoSolicitudCancelacion = JsonConvert.SerializeObject(new { status = "acepted", message = "Cancelación aceptada: " + cfdiCancel.Message });
                             break;
                         case "rejected":
-                            resultadoSolicitudCancelacion = "{\"error\": \"Cancelación rechazada: " + cfdiCancel.Message + "\"}";
+                            resultadoSolicitudCancelacion = JsonConvert.SerializeObject(new { status = "rejected", message = "Cancelación rechazada: " + cfdiCancel.Message });
                             break;
                         case "expired":
-                            resultadoSolicitudCancelacion = "Cancelación por expiración de 72hrs: " + cfdiCancel.Message;
+                            resultadoSolicitudCancelacion = JsonConvert.SerializeObject(new { status = "expired", message = "Cancelación por expiración de 72hrs: " + cfdiCancel.Message });
                             break;
                     }
 
@@ -980,7 +980,7 @@ namespace SOAPAP
                         }
                         else
                         {
-                            return "{\"error\": \"Se ralizó la cancelacion, pero no se pudo guardar el registro de cancelación en BD, contacte al administrador.\"}";
+                            return JsonConvert.SerializeObject(new { status = "incomplete", message = "Se realizó la cancelacion, pero no se pudo guardar el registro de cancelación en BD, contacte al administrador." });
                         }
                     }
                     else
@@ -992,7 +992,7 @@ namespace SOAPAP
             }
             catch (Exception ex)
             {
-                return "{\"error\": " + ex.Message.Replace("\\", "").Replace("{", "").Replace("}", "").Split(':')[1] + "}";
+                return JsonConvert.SerializeObject(new { status = "error", message = ex.Message });
             }
         }
 

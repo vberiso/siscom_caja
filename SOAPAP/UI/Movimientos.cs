@@ -41,7 +41,7 @@ namespace SOAPAP
 {
     public partial class Movimientos : Form
     {
-        public readonly FirebaseClient firebase = new FirebaseClient(Variables.Configuration.StringURLFirebase);
+        public readonly FirebaseClient firebase = new FirebaseClient(Variables.Configuration.StringURLFirebase);        
         DataTable dtt = new DataTable();
         querys q = new querys();
         Form cuadritos3;
@@ -1167,6 +1167,8 @@ namespace SOAPAP
                                     FirebaseObject<TransactionCancellationRequest> @object = await firebase
                                                                                  .Child("CancelRequest")
                                                                                  .PostAsync(TCRregistro, true);
+                                    
+
                                     TCRregistro.KeyFirebase = @object.Key;
                                     HttpContent contUpdate = new StringContent(JsonConvert.SerializeObject(TCRregistro), Encoding.UTF8, "application/json");
                                     var ResultUpdateCancelReq = await Requests.SendURIAsync(string.Format("/api/TransactionCancelationRequest/{0}", TCRregistro.Id), HttpMethod.Put, Variables.LoginModel.Token, contUpdate);

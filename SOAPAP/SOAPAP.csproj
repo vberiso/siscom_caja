@@ -27,9 +27,9 @@
     <UpdateRequired>true</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
     <UpdateUrl>\\installer.cuautlancingo.gob.mx\caja\</UpdateUrl>
-    <MinimumRequiredVersion>1.1.2.36</MinimumRequiredVersion>
+    <MinimumRequiredVersion>1.1.2.39</MinimumRequiredVersion>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>37</ApplicationRevision>
+    <ApplicationRevision>40</ApplicationRevision>
     <ApplicationVersion>1.1.2.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -386,6 +386,7 @@
     <Compile Include="Enums\TypeStatus.cs" />
     <Compile Include="Facturacionagrupada.cs" />
     <Compile Include="FacturadoTimbox\Model\cfdv33_tdCFDI_catCFDI.cs" />
+    <Compile Include="FacturadoTimbox\Model\DataCancelationTimbox.cs" />
     <Compile Include="FacturadoTimbox\TimbradoTimbox.cs" />
     <Compile Include="FacturadoTimbox\Utils\opensslkey.cs" />
     <Compile Include="FacturadoTimbox\Utils\SelloDigital.cs" />
@@ -556,6 +557,12 @@
     </Compile>
     <Compile Include="UI\CuentasContables\TreeListItem.cs" />
     <Compile Include="UI\Email\EnvioEmail.cs" />
+    <Compile Include="UI\FactPasada\CancelarFacturas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\FactPasada\CancelarFacturas.Designer.cs">
+      <DependentUpon>CancelarFacturas.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\FactPasada\DescargarFacturas.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -1191,6 +1198,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\CuentasContables\CuentaContable.resx">
       <DependentUpon>CuentaContable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\FactPasada\CancelarFacturas.resx">
+      <DependentUpon>CancelarFacturas.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\FactPasada\DescargarFacturas.resx">
       <DependentUpon>DescargarFacturas.cs</DependentUpon>

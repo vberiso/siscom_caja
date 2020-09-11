@@ -117,7 +117,7 @@
             this.pnlHeader.Controls.Add(this.pnlHLeft);
             this.pnlHeader.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlHeader.Location = new System.Drawing.Point(0, 0);
-            this.pnlHeader.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pnlHeader.Margin = new System.Windows.Forms.Padding(4);
             this.pnlHeader.Name = "pnlHeader";
             this.pnlHeader.Size = new System.Drawing.Size(1464, 153);
             this.pnlHeader.TabIndex = 49;
@@ -135,7 +135,7 @@
             this.tableLayoutPanel2.Controls.Add(this.label2, 0, 0);
             this.tableLayoutPanel2.Controls.Add(this.dtpFechaIni, 0, 1);
             this.tableLayoutPanel2.Location = new System.Drawing.Point(437, 79);
-            this.tableLayoutPanel2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tableLayoutPanel2.Margin = new System.Windows.Forms.Padding(4);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 2;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
@@ -158,7 +158,7 @@
             this.dtpFechaFin.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.dtpFechaFin.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.dtpFechaFin.Location = new System.Drawing.Point(295, 28);
-            this.dtpFechaFin.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.dtpFechaFin.Margin = new System.Windows.Forms.Padding(4);
             this.dtpFechaFin.Name = "dtpFechaFin";
             this.dtpFechaFin.Size = new System.Drawing.Size(220, 22);
             this.dtpFechaFin.TabIndex = 49;
@@ -178,7 +178,7 @@
             this.dtpFechaIni.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.dtpFechaIni.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.dtpFechaIni.Location = new System.Drawing.Point(16, 28);
-            this.dtpFechaIni.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.dtpFechaIni.Margin = new System.Windows.Forms.Padding(4);
             this.dtpFechaIni.Name = "dtpFechaIni";
             this.dtpFechaIni.Size = new System.Drawing.Size(252, 22);
             this.dtpFechaIni.TabIndex = 48;
@@ -195,7 +195,7 @@
             this.tableLayoutPanel1.Controls.Add(this.label6, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.label4, 1, 0);
             this.tableLayoutPanel1.Location = new System.Drawing.Point(439, 10);
-            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(4);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 2;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
@@ -208,7 +208,7 @@
             this.chcbxOperador.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.chcbxOperador.EditValue = "";
             this.chcbxOperador.Location = new System.Drawing.Point(4, 26);
-            this.chcbxOperador.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.chcbxOperador.Margin = new System.Windows.Forms.Padding(4);
             this.chcbxOperador.Name = "chcbxOperador";
             this.chcbxOperador.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
@@ -220,7 +220,7 @@
             this.chcbxOficina.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.chcbxOficina.EditValue = "";
             this.chcbxOficina.Location = new System.Drawing.Point(290, 26);
-            this.chcbxOficina.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.chcbxOficina.Margin = new System.Windows.Forms.Padding(4);
             this.chcbxOficina.Name = "chcbxOficina";
             this.chcbxOficina.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
@@ -254,7 +254,7 @@
             this.pcbIncomeByConcept.Image = global::SOAPAP.Properties.Resources.bg;
             this.pcbIncomeByConcept.InitialImage = global::SOAPAP.Properties.Resources.bg;
             this.pcbIncomeByConcept.Location = new System.Drawing.Point(407, 78);
-            this.pcbIncomeByConcept.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pcbIncomeByConcept.Margin = new System.Windows.Forms.Padding(4);
             this.pcbIncomeByConcept.Name = "pcbIncomeByConcept";
             this.pcbIncomeByConcept.Size = new System.Drawing.Size(588, 63);
             this.pcbIncomeByConcept.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -268,7 +268,7 @@
             this.pbBG.Image = global::SOAPAP.Properties.Resources.bg;
             this.pbBG.InitialImage = global::SOAPAP.Properties.Resources.bg;
             this.pbBG.Location = new System.Drawing.Point(407, 9);
-            this.pbBG.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pbBG.Margin = new System.Windows.Forms.Padding(4);
             this.pbBG.Name = "pbBG";
             this.pbBG.Size = new System.Drawing.Size(588, 62);
             this.pbBG.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -280,7 +280,7 @@
             this.pnlHRigth.Controls.Add(this.oanel);
             this.pnlHRigth.Dock = System.Windows.Forms.DockStyle.Right;
             this.pnlHRigth.Location = new System.Drawing.Point(920, 0);
-            this.pnlHRigth.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pnlHRigth.Margin = new System.Windows.Forms.Padding(4);
             this.pnlHRigth.Name = "pnlHRigth";
             this.pnlHRigth.Size = new System.Drawing.Size(544, 153);
             this.pnlHRigth.TabIndex = 44;
@@ -291,7 +291,7 @@
             this.oanel.Controls.Add(this.windowsUIButtonPanel1);
             this.oanel.Dock = System.Windows.Forms.DockStyle.Right;
             this.oanel.Location = new System.Drawing.Point(116, 0);
-            this.oanel.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.oanel.Margin = new System.Windows.Forms.Padding(4);
             this.oanel.Name = "oanel";
             this.oanel.Size = new System.Drawing.Size(428, 153);
             this.oanel.TabIndex = 45;
@@ -305,7 +305,7 @@
             this.PanelPredialLimpia.Controls.Add(this.radioTodo);
             this.PanelPredialLimpia.Dock = System.Windows.Forms.DockStyle.Fill;
             this.PanelPredialLimpia.Location = new System.Drawing.Point(0, 0);
-            this.PanelPredialLimpia.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.PanelPredialLimpia.Margin = new System.Windows.Forms.Padding(4);
             this.PanelPredialLimpia.Name = "PanelPredialLimpia";
             this.PanelPredialLimpia.Size = new System.Drawing.Size(240, 153);
             this.PanelPredialLimpia.TabIndex = 60;
@@ -314,7 +314,7 @@
             // 
             this.panelOnline.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelOnline.Location = new System.Drawing.Point(0, 0);
-            this.panelOnline.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panelOnline.Margin = new System.Windows.Forms.Padding(4);
             this.panelOnline.Name = "panelOnline";
             this.panelOnline.Size = new System.Drawing.Size(240, 153);
             this.panelOnline.TabIndex = 61;
@@ -324,7 +324,7 @@
             this.radioButton1.AutoSize = true;
             this.radioButton1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.radioButton1.Location = new System.Drawing.Point(5, 118);
-            this.radioButton1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.radioButton1.Margin = new System.Windows.Forms.Padding(4);
             this.radioButton1.Name = "radioButton1";
             this.radioButton1.Size = new System.Drawing.Size(163, 24);
             this.radioButton1.TabIndex = 60;
@@ -337,7 +337,7 @@
             this.RadioLimpia.AutoSize = true;
             this.RadioLimpia.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.RadioLimpia.Location = new System.Drawing.Point(4, 84);
-            this.RadioLimpia.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.RadioLimpia.Margin = new System.Windows.Forms.Padding(4);
             this.RadioLimpia.Name = "RadioLimpia";
             this.RadioLimpia.Size = new System.Drawing.Size(80, 24);
             this.RadioLimpia.TabIndex = 58;
@@ -350,7 +350,7 @@
             this.RadioPredial.AutoSize = true;
             this.RadioPredial.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.RadioPredial.Location = new System.Drawing.Point(4, 50);
-            this.RadioPredial.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.RadioPredial.Margin = new System.Windows.Forms.Padding(4);
             this.RadioPredial.Name = "RadioPredial";
             this.RadioPredial.Size = new System.Drawing.Size(82, 24);
             this.RadioPredial.TabIndex = 57;
@@ -364,7 +364,7 @@
             this.radioTodo.Checked = true;
             this.radioTodo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.radioTodo.Location = new System.Drawing.Point(4, 20);
-            this.radioTodo.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.radioTodo.Margin = new System.Windows.Forms.Padding(4);
             this.radioTodo.Name = "radioTodo";
             this.radioTodo.Size = new System.Drawing.Size(67, 24);
             this.radioTodo.TabIndex = 59;
@@ -404,7 +404,7 @@
             this.windowsUIButtonPanel1.Dock = System.Windows.Forms.DockStyle.Right;
             this.windowsUIButtonPanel1.ForeColor = System.Drawing.SystemColors.ControlLight;
             this.windowsUIButtonPanel1.Location = new System.Drawing.Point(240, 0);
-            this.windowsUIButtonPanel1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.windowsUIButtonPanel1.Margin = new System.Windows.Forms.Padding(4);
             this.windowsUIButtonPanel1.Name = "windowsUIButtonPanel1";
             this.windowsUIButtonPanel1.Size = new System.Drawing.Size(188, 153);
             this.windowsUIButtonPanel1.TabIndex = 56;
@@ -423,7 +423,7 @@
             this.pnlHLeft.Controls.Add(this.lblTitulo);
             this.pnlHLeft.Controls.Add(this.pictureBox1);
             this.pnlHLeft.Location = new System.Drawing.Point(0, 0);
-            this.pnlHLeft.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pnlHLeft.Margin = new System.Windows.Forms.Padding(4);
             this.pnlHLeft.Name = "pnlHLeft";
             this.pnlHLeft.Size = new System.Drawing.Size(511, 177);
             this.pnlHLeft.TabIndex = 44;
@@ -432,12 +432,13 @@
             // 
             this.checkLine.AutoSize = true;
             this.checkLine.Location = new System.Drawing.Point(268, 62);
-            this.checkLine.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.checkLine.Margin = new System.Windows.Forms.Padding(4);
             this.checkLine.Name = "checkLine";
             this.checkLine.Size = new System.Drawing.Size(124, 21);
             this.checkLine.TabIndex = 0;
             this.checkLine.Text = "Pagos en línea";
             this.checkLine.UseVisualStyleBackColor = true;
+            this.checkLine.Visible = false;
             // 
             // label7
             // 
@@ -500,7 +501,7 @@
             this.pictureBox1.Image = global::SOAPAP.Properties.Resources.reportes;
             this.pictureBox1.InitialImage = global::SOAPAP.Properties.Resources.reportes;
             this.pictureBox1.Location = new System.Drawing.Point(12, 11);
-            this.pictureBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pictureBox1.Margin = new System.Windows.Forms.Padding(4);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(27, 25);
             this.pictureBox1.TabIndex = 37;
@@ -532,7 +533,7 @@
             this.pgfDivision,
             this.pgfMotivo});
             this.pgcCollection.Location = new System.Drawing.Point(0, 149);
-            this.pgcCollection.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pgcCollection.Margin = new System.Windows.Forms.Padding(4);
             this.pgcCollection.Name = "pgcCollection";
             this.pgcCollection.OptionsData.DataProcessingEngine = DevExpress.XtraPivotGrid.PivotDataProcessingEngine.LegacyOptimized;
             this.pgcCollection.Size = new System.Drawing.Size(1464, 367);
@@ -720,7 +721,7 @@
             this.ClientSize = new System.Drawing.Size(1464, 554);
             this.Controls.Add(this.pgcCollection);
             this.Controls.Add(this.pnlHeader);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "RepIbyC";
             this.Text = "RepCollection";
             this.Load += new System.EventHandler(this.RepCollection_Load);

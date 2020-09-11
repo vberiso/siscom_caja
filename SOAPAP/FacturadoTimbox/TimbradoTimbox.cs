@@ -418,6 +418,30 @@ namespace SOAPAP.FacturadoTimbox
 
         }
 
+        public async Task<string> CancelarFacturaDesdeAPI(DataCancelationTimbox dataCancelationTimbox)
+        {
+            try
+            {
+                List<DataCancelationTimbox> tmpList = new List<DataCancelationTimbox>() { dataCancelationTimbox };
+                HttpContent content;
+                var json = JsonConvert.SerializeObject(tmpList);
+                content = new StringContent(json, Encoding.UTF8, "application/json");
+                var responseCancelacion = await Requests.SendURIAsync("/api/Facturacion/CancelarFacturasTimbox", HttpMethod.Post, Variables.LoginModel.Token, content);
+                if (responseCancelacion.Contains("error"))
+                {
+                    return JsonConvert.SerializeObject(new { status = "error", message = "No se ha podido realizar la cancelación, fallo la solicitud a timbox." });                    
+                }
+                string cfdiCancel = JsonConvert.DeserializeObject<string>(responseCancelacion);
+
+                //ATENCION: Para este metodo, la actuaizacion de TaxReceipt y TaxReceiptCancel se hace en el EndPoint
+
+                return JsonConvert.SerializeObject(new { status = "acepted", message = "Cancelación aceptada: " + cfdiCancel });
+            }
+            catch (Exception ex)
+            {
+                return JsonConvert.SerializeObject(new { status = "error", message = "No se ha podido realizar la cancelación, fallo la solicitud a Timbox." });
+            }
+        }
 
         //public async Task<string> CancelarFactura( SOAPAP.Model.Payment payment)
         //{

@@ -18,6 +18,6 @@ namespace SOAPAP.Model
         public string Hora { get; set; }
         public decimal Total { get; set; }
         public bool Signo { get; set; }
-        public bool HaveInvoice { get; set; }
+        public bool HaveInvoice { get; set; }        
     }
 }

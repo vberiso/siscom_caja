@@ -42,13 +42,13 @@ namespace SOAPAP.UI.ReportesForms
         {
             if (Variables.Configuration.IsMunicipal)
             {
-                checkLine.Visible = true;
+                checkLine.Visible = false;
                 PanelPredialLimpia.Visible = true;
                 panelOnline.Visible = false;
             }
             else
             {
-                checkLine.Visible = true;
+                checkLine.Visible = false;
                 PanelPredialLimpia.Visible = false;
                 panelOnline.Visible = true;
             }

@@ -907,6 +907,7 @@ namespace SOAPAP
                     tslFechaApertura.Text = "Abierta:" + (Variables.Configuration.Terminal.TerminalUsers.Count > 0 ? Variables.Configuration.Terminal.TerminalUsers.First().OpenDate.ToShortDateString() : "-");
                     tslTerminal.Text = "Terminal:" + (Variables.Configuration.Terminal.TerminalUsers.Count > 0 ? Variables.Configuration.Terminal.TerminalUsers.First().Id.ToString() : "-");
                     tsmDescargarFacturas.Visible = true;
+                    tsmCancelarFacturas.Visible = true;
                 }
             }
             if (Variables.LoginModel.RolName.ToList().Find(x => x == "Super") != null)
@@ -1051,13 +1052,16 @@ namespace SOAPAP
         {
             ShowForm("SOAPAP", "UI.FactPasada.FacturacionPasada");
         }
-
         private void DescargasToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ShowForm("SOAPAP", "UI.FactPasada.DescargarFacturas");
         }
+        private void cancelarFacturasToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ShowForm("SOAPAP", "UI.FactPasada.CancelarFacturas");
+        }
 
-       
+
         private void cedulaDeInformaciónToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
@@ -1071,7 +1075,7 @@ namespace SOAPAP
         private void parametrizaciónToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ShowForm("SOAPAP", "UI.CuentasContables.CuentaContable");
-        }
+        }                
     }
 }
 #endregion
