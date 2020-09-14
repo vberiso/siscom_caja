@@ -525,6 +525,7 @@ namespace SOAPAP.UI.ReportesForms
             builder.Append(@"</tr>");
             builder.Append(@"</table>");
             builder.Append(@"</div>");
+
             builder.Append(@"<div>");
             builder.Append(@"<br><br>");
             builder.Append(@"<div style='width:95%; font-size:12px; text-align:center;'>");
@@ -548,6 +549,7 @@ namespace SOAPAP.UI.ReportesForms
             builder.Append(@"</table>");
             builder.Append(@"</div>");
             builder.Append(@"</div>");
+
             builder.Append(@"</body>");
             builder.Append(@"</html>");
 

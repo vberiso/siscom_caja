@@ -87,7 +87,10 @@ namespace SOAPAP.UI.FactPasada
             else
             {
                 lstCaj.Add(new DataComboBox() { keyString = Variables.LoginModel.User, value = Variables.LoginModel.FullName });
-            }                       
+            }
+
+            var tmpUsuarioOnline = lstCaj.FirstOrDefault(x => x.value.Contains("en linea"));
+            lstCaj.Remove(tmpUsuarioOnline);
 
             //Asignacion de combo cajeros.
             cbxUsuarios.DataBindings.Clear();
@@ -540,22 +543,20 @@ namespace SOAPAP.UI.FactPasada
                     else                    
                         ruta = $"/api/Transaction/SuperOrders/CancelWithoutCFDI/{transactionId}";
                     
-                    ////Cancelacion del pago en caja.
-                    //var a = JsonConvert.SerializeObject(cancel);
-                    //HttpContent content = new StringContent(a, Encoding.UTF8, "application/json");
+                    ////Cancelacion del pago en caja.                    
                     var responseCancelacionCaja = await Requests.SendURIAsync(ruta, HttpMethod.Post, Variables.LoginModel.Token, null);
                     if (!responseCancelacionCaja.Contains("error:"))
                     {
                         mensaje = new MessageBoxForm("Pago Cancelado", "Se cancelo en CFDI exitosamente.", TypeIcon.Icon.Info);
                         result = mensaje.ShowDialog();
-                        loading.Close();
+                        loadings.Close();
                         return;
                     }
                     else
                     {
                         mensaje = new MessageBoxForm("Proceso incompleto", "Se cancelo en CFDI, pero localmente no se pudo cancelar el pago.", TypeIcon.Icon.Info);
                         result = mensaje.ShowDialog();
-                        loading.Close();
+                        loadings.Close();
                         return;
                     }
                 }
@@ -563,7 +564,7 @@ namespace SOAPAP.UI.FactPasada
                 {
                     mensaje = new MessageBoxForm("No se pudo cancelar la factura.", resSolCan.message, TypeIcon.Icon.Info);
                     result = mensaje.ShowDialog();
-                    loading.Close();
+                    loadings.Close();
                     return;
                 }
 

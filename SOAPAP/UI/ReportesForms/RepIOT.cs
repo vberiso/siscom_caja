@@ -415,6 +415,37 @@ namespace SOAPAP.UI.ReportesForms
 
             return itemSeleccionado;
         }
+
+        private string getUsersNamesSelecionados()
+        {
+            //Operadores seleccionados del combo de cajeros
+            var temp = chcbxOperador.Properties.Items.ToList();
+            string itemSeleccionado = "";
+
+            ////Se obtiene el cajero para filtrar la consulta
+            if (temp.Where(x => x.CheckState == CheckState.Checked).Count() == 0)
+            {
+                itemSeleccionado = "";
+                mensaje = new MessageBoxForm("Advertencia: ", "Debe seleccionar un cajero.", TypeIcon.Icon.Cancel);
+                result = mensaje.ShowDialog();
+                return null;
+            }
+            else
+            {
+                foreach (var item in temp)
+                {
+                    if (item.CheckState == CheckState.Checked)
+                    {
+                        itemSeleccionado = itemSeleccionado + item.Description + ",";
+                    }
+                }
+                itemSeleccionado = itemSeleccionado.Substring(0, itemSeleccionado.Length - 1);
+
+            }
+
+            return itemSeleccionado;
+        }
+
         private void SetHeader(HiQPdf.PdfDocument document, string FechaI, string FechaF, string cajero= null)
         {
             document.CreateHeaderCanvas(130);
@@ -705,11 +736,32 @@ namespace SOAPAP.UI.ReportesForms
             builder.Append(@"<span style='font-size: 14px;text-align:left;'>" + totalC + "</span>");
             builder.Append(@"</div>");
 
+            builder.Append(@"<div>");
+            builder.Append(@"<br><br><br>");
+            builder.Append(@"<div style='width:95%; font-size:12px; text-align:center;'>");
+            builder.Append(@"<h5>Firmas:</h5>");
+            builder.Append(@"</div>");
+            builder.Append(@"<br><br><br>");
+            builder.Append(@"<div>");
+            builder.Append(@"<table style='width: 95%;font-size:12px;'>");
+            builder.Append(@"<tr>");
+            builder.Append(@"<td style='width: 44%'><hr style='margin:0 20%;'></td>");
+            builder.Append(@"<td style='width: 45%'><hr style='margin:0 20%;'></td>");
+            builder.Append(@"</tr>");
+            builder.Append(@"<tr>");
+            builder.Append(@"<td style='width: 44%; text-align: center;'>Usuario receptor:</td>");
+            builder.Append(@"<td style='width: 45%; text-align: center;'>Usuario emisor:</td>");
+            builder.Append(@"</tr>");
+            builder.Append(@"<tr>");
+            builder.Append(@"<td style='width: 44%; text-align: center;'></td>");
+            builder.Append($@"<td style='width: 45%; text-align: center;'>{getUsersNamesSelecionados()}</td>");
+            builder.Append(@"</tr>");
+            builder.Append(@"</table>");
+            builder.Append(@"</div>");
+            builder.Append(@"</div>");
+
             builder.Append(@" </div>");
-
-
-
-            builder.Append(@" </div>");
+            builder.Append(@" </div>");            
 
             return Task.FromResult<string>(builder.ToString());
 
