@@ -240,7 +240,7 @@ namespace SOAPAP.UI
                     }
 
                     //Verificacion de promocion por COVID
-                    if (Variables.Configuration.RecargosDescCovid.Count > 0)
+                    if (Variables.Configuration.RecargosDescCovid != null && Variables.Configuration.RecargosDescCovid.Count > 0)
                         VerificaDescuentoPorCOVID(Variables.Agreement.Id, tmpFiltros);
 
                 }
@@ -845,12 +845,13 @@ namespace SOAPAP.UI
                             }
                         }
                         //Valida si hay campañas de descuentos adicionales.
-                        if (Variables.Agreement != null && Variables.Configuration.CondonationCampaings.Count > 0 && Variables.Agreement.Addresses.FirstOrDefault().Suburbs.ApplyAnnualPromotion == true)
+                        if (Variables.Agreement != null && Variables.Configuration.CondonationCampaings.Count > 0) // && Variables.Agreement.Addresses.FirstOrDefault().Suburbs.ApplyAnnualPromotion == true)
                         {
                             gbxCondonacion.Visible = accessParam == CashBoxAccess.Access.GenerarOrden ? false : true;
                             tableLayoutPanel3.RowStyles[0] = new RowStyle(SizeType.AutoSize);
                             lblTitleCondonation.Text = Variables.Configuration.CondonationCampaings.First().Alias;
                         }
+                        
 
                         //Valida esta activa la campaña añual
                         if (Variables.Configuration.IsMunicipal && Variables.Configuration.Anual && Variables.Agreement != null)
@@ -1620,13 +1621,14 @@ namespace SOAPAP.UI
         {
             loading = new Loading();
             loading.Show(this);
-
-            var resultCampaign = await Requests.SendURIAsync(string.Format("/api/CondonationCampaing/{0}/{1}", Variables.Agreement.Id, Variables.Configuration.CondonationCampaings.FirstOrDefault().Id), HttpMethod.Post, Variables.LoginModel.Token);
-            if (resultCampaign.Contains("error\\"))
+            //api/CondonationCampaing/CondonationPromotion
+            //var resultCampaign = await Requests.SendURIAsync(string.Format("/api/CondonationCampaing/{0}/{1}", Variables.Agreement.Id, Variables.Configuration.CondonationCampaings.FirstOrDefault().Id), HttpMethod.Post, Variables.LoginModel.Token);
+            var resultCampaign = await Requests.SendURIAsync(string.Format("/api/CondonationCampaing/CondonationPromotion/{0}/{1}", Variables.Agreement.Id, Variables.Configuration.CondonationCampaings.FirstOrDefault().Id), HttpMethod.Post, Variables.LoginModel.Token);
+            if (resultCampaign.Contains("error\":"))
             {
                 try
                 {
-                    mensaje = new MessageBoxForm("Error", JsonConvert.DeserializeObject<Error>(resultCampaign).error, TypeIcon.Icon.Cancel);
+                    mensaje = new MessageBoxForm("Promocion NO aplicada", JsonConvert.DeserializeObject<Error>(resultCampaign).error, TypeIcon.Icon.Cancel);
                     result = mensaje.ShowDialog();
                     loading.Close();
                 }

@@ -26,6 +26,7 @@ namespace SOAPAP.UI.ReportesForms
         private RequestsAPI Requests = null;
         Form mensaje;
         DialogResult result = new DialogResult();
+        List<SOAPAP.Model.Users> lstCajeros = new List<Model.Users>();
 
         private string UrlBase = Properties.Settings.Default.URL;
         string json = string.Empty;
@@ -44,8 +45,7 @@ namespace SOAPAP.UI.ReportesForms
 
         private async Task CargarCombos()
         {
-            //Combo de Cajeros.
-            List<SOAPAP.Model.Users> lstCajeros = new List<Model.Users>();
+            //Combo de Cajeros.            
             List<DataComboBox> lstCaj = new List<DataComboBox>();
 
             //Combo de Areas.
@@ -415,7 +415,6 @@ namespace SOAPAP.UI.ReportesForms
 
             return itemSeleccionado;
         }
-
         private string getUsersNamesSelecionados()
         {
             //Operadores seleccionados del combo de cajeros
@@ -443,6 +442,65 @@ namespace SOAPAP.UI.ReportesForms
 
             }
 
+            return itemSeleccionado;
+        }
+        private string getJefeDeArea()
+        {
+            //Operadores seleccionados del combo de cajeros
+            var temp = chcbxOperador.Properties.Items.ToList();
+            string itemSeleccionado = "";
+            
+            ////Se obtiene el cajero para filtrar la consulta
+            if (temp.Where(x => x.CheckState == CheckState.Checked).Count() > 0)            
+            {
+                var tmpDivisiones = lstCajeros.Where(c => temp.Where(x => x.CheckState == CheckState.Checked).Select(x => x.Value).Contains(c.id)).Select(d => d.divitionId).Distinct().ToList();
+
+                if (tmpDivisiones.Contains(0) || tmpDivisiones.Count > 1) 
+                {
+                    var item = Variables.Configuration.DivisionHeads.FirstOrDefault(x => x.DivisionId == 0);
+                    itemSeleccionado = $"<div>{item.HeadName}<br>{item.HeadDegree}</div>";
+                }
+                else 
+                {
+                    var item = Variables.Configuration.DivisionHeads.FirstOrDefault(d => d.DivisionId == tmpDivisiones.FirstOrDefault());
+                    if(item == null)
+                        item = Variables.Configuration.DivisionHeads.FirstOrDefault(d => d.DivisionId == 0);
+                    itemSeleccionado = $"<div>{item.HeadName}<br>{item.HeadDegree}</div>";
+                }                             
+            }
+
+            return itemSeleccionado;
+        }
+        private string UsurioUno()
+        {
+            //Si el cajero es de predial, se pone el nombre del jefe de area predial, sino, no se pone nada.
+            var temp = chcbxOperador.Properties.Items.ToList();
+            string itemSeleccionado = "";
+
+            ////Se obtiene el cajero para filtrar la consulta
+            if (temp.Where(x => x.CheckState == CheckState.Checked).Count() > 0)
+            {
+                var tmpDivisiones = lstCajeros.Where(c => temp.Where(x => x.CheckState == CheckState.Checked).Select(x => x.Value).Contains(c.id)).Select(d => d.divitionId).Distinct().ToList();
+
+                if (tmpDivisiones.Contains(6) && tmpDivisiones.Count == 1)
+                {
+                    var item = Variables.Configuration.DivisionHeads.FirstOrDefault(x => x.DivisionId == 6);
+                    itemSeleccionado = $"<hr style='margin:0 20%;'><br><div>{item.HeadName}<br>{item.HeadDegree}</div>";
+                }
+                else
+                {
+                    itemSeleccionado = $"";
+                }
+            }
+
+            return itemSeleccionado;
+        }
+        private string UsurioDos()
+        {
+            //Retorna siempre el nombre del diretor de ingresos.            
+            string itemSeleccionado = "";
+            var item = Variables.Configuration.DivisionHeads.FirstOrDefault(x => x.DivisionId == 0);
+            itemSeleccionado = $"<hr style='margin:0 20%;'><br><div>{item.HeadName}<br>{item.HeadDegree}</div>";
             return itemSeleccionado;
         }
 
@@ -744,17 +802,13 @@ namespace SOAPAP.UI.ReportesForms
             builder.Append(@"<br><br><br>");
             builder.Append(@"<div>");
             builder.Append(@"<table style='width: 95%;font-size:12px;'>");
+            //builder.Append(@"<tr>");
+            //builder.Append(@"<td style='width: 44%'><hr style='margin:0 20%;'></td>");
+            //builder.Append(@"<td style='width: 45%'><hr style='margin:0 20%;'></td>");
+            //builder.Append(@"</tr>");            
             builder.Append(@"<tr>");
-            builder.Append(@"<td style='width: 44%'><hr style='margin:0 20%;'></td>");
-            builder.Append(@"<td style='width: 45%'><hr style='margin:0 20%;'></td>");
-            builder.Append(@"</tr>");
-            builder.Append(@"<tr>");
-            builder.Append(@"<td style='width: 44%; text-align: center;'>Usuario receptor:</td>");
-            builder.Append(@"<td style='width: 45%; text-align: center;'>Usuario emisor:</td>");
-            builder.Append(@"</tr>");
-            builder.Append(@"<tr>");
-            builder.Append(@"<td style='width: 44%; text-align: center;'></td>");
-            builder.Append($@"<td style='width: 45%; text-align: center;'>{getUsersNamesSelecionados()}</td>");
+            builder.Append($@"<td style='width: 44%; text-align: center;'>{UsurioUno()}</td>");
+            builder.Append($@"<td style='width: 45%; text-align: center;'>{UsurioDos()}</td>");
             builder.Append(@"</tr>");
             builder.Append(@"</table>");
             builder.Append(@"</div>");

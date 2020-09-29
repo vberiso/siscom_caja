@@ -546,11 +546,11 @@
             this.groupBox4.Controls.Add(this.layoutAnual);
             this.groupBox4.Controls.Add(this.tableLayoutPanel10);
             this.groupBox4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox4.Location = new System.Drawing.Point(0, 835);
+            this.groupBox4.Location = new System.Drawing.Point(0, 851);
             this.groupBox4.Margin = new System.Windows.Forms.Padding(27, 25, 27, 25);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox4.Size = new System.Drawing.Size(574, 58);
+            this.groupBox4.Size = new System.Drawing.Size(574, 42);
             this.groupBox4.TabIndex = 19;
             this.groupBox4.TabStop = false;
             // 
@@ -677,7 +677,7 @@
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 34F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 30F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 30F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(574, 835);
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(574, 851);
             this.tableLayoutPanel3.TabIndex = 4;
             // 
             // panel1
@@ -789,7 +789,7 @@
             this.panel2.Location = new System.Drawing.Point(4, 322);
             this.panel2.Margin = new System.Windows.Forms.Padding(4);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(566, 85);
+            this.panel2.Size = new System.Drawing.Size(566, 87);
             this.panel2.TabIndex = 1;
             // 
             // gbContribuyente
@@ -854,10 +854,10 @@
             // 
             this.panel3.Controls.Add(this.groupBox2);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel3.Location = new System.Drawing.Point(4, 415);
+            this.panel3.Location = new System.Drawing.Point(4, 417);
             this.panel3.Margin = new System.Windows.Forms.Padding(4);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(566, 85);
+            this.panel3.Size = new System.Drawing.Size(566, 87);
             this.panel3.TabIndex = 2;
             // 
             // groupBox2
@@ -871,7 +871,7 @@
             this.groupBox2.MinimumSize = new System.Drawing.Size(0, 74);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox2.Size = new System.Drawing.Size(566, 85);
+            this.groupBox2.Size = new System.Drawing.Size(566, 87);
             this.groupBox2.TabIndex = 3;
             this.groupBox2.TabStop = false;
             // 
@@ -888,7 +888,7 @@
             this.tlpRFC.Name = "tlpRFC";
             this.tlpRFC.RowCount = 1;
             this.tlpRFC.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tlpRFC.Size = new System.Drawing.Size(558, 62);
+            this.tlpRFC.Size = new System.Drawing.Size(558, 64);
             this.tlpRFC.TabIndex = 2;
             // 
             // lblRFC
@@ -899,7 +899,7 @@
             this.lblRFC.Location = new System.Drawing.Point(60, 0);
             this.lblRFC.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblRFC.Name = "lblRFC";
-            this.lblRFC.Size = new System.Drawing.Size(494, 62);
+            this.lblRFC.Size = new System.Drawing.Size(494, 64);
             this.lblRFC.TabIndex = 39;
             this.lblRFC.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -914,7 +914,7 @@
             this.pictureBox2.Location = new System.Drawing.Point(4, 4);
             this.pictureBox2.Margin = new System.Windows.Forms.Padding(4);
             this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(48, 54);
+            this.pictureBox2.Size = new System.Drawing.Size(48, 56);
             this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.pictureBox2.TabIndex = 38;
             this.pictureBox2.TabStop = false;
@@ -923,10 +923,10 @@
             // 
             this.panel4.Controls.Add(this.groupBox1);
             this.panel4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel4.Location = new System.Drawing.Point(4, 508);
+            this.panel4.Location = new System.Drawing.Point(4, 512);
             this.panel4.Margin = new System.Windows.Forms.Padding(4);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(566, 167);
+            this.panel4.Size = new System.Drawing.Size(566, 173);
             this.panel4.TabIndex = 3;
             // 
             // groupBox1
@@ -940,7 +940,7 @@
             this.groupBox1.MinimumSize = new System.Drawing.Size(0, 123);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox1.Size = new System.Drawing.Size(566, 167);
+            this.groupBox1.Size = new System.Drawing.Size(566, 173);
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
             // 
@@ -957,7 +957,7 @@
             this.tlpDireccion.Name = "tlpDireccion";
             this.tlpDireccion.RowCount = 1;
             this.tlpDireccion.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tlpDireccion.Size = new System.Drawing.Size(558, 144);
+            this.tlpDireccion.Size = new System.Drawing.Size(558, 150);
             this.tlpDireccion.TabIndex = 2;
             // 
             // pictureBox1
@@ -971,7 +971,7 @@
             this.pictureBox1.Location = new System.Drawing.Point(4, 4);
             this.pictureBox1.Margin = new System.Windows.Forms.Padding(4);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(48, 136);
+            this.pictureBox1.Size = new System.Drawing.Size(48, 142);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.pictureBox1.TabIndex = 38;
             this.pictureBox1.TabStop = false;
@@ -987,7 +987,7 @@
             this.tabDireccion.Multiline = true;
             this.tabDireccion.Name = "tabDireccion";
             this.tabDireccion.SelectedIndex = 0;
-            this.tabDireccion.Size = new System.Drawing.Size(494, 136);
+            this.tabDireccion.Size = new System.Drawing.Size(494, 142);
             this.tabDireccion.TabIndex = 39;
             // 
             // tabDireccionF
@@ -997,7 +997,7 @@
             this.tabDireccionF.Margin = new System.Windows.Forms.Padding(4);
             this.tabDireccionF.Name = "tabDireccionF";
             this.tabDireccionF.Padding = new System.Windows.Forms.Padding(4);
-            this.tabDireccionF.Size = new System.Drawing.Size(486, 100);
+            this.tabDireccionF.Size = new System.Drawing.Size(486, 106);
             this.tabDireccionF.TabIndex = 0;
             this.tabDireccionF.Text = "Física";
             this.tabDireccionF.UseVisualStyleBackColor = true;
@@ -1011,7 +1011,7 @@
             this.lblDireccionF.Multiline = true;
             this.lblDireccionF.Name = "lblDireccionF";
             this.lblDireccionF.ReadOnly = true;
-            this.lblDireccionF.Size = new System.Drawing.Size(478, 92);
+            this.lblDireccionF.Size = new System.Drawing.Size(478, 98);
             this.lblDireccionF.TabIndex = 0;
             // 
             // tabDireccionNotificacion
@@ -1022,7 +1022,7 @@
             this.tabDireccionNotificacion.Margin = new System.Windows.Forms.Padding(4);
             this.tabDireccionNotificacion.Name = "tabDireccionNotificacion";
             this.tabDireccionNotificacion.Padding = new System.Windows.Forms.Padding(4);
-            this.tabDireccionNotificacion.Size = new System.Drawing.Size(486, 100);
+            this.tabDireccionNotificacion.Size = new System.Drawing.Size(486, 106);
             this.tabDireccionNotificacion.TabIndex = 1;
             this.tabDireccionNotificacion.Text = "Notificación";
             this.tabDireccionNotificacion.UseVisualStyleBackColor = true;
@@ -1035,7 +1035,7 @@
             this.lblDireccionN.Location = new System.Drawing.Point(4, 4);
             this.lblDireccionN.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblDireccionN.Name = "lblDireccionN";
-            this.lblDireccionN.Size = new System.Drawing.Size(478, 92);
+            this.lblDireccionN.Size = new System.Drawing.Size(478, 98);
             this.lblDireccionN.TabIndex = 1;
             // 
             // lblDireccionNotificacion
@@ -1052,10 +1052,10 @@
             // 
             this.panel5.Controls.Add(this.groupBox3);
             this.panel5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel5.Location = new System.Drawing.Point(4, 683);
+            this.panel5.Location = new System.Drawing.Point(4, 693);
             this.panel5.Margin = new System.Windows.Forms.Padding(4);
             this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(566, 148);
+            this.panel5.Size = new System.Drawing.Size(566, 154);
             this.panel5.TabIndex = 4;
             // 
             // groupBox3
@@ -1069,7 +1069,7 @@
             this.groupBox3.Margin = new System.Windows.Forms.Padding(27, 25, 27, 25);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox3.Size = new System.Drawing.Size(566, 148);
+            this.groupBox3.Size = new System.Drawing.Size(566, 154);
             this.groupBox3.TabIndex = 4;
             this.groupBox3.TabStop = false;
             // 
@@ -1086,7 +1086,7 @@
             this.tableLayoutPanel4.Name = "tableLayoutPanel4";
             this.tableLayoutPanel4.RowCount = 1;
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel4.Size = new System.Drawing.Size(558, 121);
+            this.tableLayoutPanel4.Size = new System.Drawing.Size(558, 127);
             this.tableLayoutPanel4.TabIndex = 2;
             // 
             // pictureBox4
@@ -1100,7 +1100,7 @@
             this.pictureBox4.Location = new System.Drawing.Point(4, 4);
             this.pictureBox4.Margin = new System.Windows.Forms.Padding(4);
             this.pictureBox4.Name = "pictureBox4";
-            this.pictureBox4.Size = new System.Drawing.Size(48, 113);
+            this.pictureBox4.Size = new System.Drawing.Size(48, 119);
             this.pictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.pictureBox4.TabIndex = 38;
             this.pictureBox4.TabStop = false;
@@ -1130,86 +1130,86 @@
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.tableLayoutPanel5.Size = new System.Drawing.Size(494, 113);
+            this.tableLayoutPanel5.Size = new System.Drawing.Size(494, 119);
             this.tableLayoutPanel5.TabIndex = 39;
             // 
             // lblTipoPredio
             // 
             this.lblTipoPredio.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblTipoPredio.Location = new System.Drawing.Point(206, 88);
+            this.lblTipoPredio.Location = new System.Drawing.Point(206, 92);
             this.lblTipoPredio.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblTipoPredio.Name = "lblTipoPredio";
-            this.lblTipoPredio.Size = new System.Drawing.Size(284, 25);
+            this.lblTipoPredio.Size = new System.Drawing.Size(284, 27);
             this.lblTipoPredio.TabIndex = 9;
             this.lblTipoPredio.Text = "**********";
             // 
             // label4
             // 
             this.label4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label4.Location = new System.Drawing.Point(4, 88);
+            this.label4.Location = new System.Drawing.Point(4, 92);
             this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(194, 25);
+            this.label4.Size = new System.Drawing.Size(194, 27);
             this.label4.TabIndex = 8;
             this.label4.Text = "Tipo Predio:";
             // 
             // lblUtimoAvaluo
             // 
             this.lblUtimoAvaluo.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblUtimoAvaluo.Location = new System.Drawing.Point(206, 66);
+            this.lblUtimoAvaluo.Location = new System.Drawing.Point(206, 69);
             this.lblUtimoAvaluo.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblUtimoAvaluo.Name = "lblUtimoAvaluo";
-            this.lblUtimoAvaluo.Size = new System.Drawing.Size(284, 22);
+            this.lblUtimoAvaluo.Size = new System.Drawing.Size(284, 23);
             this.lblUtimoAvaluo.TabIndex = 7;
             this.lblUtimoAvaluo.Text = "**********";
             // 
             // label5
             // 
             this.label5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label5.Location = new System.Drawing.Point(4, 66);
+            this.label5.Location = new System.Drawing.Point(4, 69);
             this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(194, 22);
+            this.label5.Size = new System.Drawing.Size(194, 23);
             this.label5.TabIndex = 6;
             this.label5.Text = "Ultimo Avaluo:";
             // 
             // lblMetrosTerreno
             // 
             this.lblMetrosTerreno.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblMetrosTerreno.Location = new System.Drawing.Point(206, 44);
+            this.lblMetrosTerreno.Location = new System.Drawing.Point(206, 46);
             this.lblMetrosTerreno.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblMetrosTerreno.Name = "lblMetrosTerreno";
-            this.lblMetrosTerreno.Size = new System.Drawing.Size(284, 22);
+            this.lblMetrosTerreno.Size = new System.Drawing.Size(284, 23);
             this.lblMetrosTerreno.TabIndex = 5;
             this.lblMetrosTerreno.Text = "**********";
             // 
             // label3
             // 
             this.label3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label3.Location = new System.Drawing.Point(4, 44);
+            this.label3.Location = new System.Drawing.Point(4, 46);
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(194, 22);
+            this.label3.Size = new System.Drawing.Size(194, 23);
             this.label3.TabIndex = 4;
             this.label3.Text = "Metros del Terreno:";
             // 
             // lblMetrosConstruidos
             // 
             this.lblMetrosConstruidos.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblMetrosConstruidos.Location = new System.Drawing.Point(206, 22);
+            this.lblMetrosConstruidos.Location = new System.Drawing.Point(206, 23);
             this.lblMetrosConstruidos.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblMetrosConstruidos.Name = "lblMetrosConstruidos";
-            this.lblMetrosConstruidos.Size = new System.Drawing.Size(284, 22);
+            this.lblMetrosConstruidos.Size = new System.Drawing.Size(284, 23);
             this.lblMetrosConstruidos.TabIndex = 3;
             this.lblMetrosConstruidos.Text = "**********";
             // 
             // label2
             // 
             this.label2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label2.Location = new System.Drawing.Point(4, 22);
+            this.label2.Location = new System.Drawing.Point(4, 23);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(194, 22);
+            this.label2.Size = new System.Drawing.Size(194, 23);
             this.label2.TabIndex = 2;
             this.label2.Text = "Metros Costruidos:";
             // 
@@ -1219,7 +1219,7 @@
             this.lblBaseGravable.Location = new System.Drawing.Point(206, 0);
             this.lblBaseGravable.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblBaseGravable.Name = "lblBaseGravable";
-            this.lblBaseGravable.Size = new System.Drawing.Size(284, 22);
+            this.lblBaseGravable.Size = new System.Drawing.Size(284, 23);
             this.lblBaseGravable.TabIndex = 1;
             this.lblBaseGravable.Text = "**********";
             // 
@@ -1229,7 +1229,7 @@
             this.label1.Location = new System.Drawing.Point(4, 0);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(194, 22);
+            this.label1.Size = new System.Drawing.Size(194, 23);
             this.label1.TabIndex = 0;
             this.label1.Text = "Base Gravable:";
             // 

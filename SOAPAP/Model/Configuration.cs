@@ -40,5 +40,6 @@ namespace SOAPAP.Model
         public List<string> RecargosDescCovid { get; set; }
         public decimal TotalDescuentoCOVID { get; set; }        
         public Model.SystemParameters ProductosDescCOVID { get; set; }
+        public List<DivisionHeadsVM> DivisionHeads { get; set; }
     }
 }

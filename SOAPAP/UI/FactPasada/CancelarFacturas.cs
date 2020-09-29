@@ -547,6 +547,9 @@ namespace SOAPAP.UI.FactPasada
                     var responseCancelacionCaja = await Requests.SendURIAsync(ruta, HttpMethod.Post, Variables.LoginModel.Token, null);
                     if (!responseCancelacionCaja.Contains("error:"))
                     {
+                        //Se actualiza el formato PDF
+                        ActualizaFormatoPdf("Cancelacion", transactionId, true);
+
                         mensaje = new MessageBoxForm("Pago Cancelado", "Se cancelo en CFDI exitosamente.", TypeIcon.Icon.Info);
                         result = mensaje.ShowDialog();
                         loadings.Close();

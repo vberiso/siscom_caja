@@ -12,5 +12,7 @@ namespace SOAPAP.Model
         public string name { get; set; }
         public string lastName { get; set; }
         public string secondLastName { get; set; }
+
+        public int divitionId { get; set; }
     }
 }

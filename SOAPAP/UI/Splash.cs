@@ -484,7 +484,25 @@ namespace SOAPAP.UI
                     configuration.RecargosDescCovid = lstParametros.Where(x => x.Name.Contains("Herr_RecargoDescCOVID")).Select(y => y.TextColumn).ToList();
                     lblProgress.Text = "Obteniendo Tipo de Aplicación ...";
                 }
+
+                if (lstParametros.FirstOrDefault(x => x.Name.Contains("Rep_JefesAreas")) != null)
+                {                    
+                    string tmpDivisiones = lstParametros.FirstOrDefault(x => x.Name.Contains("Rep_JefesAreas")).TextColumn;
+                    List<DivisionHeadsVM> tmpDivisionHeadsVMs = new List<DivisionHeadsVM>();
+                    foreach (var item in tmpDivisiones.Substring(0, tmpDivisiones.IndexOf("=>")).Split('|'))
+                    {
+                        tmpDivisionHeadsVMs.Add(new DivisionHeadsVM() { DivisionId = int.Parse(item.Split(',')[0]), HeadName = item.Split(',')[1], HeadDegree = item.Split(',')[2]});
+                    }
+                    configuration.DivisionHeads = tmpDivisionHeadsVMs;
+                }
+                else
+                {
+                    List<DivisionHeadsVM> tmpDivisionHeadsVMs = new List<DivisionHeadsVM>();
+                    tmpDivisionHeadsVMs.Add(new DivisionHeadsVM() { DivisionId = 0, HeadName = "", HeadDegree = "" });
+                    configuration.DivisionHeads = tmpDivisionHeadsVMs;
+                }
                 
+
                 return 1;
             }            
         }
