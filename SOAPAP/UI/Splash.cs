@@ -385,6 +385,19 @@ namespace SOAPAP.UI
                 if (lstParametros.FirstOrDefault(x => x.Name.Contains("ANUAL")) != null)
                 {
                     configuration.Anual = lstParametros.FirstOrDefault(x => x.Name.Contains("ANUAL")).TextColumn == "" ? false : true;
+                    configuration.AnualParameter = lstParametros.FirstOrDefault(x => x.Name.Contains("ANUAL") && x.IsActive == true);
+
+                    try
+                    {
+                        var url = string.Format("/api/ValueParameters/AnualDiscount/{0}", configuration.AnualParameter.TextColumn);
+                        var results = await Requests.SendURIAsync(url, HttpMethod.Get);
+                        CondonationCampaing condonationCampaing = JsonConvert.DeserializeObject<CondonationCampaing>(results);
+                        configuration.anualDiscount = JsonConvert.DeserializeObject<Model.Discounts.AnualDiscount>(condonationCampaing.Alias);
+                    }
+                    catch (Exception ex1)
+                    {
+                    }                    
+
                     lblProgress.Text = "Obteniendo Caracteristicas de Pago ...";
                     RunProgress(progressn);
                 }

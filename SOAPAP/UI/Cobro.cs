@@ -753,7 +753,7 @@ namespace SOAPAP.UI
                                         ObtenerSeleccion();
                                         descuentosToolStripMenuItem.Enabled = true;
                                         //Verificacion de promocion por COVID
-                                        if(Variables.Configuration.RecargosDescCovid != null && Variables.Configuration.RecargosDescCovid.Count > 0)
+                                        if (Variables.Configuration.RecargosDescCovid != null && Variables.Configuration.RecargosDescCovid.Count > 0)
                                             VerificaDescuentoPorCOVID(Variables.Agreement.Id, Variables.Agreement.Debts.ToList());
                                     }
                                     else
@@ -851,10 +851,16 @@ namespace SOAPAP.UI
                             tableLayoutPanel3.RowStyles[0] = new RowStyle(SizeType.AutoSize);
                             lblTitleCondonation.Text = Variables.Configuration.CondonationCampaings.First().Alias;
                         }
-                        
+
 
                         //Valida esta activa la campaña añual
-                        if (Variables.Configuration.IsMunicipal && Variables.Configuration.Anual && Variables.Agreement != null)
+                        //Variables.Configuration.IsMunicipal &&
+                        if (Variables.Configuration.AnualParameter != null 
+                            && Variables.Agreement != null 
+                            && Variables.Agreement.Debts.Count == 0 
+                            && Variables.Configuration.anualDiscount != null 
+                            && Variables.Configuration.anualDiscount.TiposToma.Contains(Variables.Agreement.TypeIntakeId)
+                            && (Variables.Configuration.anualDiscount.VigenciaInicio <= DateTime.Now && DateTime.Now <= Variables.Configuration.anualDiscount.VigenciaFinal))
                         {
                             gbxAnual.Visible = true;
                             tableLayoutPanel3.RowStyles[0] = new RowStyle(SizeType.AutoSize);
@@ -1656,8 +1662,6 @@ namespace SOAPAP.UI
                 if (Variables.Configuration.IsMunicipal)
                 {
                     var Uiperiodos = new PagosAnualesAyuntamiento(Variables.Agreement);
-
-
                     var result = Uiperiodos.ShowDialog(this);
                     Uiperiodos.Close();
                 }
@@ -1667,7 +1671,9 @@ namespace SOAPAP.UI
                     var Uiperiodos = new PeriodosAnticipados(Variables.Agreement, true);
                     var result = Uiperiodos.ShowDialog(this);
                     Uiperiodos.Close();
-
+                    //var uiPeriodos = new PagoAnticipadoSosapac(Variables.Agreement);
+                    //var result = uiPeriodos.ShowDialog(this);
+                    //uiPeriodos.Close();
                 }
             }
 

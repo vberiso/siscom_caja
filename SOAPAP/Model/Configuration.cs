@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SOAPAP.Model.Discounts;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,6 +19,8 @@ namespace SOAPAP.Model
         public string Image { get; set; }
         public string IVA { get; set; }
         public bool Anual { get; set; }
+        public SystemParameters AnualParameter { get; set; }
+        public AnualDiscount anualDiscount { get; set; }
         public string LegendRegime { get; set; }
         public bool IsMunicipal { get; set; }
         public string DefaultPrinter { get; set; }

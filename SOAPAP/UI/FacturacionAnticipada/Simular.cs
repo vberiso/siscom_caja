@@ -35,11 +35,7 @@ namespace SOAPAP.UI.FacturacionAnticipada
             this.MesInicio = MesInicio;
             this.MesIFin = MesFin;
             this.Year = Year;
-            Requests = new RequestsAPI(UrlBase);
-           // loadDataInTable();
-
-
-
+            Requests = new RequestsAPI(UrlBase);           
         }
 
         private void btnAccept_Click_1(object sender, EventArgs e)
@@ -73,7 +69,9 @@ namespace SOAPAP.UI.FacturacionAnticipada
             decimal total = 0;
             decimal ivaTotal = 0;
 
-            var url = string.Format("/api/StoreProcedure/runAccrualPeriod/{0}/{1}/{2}/{3}/{4}", AgreementId, MesInicio, MesIFin, Year, 1);
+
+
+            var url = string.Format("/api/StoreProcedure/runAccrualPeriod/{0}/{1}/{2}/{3}/{4}", AgreementId, MesInicio, MesIFin, Year, 1);            
             var results = await Requests.SendURIAsync(url, HttpMethod.Post, Variables.LoginModel.Token);
             var jsonResult = JObject.Parse(results);
 
@@ -94,8 +92,8 @@ namespace SOAPAP.UI.FacturacionAnticipada
             }
             try
             {
-             
-                    var data = JObject.Parse(results)["data"]["data"];
+                
+                var data = JObject.Parse(results)["data"]["data"];
 
                 decimal ivaParcial = 0;
                 decimal ivat = 0;
@@ -122,7 +120,7 @@ namespace SOAPAP.UI.FacturacionAnticipada
                     if (Variables.Configuration.Anual)
                     {
                         var des = Variables.Configuration.Descuento == 50 ? 0 : Variables.Configuration.Descuento;
-                        totalDescuent = totalDescuent + ((Convert.ToDecimal(rowArray["amount"].ToString()) *des / 100) * totalMeses);
+                        totalDescuent = totalDescuent + ((Convert.ToDecimal(rowArray["amount"].ToString()) * des / 100) * totalMeses);
                     }
                     dataGridViewServicios.Rows.Add(new string[] { rowArray["name_concept"].ToString(), rowArray["amount"].ToString(), totalMeses.ToString(), (totalMeses * Convert.ToDecimal(rowArray["amount"].ToString())).ToString(), ivaParcial.ToString() });
 
@@ -131,9 +129,9 @@ namespace SOAPAP.UI.FacturacionAnticipada
                 ivaTotal =  ivat;
                 if (Variables.Configuration.Anual)
                 {
-                    var Tdes = Variables.Configuration.Descuento == 50 ? total : totalDescuent;
+                    var Tdes = Variables.Configuration.Descuento == 50 ? total : totalDescuent;                    
                     paelAnual.Visible = true;
-                    lblSubtotal.Text = (Variables.Configuration.Descuento == 50 ?  (total * 100 / 50) : total ).ToString();
+                    lblSubtotal.Text = (Variables.Configuration.Descuento == 50 ?  (total * 100 / 50) : total ).ToString();                    
                     lblDescuento.Text = Math.Round(Tdes, 2).ToString();
                     
                 }
@@ -142,7 +140,7 @@ namespace SOAPAP.UI.FacturacionAnticipada
                     total = total - totalDescuent;
                    
                 }
-                //total = Variables.Configuration.Descuento == 50 ? total + (total * 100 / 50) : total;
+                
                 lblTotal.Text = Math.Round(ivaTotal + total, 2).ToString();
                 lblIva.Text = Math.Round(ivat, 2).ToString();
                 loading.Close();
@@ -159,5 +157,7 @@ namespace SOAPAP.UI.FacturacionAnticipada
         {
             loadDataInTable();
         }
+
+        
     }
 }

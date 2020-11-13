@@ -105,25 +105,32 @@ namespace SOAPAP.UI.FacturacionAnticipada
                 comboMesFin2.Visible = false;
                 label1.Visible = false;
                 lblTitle.Visible = false;
-                label2.Text = "Pago anual";
+                label2.Text = Variables.Configuration.anualDiscount.NombrePublico;
                 checkPaymentTarget.Visible = true;
 
 
                 lblTextAnual.Visible = true;
+                lblTextAnual.Text = Variables.Configuration.anualDiscount.DescripcionPublico;
+
                 int year = now.Year;
                 string descuento = "5%";
-                Variables.Configuration.Descuento = 5;
-                CurrentDescuento = 5;
+                //Variables.Configuration.Descuento = 5;
+                //CurrentDescuento = 5;
 
 
 
-                if (now.Month == 12)
-                {
-                    Variables.Configuration.Descuento = 10;
-                    descuento = "10%";
-                    year = year+1;
-                    CurrentDescuento = 10;
-                }
+                //if (now.Month == 12)
+                //{
+                //    Variables.Configuration.Descuento = 10;
+                //    descuento = "10%";
+                //    year = year+1;
+                //    CurrentDescuento = 10;
+                //}
+                Variables.Configuration.Descuento = ObtenerDescuentoAAplicar();
+                descuento = $"{ObtenerDescuentoAAplicar()}%";
+                year = Variables.Configuration.anualDiscount.PromocionAño;
+                CurrentDescuento = ObtenerDescuentoAAplicar();
+
                 var agreementDiscount = Agreement.AgreementDiscounts.Where(x => x.IsActive).FirstOrDefault();
                 if (agreementDiscount != null)
                 {
@@ -353,7 +360,13 @@ namespace SOAPAP.UI.FacturacionAnticipada
                 result = mensaje.ShowDialog(this);
             }
         }
+
+        public int ObtenerDescuentoAAplicar()
+        {
+            var Desc = Variables.Configuration.anualDiscount.PromocionAplicar.FirstOrDefault(x => x.año == DateTime.Now.Year && x.meses.Contains(DateTime.Now.Month));
+            if (Desc != null)
+                return Desc.Descuento;
+            return 0;
+        }
     }
-
-
 }

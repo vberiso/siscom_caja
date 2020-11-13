@@ -100,6 +100,7 @@ namespace SOAPAP.UI.FactPasada
                 loading = new Loading();
                 loading.Show(this);
                 List<string> Cajeros = new List<string>();
+                List<string> idsDivisionSelected = new List<string>();
 
                 //Operadores seleccionados del combo de cajeros                
                 var itemsOpe = chcbxOperador.Properties.Items.ToList();
@@ -125,36 +126,74 @@ namespace SOAPAP.UI.FactPasada
                         }
                         itemSeleccionado = itemSeleccionado.Substring(0, itemSeleccionado.Length - 1);
                     }
+
+                    //Si hay cajeros seleccionados
+                    if (Cajeros.Count > 0)
+                    {
+                        //Comineza el proceso de descarga
+                        List<Task<string>> lstTareas = new List<Task<string>>();
+                        foreach (var item in Cajeros)
+                        {
+                            var TareaX = EjecutaPeticion(item, dtpFecha.Value, dtFechaFin.Value, ((DataComboBox)cbxEstados.SelectedItem).keyString);
+                            lstTareas.Add(TareaX);
+                        }
+
+                        try
+                        {
+                            string[] resultados = await Task.WhenAll(lstTareas);
+                            GuardaResultados(resultados);
+                            mensaje = new MessageBoxForm("Descarga terminada", "La descarga se realizo exitosamente.", TypeIcon.Icon.Success);
+                            result = mensaje.ShowDialog();
+                        }
+                        catch (Exception ex)
+                        {
+                        }
+                    }
                 }
                 else
                 {
-                    List<string> idsDivisionSelected = new List<string>();
-                    foreach (var item in itemsOpe)
+                    ////Se obtiene la division para filtrar la consulta                
+                    if (itemsOpe.Where(x => x.CheckState == CheckState.Checked).Count() == 0)
                     {
-                        if (item.CheckState == CheckState.Checked)
-                            idsDivisionSelected.Add((string)item.Value);                        
+                        itemSeleccionado = "";
+                        mensaje = new MessageBoxForm("Advertencia: ", "Debe seleccionar una division.", TypeIcon.Icon.Cancel);
+                        result = mensaje.ShowDialog();
                     }
-                    Cajeros = lstCajeros.Where(c => idsDivisionSelected.Contains(c.divitionId.ToString())).Select(x => x.id).ToList();
+                    else
+                    {                        
+                        foreach (var item in itemsOpe)
+                        {
+                            if (item.CheckState == CheckState.Checked)
+                                idsDivisionSelected.Add((string)item.Value);
+                        }
+                        //Cajeros = lstCajeros.Where(c => idsDivisionSelected.Contains(c.divitionId.ToString())).Select(x => x.id).ToList();
+                    }
+
+                    //Si hay divisiones seleccionados
+                    if (idsDivisionSelected.Count > 0)
+                    {
+                        //Comineza el proceso de descarga
+                        List<Task<string>> lstTareas = new List<Task<string>>();
+                        foreach (var item in idsDivisionSelected)
+                        {
+                            var TareaX = EjecutaPeticionXDivision(item, dtpFecha.Value, dtFechaFin.Value, ((DataComboBox)cbxEstados.SelectedItem).keyString);
+                            lstTareas.Add(TareaX);
+                        }
+
+                        try
+                        {
+                            string[] resultados = await Task.WhenAll(lstTareas);
+                            GuardaResultados(resultados);
+                            mensaje = new MessageBoxForm("Descarga terminada", "La descarga se realizo exitosamente.", TypeIcon.Icon.Success);
+                            result = mensaje.ShowDialog();
+                        }
+                        catch (Exception ex)
+                        {
+                        }
+                    }
                 }
                 
-
-                //Comineza el proceso de descarga
-                List<Task<string>> lstTareas = new List<Task<string>>();
-                foreach (var item in Cajeros)
-                {
-                    var TareaX = EjecutaPeticion(item, dtpFecha.Value , dtFechaFin.Value , ((DataComboBox)cbxEstados.SelectedItem).keyString);
-                    lstTareas.Add(TareaX);
-                }
-
-                try
-                {
-                    string[] resultados = await Task.WhenAll(lstTareas);
-                    GuardaResultados(resultados);
-                }
-                catch(Exception ex) 
-                {
-                }
-
+                
                 #region antiguo
 
                 //var _resulTransaction = await Requests.SendURIAsync(string.Format("/api/Facturacion/Facturas/{0}/{1}/{2}/{3}", dtpFecha.Value.ToString("yyyy-MM-dd"), dtFechaFin.Value.ToString("yyyy-MM-dd"), itemSeleccionado, ((DataComboBox)cbxEstados.SelectedItem).keyString), HttpMethod.Get, Variables.LoginModel.Token);
@@ -244,7 +283,7 @@ namespace SOAPAP.UI.FactPasada
 
         public async Task<string> EjecutaPeticion(string idCajero, DateTime FIni, DateTime FFin, string estadoFacturas)
         {
-            int SegmentoDias = 2;
+            int SegmentoDias = 10;
             int TotalFacturas = 0;            
             string Errores = "No se pudieron descargar los siguientes pagos: ";
 
@@ -334,7 +373,105 @@ namespace SOAPAP.UI.FactPasada
             var Usurio = lstCajeros.FirstOrDefault(c => c.id == idCajero);
             string ResultadoCajero = $"Resultados de {Usurio.name} {Usurio.lastName} {Usurio.secondLastName}\r\n";
             ResultadoCajero += "Facturas Descargadas: " + TotalFacturas + "\r\n";
-            if(Errores.Length > 38)
+            if(Errores.Length > 48)
+                ResultadoCajero += Errores + "\r\n";
+
+            return ResultadoCajero;
+        }
+
+        public async Task<string> EjecutaPeticionXDivision(string idDivision, DateTime FIni, DateTime FFin, string estadoFacturas)
+        {
+            int SegmentoDias = 10;
+            int TotalFacturas = 0;
+            string Errores = "No se pudieron descargar los siguientes pagos: ";
+
+            var Tarea = Task.Run(async () => {
+
+                //Se realiza la descarga en segmentos de 10 dias
+                DateTime FechaInicial = FIni;
+                DateTime FechaFinal = FIni.AddDays(SegmentoDias) < FFin ? FIni.AddDays(SegmentoDias) : FFin;
+
+                do
+                {
+                    var _resulTransaction = await Requests.SendURIAsync(string.Format("/api/Facturacion/FacturasFromDivision/{0}/{1}/{2}/{3}", FechaInicial.ToString("yyyy-MM-dd"), FechaFinal.ToString("yyyy-MM-dd"), idDivision, estadoFacturas), HttpMethod.Get, Variables.LoginModel.Token);
+
+                    if (_resulTransaction.Contains("error"))
+                    {
+                        mensaje = new MessageBoxForm("Error", _resulTransaction.Split(':')[1].Replace("}", ""), TypeIcon.Icon.Cancel);
+                        result = mensaje.ShowDialog();
+                        lblResultado.Text = "";
+                    }
+                    else
+                    {
+                        List<SOAPAP.Model.TaxReceipt> lstTaxR = JsonConvert.DeserializeObject<List<SOAPAP.Model.TaxReceipt>>(_resulTransaction);
+
+                        if (lstTaxR != null && lstTaxR.Count > 0)
+                        {
+                            //Se genera la carpeta de descargas
+                            string path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\FacturasDescargadas";
+                            DirectoryInfo di;
+                            if (!Directory.Exists(path))
+                            {
+                                di = Directory.CreateDirectory(path);
+                            }
+                            //Se genera la carpeta para esta descarga.
+                            path += "\\" + "Facturas_" + dtpFecha.Value.ToString("dd-MM-yyyy") + "al" + dtFechaFin.Value.ToString("dd-MM-yyyy");
+                            if (!Directory.Exists(path))
+                            {
+                                di = Directory.CreateDirectory(path);
+                            }
+
+                            //Descarga de archivos.
+                            string Rfc = "";
+                            if (Variables.Configuration.IsMunicipal)
+                                Rfc = "MCP850101944";
+                            else
+                                Rfc = "SOS970808SM7";
+
+                            foreach (var item in lstTaxR)
+                            {
+                                try
+                                {
+                                    string nombrefile;
+                                    if (item.Status == "ET001")
+                                        nombrefile = path + "\\" + Rfc + "_" + item.RFC + "_" + item.FielXML;
+                                    else
+                                        nombrefile = path + "\\" + Rfc + "_" + item.RFC + "_" + item.FielXML + "_CANCELADO";
+
+                                    // Se guarda pdf
+                                    System.IO.File.WriteAllBytes(nombrefile + ".pdf", item.PDFInvoce);
+                                    //Se guarde el xml.
+                                    XmlDocument xdoc = new XmlDocument();
+                                    xdoc.LoadXml(item.Xml);
+                                    FileStream fs = System.IO.File.OpenWrite(nombrefile + ".xml");
+                                    xdoc.Save(fs);
+                                    fs.Flush();
+                                    fs.Close();
+
+                                    TotalFacturas++;
+                                }
+                                catch (Exception)
+                                {
+                                    Errores += item.PaymentId + ", ";
+                                }
+                            }
+                        }
+
+                    }
+
+                    FechaInicial = FechaFinal.AddDays(1);
+                    FechaFinal = FechaFinal.AddDays(SegmentoDias) < FFin ? FechaFinal.AddDays(SegmentoDias) : FFin;
+                } while (FechaInicial < FechaFinal);
+
+                return TotalFacturas;
+            });
+
+            var Resultado = await Tarea;
+
+            var Division = lstDivisions.FirstOrDefault(d => d.Id == int.Parse(idDivision));
+            string ResultadoCajero = $"Resultados de {Division.Name}\r\n";
+            ResultadoCajero += "Facturas Descargadas: " + TotalFacturas + "\r\n";
+            if (Errores.Length > 48)
                 ResultadoCajero += Errores + "\r\n";
 
             return ResultadoCajero;
@@ -409,9 +546,11 @@ namespace SOAPAP.UI.FactPasada
             //Asignacion de combo cajeros.
             chcbxOperador.DataBindings.Clear();
             chcbxOperador.Properties.DataSource = null;
+            chcbxOperador.Reset();
             chcbxOperador.Properties.ValueMember = "keyString";
             chcbxOperador.Properties.DisplayMember = "value";
             chcbxOperador.Properties.DataSource = lstCaj;
+            chcbxOperador.RefreshEditValue();
         }
         private void mostrarDivisiones()
         {
@@ -421,12 +560,13 @@ namespace SOAPAP.UI.FactPasada
                 lstCaj.Add(new DataComboBox() { keyString = item.Id.ToString(), value = item.Name });
             }
 
-            //Asignacion de combo cajeros.
+            //Asignacion de combo cajeros.            
             chcbxOperador.DataBindings.Clear();
-            chcbxOperador.Properties.DataSource = null;
+            chcbxOperador.Properties.DataSource = null;            
             chcbxOperador.Properties.ValueMember = "keyString";
             chcbxOperador.Properties.DisplayMember = "value";
             chcbxOperador.Properties.DataSource = lstCaj;
+            chcbxOperador.RefreshEditValue();
         }
     }
 }
