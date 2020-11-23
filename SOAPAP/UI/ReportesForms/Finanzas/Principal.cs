@@ -689,6 +689,7 @@ namespace SOAPAP.UI.ReportesForms.Finanzas
 
                 decimal Actual = 0;
                 decimal DescuentoUrbano = 0, DescuentoUrbanoSC = 0, DescuentoRural = 0, DescuentoVulnerable = 0, DescuentoRecargos = 0;
+                //decimal TUrbano = 0, TurbanoSinConstraccion = 0, TRural = 0, TVulnerable = 0, TRecargos = 0;
                 decimal Anteriores = 0, Adelantado= 0;
                 
                 while (index <= 2)
@@ -802,11 +803,12 @@ namespace SOAPAP.UI.ReportesForms.Finanzas
                     oSheet.Cells[26, 22] = DescuentoRural;
                     oSheet.Cells[28, 22] = DescuentoVulnerable;
                     oSheet.Cells[29, 22] = DescuentoRecargos;
-                    //oSheet.Cells[23, 23] = TUrbano;
-                    //oSheet.Cells[24, 23] = TurbanoSinConstraccion;
-                    //oSheet.Cells[26, 23] = TRural;
-                    //oSheet.Cells[28, 23] = TVulnerable;
-                    //oSheet.Cells[29, 23] = TVulnerable;
+                
+                    //oSheet.Cells[23, 21] = TUrbano;
+                    //oSheet.Cells[24, 21] = TurbanoSinConstraccion;
+                    //oSheet.Cells[26, 21] = TRural;
+                    //oSheet.Cells[28, 21] = TVulnerable;
+                    //oSheet.Cells[29, 21] = TRecargos;
 
                     if (mes < 7)
                     {

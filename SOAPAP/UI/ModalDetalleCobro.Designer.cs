@@ -259,7 +259,7 @@
             this.lblMensajeCorreo.ForeColor = System.Drawing.Color.Red;
             this.lblMensajeCorreo.Location = new System.Drawing.Point(120, 595);
             this.lblMensajeCorreo.Name = "lblMensajeCorreo";
-            this.lblMensajeCorreo.Size = new System.Drawing.Size(0, 15);
+            this.lblMensajeCorreo.Size = new System.Drawing.Size(0, 18);
             this.lblMensajeCorreo.TabIndex = 56;
             // 
             // tbxCorreo
@@ -267,7 +267,7 @@
             this.tbxCorreo.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tbxCorreo.Location = new System.Drawing.Point(7, 614);
             this.tbxCorreo.Name = "tbxCorreo";
-            this.tbxCorreo.Size = new System.Drawing.Size(347, 23);
+            this.tbxCorreo.Size = new System.Drawing.Size(347, 26);
             this.tbxCorreo.TabIndex = 55;
             // 
             // chbxEnviarCorreo
@@ -277,7 +277,7 @@
             this.chbxEnviarCorreo.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chbxEnviarCorreo.Location = new System.Drawing.Point(11, 594);
             this.chbxEnviarCorreo.Name = "chbxEnviarCorreo";
-            this.chbxEnviarCorreo.Size = new System.Drawing.Size(108, 20);
+            this.chbxEnviarCorreo.Size = new System.Drawing.Size(134, 24);
             this.chbxEnviarCorreo.TabIndex = 54;
             this.chbxEnviarCorreo.Text = "Enviar correo a:";
             this.chbxEnviarCorreo.UseVisualStyleBackColor = true;
@@ -287,7 +287,7 @@
             this.label23.AutoSize = true;
             this.label23.Location = new System.Drawing.Point(12, 418);
             this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(99, 16);
+            this.label23.Size = new System.Drawing.Size(126, 20);
             this.label23.TabIndex = 53;
             this.label23.Text = "Tipo de uso CFDI:";
             // 
@@ -296,7 +296,7 @@
             this.cbxUsoCFDI.FormattingEnabled = true;
             this.cbxUsoCFDI.Location = new System.Drawing.Point(12, 435);
             this.cbxUsoCFDI.Name = "cbxUsoCFDI";
-            this.cbxUsoCFDI.Size = new System.Drawing.Size(216, 24);
+            this.cbxUsoCFDI.Size = new System.Drawing.Size(216, 28);
             this.cbxUsoCFDI.TabIndex = 52;
             this.cbxUsoCFDI.SelectedIndexChanged += new System.EventHandler(this.cbxUsoCFDI_SelectedIndexChanged);
             // 
@@ -313,7 +313,7 @@
             this.label24.AutoSize = true;
             this.label24.Location = new System.Drawing.Point(9, 469);
             this.label24.Name = "label24";
-            this.label24.Size = new System.Drawing.Size(217, 16);
+            this.label24.Size = new System.Drawing.Size(277, 20);
             this.label24.TabIndex = 50;
             this.label24.Text = "Ingrese una observación para la factura:";
             // 
@@ -335,9 +335,9 @@
             this.pnlMixto.Controls.Add(this.tabMixto);
             this.pnlMixto.Controls.Add(this.pnlContainerMixedAmount);
             this.pnlMixto.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlMixto.Location = new System.Drawing.Point(3, 17);
+            this.pnlMixto.Location = new System.Drawing.Point(3, 21);
             this.pnlMixto.Name = "pnlMixto";
-            this.pnlMixto.Size = new System.Drawing.Size(470, 233);
+            this.pnlMixto.Size = new System.Drawing.Size(470, 229);
             this.pnlMixto.TabIndex = 24;
             // 
             // tabMixto
@@ -352,7 +352,7 @@
             this.tabMixto.Multiline = true;
             this.tabMixto.Name = "tabMixto";
             this.tabMixto.SelectedIndex = 0;
-            this.tabMixto.Size = new System.Drawing.Size(470, 205);
+            this.tabMixto.Size = new System.Drawing.Size(470, 201);
             this.tabMixto.TabIndex = 0;
             this.tabMixto.SelectedIndexChanged += new System.EventHandler(this.TabMixto_SelectedIndexChanged);
             // 
@@ -368,7 +368,7 @@
             this.tabEfectivo.Location = new System.Drawing.Point(4, 4);
             this.tabEfectivo.Name = "tabEfectivo";
             this.tabEfectivo.Padding = new System.Windows.Forms.Padding(3);
-            this.tabEfectivo.Size = new System.Drawing.Size(462, 176);
+            this.tabEfectivo.Size = new System.Drawing.Size(462, 168);
             this.tabEfectivo.TabIndex = 0;
             this.tabEfectivo.Text = "Efectivo";
             // 
@@ -393,7 +393,7 @@
             this.panel4.Dock = System.Windows.Forms.DockStyle.Right;
             this.panel4.Location = new System.Drawing.Point(309, 41);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(150, 132);
+            this.panel4.Size = new System.Drawing.Size(150, 124);
             this.panel4.TabIndex = 5;
             // 
             // pnlHeaderEfectivo
@@ -414,7 +414,7 @@
             this.label3.ForeColor = System.Drawing.Color.White;
             this.label3.Location = new System.Drawing.Point(3, 10);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(156, 19);
+            this.label3.Size = new System.Drawing.Size(202, 26);
             this.label3.TabIndex = 0;
             this.label3.Text = "PAGO EN EFECTIVO";
             // 
@@ -425,7 +425,7 @@
             this.label2.ForeColor = System.Drawing.Color.White;
             this.label2.Location = new System.Drawing.Point(384, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(58, 14);
+            this.label2.Size = new System.Drawing.Size(75, 17);
             this.label2.TabIndex = 3;
             this.label2.Text = "Pago Mixto";
             // 
@@ -434,7 +434,7 @@
             this.txtMixedEfectivo.Font = new System.Drawing.Font("Microsoft YaHei UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtMixedEfectivo.Location = new System.Drawing.Point(34, 90);
             this.txtMixedEfectivo.Name = "txtMixedEfectivo";
-            this.txtMixedEfectivo.Size = new System.Drawing.Size(228, 24);
+            this.txtMixedEfectivo.Size = new System.Drawing.Size(228, 28);
             this.txtMixedEfectivo.TabIndex = 2;
             this.txtMixedEfectivo.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TxtMixedEfectivo_KeyPress);
             // 
@@ -444,7 +444,7 @@
             this.lblMixedRecibido.Font = new System.Drawing.Font("Microsoft YaHei UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblMixedRecibido.Location = new System.Drawing.Point(29, 70);
             this.lblMixedRecibido.Name = "lblMixedRecibido";
-            this.lblMixedRecibido.Size = new System.Drawing.Size(61, 19);
+            this.lblMixedRecibido.Size = new System.Drawing.Size(83, 23);
             this.lblMixedRecibido.TabIndex = 1;
             this.lblMixedRecibido.Text = "Recibido";
             // 
@@ -468,7 +468,7 @@
             this.tabTarjeta.Location = new System.Drawing.Point(4, 4);
             this.tabTarjeta.Name = "tabTarjeta";
             this.tabTarjeta.Padding = new System.Windows.Forms.Padding(3);
-            this.tabTarjeta.Size = new System.Drawing.Size(462, 177);
+            this.tabTarjeta.Size = new System.Drawing.Size(462, 171);
             this.tabTarjeta.TabIndex = 1;
             this.tabTarjeta.Text = "Tarjeta";
             // 
@@ -481,7 +481,7 @@
             "9 MSI"});
             this.comboMSI.Location = new System.Drawing.Point(117, 160);
             this.comboMSI.Name = "comboMSI";
-            this.comboMSI.Size = new System.Drawing.Size(121, 21);
+            this.comboMSI.Size = new System.Drawing.Size(121, 25);
             this.comboMSI.TabIndex = 41;
             this.comboMSI.Visible = false;
             // 
@@ -490,7 +490,7 @@
             this.checkPromocion.AutoSize = true;
             this.checkPromocion.Location = new System.Drawing.Point(10, 160);
             this.checkPromocion.Name = "checkPromocion";
-            this.checkPromocion.Size = new System.Drawing.Size(76, 17);
+            this.checkPromocion.Size = new System.Drawing.Size(97, 21);
             this.checkPromocion.TabIndex = 40;
             this.checkPromocion.Text = "Promoción";
             this.checkPromocion.UseVisualStyleBackColor = true;
@@ -528,7 +528,7 @@
             this.lblMixedTypeElectron.ForeColor = System.Drawing.Color.CornflowerBlue;
             this.lblMixedTypeElectron.Location = new System.Drawing.Point(116, 0);
             this.lblMixedTypeElectron.Name = "lblMixedTypeElectron";
-            this.lblMixedTypeElectron.Size = new System.Drawing.Size(0, 16);
+            this.lblMixedTypeElectron.Size = new System.Drawing.Size(0, 20);
             this.lblMixedTypeElectron.TabIndex = 32;
             // 
             // txtMixedMontoTarjeta
@@ -537,7 +537,7 @@
             this.txtMixedMontoTarjeta.Location = new System.Drawing.Point(9, 112);
             this.txtMixedMontoTarjeta.MaxLength = 25;
             this.txtMixedMontoTarjeta.Name = "txtMixedMontoTarjeta";
-            this.txtMixedMontoTarjeta.Size = new System.Drawing.Size(216, 24);
+            this.txtMixedMontoTarjeta.Size = new System.Drawing.Size(216, 28);
             this.txtMixedMontoTarjeta.TabIndex = 34;
             this.txtMixedMontoTarjeta.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TxtMixedMontoTarjeta_KeyPress);
             // 
@@ -547,7 +547,7 @@
             this.txtMixedAutorizacion.Location = new System.Drawing.Point(231, 112);
             this.txtMixedAutorizacion.MaxLength = 25;
             this.txtMixedAutorizacion.Name = "txtMixedAutorizacion";
-            this.txtMixedAutorizacion.Size = new System.Drawing.Size(213, 24);
+            this.txtMixedAutorizacion.Size = new System.Drawing.Size(213, 28);
             this.txtMixedAutorizacion.TabIndex = 35;
             // 
             // txtMixedNumeroTarjeta
@@ -556,7 +556,7 @@
             this.txtMixedNumeroTarjeta.Location = new System.Drawing.Point(231, 71);
             this.txtMixedNumeroTarjeta.MaxLength = 20;
             this.txtMixedNumeroTarjeta.Name = "txtMixedNumeroTarjeta";
-            this.txtMixedNumeroTarjeta.Size = new System.Drawing.Size(213, 24);
+            this.txtMixedNumeroTarjeta.Size = new System.Drawing.Size(213, 28);
             this.txtMixedNumeroTarjeta.TabIndex = 33;
             this.txtMixedNumeroTarjeta.Leave += new System.EventHandler(this.TxtMixedNumeroTarjeta_Leave);
             // 
@@ -566,7 +566,7 @@
             this.label14.Font = new System.Drawing.Font("Microsoft YaHei UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label14.Location = new System.Drawing.Point(229, 49);
             this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(79, 19);
+            this.label14.Size = new System.Drawing.Size(103, 23);
             this.label14.TabIndex = 35;
             this.label14.Text = "No. Tarjeta:";
             // 
@@ -576,7 +576,7 @@
             this.label13.Font = new System.Drawing.Font("Microsoft YaHei UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label13.Location = new System.Drawing.Point(8, 95);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(54, 19);
+            this.label13.Size = new System.Drawing.Size(69, 23);
             this.label13.TabIndex = 36;
             this.label13.Text = "Monto:";
             // 
@@ -586,7 +586,7 @@
             this.label15.Font = new System.Drawing.Font("Microsoft YaHei UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label15.Location = new System.Drawing.Point(229, 94);
             this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(89, 19);
+            this.label15.Size = new System.Drawing.Size(116, 23);
             this.label15.TabIndex = 36;
             this.label15.Text = "Autorización:";
             // 
@@ -596,7 +596,7 @@
             this.label16.Font = new System.Drawing.Font("Microsoft YaHei UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label16.Location = new System.Drawing.Point(7, 48);
             this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(50, 19);
+            this.label16.Size = new System.Drawing.Size(64, 23);
             this.label16.TabIndex = 37;
             this.label16.Text = "Banco:";
             // 
@@ -610,7 +610,7 @@
             this.cbxMixedTarjeta.FormattingEnabled = true;
             this.cbxMixedTarjeta.Location = new System.Drawing.Point(9, 67);
             this.cbxMixedTarjeta.Name = "cbxMixedTarjeta";
-            this.cbxMixedTarjeta.Size = new System.Drawing.Size(214, 25);
+            this.cbxMixedTarjeta.Size = new System.Drawing.Size(214, 28);
             this.cbxMixedTarjeta.TabIndex = 32;
             // 
             // pnlHeaderTarjeta
@@ -631,7 +631,7 @@
             this.label4.ForeColor = System.Drawing.Color.White;
             this.label4.Location = new System.Drawing.Point(3, 10);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(162, 19);
+            this.label4.Size = new System.Drawing.Size(211, 26);
             this.label4.TabIndex = 0;
             this.label4.Text = "PAGO CON TARJETA";
             // 
@@ -642,7 +642,7 @@
             this.label9.ForeColor = System.Drawing.Color.White;
             this.label9.Location = new System.Drawing.Point(384, 0);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(58, 14);
+            this.label9.Size = new System.Drawing.Size(75, 17);
             this.label9.TabIndex = 3;
             this.label9.Text = "Pago Mixto";
             // 
@@ -662,7 +662,7 @@
             this.tabCheque.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tabCheque.Location = new System.Drawing.Point(4, 4);
             this.tabCheque.Name = "tabCheque";
-            this.tabCheque.Size = new System.Drawing.Size(462, 177);
+            this.tabCheque.Size = new System.Drawing.Size(462, 171);
             this.tabCheque.TabIndex = 2;
             this.tabCheque.Text = "Cheque";
             // 
@@ -687,7 +687,7 @@
             this.txtMixedMontoCheque.Location = new System.Drawing.Point(9, 112);
             this.txtMixedMontoCheque.MaxLength = 25;
             this.txtMixedMontoCheque.Name = "txtMixedMontoCheque";
-            this.txtMixedMontoCheque.Size = new System.Drawing.Size(164, 24);
+            this.txtMixedMontoCheque.Size = new System.Drawing.Size(164, 28);
             this.txtMixedMontoCheque.TabIndex = 38;
             this.txtMixedMontoCheque.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TxtMixedMontoCheque_KeyPress);
             // 
@@ -697,7 +697,7 @@
             this.txtMixedNumeroCuenta.Location = new System.Drawing.Point(222, 66);
             this.txtMixedNumeroCuenta.MaxLength = 25;
             this.txtMixedNumeroCuenta.Name = "txtMixedNumeroCuenta";
-            this.txtMixedNumeroCuenta.Size = new System.Drawing.Size(220, 24);
+            this.txtMixedNumeroCuenta.Size = new System.Drawing.Size(220, 28);
             this.txtMixedNumeroCuenta.TabIndex = 37;
             // 
             // txtMixedNumeroCheque
@@ -706,7 +706,7 @@
             this.txtMixedNumeroCheque.Location = new System.Drawing.Point(178, 112);
             this.txtMixedNumeroCheque.MaxLength = 31;
             this.txtMixedNumeroCheque.Name = "txtMixedNumeroCheque";
-            this.txtMixedNumeroCheque.Size = new System.Drawing.Size(264, 24);
+            this.txtMixedNumeroCheque.Size = new System.Drawing.Size(264, 28);
             this.txtMixedNumeroCheque.TabIndex = 39;
             this.txtMixedNumeroCheque.TextChanged += new System.EventHandler(this.TxtMixedNumeroCheque_TextChanged);
             this.txtMixedNumeroCheque.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TxtMixedNumeroCheque_KeyPress);
@@ -717,7 +717,7 @@
             this.label21.Font = new System.Drawing.Font("Microsoft YaHei UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label21.Location = new System.Drawing.Point(9, 93);
             this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(54, 19);
+            this.label21.Size = new System.Drawing.Size(69, 23);
             this.label21.TabIndex = 42;
             this.label21.Text = "Monto:";
             // 
@@ -728,7 +728,7 @@
             this.label17.Font = new System.Drawing.Font("Microsoft YaHei UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label17.Location = new System.Drawing.Point(179, 93);
             this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(85, 19);
+            this.label17.Size = new System.Drawing.Size(110, 23);
             this.label17.TabIndex = 41;
             this.label17.Text = "No. Cheque:";
             // 
@@ -738,7 +738,7 @@
             this.label18.Font = new System.Drawing.Font("Microsoft YaHei UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label18.Location = new System.Drawing.Point(218, 48);
             this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(82, 19);
+            this.label18.Size = new System.Drawing.Size(104, 23);
             this.label18.TabIndex = 42;
             this.label18.Text = "No. Cuenta:";
             // 
@@ -748,7 +748,7 @@
             this.label19.Font = new System.Drawing.Font("Microsoft YaHei UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label19.Location = new System.Drawing.Point(10, 46);
             this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(50, 19);
+            this.label19.Size = new System.Drawing.Size(64, 23);
             this.label19.TabIndex = 43;
             this.label19.Text = "Banco:";
             // 
@@ -762,7 +762,7 @@
             this.cbxMixedCheque.FormattingEnabled = true;
             this.cbxMixedCheque.Location = new System.Drawing.Point(9, 65);
             this.cbxMixedCheque.Name = "cbxMixedCheque";
-            this.cbxMixedCheque.Size = new System.Drawing.Size(207, 25);
+            this.cbxMixedCheque.Size = new System.Drawing.Size(207, 28);
             this.cbxMixedCheque.TabIndex = 36;
             // 
             // pnlHeaderCheque
@@ -783,7 +783,7 @@
             this.label8.ForeColor = System.Drawing.Color.White;
             this.label8.Location = new System.Drawing.Point(3, 11);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(160, 19);
+            this.label8.Size = new System.Drawing.Size(208, 26);
             this.label8.TabIndex = 0;
             this.label8.Text = "PAGO CON CHEQUE";
             // 
@@ -794,7 +794,7 @@
             this.label10.ForeColor = System.Drawing.Color.White;
             this.label10.Location = new System.Drawing.Point(394, 3);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(52, 12);
+            this.label10.Size = new System.Drawing.Size(69, 15);
             this.label10.TabIndex = 3;
             this.label10.Text = "Pago Mixto";
             // 
@@ -812,7 +812,7 @@
             this.tabTransferencia.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tabTransferencia.Location = new System.Drawing.Point(4, 4);
             this.tabTransferencia.Name = "tabTransferencia";
-            this.tabTransferencia.Size = new System.Drawing.Size(462, 177);
+            this.tabTransferencia.Size = new System.Drawing.Size(462, 171);
             this.tabTransferencia.TabIndex = 3;
             this.tabTransferencia.Text = "Transferencia";
             // 
@@ -837,7 +837,7 @@
             this.panel7.Dock = System.Windows.Forms.DockStyle.Right;
             this.panel7.Location = new System.Drawing.Point(310, 36);
             this.panel7.Name = "panel7";
-            this.panel7.Size = new System.Drawing.Size(150, 139);
+            this.panel7.Size = new System.Drawing.Size(150, 133);
             this.panel7.TabIndex = 9;
             // 
             // txtMixedMontoTransfer
@@ -845,7 +845,7 @@
             this.txtMixedMontoTransfer.Font = new System.Drawing.Font("Microsoft YaHei UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtMixedMontoTransfer.Location = new System.Drawing.Point(31, 62);
             this.txtMixedMontoTransfer.Name = "txtMixedMontoTransfer";
-            this.txtMixedMontoTransfer.Size = new System.Drawing.Size(226, 24);
+            this.txtMixedMontoTransfer.Size = new System.Drawing.Size(226, 28);
             this.txtMixedMontoTransfer.TabIndex = 40;
             this.txtMixedMontoTransfer.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TxtMixedMontoTransfer_KeyPress);
             // 
@@ -854,7 +854,7 @@
             this.txtMixedReferencia.Font = new System.Drawing.Font("Microsoft YaHei UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtMixedReferencia.Location = new System.Drawing.Point(31, 111);
             this.txtMixedReferencia.Name = "txtMixedReferencia";
-            this.txtMixedReferencia.Size = new System.Drawing.Size(226, 24);
+            this.txtMixedReferencia.Size = new System.Drawing.Size(226, 28);
             this.txtMixedReferencia.TabIndex = 41;
             // 
             // label22
@@ -863,7 +863,7 @@
             this.label22.Font = new System.Drawing.Font("Microsoft YaHei UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label22.Location = new System.Drawing.Point(27, 43);
             this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(54, 19);
+            this.label22.Size = new System.Drawing.Size(69, 23);
             this.label22.TabIndex = 7;
             this.label22.Text = "Monto:";
             // 
@@ -873,7 +873,7 @@
             this.label20.Font = new System.Drawing.Font("Microsoft YaHei UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label20.Location = new System.Drawing.Point(27, 90);
             this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(76, 19);
+            this.label20.Size = new System.Drawing.Size(100, 23);
             this.label20.TabIndex = 7;
             this.label20.Text = "Referencia:";
             // 
@@ -895,7 +895,7 @@
             this.label11.ForeColor = System.Drawing.Color.White;
             this.label11.Location = new System.Drawing.Point(3, 9);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(223, 19);
+            this.label11.Size = new System.Drawing.Size(287, 26);
             this.label11.TabIndex = 0;
             this.label11.Text = "PAGO CON TRANSFERENCIA";
             // 
@@ -906,7 +906,7 @@
             this.label12.ForeColor = System.Drawing.Color.White;
             this.label12.Location = new System.Drawing.Point(393, 1);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(52, 12);
+            this.label12.Size = new System.Drawing.Size(69, 15);
             this.label12.TabIndex = 3;
             this.label12.Text = "Pago Mixto";
             // 
@@ -926,7 +926,7 @@
             this.lblMixedAmountEfectivo.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
             this.lblMixedAmountEfectivo.Location = new System.Drawing.Point(164, 0);
             this.lblMixedAmountEfectivo.Name = "lblMixedAmountEfectivo";
-            this.lblMixedAmountEfectivo.Size = new System.Drawing.Size(134, 25);
+            this.lblMixedAmountEfectivo.Size = new System.Drawing.Size(168, 29);
             this.lblMixedAmountEfectivo.TabIndex = 2;
             this.lblMixedAmountEfectivo.Text = "Resta: $0.00";
             // 
@@ -934,9 +934,9 @@
             // 
             this.pnlEfectivo.Controls.Add(this.grbEfectivo);
             this.pnlEfectivo.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlEfectivo.Location = new System.Drawing.Point(3, 17);
+            this.pnlEfectivo.Location = new System.Drawing.Point(3, 21);
             this.pnlEfectivo.Name = "pnlEfectivo";
-            this.pnlEfectivo.Size = new System.Drawing.Size(470, 233);
+            this.pnlEfectivo.Size = new System.Drawing.Size(470, 229);
             this.pnlEfectivo.TabIndex = 0;
             // 
             // grbEfectivo
@@ -946,7 +946,7 @@
             this.grbEfectivo.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.grbEfectivo.Location = new System.Drawing.Point(0, 0);
             this.grbEfectivo.Name = "grbEfectivo";
-            this.grbEfectivo.Size = new System.Drawing.Size(470, 233);
+            this.grbEfectivo.Size = new System.Drawing.Size(470, 229);
             this.grbEfectivo.TabIndex = 1;
             this.grbEfectivo.TabStop = false;
             // 
@@ -961,7 +961,7 @@
             this.pnlContentTotal.Controls.Add(this.panel1);
             this.pnlContentTotal.Controls.Add(this.pnlTitleTotal);
             this.pnlContentTotal.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pnlContentTotal.Location = new System.Drawing.Point(3, 19);
+            this.pnlContentTotal.Location = new System.Drawing.Point(3, 23);
             this.pnlContentTotal.Name = "pnlContentTotal";
             this.pnlContentTotal.Size = new System.Drawing.Size(464, 157);
             this.pnlContentTotal.TabIndex = 23;
@@ -981,7 +981,7 @@
             this.lblTotal.Font = new System.Drawing.Font("Microsoft YaHei UI", 12.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTotal.Location = new System.Drawing.Point(97, 2);
             this.lblTotal.Name = "lblTotal";
-            this.lblTotal.Size = new System.Drawing.Size(55, 24);
+            this.lblTotal.Size = new System.Drawing.Size(75, 30);
             this.lblTotal.TabIndex = 0;
             this.lblTotal.Text = "$0.00";
             // 
@@ -1001,7 +1001,7 @@
             this.lblCambiopnl.ForeColor = System.Drawing.Color.DarkGray;
             this.lblCambiopnl.Location = new System.Drawing.Point(95, 1);
             this.lblCambiopnl.Name = "lblCambiopnl";
-            this.lblCambiopnl.Size = new System.Drawing.Size(65, 26);
+            this.lblCambiopnl.Size = new System.Drawing.Size(81, 31);
             this.lblCambiopnl.TabIndex = 0;
             this.lblCambiopnl.Text = "$0.00";
             // 
@@ -1011,7 +1011,7 @@
             this.lblCambio.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblCambio.Location = new System.Drawing.Point(66, 124);
             this.lblCambio.Name = "lblCambio";
-            this.lblCambio.Size = new System.Drawing.Size(55, 17);
+            this.lblCambio.Size = new System.Drawing.Size(67, 19);
             this.lblCambio.TabIndex = 3;
             this.lblCambio.Text = "Cambio";
             // 
@@ -1021,7 +1021,7 @@
             this.lblEntrega.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblEntrega.Location = new System.Drawing.Point(66, 83);
             this.lblEntrega.Name = "lblEntrega";
-            this.lblEntrega.Size = new System.Drawing.Size(55, 17);
+            this.lblEntrega.Size = new System.Drawing.Size(68, 19);
             this.lblEntrega.TabIndex = 3;
             this.lblEntrega.Text = "Entrega";
             // 
@@ -1030,7 +1030,7 @@
             this.lblTotalPago.AutoSize = true;
             this.lblTotalPago.Location = new System.Drawing.Point(33, 44);
             this.lblTotalPago.Name = "lblTotalPago";
-            this.lblTotalPago.Size = new System.Drawing.Size(86, 17);
+            this.lblTotalPago.Size = new System.Drawing.Size(103, 20);
             this.lblTotalPago.TabIndex = 3;
             this.lblTotalPago.Text = "Total a Pagar";
             // 
@@ -1039,7 +1039,7 @@
             this.txtEntregado.Font = new System.Drawing.Font("Microsoft YaHei UI", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtEntregado.Location = new System.Drawing.Point(131, 75);
             this.txtEntregado.Name = "txtEntregado";
-            this.txtEntregado.Size = new System.Drawing.Size(262, 29);
+            this.txtEntregado.Size = new System.Drawing.Size(262, 34);
             this.txtEntregado.TabIndex = 2;
             this.txtEntregado.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtEntregado.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtEntregado_KeyDown);
@@ -1070,7 +1070,7 @@
             this.lblSubtotal.Font = new System.Drawing.Font("Microsoft YaHei UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblSubtotal.Location = new System.Drawing.Point(152, 0);
             this.lblSubtotal.Name = "lblSubtotal";
-            this.lblSubtotal.Size = new System.Drawing.Size(133, 20);
+            this.lblSubtotal.Size = new System.Drawing.Size(167, 25);
             this.lblSubtotal.TabIndex = 0;
             this.lblSubtotal.Text = "Detalle de Cobro";
             // 
@@ -1078,9 +1078,9 @@
             // 
             this.pnlReferencia.Controls.Add(this.groupBox3);
             this.pnlReferencia.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlReferencia.Location = new System.Drawing.Point(3, 17);
+            this.pnlReferencia.Location = new System.Drawing.Point(3, 21);
             this.pnlReferencia.Name = "pnlReferencia";
-            this.pnlReferencia.Size = new System.Drawing.Size(470, 233);
+            this.pnlReferencia.Size = new System.Drawing.Size(470, 229);
             this.pnlReferencia.TabIndex = 1;
             // 
             // groupBox3
@@ -1090,7 +1090,7 @@
             this.groupBox3.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox3.Location = new System.Drawing.Point(0, 0);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(470, 233);
+            this.groupBox3.Size = new System.Drawing.Size(470, 229);
             this.groupBox3.TabIndex = 1;
             this.groupBox3.TabStop = false;
             // 
@@ -1103,7 +1103,7 @@
             this.panel5.Controls.Add(this.panel8);
             this.panel5.Controls.Add(this.panel9);
             this.panel5.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel5.Location = new System.Drawing.Point(3, 19);
+            this.panel5.Location = new System.Drawing.Point(3, 23);
             this.panel5.Name = "panel5";
             this.panel5.Size = new System.Drawing.Size(464, 157);
             this.panel5.TabIndex = 23;
@@ -1123,7 +1123,7 @@
             this.lblTotalTra.Font = new System.Drawing.Font("Microsoft YaHei UI", 12.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTotalTra.Location = new System.Drawing.Point(97, 2);
             this.lblTotalTra.Name = "lblTotalTra";
-            this.lblTotalTra.Size = new System.Drawing.Size(55, 24);
+            this.lblTotalTra.Size = new System.Drawing.Size(75, 30);
             this.lblTotalTra.TabIndex = 0;
             this.lblTotalTra.Text = "$0.00";
             // 
@@ -1133,7 +1133,7 @@
             this.label5.Font = new System.Drawing.Font("Microsoft YaHei UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.Location = new System.Drawing.Point(56, 95);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(66, 16);
+            this.label5.Size = new System.Drawing.Size(83, 20);
             this.label5.TabIndex = 3;
             this.label5.Text = "Referencia:";
             // 
@@ -1142,7 +1142,7 @@
             this.label6.AutoSize = true;
             this.label6.Location = new System.Drawing.Point(33, 57);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(89, 17);
+            this.label6.Size = new System.Drawing.Size(107, 20);
             this.label6.TabIndex = 3;
             this.label6.Text = "Total a Pagar:";
             // 
@@ -1151,7 +1151,7 @@
             this.txtReferencia.Font = new System.Drawing.Font("Microsoft YaHei UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtReferencia.Location = new System.Drawing.Point(131, 88);
             this.txtReferencia.Name = "txtReferencia";
-            this.txtReferencia.Size = new System.Drawing.Size(262, 24);
+            this.txtReferencia.Size = new System.Drawing.Size(262, 28);
             this.txtReferencia.TabIndex = 2;
             this.txtReferencia.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -1179,7 +1179,7 @@
             this.label7.Font = new System.Drawing.Font("Microsoft YaHei UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label7.Location = new System.Drawing.Point(152, 0);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(133, 20);
+            this.label7.Size = new System.Drawing.Size(167, 25);
             this.label7.TabIndex = 0;
             this.label7.Text = "Detalle de Cobro";
             // 
@@ -1188,9 +1188,9 @@
             this.pnlOtros.Controls.Add(this.panel3);
             this.pnlOtros.Controls.Add(this.pnlTitle);
             this.pnlOtros.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlOtros.Location = new System.Drawing.Point(3, 17);
+            this.pnlOtros.Location = new System.Drawing.Point(3, 21);
             this.pnlOtros.Name = "pnlOtros";
-            this.pnlOtros.Size = new System.Drawing.Size(470, 233);
+            this.pnlOtros.Size = new System.Drawing.Size(470, 229);
             this.pnlOtros.TabIndex = 0;
             // 
             // panel3
@@ -1210,7 +1210,7 @@
             this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel3.Location = new System.Drawing.Point(0, 18);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(470, 215);
+            this.panel3.Size = new System.Drawing.Size(470, 211);
             this.panel3.TabIndex = 1;
             // 
             // checkBoxPromocion2
@@ -1218,7 +1218,7 @@
             this.checkBoxPromocion2.AutoSize = true;
             this.checkBoxPromocion2.Location = new System.Drawing.Point(20, 170);
             this.checkBoxPromocion2.Name = "checkBoxPromocion2";
-            this.checkBoxPromocion2.Size = new System.Drawing.Size(85, 20);
+            this.checkBoxPromocion2.Size = new System.Drawing.Size(105, 24);
             this.checkBoxPromocion2.TabIndex = 42;
             this.checkBoxPromocion2.Text = "Promoción";
             this.checkBoxPromocion2.UseVisualStyleBackColor = true;
@@ -1230,7 +1230,7 @@
             this.comboPromocionMSI2.FormattingEnabled = true;
             this.comboPromocionMSI2.Location = new System.Drawing.Point(150, 170);
             this.comboPromocionMSI2.Name = "comboPromocionMSI2";
-            this.comboPromocionMSI2.Size = new System.Drawing.Size(121, 24);
+            this.comboPromocionMSI2.Size = new System.Drawing.Size(121, 28);
             this.comboPromocionMSI2.TabIndex = 43;
             this.comboPromocionMSI2.Visible = false;
             // 
@@ -1251,7 +1251,7 @@
             this.lblTypeElectron.ForeColor = System.Drawing.Color.CornflowerBlue;
             this.lblTypeElectron.Location = new System.Drawing.Point(100, 0);
             this.lblTypeElectron.Name = "lblTypeElectron";
-            this.lblTypeElectron.Size = new System.Drawing.Size(0, 16);
+            this.lblTypeElectron.Size = new System.Drawing.Size(0, 20);
             this.lblTypeElectron.TabIndex = 32;
             // 
             // lblTotPagar
@@ -1259,7 +1259,7 @@
             this.lblTotPagar.AutoSize = true;
             this.lblTotPagar.Location = new System.Drawing.Point(35, 29);
             this.lblTotPagar.Name = "lblTotPagar";
-            this.lblTotPagar.Size = new System.Drawing.Size(76, 16);
+            this.lblTotPagar.Size = new System.Drawing.Size(98, 20);
             this.lblTotPagar.TabIndex = 30;
             this.lblTotPagar.Text = "Total a Pagar";
             // 
@@ -1278,7 +1278,7 @@
             this.lblTotalOtros.Font = new System.Drawing.Font("Microsoft YaHei UI", 12.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTotalOtros.Location = new System.Drawing.Point(100, -1);
             this.lblTotalOtros.Name = "lblTotalOtros";
-            this.lblTotalOtros.Size = new System.Drawing.Size(55, 24);
+            this.lblTotalOtros.Size = new System.Drawing.Size(75, 30);
             this.lblTotalOtros.TabIndex = 0;
             this.lblTotalOtros.Text = "$0.00";
             // 
@@ -1288,7 +1288,7 @@
             this.txtAuth.Location = new System.Drawing.Point(140, 131);
             this.txtAuth.MaxLength = 25;
             this.txtAuth.Name = "txtAuth";
-            this.txtAuth.Size = new System.Drawing.Size(268, 24);
+            this.txtAuth.Size = new System.Drawing.Size(268, 28);
             this.txtAuth.TabIndex = 4;
             this.txtAuth.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtAuth_KeyDown);
             this.txtAuth.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtAuth_KeyPress);
@@ -1299,7 +1299,7 @@
             this.txtTarjetaCheque.Location = new System.Drawing.Point(140, 94);
             this.txtTarjetaCheque.MaxLength = 20;
             this.txtTarjetaCheque.Name = "txtTarjetaCheque";
-            this.txtTarjetaCheque.Size = new System.Drawing.Size(268, 24);
+            this.txtTarjetaCheque.Size = new System.Drawing.Size(268, 28);
             this.txtTarjetaCheque.TabIndex = 3;
             this.txtTarjetaCheque.Leave += new System.EventHandler(this.txtTarjetaCheque_Leave);
             // 
@@ -1309,7 +1309,7 @@
             this.txtCheque.Location = new System.Drawing.Point(140, 94);
             this.txtCheque.MaxLength = 31;
             this.txtCheque.Name = "txtCheque";
-            this.txtCheque.Size = new System.Drawing.Size(268, 24);
+            this.txtCheque.Size = new System.Drawing.Size(268, 28);
             this.txtCheque.TabIndex = 28;
             this.txtCheque.TextChanged += new System.EventHandler(this.txtCheque_TextChanged);
             this.txtCheque.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtCheque_KeyPress);
@@ -1319,7 +1319,7 @@
             this.lblTCheque.AutoSize = true;
             this.lblTCheque.Location = new System.Drawing.Point(43, 99);
             this.lblTCheque.Name = "lblTCheque";
-            this.lblTCheque.Size = new System.Drawing.Size(68, 16);
+            this.lblTCheque.Size = new System.Drawing.Size(85, 20);
             this.lblTCheque.TabIndex = 23;
             this.lblTCheque.Text = "No. Tarjeta:";
             // 
@@ -1328,7 +1328,7 @@
             this.lblAuth.AutoSize = true;
             this.lblAuth.Location = new System.Drawing.Point(33, 136);
             this.lblAuth.Name = "lblAuth";
-            this.lblAuth.Size = new System.Drawing.Size(78, 16);
+            this.lblAuth.Size = new System.Drawing.Size(98, 20);
             this.lblAuth.TabIndex = 24;
             this.lblAuth.Text = "Autorización:";
             // 
@@ -1337,7 +1337,7 @@
             this.lblBank.AutoSize = true;
             this.lblBank.Location = new System.Drawing.Point(67, 63);
             this.lblBank.Name = "lblBank";
-            this.lblBank.Size = new System.Drawing.Size(44, 16);
+            this.lblBank.Size = new System.Drawing.Size(54, 20);
             this.lblBank.TabIndex = 25;
             this.lblBank.Text = "Banco:";
             // 
@@ -1351,7 +1351,7 @@
             this.cmbBank.FormattingEnabled = true;
             this.cmbBank.Location = new System.Drawing.Point(140, 57);
             this.cmbBank.Name = "cmbBank";
-            this.cmbBank.Size = new System.Drawing.Size(280, 27);
+            this.cmbBank.Size = new System.Drawing.Size(280, 29);
             this.cmbBank.TabIndex = 2;
             // 
             // pnlTitle
@@ -1369,7 +1369,7 @@
             this.lblTitle.Font = new System.Drawing.Font("Microsoft YaHei UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTitle.Location = new System.Drawing.Point(148, 0);
             this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(133, 20);
+            this.lblTitle.Size = new System.Drawing.Size(167, 25);
             this.lblTitle.TabIndex = 1;
             this.lblTitle.Text = "Detalle de Cobro";
             // 
@@ -1391,7 +1391,7 @@
             this.label1.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(17, 23);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(108, 17);
+            this.label1.Size = new System.Drawing.Size(133, 20);
             this.label1.TabIndex = 22;
             this.label1.Text = "Metodo de Pago";
             // 
@@ -1404,13 +1404,13 @@
             this.cmbPaymentMethod.FormattingEnabled = true;
             this.cmbPaymentMethod.Location = new System.Drawing.Point(137, 20);
             this.cmbPaymentMethod.Name = "cmbPaymentMethod";
-            this.cmbPaymentMethod.Size = new System.Drawing.Size(303, 24);
+            this.cmbPaymentMethod.Size = new System.Drawing.Size(303, 28);
             this.cmbPaymentMethod.TabIndex = 1;
             this.cmbPaymentMethod.SelectionChangeCommitted += new System.EventHandler(this.cmbPaymentMethod_SelectionChangeCommitted);
             // 
             // ModalDetalleCobro
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(478, 683);
