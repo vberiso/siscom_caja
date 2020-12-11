@@ -311,7 +311,7 @@ namespace SOAPAP.UI.FacturacionAnticipada
                         des = -1;
                      
                     }
-                    url = string.Format("/api/Agreements/GeneratePagosAnuales/{0}/{1}/{2}/{3}/{4}/{5}", Convert.ToInt32(agreement_id), des, Variables.LoginModel.FullName, Variables.LoginModel.User, checkPaymentTarget.Checked, HaveMes);
+                    url = string.Format("/api/Agreements/GeneratePagosAnuales/{0}/{1}/{2}/{3}/{4}/{5}?msgdesc={6}", Convert.ToInt32(agreement_id), des, Variables.LoginModel.FullName, Variables.LoginModel.User, checkPaymentTarget.Checked, HaveMes, Variables.Configuration.anualDiscount.ObservacionFactura);
                     stringContent = new StringContent(JsonConvert.SerializeObject(debts), Encoding.UTF8, "application/json");
                     results = await Requests.SendURIAsync(url, HttpMethod.Post, Variables.LoginModel.Token, stringContent);
                 }

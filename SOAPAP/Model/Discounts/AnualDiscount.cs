@@ -19,6 +19,7 @@ namespace SOAPAP.Model.Discounts
         public int PromocionAño { get; set; }
         public int PromocionMesIncio { get; set; }
         public int PromocionMesFinal { get; set; }
-        public List<PeriodsDiscount> PromocionAplicar { get; set; }    
+        public List<PeriodsDiscount> PromocionAplicar { get; set; }
+        public bool AplicaEnOnline { get; set; }
     }
 }

@@ -470,9 +470,18 @@ namespace SOAPAP.UI
                 }
                 else
                 {
-                    configuration.CondonationCampaings = JsonConvert.DeserializeObject<List<CondonationCampaing>>(condonations);
-                    lblProgress.Text = "Obteniendo promociónes de condonacion disponibles ...";
-                    RunProgress(progressn);
+                    //configuration.CondonationCampaings = JsonConvert.DeserializeObject<List<CondonationCampaing>>(condonations);
+                    List<CondonationCampaing> tmpCondonationCampaings = JsonConvert.DeserializeObject<List<CondonationCampaing>>(condonations);
+                    if(tmpCondonationCampaings.Count > 0 && tmpCondonationCampaings.FirstOrDefault().Percentage > 0)
+                    {
+                        lblProgress.Text = "Obteniendo promociónes de condonacion disponibles ...";
+                        RunProgress(progressn);
+                        configuration.CondonationCampaings = tmpCondonationCampaings;
+                    }
+                    else
+                    {
+                        configuration.CondonationCampaings = new List<CondonationCampaing>();
+                    }                    
                 }
 
                 /*25*/

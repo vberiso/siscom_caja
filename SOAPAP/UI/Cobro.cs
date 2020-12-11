@@ -845,7 +845,7 @@ namespace SOAPAP.UI
                             }
                         }
                         //Valida si hay campañas de descuentos adicionales.
-                        if (Variables.Agreement != null && Variables.Configuration.CondonationCampaings.Count > 0) // && Variables.Agreement.Addresses.FirstOrDefault().Suburbs.ApplyAnnualPromotion == true)
+                        if (Variables.Agreement != null && Variables.Configuration.CondonationCampaings.Count > 0 && Variables.Configuration.CondonationCampaings.FirstOrDefault().Percentage > 0) // && Variables.Agreement.Addresses.FirstOrDefault().Suburbs.ApplyAnnualPromotion == true)
                         {
                             gbxCondonacion.Visible = accessParam == CashBoxAccess.Access.GenerarOrden ? false : true;
                             tableLayoutPanel3.RowStyles[0] = new RowStyle(SizeType.AutoSize);
@@ -855,6 +855,7 @@ namespace SOAPAP.UI
 
                         //Valida esta activa la campaña añual
                         //Variables.Configuration.IsMunicipal &&
+                        gbxAnual.Visible = false;                        
                         if (Variables.Configuration.AnualParameter != null 
                             && Variables.Agreement != null 
                             && Variables.Agreement.Debts.Count == 0 
@@ -1627,9 +1628,20 @@ namespace SOAPAP.UI
         {
             loading = new Loading();
             loading.Show(this);
-            //api/CondonationCampaing/CondonationPromotion
+            string ruta = "";
+
+            if (Variables.Configuration.CondonationCampaings.FirstOrDefault().Name.Contains("CDN"))     //Condonacion
+            {
+                ruta = string.Format("/api/CondonationCampaing/CondonationPromotion/{0}/{1}?us={2}&usName={3}", Variables.Agreement.Id, Variables.Configuration.CondonationCampaings.FirstOrDefault().Id, Variables.LoginModel.User, Variables.LoginModel.FullName);
+            }
+            else    //Descuento
+            {
+                ruta = string.Format("/api/CondonationCampaing/DiscountPromotion/{0}/{1}", Variables.Agreement.Id, Variables.Configuration.CondonationCampaings.FirstOrDefault().Id);
+            }
+
             //var resultCampaign = await Requests.SendURIAsync(string.Format("/api/CondonationCampaing/{0}/{1}", Variables.Agreement.Id, Variables.Configuration.CondonationCampaings.FirstOrDefault().Id), HttpMethod.Post, Variables.LoginModel.Token);
-            var resultCampaign = await Requests.SendURIAsync(string.Format("/api/CondonationCampaing/CondonationPromotion/{0}/{1}", Variables.Agreement.Id, Variables.Configuration.CondonationCampaings.FirstOrDefault().Id), HttpMethod.Post, Variables.LoginModel.Token);
+            //var resultCampaign = await Requests.SendURIAsync(string.Format("/api/CondonationCampaing/CondonationPromotion/{0}/{1}", Variables.Agreement.Id, Variables.Configuration.CondonationCampaings.FirstOrDefault().Id), HttpMethod.Post, Variables.LoginModel.Token);
+            var resultCampaign = await Requests.SendURIAsync(ruta, HttpMethod.Post, Variables.LoginModel.Token);
             if (resultCampaign.Contains("error\":"))
             {
                 try
@@ -1674,6 +1686,10 @@ namespace SOAPAP.UI
                     //var uiPeriodos = new PagoAnticipadoSosapac(Variables.Agreement);
                     //var result = uiPeriodos.ShowDialog(this);
                     //uiPeriodos.Close();
+                    if(result == DialogResult.OK)
+                    {
+                        pbBuscar_Click(new object(), new EventArgs());                        
+                    }
                 }
             }
 
