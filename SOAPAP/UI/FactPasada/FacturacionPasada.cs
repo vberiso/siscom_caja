@@ -120,8 +120,17 @@ namespace SOAPAP.UI.FactPasada
                     itemSeleccionado = "edc58d0d-8c67-4daa-9a45-4f23e5fabe24";
                     endpoint = "FromUserInDayEnlinea";
                 }
-                var _resulTransaction = await Requests.SendURIAsync(string.Format("/api/Transaction/"+ endpoint + "/{0}/{1}", dtpFecha.Value.ToString("yyyy-MM-dd"), itemSeleccionado), HttpMethod.Get, Variables.LoginModel.Token);
-                
+
+                string _resulTransaction = "";
+                if (((DataComboBox)itemsOpe).value.Contains("en linea"))
+                {
+                    _resulTransaction = await Requests.SendURIAsync(string.Format("/api/Transaction/FromOnlineInDay/{0}/{1}", dtpFecha.Value.ToString("yyyy-MM-dd"), itemSeleccionado), HttpMethod.Get, Variables.LoginModel.Token);
+                }
+                else
+                {
+                    _resulTransaction = await Requests.SendURIAsync(string.Format("/api/Transaction/" + endpoint + "/{0}/{1}", dtpFecha.Value.ToString("yyyy-MM-dd"), itemSeleccionado), HttpMethod.Get, Variables.LoginModel.Token);
+                }
+                                
                 if (_resulTransaction.Contains("error"))
                 {
                     mensaje = new MessageBoxForm("Error", _resulTransaction.Split(':')[1].Replace("}", ""), TypeIcon.Icon.Cancel);
@@ -197,11 +206,11 @@ namespace SOAPAP.UI.FactPasada
             
             if (dgvMovimientos.Columns[e.ColumnIndex].Name == "Facturar")
             {                
-                FacturaPago(Operacion, transactionId, EstaFacturado);
+                FacturaPago(Operacion, (((DataComboBox)cbxUsuario.SelectedItem).value.Contains("en linea") ? paymentId.ToString() : transactionId), EstaFacturado, ((DataComboBox)cbxUsuario.SelectedItem).value.Contains("en linea") );
             }
             else if (dgvMovimientos.Columns[e.ColumnIndex].Name == "ActualizaPdf")
             {
-                ActualizaFormatoPdf(Operacion, transactionId, EstaFacturado);
+                ActualizaFormatoPdf(Operacion, (((DataComboBox)cbxUsuario.SelectedItem).value.Contains("en linea") ? paymentId.ToString() : transactionId), EstaFacturado, ((DataComboBox)cbxUsuario.SelectedItem).value.Contains("en linea"));
             }
             else if (dgvMovimientos.Columns[e.ColumnIndex].Name == "Enviar")
             {
@@ -248,7 +257,7 @@ namespace SOAPAP.UI.FactPasada
         }
 
         //Genera factura de pago seleccionado.
-        private async void FacturaPago(string Operacion, string transactionId, bool EstaFacturado)
+        private async void FacturaPago(string Operacion, string transactionId, bool EstaFacturado, bool esEnLinea)
         {
             if (EstaFacturado)
             {
@@ -288,7 +297,11 @@ namespace SOAPAP.UI.FactPasada
                     if (tmpSerialCajero == null)
                         tmpSerialCajero = "JdC";                    
                 }
-                xmltimbrado = await Fac.generaFactura(transactionId, "ET001",  tmpSerialCajero);
+
+                if (esEnLinea)
+                    xmltimbrado = await Fac.generaFacturaFromPayment(transactionId, "ET001", tmpSerialCajero);
+                else
+                    xmltimbrado = await Fac.generaFactura(transactionId, "ET001",  tmpSerialCajero);
 
                 if (xmltimbrado.Contains("error"))
                 {
@@ -324,14 +337,13 @@ namespace SOAPAP.UI.FactPasada
                     }
                     
                     btnActualizar_Click(new object(), new EventArgs());
-
                     loadings.Close();
                 }
             }
         }
 
         //Actualiza el archivo pdf.
-        private async void ActualizaFormatoPdf(string Operacion, string transactionId, bool EstaFacturado)
+        private async void ActualizaFormatoPdf(string Operacion, string transactionId, bool EstaFacturado, bool esEnLinea)
         {
             Form loadings = new Loading();
             loadings.Show(this);
@@ -363,7 +375,11 @@ namespace SOAPAP.UI.FactPasada
                     Fac.ActualUserId = ((DataComboBox)cbxUsuario.SelectedItem).keyString;
                 }
 
-                string temp = await Fac.actualizaPdf(transactionId);
+                string temp = "";
+                if(esEnLinea)
+                    temp = await Fac.actualizaPdfOnLine(transactionId);
+                else
+                    temp = await Fac.actualizaPdf(transactionId);
 
                 if (temp.Contains("error"))
                 {

@@ -34,6 +34,7 @@ using SOAPAP.FacturadoTimbox;
 using DevExpress.Pdf;
 using DevExpress.Pdf.ContentGeneration;
 using System.Drawing;
+using System.Text.RegularExpressions;
 
 namespace SOAPAP
 {
@@ -57,8 +58,8 @@ namespace SOAPAP
         { 
             //FACTURAMA: false - productivo
             Requests = new RequestsAPI(UrlBase);
-            //facturama = new FacturamaApiMultiemisor("gfdsystems", "gfds1st95", false);
-            facturama = new FacturamaApiMultiemisor("pruebas", "pruebas2011");
+            facturama = new FacturamaApiMultiemisor("gfdsystems", "gfds1st95", false);
+            //facturama = new FacturamaApiMultiemisor("pruebas", "pruebas2011");
         }
         public void setMsgs(string msgObservacionFactura, string msgUsos)
         {
@@ -152,7 +153,7 @@ namespace SOAPAP
                 {
                     Serie = serie,
                     Folio = folio,
-                    //Date = DateTime.Now.AddMinutes(-5),
+                    Date = DateTime.Now.AddMinutes(-5),
                     PaymentForm = TraVM.transaction.payMethod.code,
                     Currency = "MXN",
                     CfdiType = CfdiType.Ingreso,
@@ -586,8 +587,21 @@ namespace SOAPAP
                 //Si hay observaciones en la Orden o el debt                
                 if (TraVM.payment.OrderSaleId == 0)
                 {
-                    if (!string.IsNullOrEmpty(TraVM.payment.PaymentDetails.FirstOrDefault().Debt.observations))
-                        msgObservacionFactura += (msgObservacionFactura != "" ? ", " + TraVM.payment.PaymentDetails.FirstOrDefault().Debt.observations : TraVM.payment.PaymentDetails.FirstOrDefault().Debt.observations);
+                    List<Debt> debts = TraVM.payment.PaymentDetails.Select(pd => pd.Debt).Distinct().ToList();
+                    string strObservacionesDebt = "";
+                    foreach (var itemDebt in debts)
+                    {
+                        if ( !string.IsNullOrEmpty(itemDebt.observations) && !strObservacionesDebt.Contains(itemDebt.observations))                        
+                            strObservacionesDebt += itemDebt.observations + ", ";
+                    }
+                    if(strObservacionesDebt.Length > 1)
+                        strObservacionesDebt = strObservacionesDebt.Substring(0, strObservacionesDebt.Length - 2);
+
+                    if (!string.IsNullOrEmpty(strObservacionesDebt))
+                        msgObservacionFactura += (msgObservacionFactura != "" ? ", " + strObservacionesDebt : strObservacionesDebt);
+
+                    //if (!string.IsNullOrEmpty(TraVM.payment.PaymentDetails.FirstOrDefault().Debt.observations))
+                    //    msgObservacionFactura += (msgObservacionFactura != "" ? ", " + TraVM.payment.PaymentDetails.FirstOrDefault().Debt.observations : TraVM.payment.PaymentDetails.FirstOrDefault().Debt.observations);
                 }
                 else if (!string.IsNullOrEmpty(TraVM.orderSale.Observation))
                     msgObservacionFactura += msgObservacionFactura != "" ? ", " + TraVM.orderSale.Observation : TraVM.orderSale.Observation;
@@ -603,7 +617,7 @@ namespace SOAPAP
                         msgObservacionFactura += msgObservacionFactura != "" ? ", " + MensajeObservacionFactura : MensajeObservacionFactura;
                     }                    
                 }
-                    
+                                    
 
                 cfdi.Observations = msgObservacionFactura;
 
@@ -668,6 +682,591 @@ namespace SOAPAP
             catch (Exception ex)
             {
 
+                return "{\"error\": \"Error al intentar realizar el timbrado, favor de comunicarse con el administrador del sistema: " + ex.Message + "\"}";
+            }
+        }
+
+        public async Task<string> generaFacturaFromPayment(string idPayment, string status, string pSerialCajero = "", string pTipoUso = "")
+        {
+            try
+            {
+                string respuesta = string.Empty;
+                string rutas = string.Empty;
+                string json = string.Empty;
+                ModFac.ResponseCFDI cfdiFacturama = null;
+
+                var resultado = await Requests.SendURIAsync(string.Format("/api/Payments/{0}", idPayment), HttpMethod.Get, Variables.LoginModel.Token);
+                if (resultado.Contains("error\\"))
+                {
+                    return resultado;
+                }
+                Payment payment = JsonConvert.DeserializeObject<Payment>(resultado);
+
+                Agreement ms = null;
+                Model.TaxUser tu = null;
+                if (payment.OrderSaleId == 0)
+                {
+                    var resultados = await Requests.SendURIAsync(string.Format("/api/Agreements/{0}", payment.AgreementId), HttpMethod.Get, Variables.LoginModel.Token);
+                    ms = JsonConvert.DeserializeObject<Agreement>(resultados);
+                }
+                //else
+                //{
+                //    var resultados = await Requests.SendURIAsync(string.Format("/api/Agreements/{0}", payment.AgreementId), HttpMethod.Get, Variables.LoginModel.Token);
+                //    ms = JsonConvert.DeserializeObject<Agreement>(resultados);
+                //    var resulTaxUs = await Requests.SendURIAsync(string.Format("/api/TaxUsers/{0}", TraVM.orderSale.TaxUserId), HttpMethod.Get, Variables.LoginModel.Token);
+                //    tu = JsonConvert.DeserializeObject<Model.TaxUser>(resulTaxUs);
+                //}
+                string tmpIds = payment.PaymentDetails.Select(p => p.DebtId.ToString()).Distinct().ToList().Aggregate((i, j) => i + "," + j);
+                var resultDebts = await Requests.SendURIAsync(string.Format("/api/Debts/fromIds/{0}", tmpIds), HttpMethod.Get, Variables.LoginModel.Token);
+                if (resultDebts.Contains("error\\"))
+                {
+                    return resultado;
+                }
+                List<Debt> lstDebts = JsonConvert.DeserializeObject<List<Debt>>(resultDebts);
+
+                List<DebtDetail> debtDetails = new List<DebtDetail>();
+                List<DebtDiscount> debtDiscounts = new List<DebtDiscount>();
+                foreach (var item in lstDebts)
+                {
+                    debtDetails.AddRange(item.DebtDetails);
+                    debtDiscounts.AddRange(item.DebtDiscounts);
+                }
+                debtDetails = debtDetails.Distinct().ToList();
+                debtDiscounts = debtDiscounts.Distinct().ToList();
+
+                string serie = payment.ImpressionSheet.Split('-')[0];
+                string folio = payment.ImpressionSheet.Split('-')[1];
+
+                //Se Obtienen los descuentos
+                decimal Descuento = 0;
+                string CondicionPago = "";
+                if (payment.OrderSaleId == 0) //Servicio
+                {
+                    if (payment.Type == "PAY04")
+                    {
+                        Descuento = 0;
+                        CondicionPago = "Pago Anticipado";
+                    }
+                    else
+                    {
+                        Descuento = debtDiscounts.Sum(x => x.DiscountAmount);
+                        //Anexo el periodo de pago (Services)
+                        CondicionPago = "Periodo de: " + lstDebts.Min(d => d.FromDate).ToString("yyyy-MM-dd") + " hasta: " + lstDebts.Max(p => p.UntilDate).ToString("yyyy-MM-dd");
+                    }
+                }
+                //else                    //Producto
+                //{
+                //    Descuento = TraVM.orderSale.OrderSaleDiscounts.Sum(x => x.DiscountAmount);
+                //    //Anexo el año y periodo (Orders)
+                //    CondicionPago = "Año : " + TraVM.orderSale.Year + " Perido: " + TraVM.orderSale.Year;
+                //}
+
+                //se obtiene el metodo de pago
+                string MetodoPago = "PUE"; 
+                string fecha = DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ss");
+                var cfdi = new CfdiMulti
+                {
+                    Serie = serie,
+                    Folio = Regex.Replace(folio, @"[^\d]", ""),
+                    Date = DateTime.Now.AddMinutes(-5),
+                    PaymentForm = payment.PayMethod.code,
+                    Currency = "MXN",
+                    CfdiType = CfdiType.Ingreso,
+                    PaymentMethod = MetodoPago,
+                    ExpeditionPlace = "72700",
+                    PaymentConditions = CondicionPago
+                };
+
+                //////NODO: Emisor
+                Issuer issuer;
+                if (Variables.Configuration.IsMunicipal)
+                {
+                    issuer = new Issuer
+                    {
+                        FiscalRegime = "603",
+                        Name = "MUNICIPIO DE CUAUTLANCINGO PUEBLA",
+                        Rfc = "MCP850101944"
+                    };
+                }
+                else
+                {
+                    issuer = new Issuer
+                    {
+                        FiscalRegime = "601",
+                        Name = "SISTEMA OPERADOR DE LOS SERVICIOS DE AGUA POTABLE Y ALCANTARILLADO DEL MUNICIPIO DE CUAUTLANCINGO",
+                        Rfc = "SOS970808SM7"
+                    };
+                }
+                cfdi.Issuer = issuer;
+
+
+                //NODO: Receptor
+                Receiver receptor;
+                if (payment.OrderSaleId == 0)
+                {
+                    Client client = ms.Clients?.FirstOrDefault(x => x.typeUser == "CLI01");
+                    if (client != null)
+                    {
+                        receptor = new Receiver
+                        {
+                            Rfc = string.IsNullOrEmpty(client.rfc) ? "XAXX010101000" : client.rfc,
+                            Name = client.name + " " + client.lastName + " " + client.secondLastName,
+                            CfdiUse = string.IsNullOrEmpty(this.msgUsos) ? "P01" : this.msgUsos.Split('-')[0].Trim()
+                        };
+                        msgCorreo = string.IsNullOrEmpty(client.eMail) ? "" : client.eMail;
+                    }
+                    else
+                    {
+                        receptor = new Receiver
+                        {
+                            Rfc = "XAXX010101000",
+                            Name = "Público en General",
+                            CfdiUse = "P01"
+                        };
+                        msgCorreo = "";
+                    }
+                }
+                else
+                {
+                    if (tu != null)
+                    {
+                        receptor = new Receiver
+                        {
+                            Rfc = tu.RFC,
+                            Name = tu.Name,
+                            CfdiUse = string.IsNullOrEmpty(this.msgUsos) ? "P01" : this.msgUsos.Split('-')[0].Trim()
+                        };
+                        msgCorreo = string.IsNullOrEmpty(tu.EMail) ? "" : tu.EMail;
+                    }
+                    else
+                    {
+                        receptor = new Receiver
+                        {
+                            Rfc = "XAXX010101000",
+                            Name = "Público en General",
+                            CfdiUse = "P01"
+                        };
+                        msgCorreo = "";
+                    }
+                }
+
+                cfdi.Receiver = receptor;
+
+                //NODO: Conceptos
+                //xml = xml + "<cfdi:Conceptos>";
+                string TipoFactura = "", msgPagoParcial = "";
+                List<Item> lstItems = new List<Item>();
+                if (payment.Type == "PAY04")   //Pago Anticipado.
+                {
+                    TipoFactura = "CAT01";                    
+                    foreach (var PD in payment.PaymentDetails)
+                    {
+                        Item item = new Item()
+                        {
+                            ProductCode = PD.AccountNumber,
+                            IdentificationNumber = "S" + PD.CodeConcept,
+                            UnitCode = PD.UnitMeasurement,
+                            Unit = "NO APLICA",
+                            Description = PD.Description,
+                            UnitPrice = PD.Amount,
+                            Quantity = 1,
+                            Subtotal = PD.Amount,
+                            Discount = 0,
+                            Total = PD.Amount
+                        };
+                        lstItems.Add(item);
+                    }                    
+                }
+                else if (payment.OrderSaleId == 0) //Servicio
+                {
+                    TipoFactura = "CAT01";
+                    decimal AdeudoTotal = lstDebts.Sum(d => d.Amount);
+
+                    if (AdeudoTotal == payment.Total) //Pago total
+                    {
+                        foreach (var pay in payment.PaymentDetails.ToList())
+                        {
+                            //Calculo del unit price.
+                            decimal tmpSubtotal = 0, tmpQuantity = 1, tmpValorUnitario = 0, tmpDescuento = 0;
+                            if (debtDiscounts.Count > 0 && debtDiscounts.FirstOrDefault(DDis => DDis.DebtId == pay.DebtId && DDis.CodeConcept == pay.CodeConcept) != null)
+                            {
+                                var itemDebtDiscount = debtDiscounts.FirstOrDefault(DDis => DDis.DebtId == pay.DebtId && DDis.CodeConcept == pay.CodeConcept);
+                                var OriginalAmount = itemDebtDiscount.OriginalAmount;
+                                var DiscountAmount = itemDebtDiscount.DiscountAmount;
+                                tmpSubtotal = OriginalAmount;
+                                tmpQuantity = 1;
+                                tmpValorUnitario = tmpSubtotal;
+                                tmpDescuento = DiscountAmount;
+
+                                debtDiscounts.Remove(itemDebtDiscount);
+                            }
+                            else
+                            {
+                                tmpSubtotal = pay.Amount;
+                                tmpQuantity = 1;
+                                tmpValorUnitario = tmpSubtotal;
+                                tmpDescuento = 0;
+                            }
+
+                            Item item = new Item()
+                            {
+                                ProductCode = pay.AccountNumber,
+                                IdentificationNumber = "S" + pay.CodeConcept,
+                                UnitCode = pay.UnitMeasurement,
+                                Unit = "NO APLICA",
+                                Description = pay.Description + " Periodo de: " + lstDebts.FirstOrDefault(x => x.Id == pay.DebtId).FromDate.ToString("yyyy-MM-dd") + " hasta: " + lstDebts.FirstOrDefault(x => x.Id == pay.DebtId).UntilDate.ToString("yyyy-MM-dd"),
+                                UnitPrice = tmpValorUnitario,
+                                Quantity = tmpQuantity,
+                                Subtotal = tmpSubtotal,
+                                Discount = tmpDescuento,
+                                Total = pay.Amount + pay.Tax
+                            };
+                            if (pay.HaveTax == true)
+                            {
+                                List<Tax> lstTaxs = new List<Tax>() {
+                                    new Tax()
+                                    {
+                                        Base = pay.Amount,
+                                        Rate = decimal.Parse(payment.PercentageTax)/100,
+                                        Name = "IVA",
+                                        Total = pay.Tax,
+                                        IsRetention = false
+                                    }
+                                };
+                                item.Taxes = lstTaxs;
+                            }
+                            lstItems.Add(item);
+                        }
+                    }
+                    else                                                                                 //Pago parcial
+                    {
+                        msgPagoParcial = "Esta factura es comprobante de un pago pacial.";
+                        foreach (PaymentDetail pay in payment.PaymentDetails.ToList())
+                        {
+                            //Calculo del unit price.
+                            decimal tmpSubtotal = 0, tmpQuantity = 1, tmpValorUnitario = 0, tmpDescuento = 0;
+                            if (debtDiscounts.Count > 0 && debtDiscounts.FirstOrDefault(DDis => DDis.DebtId == pay.DebtId && DDis.CodeConcept == pay.CodeConcept) != null)
+                            {
+                                var itemDebtDiscount = debtDiscounts.FirstOrDefault(DDis => DDis.DebtId == pay.DebtId && DDis.CodeConcept == pay.CodeConcept);
+                                var OriginalAmount = itemDebtDiscount.OriginalAmount;
+                                var DiscountAmount = itemDebtDiscount.DiscountAmount;
+                                var DescuentoProporcion = (DiscountAmount * pay.Amount) / (OriginalAmount - DiscountAmount);
+                                tmpSubtotal = decimal.Round(pay.Amount + DescuentoProporcion, 2);
+                                tmpQuantity = 1;
+                                tmpValorUnitario = tmpSubtotal;
+                                tmpDescuento = decimal.Round(DescuentoProporcion, 2);
+
+                                debtDiscounts.Remove(itemDebtDiscount);
+                            }
+                            else
+                            {
+                                tmpSubtotal = pay.Amount;
+                                tmpQuantity = 1;
+                                tmpValorUnitario = tmpSubtotal;
+                                tmpDescuento = 0;
+                            }
+                            //Para evitar que pasen conceptos en cero.
+                            if (tmpSubtotal > 0)
+                            {
+                                Item item = new Item()
+                                {
+                                    ProductCode = pay.AccountNumber,
+                                    IdentificationNumber = "S" + pay.CodeConcept,
+                                    UnitCode = pay.UnitMeasurement,
+                                    Unit = "NO APLICA",
+                                    Description = pay.Description + " Periodo de: " + lstDebts.FirstOrDefault(x => x.Id == pay.DebtId).FromDate.ToString("yyyy-MM-dd") + " hasta: " + lstDebts.FirstOrDefault(x => x.Id == pay.DebtId).UntilDate.ToString("yyyy-MM-dd"),
+                                    UnitPrice = tmpValorUnitario,
+                                    Quantity = tmpQuantity,
+                                    Subtotal = tmpSubtotal,
+                                    Discount = tmpDescuento > 0 ? tmpDescuento : 0,
+                                    Total = pay.Amount + pay.Tax
+                                };
+                                if (pay.HaveTax == true)
+                                {
+                                    List<Tax> lstTaxs = new List<Tax>() {
+                                    new Tax()
+                                    {
+                                        Base = pay.Amount,
+                                        Rate = decimal.Parse(payment.PercentageTax)/100,
+                                        Name = "IVA",
+                                        Total = pay.Tax,
+                                        IsRetention = false
+                                    }
+                                };
+                                    item.Taxes = lstTaxs;
+                                }
+                                lstItems.Add(item);
+                            }
+                        }
+                    }
+
+                }
+                //else                    //Producto
+                //{
+                //    TipoFactura = "CAT02";
+                //    foreach (var Or in TraVM.orderSale.OrderSaleDetails)
+                //    {
+                //        //Calculo del unit price.
+                //        decimal tmpSubtotal = Or.Amount + TraVM.orderSale.OrderSaleDiscounts.Where(x => x.CodeConcept == Or.CodeConcept && x.DiscountAmount == Or.Amount).Select(y => y.DiscountAmount).FirstOrDefault();
+                //        decimal tmpUnitPrice = 0;
+                //        Item item;
+
+                //        //Este codigo quedara parchado con este If, hasta corroborar que todos los order vengan con su calculo correcto en BD.
+                //        //Pero ya deberia poderse identificar el descuento con el OrderSaleDetailId.
+                //        if (TraVM.orderSale.OrderSaleDiscounts != null && Or.CodeConcept == "3109")
+                //        {
+
+                //            if ((Or.UnitPrice * Or.Quantity) == tmpSubtotal)
+                //            {
+                //                item = new Item()
+                //                {
+                //                    ProductCode = TraVM.ClavesProdServ.Where(x => x.CodeConcep == Or.CodeConcept).FirstOrDefault().ClaveProdServ,
+                //                    IdentificationNumber = "P" + Or.CodeConcept,
+                //                    UnitCode = TraVM.payment.PaymentDetails.Where(x => x.CodeConcept == Or.CodeConcept && x.Amount == Or.Amount).FirstOrDefault().UnitMeasurement,
+                //                    Unit = "NO APLICA",
+                //                    Description = Or.NameConcept,
+                //                    UnitPrice = Or.UnitPrice,
+                //                    Quantity = Or.Quantity,
+                //                    Subtotal = TraVM.orderSale.OrderSaleDiscounts.Where(x => x.OrderSaleDetailId == Or.Id).Count() == 0 ? Or.Amount : TraVM.orderSale.OrderSaleDiscounts.Where(x => x.OrderSaleDetailId == Or.Id).Select(y => y.OriginalAmount).FirstOrDefault(),
+                //                    Discount = TraVM.orderSale.OrderSaleDiscounts.Where(x => x.OrderSaleDetailId == Or.Id).Select(y => y.DiscountAmount).FirstOrDefault(),
+                //                    Total = Or.Amount + TraVM.payment.PaymentDetails.Where(x => x.CodeConcept == Or.CodeConcept && x.Amount == Or.Amount).FirstOrDefault().Tax
+                //                };
+                //            }
+                //            else //para los dobles descuentos.
+                //            {
+                //                decimal tmpDescuentoAjustado = (Or.Quantity * Or.UnitPrice) - Or.Amount;
+                //                item = new Item()
+                //                {
+                //                    ProductCode = TraVM.ClavesProdServ.Where(x => x.CodeConcep == Or.CodeConcept).FirstOrDefault().ClaveProdServ,
+                //                    IdentificationNumber = "P" + Or.CodeConcept,
+                //                    UnitCode = TraVM.payment.PaymentDetails.Where(x => x.CodeConcept == Or.CodeConcept && x.Amount == Or.Amount).FirstOrDefault().UnitMeasurement,
+                //                    Unit = "NO APLICA",
+                //                    Description = Or.NameConcept,
+                //                    UnitPrice = Or.UnitPrice,
+                //                    Quantity = Or.Quantity,
+                //                    Subtotal = decimal.Round(Or.Quantity * Or.UnitPrice, 2),
+                //                    Discount = tmpDescuentoAjustado,
+                //                    Total = Or.Amount + TraVM.payment.PaymentDetails.Where(x => x.CodeConcept == Or.CodeConcept && x.Amount == Or.Amount).FirstOrDefault().Tax
+                //                };
+                //            }
+                //        }
+                //        else
+                //        {
+                //            if (Math.Round(Or.UnitPrice * Or.Quantity, 2) == tmpSubtotal)
+                //                tmpUnitPrice = Or.UnitPrice;
+                //            else if (Math.Round(Math.Round(Or.UnitPrice / Or.Quantity, 2) * Or.Quantity, 2) == tmpSubtotal)
+                //                tmpUnitPrice = Math.Round(Or.UnitPrice / Or.Quantity, 2);
+
+                //            if (tmpUnitPrice != 0)
+                //            {
+                //                item = new Item()
+                //                {
+                //                    ProductCode = TraVM.ClavesProdServ.Where(x => x.CodeConcep == Or.CodeConcept).FirstOrDefault().ClaveProdServ,
+                //                    IdentificationNumber = "P" + Or.CodeConcept,
+                //                    UnitCode = TraVM.payment.PaymentDetails.Where(x => x.CodeConcept == Or.CodeConcept && x.Amount == Or.Amount).FirstOrDefault().UnitMeasurement,
+                //                    Unit = "NO APLICA",
+                //                    Description = Or.NameConcept,
+                //                    UnitPrice = tmpUnitPrice,
+                //                    Quantity = Or.Quantity,
+                //                    Subtotal = Or.Amount + TraVM.orderSale.OrderSaleDiscounts.Where(x => x.CodeConcept == Or.CodeConcept).Select(y => y.DiscountAmount).FirstOrDefault(),
+                //                    Discount = TraVM.orderSale.OrderSaleDiscounts.Where(x => x.CodeConcept == Or.CodeConcept).Select(y => y.DiscountAmount).FirstOrDefault(),
+                //                    Total = Or.Amount + TraVM.payment.PaymentDetails.Where(x => x.CodeConcept == Or.CodeConcept && x.Amount == Or.Amount).FirstOrDefault().Tax
+                //                };
+                //            }
+                //            else              //Este metodo lo aumente porque comenzaron a mandar bien la info en BD y por tanto ya puedo tomar los datos directos de BD.
+                //            {
+                //                item = new Item()
+                //                {
+                //                    ProductCode = TraVM.ClavesProdServ.Where(x => x.CodeConcep == Or.CodeConcept).FirstOrDefault().ClaveProdServ,
+                //                    IdentificationNumber = "P" + Or.CodeConcept,
+                //                    UnitCode = TraVM.payment.PaymentDetails.Where(x => x.CodeConcept == Or.CodeConcept && x.Amount == Or.Amount).FirstOrDefault().UnitMeasurement,
+                //                    Unit = "NO APLICA",
+                //                    Description = Or.NameConcept,
+                //                    UnitPrice = Or.UnitPrice,
+                //                    Quantity = Or.Quantity,
+                //                    Subtotal = Or.Amount + TraVM.orderSale.OrderSaleDiscounts.Where(x => x.CodeConcept == Or.CodeConcept).Select(y => y.DiscountAmount).FirstOrDefault(),
+                //                    Discount = TraVM.orderSale.OrderSaleDiscounts.Where(x => x.CodeConcept == Or.CodeConcept).Select(y => y.DiscountAmount).FirstOrDefault(),
+                //                    Total = Or.Amount + TraVM.payment.PaymentDetails.Where(x => x.CodeConcept == Or.CodeConcept && x.Amount == Or.Amount).FirstOrDefault().Tax
+                //                };
+                //            }
+
+                //            //Si mandan el concepto en ceros.
+                //            if (item.UnitPrice == 0 && item.Subtotal == 0 && item.Total == 0)
+                //            {
+                //                item.UnitPrice = 0.01M;
+                //                item.Subtotal = 0.01M;
+                //                item.Total = 0.01M;
+                //            }
+
+                //        }
+                //        if (Or.HaveTax == true)
+                //        {
+                //            List<Tax> lstTaxs = new List<Tax>() {
+                //                new Tax()
+                //                {
+                //                    Base = Or.Amount - TraVM.orderSale.OrderSaleDiscounts.Where(x => x.CodeConcept == Or.CodeConcept && x.OriginalAmount == Or.Amount).Select(y => y.DiscountAmount).FirstOrDefault(),
+                //                    Rate = decimal.Parse(TraVM.payment.PercentageTax)/100,
+                //                    Name = "IVA",
+                //                    Total = TraVM.payment.PaymentDetails.Where(x => x.CodeConcept == Or.CodeConcept && x.Amount == Or.Amount).FirstOrDefault().Tax,
+                //                    IsRetention = false
+                //                }
+                //            };
+                //            item.Taxes = lstTaxs;
+                //        }
+                //        lstItems.Add(item);
+                //    }
+                //}
+                cfdi.Items = lstItems;
+
+
+                //FIN DEL ARMADO DEL XML
+
+                //Se solicita una obsevacion para cada factura.   
+                if (!string.IsNullOrEmpty(pTipoUso))
+                {
+                    cfdi.Receiver.CfdiUse = pTipoUso;
+                }
+                else
+                {
+                    if (showMsgObservacion)
+                    {
+                        using (msgObservacionFactura msgObs = new msgObservacionFactura())
+                        {
+                            msgObs.ShowDialog();
+                            msgObservacionFactura = msgObs.TextoObservacion;
+                            msgUsos = msgObs.Usos;
+                            msgCorreo = msgObs.tbxCorreo.Text;
+                            enviarCorreo = msgObs.chbxEnviarCorreo.Checked;
+                        }
+                        cfdi.Receiver.CfdiUse = this.msgUsos.Split('-')[0].Trim();
+                    }
+                }
+
+                //En caso de tener descuento de grupo vulnerable
+                var tipoDescuento = "";
+                if (payment.OrderSaleId == 0)
+                    tipoDescuento = lstDebts.Select(Sel => Sel.Discount).ToList().Distinct().FirstOrDefault();
+
+                if (!string.IsNullOrEmpty(tipoDescuento))
+                    msgObservacionFactura += msgObservacionFactura != "" ? ", Descuento de grupo vulnerable (" + tipoDescuento + ")" : "Descuento de grupo vulnerable (" + tipoDescuento + ")";
+
+                //En caso de factura fuera de fecha
+                bool printFecha = Variables.LoginModel.Divition != 12;
+                if (Variables.Configuration.IsMunicipal)
+                {
+                    if (payment.PaymentDate.ToString("yyyy-MM-dd") != DateTime.Today.ToString("yyyy-MM-dd") && printFecha)
+                        msgObservacionFactura += msgObservacionFactura != "" ? ", Pago efectuado el " + payment.PaymentDate.ToString("yyyy-MM-dd") : "Pago efectuado el " + payment.PaymentDate.ToString("yyyy - MM - dd");
+                }
+                else
+                {
+                    if (payment.PaymentDate.ToString("yyyy-MM-dd") != DateTime.Today.ToString("yyyy-MM-dd"))
+                        msgObservacionFactura += msgObservacionFactura != "" ? ", Pago efectuado el " + payment.PaymentDate.ToString("yyyy-MM-dd") : "Pago efectuado el " + payment.PaymentDate.ToString("yyyy-MM-dd");
+                }
+                //Si es un pago parcial.
+                if (!string.IsNullOrEmpty(msgPagoParcial))
+                    msgObservacionFactura += msgObservacionFactura != "" ? ", " + msgPagoParcial : msgPagoParcial;
+
+                //Si hay observaciones en la Orden o el debt                
+                if (payment.OrderSaleId == 0)
+                {                    
+                    string strObservacionesDebt = "";
+                    foreach (var itemDebt in lstDebts)
+                    {
+                        if (!string.IsNullOrEmpty(itemDebt.observations) && !strObservacionesDebt.Contains(itemDebt.observations))
+                            strObservacionesDebt += itemDebt.observations + ", ";
+                    }
+                    if (strObservacionesDebt.Length > 1)
+                        strObservacionesDebt = strObservacionesDebt.Substring(0, strObservacionesDebt.Length - 2);
+
+                    if (!string.IsNullOrEmpty(strObservacionesDebt))
+                        msgObservacionFactura += (msgObservacionFactura != "" ? ", " + strObservacionesDebt : strObservacionesDebt);                    
+                }
+                //else if (!string.IsNullOrEmpty(TraVM.orderSale.Observation))
+                //    msgObservacionFactura += msgObservacionFactura != "" ? ", " + TraVM.orderSale.Observation : TraVM.orderSale.Observation;
+
+                //Mensaje por promocion COVID
+                if (ms.id != null && Variables.Configuration.RecargosDescCovid != null && ms.id != "0")
+                {
+                    Variables.Configuration.TotalDescuentoCOVID = await VerificaDescuentoPorCOVID(int.Parse(ms.id), payment.PaymentDetails.Select(x => x.Debt).ToList());
+                    //Se corrobora que hay a un monto de descuento, si no lo hay, no se agrega ningun mensaje.
+                    if (Variables.Configuration.TotalDescuentoCOVID != 0)
+                    {
+                        string MensajeObservacionFactura = Variables.Configuration.RecargosDescCovid.FirstOrDefault().Split('|')[1];
+                        MensajeObservacionFactura = string.Format(MensajeObservacionFactura, Variables.Configuration.TotalDescuentoCOVID.ToString());
+                        msgObservacionFactura += msgObservacionFactura != "" ? ", " + MensajeObservacionFactura : MensajeObservacionFactura;
+                    }
+                }
+
+
+                cfdi.Observations = msgObservacionFactura;
+
+                string path = GeneraCarpetaDescagasXML();
+                string nombreXML = string.Format("\\{0}_{1}_{2}.xml", issuer.Rfc, receptor.Rfc, payment.ImpressionSheet);
+                string nombrePDF = string.Format("\\{0}_{1}_{2}.pdf", issuer.Rfc, receptor.Rfc, payment.ImpressionSheet);
+
+                bool TimbroFacturama = true;
+                object[] vs = solicitarTimbradoAProveedores(cfdi, path + nombreXML);
+                if (vs[0] == null)
+                {
+                    TimbroFacturama = false;
+                    if (((string)vs[1]).Contains("El cálculo") || ((string)vs[1]).Contains("RFC"))
+                    { }
+                    else
+                    {
+                        vs[0] = await timbrarProvedorSecundario(cfdi);
+                    }
+                }
+                if (vs[0] != null)
+                {
+                    //cfdiFacturama = (Facturama.Models.Response.Cfdi)vs[0];
+                    cfdiFacturama = new ModFac.ResponseCFDI((Facturama.Models.Response.Cfdi)vs[0]);
+                    string XML = LeerXML(path + nombreXML);
+                    TaxReceipt resGuardado = await guardarXMLenBD(XML, cfdiFacturama.Complement.TaxStamp.Uuid, receptor.Rfc, TipoFactura, status, payment.Id, cfdiFacturama.Id);
+                    string resActPay = await actualizarPaymentConFactura(payment, resGuardado);
+
+                    //La creacion de PDF es dependiente de TransactionVM, por lo cual se genero esta clase aun.
+                    TransactionVM transactionVM = new TransactionVM();
+                    transactionVM.payment = payment;
+                    foreach (var pdet in payment.PaymentDetails)
+                    {
+                        pdet.Debt = lstDebts.FirstOrDefault(d => d.Id == pdet.DebtId);
+                    }
+                    List<ClavesProductoServicioSAT> clavesProductoServicioSATs = payment.PaymentDetails.Select(x => new ClavesProductoServicioSAT() { ClaveProdServ = x.CodeConcept, CodeConcep = x.CodeConcept, Tipo = x.Type }).Distinct().ToList();
+                    transactionVM.ClavesProdServ = clavesProductoServicioSATs;
+
+
+                    CreatePDF pDF = new CreatePDF(cfdi, cfdiFacturama, ms.account, resGuardado, fecha, (payment.PayMethod.code + ", " + payment.PayMethod.Name), transactionVM);
+                    pDF.UsoCFDI = string.IsNullOrEmpty(msgUsos) ? "P01 - Por definir" : msgUsos;
+                    pDF.SerialCajero = pSerialCajero;
+                    pDF.ProveedorServicioFacturacion = TimbroFacturama ? "ESO1202108R2" : "IAD121214B34";                    
+                    if (payment.OrderSaleId == 0)
+                    {
+                        pDF.ObservacionCFDI = msgObservacionFactura;                        
+                    }
+                    else
+                    {
+                        pDF.ObservacionCFDI = msgObservacionFactura;                        
+                    }
+                    string resPdf = "";
+                    if (payment.OrderSaleId == 0) //Servicio
+                        resPdf = await pDF.Create(path + nombrePDF, payment.AgreementId);
+                    //else
+                    //{
+                    //    TraVM.orderSale.TaxUser = tu;
+                    //    resPdf = await pDF.CreateForOrder(TraVM.orderSale, path + nombrePDF);
+                    //}
+
+                    //return "Success -"+ cfdiFacturama.Complement.TaxStamp.Uuid;
+                    return resPdf;
+                }
+                else
+                {
+                    string error = (string)vs[1];                    
+                    return "error: El cobro fue registrado, pero no se genero el CFDI. (" + error + ")";
+                }               
+            }
+            catch (Exception ex)
+            {
                 return "{\"error\": \"Error al intentar realizar el timbrado, favor de comunicarse con el administrador del sistema: " + ex.Message + "\"}";
             }
         }
@@ -1167,6 +1766,201 @@ namespace SOAPAP
                     TraVM.orderSale.TaxUser = tu;
                     resPdf = await pDF.CreateForOrder(TraVM.orderSale, path + nombrePDF);
                 }
+
+                if (resPdf.Contains("error"))
+                    return resPdf;
+                else
+                    return "aviso: Actualizado correctamente.";
+            }
+            else
+            {
+                return "{\"error\": \"No se ha podido realizar la cancelación, favor de comunicarse con el administrador del sistema\"}";
+            }
+        }
+
+        public async Task<string> actualizaPdfOnLine(string idPayment, Boolean esCancelacion = false)
+        {
+            string respuesta = string.Empty;
+            string rutas = string.Empty;
+            string json = string.Empty;
+            Facturama.Models.Response.Cfdi cfdiFacturama = null;
+
+            var resultado = await Requests.SendURIAsync(string.Format("/api/Payments/{0}", idPayment), HttpMethod.Get, Variables.LoginModel.Token);
+            if (resultado.Contains("error\\"))
+            {
+                return resultado;
+            }
+            Payment payment = JsonConvert.DeserializeObject<Payment>(resultado);
+
+            Agreement ms = null;
+            Model.TaxUser tu = null;
+            if (payment.OrderSaleId == 0)
+            {
+                var resultados = await Requests.SendURIAsync(string.Format("/api/Agreements/{0}", payment.AgreementId), HttpMethod.Get, Variables.LoginModel.Token);
+                ms = JsonConvert.DeserializeObject<Agreement>(resultados);
+            }
+
+            string tmpIds = payment.PaymentDetails.Select(p => p.DebtId.ToString()).Distinct().ToList().Aggregate((i, j) => i + "," + j);
+            var resultDebts = await Requests.SendURIAsync(string.Format("/api/Debts/fromIds/{0}", tmpIds), HttpMethod.Get, Variables.LoginModel.Token);
+            if (resultDebts.Contains("error\\"))
+            {
+                return resultado;
+            }
+            List<Debt> lstDebts = JsonConvert.DeserializeObject<List<Debt>>(resultDebts);
+
+
+
+            //Model.TaxUser tu = null;
+            //if (payment.OrderSaleId != 0)
+            //{
+            //    var resulTaxUs = await Requests.SendURIAsync(string.Format("/api/TaxUsers/{0}", TraVM.orderSale.TaxUserId), HttpMethod.Get, Variables.LoginModel.Token);
+            //    if (resulTaxUs.Contains("error"))
+            //        return resulTaxUs;
+            //    tu = JsonConvert.DeserializeObject<Model.TaxUser>(resulTaxUs);
+            //}
+
+            //Facturama.Models.Response.Cfdi cfdiGet = null;
+            ModFac.ResponseCFDI cfdiGet = null;
+            if (esCancelacion)
+            {
+                TaxReceipt tmpTR = payment.TaxReceipts.OrderBy(xx => xx.Id).LastOrDefault();
+                if (tmpTR.IdXmlFacturama.Contains("Timbox"))
+                {
+                    cfdiGet = await ObterCfdiDesdeTIMBOX(tmpTR);
+                }
+                else
+                {
+                    cfdiGet = await ObterCfdiDesdeAPI(tmpTR);
+                }
+
+                if (cfdiGet != null)
+                {
+                    //Verifica el estatus, en caso de no estar cancelado, solicita la cancelacion.
+                    if (cfdiGet.Status == "active")
+                    {
+                        MessageBoxForm mensaje = new MessageBoxForm("Advertencia", "Este CFDI continua activo, consulte al administrador.", TypeIcon.Icon.Warning);
+                        var result = mensaje.ShowDialog();
+                    }
+                }
+            }
+            else
+            {
+                TaxReceipt taxReceipt = payment.TaxReceipts.Where(x => x.Status == "ET001").FirstOrDefault();
+                if (taxReceipt == null)
+                    return "error: sin factura";
+                if (taxReceipt.IdXmlFacturama.Contains("Timbox"))
+                    cfdiGet = await ObterCfdiDesdeTIMBOX(taxReceipt);
+                else
+                    cfdiGet = await ObterCfdiDesdeAPI(taxReceipt);
+            }
+
+
+            //Si esta campo viene vacio, es porque no existe el registro en facturama.
+            if (cfdiGet.Items == null)
+            {
+                //Actualiza el payment para que sea facturable.
+                SOAPAP.Model.Payment tmpPay = payment;
+                tmpPay.HaveTaxReceipt = false;
+                HttpContent content;
+                json = JsonConvert.SerializeObject(tmpPay);
+                content = new StringContent(json, Encoding.UTF8, "application/json");
+
+                var resulTaxUs = await Requests.SendURIAsync(string.Format("/api/Payments/{0}", payment.Id), HttpMethod.Put, Variables.LoginModel.Token, content);
+                var resActualizacionPayment = JsonConvert.DeserializeObject<string>(resulTaxUs);
+
+                //Actualizacion de tax receipt
+                SOAPAP.Model.TaxReceipt tmpTR = payment.TaxReceipts.FirstOrDefault(t => t.Status == "ET001");
+                tmpTR.Status = "ET002";
+                HttpContent contentTR;
+                json = JsonConvert.SerializeObject(tmpTR);
+                contentTR = new StringContent(json, Encoding.UTF8, "application/json");
+
+                var resulTaxR = await Requests.SendURIAsync(string.Format("/api/TaxReceipt/{0}", payment.TaxReceipts.FirstOrDefault(x => x.Status == "ET001")?.Id), HttpMethod.Put, Variables.LoginModel.Token, contentTR);
+                var resTax = JsonConvert.DeserializeObject<SOAPAP.Model.TaxReceipt>(resulTaxR);
+
+                return "aviso: Es necesario volver a facturar este pago.";
+            }
+
+            //La creacion de PDF es dependiente de TransactionVM, por lo cual se genero esta clase aun.
+            TransactionVM transactionVM = new TransactionVM();
+            transactionVM.payment = payment;
+            foreach (var pdet in payment.PaymentDetails)
+            {
+                pdet.Debt = lstDebts.FirstOrDefault(d => d.Id == pdet.DebtId);
+            }
+            List<ClavesProductoServicioSAT> clavesProductoServicioSATs = payment.PaymentDetails.Select(x => new ClavesProductoServicioSAT() { ClaveProdServ = x.CodeConcept, CodeConcep = x.CodeConcept, Tipo = x.Type }).Distinct().ToList();
+            transactionVM.ClavesProdServ = clavesProductoServicioSATs;
+
+            string fecha = DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ss");
+            CreatePDF pDF = null;
+            if (esCancelacion)
+                pDF = new CreatePDF(cfdiGet, payment.Account, payment.TaxReceipts.OrderBy(xx => xx.Id).LastOrDefault(), fecha, (payment.PayMethod.code + ", " + payment.PayMethod.Name), transactionVM);
+            else
+                pDF = new CreatePDF(cfdiGet, payment.Account, payment.TaxReceipts.Where(x => x.Status == "ET001").FirstOrDefault(), fecha, (payment.PayMethod.code + ", " + payment.PayMethod.Name), transactionVM);
+
+
+            string resPdf = "";
+            if (cfdiGet != null)
+            {
+                string seriefolio = payment.ImpressionSheet;
+                string path = GeneraCarpetaDescagasXML();
+                string nombreXML = string.Format("\\{0}_{1}_{2}.xml", cfdiGet.Issuer.Rfc, cfdiGet.Receiver.Rfc, seriefolio);
+                string nombrePDF = string.Format("\\{0}_{1}_{2}.pdf", cfdiGet.Issuer.Rfc, cfdiGet.Receiver.Rfc, seriefolio);
+
+                //Uso
+                pDF.UsoCFDI = payment.TaxReceipts.FirstOrDefault().UsoCFDI;
+                //Observaciones
+                if (string.IsNullOrEmpty(cfdiGet.Observations))
+                {
+                    string msgObservacionFactura = string.IsNullOrEmpty(payment.ObservationInvoice) ? "" : payment.ObservationInvoice;
+                    
+                    msgObservacionFactura += string.IsNullOrEmpty(msgObservacionFactura) ? "Pago efectuado el " + payment.PaymentDate.ToString("yyyy-MM-dd") : ", Pago efectuado el " + payment.PaymentDate.ToString("yyyy-MM-dd");
+                    
+                    //Verifico si es un pago parcial.
+                    if (payment.OrderSaleId == 0 && cfdiGet.Status == "active")
+                    {
+                        var resulDebt = await Requests.SendURIAsync(string.Format("/api/Debts/id/{0}", payment.PaymentDetails.FirstOrDefault()?.DebtId), HttpMethod.Get, Variables.LoginModel.Token);
+                        var resDebt = JsonConvert.DeserializeObject<SOAPAP.Model.Debt>(resulDebt);
+
+                        if (payment.Total < resDebt.Amount)
+                            msgObservacionFactura += ", Esta factura es comprobante de un pago pacial";
+                    }
+                    //else
+                    //{
+                    //    if (TraVM.orderSale.Amount > TraVM.orderSale.OnAccount && cfdiGet.Status == "active")
+                    //        msgObservacionFactura += ", Esta factura es comprobante de un pago pacial";
+                    //}
+                                        
+                    pDF.ObservacionCFDI = msgObservacionFactura;
+                }
+
+                //Se obtiene el serial de un cajero elejido, esto cuando el reporte lo solicita un administrador.
+                string tmpSerialCajero = "";
+                if (Variables.LoginModel.RolName[0] == "Supervisor")
+                {
+                    var _resulSerial = await Requests.SendURIAsync(string.Format("/api/UserRolesManager/SerialFromUser/{0}", ActualUserId), HttpMethod.Get, Variables.LoginModel.Token);
+                    if (_resulSerial.Contains("error"))
+                        tmpSerialCajero = "JdC";
+                    else
+                    {
+                        tmpSerialCajero = JsonConvert.DeserializeObject<string>(_resulSerial);
+                        if (tmpSerialCajero == null)
+                            tmpSerialCajero = "JdC";
+                    }
+                }
+                else
+                {
+                    tmpSerialCajero = Variables.LoginModel.User;
+                }
+                pDF.SerialCajero = tmpSerialCajero;
+
+                if (payment.OrderSaleId == 0) //Servicio
+                    resPdf = await pDF.Create(path + nombrePDF, payment.AgreementId);
+                //else
+                //{
+                //    TraVM.orderSale.TaxUser = tu;
+                //    resPdf = await pDF.CreateForOrder(TraVM.orderSale, path + nombrePDF);
+                //}
 
                 if (resPdf.Contains("error"))
                     return resPdf;

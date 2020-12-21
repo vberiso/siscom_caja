@@ -47,7 +47,6 @@ namespace SOAPAP.PDFManager
         public string Date { get; set; }
         public string Paymethod { get; set; }
         public string SerialCajero { get; set; }
-
         public string ProveedorServicioFacturacion { get; set; }
 
         public CreatePDF(CfdiMulti CfdiMulti, ModFac.ResponseCFDI Cfdi, string Account, TaxReceipt TaxReceipt, string Date, string Paymethod, TransactionVM TraVM)
@@ -275,8 +274,7 @@ namespace SOAPAP.PDFManager
             builder.Append(@"<link href='https://fonts.googleapis.com/css?family=Montserrat|Roboto&display=swap' rel='stylesheet'>");
             builder.Append(@"<title>Facturación</title></head>");
             builder.Append(@"<body style='margin: 40px; font-size: 10px;'>");
-
-            //if (TraVM.payment.Status == "EP002")
+                        
             if(Cfdi.Status != "active")
             {
                 builder.Append(@"<div style='height: 150px; Width: 900px; background-color:transparent; position: absolute; z-index: 5; top: 500px; transform: rotate(-20deg);'>");
@@ -716,7 +714,7 @@ namespace SOAPAP.PDFManager
             builder.Append(@" <div id='datFact' style='display: inline-block; width: 20%; font-size: 12px; text-align: center; vertical-align: top;'>");
             builder.Append(@"<table style='text-align: center; font-size: 14px;'>");
             builder.Append(@"<tr><td><b>COMPROBANTE</b></td></tr>");
-            builder.Append(@"<tr><td style='font-family:\""Montserrat\"", sans-serif;'><b>" + (string.IsNullOrEmpty(SerialCajero) ? Variables.LoginModel.Serial : SerialCajero) + "-" + Cfdi.Folio + "</b></td></tr>"); //Folio
+            builder.Append(@"<tr><td style='font-family:\""Montserrat\"", sans-serif;'><b>" + (SerialCajero.Contains("ON") ? TraVM.payment.ImpressionSheet : ((string.IsNullOrEmpty(SerialCajero) ? Variables.LoginModel.Serial : SerialCajero) + "-" + Cfdi.Folio) )+ "</b></td></tr>"); //Folio
             builder.Append(@"<tr><td><b>FOLIO FISCAL</b></td></tr>");
             builder.Append(@"<tr><td style='font-family:\""Montserrat\"", sans-serif; font-size:11px;'>" + Cfdi.Complement.TaxStamp.Uuid + "</td></tr>"); //UUID
             builder.Append(@"<tr><td><b>CERTIFICADO SAT</b></td></tr>");
@@ -944,6 +942,7 @@ namespace SOAPAP.PDFManager
                     if (tmpSubtotal > 0)
                     {
                         string ProductCode = TraVM.ClavesProdServ.Where(c => c.CodeConcep == pd.CodeConcept).FirstOrDefault().ClaveProdServ;
+                        //string ProductCode2 = pd.AccountNumber;
                         string UnitCode = TraVM.payment.PaymentDetails.Where(p => p.CodeConcept == pd.CodeConcept).FirstOrDefault().UnitMeasurement;
 
                         builder.Append(@"<tr>");
