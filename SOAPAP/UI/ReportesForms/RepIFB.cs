@@ -67,7 +67,7 @@ namespace SOAPAP.UI.ReportesForms
             if (Variables.LoginModel.RolName[0] == "Supervisor")
             {
                 var resUserByTerminal = await Requests.SendURIAsync("/api/TerminalUser/UsersByTerminal", HttpMethod.Get, Variables.LoginModel.Token);
-                if (resUserByTerminal.Contains("error"))
+                if (resUserByTerminal.Contains("\"error\":"))
                 {
                     mensaje = new MessageBoxForm("Error", resUserByTerminal.Split(':')[1].Replace("}", ""), TypeIcon.Icon.Cancel);
                     result = mensaje.ShowDialog();
@@ -79,7 +79,7 @@ namespace SOAPAP.UI.ReportesForms
 
                 //Peticion de cajeros
                 var resultTypeTransaction = await Requests.SendURIAsync("/api/UserRolesManager/Users", HttpMethod.Get, Variables.LoginModel.Token);
-                if (resultTypeTransaction.Contains("error"))
+                if (resultTypeTransaction.Contains("\"error\":"))
                 {
                     mensaje = new MessageBoxForm("Error", resultTypeTransaction.Split(':')[1].Replace("}", ""), TypeIcon.Icon.Cancel);
                     result = mensaje.ShowDialog();
@@ -96,7 +96,7 @@ namespace SOAPAP.UI.ReportesForms
 
                 //Peticion de Oficinas.
                 var resultTypeTransactionOfi = await Requests.SendURIAsync("/api/BranchOffice/Terminals", HttpMethod.Get, Variables.LoginModel.Token);
-                if (resultTypeTransactionOfi.Contains("error"))
+                if (resultTypeTransactionOfi.Contains("\"error\":"))
                 {
                     mensaje = new MessageBoxForm("Error", resultTypeTransactionOfi.Split(':')[1].Replace("}", ""), TypeIcon.Icon.Cancel);
                     result = mensaje.ShowDialog();
@@ -344,7 +344,7 @@ namespace SOAPAP.UI.ReportesForms
             var _resulTransaction = await Requests.SendURIAsync("/api/Reports/IncomeByConcept", HttpMethod.Post, Variables.LoginModel.Token, content);
 
             //var _resulTransaction = await Requests.SendURIAsync("/api/Reports/IncomeFromBox", HttpMethod.Post, Variables.LoginModel.Token, content);
-            if (_resulTransaction.Contains("error"))
+            if (_resulTransaction.Contains("\"error\":"))
             {
                 string error = JsonConvert.DeserializeObject<Error>(_resulTransaction).error;
                 mensaje = new MessageBoxForm("Error", error, TypeIcon.Icon.Cancel);

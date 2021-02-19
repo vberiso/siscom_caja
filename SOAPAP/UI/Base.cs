@@ -196,7 +196,7 @@ namespace SOAPAP
         public async void LoadDivition()
         {
             var resultName = await Requests.SendURIAsync("/api/Division/", HttpMethod.Get, Variables.LoginModel.Token);
-            if (resultName.Contains("error"))
+            if (resultName.Contains("\"error\":"))
             {
                 try
                 {
@@ -352,7 +352,7 @@ namespace SOAPAP
                         string _terminalUser = JsonConvert.SerializeObject(terminalUser);
                         content = new StringContent(_terminalUser, Encoding.UTF8, "application/json");
                         var _resulTerminalUser = await Requests.SendURIAsync("/api/TerminalUser", HttpMethod.Post, Variables.LoginModel.Token, content);
-                        if (_resulTerminalUser.Contains("error"))
+                        if (_resulTerminalUser.Contains("\"error\":"))
                         {
                             mensaje = new MessageBoxForm("Error", _resulTerminalUser.Split(':')[1].Replace("}", ""), TypeIcon.Icon.Cancel);
                             result = mensaje.ShowDialog();
@@ -372,7 +372,7 @@ namespace SOAPAP
                             string valoresApertura = JsonConvert.SerializeObject(transactionAterura);
                             content = new StringContent(valoresApertura, Encoding.UTF8, "application/json");
                             var resultadoApertura = await Requests.SendURIAsync(string.Format("/api/Transaction/{0}", Variables.Configuration.Terminal.TerminalUsers.First().Id), HttpMethod.Post, Variables.LoginModel.Token, content);
-                            if (resultadoApertura.Contains("error"))
+                            if (resultadoApertura.Contains("\"error\":"))
                             {
                                 mensaje = new MessageBoxForm("Error", resultadoApertura.Split(':')[1].Replace("}", ""), TypeIcon.Icon.Cancel);
                                 result = mensaje.ShowDialog();

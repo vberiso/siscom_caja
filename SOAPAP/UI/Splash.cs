@@ -381,41 +381,6 @@ namespace SOAPAP.UI
                 configuration.CFDICertificado = lstParametros.FirstOrDefault(x => x.Name.Contains("CFDICERTIFICADO")) == null ? "" : lstParametros.FirstOrDefault(x => x.Name.Contains("CFDICERTIFICADO")).TextColumn;
                 lblProgress.Text = "Obteniendo CFDICFDICERTIFICADO ...";
 
-                /*20*/
-                if (lstParametros.FirstOrDefault(x => x.Name.Contains("ANUAL")) != null)
-                {
-                    configuration.Anual = lstParametros.FirstOrDefault(x => x.Name.Contains("ANUAL")).TextColumn == "" ? false : true;
-                    configuration.AnualParameter = lstParametros.FirstOrDefault(x => x.Name.Contains("ANUAL") && x.IsActive == true);
-
-                    try
-                    {
-                        var url = string.Format("/api/ValueParameters/AnualDiscount/{0}", configuration.AnualParameter.TextColumn);
-                        var results = await Requests.SendURIAsync(url, HttpMethod.Get);
-                        CondonationCampaing condonationCampaing = JsonConvert.DeserializeObject<CondonationCampaing>(results);
-                        configuration.anualDiscount = JsonConvert.DeserializeObject<Model.Discounts.AnualDiscount>(condonationCampaing.Alias);
-                    }
-                    catch (Exception ex1)
-                    {
-                    }                    
-
-                    lblProgress.Text = "Obteniendo Caracteristicas de Pago ...";
-                    RunProgress(progressn);
-                }
-                else
-                    configuration.Anual = false;
-
-                /*21*/
-                configuration.StringURLFirebase = lstParametros.FirstOrDefault(x => x.Name.Contains("STRINGURLFIREBASE")) == null ? "" : lstParametros.FirstOrDefault(x => x.Name.Contains("STRINGURLFIREBASE")).TextColumn;
-                lblProgress.Text = "Obteniendo Dirección de Notificaciones ...";
-                RunProgress(progressn);
-
-
-
-                /*22*/
-                configuration.DefaultPrinter = Requests.ImpresoraPredeterminada();
-                lblProgress.Text = "Obteniendo Impresora Predeterminada ...";
-                RunProgress(progressn);
-
                 /*18*/
                 RunProgress(progressn);
                 if (configuration.Terminal == null)
@@ -445,7 +410,18 @@ namespace SOAPAP.UI
                     }
                 }
 
-                /*23*/
+                /*20*/
+                configuration.StringURLFirebase = lstParametros.FirstOrDefault(x => x.Name.Contains("STRINGURLFIREBASE")) == null ? "" : lstParametros.FirstOrDefault(x => x.Name.Contains("STRINGURLFIREBASE")).TextColumn;
+                lblProgress.Text = "Obteniendo Dirección de Notificaciones ...";
+                RunProgress(progressn);
+
+                /*21*/
+                configuration.DefaultPrinter = Requests.ImpresoraPredeterminada();
+                lblProgress.Text = "Obteniendo Impresora Predeterminada ...";
+                RunProgress(progressn);
+
+                /*22*/
+                //Este es para los descuentros de infracciones.
                 var campaign = await Requests.SendURIAsync("/api/ValueParameters/Campaign", HttpMethod.Get);
                 if (campaign.Contains("error"))
                 {
@@ -457,11 +433,36 @@ namespace SOAPAP.UI
                 {
                     configuration.DiscountCampaigns = JsonConvert.DeserializeObject<List<DiscountCampaign>>(campaign);
                     lblProgress.Text = "Obteniendo Descuentos Disponibles ...";
-                    //RunProgress(progressn);
                 }
 
+                /*23*/
+                if (lstParametros.FirstOrDefault(x => x.Name.Equals("ANUAL")) != null)
+                {
+                    configuration.Anual = lstParametros.FirstOrDefault(x => x.Name.Contains("ANUAL")).TextColumn == "" ? false : true;
+                    configuration.AnualParameter = lstParametros.FirstOrDefault(x => x.Name.Contains("ANUAL") && x.IsActive == true);
+
+                    //try
+                    //{
+                    //    var url = string.Format("/api/ValueParameters/AnualDiscount/{0}", configuration.AnualParameter.TextColumn);
+                    //    var results = await Requests.SendURIAsync(url, HttpMethod.Get);
+                    //    CondonationCampaing condonationCampaing = JsonConvert.DeserializeObject<CondonationCampaing>(results);
+                    //    configuration.anualDiscount = JsonConvert.DeserializeObject<Model.Discounts.AnualDiscount>(condonationCampaing.Alias);
+                    //}
+                    //catch (Exception ex1)
+                    //{
+                    //}                    
+
+                    lblProgress.Text = "Obteniendo Caracteristicas de Pago ...";
+                    RunProgress(progressn);
+                }
+                else
+                    configuration.Anual = false;
+
+                #region Promociones
+
                 /*24*/
-                var condonations = await Requests.SendURIAsync("/api/ValueParameters/Condonations", HttpMethod.Get);
+                configuration.CondonationCampaings = new List<CondonationCampaing>();
+                var condonations = await Requests.SendURIAsync("/api/CondonationCampaing/Promociones", HttpMethod.Get);
                 if (condonations.Contains("error"))
                 {
                     DialogResult result = new DialogResult();
@@ -470,21 +471,91 @@ namespace SOAPAP.UI
                 }
                 else
                 {
-                    //configuration.CondonationCampaings = JsonConvert.DeserializeObject<List<CondonationCampaing>>(condonations);
                     List<CondonationCampaing> tmpCondonationCampaings = JsonConvert.DeserializeObject<List<CondonationCampaing>>(condonations);
-                    if(tmpCondonationCampaings.Count > 0 && tmpCondonationCampaings.FirstOrDefault().Percentage > 0)
+                    if (tmpCondonationCampaings != null &&  tmpCondonationCampaings.Count > 0)
                     {
                         lblProgress.Text = "Obteniendo promociónes de condonacion disponibles ...";
                         RunProgress(progressn);
-                        configuration.CondonationCampaings = tmpCondonationCampaings;
+
+                        //Promocion ANUAL (ANL)
+                        if (tmpCondonationCampaings.Where(x => x.Name.Contains("ANL")).Count() > 0) 
+                        {
+                            try
+                            {
+                                Model.Discounts.Promotions promotions = JsonConvert.DeserializeObject<Model.Discounts.Promotions>(tmpCondonationCampaings.FirstOrDefault(x => x.Name.Contains("ANL")).Alias);
+                                promotions.Id = tmpCondonationCampaings.FirstOrDefault(x => x.Name.Contains("ANL")).Id;
+                                configuration.anualDiscount = promotions;
+                            }
+                            catch (Exception ex1)
+                            {
+                            }
+                        }
+
+                        List<Model.Discounts.Promotions> lstProms = new List<Model.Discounts.Promotions>();
+                        foreach (var item in tmpCondonationCampaings)
+                        {   
+                            try
+                            {
+                                Model.Discounts.Promotions tmpProm = JsonConvert.DeserializeObject<Model.Discounts.Promotions>(item.Alias);
+                                tmpProm.Id = item.Id;
+
+                                if((tmpProm.Nombre.Contains("ADD") && !string.IsNullOrEmpty(tmpProm.Src)) || (tmpProm.Nombre.Contains("MXT") && !string.IsNullOrEmpty(tmpProm.Src)))
+                                {                                    
+                                    var results = await Requests.SendURIAsync($"/api/CondonationCampaing/cintilloName?name={tmpProm.Src}", HttpMethod.Get);
+                                    if(!results.Contains("\"error\":"))
+                                        tmpProm.imageBase64 = JsonConvert.DeserializeObject<string>(results);
+                                }
+
+                                lstProms.Add(tmpProm);
+                            }
+                            catch (Exception ex1)
+                            {
+                            }                            
+                        }
+                        configuration.Promociones = lstProms;                        
                     }
-                    else
-                    {
-                        configuration.CondonationCampaings = new List<CondonationCampaing>();
-                    }                    
                 }
 
-                /*25*/
+
+                ///*24*/
+                //configuration.CondonationCampaings = new List<CondonationCampaing>();
+                //var condonations = await Requests.SendURIAsync("/api/ValueParameters/Condonations", HttpMethod.Get);
+                //if (condonations.Contains("error"))
+                //{
+                //    DialogResult result = new DialogResult();
+                //    Form mensaje = new MessageBoxForm("Error", condonations.Split(':')[1].Replace("}", ""), TypeIcon.Icon.Cancel);
+                //    result = mensaje.ShowDialog();
+                //}
+                //else
+                //{                    
+                //    List<CondonationCampaing> tmpCondonationCampaings = JsonConvert.DeserializeObject<List<CondonationCampaing>>(condonations);
+                //    if(tmpCondonationCampaings.Count > 0 && tmpCondonationCampaings.FirstOrDefault().Percentage > 0)
+                //    {
+                //        lblProgress.Text = "Obteniendo promociónes de condonacion disponibles ...";
+                //        RunProgress(progressn);
+                //        configuration.CondonationCampaings = tmpCondonationCampaings;
+                //    }                                  
+                //}
+
+                ///*25*/
+                //var condonationsADD = await Requests.SendURIAsync("/api/CondonationCampaing/SearchFor?text=ADD", HttpMethod.Get);
+                //if (condonationsADD.Contains("\"error\":"))
+                //{
+                //    DialogResult result = new DialogResult();
+                //    Form mensaje = new MessageBoxForm("Error", condonationsADD.Split(':')[1].Replace("}", ""), TypeIcon.Icon.Cancel);
+                //    result = mensaje.ShowDialog();
+                //}
+                //else
+                //{                    
+                //    List<CondonationCampaing> tmpCondonationCampaings = JsonConvert.DeserializeObject<List<CondonationCampaing>>(condonationsADD);
+                //    if (tmpCondonationCampaings != null && tmpCondonationCampaings.Count > 0)
+                //    {                        
+                //        configuration.CondonationCampaings.Add(tmpCondonationCampaings.FirstOrDefault());
+                //    }                    
+                //}
+                #endregion
+
+                /*26*/
                 decimal Percentage = 0;
                 Decimal.TryParse(ValidResponses(await Requests.SendURIAsync("/api/ValueParameters?value=AIM", HttpMethod.Get)), out Percentage);
                 configuration.Percentage = Percentage;

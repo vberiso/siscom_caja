@@ -16,7 +16,6 @@ namespace SOAPAP.ModFac
 
         public ResponseCFDI(Facturama.Models.Response.Cfdi pCfdi)
         {
-
             this.Items = pCfdi.Items;
             this.Receiver = pCfdi.Receiver;
             this.Issuer = pCfdi.Issuer;

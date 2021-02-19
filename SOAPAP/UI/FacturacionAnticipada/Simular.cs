@@ -99,10 +99,10 @@ namespace SOAPAP.UI.FacturacionAnticipada
                 decimal ivat = 0;
                 decimal totalDescuent = 0;
                 decimal totalMeses = Convert.ToDecimal(MesIFin - (MesInicio - 1));
-                if (Variables.Configuration.Anual)
-                {
-                    totalMeses = 12;
-                }
+                //if (Variables.Configuration.Anual)
+                //{
+                //    totalMeses = 12;
+                //}
                 foreach (var rowArray in data)
                 {
                     ivaParcial = 0;

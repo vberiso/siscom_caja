@@ -16,20 +16,21 @@
     <TargetFrameworkProfile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
-    <PublishUrl>C:\Users\GFD\Documents\Publish\</PublishUrl>
+    <PublishUrl>\\installer.cuautlancingo.gob.mx\caja\</PublishUrl>
     <Install>true</Install>
-    <InstallFrom>Disk</InstallFrom>
-    <UpdateEnabled>false</UpdateEnabled>
+    <InstallFrom>Unc</InstallFrom>
+    <UpdateEnabled>true</UpdateEnabled>
     <UpdateMode>Foreground</UpdateMode>
     <UpdateInterval>7</UpdateInterval>
     <UpdateIntervalUnits>Days</UpdateIntervalUnits>
     <UpdatePeriodically>false</UpdatePeriodically>
-    <UpdateRequired>false</UpdateRequired>
+    <UpdateRequired>true</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <MinimumRequiredVersion>1.1.2.55</MinimumRequiredVersion>
+    <UpdateUrl>\\installer.cuautlancingo.gob.mx\caja\</UpdateUrl>
+    <MinimumRequiredVersion>1.1.2.63</MinimumRequiredVersion>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>56</ApplicationRevision>
-    <ApplicationVersion>1.1.2.56</ApplicationVersion>
+    <ApplicationRevision>64</ApplicationRevision>
+    <ApplicationVersion>1.1.2.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
@@ -419,12 +420,15 @@
     <Compile Include="Model\ContactVM.cs" />
     <Compile Include="Model\DebtandDiscount.cs" />
     <Compile Include="Model\DebtAnnual.cs" />
+    <Compile Include="Model\DebtCampaign.cs" />
     <Compile Include="Model\DetailOfPaymentMethods.cs" />
     <Compile Include="Model\DiscountAuthorization.cs" />
     <Compile Include="Model\DiscountAuthorizationDetail.cs" />
     <Compile Include="Model\DiscountAuthorizationVM.cs" />
     <Compile Include="Model\DiscountCampaign.cs" />
-    <Compile Include="Model\Discounts\AnualDiscount.cs" />
+    <Compile Include="Model\Discounts\ADD_image.cs" />
+    <Compile Include="Model\Discounts\Descuentos.cs" />
+    <Compile Include="Model\Discounts\Promotions.cs" />
     <Compile Include="Model\Discounts\PeriodsDiscount.cs" />
     <Compile Include="Model\Division.cs" />
     <Compile Include="Model\DivisionHeadsVM.cs" />
@@ -588,6 +592,18 @@
     </Compile>
     <Compile Include="UI\Messages\msgSolicitudCancelacion.Designer.cs">
       <DependentUpon>msgSolicitudCancelacion.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Promos\BtnPromotion.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\Promos\BtnPromotion.Designer.cs">
+      <DependentUpon>BtnPromotion.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Promos\ItemPromocion.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\Promos\ItemPromocion.Designer.cs">
+      <DependentUpon>ItemPromocion.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\ReportesForms\Finanzas\Agua\Formatos\Formato2.cs">
       <SubType>Form</SubType>
@@ -1216,6 +1232,12 @@
     <EmbeddedResource Include="UI\Messages\msgSolicitudCancelacion.resx">
       <DependentUpon>msgSolicitudCancelacion.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UI\Promos\BtnPromotion.resx">
+      <DependentUpon>BtnPromotion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Promos\ItemPromocion.resx">
+      <DependentUpon>ItemPromocion.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\ReportesForms\Finanzas\Agua\Formatos\Formato2.resx">
       <DependentUpon>Formato2.cs</DependentUpon>
     </EmbeddedResource>
@@ -1729,6 +1751,7 @@
     <None Include="Resources\comprobado.png" />
     <None Include="Resources\close.png" />
     <None Include="Resources\CuentasContables16.png" />
+    <None Include="Resources\Cintilla_INE.png" />
     <Content Include="Resources\detalle.png" />
     <None Include="Resources\folder.png" />
     <None Include="Resources\file.ico" />

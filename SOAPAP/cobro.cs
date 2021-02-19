@@ -204,7 +204,8 @@ namespace SOAPAP
             {
                 DataGridViewRow row = this.dataGridView1.Rows[e.RowIndex];
                 cuentas = row.Cells["cuenta"].Value.ToString();
-                on = row.Cells[8].Value.ToString();
+                //on = row.Cells[8].Value.ToString();
+                on = row.Cells["Status"].Value.ToString();
 
                 if (on == "ACTIVO")
                 {

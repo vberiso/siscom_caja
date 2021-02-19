@@ -20,7 +20,7 @@ namespace SOAPAP.Model
         public string IVA { get; set; }
         public bool Anual { get; set; }
         public SystemParameters AnualParameter { get; set; }
-        public AnualDiscount anualDiscount { get; set; }
+        public Promotions anualDiscount { get; set; }
         public string LegendRegime { get; set; }
         public bool IsMunicipal { get; set; }
         public string DefaultPrinter { get; set; }
@@ -37,6 +37,7 @@ namespace SOAPAP.Model
         public string StringURLFirebase { get; set; }
         public List<DiscountCampaign> DiscountCampaigns { get; set; }
         public List<CondonationCampaing> CondonationCampaings { get; set; }
+        public List<Promotions> Promociones { get; set; }
         public decimal Percentage { get; set; }
         public VersionApp VersionApp { get; set; }
         public List<string> RecargosXConcepto { get; set; }

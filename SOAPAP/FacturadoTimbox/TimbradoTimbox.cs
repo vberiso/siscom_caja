@@ -388,10 +388,13 @@ namespace SOAPAP.FacturadoTimbox
                         {
                             XmlDocument doc = new XmlDocument();
                             string xmlCadena = rcr.comprobantes.Replace("\n", "").Replace("\\\"", "\""); //.Replace("?","");
-                            doc.LoadXml(xmlCadena);
-                            string json = JsonConvert.SerializeXmlNode(doc);
+                            int indiceIni = xmlCadena.IndexOf("<xml>");
+                            int indiceFin = xmlCadena.IndexOf("</xml>");
+                            string xmlCFDI = xmlCadena.Substring(indiceIni + 5, indiceFin - (indiceIni + 5));
 
-                            //fillData(json);
+                            doc.LoadXml(xmlCFDI);
+                            //string json = JsonConvert.SerializeXmlNode(doc);                                                        
+                            resCfdi = fillData(doc);
                         }
                         
 
@@ -412,10 +415,112 @@ namespace SOAPAP.FacturadoTimbox
             return null;
         }
 
-        private void fillData(string json)
+        private ModFac.ResponseCFDI fillData(XmlDocument doc)
         {
+            try
+            {
+                ModFac.ResponseCFDI responseCFDI = new ModFac.ResponseCFDI();
+                
+                foreach (XmlNode item in doc.DocumentElement.ChildNodes)
+                {
+                    if (item.Name.Contains("Emisor"))
+                    {
+                        Facturama.Models.Response.Issuer issuer = new Facturama.Models.Response.Issuer();
+                        issuer.Rfc = item.Attributes["Rfc"].Value;
+                        issuer.TaxName = item.Attributes["Nombre"].Value;
+                        issuer.ComercialName = item.Attributes["Nombre"].Value;
+                        issuer.FiscalRegime = item.Attributes["RegimenFiscal"].Value.Equals("603") ? "603 - Personas Morales con Fines no Lucrativos" : item.Attributes["RegimenFiscal"].Value;
+                        responseCFDI.Issuer = issuer;
+                    }
+                    if (item.Name.Contains("Receptor"))
+                    {
+                        Facturama.Models.Response.Receiver receiver = new Facturama.Models.Response.Receiver();
+                        receiver.Rfc = item.Attributes["Rfc"].Value;
+                        receiver.Name = item.Attributes["Nombre"].Value;
+                        //receiver.Email = item.Attributes["UsoCFDI"].Value;
+                        responseCFDI.Receiver = receiver;
+                    }
+                    if (item.Name.Contains("Comprobante"))
+                    {                        
+                        responseCFDI.Serie = item.Attributes["Serie"].Value;
+                        responseCFDI.Folio = item.Attributes["Folio"].Value;
+                        responseCFDI.Date = item.Attributes["Fecha"].Value;
+                        //responseCFDI.Serie = item.Attributes["Sello"].Value;
+                        responseCFDI.PaymentTerms = getFormaPago(item.Attributes["FormaPago"].Value);
+                        responseCFDI.CertNumber = item.Attributes["NoCertificado"].Value;
+                        //responseCFDI.Folio = item.Attributes["Certificado"].Value;
+                        responseCFDI.PaymentConditions = item.Attributes["CondicionesDePago"].Value;
+                        responseCFDI.Subtotal = decimal.Parse(item.Attributes["SubTotal"].Value);
+                        responseCFDI.Discount = decimal.Parse(item.Attributes["Descuento"].Value);
+                        responseCFDI.Currency = item.Attributes["Moneda"].Value;
+                        responseCFDI.Total = decimal.Parse(item.Attributes["Total"].Value);
+                        responseCFDI.CfdiType = item.Attributes["TipoDeComprobante"].Value.Equals("I") ? "I - Ingresos" : "E - Egresos";
+                        responseCFDI.PaymentMethod = item.Attributes["MetodoPago"].Value.Equals("PUE") ? "PUE - Pago en una sola exhibición" : "";
+                        responseCFDI.ExpeditionPlace = item.Attributes["LugarExpedicion"].Value;
+                    }
+                    if (item.Name.Contains("Complemento"))
+                    {
+                        XmlNode nodeComplemento = item.ChildNodes[0];
+                        Facturama.Models.Response.Complement complement = new Facturama.Models.Response.Complement();
+                        Facturama.Models.Response.TaxStamp taxStamp = new Facturama.Models.Response.TaxStamp();
+                        taxStamp.Uuid = nodeComplemento.Attributes["UUID"].Value;
+                        taxStamp.Date = nodeComplemento.Attributes["FechaTimbrado"].Value;
+                        //taxStamp. = nodeComplemento.Attributes["RfcProvCertif"].Value;
+                        taxStamp.CfdiSign = nodeComplemento.Attributes["SelloCFD"].Value;
+                        taxStamp.SatCertNumber = nodeComplemento.Attributes["NoCertificadoSAT"].Value;
+                        taxStamp.SatSign = nodeComplemento.Attributes["SelloSAT"].Value;
 
+                        complement.TaxStamp = taxStamp;                        
+                        responseCFDI.Complement = complement;
+                    }
+                    if (item.Name.Contains("Conceptos"))
+                    {
+                        List<Facturama.Models.Response.Item> items = new List<Facturama.Models.Response.Item>();
+                        List<Facturama.Models.Response.Tax> taxes = new List<Facturama.Models.Response.Tax>();
+                        foreach (XmlNode nodeConcepto in item.ChildNodes)
+                        {
+                            Facturama.Models.Response.Item item1 = new Facturama.Models.Response.Item();
+                            //item1.Description = nodeConcepto.Attributes["ClaveProdServ"].Value;
+                            item1.Quantity = decimal.Parse(nodeConcepto.Attributes["Cantidad"].Value);
+                            item1.Unit = nodeConcepto.Attributes["ClaveUnidad"].Value;
+                            item1.Description = nodeConcepto.Attributes["Descripcion"].Value;
+                            item1.UnitValue = decimal.Parse(nodeConcepto.Attributes["ValorUnitario"].Value);
+                            item1.Total = decimal.Parse(nodeConcepto.Attributes["Importe"].Value);
+                            //item1.Total = nodeConcepto.Attributes["Descuento"].Value;
+                            items.Add(item1);
 
+                            XmlNode nodeTaxes = nodeConcepto.ChildNodes[0];
+                            if(nodeTaxes.Attributes.Count > 0) 
+                            { }
+                        }
+                        responseCFDI.Items = items.ToArray();
+                        responseCFDI.Taxes = taxes.ToArray();
+                    }
+                }
+
+                responseCFDI.Status = "active";                
+                responseCFDI.Serie = doc.DocumentElement.Attributes["Serie"].Value;
+                responseCFDI.Folio = doc.DocumentElement.Attributes["Folio"].Value;
+                responseCFDI.Date = doc.DocumentElement.Attributes["Fecha"].Value;
+                //responseCFDI.Serie = doc.DocumentElement.Attributes["Sello"].Value;
+                responseCFDI.PaymentTerms = getFormaPago(doc.DocumentElement.Attributes["FormaPago"].Value);
+                responseCFDI.CertNumber = doc.DocumentElement.Attributes["NoCertificado"].Value;
+                //responseCFDI.Folio = doc.DocumentElement.Attributes["Certificado"].Value;
+                responseCFDI.PaymentConditions = doc.DocumentElement.Attributes["CondicionesDePago"].Value;
+                responseCFDI.Subtotal = decimal.Parse(doc.DocumentElement.Attributes["SubTotal"].Value);
+                responseCFDI.Discount = decimal.Parse(doc.DocumentElement.Attributes["Descuento"].Value);
+                responseCFDI.Currency = doc.DocumentElement.Attributes["Moneda"].Value;
+                responseCFDI.Total = decimal.Parse(doc.DocumentElement.Attributes["Total"].Value);
+                responseCFDI.CfdiType = doc.DocumentElement.Attributes["TipoDeComprobante"].Value.Equals("I") ? "I - Ingresos" : "E - Egresos";
+                responseCFDI.PaymentMethod = doc.DocumentElement.Attributes["MetodoPago"].Value.Equals("PUE") ? "PUE - Pago en una sola exhibición" : doc.DocumentElement.Attributes["MetodoPago"].Value;
+                responseCFDI.ExpeditionPlace = doc.DocumentElement.Attributes["LugarExpedicion"].Value;
+
+                return responseCFDI;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }            
         }
 
         public async Task<string> CancelarFacturaDesdeAPI(DataCancelationTimbox dataCancelationTimbox)
@@ -441,6 +546,33 @@ namespace SOAPAP.FacturadoTimbox
             {
                 return JsonConvert.SerializeObject(new { status = "error", message = "No se ha podido realizar la cancelación, fallo la solicitud a Timbox." });
             }
+        }
+
+        private string getFormaPago(string code)
+        {
+            string res = "";
+            switch (code)
+            {
+                case "01":
+                    res = "01 = Efectivo";
+                    break;
+                case "02":
+                    res = "02 = Cheque";
+                    break;
+                case "03":
+                    res = "03 = Transferencia";
+                    break;
+                case "04":
+                    res = "04 = Tarjeta (debito o credito)";
+                    break;
+                case "05":
+                    res = "05 = Mixto";
+                    break;
+                default:
+                    res = "01 = Efectivo";
+                    break;
+            }
+            return res;
         }
 
         //public async Task<string> CancelarFactura( SOAPAP.Model.Payment payment)

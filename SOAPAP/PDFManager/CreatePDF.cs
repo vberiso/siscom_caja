@@ -126,7 +126,7 @@ namespace SOAPAP.PDFManager
                 System.IO.File.WriteAllBytes(PathNombrePdf, pdfBuffer);
                 StringContent @string = new StringContent(JsonConvert.SerializeObject(TaxReceipt), Encoding.UTF8, "application/json");
                 var UploadPDF = await Requests.UploadImageToServer("/api/TaxReceipt/AddPDF", Variables.LoginModel.Token, PathNombrePdf, @string);
-                if (UploadPDF.Contains("error"))
+                if (UploadPDF.Contains("\"error\":"))
                 {
                     try
                     {
@@ -620,6 +620,16 @@ namespace SOAPAP.PDFManager
             builder.Append(@"<p style='text-align: center; padding-top: 10px;border-top-style: solid;border-top-color: black;'>");
             builder.Append(@"FIRMA Y SELLO DEL CAJERO</p>");
             builder.Append(@"</div></div>");
+
+            //Cintilla de promocion, solo cuando se solicita. Imagen de promocion extra            
+            foreach (var promocion in Variables.Configuration.Promociones)
+            {
+                if ((promocion.Nombre.Contains("ADD") && !string.IsNullOrEmpty(promocion.imageBase64)) || (promocion.Nombre.Contains("MXT") && !string.IsNullOrEmpty(promocion.imageBase64)))
+                {
+                    builder.Append($@"<div><img src='data:image/png;base64,{promocion.imageBase64}' alt='Logo-promocion' width='100%'></div>");
+                }
+            }
+
             builder.Append(@"</body>");
             builder.Append(@"</html>");
 
@@ -1112,6 +1122,39 @@ namespace SOAPAP.PDFManager
             builder.Append(@"<p style='text-align: center; padding-top: 10px;border-top-style: solid;border-top-color: black;'>");
             builder.Append(@"FIRMA Y SELLO DEL CAJERO</p>");
             builder.Append(@"</div></div>");
+            //Cintilla de promocion, solo cuando se solicita. Imagen de promocion extra            
+            foreach (var promocion in Variables.Configuration.Promociones)
+            {
+                if ((promocion.Nombre.Contains("ADD") && !string.IsNullOrEmpty(promocion.imageBase64)) || (promocion.Nombre.Contains("MXT") && !string.IsNullOrEmpty(promocion.imageBase64)))
+                {
+                    builder.Append($@"<div><img src='data:image/png;base64,{promocion.imageBase64}' alt='Logo-promocion' width='100%'></div>");
+                }
+            }
+
+            ////if (Variables.Configuration.CondonationCampaings.Exists(x => x.Name.Contains("ADD"))) 
+            //if (Variables.Configuration.Promociones.Exists(x => x.Nombre.Contains("ADD")) || Variables.Configuration.Promociones.Exists(x => x.Nombre.Contains("MXT")))
+            //{
+            //    Model.Discounts.Promotions promocion = Variables.Configuration.Promociones.FirstOrDefault(x => x.Nombre.Contains("ADD"));
+            //    if(promocion == null)
+            //    {
+            //        promocion = Variables.Configuration.Promociones.FirstOrDefault(x => x.Nombre.Contains("MXT"));
+            //    }
+
+            //    if (!string.IsNullOrEmpty(promocion.Src))
+            //    {
+            //        System.Resources.ResourceManager resourceManager = new System.Resources.ResourceManager(typeof(Resources));
+            //        Bitmap bImage = (Bitmap)resourceManager.GetObject(Path.GetFileNameWithoutExtension(promocion.Src));
+            //        //Bitmap bImage = Resources.Cintilla_INE;                 
+            //        System.IO.MemoryStream ms = new MemoryStream();
+            //        bImage.Save(ms, ImageFormat.Png);
+            //        byte[] byteImage = ms.ToArray();
+            //        var SigBase64 = Convert.ToBase64String(byteImage); // Get Base64
+
+            //        builder.Append($@"<div><img src='data:image/png;base64,{SigBase64}' alt='Logo-promocion' width='100%'></div>");
+            //    }
+            //}     
+
+
             builder.Append(@"</body>");
             builder.Append(@"</html>");
 
@@ -1509,6 +1552,25 @@ namespace SOAPAP.PDFManager
             builder.Append(@"</table>");
 
             builder.Append(@"</div></div>");
+
+            //Cintilla de promocion, solo cuando se solicita. Imagen de promocion extra
+            foreach (var promocion in Variables.Configuration.Promociones)
+            {
+                if ((promocion.Nombre.Contains("ADD") && !string.IsNullOrEmpty(promocion.imageBase64)) || (promocion.Nombre.Contains("MXT") && !string.IsNullOrEmpty(promocion.imageBase64)))
+                {
+                    builder.Append($@"<div><img src='data:image/png;base64,{promocion.imageBase64}' alt='Logo-promocion' width='100%'></div>");
+                }
+            }
+            //if (Variables.Configuration.CondonationCampaings.Exists(x => x.Name.Contains("ADD")))
+            //{                
+            //    Bitmap bImage = Resources.Cintilla_INE;             
+            //    System.IO.MemoryStream ms = new MemoryStream();
+            //    bImage.Save(ms, ImageFormat.Png);
+            //    byte[] byteImage = ms.ToArray();
+            //    var SigBase64 = Convert.ToBase64String(byteImage); // Get Base64
+            //    builder.Append($@"<div><img src='data:image/png;base64,{SigBase64}' alt='Logo-promocion' width='100%'></div>");
+            //}
+
             builder.Append(@"</body>");
             builder.Append(@"</html>");
 

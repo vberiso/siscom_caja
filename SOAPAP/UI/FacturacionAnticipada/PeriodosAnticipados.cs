@@ -28,6 +28,7 @@ namespace SOAPAP.UI.FacturacionAnticipada
         int CurrentDescuento = 0;
         private Model.Agreement Agreement;
         private int mesInicio;
+        private int mesInicioXMesesPagados;
         private string UrlBase = Properties.Settings.Default.URL;
         DataTable Table = new DataTable();
         DialogResult result = new DialogResult();
@@ -46,13 +47,14 @@ namespace SOAPAP.UI.FacturacionAnticipada
                 "Diciembre"
         };
         private int agreement_id;
-        public PeriodosAnticipados(Model.Agreement Agreement, bool IsAnual = false)
+        public PeriodosAnticipados(Model.Agreement Agreement, bool IsAnual = false, int mesInicioXMesesYaPagados = 0)
         {
             
             InitializeComponent();
             this.IsAnual = IsAnual;
             this.agreement_id = Agreement.Id;
             this.Agreement = Agreement;
+            this.mesInicioXMesesPagados = mesInicioXMesesYaPagados;
             load_data();
           
             Requests = new RequestsAPI(UrlBase);
@@ -223,7 +225,10 @@ namespace SOAPAP.UI.FacturacionAnticipada
                 }
 
                 Variables.Configuration.Anual = IsAnual;
-               
+
+                //Si ya hay meses pagados en BD
+                mesInicio = (mesInicioXMesesPagados > 0 ? mesInicioXMesesPagados + 1 : mesInicio);
+
                 Simular uiSimular = new Simular(Agreement, mesInicio, mesFin, Convert.ToInt32(lblYear.Text));
                 loading.Close();
                 //uiSimular.loadDataInTable();
@@ -259,19 +264,40 @@ namespace SOAPAP.UI.FacturacionAnticipada
                 mesInicio = Convert.ToInt32(((DataComboBox)comboMesInicio.SelectedItem).keyString);
             }
             else
-            {
-                
+            {                
+                if (Variables.Configuration.anualDiscount.BorrarDeudaAñoPromocion)
+                {
+                    var deudaAñoPromocion = Agreement.Debts.Where(d => d.Year == Variables.Configuration.anualDiscount.PromocionAño).ToList();
+
+                    if(deudaAñoPromocion.Count > 0)
+                    {
+                        //Se borra la deuda del mismo año que se generara. Esto para generar los 12 meses
+                        var urlBorrar = string.Format("/api/CondonationCampaing/BorrarDeudaDeAño/{0}/{1}/{2}", Convert.ToInt32(agreement_id), Variables.Configuration.anualDiscount.PromocionAño, Variables.Configuration.anualDiscount.Nombre);
+                        var resultsBorrar = await Requests.SendURIAsync(urlBorrar, HttpMethod.Post, Variables.LoginModel.Token, null);
+
+                        if (String.IsNullOrEmpty(resultsBorrar))
+                        {
+                            foreach (var item in deudaAñoPromocion)
+                            {
+                                Agreement.Debts.Remove(item);
+                            }                            
+                        }
+                    }                    
+                }
+
                 DateTime current = DateTime.Now;
-                if (current.Month == 1 && Agreement.Debts.Count() >= 1 && Agreement.Debts.Where(x => x.FromDate.Month == 1).ToList().Count() == 1)
+                if (current.Month == 1 && Agreement.Debts.Count() >= 1 && Agreement.Debts.Where(x => x.FromDate.Month == 1 && x.Year == Variables.Configuration.anualDiscount.PromocionAño).ToList().Count() == 1)
                 {
                     mesInicio = 2;
                 }
-                if (current.Month == 2 && Agreement.Debts.Count() >= 2 && Agreement.Debts.Where(x => x.FromDate.Month == 2).ToList().Count() == 1)
+                if (current.Month == 2 && Agreement.Debts.Count() >= 2 && Agreement.Debts.Where(x => x.FromDate.Month == 2 && x.Year == Variables.Configuration.anualDiscount.PromocionAño).ToList().Count() == 1)
                 {
                     mesInicio = 3;
                 }
             }
-            
+
+            //Si ya hay meses pagados en BD
+            mesInicio = (mesInicioXMesesPagados > 0 ? mesInicioXMesesPagados + 1 : mesInicio);
 
             var url = string.Format("/api/StoreProcedure/runAccrualPeriod/{0}/{1}/{2}/{3}/{4}", Convert.ToInt32(agreement_id), mesInicio, mesFin,year, 0);
             var stringContent = new StringContent("{'descripcion':'" + textDescripcion.Text + "','user_id':'" + Variables.LoginModel.User + "'}", Encoding.UTF8, "application/json");
@@ -329,6 +355,70 @@ namespace SOAPAP.UI.FacturacionAnticipada
             }
             return "";
 
+        }
+
+        public async Task<string> generarDeudaAdelantada()
+        {
+            loading = new Loading();
+            loading.Show(this);
+
+            int mesFin = Variables.Configuration.anualDiscount.PromocionMesFinal;
+            int mesInicio = Variables.Configuration.anualDiscount.PromocionMesIncio;
+            int year = Variables.Configuration.anualDiscount.PromocionAño;
+
+            if (Variables.Configuration.anualDiscount.BorrarDeudaAñoPromocion)
+            {
+                var deudaAñoPromocion = Agreement.Debts.Where(d => d.Year == Variables.Configuration.anualDiscount.PromocionAño).ToList();
+
+                if (deudaAñoPromocion.Count > 0)
+                {
+                    //Se borra la deuda del mismo año que se generara. Esto para generar los 12 meses
+                    var urlBorrar = string.Format("/api/CondonationCampaing/BorrarDeudaDeAño/{0}/{1}/{2}", Convert.ToInt32(agreement_id), Variables.Configuration.anualDiscount.PromocionAño, Variables.Configuration.anualDiscount.Nombre);
+                    var resultsBorrar = await Requests.SendURIAsync(urlBorrar, HttpMethod.Post, Variables.LoginModel.Token, null);
+
+                    if (String.IsNullOrEmpty(resultsBorrar))
+                    {
+                        foreach (var item in deudaAñoPromocion)
+                        {
+                            Agreement.Debts.Remove(item);
+                        }
+                    }
+                }
+            }
+            
+
+            //Si ya hay meses pagados en BD
+            mesInicio = (mesInicioXMesesPagados > 0 ? mesInicioXMesesPagados + 1 : mesInicio);
+
+            var url = string.Format("/api/StoreProcedure/runAccrualPeriod/{0}/{1}/{2}/{3}/{4}", Convert.ToInt32(agreement_id), mesInicio, mesFin, year, 0);
+            var stringContent = new StringContent("{'descripcion':'" + textDescripcion.Text + "','user_id':'" + Variables.LoginModel.User + "'}", Encoding.UTF8, "application/json");
+            var results = await Requests.SendURIAsync(url, HttpMethod.Post, Variables.LoginModel.Token, stringContent);
+            var jsonResult = JObject.Parse(results);
+
+            bool is_null_error = results.Contains("error");
+            if (!is_null_error && jsonResult.ContainsKey("paramsOut"))
+            {
+                is_null_error = is_null_error == true ? is_null_error : !string.IsNullOrEmpty(jsonResult["data"]["paramsOut"][0]["value"].ToString().Trim());
+            }
+
+
+            if (is_null_error)
+            {
+                string error = JsonConvert.DeserializeObject<Error>(results).error;
+                error = !string.IsNullOrEmpty(error) ? error : jsonResult["data"]["paramsOut"][0]["value"].ToString();
+                mensaje = new MessageBoxForm("Error", error, TypeIcon.Icon.Cancel);
+
+            }
+            else
+            {                
+                mensaje = new MessageBoxForm("Éxito", jsonResult["message"].ToString(), TypeIcon.Icon.Success);
+            }
+
+            result = mensaje.ShowDialog();
+            mensaje.Close();
+            loading.Close();
+
+            return "";
         }
 
         private void button1_Click(object sender, EventArgs e)

@@ -11,6 +11,7 @@ using SOAPAP.UI;
 using SOAPAP.UI.Condonations;
 using SOAPAP.UI.Descuentos;
 using SOAPAP.UI.FacturacionAnticipada;
+using SOAPAP.UI.Promos;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -62,8 +63,7 @@ namespace SOAPAP.UI
             InitializeComponent();
             if (Variables.LoginModel.RolName.ToList().Find(x => x.Contains("GenerarOrden")) != null)
             {
-                accessParam = CashBoxAccess.Access.GenerarOrden;
-                gbxCampaign.Visible = false;
+                accessParam = CashBoxAccess.Access.GenerarOrden;                
                 txtTotal.Visible = false;
                 lblTxtPagar.Visible = false;
                 btnCobrar.Visible = false;
@@ -415,8 +415,7 @@ namespace SOAPAP.UI
                 txtCuenta.Text = _cuenta;
                
                 if (_cuenta.Length > 2 && char.IsLetter(Convert.ToChar(_cuenta.Substring(0, 1))) && _cuenta.Contains("-"))
-                {
-                    gbxCampaign.Visible = false;
+                {                    
                     orderSale = true;
                     cmbTipos.Enabled = false;
                     TypeSearchSelect = Search.Type.Folio;
@@ -547,18 +546,7 @@ namespace SOAPAP.UI
                     }
                 }
                 else
-                {
-                    if (Variables.Configuration.DiscountCampaigns.Count > 0)
-                    {
-                        gbxCampaign.Visible = accessParam == CashBoxAccess.Access.GenerarOrden ? false : true;
-                        //if (!gbxCampaign.Visible)
-                        //{
-                        //    tableLayoutPanel3.RowStyles[0] = new RowStyle(SizeType.Percent, 0);
-                        //}
-                        tableLayoutPanel3.RowStyles[0] = new RowStyle(SizeType.AutoSize);
-                        lblTitleCampaign.Text = Variables.Configuration.DiscountCampaigns.First().Name;
-                    }
-
+                {                    
                     orderSale = false;
                     TypeSearchSelect = Search.Type.Cuenta;
                     loading = new Loading();
@@ -774,15 +762,7 @@ namespace SOAPAP.UI
                                             {
                                                 Variables.Configuration.Anual = checkApplyAnual(Variables.Agreement);
                                                 mensaje = new MessageBoxForm("Sin Deuda", "La cuenta proporcionada no tiene adeudo, puede realizar pagos anticipados", TypeIcon.Icon.Success, true);
-                                                result = mensaje.ShowDialog();
-                                                //if (result == DialogResult.OK)
-                                                //{
-                                                //    Variables.Configuration.Anual = checkApplyAnual(Variables.Agreement); 
-                                                //    Anticipo Anticipo = new Anticipo();
-                                                //    Anticipo.setAgreement(Variables.Agreement);
-                                                //    if (Anticipo.ShowDialog() == DialogResult.OK)
-                                                //        ObtenerInformacion();
-                                                //}
+                                                result = mensaje.ShowDialog();                                                
                                             }
                                         }
                                         else
@@ -815,14 +795,7 @@ namespace SOAPAP.UI
                                 mensaje = new MessageBoxForm("Error", msg, TypeIcon.Icon.Cancel);
                                 result = mensaje.ShowDialog();
                                 Variables.Agreement = null;
-                            }
-
-                            ////Si hay promocion y la cuenta es apta para aplicar promocion.
-                            //if (Variables.Agreement != null && Variables.Agreement.Addresses.FirstOrDefault().Suburbs.ApplyAnnualPromotion) 
-                            //{
-                            //    mensaje = new MessageBoxForm("Promoción activa", "La cuenta cumple con los requisitos para participar en la promoción de condonación.", TypeIcon.Icon.Info);
-                            //    result = mensaje.ShowDialog();                                
-                            //}
+                            }                                                        
                         }
                         else
                         {
@@ -844,28 +817,102 @@ namespace SOAPAP.UI
                                 }
                             }
                         }
-                        //Valida si hay campañas de descuentos adicionales.
-                        if (Variables.Agreement != null && Variables.Configuration.CondonationCampaings.Count > 0 && Variables.Configuration.CondonationCampaings.FirstOrDefault().Percentage > 0) // && Variables.Agreement.Addresses.FirstOrDefault().Suburbs.ApplyAnnualPromotion == true)
+                        
+
+
+                        ////Valida esta activa la campaña anual
+                        //if(Variables.Agreement != null && Variables.Configuration.anualDiscount != null)
+                        //{
+                        //    var deudaPasada = Variables.Agreement.Debts.Where(d => d.Year < Variables.Configuration.anualDiscount.PromocionAño).ToList();
+                        //    gbxAnual.Visible = false;
+                        //    if (Variables.Configuration.AnualParameter != null
+                        //        && Variables.Agreement != null
+                        //        //&& Variables.Agreement.Debts.Count == 0 
+                        //        && deudaPasada.Count == 0
+                        //        && Variables.Configuration.anualDiscount != null
+                        //        && Variables.Configuration.anualDiscount.TiposToma.Contains(Variables.Agreement.TypeIntakeId)
+                        //        && (Variables.Configuration.anualDiscount.VigenciaInicio <= DateTime.Now && DateTime.Now <= Variables.Configuration.anualDiscount.VigenciaFinal))
+                        //    {
+                        //        gbxAnual.Visible = true;
+                        //        tableLayoutPanel3.RowStyles[0] = new RowStyle(SizeType.AutoSize);
+                        //    }
+                        //}
+
+                        ////Valida si hay campañas de descuentos adicionales.
+                        //if (Variables.Agreement != null && Variables.Configuration.CondonationCampaings.Count > 0 && Variables.Configuration.CondonationCampaings.FirstOrDefault().Percentage > 0) // && Variables.Agreement.Addresses.FirstOrDefault().Suburbs.ApplyAnnualPromotion == true)
+                        //{
+                        //    gbxCondonacion.Visible = accessParam == CashBoxAccess.Access.GenerarOrden ? false : true;
+                        //    tableLayoutPanel3.RowStyles[0] = new RowStyle(SizeType.AutoSize);
+                        //    lblTitleCondonation.Text = Variables.Configuration.CondonationCampaings.First().Alias;
+                        //}
+
+                        if(Variables.Agreement != null && Variables.Configuration.Promociones.Count > 0)
                         {
-                            gbxCondonacion.Visible = accessParam == CashBoxAccess.Access.GenerarOrden ? false : true;
-                            tableLayoutPanel3.RowStyles[0] = new RowStyle(SizeType.AutoSize);
-                            lblTitleCondonation.Text = Variables.Configuration.CondonationCampaings.First().Alias;
+                            flpPromociones.Controls.Clear();
+                            foreach (var item in Variables.Configuration.Promociones)
+                            {
+                                string prefijo = item.Nombre.Substring(0, 3);
+
+                                //Validacion para saber si se activa boton de campaña anual.
+                                if (prefijo.Equals("ANL"))
+                                {
+                                    var deudaPasada = Variables.Agreement.Debts.Where(d => d.Year < Variables.Configuration.anualDiscount.PromocionAño).ToList();
+                                    gbxAnual.Visible = false;
+                                    if (Variables.Agreement != null                                        
+                                        && deudaPasada.Count == 0                                        
+                                        && (item.TiposToma.Count() > 0 ? (item.TiposToma.Contains(Variables.Agreement.TypeIntakeId)) : true )
+                                        && (item.VigenciaInicio <= DateTime.Now && DateTime.Now <= item.VigenciaFinal))
+                                    {
+                                        BtnPromotion btnPromotionAnual = new BtnPromotion(item);
+                                        btnPromotionAnual.Changed += new EventHandler(Changed);
+                                        flpPromociones.Controls.Add(btnPromotionAnual);
+                                    }
+                                }
+                                //Validacion para saber si se agrega campaña de descuento
+                                if(prefijo.Equals("CDN") || prefijo.Equals("DSC"))
+                                {
+                                    if (item.Descuentos != null
+                                        && item.Descuentos.Count() > 0
+                                        && (item.TiposToma.Count() > 0 ? (item.TiposToma.Contains(Variables.Agreement.TypeIntakeId)) : true) )
+                                    {
+                                        BtnPromotion btnPromotion = new BtnPromotion(item);
+                                        btnPromotion.Changed += new EventHandler(Changed);
+                                        flpPromociones.Controls.Add(btnPromotion);
+                                    }
+                                }
+                                //Validacion para saber si se puede aplicar campaña mixta
+                                if (prefijo.Equals("MXT"))
+                                {
+                                    var content = new StringContent(JsonConvert.SerializeObject(new List<int>() {Variables.Agreement.Id}), Encoding.UTF8, "application/json");
+                                    var result = await Requests.SendURIAsync("/api/DebtCampaign/fromAgreement", HttpMethod.Post, Variables.LoginModel.Token, content);
+                                    if (!result.Contains("error\\"))
+                                    {
+                                        //var resultO = JObject.Parse(result);
+                                        //AllDebtAnnual = JsonConvert.DeserializeObject<List<int>>(JsonConvert.SerializeObject(resultO["allDebtAnnual"]));
+                                        List<DebtCampaign> debtCampaigns = JsonConvert.DeserializeObject<List<DebtCampaign>>(result);
+                                        if(debtCampaigns.Count() > 0)
+                                        {
+                                            BtnPromotion btnPromotion = new BtnPromotion(item);
+                                            btnPromotion.Changed += new EventHandler(Changed);
+                                            flpPromociones.Controls.Add(btnPromotion);
+                                        }
+                                    }
+
+                                }
+                            }
+
+                            if (flpPromociones.Controls.Count > 1)
+                            {
+                                tableLayoutPanel3.RowStyles[2] = new RowStyle(SizeType.Absolute, 160);
+                            }
+                            else
+                            {
+                                tableLayoutPanel3.RowStyles[2] = new RowStyle(SizeType.Absolute, 90);
+                            }
+                            //tableLayoutPanel3.RowStyles[2] = new RowStyle(SizeType.AutoSize);
                         }
 
 
-                        //Valida esta activa la campaña añual
-                        //Variables.Configuration.IsMunicipal &&
-                        gbxAnual.Visible = false;                        
-                        if (Variables.Configuration.AnualParameter != null 
-                            && Variables.Agreement != null 
-                            && Variables.Agreement.Debts.Count == 0 
-                            && Variables.Configuration.anualDiscount != null 
-                            && Variables.Configuration.anualDiscount.TiposToma.Contains(Variables.Agreement.TypeIntakeId)
-                            && (Variables.Configuration.anualDiscount.VigenciaInicio <= DateTime.Now && DateTime.Now <= Variables.Configuration.anualDiscount.VigenciaFinal))
-                        {
-                            gbxAnual.Visible = true;
-                            tableLayoutPanel3.RowStyles[0] = new RowStyle(SizeType.AutoSize);
-                        }
                     }
                 }
             }
@@ -873,6 +920,15 @@ namespace SOAPAP.UI
             {
                 mensaje = new MessageBoxForm("Error", "Debe ingresar un valor de búsqueda", TypeIcon.Icon.Warning);
                 result = mensaje.ShowDialog();
+            }
+        }
+        //Para cachar cuando teminan los botones de promocion.
+        private void Changed(object sender, EventArgs e)
+        {
+            BtnPromotion fc = sender as BtnPromotion;
+            if (fc != null)
+            {
+                ObtenerInformacion();
             }
         }
 
@@ -1626,75 +1682,89 @@ namespace SOAPAP.UI
 
         private async void btnCondonacion_Click(object sender, EventArgs e)
         {
-            loading = new Loading();
-            loading.Show(this);
-            string ruta = "";
+            //loading = new Loading();
+            //loading.Show(this);
+            //string ruta = "";
 
-            if (Variables.Configuration.CondonationCampaings.FirstOrDefault().Name.Contains("CDN"))     //Condonacion
-            {
-                ruta = string.Format("/api/CondonationCampaing/CondonationPromotion/{0}/{1}?us={2}&usName={3}", Variables.Agreement.Id, Variables.Configuration.CondonationCampaings.FirstOrDefault().Id, Variables.LoginModel.User, Variables.LoginModel.FullName);
-            }
-            else    //Descuento
-            {
-                ruta = string.Format("/api/CondonationCampaing/DiscountPromotion/{0}/{1}", Variables.Agreement.Id, Variables.Configuration.CondonationCampaings.FirstOrDefault().Id);
-            }
+            //if (Variables.Configuration.CondonationCampaings.FirstOrDefault().Name.Contains("CDN"))     //Condonacion
+            //{
+            //    ruta = string.Format("/api/CondonationCampaing/CondonationPromotion/{0}/{1}?us={2}&usName={3}", Variables.Agreement.Id, Variables.Configuration.CondonationCampaings.FirstOrDefault().Id, Variables.LoginModel.User, Variables.LoginModel.FullName);
+            //}
+            //else if (Variables.Configuration.CondonationCampaings.FirstOrDefault().Name.Contains("DSC"))   //Descuento
+            //{
+            //    ruta = string.Format("/api/CondonationCampaing/DiscountPromotion/{0}/{1}", Variables.Agreement.Id, Variables.Configuration.CondonationCampaings.FirstOrDefault().Id);
+            //}
 
-            //var resultCampaign = await Requests.SendURIAsync(string.Format("/api/CondonationCampaing/{0}/{1}", Variables.Agreement.Id, Variables.Configuration.CondonationCampaings.FirstOrDefault().Id), HttpMethod.Post, Variables.LoginModel.Token);
-            //var resultCampaign = await Requests.SendURIAsync(string.Format("/api/CondonationCampaing/CondonationPromotion/{0}/{1}", Variables.Agreement.Id, Variables.Configuration.CondonationCampaings.FirstOrDefault().Id), HttpMethod.Post, Variables.LoginModel.Token);
-            var resultCampaign = await Requests.SendURIAsync(ruta, HttpMethod.Post, Variables.LoginModel.Token);
-            if (resultCampaign.Contains("error\":"))
-            {
-                try
-                {
-                    mensaje = new MessageBoxForm("Promocion NO aplicada", JsonConvert.DeserializeObject<Error>(resultCampaign).error, TypeIcon.Icon.Cancel);
-                    result = mensaje.ShowDialog();
-                    loading.Close();
-                }
-                catch (Exception)
-                {
-                    mensaje = new MessageBoxForm("Error", "Servicio no disponible favor de comunicarse con el administrador", TypeIcon.Icon.Cancel);
-                    result = mensaje.ShowDialog();
-                    loading.Close();
-                }
-            }
-            else
-            {
+            //var resultCampaign = await Requests.SendURIAsync(ruta, HttpMethod.Post, Variables.LoginModel.Token);
+            //if (resultCampaign.Contains("error\":"))
+            //{
+            //    try
+            //    {
+            //        mensaje = new MessageBoxForm("Promocion NO aplicada", JsonConvert.DeserializeObject<Error>(resultCampaign).error, TypeIcon.Icon.Cancel);
+            //        result = mensaje.ShowDialog();
+            //        loading.Close();
+            //    }
+            //    catch (Exception)
+            //    {
+            //        mensaje = new MessageBoxForm("Error", "Servicio no disponible favor de comunicarse con el administrador", TypeIcon.Icon.Cancel);
+            //        result = mensaje.ShowDialog();
+            //        loading.Close();
+            //    }
+            //}
+            //else
+            //{
 
-                mensaje = new MessageBoxForm(Variables.titleprincipal, "La condonación de recargos se ha realizado con exito", TypeIcon.Icon.Success);
-                result = mensaje.ShowDialog();
-                loading.Close();
-                ObtenerInformacion();
-            }
+            //    mensaje = new MessageBoxForm(Variables.titleprincipal, "La condonación de recargos se ha realizado con exito", TypeIcon.Icon.Success);
+            //    result = mensaje.ShowDialog();
+            //    loading.Close();
+            //    ObtenerInformacion();
+            //}
         }
 
-        private void btnAnual_Click(object sender, EventArgs e)
+        private async void btnAnual_Click(object sender, EventArgs e)
         {
-            if (Variables.Agreement != null)
-            {
-                if (Variables.Configuration.IsMunicipal)
-                {
-                    var Uiperiodos = new PagosAnualesAyuntamiento(Variables.Agreement);
-                    var result = Uiperiodos.ShowDialog(this);
-                    Uiperiodos.Close();
-                }
-                else
-                {
-                    Variables.Configuration.Anual = true;
-                    var Uiperiodos = new PeriodosAnticipados(Variables.Agreement, true);
-                    var result = Uiperiodos.ShowDialog(this);
-                    Uiperiodos.Close();
-                    //var uiPeriodos = new PagoAnticipadoSosapac(Variables.Agreement);
-                    //var result = uiPeriodos.ShowDialog(this);
-                    //uiPeriodos.Close();
-                    if(result == DialogResult.OK)
-                    {
-                        pbBuscar_Click(new object(), new EventArgs());                        
-                    }
-                }
-            }
-
-
+            //if (Variables.Agreement != null)
+            //{
+            //    if (Variables.Configuration.IsMunicipal)
+            //    {
+            //        var Uiperiodos = new PagosAnualesAyuntamiento(Variables.Agreement);
+            //        var result = Uiperiodos.ShowDialog(this);
+            //        Uiperiodos.Close();
+            //    }
+            //    else
+            //    {
+            //        Variables.Configuration.Anual = true;
+            //        int ultimoPeriodo = await ValidaUltimoPeriodoDePago(Variables.Configuration.anualDiscount.PromocionAño);
+            //        var Uiperiodos = new PeriodosAnticipados(Variables.Agreement, true, (ultimoPeriodo > 0 ? ultimoPeriodo : 0));
+            //        var result = Uiperiodos.ShowDialog(this);
+            //        Uiperiodos.Close();
+                    
+            //        if(result == DialogResult.OK)
+            //        {
+            //            pbBuscar_Click(new object(), new EventArgs());                        
+            //        }
+            //    }
+            //}
         }
+
+        //private async Task<int> ValidaUltimoPeriodoDePago(int año)
+        //{
+        //    var resultDebt = await Requests.SendURIAsync(string.Format("/api/Debts/debtPaid?idAgreement={0}&year={1}",Variables.Agreement.Id, año), HttpMethod.Get, Variables.LoginModel.Token);
+        //    loading.Close();
+        //    if (resultDebt.Contains("error\\"))
+        //    {
+        //        return 0;
+        //    }
+        //    else
+        //    {
+        //        List<Debt> debts = JsonConvert.DeserializeObject<List<Debt>>(resultDebt);
+        //        if(debts != null && debts.Count > 0)
+        //        {
+        //            return debts.Count();
+        //        }
+        //        return 0;
+        //    }
+        //}
 
         private async void lblDescuentoT_Click(object sender, EventArgs e)
         {
