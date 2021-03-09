@@ -846,7 +846,7 @@ namespace SOAPAP.UI
                         //    lblTitleCondonation.Text = Variables.Configuration.CondonationCampaings.First().Alias;
                         //}
 
-                        if(Variables.Agreement != null && Variables.Configuration.Promociones.Count > 0)
+                        if(Variables.Agreement != null && Variables.Configuration.Promociones != null && Variables.Configuration.Promociones.Count > 0)
                         {
                             flpPromociones.Controls.Clear();
                             foreach (var item in Variables.Configuration.Promociones)

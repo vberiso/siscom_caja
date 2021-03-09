@@ -27,9 +27,9 @@
     <UpdateRequired>true</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
     <UpdateUrl>\\installer.cuautlancingo.gob.mx\caja\</UpdateUrl>
-    <MinimumRequiredVersion>1.1.2.63</MinimumRequiredVersion>
+    <MinimumRequiredVersion>1.1.2.73</MinimumRequiredVersion>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>64</ApplicationRevision>
+    <ApplicationRevision>74</ApplicationRevision>
     <ApplicationVersion>1.1.2.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -460,6 +460,8 @@
     <Compile Include="Model\PromotionVM.cs" />
     <Compile Include="Model\PushNotification.cs" />
     <Compile Include="Model\ReasonCatalog.cs" />
+    <Compile Include="Model\Reports\InfoReport.cs" />
+    <Compile Include="Model\Reports\SignaturesReport.cs" />
     <Compile Include="Model\RequiredAttribute.cs" />
     <Compile Include="Model\ServiceParam.cs" />
     <Compile Include="Model\Status.cs" />

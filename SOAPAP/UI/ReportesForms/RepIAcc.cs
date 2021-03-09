@@ -608,22 +608,35 @@ namespace SOAPAP.UI.ReportesForms
 
             
             builder.Append(@"<div  class='firma_y_sello' style='font-size:16px;margin-bottom:30px; margin-top: 120px; text-align: center'>");
-            builder.Append(@"<div   style='text-align: left; display: inline-block; width: 30%;margin-right: 60px;' >");
-            builder.Append(@"<p style='text-align: center; padding-top: 10px; border-top-style: solid; border-top-color: black; '>");
-            builder.Append("C. Mercedes Pérez Zempoalteca<br>Directora de Ingresos");
-            builder.Append(@"</p>");
-            builder.Append(@"</div>");
 
-            builder.Append(@"<div   style='text-align: right; display: inline-block; width: 30%;margin-left: 60px;' >");
-            builder.Append(@"<p style='text-align: center; padding-top: 10px; border-top-style: solid; border-top-color: black; '>");
-            builder.Append("C. José María Meza Pérez <br>Tesorero Municipal");
-            builder.Append(@"</p>");
-            builder.Append(@"</div>");
+            if(Variables.Configuration.IncomeAccounting != null && Variables.Configuration.IncomeAccounting.signatures != null && Variables.Configuration.IncomeAccounting.signatures.Count > 0)
+            {
+                foreach (var signature in Variables.Configuration.IncomeAccounting.signatures)
+                {
+                    builder.Append(@"<div   style='text-align: left; display: inline-block; width: 30%;margin-right: 60px;' >");
+                    builder.Append(@"<p style='text-align: center; padding-top: 10px; border-top-style: solid; border-top-color: black; '>");
+                    builder.Append($"{signature.Name}<br>{signature.Degree}");
+                    builder.Append(@"</p>");
+                    builder.Append(@"</div>");
+                }                
+            }
+
+            //builder.Append(@"<div   style='text-align: left; display: inline-block; width: 30%;margin-right: 60px;' >");
+            //builder.Append(@"<p style='text-align: center; padding-top: 10px; border-top-style: solid; border-top-color: black; '>");
+            //builder.Append("C. Indalecia Sánchez de Rosas<br>Directora de Ingresos");
+            //builder.Append(@"</p>");
+            //builder.Append(@"</div>");
+
+            //builder.Append(@"<div   style='text-align: right; display: inline-block; width: 30%;margin-left: 60px;' >");
+            //builder.Append(@"<p style='text-align: center; padding-top: 10px; border-top-style: solid; border-top-color: black; '>");
+            //builder.Append("C. José María Meza Pérez <br>Tesorero Municipal");
+            //builder.Append(@"</p>");
+            //builder.Append(@"</div>");
+
             builder.Append(@"</div>");
       
 
             builder.Append(@"</div>");
-
             builder.Append(@"</body>");
             builder.Append(@"</html>");
 

@@ -484,8 +484,12 @@ namespace SOAPAP.UI.ReportesForms
 
                 if (tmpDivisiones.Contains(6) && tmpDivisiones.Count == 1)
                 {
-                    var item = Variables.Configuration.DivisionHeads.FirstOrDefault(x => x.DivisionId == 6);
-                    itemSeleccionado = $"<hr style='margin:0 20%;'><br><div>{item.HeadName}<br>{item.HeadDegree}</div>";
+                    //var item = Variables.Configuration.DivisionHeads.FirstOrDefault(x => x.DivisionId == 6);
+                    //itemSeleccionado = $"<hr style='margin:0 20%;'><br><div>{item.HeadName}<br>{item.HeadDegree}</div>";
+                    if (Variables.Configuration.IncomeByConcept != null && Variables.Configuration.IncomeByConcept.signatures != null && Variables.Configuration.IncomeByConcept.signatures.Count > 0)
+                    {
+                        itemSeleccionado = $"<hr style='margin:0 20%;'><br><div>{Variables.Configuration.IncomeByConcept.signatures[0].Name}<br>{Variables.Configuration.IncomeByConcept.signatures[0].Degree}</div>";
+                    }
                 }
                 else
                 {
@@ -500,7 +504,10 @@ namespace SOAPAP.UI.ReportesForms
             //Retorna siempre el nombre del diretor de ingresos.            
             string itemSeleccionado = "";
             var item = Variables.Configuration.DivisionHeads.FirstOrDefault(x => x.DivisionId == 0);
-            itemSeleccionado = $"<hr style='margin:0 20%;'><br><div>{item.HeadName}<br>{item.HeadDegree}</div>";
+            if(Variables.Configuration.IncomeOfTreasure != null && Variables.Configuration.IncomeOfTreasure.signatures != null && Variables.Configuration.IncomeOfTreasure.signatures.Count > 0)
+                itemSeleccionado = $"<hr style='margin:0 20%;'><br><div>{Variables.Configuration.IncomeOfTreasure.signatures[1].Name}<br>{Variables.Configuration.IncomeOfTreasure.signatures[1].Degree}</div>";
+            else
+                itemSeleccionado = $"<hr style='margin:0 20%;'><br><div>{item.HeadName}<br>{item.HeadDegree}</div>";
             return itemSeleccionado;
         }
 

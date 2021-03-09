@@ -145,7 +145,10 @@ namespace SOAPAP.UI.Promos
         private async Task<int> ValidaUltimoPeriodoDePago(int año)
         {
             var resultDebt = await Requests.SendURIAsync(string.Format("/api/Debts/debtPaid?idAgreement={0}&year={1}", Variables.Agreement.Id, año), HttpMethod.Get, Variables.LoginModel.Token);
-            loading.Close();
+
+            if(loading != null)
+                loading.Close();
+
             if (resultDebt.Contains("error\\"))
             {
                 return 0;
@@ -250,7 +253,7 @@ namespace SOAPAP.UI.Promos
                     }
                 }
 
-                //Se registra la cuenta benificiada
+                //Se registra la cuenta beneficiada
                 ruta = string.Format("/api/CondonationCampaing/RegisterBenefitedAccount/{0}/{1}/{2}", Variables.Agreement.Id, Promocion.Id, (condonacion + descuento));
                 var resultRegister = await Requests.SendURIAsync(ruta, HttpMethod.Post, Variables.LoginModel.Token);
                 if (resultDescuento.Contains("error\":"))
@@ -279,6 +282,13 @@ namespace SOAPAP.UI.Promos
             {
                 eh(this, e);
             }
+        }
+
+        //Al dar click en el icono del boton se muestra la descripcion de la promoción.
+        private void button1_Click(object sender, EventArgs e)
+        {
+            mensaje = new MessageBoxForm(this.Promocion.NombrePublico, this.Promocion.DescripcionPublico, TypeIcon.Icon.Info);
+            var resultMensaje = mensaje.ShowDialog();
         }
     }
 }

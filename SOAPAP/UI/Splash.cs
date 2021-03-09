@@ -2,6 +2,7 @@
 using Newtonsoft.Json.Linq;
 using SOAPAP.Enums;
 using SOAPAP.Model;
+using SOAPAP.Model.Reports;
 using SOAPAP.PDFManager;
 using SOAPAP.Services;
 using SOAPAP.Services.UpdateApplication;
@@ -462,6 +463,7 @@ namespace SOAPAP.UI
 
                 /*24*/
                 configuration.CondonationCampaings = new List<CondonationCampaing>();
+                List<Model.Discounts.Promotions> lstProms = new List<Model.Discounts.Promotions>();
                 var condonations = await Requests.SendURIAsync("/api/CondonationCampaing/Promociones", HttpMethod.Get);
                 if (condonations.Contains("error"))
                 {
@@ -490,8 +492,7 @@ namespace SOAPAP.UI
                             {
                             }
                         }
-
-                        List<Model.Discounts.Promotions> lstProms = new List<Model.Discounts.Promotions>();
+                                                
                         foreach (var item in tmpCondonationCampaings)
                         {   
                             try
@@ -511,11 +512,10 @@ namespace SOAPAP.UI
                             catch (Exception ex1)
                             {
                             }                            
-                        }
-                        configuration.Promociones = lstProms;                        
+                        }                                                
                     }
                 }
-
+                configuration.Promociones = lstProms;
 
                 ///*24*/
                 //configuration.CondonationCampaings = new List<CondonationCampaing>();
@@ -554,6 +554,29 @@ namespace SOAPAP.UI
                 //    }                    
                 //}
                 #endregion
+
+                /*25 - Informacion configurable en reportes*/
+                string tmpInfo = lstParametros.FirstOrDefault(x => x.Name.Contains("RepIncomeAccounting")) == null ? "" : lstParametros.FirstOrDefault(x => x.Name.Contains("RepIncomeAccounting")).TextColumn;
+                if (!string.IsNullOrEmpty(tmpInfo))
+                {
+                    configuration.IncomeAccounting = JsonConvert.DeserializeObject<InfoReport>(tmpInfo);
+                }
+                tmpInfo = lstParametros.FirstOrDefault(x => x.Name.Contains("RepIncomeByConcept")) == null ? "" : lstParametros.FirstOrDefault(x => x.Name.Contains("RepIncomeByConcept")).TextColumn;
+                if (!string.IsNullOrEmpty(tmpInfo))
+                {
+                    configuration.IncomeByConcept = JsonConvert.DeserializeObject<InfoReport>(tmpInfo);
+                }
+                tmpInfo = lstParametros.FirstOrDefault(x => x.Name.Contains("RepIncomeFromBox")) == null ? "" : lstParametros.FirstOrDefault(x => x.Name.Contains("RepIncomeFromBox")).TextColumn;
+                if (!string.IsNullOrEmpty(tmpInfo))
+                {
+                    configuration.IncomeFromBox = JsonConvert.DeserializeObject<InfoReport>(tmpInfo);
+                }
+                tmpInfo = lstParametros.FirstOrDefault(x => x.Name.Contains("RepIncomeFromTreasure")) == null ? "" : lstParametros.FirstOrDefault(x => x.Name.Contains("RepIncomeFromTreasure")).TextColumn;
+                if (!string.IsNullOrEmpty(tmpInfo))
+                {
+                    configuration.IncomeOfTreasure = JsonConvert.DeserializeObject<InfoReport>(tmpInfo);
+                }                
+                lblProgress.Text = "Obteniendo Informacion de reportes ...";
 
                 /*26*/
                 decimal Percentage = 0;

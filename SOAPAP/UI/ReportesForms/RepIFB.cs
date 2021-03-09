@@ -695,7 +695,12 @@ namespace SOAPAP.UI.ReportesForms
             builder.Append(@"</table>");
             builder.Append(@"</div>");
             string Nombre = "C. Martha Rojas Flores<br>Directora de Predial";
-            string Nombre2 = "C. Mercedes Pérez Zempoalteca<br>Directora de Ingresos";
+            string Nombre2 = "C. Indalecia Sánchez de Rosas<br>Directora de Ingresos";
+            if (Variables.Configuration.IncomeFromBox != null && Variables.Configuration.IncomeFromBox.signatures != null && Variables.Configuration.IncomeFromBox.signatures.Count > 0)
+            {
+                Nombre = Variables.Configuration.IncomeFromBox.signatures[0].Name + "<br>" + Variables.Configuration.IncomeFromBox.signatures[0].Degree;
+                Nombre2 = Variables.Configuration.IncomeFromBox.signatures[1].Name + "<br>" + Variables.Configuration.IncomeFromBox.signatures[1].Degree;
+            }
             if (!Variables.Configuration.IsMunicipal)
             {
                 Nombre = "";

@@ -1,4 +1,5 @@
 ﻿using SOAPAP.Model.Discounts;
+using SOAPAP.Model.Reports;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -45,5 +46,10 @@ namespace SOAPAP.Model
         public decimal TotalDescuentoCOVID { get; set; }        
         public Model.SystemParameters ProductosDescCOVID { get; set; }
         public List<DivisionHeadsVM> DivisionHeads { get; set; }
+
+        public InfoReport IncomeAccounting { get; set; }
+        public InfoReport IncomeByConcept { get; set; }
+        public InfoReport IncomeFromBox { get; set; }
+        public InfoReport IncomeOfTreasure { get; set; }
     }
 }

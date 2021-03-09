@@ -661,14 +661,19 @@ namespace SOAPAP.UI.ReportesForms
 
                 if (tmpDivisiones.Contains(6) || tmpDivisiones.Count == 1)
                 {
-                    var item = Variables.Configuration.DivisionHeads.FirstOrDefault(x => x.DivisionId == 6);
-                    itemSeleccionado = $"<hr style='margin:0 20%;'><br><div>{item.HeadName}<br>{item.HeadDegree}</div>";
+                    //var item = Variables.Configuration.DivisionHeads.FirstOrDefault(x => x.DivisionId == 6);
+                    //itemSeleccionado = $"<hr style='margin:0 20%;'><br><div>{item.HeadName}<br>{item.HeadDegree}</div>";
+                    if (Variables.Configuration.IncomeByConcept != null && Variables.Configuration.IncomeByConcept.signatures != null && Variables.Configuration.IncomeByConcept.signatures.Count > 0)
+                    {
+                        itemSeleccionado = $"<hr style='margin:0 20%;'><br><div>{Variables.Configuration.IncomeByConcept.signatures[0].Name}<br>{Variables.Configuration.IncomeByConcept.signatures[0].Degree}</div>";
+                    }
                 }
                 else
-                {                    
+                {
                     itemSeleccionado = $"";
                 }
             }
+            
 
             return itemSeleccionado;
         }
@@ -676,9 +681,13 @@ namespace SOAPAP.UI.ReportesForms
         private string UsurioDos()
         {
             //Retorna siempre el nombre del diretor de ingresos.            
-            string itemSeleccionado = "";                         
-            var item = Variables.Configuration.DivisionHeads.FirstOrDefault(x => x.DivisionId == 0);
-            itemSeleccionado = $"<hr style='margin:0 20%;'><br><div>{item.HeadName}<br>{item.HeadDegree}</div>";
+            string itemSeleccionado = "";
+            //var item = Variables.Configuration.DivisionHeads.FirstOrDefault(x => x.DivisionId == 0);
+            //itemSeleccionado = $"<hr style='margin:0 20%;'><br><div>{item.HeadName}<br>{item.HeadDegree}</div>";
+            if (Variables.Configuration.IncomeByConcept != null && Variables.Configuration.IncomeByConcept.signatures != null && Variables.Configuration.IncomeByConcept.signatures.Count > 0)
+            {
+                itemSeleccionado = $"<hr style='margin:0 20%;'><br><div>{Variables.Configuration.IncomeByConcept.signatures[1].Name}<br>{Variables.Configuration.IncomeByConcept.signatures[1].Degree}</div>";
+            }
             return itemSeleccionado;
         }
 
@@ -1022,7 +1031,12 @@ namespace SOAPAP.UI.ReportesForms
             builder.Append(@"</table>");
             builder.Append(@"</div>");
             string Nombre = "C. Martha Rojas Flores<br>Directora de Predial";
-            string Nombre2 = "C. Mercedes Pérez Zempoalteca<br>Directora de Ingresos";
+            string Nombre2 = "C. Indalecia Sánchez de Rosas<br>Directora de Ingresos";
+            if (Variables.Configuration.IncomeByConcept != null && Variables.Configuration.IncomeByConcept.signatures != null && Variables.Configuration.IncomeByConcept.signatures.Count > 0)
+            {
+                Nombre = Variables.Configuration.IncomeByConcept.signatures[0].Name + "<br>" + Variables.Configuration.IncomeByConcept.signatures[0].Degree;
+                Nombre2 = Variables.Configuration.IncomeByConcept.signatures[1].Name + "<br>" + Variables.Configuration.IncomeByConcept.signatures[1].Degree;
+            }                        
             if (!Variables.Configuration.IsMunicipal)
             {
                 Nombre = "";

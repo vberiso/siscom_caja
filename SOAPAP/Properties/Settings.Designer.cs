@@ -37,7 +37,7 @@ namespace SOAPAP.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://localhost:51053/")]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://api-siscom.cuautlancingo.gob.mx/")]
         public string URL {
             get {
                 return ((string)(this["URL"]));
